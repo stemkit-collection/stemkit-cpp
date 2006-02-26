@@ -1,0 +1,15 @@
+
+test = sk-util-test ;
+
+test-objects = 
+  ObjectTest.cc
+  ClassTest.cc
+  StringTest.cc
+  IntegerTest.cc
+  TestSuite.cc
+;
+
+use-project-library $(test) : sk.util ;
+
+use-unit-test $(test) $(test-objects) ;
+make-cpp-test $(test) : $(test-objects) ;

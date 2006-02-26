@@ -1,0 +1,3 @@
+# vim: set ft=make:
+
+${call make-subdirs, util sys}

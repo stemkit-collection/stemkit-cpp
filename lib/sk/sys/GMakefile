@@ -1,0 +1,7 @@
+# vim: set ft=make:
+
+objects = \
+  TrashDisposer.cc \
+
+${call make-library, sk.sys, $(objects)}
+${call make-subdirs, test}

@@ -1,0 +1,12 @@
+
+library = sk.util ;
+
+objects = 
+  Object.cc
+  Class.cc
+  String.cc
+  Integer.cc
+;
+
+make-library $(library) : $(objects) ;
+make-subdir test ;

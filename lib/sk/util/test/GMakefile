@@ -1,0 +1,15 @@
+# vim: set ft=make:
+
+library := sk.util
+test := $(library)-test
+
+objects = \
+  ClassTest.cc \
+  IntegerTest.cc \
+  ObjectTest.cc \
+  StringTest.cc \
+  TestSuite.cc \
+
+${call use-project-library, $(test), $(library)}
+${call use-cpp-unit, $(test) $(objects)}
+${call make-program, $(test), $(objects)}

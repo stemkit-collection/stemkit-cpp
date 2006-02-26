@@ -1,0 +1,9 @@
+
+library = sk.sys ;
+
+objects = 
+  TrashDisposer.cc
+;
+
+make-library $(library) : $(objects) ;
+make-subdir test ;

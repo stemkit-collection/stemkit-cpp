@@ -1,0 +1,64 @@
+copyright_holders: |
+  Gennady Bystritsky <bystr@mac.com>
+
+license: |
+  Distributed under the MIT Licence.
+  This is free software. See 'LICENSE' for details.
+  You must read and accept the license prior to use.
+
+header_includes: |
+  <sk/util/Object.h>
+
+body_includes: |
+  <sk/util/Class.h>
+  <sk/util/String.h>
+
+extends: |
+  public virtual sk::util::Object 
+
+initializes: |
+
+public_methods:
+  const sk::util::Class getClass() const : |
+    // sk::util::Object re-implementation.
+    return sk::util::Class("#{FULL_CLASS_NAME}");
+
+protected_methods:
+
+private_methods:
+
+data: |
+
+factory:
+  constructor(): |
+  virtual destructor(): |
+
+test:
+  class_init: |
+    CPPUNIT_TEST_SUITE(#{FULL_CLASS_NAME});
+      CPPUNIT_TEST(testSimple);
+    CPPUNIT_TEST_SUITE_END();
+
+  header_includes: |
+    <cppunit/TestFixture.h>
+    <cppunit/extensions/HelperMacros.h>
+
+  body_includes: |
+
+  extends: |
+    public CppUnit::TestFixture
+
+  initializes: |
+
+  public_methods:
+    void setUp(): |
+    void tearDown(): |
+    void testSimple(): |
+      CPPUNIT_ASSERT_EQUAL(true, false);
+
+  protected_methods:
+
+  private_methods:
+
+  data: |
+

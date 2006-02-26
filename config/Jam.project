@@ -1,0 +1,211 @@
+# vim:ft=
+
+project.MAKE_DLL = false ;
+
+project.LIB_PREFIX = $(JAMCONFIG_LIBRARY_PREFIX) ;
+project.LIB_MAJOR = $(JAMCONFIG_LIBRARY_MAJOR) ;
+
+project.HANDOFF_PRODUCT = $(JAMCONFIG_HANDOFF_PRODUCT) ;
+project.HANDOFF_SERVER = $(JAMCONFIG_HANDOFF_SERVER) ;
+project.HANDOFF_RECEPIENTS = $(JAMCONFIG_HANDOFF_RECEPIENTS) ;
+
+PRODUCT_NAME = $(JAMCONFIG_PRODUCT_NAME) ;
+PRODUCT_RELEASE = $(JAMCONFIG_PRODUCT_RELEASE) ;
+PRODUCT_BUILD = $(JAMCONFIG_PRODUCT_BUILD) ;
+PRODUCT_PLATFORM = $(JAMCONFIG_PRODUCT_PLATFORM) ;
+
+USER = $(JAMCONFIG_USER) ;
+
+project.DISTRIB_MODE = 1 ;
+project.DISTRIB_ENV = $(SRCTOP:J=/)/project/config/environment ;
+project.DISTRIB_PRODINFO = $(SRCTOP:J=/)/project/install/prodinfo ;
+
+GCC_VERSION = 4.0.0 ;
+PQXX_VERSION = 1.5.1 ;
+BOOST_VERSION = 1_32 ;
+XERCESC_VERSION = 2.1.0 ;
+POSTGRES_VERSION = 8.0.3 ;
+
+NETSNMP_VERSION = 5.1-openssl ;
+NETSNMP_USES_OPENSSL = yes ;
+
+OPENSSL_VERSION = 0.9.8a ;
+CPPUNIT_VERSION = 1.10 ;
+
+C++ = ;
+CC = ;
+LD = ;
+AR = ;
+
+MKDIR = ;
+RMRF = ;
+RMF = ;
+
+CCLDFLAGS = ;
+LDFLAGS = ;
+DLLFLAGS = ;
+LD_EXPORT_DYNAMIC = -Wl,-E ;
+
+C++FLAGS = -Werror -Wreturn-type -Wno-ctor-dtor-privacy ;
+CCFLAGS = -Werror -Wreturn-type ;
+
+DEFINES  = HAS_STL HAS_NAMESPACE _REENTRANT ;
+INCLUDES = $(GENTOPDIR)/include $(SRCTOPDIR)/include ;
+
+rule platform-linux-x86
+{
+  C++FLAGS += -fpic ;
+  CCFLAGS += -fpic ;
+  DEFINES += 
+    i486 LINUX SYSV SVR4 linux __i386__
+    _POSIX_SOURCE _POSIX_C_SOURCE=2
+    _BSD_SOURCE _SVID_SOURCE _GNU_SOURCE
+    FUNCPROTO=15 NARROWPROTO
+  ;
+  INCLUDES += $(SRCTOP:J=/)/project/platform/include/linux ;
+  SYSLIBS = crypt ;
+
+  project.JAVA_HOME = /usr/java/j2sdk1.4.2 ;
+  project.JAVA_PLATFORM = linux ;
+  project.CURSES_LIBS = ncurses ;
+  project.RUBY_DIR = /usr/local/ruby-1.8/lib/ruby/1.8/i686-linux ;
+  project.ORACLE_HOME = /usr/local/oracle/9.2.0.1 ;
+}
+
+rule platform-macos-ppc
+{
+  CCLDFLAGS = ;
+  LDFLAGS = ;
+  C++FLAGS += -fPIC ;
+  CCFLAGS += -fPIC ;
+  DEFINES += ;
+  INCLUDES += ;
+  SYSLIBS = ;
+
+  project.JAVA_HOME = /usr/java/j2sdk1.4.2 ;
+  project.JAVA_PLATFORM = macos ;
+  project.CURSES_LIBS = ncurses ;
+  project.RUBY_DIR = ;
+  project.ORACLE_HOME = /usr/local/oracle/9.2.0.1 ;
+}
+
+rule platform-solaris-sparc
+{
+  C++FLAGS += -fPIC ;
+  CCFLAGS += -fPIC ;
+  DEFINES += SOLARIS_2 SOLARIS ;
+  INCLUDES += $(SRCTOP:J=/)/platform/include/solaris ;
+  SYSLIBS = socket nsl gen ;
+
+  project.JAVA_HOME = /usr/j2sdk1.4.2_01 ;
+  project.JAVA_PLATFORM = solaris ;
+  project.CURSES_LIBS = curses ;
+  project.RUBY_DIR = /usr/local/lib/ruby/1.6/sparc-solaris2.8 ;
+  project.ORACLE_HOME = /u1/oracle/product/9.2.0 ;
+
+  project.NETSNMP_SYSLIBS = kstat ;
+}
+
+PLATFORM = $(OS:L)-$(OSPLAT:L) ; 
+
+switch $(PLATFORM) {
+  case linux-x86 : platform-linux-x86 ;
+  case solaris-sparc : platform-solaris-sparc ;
+  case macosx-ppc : platform-macos-ppc ;
+  case * : exit Unknown platform $(PLATFORM) ;
+}
+
+GCC_ROOT ?= /usr/local/gcc-$(GCC_VERSION) ;
+GCC_STDLIBS ?= libstdc++.so.6 libgcc_s.so.1 ;
+CONTRIB_ROOT ?= $(GCC_ROOT)/contrib ;
+
+# C++ ?= $(GCC_ROOT)/bin/g++ ;
+# CC ?= $(GCC_ROOT)/bin/gcc ;
+C++ ?= g++-4.0 ;
+CC ?= gcc-4.0 ;
+
+LIBDIRS += $(GCC_ROOT)/lib ;
+
+LD ?= `$(CC) --print-prog-name=ld` ;
+AR ?= `$(CC) --print-prog-name=ar` -cq ;
+
+MKDIR ?= mkdir -p ;
+RMRF ?= rm -rf ;
+RMF ?= rm -f ;
+
+CCOFLAGS ?= -O2 -fno-guess-branch-probability ;
+DLLFLAGS ?= -shared ;
+
+XERCESC_ROOT = $(CONTRIB_ROOT)/xerces-$(XERCESC_VERSION) ;
+XERCESC_LIBS = xerces-c ;
+
+NETSNMP_ROOT = /usr/local/net-snmp-$(NETSNMP_VERSION) ;
+NETSNMP_LIBS = netsnmptrapd netsnmphelpers netsnmpagent netsnmpmibs netsnmp ;
+
+OPENSSL_ROOT = /usr/local/openssl-$(OPENSSL_VERSION) ;
+OPENSSL_LIBS = crypto ;
+
+UNITTEST_DIRS = $(CONTRIB_ROOT)/cppunit-$(CPPUNIT_VERSION) ;
+UNITTEST_LIBS = cppunit ;
+
+PQXX_ROOT = $(CONTRIB_ROOT)/pqxx-$(PQXX_VERSION) ;
+PQXX_LIBS = pqxx ;
+
+POSTGRES_ROOT = /usr/local/pgsql-$(POSTGRES_VERSION) ;
+POSTGRES_LIBS = pq ;
+
+PGSQL_INCLUDES = $(PQXX_ROOT)/include $(POSTGRES_ROOT)/include ;
+PGSQL_LIBDIRS = $(PQXX_ROOT)/lib $(POSTGRES_ROOT)/lib ;
+PGSQL_LIBS = $(PQXX_LIBS) $(POSTGRES_LIBS) ;
+PGSQL_JARS = $(POSTGRES_ROOT)/jdbc/postgresql-8.0-311.jdbc3.jar ;
+
+project.ORACLE_INCLUDES =
+  precomp/public
+  network/public
+  rdbms/demo
+  plsql/public
+  rdbms/public	
+;
+project.ORACLE_LIBS = clntsh ;
+project.ORACLE_JAR = $(project.ORACLE_HOME)/jdbc/lib/classes12.zip ;
+project.ORACLE_DEFINES = 
+  SQLCA_STORAGE_CLASS=extern
+  ORACA_STORAGE_CLASS=extern
+;
+
+PROCC = $(project.ORACLE_HOME)/bin/proc ;
+
+PROCCFLAGS =
+  CODE=CPP
+  CPP_SUFFIX=CC
+  LTYPE=NONE
+  SQLCHECK=SEMANTICS
+  LINES=YES
+  PARSE=NONE
+;
+
+PROCC_SYSINCLUDES = 
+  /usr/include 
+  $(GCC_ROOT)/include 
+  $(GCC_ROOT)/include/c++/$(GCC_VERSION)
+;
+
+C++ALLFLAGS = $(C++FLAGS) $(CCDFLAGS) $(CCOFLAGS) ;
+CCALLFLAGS = $(CCFLAGS) $(CCDFLAGS) $(CCOFLAGS) ;
+C++LDALLFLAGS = $(CCFLAGS) $(CCDFLAGS) $(CCOFLAGS) $(C++LDFLAGS) ;
+
+ANTFLAGS = -emacs ;
+ANT_JAVA_OPTIONS = -Xmx300M ;
+
+project.JAVACOMM_LIBDIR = /usr/local/lib/javacomm-rxtx ;
+project.JAVACOMM_JAR = $(project.JAVACOMM_LIBDIR)/RXTXcomm.jar ;
+
+system.export-to-env GCC_LIB_PATHLIST : $(GCC_ROOT)/lib/$(GCC_STDLIBS) ;
+system.export-to-env PGSQL_LIB_PATHLIST : $(PQXX_ROOT)/lib/lib$(PQXX_LIBS).so.0 ;
+system.export-to-env XERCESC_LIB_PATHLIST : $(XERCESC_ROOT)/lib/lib$(XERCESC_LIBS).so.21 ;
+system.export-to-env NETSNMP_LIB_PATHLIST : $(NETSNMP_ROOT)/lib/lib$(NETSNMP_LIBS).so.5 ;
+system.export-to-env OPENSSL_LIB_PATHLIST : $(OPENSSL_ROOT)/lib/lib$(OPENSSL_LIBS).so.0.9.8 ;
+system.export-to-env NETSNMP_MIBS : $(NETSNMP_ROOT)/share/snmp/mibs ;
+
+system.export-to-env ORACLE_HOME : $(project.ORACLE_HOME) ;
+system.export-to-env RUBY_DIR : $(project.RUBY_DIR) ;

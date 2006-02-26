@@ -1,0 +1,12 @@
+
+test = sk-util-test ;
+
+test-objects = 
+  TrashDisposerTest.cc
+  TestSuite.cc
+;
+
+use-project-library $(test) : sk.sys sk.util ;
+
+use-unit-test $(test) $(test-objects) ;
+make-cpp-test $(test) : $(test-objects) ;

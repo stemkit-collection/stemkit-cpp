@@ -1,0 +1,68 @@
+
+rule project.use-db
+{
+  use-project-libraries $(1) : datahandler data cpevent proto ffc yacc++ allsys util ;
+  RLTDBLIBS ?= dbmock dboracle dbpgsql ;
+  local _library ;
+  for _library in $(RLTDBLIBS) {
+    use-project-libraries $(1) : : $(_library) ;
+  }
+}
+
+rule project.generate-proto-libraries
+{
+  util.foreach $(1) : project.generate-proto-library ;
+}
+
+rule project.generate-proto-library
+{ 
+  local _name = $(1[1]) ;
+  local _proto = cp$(_name) ;
+  local _target = [ system.project-lib-target-path $(_proto) ] ;
+
+  local _codegendir = $(SRCTOP) project codegen proto ;
+  local _templatedir = [ util.make-path $(_codegendir) cpp-templates ] ;
+  local _templates = [ Glob $(_templatedir) : * ] ;
+  local _protodesc = [ util.make-path $(_codegendir) $(_name).xml ] ;
+
+  local _protogentop = [ util.consume $(GENTOP) : $(core.TOP) ] ;
+  local _protogenlibtop = $(_protogentop) lib $(_proto) ;
+  local _protogeninctop = $(_protogentop) include $(_proto) ;
+
+  local _jamfile = [ util.make-path $(core.TOP) $(_protogenlibtop) $(JAMFILE) ] ;
+  local _protogenlibdir = [ util.make-path $(core.TOP) $(_protogenlibtop) ] ;
+  local _protogenincdir = [ util.make-path $(core.TOP) $(_protogeninctop) ] ;
+
+  system.assign-category proto : $(_protogenlibdir) $(_protogenincdir) ;
+  Depends $(_protogenlibdir) $(_protogenincdir) : $(_target) ;
+
+  Depends $(_jamfile) : $(_templates) $(_protodesc) ;
+  util.foreach $(_templates) : system.mark-for-c-include-scan ;
+
+  Depends $(_target) : $(_jamfile) [ system.make-build-target ] ;
+  system.assign-category lib : $(_target) ;
+
+  PROTOGENDIR on $(_jamfile) = [ util.make-path $(core.TOP) $(_protogentop) ] ;
+  TEMPLATEDIR on $(_jamfile) = $(_templatedir) ;
+  GENERATOR on $(_jamfile) = ruby [ util.make-path $(_codegendir) bin proto-gen.rb ] ;
+  project.action.generate-proto-library $(_jamfile) : $(_protodesc) ;
+
+  PROTOLIBTOP on $(_target) = $(_protogenlibtop) ;
+  project.action.build-proto-library $(_target) ;
+}
+
+actions project.action.generate-proto-library
+{
+  $(GENERATOR) -v -l cpp -o $(PROTOGENDIR) -t $(TEMPLATEDIR) $(>) 
+}
+
+# NOTE: Construct "` echo $(VAR) `" is used here to ensure proper VAR 
+#   expansion (mind the space before the closing back quote, the space 
+#   after the opening back quote is for visual symmetry only). Otherwise, 
+#   every element of VAR would be joined with immediatelly preceeding or 
+#   following non-space characters.
+#
+actions project.action.build-proto-library
+{
+  $(JAM) -sJAMTOP="` echo $(PROTOLIBTOP) `" -score.TOP="` echo $(core.TOP) `" $(<)
+}
