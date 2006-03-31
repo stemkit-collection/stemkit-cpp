@@ -6,10 +6,7 @@ objects =
   Class.cc
   String.cc
   Integer.cc
-  CppunitCustomOutputter.cc
 ;
-
-use-unit-test CppunitCustomOutputter.cc ;
 
 make-library $(library) : $(objects) ;
 make-subdir test ;

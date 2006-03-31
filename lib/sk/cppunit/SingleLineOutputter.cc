@@ -5,33 +5,33 @@
  *  You must read and accept the license prior to use.
 */
 
-#include <sk/util/CppunitCustomOutputter.h>
+#include <sk/cppunit/SingleLineOutputter.h>
 #include <cppunit/TestFailure.h>
 #include <cppunit/Message.h>
 #include <cppunit/Exception.h>
 
-sk::util::CppunitCustomOutputter::
-CppunitCustomOutputter(CppUnit::TextUi::TestRunner& runner) 
+sk::cppunit::SingleLineOutputter::
+SingleLineOutputter(CppUnit::TextUi::TestRunner& runner) 
   : CppUnit::CompilerOutputter(&runner.result(), std::cerr, "%p:%l"), _stream(std::cerr) 
 {
 }
 
 void
-sk::util::CppunitCustomOutputter::
+sk::cppunit::SingleLineOutputter::
 printFailureType(CppUnit::TestFailure* failure) 
 {
   _stream  << ": " << (failure->isError() ? "error" : "assertion") << " in";
 }
 
 void 
-sk::util::CppunitCustomOutputter::
+sk::cppunit::SingleLineOutputter::
 printFailedTestName(CppUnit::TestFailure* failure) 
 {
   _stream  <<  " "  <<  stripNamespace(failure->failedTestName());
 } 
 
 void 
-sk::util::CppunitCustomOutputter::
+sk::cppunit::SingleLineOutputter::
 printFailureMessage(CppUnit::TestFailure* failure) 
 {
   CppUnit::Exception *thrownException = failure->thrownException();
@@ -44,7 +44,7 @@ printFailureMessage(CppUnit::TestFailure* failure)
 }
 
 const std::string 
-sk::util::CppunitCustomOutputter::
+sk::cppunit::SingleLineOutputter::
 stripNamespace(const std::string& name) const 
 {
   std::string::size_type index = name.find_last_of(":");

@@ -1,0 +1,10 @@
+
+library = sk.cppunit ;
+
+objects = 
+  SingleLineOutputter.cc
+  TestRunner.cc
+;
+
+use-unit-test $(objects) ;
+make-library $(library) : $(objects) ;

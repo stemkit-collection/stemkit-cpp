@@ -6,9 +6,11 @@
 
 #include "TrashDisposerTest.h"
 
-int main(int argc,char **argv)
+#include <sk/cppunit/TestRunner.h>
+
+int main(int argc, char **argv)
 {     
-  CppUnit::TextUi::TestRunner runner;
+  sk::cppunit::TestRunner runner;
 
   runner.addTest(sk::sys::test::TrashDisposerTest::suite());
 

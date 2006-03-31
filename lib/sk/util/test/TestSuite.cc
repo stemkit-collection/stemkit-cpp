@@ -1,20 +1,20 @@
-
-#include <cppunit/TestCase.h>
-#include <cppunit/TestSuite.h>
-#include <cppunit/TestCaller.h>
-#include <cppunit/ui/text/TestRunner.h>
+/*  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
+ *  
+ *  Distributed under the MIT Licence.
+ *  This is free software. See 'LICENSE' for details.
+ *  You must read and accept the license prior to use.
+*/
 
 #include "ClassTest.h"
 #include "ObjectTest.h"
 #include "StringTest.h"
 #include "IntegerTest.h"
 
-#include <sk/util/CppunitCustomOutputter.h>
+#include <sk/cppunit/TestRunner.h>
  
-int main(int argc,char **argv)
+int main(int argc, char **argv)
 {     
-  CppUnit::TextUi::TestRunner runner;
-  runner.setOutputter(new sk::util::CppunitCustomOutputter(runner));
+  sk::cppunit::TestRunner runner;
 
   runner.addTest(sk::util::test::ClassTest::suite());
   runner.addTest(sk::util::test::ObjectTest::suite());

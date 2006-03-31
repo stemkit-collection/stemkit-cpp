@@ -5,20 +5,20 @@
  *  You must read and accept the license prior to use.
 */
 
-#ifndef _SK_UTIL_CPPUNITCUSTOMOUTPUTTER_
-#define _SK_UTIL_CPPUNITCUSTOMOUTPUTTER_
+#ifndef _SK_CPPUNIT_SINGLELINEOUTPUTTER_
+#define _SK_CPPUNIT_SINGLELINEOUTPUTTER_
 
 #include <iostream>
 #include <cppunit/CompilerOutputter.h>
 #include <cppunit/ui/text/TestRunner.h>
 
 namespace sk {
-  namespace util {
-    class CppunitCustomOutputter 
+  namespace cppunit {
+    class SingleLineOutputter 
       : public CppUnit::CompilerOutputter 
     {
       public:
-        CppunitCustomOutputter(CppUnit::TextUi::TestRunner& runner);
+        SingleLineOutputter(CppUnit::TextUi::TestRunner& runner);
 
       private:
         // CppUnit::CompilerOutputter implementation.
@@ -33,4 +33,4 @@ namespace sk {
   }
 }
 
-#endif /* _SK_UTIL_CPPUNITCUSTOMOUTPUTTER_ */
+#endif /* _SK_CPPUNIT_SINGLELINEOUTPUTTER_ */
