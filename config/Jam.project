@@ -54,6 +54,9 @@ INCLUDES = $(GENTOPDIR)/include $(SRCTOPDIR)/include ;
 
 rule platform-linux-x86
 {
+  GCC_VERSION = 3.4.3 ;
+  GCC_ROOT = /quest/splex-home/gbystrit/local/lin-x86/gcc-$(GCC_VERSION) ;
+
   C++FLAGS += -fpic ;
   CCFLAGS += -fpic ;
   DEFINES += 
@@ -63,7 +66,7 @@ rule platform-linux-x86
     FUNCPROTO=15 NARROWPROTO
   ;
   INCLUDES += $(SRCTOP:J=/)/project/platform/include/linux ;
-  SYSLIBS = crypt ;
+  SYSLIBS = crypt dl ;
 
   project.JAVA_HOME = /usr/java/j2sdk1.4.2 ;
   project.JAVA_PLATFORM = linux ;
@@ -119,10 +122,10 @@ GCC_ROOT ?= /usr/local/gcc-$(GCC_VERSION) ;
 GCC_STDLIBS ?= libstdc++.so.6 libgcc_s.so.1 ;
 CONTRIB_ROOT ?= $(GCC_ROOT)/contrib ;
 
-# C++ ?= $(GCC_ROOT)/bin/g++ ;
-# CC ?= $(GCC_ROOT)/bin/gcc ;
-C++ ?= g++-4.0 ;
-CC ?= gcc-4.0 ;
+C++ ?= $(GCC_ROOT)/bin/g++ ;
+CC ?= $(GCC_ROOT)/bin/gcc ;
+# C++ ?= g++-4.0 ;
+# CC ?= gcc-4.0 ;
 
 LIBDIRS += $(GCC_ROOT)/lib ;
 
