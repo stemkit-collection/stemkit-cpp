@@ -6,6 +6,7 @@
 */
 
 #include "ClassTest.h"
+#include <sk/util/Class.h>
 
 sk::util::test::ClassTest::
 ClassTest()
@@ -31,7 +32,26 @@ tearDown()
 
 void
 sk::util::test::ClassTest::
-testSimple()
+testBasics()
 {
-  CPPUNIT_ASSERT_EQUAL(true, false);
+  Class klass("abcdef");
+
+  CPPUNIT_ASSERT_EQUAL(String("abcdef"), klass.getName());
+  CPPUNIT_ASSERT_EQUAL(String("sk::util::Class"), klass.getClass().getName());
+}
+
+void
+sk::util::test::ClassTest::
+testToString()
+{
+  struct Class : public sk::util::Class {
+    Class() 
+      : sk::util::Class("abc") {}
+
+    unsigned int getId() const {
+      return 21;
+    }
+  } klass;
+
+  CPPUNIT_ASSERT_EQUAL(String("sk::util::Class<abc>#21"), klass.toString());
 }

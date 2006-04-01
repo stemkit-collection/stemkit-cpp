@@ -41,12 +41,13 @@ const sk::util::String
 sk::util::String::
 operator + (const char* buffer) const
 {
-  return *this;
+  return operator+(String(buffer));
 }
 
 const sk::util::String 
 sk::util::String::
-operator + (const String& string) const
+operator + (const std::string& string) const
 {
-  return *this;
+  const std::string& self = *this;
+  return self + string;
 }

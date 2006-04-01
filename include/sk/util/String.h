@@ -24,7 +24,7 @@ namespace sk {
         virtual ~String();
 
         const String operator + (const char* buffer) const;
-        const String operator + (const String& string) const;
+        const String operator + (const std::string& string) const;
         
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;

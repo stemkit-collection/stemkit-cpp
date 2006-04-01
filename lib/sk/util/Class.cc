@@ -7,6 +7,7 @@
 
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
+#include <sk/util/Integer.h>
 
 sk::util::Class::
 Class(const sk::util::String& name)
@@ -37,7 +38,7 @@ const sk::util::String
 sk::util::Class::
 toString() const
 {
-  return "";
+  return getClass().getName() + "<" + _name + ">#" + sk::util::Integer::toString(getId());
 }
 
 const sk::util::String 

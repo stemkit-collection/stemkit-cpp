@@ -18,7 +18,8 @@ namespace sk {
         : public CppUnit::TestFixture
       {
         CPPUNIT_TEST_SUITE(sk::util::test::ClassTest);
-          CPPUNIT_TEST(testSimple);
+          CPPUNIT_TEST(testBasics);
+          CPPUNIT_TEST(testToString);
         CPPUNIT_TEST_SUITE_END();
         
         public:
@@ -27,7 +28,8 @@ namespace sk {
           
           void setUp();
           void tearDown();
-          void testSimple();
+          void testBasics();
+          void testToString();
           
         private:
           ClassTest(const ClassTest& other);
