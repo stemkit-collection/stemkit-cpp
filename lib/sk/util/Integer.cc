@@ -26,3 +26,10 @@ getClass() const
 {
   return sk::util::Class("sk::util::Integer");
 }
+
+const sk::util::String
+sk::util::Integer::
+toString(int value)
+{
+  return "0";
+}

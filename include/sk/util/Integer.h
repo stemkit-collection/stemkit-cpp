@@ -19,7 +19,7 @@ namespace sk {
         Integer();
         virtual ~Integer();
 
-        static const String& toString(int value);
+        static const String toString(int value);
         
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;

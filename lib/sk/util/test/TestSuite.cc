@@ -16,8 +16,8 @@ int main(int argc, char **argv)
 {     
   sk::cppunit::TestRunner runner;
 
-  runner.addTest(sk::util::test::ClassTest::suite());
   runner.addTest(sk::util::test::ObjectTest::suite());
+  runner.addTest(sk::util::test::ClassTest::suite());
   runner.addTest(sk::util::test::StringTest::suite());
   runner.addTest(sk::util::test::IntegerTest::suite());
 

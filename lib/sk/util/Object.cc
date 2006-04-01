@@ -40,3 +40,10 @@ toString() const
 {
   return getClass().getName() + "#" + Integer::toString(getId());
 }
+
+const sk::util::String 
+sk::util::Object::
+inspect() const
+{
+  return toString();
+}

@@ -9,6 +9,7 @@
 #define _SK_UTIL_CLASS_
 
 #include <sk/util/Object.h>
+#include <sk/util/String.h>
 
 namespace sk {
   namespace util {
@@ -28,6 +29,8 @@ namespace sk {
       
       private:
         Class& operator = (const Class& other);
+
+        const sk::util::String _name;
     };
   }
 }

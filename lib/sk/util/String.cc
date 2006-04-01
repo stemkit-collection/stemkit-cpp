@@ -14,6 +14,18 @@ String()
 }
 
 sk::util::String::
+String(const char* buffer)
+  : std::string(buffer)
+{
+}
+
+sk::util::String::
+String(const std::string& string)
+  : std::string(string)
+{
+}
+
+sk::util::String::
 ~String()
 {
 }
@@ -23,4 +35,18 @@ sk::util::String::
 getClass() const
 {
   return sk::util::Class("sk::util::String");
+}
+
+const sk::util::String 
+sk::util::String::
+operator + (const char* buffer) const
+{
+  return *this;
+}
+
+const sk::util::String 
+sk::util::String::
+operator + (const String& string) const
+{
+  return *this;
 }

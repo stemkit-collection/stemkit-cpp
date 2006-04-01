@@ -9,14 +9,17 @@
 #define _SK_UTIL_STRING_
 
 #include <sk/util/Object.h>
+#include <string>
 
 namespace sk {
   namespace util {
     class String
-      : public virtual sk::util::Object 
+      : public virtual sk::util::Object,
+        public std::string
     {
       public:
         String();
+        String(const std::string& string);
         String(const char* buffer);
         virtual ~String();
 
