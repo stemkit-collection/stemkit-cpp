@@ -40,10 +40,7 @@ testBasics()
   CPPUNIT_ASSERT_EQUAL(String("sk::util::Class"), klass.getClass().getName());
 }
 
-void
-sk::util::test::ClassTest::
-testToString()
-{
+namespace {
   struct Class : public sk::util::Class {
     Class() 
       : sk::util::Class("abc") {}
@@ -52,6 +49,11 @@ testToString()
       return 21;
     }
   } klass;
+}
 
+void
+sk::util::test::ClassTest::
+testToString()
+{
   CPPUNIT_ASSERT_EQUAL(String("sk::util::Class<abc>#21"), klass.toString());
 }

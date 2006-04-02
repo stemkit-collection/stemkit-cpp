@@ -77,6 +77,8 @@ rule platform-linux-x86
 
 rule platform-macos-ppc
 {
+  CC = gcc-4.0 ;
+  C++ = g++-4.0 ;
   CCLDFLAGS = ;
   LDFLAGS = ;
   C++FLAGS += -fPIC ;

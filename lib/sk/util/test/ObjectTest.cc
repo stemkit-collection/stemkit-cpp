@@ -56,15 +56,17 @@ testId()
   CPPUNIT_ASSERT_EQUAL(reinterpret_cast<unsigned int>(&getObject()), getObject().getId());
 }
 
+namespace {
+  struct Object : public virtual sk::util::Object {
+    virtual unsigned int getId() const {
+      return 21;
+    }
+  } object;
+}
+
 void
 sk::util::test::ObjectTest::
 testToString()
 {
-  class Object : public virtual sk::util::Object {
-    unsigned int getId() const {
-      return 21;
-    }
-  } object;
-
   CPPUNIT_ASSERT_EQUAL(String("sk::util::Object#21"), object.toString());
 }
