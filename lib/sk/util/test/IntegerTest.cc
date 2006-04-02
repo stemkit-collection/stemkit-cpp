@@ -52,3 +52,12 @@ testStaticToString()
   CPPUNIT_ASSERT_EQUAL(String("-1"), Integer::toString(-1));
   CPPUNIT_ASSERT_EQUAL(String("-43210"), Integer::toString(-43210));
 }
+
+void
+sk::util::test::IntegerTest::
+testStaticToHexString()
+{
+  CPPUNIT_ASSERT_EQUAL(String("0"), Integer::toString(0x0, 16));
+  CPPUNIT_ASSERT_EQUAL(String("ff"), Integer::toString(0xff, 16));
+  CPPUNIT_ASSERT_EQUAL(String("1234abc"), Integer::toString(0x1234abc, 16));
+}

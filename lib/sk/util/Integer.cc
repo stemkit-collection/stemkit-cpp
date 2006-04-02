@@ -10,6 +10,7 @@
 #include <sk/util/Integer.h>
 
 #include <sstream>
+#include <iomanip>
 
 sk::util::Integer::
 Integer(int value)
@@ -33,8 +34,15 @@ const sk::util::String
 sk::util::Integer::
 toString(int value)
 {
+  return toString(value, 10);
+}
+
+const sk::util::String
+sk::util::Integer::
+toString(int value, int radix)
+{
   std::stringstream stream;
-  stream << value;
+  stream << std::setbase(radix) << value;
 
   return stream.str();
 }

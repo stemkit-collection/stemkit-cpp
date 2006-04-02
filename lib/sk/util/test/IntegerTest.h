@@ -20,6 +20,7 @@ namespace sk {
         CPPUNIT_TEST_SUITE(sk::util::test::IntegerTest);
           CPPUNIT_TEST(testClassName);
           CPPUNIT_TEST(testStaticToString);
+          CPPUNIT_TEST(testStaticToHexString);
         CPPUNIT_TEST_SUITE_END();
         
         public:
@@ -30,6 +31,7 @@ namespace sk {
           void tearDown();
           void testClassName();
           void testStaticToString();
+          void testStaticToHexString();
           
         private:
           IntegerTest(const IntegerTest& other);

@@ -20,6 +20,7 @@ namespace sk {
         virtual ~Integer();
 
         static const String toString(int value);
+        static const String toString(int value, int radix);
         
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
