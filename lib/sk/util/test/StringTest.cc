@@ -6,6 +6,8 @@
 */
 
 #include "StringTest.h"
+#include <sk/util/String.h>
+#include <sk/util/Class.h>
 
 sk::util::test::StringTest::
 StringTest()
@@ -31,7 +33,18 @@ tearDown()
 
 void
 sk::util::test::StringTest::
-testSimple()
+testCreateEmpty()
 {
-  CPPUNIT_ASSERT_EQUAL(true, false);
+  String s;
+
+  CPPUNIT_ASSERT_EQUAL(std::string("sk::util::String"), std::string(s.getClass().getName()));
+  CPPUNIT_ASSERT_EQUAL(std::string(), std::string(s));
+}
+
+void
+sk::util::test::StringTest::
+testCreateFromBuffer()
+{
+  CPPUNIT_ASSERT_EQUAL(std::string("abcdefg"), std::string(String("abcdefg")));
+  CPPUNIT_ASSERT_EQUAL(std::string("abc"), std::string(String("abcdefg", 3)));
 }

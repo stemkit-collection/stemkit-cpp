@@ -7,11 +7,13 @@
 
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
-
 #include <sk/util/Integer.h>
 
+#include <sstream>
+
 sk::util::Integer::
-Integer()
+Integer(int value)
+  : _value(value)
 {
 }
 
@@ -31,5 +33,8 @@ const sk::util::String
 sk::util::Integer::
 toString(int value)
 {
-  return "21";
+  std::stringstream stream;
+  stream << value;
+
+  return stream.str();
 }

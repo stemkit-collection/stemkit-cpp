@@ -16,7 +16,7 @@ namespace sk {
       : public virtual sk::util::Object 
     {
       public:
-        Integer();
+        Integer(int value);
         virtual ~Integer();
 
         static const String toString(int value);
@@ -27,6 +27,8 @@ namespace sk {
       private:
         Integer(const Integer& other);
         Integer& operator = (const Integer& other);
+
+        int _value;
     };
   }
 }

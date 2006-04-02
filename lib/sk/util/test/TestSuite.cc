@@ -18,8 +18,8 @@ int main(int argc, char **argv)
 
   runner.addTest(sk::util::test::ObjectTest::suite());
   runner.addTest(sk::util::test::ClassTest::suite());
-  runner.addTest(sk::util::test::StringTest::suite());
   runner.addTest(sk::util::test::IntegerTest::suite());
+  runner.addTest(sk::util::test::StringTest::suite());
 
   return !runner.run();
 }

@@ -14,6 +14,12 @@ String()
 }
 
 sk::util::String::
+String(char character)
+  : std::string(&character, 1)
+{
+}
+
+sk::util::String::
 String(const char* buffer)
   : std::string(buffer)
 {
@@ -22,6 +28,24 @@ String(const char* buffer)
 sk::util::String::
 String(const std::string& string)
   : std::string(string)
+{
+}
+
+sk::util::String::
+String(const char* buffer, int size)
+{
+  for(int index=0; ;index++) {
+    if(index>=size || buffer[index] == 0) {
+      if(index) {
+        std::string::assign(buffer, index);
+      }
+      return;
+    }
+  }
+}
+
+sk::util::String::
+String(const std::string& string, int size)
 {
 }
 

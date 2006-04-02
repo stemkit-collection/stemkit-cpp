@@ -19,8 +19,11 @@ namespace sk {
     {
       public:
         String();
-        String(const std::string& string);
+        String(char character);
         String(const char* buffer);
+        String(const char* buffer, int size);
+        String(const std::string& string);
+        String(const std::string& string, int size);
         virtual ~String();
 
         const String operator + (const char* buffer) const;
@@ -28,9 +31,6 @@ namespace sk {
         
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
-      
-      private:
-        String& operator = (const String& other);
     };
   }
 }

@@ -6,6 +6,9 @@
 */
 
 #include "IntegerTest.h"
+#include <sk/util/Integer.h>
+#include <sk/util/String.h>
+#include <sk/util/Class.h>
 
 sk::util::test::IntegerTest::
 IntegerTest()
@@ -31,7 +34,21 @@ tearDown()
 
 void
 sk::util::test::IntegerTest::
-testSimple()
+testClassName()
 {
-  CPPUNIT_ASSERT_EQUAL(true, false);
+  CPPUNIT_ASSERT_EQUAL(String("sk::util::Integer"), Integer(0).getClass().getName());
+}
+
+void
+sk::util::test::IntegerTest::
+testStaticToString()
+{
+  CPPUNIT_ASSERT_EQUAL(String("0"), Integer::toString(0));
+
+  CPPUNIT_ASSERT_EQUAL(String("1"), Integer::toString(1));
+  CPPUNIT_ASSERT_EQUAL(String("21"), Integer::toString(21));
+  CPPUNIT_ASSERT_EQUAL(String("12345"), Integer::toString(12345));
+
+  CPPUNIT_ASSERT_EQUAL(String("-1"), Integer::toString(-1));
+  CPPUNIT_ASSERT_EQUAL(String("-43210"), Integer::toString(-43210));
 }
