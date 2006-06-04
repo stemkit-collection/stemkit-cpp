@@ -11,6 +11,7 @@ PRODUCT_BUILD = $(JAMCONFIG_PRODUCT_BUILD) ;
 PRODUCT_PLATFORM = $(JAMCONFIG_PRODUCT_PLATFORM) ;
 
 # project.DISTRIB_ENV = $(SRCTOP:J=/)/project/config/environment ;
+project.DISTRIB_MODE = 2 ;
 project.DISTRIB_PRODINFO = $(SRCTOP:J=/)/install/prodinfo ;
 
 GCC_VERSION = 3.4.3 ;
