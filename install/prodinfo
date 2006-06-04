@@ -1,0 +1,109 @@
+# vim: set ft=ruby:
+
+cache.platform = TSC::Platform.current.name
+cache.os = TSC::Platform.current.driver
+
+product {
+  name 'SK'
+  description 'Stemkit libraries'
+
+  version '0.0.1'
+  user 'bin'
+  group 'bin'
+  top '/usr/local/stemkit'
+
+  package {
+    name 'util'
+    description 'Utilities'
+
+    tasks %w{
+      system-query-top
+      system-create-files
+      system-set-permissions
+      system-set-user-group
+    }
+    filesets %w{
+      util
+    }
+  }
+
+  package {
+    name 'sys'
+    description 'System'
+
+    tasks %w{
+      system-query-top
+      system-create-files
+      system-set-permissions
+      system-set-user-group
+    }
+    filesets %w{
+      sys
+    }
+  }
+
+  package {
+    name 'cpp'
+    description 'All libraries'
+
+    tasks %w{
+      system-query-top
+      system-create-files
+      system-set-permissions
+      system-set-user-group
+    }
+    filesets %w{
+      util sys cppunit
+    }
+  }
+}
+
+fileset {
+  name 'util'
+
+  directory %w{
+    include/sk/util
+    lib
+  }
+  install.into('include/sk/util').source {
+    file 'include/sk/util' => %w{
+      Object.h
+      Class.h
+      Integer.h
+      String.h
+    }
+  }
+  install.into('lib').binary {
+    library 'lib' => 'sk.util'
+  }
+  symlink 'lib/libsk.util.so' => 'libsk.util.so.1'
+}
+
+fileset {
+  name 'sys'
+
+  directory %w{
+    include/sk/sys
+    lib
+  }
+}
+
+fileset {
+  name 'cppunit'
+
+  directory %w{
+    include/sk/cppunit
+    lib
+  }
+  install.into('include/sk/cppunit').source {
+    file 'include/sk/cppunit' => %w{
+      SingleLineOutputter.h
+      TestRunner.h
+    }
+  }
+  install.into('lib').binary {
+    library 'lib' => 'sk.cppunit'
+  }
+  symlink 'lib/libsk.cppunit.so' => 'libsk.cppunit.so.1'
+}
+
