@@ -5,7 +5,7 @@ cache.os = TSC::Platform.current.driver
 
 product {
   name 'SK'
-  description 'Stemkit libraries'
+  description 'Stemkit'
 
   version '0.0.1'
   user 'bin'
@@ -13,38 +13,8 @@ product {
   top '/usr/local/stemkit'
 
   package {
-    name 'util'
-    description 'Utilities'
-
-    tasks %w{
-      system-query-top
-      system-create-files
-      system-set-permissions
-      system-set-user-group
-    }
-    filesets %w{
-      util
-    }
-  }
-
-  package {
-    name 'sys'
-    description 'System'
-
-    tasks %w{
-      system-query-top
-      system-create-files
-      system-set-permissions
-      system-set-user-group
-    }
-    filesets %w{
-      sys
-    }
-  }
-
-  package {
     name 'cpp'
-    description 'All libraries'
+    description 'C++ ojbect libraries'
 
     tasks %w{
       system-query-top
