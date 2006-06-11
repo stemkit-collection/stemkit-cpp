@@ -20,6 +20,20 @@ sk::util::Object::
 {
 }
 
+sk::util::Object&
+sk::util::Object::
+self()
+{
+  return *this;
+}
+
+const sk::util::Object&
+sk::util::Object::
+self() const
+{
+  return *this;
+}
+
 const sk::util::Class
 sk::util::Object::
 getClass() const

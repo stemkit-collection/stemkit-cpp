@@ -22,6 +22,10 @@ namespace sk {
       public:
 	virtual ~Object();
 
+        // Returns a reference to itself.
+        virtual Object& self();
+        virtual const Object& self() const;
+
 	/// Returns the object's class.
 	virtual const Class getClass() const;
 

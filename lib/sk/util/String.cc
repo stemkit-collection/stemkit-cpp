@@ -7,6 +7,7 @@
 
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
+#include <sk/util/inspect.h>
 
 sk::util::String::
 String()
@@ -63,15 +64,114 @@ getClass() const
 
 const sk::util::String 
 sk::util::String::
-operator + (const char* buffer) const
+toString() const
 {
-  return operator+(String(buffer));
+  return self();
 }
 
-const sk::util::String 
+bool
 sk::util::String::
-operator + (const std::string& string) const
+isEmpty() const
 {
-  const std::string& self = *this;
-  return self + string;
+  return empty();
+}
+
+int 
+sk::util::String::
+size() const
+{
+  return std::string::size();
+}
+
+int 
+sk::util::String::
+length() const
+{
+  return size();
+}
+
+const char*
+sk::util::String::
+getChars() const
+{
+  return std::string::c_str();
+}
+
+sk::util::String&
+sk::util::String::
+self()
+{
+  return *this;
+}
+
+const sk::util::String&
+sk::util::String::
+self() const
+{
+  return *this;
+}
+
+const sk::util::String
+sk::util::String::
+trim() const
+{
+  const std::string whitespace = " \t\r\n\b\f";
+  int start = find_first_not_of(whitespace);
+  int end = find_first_of(whitespace, start);
+  
+  return substr(start, end-start);
+}
+
+const sk::util::String
+sk::util::String::
+inspect() const
+{
+  return sk::util::inspect(*this);
+}
+
+const sk::util::String
+sk::util::String::
+strip() const
+{
+  return trim();
+}
+
+const sk::util::String operator + (const sk::util::String& s1, const sk::util::String& s2)
+{
+  const std::string& string1 = s1;
+  const std::string& string2 = s2;
+
+  return string1 + string2;
+}
+
+const sk::util::String operator + (const sk::util::String& string, const char* buffer)
+{
+  return string + sk::util::String(buffer);
+}
+
+const sk::util::String operator + (const char* buffer, const sk::util::String& string)
+{
+  return sk::util::String(buffer) + string;
+}
+
+const sk::util::String operator + (const sk::util::String& string, char character)
+{
+  return string + sk::util::String(character);
+}
+
+const sk::util::String operator + (char character, const sk::util::String& string)
+{
+  return sk::util::String(character) + string;
+}
+
+const sk::util::String operator + (const std::string& s1, const sk::util::String& s2)
+{
+  const std::string& s = s2;
+  return s1 + s;
+}
+
+const sk::util::String operator + (const sk::util::String& s1, const std::string& s2)
+{
+  const std::string& s = s1;
+  return s + s2;
 }
