@@ -37,13 +37,15 @@ fileset {
   }
   install.into('include/sk/util').source {
     file 'include/sk/util' => %w{
+      inspect.h
       Object.h
       Class.h
       Integer.h
       String.h
       Exception.h
       IllegalStateException.h
-      inspect.h
+      Slot.h
+      ReferenceSlot.h
     }
   }
   install.into('lib').binary {

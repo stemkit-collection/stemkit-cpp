@@ -11,6 +11,7 @@
 #include "IntegerTest.h"
 #include "ExceptionTest.h"
 #include "IllegalStateExceptionTest.h"
+#include "ReferenceSlotTest.h"
 
 #include <sk/cppunit/TestRunner.h>
  
@@ -24,6 +25,7 @@ int main(int argc, char **argv)
   runner.addTest(sk::util::test::StringTest::suite());
   runner.addTest(sk::util::test::ExceptionTest::suite());
   runner.addTest(sk::util::test::IllegalStateExceptionTest::suite());
+  runner.addTest(sk::util::test::ReferenceSlotTest::suite());
 
   return !runner.run();
 }
