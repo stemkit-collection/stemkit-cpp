@@ -41,6 +41,7 @@ fileset {
       Class.h
       Integer.h
       String.h
+      inspect.h
     }
   }
   install.into('lib').binary {
