@@ -49,11 +49,6 @@ testDeprive()
   String s("abcd");
   ReferenceSlot<String> slot(s);
 
-  try {
-    slot.deprive();
-    CPPUNIT_FAIL("No expected exception.");
-  }
-  catch(const IllegalStateException& exception) {
-    CPPUNIT_ASSERT_EQUAL(String("abcd"), slot.get());
-  }
+  CPPUNIT_ASSERT_THROW(slot.deprive(), IllegalStateException);
+  CPPUNIT_ASSERT_EQUAL(String("abcd"), slot.get());
 }

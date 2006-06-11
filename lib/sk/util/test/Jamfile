@@ -9,6 +9,7 @@ test-objects =
   ExceptionTest.cc
   IllegalStateExceptionTest.cc
   ReferenceSlotTest.cc
+  PointerSlotTest.cc
   TestSuite.cc
 ;
 

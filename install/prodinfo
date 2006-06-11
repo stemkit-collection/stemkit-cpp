@@ -46,6 +46,7 @@ fileset {
       IllegalStateException.h
       Slot.h
       ReferenceSlot.h
+      PointerSlot.h
     }
   }
   install.into('lib').binary {
