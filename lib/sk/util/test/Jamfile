@@ -6,6 +6,8 @@ test-objects =
   ClassTest.cc
   StringTest.cc
   IntegerTest.cc
+  ExceptionTest.cc
+  IllegalStateExceptionTest.cc
   TestSuite.cc
 ;
 

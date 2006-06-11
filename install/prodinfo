@@ -41,6 +41,8 @@ fileset {
       Class.h
       Integer.h
       String.h
+      Exception.h
+      IllegalStateException.h
       inspect.h
     }
   }

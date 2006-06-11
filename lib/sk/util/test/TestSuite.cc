@@ -9,6 +9,8 @@
 #include "ObjectTest.h"
 #include "StringTest.h"
 #include "IntegerTest.h"
+#include "ExceptionTest.h"
+#include "IllegalStateExceptionTest.h"
 
 #include <sk/cppunit/TestRunner.h>
  
@@ -20,6 +22,8 @@ int main(int argc, char **argv)
   runner.addTest(sk::util::test::ClassTest::suite());
   runner.addTest(sk::util::test::IntegerTest::suite());
   runner.addTest(sk::util::test::StringTest::suite());
+  runner.addTest(sk::util::test::ExceptionTest::suite());
+  runner.addTest(sk::util::test::IllegalStateExceptionTest::suite());
 
   return !runner.run();
 }

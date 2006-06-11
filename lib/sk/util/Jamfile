@@ -6,6 +6,8 @@ objects =
   Class.cc
   String.cc
   Integer.cc
+  Exception.cc
+  IllegalStateException.cc
 ;
 
 make-library $(library) : $(objects) ;
