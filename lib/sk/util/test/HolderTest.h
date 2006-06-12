@@ -18,7 +18,8 @@ namespace sk {
         : public CppUnit::TestFixture
       {
         CPPUNIT_TEST_SUITE(sk::util::test::HolderTest);
-          CPPUNIT_TEST(testSimple);
+          CPPUNIT_TEST(testCreateWithReference);
+          CPPUNIT_TEST(testCreateEmpty);
         CPPUNIT_TEST_SUITE_END();
         
         public:
@@ -27,7 +28,9 @@ namespace sk {
           
           void setUp();
           void tearDown();
-          void testSimple();
+          void testCreateWithReference();
+          void testCreateWithPointer();
+          void testCreateEmpty();
           
         private:
           HolderTest(const HolderTest& other);

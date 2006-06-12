@@ -19,6 +19,7 @@ namespace sk {
       {
         public:
           Probe(const sk::util::String& name);
+          Probe(const Probe& other);
           virtual ~Probe();
 
           const sk::util::String getName() const;
@@ -30,7 +31,6 @@ namespace sk {
           const sk::util::Class getClass() const;
           
         private:
-          Probe(const Probe& other);
           Probe& operator = (const Probe& other);
 
           sk::util::String _name;

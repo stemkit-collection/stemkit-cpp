@@ -47,6 +47,7 @@ fileset {
       Slot.h
       ReferenceSlot.h
       PointerSlot.h
+      Holder.h
     }
   }
   install.into('lib').binary {

@@ -8,7 +8,9 @@
 #ifndef _SK_UTIL_HOLDER_
 #define _SK_UTIL_HOLDER_
 
-#include <sk/util/Slot.h>
+#include <sk/util/ReferenceSlot.h>
+#include <sk/util/PointerSlot.h>
+#include <sk/util/IllegalStateException.h>
 
 namespace sk {
   namespace util {
@@ -41,6 +43,66 @@ namespace sk {
         Slot<T>* _slot;
     };
   }
+}
+
+template<class T>
+sk::util::Holder<T>::
+Holder()
+  : _slot(0)
+{
+}
+
+template<class T>
+sk::util::Holder<T>::
+Holder(T& object)
+  : _slot(0)
+{
+  _slot = new ReferenceSlot<T>(object);
+}
+
+template<class T>
+sk::util::Holder<T>::
+Holder(T* object)
+  : _slot(0)
+{
+  _slot = new PointerSlot<T>(object);
+}
+
+template<class T>
+sk::util::Holder<T>::
+~Holder()
+{
+  delete _slot;
+}
+
+template<class T>
+T&
+sk::util::Holder<T>::
+get() const
+{
+  if(_slot == 0) {
+    throw IllegalStateException("get()");
+  }
+  return _slot->get();
+}
+
+template<class T>
+bool
+sk::util::Holder<T>::
+isEmpty() const
+{
+  return _slot==0 ? true : false;
+}
+
+template<class T>
+bool
+sk::util::Holder<T>::
+contains(const T& object) const
+{
+  if(_slot == 0) {
+    return false;
+  }
+  return &_slot->get() == &object ? true : false;
 }
 
 #endif /* _SK_UTIL_HOLDER_ */
