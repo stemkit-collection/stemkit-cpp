@@ -41,4 +41,6 @@ namespace sk {
   }
 }
 
+CPPUNIT_TEST_SUITE_REGISTRATION(sk::util::test::IntegerTest);
+
 #endif /* _SK_UTIL_TEST_INTEGERTEST_ */

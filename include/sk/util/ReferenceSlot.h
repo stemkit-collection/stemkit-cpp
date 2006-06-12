@@ -25,6 +25,9 @@ namespace sk {
         T& get() const;
         T* deprive();
         
+        // sk::util::Object re-implementation.
+        const sk::util::String inspect() const;
+        
       private:
         ReferenceSlot(const ReferenceSlot<T>& other);
         ReferenceSlot& operator = (const ReferenceSlot<T>& other);
@@ -61,6 +64,14 @@ sk::util::ReferenceSlot<T>::
 deprive()
 {
   throw sk::util::IllegalStateException("deprive()");
+}
+
+template<class T>
+const sk::util::String
+sk::util::ReferenceSlot<T>::
+inspect() const
+{
+  return '&';
 }
 
 #endif /* _SK_UTIL_REFERENCESLOT_ */

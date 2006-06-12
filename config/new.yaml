@@ -43,6 +43,9 @@ test:
     <cppunit/TestFixture.h>
     <cppunit/extensions/HelperMacros.h>
 
+  header_bottom: |
+    CPPUNIT_TEST_SUITE_REGISTRATION(#{FULL_CLASS_NAME});
+
   body_includes: |
 
   extends: |

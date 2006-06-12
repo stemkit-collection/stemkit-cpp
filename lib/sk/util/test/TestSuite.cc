@@ -5,29 +5,14 @@
  *  You must read and accept the license prior to use.
 */
 
-#include "ClassTest.h"
-#include "ObjectTest.h"
-#include "StringTest.h"
-#include "IntegerTest.h"
-#include "ExceptionTest.h"
-#include "IllegalStateExceptionTest.h"
-#include "ReferenceSlotTest.h"
-#include "PointerSlotTest.h"
-
+#include <cppunit/extensions/TestFactoryRegistry.h>
 #include <sk/cppunit/TestRunner.h>
  
 int main(int argc, char **argv)
 {     
+  CppUnit::TestFactoryRegistry &registry = CppUnit::TestFactoryRegistry::getRegistry();
   sk::cppunit::TestRunner runner;
 
-  runner.addTest(sk::util::test::ObjectTest::suite());
-  runner.addTest(sk::util::test::ClassTest::suite());
-  runner.addTest(sk::util::test::IntegerTest::suite());
-  runner.addTest(sk::util::test::StringTest::suite());
-  runner.addTest(sk::util::test::ExceptionTest::suite());
-  runner.addTest(sk::util::test::IllegalStateExceptionTest::suite());
-  runner.addTest(sk::util::test::ReferenceSlotTest::suite());
-  runner.addTest(sk::util::test::PointerSlotTest::suite());
-
+  runner.addTest( registry.makeTest() );
   return !runner.run();
 }

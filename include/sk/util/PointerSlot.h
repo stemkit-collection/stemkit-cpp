@@ -25,6 +25,9 @@ namespace sk {
         T& get() const;
         T* deprive();
         
+        // sk::util::Object re-implementation.
+        const sk::util::String inspect() const;
+        
       private:
         PointerSlot(const PointerSlot& other);
         PointerSlot& operator = (const PointerSlot& other);
@@ -71,6 +74,14 @@ deprive()
   _object = 0;
 
   return result;
+}
+
+template<class T>
+const sk::util::String
+sk::util::PointerSlot<T>::
+inspect() const
+{
+  return '*';
 }
 
 #endif /* _SK_UTIL_POINTERSLOT_ */

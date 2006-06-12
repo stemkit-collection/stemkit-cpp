@@ -1,4 +1,4 @@
-/*  Copyright (c) 2005, Gennady Bystritsky <bystr@mac.com>
+/*  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
  *  
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
@@ -36,5 +36,7 @@ namespace sk {
     }
   }
 }
+
+CPPUNIT_TEST_SUITE_REGISTRATION(sk::sys::test::TrashDisposerTest);
 
 #endif /* _SK_SYS_TEST_TRASHDISPOSERTEST_ */
