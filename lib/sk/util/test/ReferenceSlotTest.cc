@@ -52,3 +52,13 @@ testDeprive()
   CPPUNIT_ASSERT_THROW(slot.deprive(), IllegalStateException);
   CPPUNIT_ASSERT_EQUAL(String("abcd"), slot.get());
 }
+
+void
+sk::util::test::ReferenceSlotTest::
+testMisc()
+{
+  String s("abcd");
+  ReferenceSlot<String> slot(s);
+
+  CPPUNIT_ASSERT_EQUAL(String("&"), slot.inspect());
+}

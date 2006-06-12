@@ -20,6 +20,7 @@ namespace sk {
         CPPUNIT_TEST_SUITE(sk::util::test::PointerSlotTest);
           CPPUNIT_TEST(testGet);
           CPPUNIT_TEST(testDeprive);
+          CPPUNIT_TEST(testMisc);
         CPPUNIT_TEST_SUITE_END();
         
         public:
@@ -30,6 +31,7 @@ namespace sk {
           void tearDown();
           void testGet();
           void testDeprive();
+          void testMisc();
           
         private:
           PointerSlotTest(const PointerSlotTest& other);

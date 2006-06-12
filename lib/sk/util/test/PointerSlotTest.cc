@@ -55,3 +55,13 @@ testDeprive()
   CPPUNIT_ASSERT_THROW(slot.get(), IllegalStateException);
   CPPUNIT_ASSERT_THROW(slot.deprive(), IllegalStateException);
 }
+
+void
+sk::util::test::PointerSlotTest::
+testMisc()
+{
+  String* s = new String("abcd");
+  PointerSlot<String> slot(s);
+
+  CPPUNIT_ASSERT_EQUAL(String("*"), slot.inspect());
+}
