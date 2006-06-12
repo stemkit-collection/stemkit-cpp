@@ -30,7 +30,7 @@ namespace sk {
         
       private:
         ReferenceSlot(const ReferenceSlot<T>& other);
-        ReferenceSlot& operator = (const ReferenceSlot<T>& other);
+        ReferenceSlot<T>& operator = (const ReferenceSlot<T>& other);
 
         T& _object;
     };

@@ -2,6 +2,8 @@
 test = sk-util-test ;
 
 test-objects = 
+  Probe.cc
+  ProbeTest.cc
   ObjectTest.cc
   ClassTest.cc
   StringTest.cc
@@ -10,6 +12,7 @@ test-objects =
   IllegalStateExceptionTest.cc
   ReferenceSlotTest.cc
   PointerSlotTest.cc
+  HolderTest.cc
   TestSuite.cc
 ;
 

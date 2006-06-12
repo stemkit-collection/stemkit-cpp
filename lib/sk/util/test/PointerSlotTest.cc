@@ -8,6 +8,7 @@
 #include "PointerSlotTest.h"
 #include <sk/util/PointerSlot.h>
 #include <sk/util/String.h>
+#include "Probe.h"
 
 sk::util::test::PointerSlotTest::
 PointerSlotTest()
@@ -23,37 +24,54 @@ void
 sk::util::test::PointerSlotTest::
 setUp()
 {
+  Probe::resetCounter();
 }
 
 void
 sk::util::test::PointerSlotTest::
 tearDown()
 {
+  Probe::resetCounter();
 }
 
 void
 sk::util::test::PointerSlotTest::
 testGet()
 {
-  String* s = new String("dcba");
-  PointerSlot<String> slot(s);
+  CPPUNIT_ASSERT_EQUAL(0, Probe::getCounter());
+  {
+    Probe* probe = new Probe("dcba");
+    PointerSlot<Probe> slot(probe);
 
-  CPPUNIT_ASSERT_EQUAL(String("dcba"), slot.get());
-  CPPUNIT_ASSERT_EQUAL(s, &slot.get());
+    CPPUNIT_ASSERT_EQUAL(1, Probe::getCounter());
+    CPPUNIT_ASSERT_EQUAL(String("dcba"), slot.get().getName());
+    CPPUNIT_ASSERT_EQUAL(probe, &slot.get());
+  }
+  CPPUNIT_ASSERT_EQUAL(0, Probe::getCounter());
 }
 
 void
 sk::util::test::PointerSlotTest::
 testDeprive()
 {
-  String* s = new String("dcba");
-  PointerSlot<String> slot(s);
+  Probe* probe = new Probe("dcba");
+  CPPUNIT_ASSERT_EQUAL(1, Probe::getCounter());
+  {
+    PointerSlot<Probe> slot(probe);
 
-  String* s2 = slot.deprive();
-  CPPUNIT_ASSERT_EQUAL(s, s2);
+    CPPUNIT_ASSERT_EQUAL(1, Probe::getCounter());
+    Probe* probe2 = slot.deprive();
 
-  CPPUNIT_ASSERT_THROW(slot.get(), IllegalStateException);
-  CPPUNIT_ASSERT_THROW(slot.deprive(), IllegalStateException);
+    CPPUNIT_ASSERT_EQUAL(1, Probe::getCounter());
+    CPPUNIT_ASSERT_EQUAL(probe, probe2);
+
+    CPPUNIT_ASSERT_THROW(slot.get(), IllegalStateException);
+    CPPUNIT_ASSERT_THROW(slot.deprive(), IllegalStateException);
+  }
+  CPPUNIT_ASSERT_EQUAL(1, Probe::getCounter());
+
+  delete probe;
+  CPPUNIT_ASSERT_EQUAL(0, Probe::getCounter());
 }
 
 void

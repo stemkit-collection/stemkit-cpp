@@ -29,8 +29,8 @@ namespace sk {
         const sk::util::String inspect() const;
         
       private:
-        PointerSlot(const PointerSlot& other);
-        PointerSlot& operator = (const PointerSlot& other);
+        PointerSlot(const PointerSlot<T>& other);
+        PointerSlot<T>& operator = (const PointerSlot<T>& other);
 
         T* _object;
     };
@@ -70,10 +70,10 @@ deprive()
   if(_object == 0) {
     throw IllegalStateException("deprive()");
   }
-  T* result = _object;
+  T* object = _object;
   _object = 0;
 
-  return result;
+  return object;
 }
 
 template<class T>
