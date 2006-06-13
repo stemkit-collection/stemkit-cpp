@@ -37,6 +37,4 @@ namespace sk {
   }
 }
 
-CPPUNIT_TEST_SUITE_REGISTRATION(sk::util::test::IndexOutOfBoundsExceptionTest);
-
 #endif /* _SK_UTIL_TEST_INDEXOUTOFBOUNDSEXCEPTIONTEST_ */

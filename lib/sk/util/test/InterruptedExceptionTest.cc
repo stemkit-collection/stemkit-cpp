@@ -9,6 +9,8 @@
 #include <sk/util/InterruptedException.h>
 #include <sk/util/Class.h>
 
+CPPUNIT_TEST_SUITE_REGISTRATION(sk::util::test::InterruptedExceptionTest);
+
 sk::util::test::InterruptedExceptionTest::
 InterruptedExceptionTest()
 {

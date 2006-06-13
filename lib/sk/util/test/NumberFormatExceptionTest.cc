@@ -9,6 +9,8 @@
 #include <sk/util/NumberFormatException.h>
 #include <sk/util/Class.h>
 
+CPPUNIT_TEST_SUITE_REGISTRATION(sk::util::test::NumberFormatExceptionTest);
+
 sk::util::test::NumberFormatExceptionTest::
 NumberFormatExceptionTest()
 {

@@ -9,6 +9,8 @@
 #include <sk/util/IllegalStateException.h>
 #include <sk/util/Class.h>
 
+CPPUNIT_TEST_SUITE_REGISTRATION(sk::util::test::IllegalStateExceptionTest);
+
 sk::util::test::IllegalStateExceptionTest::
 IllegalStateExceptionTest()
 {

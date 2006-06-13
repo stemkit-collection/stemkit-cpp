@@ -37,6 +37,4 @@ namespace sk {
   }
 }
 
-CPPUNIT_TEST_SUITE_REGISTRATION(sk::util::test::MissingResourceExceptionTest);
-
 #endif /* _SK_UTIL_TEST_MISSINGRESOURCEEXCEPTIONTEST_ */

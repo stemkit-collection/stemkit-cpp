@@ -41,6 +41,4 @@ namespace sk {
   }
 }
 
-CPPUNIT_TEST_SUITE_REGISTRATION(sk::util::test::PointerSlotTest);
-
 #endif /* _SK_UTIL_TEST_POINTERSLOTTEST_ */

@@ -7,6 +7,8 @@
 
 #include "TrashDisposerTest.h"
 
+CPPUNIT_TEST_SUITE_REGISTRATION(sk::sys::test::TrashDisposerTest);
+
 sk::sys::test::TrashDisposerTest::
 TrashDisposerTest()
 {

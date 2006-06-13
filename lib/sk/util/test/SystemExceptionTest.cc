@@ -9,6 +9,8 @@
 #include <sk/util/SystemException.h>
 #include <sk/util/Class.h>
 
+CPPUNIT_TEST_SUITE_REGISTRATION(sk::util::test::SystemExceptionTest);
+
 sk::util::test::SystemExceptionTest::
 SystemExceptionTest()
 {

@@ -9,6 +9,8 @@
 #include <sk/util/IndexOutOfBoundsException.h>
 #include <sk/util/Class.h>
 
+CPPUNIT_TEST_SUITE_REGISTRATION(sk::util::test::IndexOutOfBoundsExceptionTest);
+
 sk::util::test::IndexOutOfBoundsExceptionTest::
 IndexOutOfBoundsExceptionTest()
 {

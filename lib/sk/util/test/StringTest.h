@@ -49,6 +49,4 @@ namespace sk {
   }
 }
 
-CPPUNIT_TEST_SUITE_REGISTRATION(sk::util::test::StringTest);
-
 #endif /* _SK_UTIL_TEST_STRINGTEST_ */

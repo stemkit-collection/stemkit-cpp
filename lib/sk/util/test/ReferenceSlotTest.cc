@@ -10,6 +10,8 @@
 #include <sk/util/UnsupportedOperationException.h>
 #include <sk/util/String.h>
 
+CPPUNIT_TEST_SUITE_REGISTRATION(sk::util::test::ReferenceSlotTest);
+
 sk::util::test::ReferenceSlotTest::
 ReferenceSlotTest()
 {

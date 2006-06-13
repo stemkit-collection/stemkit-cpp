@@ -10,6 +10,8 @@
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
 
+CPPUNIT_TEST_SUITE_REGISTRATION(sk::util::test::ObjectTest);
+
 sk::util::test::ObjectTest::
 ObjectTest()
 {

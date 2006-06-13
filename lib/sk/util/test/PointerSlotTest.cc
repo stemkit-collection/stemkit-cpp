@@ -12,6 +12,8 @@
 #include <sk/util/String.h>
 #include "Probe.h"
 
+CPPUNIT_TEST_SUITE_REGISTRATION(sk::util::test::PointerSlotTest);
+
 sk::util::test::PointerSlotTest::
 PointerSlotTest()
 {

@@ -8,6 +8,8 @@
 #include "ProbeTest.h"
 #include "Probe.h"
 
+CPPUNIT_TEST_SUITE_REGISTRATION(sk::util::test::ProbeTest);
+
 sk::util::test::ProbeTest::
 ProbeTest()
 {

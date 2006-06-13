@@ -11,6 +11,8 @@
 #include <sk/util/UnsupportedOperationException.h>
 #include "Probe.h"
 
+CPPUNIT_TEST_SUITE_REGISTRATION(sk::util::test::HolderTest);
+
 sk::util::test::HolderTest::
 HolderTest()
 {

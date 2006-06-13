@@ -8,6 +8,8 @@
 #include "ClassTest.h"
 #include <sk/util/Class.h>
 
+CPPUNIT_TEST_SUITE_REGISTRATION(sk::util::test::ClassTest);
+
 sk::util::test::ClassTest::
 ClassTest()
 {

@@ -10,6 +10,8 @@
 #include <sk/util/String.h>
 #include <sk/util/Class.h>
 
+CPPUNIT_TEST_SUITE_REGISTRATION(sk::util::test::IntegerTest);
+
 sk::util::test::IntegerTest::
 IntegerTest()
 {

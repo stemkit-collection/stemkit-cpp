@@ -8,6 +8,8 @@
 #include "ExceptionTest.h"
 #include <sk/util/Exception.h>
 
+CPPUNIT_TEST_SUITE_REGISTRATION(sk::util::test::ExceptionTest);
+
 sk::util::test::ExceptionTest::
 ExceptionTest()
 {

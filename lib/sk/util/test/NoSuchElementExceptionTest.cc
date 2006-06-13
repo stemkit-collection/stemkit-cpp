@@ -9,6 +9,8 @@
 #include <sk/util/NoSuchElementException.h>
 #include <sk/util/Class.h>
 
+CPPUNIT_TEST_SUITE_REGISTRATION(sk::util::test::NoSuchElementExceptionTest);
+
 sk::util::test::NoSuchElementExceptionTest::
 NoSuchElementExceptionTest()
 {

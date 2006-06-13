@@ -37,6 +37,4 @@ namespace sk {
   }
 }
 
-CPPUNIT_TEST_SUITE_REGISTRATION(sk::sys::test::TrashDisposerTest);
-
 #endif /* _SK_SYS_TEST_TRASHDISPOSERTEST_ */
