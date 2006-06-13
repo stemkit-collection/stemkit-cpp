@@ -7,6 +7,7 @@
 
 #include "ReferenceSlotTest.h"
 #include <sk/util/ReferenceSlot.h>
+#include <sk/util/UnsupportedOperationException.h>
 #include <sk/util/String.h>
 
 sk::util::test::ReferenceSlotTest::
@@ -49,7 +50,7 @@ testDeprive()
   String s("abcd");
   ReferenceSlot<String> slot(s);
 
-  CPPUNIT_ASSERT_THROW(slot.deprive(), IllegalStateException);
+  CPPUNIT_ASSERT_THROW(slot.deprive(), UnsupportedOperationException);
   CPPUNIT_ASSERT_EQUAL(String("abcd"), slot.get());
 }
 

@@ -7,6 +7,8 @@
 
 #include "PointerSlotTest.h"
 #include <sk/util/PointerSlot.h>
+#include <sk/util/MissingResourceException.h>
+#include <sk/util/NullPointerException.h>
 #include <sk/util/String.h>
 #include "Probe.h"
 
@@ -65,8 +67,8 @@ testDeprive()
     CPPUNIT_ASSERT_EQUAL(1, Probe::getCounter());
     CPPUNIT_ASSERT_EQUAL(probe, probe2);
 
-    CPPUNIT_ASSERT_THROW(slot.get(), IllegalStateException);
-    CPPUNIT_ASSERT_THROW(slot.deprive(), IllegalStateException);
+    CPPUNIT_ASSERT_THROW(slot.get(), MissingResourceException);
+    CPPUNIT_ASSERT_THROW(slot.deprive(), MissingResourceException);
   }
   CPPUNIT_ASSERT_EQUAL(1, Probe::getCounter());
 
@@ -81,5 +83,6 @@ testMisc()
   String* s = new String("abcd");
   PointerSlot<String> slot(s);
 
+  CPPUNIT_ASSERT_THROW(new PointerSlot<String>(0), NullPointerException);
   CPPUNIT_ASSERT_EQUAL(String("*"), slot.inspect());
 }

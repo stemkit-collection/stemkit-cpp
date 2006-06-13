@@ -9,7 +9,7 @@
 #define _SK_UTIL_REFERENCESLOT_
 
 #include <sk/util/Slot.h>
-#include <sk/util/IllegalStateException.h>
+#include <sk/util/UnsupportedOperationException.h>
 
 namespace sk {
   namespace util {
@@ -63,7 +63,7 @@ T*
 sk::util::ReferenceSlot<T>::
 deprive()
 {
-  throw sk::util::IllegalStateException("deprive()");
+  throw sk::util::UnsupportedOperationException("sk::util::ReferenceSlot#deprive()");
 }
 
 template<class T>

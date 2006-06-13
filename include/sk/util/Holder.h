@@ -10,7 +10,7 @@
 
 #include <sk/util/ReferenceSlot.h>
 #include <sk/util/PointerSlot.h>
-#include <sk/util/IllegalStateException.h>
+#include <sk/util/MissingResourceException.h>
 
 namespace sk {
   namespace util {
@@ -27,8 +27,8 @@ namespace sk {
         bool isEmpty() const;
         T& get() const;
 
-        void set(T* object);
-        void set(T& object);
+        Holder<T>& set(T* object);
+        Holder<T>& set(T& object);
 
         bool remove();
         void clear();
@@ -57,7 +57,7 @@ sk::util::Holder<T>::
 Holder(T& object)
   : _slot(0)
 {
-  _slot = new ReferenceSlot<T>(object);
+  set(object);
 }
 
 template<class T>
@@ -65,14 +65,36 @@ sk::util::Holder<T>::
 Holder(T* object)
   : _slot(0)
 {
-  _slot = new PointerSlot<T>(object);
+  set(object);
 }
 
 template<class T>
 sk::util::Holder<T>::
 ~Holder()
 {
-  delete _slot;
+  remove();
+}
+
+template<class T>
+sk::util::Holder<T>&
+sk::util::Holder<T>::
+set(T& object)
+{
+  remove();
+  _slot = new ReferenceSlot<T>(object);
+  return *this;
+}
+
+template<class T>
+sk::util::Holder<T>&
+sk::util::Holder<T>::
+set(T* object)
+{
+  remove();
+  if(object != 0) {
+    _slot = new PointerSlot<T>(object);
+  }
+  return *this;
 }
 
 template<class T>
@@ -81,7 +103,7 @@ sk::util::Holder<T>::
 get() const
 {
   if(_slot == 0) {
-    throw IllegalStateException("get()");
+    throw MissingResourceException("sk::util::Holder#get()");
   }
   return _slot->get();
 }
@@ -103,6 +125,42 @@ contains(const T& object) const
     return false;
   }
   return &_slot->get() == &object ? true : false;
+}
+
+template<class T>
+bool
+sk::util::Holder<T>::
+remove()
+{
+  if(_slot == 0) {
+    return false;
+  }
+  delete _slot;
+  _slot = 0;
+
+  return true;
+}
+
+template<class T>
+void
+sk::util::Holder<T>::
+clear()
+{
+  remove();
+}
+
+template<class T>
+T*
+sk::util::Holder<T>::
+release()
+{
+  get();
+
+  T* object = _slot->deprive();
+  remove();
+  set(*object);
+
+  return object;
 }
 
 #endif /* _SK_UTIL_HOLDER_ */

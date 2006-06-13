@@ -7,6 +7,8 @@
 
 #include "HolderTest.h"
 #include <sk/util/Holder.h>
+#include <sk/util/MissingResourceException.h>
+#include <sk/util/UnsupportedOperationException.h>
 #include "Probe.h"
 
 sk::util::test::HolderTest::
@@ -51,12 +53,17 @@ sk::util::test::HolderTest::
 testCreateWithPointer()
 {
   Probe* probe = new Probe("abc");
-  Holder<Probe> holder(probe);
+  {
+    Holder<Probe> holder(probe);
 
-  CPPUNIT_ASSERT_EQUAL(probe, &holder.get());
-  CPPUNIT_ASSERT_EQUAL(false, holder.isEmpty());
-  CPPUNIT_ASSERT_EQUAL(true, holder.contains(*probe));
-  CPPUNIT_ASSERT_EQUAL(false, holder.contains(Probe("bbb")));
+    CPPUNIT_ASSERT_EQUAL(1, Probe::getCounter());
+
+    CPPUNIT_ASSERT_EQUAL(probe, &holder.get());
+    CPPUNIT_ASSERT_EQUAL(false, holder.isEmpty());
+    CPPUNIT_ASSERT_EQUAL(true, holder.contains(*probe));
+    CPPUNIT_ASSERT_EQUAL(false, holder.contains(Probe("bbb")));
+  }
+  CPPUNIT_ASSERT_EQUAL(0, Probe::getCounter());
 }
 
 void
@@ -68,5 +75,62 @@ testCreateEmpty()
   CPPUNIT_ASSERT_EQUAL(true, holder.isEmpty());
   CPPUNIT_ASSERT_EQUAL(false, holder.contains(Probe("bbb")));
 
-  CPPUNIT_ASSERT_THROW(holder.get(), IllegalStateException);
+  CPPUNIT_ASSERT_THROW(holder.get(), MissingResourceException);
+  CPPUNIT_ASSERT_EQUAL(false, holder.remove());
+}
+
+void
+sk::util::test::HolderTest::
+testRemove()
+{
+  Probe* probe = new Probe("abc");
+  Holder<Probe> holder(probe);
+
+  CPPUNIT_ASSERT_EQUAL(1, Probe::getCounter());
+  CPPUNIT_ASSERT_EQUAL(true, holder.remove());
+  CPPUNIT_ASSERT_EQUAL(true, holder.isEmpty());
+  CPPUNIT_ASSERT_EQUAL(0, Probe::getCounter());
+  CPPUNIT_ASSERT_EQUAL(false, holder.remove());
+}
+
+void
+sk::util::test::HolderTest::
+testRelease()
+{
+  Probe* probe = new Probe("abc");
+  Holder<Probe> holder(probe);
+
+  CPPUNIT_ASSERT_EQUAL(1, Probe::getCounter());
+
+  Probe* released = holder.release();
+
+  CPPUNIT_ASSERT_EQUAL(1, Probe::getCounter());
+  CPPUNIT_ASSERT_EQUAL(false, holder.isEmpty());
+  CPPUNIT_ASSERT_EQUAL(probe, released);
+  CPPUNIT_ASSERT_EQUAL(probe, &holder.get());
+
+  CPPUNIT_ASSERT_THROW(holder.release(), UnsupportedOperationException);
+  
+  delete released;
+  CPPUNIT_ASSERT_EQUAL(0, Probe::getCounter());
+}
+
+void
+sk::util::test::HolderTest::
+testSet()
+{
+  Holder<Probe> holder(new Probe("abc"));
+  CPPUNIT_ASSERT_EQUAL(1, Probe::getCounter());
+  CPPUNIT_ASSERT_EQUAL(String("abc"), holder.get().getName());
+
+  Probe* probe = new Probe("zzz");
+  CPPUNIT_ASSERT_EQUAL(2, Probe::getCounter());
+
+  holder.set(probe);
+  CPPUNIT_ASSERT_EQUAL(1, Probe::getCounter());
+  CPPUNIT_ASSERT_EQUAL(String("zzz"), holder.get().getName());
+
+  holder.set(0);
+  CPPUNIT_ASSERT_EQUAL(0, Probe::getCounter());
+  CPPUNIT_ASSERT_EQUAL(true, holder.isEmpty());
 }

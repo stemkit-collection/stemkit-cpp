@@ -19,7 +19,11 @@ namespace sk {
       {
         CPPUNIT_TEST_SUITE(sk::util::test::HolderTest);
           CPPUNIT_TEST(testCreateWithReference);
+          CPPUNIT_TEST(testCreateWithPointer);
           CPPUNIT_TEST(testCreateEmpty);
+          CPPUNIT_TEST(testRemove);
+          CPPUNIT_TEST(testRelease);
+          CPPUNIT_TEST(testSet);
         CPPUNIT_TEST_SUITE_END();
         
         public:
@@ -31,6 +35,9 @@ namespace sk {
           void testCreateWithReference();
           void testCreateWithPointer();
           void testCreateEmpty();
+          void testRemove();
+          void testRelease();
+          void testSet();
           
         private:
           HolderTest(const HolderTest& other);

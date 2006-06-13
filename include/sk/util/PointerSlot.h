@@ -9,7 +9,8 @@
 #define _SK_UTIL_POINTERSLOT_
 
 #include <sk/util/Slot.h>
-#include <sk/util/IllegalStateException.h>
+#include <sk/util/MissingResourceException.h>
+#include <sk/util/NullPointerException.h>
 
 namespace sk {
   namespace util {
@@ -42,6 +43,9 @@ sk::util::PointerSlot<T>::
 PointerSlot(T* object)
   : _object(object)
 {
+  if(_object == 0) {
+    throw NullPointerException("sk::util::PointerSlot()");
+  }
 }
 
 template<class T>
@@ -57,7 +61,7 @@ sk::util::PointerSlot<T>::
 get() const
 {
   if(_object == 0) {
-    throw IllegalStateException("get()");
+    throw MissingResourceException("sk::util::PointerSlot#get()");
   }
   return *_object;
 }
@@ -68,7 +72,7 @@ sk::util::PointerSlot<T>::
 deprive()
 {
   if(_object == 0) {
-    throw IllegalStateException("deprive()");
+    throw MissingResourceException("sk::util::PointerSlot#deprive()");
   }
   T* object = _object;
   _object = 0;
