@@ -8,6 +8,14 @@ objects =
   Integer.cc
   Exception.cc
   IllegalStateException.cc
+  IndexOutOfBoundsException.cc
+  InterruptedException.cc
+  MissingResourceException.cc
+  NoSuchElementException.cc
+  NullPointerException.cc
+  NumberFormatException.cc
+  SystemException.cc
+  UnsupportedOperationException.cc
 ;
 
 make-library $(library) : $(objects) ;

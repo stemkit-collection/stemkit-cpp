@@ -1,0 +1,45 @@
+/*  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
+ *  
+ *  Distributed under the MIT Licence.
+ *  This is free software. See 'LICENSE' for details.
+ *  You must read and accept the license prior to use.
+*/
+
+#include "InterruptedExceptionTest.h"
+#include <sk/util/InterruptedException.h>
+#include <sk/util/Class.h>
+
+sk::util::test::InterruptedExceptionTest::
+InterruptedExceptionTest()
+{
+}
+
+sk::util::test::InterruptedExceptionTest::
+~InterruptedExceptionTest()
+{
+}
+
+void
+sk::util::test::InterruptedExceptionTest::
+setUp()
+{
+}
+
+void
+sk::util::test::InterruptedExceptionTest::
+tearDown()
+{
+}
+
+void
+sk::util::test::InterruptedExceptionTest::
+testThrow()
+{
+  try {
+    throw InterruptedException("zzz");
+  }
+  catch(const Exception& exception) {
+    CPPUNIT_ASSERT_EQUAL(String("ERROR:Interrupted:zzz"), exception.getMessage());
+    CPPUNIT_ASSERT_EQUAL(String("sk::util::InterruptedException"), exception.getClass().getName());
+  }
+}

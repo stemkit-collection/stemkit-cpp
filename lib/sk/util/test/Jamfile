@@ -8,12 +8,20 @@ test-objects =
   ClassTest.cc
   StringTest.cc
   IntegerTest.cc
-  ExceptionTest.cc
-  IllegalStateExceptionTest.cc
   ReferenceSlotTest.cc
   PointerSlotTest.cc
   HolderTest.cc
   TestSuite.cc
+  ExceptionTest.cc
+  IllegalStateExceptionTest.cc
+  IndexOutOfBoundsExceptionTest.cc
+  InterruptedExceptionTest.cc
+  MissingResourceExceptionTest.cc
+  NoSuchElementExceptionTest.cc
+  NullPointerExceptionTest.cc
+  NumberFormatExceptionTest.cc
+  SystemExceptionTest.cc
+  UnsupportedOperationExceptionTest.cc
 ;
 
 use-project-library $(test) : sk.util sk.cppunit ;

@@ -1,0 +1,24 @@
+/*  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
+ *  
+ *  Distributed under the MIT Licence.
+ *  This is free software. See 'LICENSE' for details.
+ *  You must read and accept the license prior to use.
+*/
+
+#include <sk/util/Class.h>
+#include <sk/util/String.h>
+
+#include <sk/util/IndexOutOfBoundsException.h>
+
+sk::util::IndexOutOfBoundsException::
+IndexOutOfBoundsException(const sk::util::String& message)
+  : sk::util::Exception(join("Index out of bounds", message))
+{
+}
+
+const sk::util::Class
+sk::util::IndexOutOfBoundsException::
+getClass() const
+{
+  return sk::util::Class("sk::util::IndexOutOfBoundsException");
+}
