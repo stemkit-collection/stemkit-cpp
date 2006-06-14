@@ -5,6 +5,7 @@ objects =
   Object.cc
   Class.cc
   String.cc
+  Container.cc
   Integer.cc
   AbstractCollection.cc
   AbstractList.cc
