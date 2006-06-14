@@ -1,0 +1,17 @@
+
+- Fix outstanding test failures.
+
+- Add an IO class for handling pipes.
+
+- Add an IO class for handling processes.
+
+- Add ability for Exception to print out the execution stack. It must be
+  configurable, as there will be noticable performace penalty for using this
+  feature. In exception, a process must be spawned , however it should be
+  qureied only by a request of an interested party.
+
+- Socket library.
+
+- Thread library.
+
+
