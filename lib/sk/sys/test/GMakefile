@@ -1,7 +1,0 @@
-# vim: set ft=make:
-
-objects = \
-  TrashDisposerTest.cc \
-  TestSuite.cc \
-
-${call make-test-program, sk.sys-test, $(objects)}
