@@ -15,7 +15,7 @@ test-objects =
   TestSuite.cc
 ;
 
-use-project-library $(test) : sk.util sk.cppunit sk.io ;
+use-project-library $(test) : sk.io sk.util sk.cppunit ;
 
 use-unit-test $(test) $(test-objects) ;
 make-cpp-test $(test) : $(test-objects) ;

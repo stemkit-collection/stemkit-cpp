@@ -6,6 +6,9 @@ objects =
   Class.cc
   String.cc
   Integer.cc
+  AbstractCollection.cc
+  AbstractList.cc
+  ArrayList.cc
   Exception.cc
   IllegalStateException.cc
   IndexOutOfBoundsException.cc

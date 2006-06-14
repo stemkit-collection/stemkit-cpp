@@ -2,6 +2,8 @@
 library = sk.sys ;
 
 objects = 
+  Tracer.cc
+  Configurator.cc
   TrashDisposer.cc
 ;
 

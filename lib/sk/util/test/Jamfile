@@ -11,6 +11,9 @@ test-objects =
   ReferenceSlotTest.cc
   PointerSlotTest.cc
   HolderTest.cc
+  AbstractCollectionTest.cc
+  AbstractListTest.cc
+  ArrayListTest.cc
   TestSuite.cc
   ExceptionTest.cc
   IllegalStateExceptionTest.cc
