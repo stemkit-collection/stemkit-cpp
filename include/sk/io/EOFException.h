@@ -5,28 +5,23 @@
  *  You must read and accept the license prior to use.
 */
 
-#ifndef _SK_IO_EOFEXCEPTION_
-#define _SK_IO_EOFEXCEPTION_
+#ifndef _SK_EOF_EOFEXCEPTEOFN_
+#define _SK_EOF_EOFEXCEPTEOFN_
 
-#include <sk/util/Object.h>
+#include <sk/io/IOException.h>
 
 namespace sk {
   namespace io {
     class EOFException
-      : public virtual sk::util::Object 
+      : public sk::io::IOException
     {
       public:
         EOFException();
-        virtual ~EOFException();
         
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
-        
-      private:
-        EOFException(const EOFException& other);
-        EOFException& operator = (const EOFException& other);
     };
   }
 }
 
-#endif /* _SK_IO_EOFEXCEPTION_ */
+#endif /* _SK_EOF_EOFEXCEPTEOFN_ */

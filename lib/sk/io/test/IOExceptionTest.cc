@@ -6,6 +6,8 @@
 */
 
 #include "IOExceptionTest.h"
+#include <sk/io/IOException.h>
+#include <sk/util/Class.h>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::io::test::IOExceptionTest);
 
@@ -33,7 +35,13 @@ tearDown()
 
 void
 sk::io::test::IOExceptionTest::
-testSimple()
+testThrow()
 {
-  CPPUNIT_ASSERT_EQUAL(true, false);
+  try {
+    throw IOException("zzz");
+  }
+  catch(const sk::util::Exception& exception) {
+    CPPUNIT_ASSERT_EQUAL(sk::util::String("ERROR:Input/output error:zzz"), exception.getMessage());
+    CPPUNIT_ASSERT_EQUAL(sk::util::String("sk::io::IOException"), exception.getClass().getName());
+  }
 }

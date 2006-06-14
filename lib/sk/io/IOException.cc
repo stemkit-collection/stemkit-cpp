@@ -11,12 +11,8 @@
 #include <sk/io/IOException.h>
 
 sk::io::IOException::
-IOException()
-{
-}
-
-sk::io::IOException::
-~IOException()
+IOException(const sk::util::String& message)
+  : sk::util::Exception(join("Input/output error", message))
 {
 }
 

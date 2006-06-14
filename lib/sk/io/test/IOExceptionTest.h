@@ -5,8 +5,8 @@
  *  You must read and accept the license prior to use.
 */
 
-#ifndef _SK_IO_TEST_IOEXCEPTIONTEST_
-#define _SK_IO_TEST_IOEXCEPTIONTEST_
+#ifndef _SK_UTIL_TEST_IOEXCEPTIONTEST_
+#define _SK_UTIL_TEST_IOEXCEPTIONTEST_
 
 #include <cppunit/TestFixture.h>
 #include <cppunit/extensions/HelperMacros.h>
@@ -18,7 +18,7 @@ namespace sk {
         : public CppUnit::TestFixture
       {
         CPPUNIT_TEST_SUITE(sk::io::test::IOExceptionTest);
-          CPPUNIT_TEST(testSimple);
+          CPPUNIT_TEST(testThrow);
         CPPUNIT_TEST_SUITE_END();
         
         public:
@@ -27,7 +27,7 @@ namespace sk {
           
           void setUp();
           void tearDown();
-          void testSimple();
+          void testThrow();
           
         private:
           IOExceptionTest(const IOExceptionTest& other);
@@ -37,4 +37,4 @@ namespace sk {
   }
 }
 
-#endif /* _SK_IO_TEST_IOEXCEPTIONTEST_ */
+#endif /* _SK_UTIL_TEST_IOEXCEPTIONTEST_ */

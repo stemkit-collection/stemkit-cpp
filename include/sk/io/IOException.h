@@ -8,23 +8,18 @@
 #ifndef _SK_IO_IOEXCEPTION_
 #define _SK_IO_IOEXCEPTION_
 
-#include <sk/util/Object.h>
+#include <sk/util/Exception.h>
 
 namespace sk {
   namespace io {
     class IOException
-      : public virtual sk::util::Object 
+      : public sk::util::Exception
     {
       public:
-        IOException();
-        virtual ~IOException();
+        IOException(const sk::util::String& message);
         
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
-        
-      private:
-        IOException(const IOException& other);
-        IOException& operator = (const IOException& other);
     };
   }
 }

@@ -2,14 +2,14 @@
 library = sk.io ;
 
 objects = 
-  ByteArrayInputStream.cc
-  ByteArrayOutputStream.cc
-  DataInputStream.cc
-  DataOutputStream.cc
-  FileDescriptorInputStream.cc
-  FileDescriptorOutputStream.cc
-  FileInputStream.cc
-  FileOutputStream.cc
+#  ByteArrayInputStream.cc
+#  ByteArrayOutputStream.cc
+#  DataInputStream.cc
+#  DataOutputStream.cc
+#  FileDescriptorInputStream.cc
+#  FileDescriptorOutputStream.cc
+#  FileInputStream.cc
+#  FileOutputStream.cc
   IOException.cc
   EOFException.cc
 ;

@@ -6,6 +6,8 @@
 */
 
 #include "EOFExceptionTest.h"
+#include <sk/io/EOFException.h>
+#include <sk/util/Class.h>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::io::test::EOFExceptionTest);
 
@@ -33,7 +35,13 @@ tearDown()
 
 void
 sk::io::test::EOFExceptionTest::
-testSimple()
+testThrow()
 {
-  CPPUNIT_ASSERT_EQUAL(true, false);
+  try {
+    throw EOFException();
+  }
+  catch(const sk::util::Exception& exception) {
+    CPPUNIT_ASSERT_EQUAL(sk::util::String("ERROR:Input/output error:End-of-file"), exception.getMessage());
+    CPPUNIT_ASSERT_EQUAL(sk::util::String("sk::io::EOFException"), exception.getClass().getName());
+  }
 }

@@ -12,11 +12,7 @@
 
 sk::io::EOFException::
 EOFException()
-{
-}
-
-sk::io::EOFException::
-~EOFException()
+  : sk::io::IOException("End-of-file")
 {
 }
 
