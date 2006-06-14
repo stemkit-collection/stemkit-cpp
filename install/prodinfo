@@ -42,12 +42,25 @@ fileset {
       Class.h
       Integer.h
       String.h
-      Exception.h
-      IllegalStateException.h
       Slot.h
       ReferenceSlot.h
       PointerSlot.h
       Holder.h
+    }
+  }
+
+  install.into('include/sk/util').source {
+    file 'include/sk/util' => %w{
+      Exception.h
+      IllegalStateException.h
+      IndexOutOfBoundsException.h
+      InterruptedException.h
+      MissingResourceException.h
+      NoSuchElementException.h
+      NullPointerException.h
+      NumberFormatException.h
+      SystemException.h
+      UnsupportedOperationException.h
     }
   }
   install.into('lib').binary {
