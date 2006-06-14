@@ -1,0 +1,21 @@
+
+test = sk-io-test ;
+
+test-objects = 
+  ByteArrayInputStreamTest.cc
+  ByteArrayOutputStreamTest.cc
+  DataInputStreamTest.cc
+  DataOutputStreamTest.cc
+  FileDescriptorInputStreamTest.cc
+  FileDescriptorOutputStreamTest.cc
+  FileInputStreamTest.cc
+  FileOutputStreamTest.cc
+  IOExceptionTest.cc
+  EOFExceptionTest.cc
+  TestSuite.cc
+;
+
+use-project-library $(test) : sk.util sk.cppunit sk.io ;
+
+use-unit-test $(test) $(test-objects) ;
+make-cpp-test $(test) : $(test-objects) ;
