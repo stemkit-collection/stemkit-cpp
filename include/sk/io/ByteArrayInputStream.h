@@ -32,16 +32,23 @@ namespace sk {
         std::vector<char>& read(std::vector<char>& buffer, int number);
         void close();
         int available() const;
+        bool markSupported() const;
+        int skip(int number);
+        void mark(int readlimit);
+        void reset();
         
       private:
         ByteArrayInputStream(const ByteArrayInputStream& other);
         ByteArrayInputStream& operator = (const ByteArrayInputStream& other);
 
-        void reset();
+        void init();
+        void initMark();
 
         sk::util::Holder<const std::vector<char> > _bufferHolder;
         bool _closed;
         int _cursor;
+        int _mark;
+        int _markDistance;
     };
   }
 }

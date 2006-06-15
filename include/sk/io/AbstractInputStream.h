@@ -28,7 +28,7 @@ namespace sk {
         char read();
         std::vector<char> read(int number);
         std::vector<char>& read(std::vector<char>& buffer, int number);
-        long long skip(long long number);
+        int skip(int number);
         int available() const;
         bool markSupported() const;
         void mark(int readlimit);

@@ -88,3 +88,58 @@ testReadByVector()
 
   CPPUNIT_ASSERT_THROW(stream.read(), sk::io::EOFException);
 }
+
+void
+sk::io::test::ByteArrayInputStreamTest::
+testSkip()
+{
+  const char* s = "hello, world!!!";
+  std::vector<char> data(s, s + strlen(s));
+  sk::io::ByteArrayInputStream stream(data);
+
+  CPPUNIT_ASSERT_EQUAL(15, stream.available());
+  CPPUNIT_ASSERT_EQUAL(5, stream.skip(5));
+  CPPUNIT_ASSERT_EQUAL(10, stream.available());
+
+  CPPUNIT_ASSERT_EQUAL(',', stream.read());
+
+  CPPUNIT_ASSERT_EQUAL(7, stream.skip(7));
+  CPPUNIT_ASSERT_EQUAL(2, stream.skip(7));
+  CPPUNIT_ASSERT_EQUAL(0, stream.skip(7));
+  CPPUNIT_ASSERT_EQUAL(0, stream.skip(7));
+
+  CPPUNIT_ASSERT_THROW(stream.read(), sk::io::EOFException);
+}
+
+void
+sk::io::test::ByteArrayInputStreamTest::
+testMarkReset()
+{
+  const char* s = "hello, world!!!";
+  std::vector<char> data(s, s + strlen(s));
+  sk::io::ByteArrayInputStream stream(data);
+
+  CPPUNIT_ASSERT_EQUAL(15, stream.available());
+  CPPUNIT_ASSERT_EQUAL(true, stream.markSupported());
+
+  stream.skip(5);
+  stream.mark(20);
+
+  CPPUNIT_ASSERT_EQUAL(',', stream.read());
+  CPPUNIT_ASSERT_EQUAL(' ', stream.read());
+
+  stream.reset();
+
+  CPPUNIT_ASSERT_EQUAL(',', stream.read());
+  CPPUNIT_ASSERT_EQUAL(' ', stream.read());
+
+  stream.mark(1);
+  CPPUNIT_ASSERT_EQUAL('w', stream.read());
+  stream.reset();
+  CPPUNIT_ASSERT_EQUAL('w', stream.read());
+  CPPUNIT_ASSERT_EQUAL('o', stream.read());
+
+  stream.reset();
+  CPPUNIT_ASSERT_EQUAL(15, stream.available());
+  CPPUNIT_ASSERT_EQUAL('h', stream.read());
+}

@@ -31,12 +31,14 @@ void
 sk::io::AbstractInputStream::
 mark(int readlimit) 
 {
+  throw sk::util::UnsupportedOperationException("sk::io::AbstractInputStream::mark()");
 }
 
 void 
 sk::io::AbstractInputStream::
 reset()
 {
+  throw sk::util::UnsupportedOperationException("sk::io::AbstractInputStream::reset()");
 }
 
 int
@@ -46,9 +48,9 @@ available() const
   throw sk::util::UnsupportedOperationException("sk::io::AbstractInputStream::available()");
 }
 
-long long
+int
 sk::io::AbstractInputStream::
-skip(long long number)
+skip(int number)
 {
   throw sk::util::UnsupportedOperationException("sk::io::AbstractInputStream::skip()");
 }

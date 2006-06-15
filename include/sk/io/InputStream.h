@@ -39,7 +39,7 @@ namespace sk {
         virtual void close() = 0;
 
         /// Skips over and discards n bytes of data from this input stream.
-        virtual long long skip(long long number) = 0;
+        virtual int skip(int number) = 0;
 
         /// Returns the number of bytes that can be read (or skipped over)
         /// from this input stream without blocking by the next caller of a
