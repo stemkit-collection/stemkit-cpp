@@ -8,20 +8,34 @@
 #ifndef _SK_IO_DATAINPUTSTREAM_
 #define _SK_IO_DATAINPUTSTREAM_
 
-#include <sk/util/Object.h>
+#include <sk/io/DelegatingInputStream.h>
+#include <sk/io/DataInput.h>
 
 namespace sk {
   namespace io {
     class DataInputStream
-      : public virtual sk::util::Object 
+      : public sk::io::DelegatingInputStream,
+        public virtual sk::io::DataInput
     {
       public:
-        DataInputStream();
+        DataInputStream(sk::io::InputStream& stream);
         virtual ~DataInputStream();
         
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
         
+        // sk::io::DataInput implementation.
+        int readInt();
+        long long readLong();
+        short readShort();
+        char readChar();
+        double readDouble();
+        float readFloat();
+        int skipBytes(int number);
+        const sk::util::String readLine();
+        std::vector<char>& readFully(std::vector<char>& buffer, int number);
+        std::vector<char> readFully(int number);
+
       private:
         DataInputStream(const DataInputStream& other);
         DataInputStream& operator = (const DataInputStream& other);

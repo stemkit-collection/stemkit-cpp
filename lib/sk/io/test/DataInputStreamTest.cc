@@ -6,6 +6,9 @@
 */
 
 #include "DataInputStreamTest.h"
+#include <sk/io/DataInputStream.h>
+#include <sk/io/ByteArrayInputStream.h>
+#include <sk/io/EOFException.h>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::io::test::DataInputStreamTest);
 
@@ -23,17 +26,23 @@ void
 sk::io::test::DataInputStreamTest::
 setUp()
 {
+  _bufferHolder.set(new std::vector<char>());
+  _inputStreamHolder.set(new sk::io::ByteArrayInputStream(_bufferHolder.get()));
+  _dataStreamHolder.set(new sk::io::DataInputStream(_inputStreamHolder.get()));
 }
 
 void
 sk::io::test::DataInputStreamTest::
 tearDown()
 {
+  _dataStreamHolder.clear();
+  _inputStreamHolder.clear();
+  _bufferHolder.clear();
 }
 
 void
 sk::io::test::DataInputStreamTest::
-testSimple()
+testReadFromEmpty()
 {
-  CPPUNIT_ASSERT_EQUAL(true, false);
+  CPPUNIT_ASSERT_THROW(stream().readChar(), sk::io::EOFException);
 }

@@ -6,6 +6,7 @@ objects =
   AbstractOutputStream.cc
   ByteArrayInputStream.cc
   ByteArrayOutputStream.cc
+  DelegatingInputStream.cc
   DelegatingOutputStream.cc
   DataInputStream.cc
   DataOutputStream.cc

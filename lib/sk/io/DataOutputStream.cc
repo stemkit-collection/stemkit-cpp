@@ -29,29 +29,34 @@ getClass() const
   return sk::util::Class("sk::io::DataOutputStream");
 }
 
+namespace {
+  template<class T>
+  void writeByteNumber(sk::io::DataOutput& stream, T& value, int length) {
+    for(int counter=length; counter ;counter--,value>>=8) {
+      stream.writeChar(char(value&0xff));
+    }
+  }
+}
+
 void 
 sk::io::DataOutputStream::
 writeInt(int value)
 {
-  for(int counter=4; counter ;counter--,value>>=8) {
-    writeChar(char(value&0xff));
-  }
+  writeByteNumber(*this, value, 4);
 }
 
 void 
 sk::io::DataOutputStream::
 writeLong(long long value)
 {
-  for(int counter=8; counter ;counter--,value>>=8) {
-    writeChar(char(value&0xff));
-  }
+  writeByteNumber(*this, value, 8);
 }
 
 void 
 sk::io::DataOutputStream::
 writeShort(short value)
 {
-  throw sk::util::UnsupportedOperationException("writeShort()");
+  writeByteNumber(*this, value, 2);
 }
 
 void 

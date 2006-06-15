@@ -40,7 +40,7 @@ namespace sk {
         virtual int skipBytes(int number) = 0;
 
         /// Reads the next line of text from the input stream.
-        virtual const util::String readLine() = 0;
+        virtual const sk::util::String readLine() = 0;
 
         /// Reads exactly number input bytes and stores them in the specified
         /// vector of chars. Blocks if the data is not yet available. Returns

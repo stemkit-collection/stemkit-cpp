@@ -14,7 +14,8 @@
 namespace sk {
   namespace io {
     class DataOutputStream
-      : public DelegatingOutputStream
+      : public DelegatingOutputStream,
+        public virtual sk::io::DataOutput
     {
       public:
         DataOutputStream(sk::io::OutputStream& stream);
