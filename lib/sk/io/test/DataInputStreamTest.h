@@ -24,6 +24,9 @@ namespace sk {
       {
         CPPUNIT_TEST_SUITE(sk::io::test::DataInputStreamTest);
           CPPUNIT_TEST(testReadFromEmpty);
+          CPPUNIT_TEST(testReadChar);
+          CPPUNIT_TEST(testReadLine);
+          CPPUNIT_TEST(testReadInt);
         CPPUNIT_TEST_SUITE_END();
         
         public:
@@ -33,6 +36,9 @@ namespace sk {
           void setUp();
           void tearDown();
           void testReadFromEmpty();
+          void testReadChar();
+          void testReadLine();
+          void testReadInt();
           
         private:
           DataInputStreamTest(const DataInputStreamTest& other);

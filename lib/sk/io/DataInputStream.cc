@@ -10,6 +10,10 @@
 #include <sk/util/UnsupportedOperationException.h>
 
 #include <sk/io/DataInputStream.h>
+#include <sk/io/EOFException.h>
+#include <sk/io/IOException.h>
+#include <errno.h>
+#include <sstream>
 
 sk::io::DataInputStream::
 DataInputStream(sk::io::InputStream& stream)
@@ -29,32 +33,49 @@ getClass() const
   return sk::util::Class("sk::io::DataInputStream");
 }
 
+#include <iostream>
+#include <iomanip>
+
+namespace {
+  template<class T>
+  T readBytesNumber(sk::io::DataInput& stream, int length) {
+    T value = 0;
+    for(int counter=0; counter<length ;counter++) {
+      value |= (int(stream.readChar()) & 0xff) << (8 * counter);
+    }
+    return value;
+  }
+}
+
 int 
 sk::io::DataInputStream::
 readInt()
 {
-  throw sk::util::UnsupportedOperationException("readInt()");
+  return readBytesNumber<int>(*this, 4);
 }
 
 long long 
 sk::io::DataInputStream::
 readLong()
 {
-  throw sk::util::UnsupportedOperationException("readLong()");
+  return readBytesNumber<long long>(*this, 8);
 }
 
 short 
 sk::io::DataInputStream::
 readShort()
 {
-  throw sk::util::UnsupportedOperationException("readShort()");
+  return readBytesNumber<short>(*this, 2);
 }
 
 char 
 sk::io::DataInputStream::
 readChar()
 {
-  return getInputStream().read();
+  char c;
+  readFully(&c, 1);
+
+  return c;
 }
 
 double 
@@ -82,19 +103,62 @@ const sk::util::String
 sk::io::DataInputStream::
 readLine()
 {
-  throw sk::util::UnsupportedOperationException("readLine()");
+  std::stringstream stream;
+  try {
+    while(true) {
+      char c = readChar();
+      stream << c;
+
+      if(c=='\n') {
+        break;
+      }
+    }
+  }
+  catch(const sk::io::EOFException& exception) {
+    if(stream.str().empty()) {
+      throw;
+    }
+  }
+  return stream.str();
 }
 
 std::vector<char>& 
 sk::io::DataInputStream::
 readFully(std::vector<char>& buffer, int number)
 {
-  throw sk::util::UnsupportedOperationException("readFully()");
+  buffer.resize(number<0 ? 0 : number, 0);
+  readFully(&buffer.front(), number);
+
+  return buffer;
 }
 
 std::vector<char> 
 sk::io::DataInputStream::
 readFully(int number)
 {
-  throw sk::util::UnsupportedOperationException("readFully()");
+  std::vector<char> buffer;
+  return readFully(buffer, number);
+}
+
+void 
+sk::io::DataInputStream::
+readFully(char* buffer, int length)
+{
+  sk::io::InputStream& stream = getInputStream();
+  int offset = 0;
+
+
+  while(offset < length) {
+    int n = stream.read(buffer, offset, length-offset);
+    if(n == 0) {
+      throw sk::io::EOFException();
+    }
+    if(n < 0) {
+      if(errno == EAGAIN) {
+        continue;
+      }
+      throw sk::io::IOException("Read failed");
+    }
+    offset += n;
+  }
 }

@@ -39,6 +39,8 @@ namespace sk {
       private:
         DataInputStream(const DataInputStream& other);
         DataInputStream& operator = (const DataInputStream& other);
+
+        void readFully(char* buffer, int length);
     };
   }
 }
