@@ -25,12 +25,8 @@ namespace sk {
         
         // sk::io::OutputStream implementation.
         int write(const char* buffer, int offset, int length);
+        using AbstractOutputStream::write;
         void close();
-
-        // sk::io::AbstractOutputStream delegation.
-        int write(const std::vector<char>& data, int offset);
-        int write(const std::vector<char>& data);
-        int write(char byte);
 
       private:
         ByteArrayOutputStream(const ByteArrayOutputStream& other);

@@ -27,9 +27,7 @@ namespace sk {
 
         // sk::io::InputStream implementation.
         int read(char* buffer, int offset, int length);
-        char read();
-        std::vector<char> read(int number);
-        std::vector<char>& read(std::vector<char>& buffer, int number);
+        using AbstractInputStream::read;
         void close();
         int available() const;
         bool markSupported() const;

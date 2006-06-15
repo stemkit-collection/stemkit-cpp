@@ -89,27 +89,6 @@ read(char* buffer, int offset, int length)
   return number;
 }
 
-char
-sk::io::ByteArrayInputStream::
-read()
-{
-  return AbstractInputStream::read();
-}
-
-std::vector<char> 
-sk::io::ByteArrayInputStream::
-read(int number)
-{
-  return AbstractInputStream::read(number);
-}
-
-std::vector<char>& 
-sk::io::ByteArrayInputStream::
-read(std::vector<char>& buffer, int number)
-{
-  return AbstractInputStream::read(buffer, number);
-}
-
 bool
 sk::io::ByteArrayInputStream::
 markSupported() const

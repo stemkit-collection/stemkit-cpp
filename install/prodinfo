@@ -23,7 +23,7 @@ product {
       system-set-user-group
     }
     filesets %w{
-      util sys cppunit
+      util sys io cppunit
     }
   }
 }
@@ -67,6 +67,42 @@ fileset {
     library 'lib' => 'sk.util'
   }
   symlink 'lib/libsk.util.so' => 'libsk.util.so.1'
+}
+
+fileset {
+  name 'io'
+
+  directory %w{
+    include/sk/io
+    lib
+  }
+  install.into('include/sk/io').source {
+    file 'include/sk/io' => %w{
+      AbstractInputStream.h
+      AbstractOutputStream.h
+      ByteArrayInputStream.h
+      ByteArrayOutputStream.h
+      DataInput.h
+      DataInputStream.h
+      DataOutput.h
+      DataOutputStream.h
+      DelegatingInputStream.h
+      DelegatingOutputStream.h
+      FileDescriptorInputStream.h
+      FileDescriptorOutputStream.h
+      FileInputStream.h
+      FileOutputStream.h
+      InputStream.h
+      OutputStream.h
+      IOException.h
+      EOFException.h
+    }
+  }
+
+  install.into('lib').binary {
+    library 'lib' => 'sk.io'
+  }
+  symlink 'lib/libsk.io.so' => 'libsk.io.so.1'
 }
 
 fileset {

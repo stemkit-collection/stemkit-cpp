@@ -43,27 +43,6 @@ write(const char* buffer, int offset, int length)
   return length;
 }
 
-int 
-sk::io::ByteArrayOutputStream::
-write(const std::vector<char>& data, int offset)
-{
-  return AbstractOutputStream::write(data, offset);
-}
-
-int 
-sk::io::ByteArrayOutputStream::
-write(const std::vector<char>& data)
-{
-  return AbstractOutputStream::write(data);
-}
-
-int 
-sk::io::ByteArrayOutputStream::
-write(char byte)
-{
-  return AbstractOutputStream::write(byte);
-}
-
 void
 sk::io::ByteArrayOutputStream::
 close()
