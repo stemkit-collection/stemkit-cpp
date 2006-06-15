@@ -55,6 +55,12 @@ sk::util::String::
 {
 }
 
+sk::util::String::
+operator const char * () const
+{
+  return getChars();
+}
+
 const sk::util::Class
 sk::util::String::
 getClass() const

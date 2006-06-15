@@ -41,6 +41,9 @@ namespace sk {
         /// Returns a representation of this string as a C string.
         const char* getChars() const;
 
+        /// Converts this string to a corresponding C string.
+        operator const char * () const;
+
         // sk::util::Object re-implementation.
         String& self();
         const String& self() const;

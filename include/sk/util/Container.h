@@ -9,22 +9,33 @@
 #define _SK_UTIL_CONTAINER_
 
 #include <sk/util/Object.h>
+#include <sk/util/String.h>
+#include <vector>
 
 namespace sk {
   namespace util {
     class Container
-      : public virtual sk::util::Object 
+      : public std::vector<char>,
+        public virtual sk::util::Object 
     {
       public:
         Container();
+        Container(int size);
+        Container(const char* buffer, int length);
+        Container(const std::string& string);
+        Container(const std::string& string, int number);
+        Container(const std::vector<char>& vector);
+        Container(const std::vector<char>& vector, int number);
         virtual ~Container();
+
+        bool isEmpty() const;
+        int size() const;
+        int length() const;
         
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
-        
-      private:
-        Container(const Container& other);
-        Container& operator = (const Container& other);
+        const sk::util::String inspect() const;
+        const sk::util::String toString() const;
     };
   }
 }

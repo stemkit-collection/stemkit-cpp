@@ -49,10 +49,6 @@ namespace sk {
               _stream << "\\\"";
               break;
             }
-            case '\0': {
-              _stream << "\\0";
-              break;
-            }
             default: {
               if(isprint(character)) {
                 _stream << character;

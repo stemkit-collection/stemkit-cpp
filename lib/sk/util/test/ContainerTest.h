@@ -18,7 +18,12 @@ namespace sk {
         : public CppUnit::TestFixture
       {
         CPPUNIT_TEST_SUITE(sk::util::test::ContainerTest);
-          CPPUNIT_TEST(testSimple);
+          CPPUNIT_TEST(testFromBuffer);
+          CPPUNIT_TEST(testFromSize);
+          CPPUNIT_TEST(testFromString);
+          CPPUNIT_TEST(testFromVector);
+          CPPUNIT_TEST(testFromAnother);
+          CPPUNIT_TEST(testEmpty);
         CPPUNIT_TEST_SUITE_END();
         
         public:
@@ -27,7 +32,12 @@ namespace sk {
           
           void setUp();
           void tearDown();
-          void testSimple();
+          void testFromBuffer();
+          void testFromSize();
+          void testFromString();
+          void testFromVector();
+          void testFromAnother();
+          void testEmpty();
           
         private:
           ContainerTest(const ContainerTest& other);

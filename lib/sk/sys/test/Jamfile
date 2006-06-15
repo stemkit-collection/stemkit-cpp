@@ -2,9 +2,9 @@
 test = sk-util-test ;
 
 test-objects = 
-  TracerTest.cc
-  ConfiguratorTest.cc
-  TrashDisposerTest.cc
+# TracerTest.cc
+# ConfiguratorTest.cc
+# TrashDisposerTest.cc
   TestSuite.cc
 ;
 
