@@ -27,7 +27,10 @@ int
 sk::io::AbstractOutputStream::
 write(const std::vector<char>& data, int offset)
 {
-  return write(&data.front(), offset, data.size());
+  if(offset < 0) {
+    offset = 0;
+  }
+  return write(&data.front(), offset, data.size()-offset);
 }
 
 int 

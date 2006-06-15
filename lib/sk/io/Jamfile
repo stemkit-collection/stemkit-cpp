@@ -6,8 +6,9 @@ objects =
   AbstractOutputStream.cc
   ByteArrayInputStream.cc
   ByteArrayOutputStream.cc
-#  DataInputStream.cc
-#  DataOutputStream.cc
+  DelegatingOutputStream.cc
+  DataInputStream.cc
+  DataOutputStream.cc
 #  FileDescriptorInputStream.cc
 #  FileDescriptorOutputStream.cc
 #  FileInputStream.cc

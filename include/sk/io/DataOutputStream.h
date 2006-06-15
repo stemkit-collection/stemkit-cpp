@@ -8,23 +8,34 @@
 #ifndef _SK_IO_DATAOUTPUTSTREAM_
 #define _SK_IO_DATAOUTPUTSTREAM_
 
-#include <sk/util/Object.h>
+#include <sk/io/DelegatingOutputStream.h>
+#include <sk/io/DataOutput.h>
 
 namespace sk {
   namespace io {
     class DataOutputStream
-      : public virtual sk::util::Object 
+      : public DelegatingOutputStream
     {
       public:
-        DataOutputStream();
+        DataOutputStream(sk::io::OutputStream& stream);
         virtual ~DataOutputStream();
         
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
         
+        void writeInt(int value);
+        void writeLong(long long value);
+        void writeShort(short value);
+        void writeDouble(double value);
+        void writeFloat(float value);
+        void writeChar(char value);
+        void writeChars(const std::string& value);
+        void writeFully(const std::vector<char>& value);
       private:
         DataOutputStream(const DataOutputStream& other);
         DataOutputStream& operator = (const DataOutputStream& other);
+
+        void writeFully(const char* buffer, int length);
     };
   }
 }

@@ -10,15 +10,22 @@
 
 #include <cppunit/TestFixture.h>
 #include <cppunit/extensions/HelperMacros.h>
+#include <sk/util/Holder.h>
+#include <vector>
 
 namespace sk {
   namespace io {
+    class OutputStream;
+    class DataOutputStream;
+
     namespace test {
       class DataOutputStreamTest
         : public CppUnit::TestFixture
       {
         CPPUNIT_TEST_SUITE(sk::io::test::DataOutputStreamTest);
-          CPPUNIT_TEST(testSimple);
+          CPPUNIT_TEST(testWriteChar);
+          CPPUNIT_TEST(testWriteChars);
+          CPPUNIT_TEST(testWriteInt);
         CPPUNIT_TEST_SUITE_END();
         
         public:
@@ -27,11 +34,23 @@ namespace sk {
           
           void setUp();
           void tearDown();
-          void testSimple();
+          void testWriteChar();
+          void testWriteChars();
+          void testWriteInt();
           
         private:
           DataOutputStreamTest(const DataOutputStreamTest& other);
           DataOutputStreamTest& operator = (const DataOutputStreamTest& other);
+
+          std::vector<char>& buffer() {
+            return _bufferHolder.get();
+          }
+          sk::io::DataOutputStream& stream() {
+            return _dataStreamHolder.get();
+          }
+          sk::util::Holder<std::vector<char> > _bufferHolder;
+          sk::util::Holder<sk::io::OutputStream> _outputStreamHolder;
+          sk::util::Holder<sk::io::DataOutputStream> _dataStreamHolder;
       };
     }
   }
