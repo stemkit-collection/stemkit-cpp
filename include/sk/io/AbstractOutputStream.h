@@ -18,6 +18,13 @@ namespace sk {
       public:
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
+
+        // sk::io::OutputStream implementation.
+        virtual int write(const char* buffer, int offset, int length) = 0;
+        int write(const std::vector<char>& data, int offset);
+        int write(const std::vector<char>& data);
+        int write(char byte);
+        void flush();
     };
   }
 }

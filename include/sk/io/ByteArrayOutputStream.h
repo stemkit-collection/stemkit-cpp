@@ -8,23 +8,36 @@
 #ifndef _SK_IO_BYTEARRAYOUTPUTSTREAM_
 #define _SK_IO_BYTEARRAYOUTPUTSTREAM_
 
-#include <sk/util/Object.h>
+#include <sk/io/AbstractOutputStream.h>
+#include <vector>
 
 namespace sk {
   namespace io {
     class ByteArrayOutputStream
-      : public virtual sk::util::Object 
+      : public sk::io::AbstractOutputStream
     {
       public:
-        ByteArrayOutputStream();
+        ByteArrayOutputStream(std::vector<char>& buffer);
         virtual ~ByteArrayOutputStream();
         
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
         
+        // sk::io::OutputStream implementation.
+        int write(const char* buffer, int offset, int length);
+        void close();
+
+        // sk::io::AbstractOutputStream delegation.
+        int write(const std::vector<char>& data, int offset);
+        int write(const std::vector<char>& data);
+        int write(char byte);
+
       private:
         ByteArrayOutputStream(const ByteArrayOutputStream& other);
         ByteArrayOutputStream& operator = (const ByteArrayOutputStream& other);
+
+        std::vector<char>& _buffer;
+        bool _closed;
     };
   }
 }

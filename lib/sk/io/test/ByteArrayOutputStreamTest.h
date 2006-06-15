@@ -18,7 +18,7 @@ namespace sk {
         : public CppUnit::TestFixture
       {
         CPPUNIT_TEST_SUITE(sk::io::test::ByteArrayOutputStreamTest);
-          CPPUNIT_TEST(testSimple);
+          CPPUNIT_TEST(testWriteSequential);
         CPPUNIT_TEST_SUITE_END();
         
         public:
@@ -27,7 +27,7 @@ namespace sk {
           
           void setUp();
           void tearDown();
-          void testSimple();
+          void testWriteSequential();
           
         private:
           ByteArrayOutputStreamTest(const ByteArrayOutputStreamTest& other);

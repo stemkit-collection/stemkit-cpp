@@ -16,3 +16,30 @@ getClass() const
 {
   return sk::util::Class("sk::io::AbstractOutputStream");
 }
+
+void 
+sk::io::AbstractOutputStream::
+flush()
+{
+}
+
+int 
+sk::io::AbstractOutputStream::
+write(const std::vector<char>& data, int offset)
+{
+  return write(&data.front(), offset, data.size());
+}
+
+int 
+sk::io::AbstractOutputStream::
+write(const std::vector<char>& data)
+{
+  return write(&data.front(), 0, data.size());
+}
+
+int 
+sk::io::AbstractOutputStream::
+write(char byte)
+{
+  return write(&byte, 0, 1);
+}

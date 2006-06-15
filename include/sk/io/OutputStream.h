@@ -40,7 +40,7 @@ namespace sk {
         virtual int write(const std::vector<char>& data) = 0;
 
         /// Writes the specified byte to this output stream.
-        virtual int write(int byte) = 0;
+        virtual int write(char byte) = 0;
     };
   }
 }

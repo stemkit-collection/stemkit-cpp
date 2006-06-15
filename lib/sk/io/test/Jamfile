@@ -3,7 +3,7 @@ test = sk-io-test ;
 
 test-objects = 
   ByteArrayInputStreamTest.cc
-# ByteArrayOutputStreamTest.cc
+  ByteArrayOutputStreamTest.cc
 # DataInputStreamTest.cc
 # DataOutputStreamTest.cc
 # FileDescriptorInputStreamTest.cc
