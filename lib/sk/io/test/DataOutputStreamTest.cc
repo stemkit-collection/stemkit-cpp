@@ -8,6 +8,7 @@
 #include "DataOutputStreamTest.h"
 #include <sk/io/DataOutputStream.h>
 #include <sk/io/ByteArrayOutputStream.h>
+#include <sk/util/inspect.h>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::io::test::DataOutputStreamTest);
 
@@ -72,9 +73,20 @@ void
 sk::io::test::DataOutputStreamTest::
 testWriteInt()
 {
-  stream().writeInt(1274);
+  stream().writeInt(0x4fa);
   CPPUNIT_ASSERT_EQUAL(4, int(buffer().size()));
+
+  CPPUNIT_ASSERT_EQUAL('\xFA', buffer()[0]);
+  CPPUNIT_ASSERT_EQUAL('\x04', buffer()[1]);
+  CPPUNIT_ASSERT_EQUAL('\x00', buffer()[2]);
+  CPPUNIT_ASSERT_EQUAL('\x00', buffer()[3]);
 
   stream().writeInt(15);
   CPPUNIT_ASSERT_EQUAL(8, int(buffer().size()));
+
+  CPPUNIT_ASSERT_EQUAL('\x0F', buffer()[4]);
+  CPPUNIT_ASSERT_EQUAL('\x00', buffer()[5]);
+  CPPUNIT_ASSERT_EQUAL('\x00', buffer()[6]);
+  CPPUNIT_ASSERT_EQUAL('\x00', buffer()[7]);
+
 }

@@ -58,7 +58,7 @@ namespace sk {
                 _stream << character;
               }
               else {
-                _stream << '\\' << std::oct << std::setw(3) << std::setfill('0');
+                _stream << "\\x" << std::hex << std::setw(2) << std::setfill('0') << std::uppercase;
                 _stream << (int(character) & 0xff);
               }
               break;

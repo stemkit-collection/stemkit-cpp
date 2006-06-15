@@ -33,8 +33,8 @@ void
 sk::io::DataOutputStream::
 writeInt(int value)
 {
-  for(int counter=4; counter ;counter--) {
-    writeChar(char(value>>8));
+  for(int counter=4; counter ;counter--,value>>=8) {
+    writeChar(char(value&0xff));
   }
 }
 
@@ -42,8 +42,8 @@ void
 sk::io::DataOutputStream::
 writeLong(long long value)
 {
-  for(int counter=8; counter ;counter--) {
-    writeChar(char(value>>8));
+  for(int counter=8; counter ;counter--,value>>=8) {
+    writeChar(char(value&0xff));
   }
 }
 
