@@ -16,7 +16,7 @@
 namespace sk {
   namespace io {
     class OutputStream;
-    class DataOutputStream;
+    class DataOutput;
 
     namespace test {
       class DataOutputStreamTest
@@ -45,12 +45,12 @@ namespace sk {
           std::vector<char>& buffer() {
             return _bufferHolder.get();
           }
-          sk::io::DataOutputStream& stream() {
+          sk::io::DataOutput& stream() {
             return _dataStreamHolder.get();
           }
           sk::util::Holder<std::vector<char> > _bufferHolder;
           sk::util::Holder<sk::io::OutputStream> _outputStreamHolder;
-          sk::util::Holder<sk::io::DataOutputStream> _dataStreamHolder;
+          sk::util::Holder<sk::io::DataOutput> _dataStreamHolder;
       };
     }
   }
