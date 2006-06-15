@@ -2,8 +2,10 @@
 library = sk.io ;
 
 objects = 
-#  ByteArrayInputStream.cc
-#  ByteArrayOutputStream.cc
+  AbstractInputStream.cc
+  AbstractOutputStream.cc
+  ByteArrayInputStream.cc
+  ByteArrayOutputStream.cc
 #  DataInputStream.cc
 #  DataOutputStream.cc
 #  FileDescriptorInputStream.cc

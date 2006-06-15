@@ -8,23 +8,40 @@
 #ifndef _SK_IO_BYTEARRAYINPUTSTREAM_
 #define _SK_IO_BYTEARRAYINPUTSTREAM_
 
-#include <sk/util/Object.h>
+#include <sk/io/AbstractInputStream.h>
+#include <sk/util/Holder.h>
+#include <vector>
 
 namespace sk {
   namespace io {
     class ByteArrayInputStream
-      : public virtual sk::util::Object 
+      : public sk::io::AbstractInputStream
     {
       public:
-        ByteArrayInputStream();
+        ByteArrayInputStream(const char* buffer, int size);
+        ByteArrayInputStream(const std::vector<char>& buffer);
         virtual ~ByteArrayInputStream();
         
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
+
+        // sk::io::InputStream implementation.
+        int read(char* buffer, int offset, int length);
+        char read();
+        std::vector<char> read(int number);
+        std::vector<char>& read(std::vector<char>& buffer, int number);
+        void close();
+        int available() const;
         
       private:
         ByteArrayInputStream(const ByteArrayInputStream& other);
         ByteArrayInputStream& operator = (const ByteArrayInputStream& other);
+
+        void reset();
+
+        sk::util::Holder<const std::vector<char> > _bufferHolder;
+        bool _closed;
+        int _cursor;
     };
   }
 }
