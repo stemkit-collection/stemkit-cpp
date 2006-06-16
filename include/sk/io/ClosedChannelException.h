@@ -5,18 +5,18 @@
  *  You must read and accept the license prior to use.
 */
 
-#ifndef _SK_IO_EOFEXCEPTION_
-#define _SK_IO_EOFEXCEPTION_
+#ifndef _SK_IO_CLOSEDCHANNELEXCEPTION_
+#define _SK_IO_CLOSEDCHANNELEXCEPTION_
 
 #include <sk/io/IOException.h>
 
 namespace sk {
   namespace io {
-    class EOFException
+    class ClosedChannelException
       : public sk::io::IOException
     {
       public:
-        EOFException();
+        ClosedChannelException();
         
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
@@ -24,4 +24,4 @@ namespace sk {
   }
 }
 
-#endif /* _SK_IO_EOFEXCEPTION_ */
+#endif /* _SK_IO_CLOSEDCHANNELEXCEPTION_ */

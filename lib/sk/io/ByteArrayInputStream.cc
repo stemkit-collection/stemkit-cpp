@@ -11,6 +11,7 @@
 #include <sk/io/ByteArrayInputStream.h>
 #include <sk/io/IOException.h>
 #include <sk/io/EOFException.h>
+#include <sk/io/ClosedChannelException.h>
 #include <algorithm>
 
 sk::io::ByteArrayInputStream::
@@ -75,7 +76,7 @@ sk::io::ByteArrayInputStream::
 read(char* buffer, int offset, int length)
 {
   if(_closed == true) {
-    throw IOException("Closed stream");
+    throw sk::io::ClosedChannelException();
   }
   int remaining = available();
   if(remaining == 0) {

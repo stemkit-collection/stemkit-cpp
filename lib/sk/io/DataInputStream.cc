@@ -11,8 +11,6 @@
 
 #include <sk/io/DataInputStream.h>
 #include <sk/io/EOFException.h>
-#include <sk/io/IOException.h>
-#include <errno.h>
 #include <sstream>
 
 sk::io::DataInputStream::
@@ -147,18 +145,7 @@ readFully(char* buffer, int length)
   sk::io::InputStream& stream = getInputStream();
   int offset = 0;
 
-
   while(offset < length) {
-    int n = stream.read(buffer, offset, length-offset);
-    if(n == 0) {
-      throw sk::io::EOFException();
-    }
-    if(n < 0) {
-      if(errno == EAGAIN) {
-        continue;
-      }
-      throw sk::io::IOException("Read failed");
-    }
-    offset += n;
+    offset += stream.read(buffer, offset, length-offset);
   }
 }

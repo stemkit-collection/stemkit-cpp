@@ -88,6 +88,7 @@ fileset {
       DataOutputStream.h
       DelegatingInputStream.h
       DelegatingOutputStream.h
+      FileDescriptor.h
       FileDescriptorInputStream.h
       FileDescriptorOutputStream.h
       FileInputStream.h
@@ -96,6 +97,7 @@ fileset {
       OutputStream.h
       IOException.h
       EOFException.h
+      ClosedChannelException.h
     }
   }
 

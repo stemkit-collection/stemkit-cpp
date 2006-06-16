@@ -11,7 +11,8 @@
 #include <sk/io/FileDescriptorInputStream.h>
 
 sk::io::FileDescriptorInputStream::
-FileDescriptorInputStream()
+FileDescriptorInputStream(int fd)
+  : _descriptor(fd)
 {
 }
 
@@ -25,4 +26,18 @@ sk::io::FileDescriptorInputStream::
 getClass() const
 {
   return sk::util::Class("sk::io::FileDescriptorInputStream");
+}
+
+void 
+sk::io::FileDescriptorInputStream::
+close()
+{
+  _descriptor.close();
+}
+
+int 
+sk::io::FileDescriptorInputStream::
+read(char* buffer, int offset, int length)
+{
+  return _descriptor.read(buffer, offset, length);
 }

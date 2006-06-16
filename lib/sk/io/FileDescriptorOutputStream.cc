@@ -11,7 +11,8 @@
 #include <sk/io/FileDescriptorOutputStream.h>
 
 sk::io::FileDescriptorOutputStream::
-FileDescriptorOutputStream()
+FileDescriptorOutputStream(int fd)
+  : _descriptor(fd)
 {
 }
 
@@ -25,4 +26,18 @@ sk::io::FileDescriptorOutputStream::
 getClass() const
 {
   return sk::util::Class("sk::io::FileDescriptorOutputStream");
+}
+
+void
+sk::io::FileDescriptorOutputStream::
+close()
+{
+  _descriptor.close();
+}
+
+int
+sk::io::FileDescriptorOutputStream::
+write(const char* buffer, int offset, int length)
+{
+  return _descriptor.write(buffer, offset, length);
 }

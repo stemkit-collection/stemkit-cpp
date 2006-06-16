@@ -8,23 +8,31 @@
 #ifndef _SK_IO_FILEDESCRIPTOROUTPUTSTREAM_
 #define _SK_IO_FILEDESCRIPTOROUTPUTSTREAM_
 
-#include <sk/util/Object.h>
+#include <sk/io/AbstractOutputStream.h>
+#include <sk/io/FileDescriptor.h>
 
 namespace sk {
   namespace io {
     class FileDescriptorOutputStream
-      : public virtual sk::util::Object 
+      : public AbstractOutputStream
     {
       public:
-        FileDescriptorOutputStream();
+        FileDescriptorOutputStream(int fd);
         virtual ~FileDescriptorOutputStream();
         
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
+
+        // sk::io::OutputStream implementation.
+        int write(const char* buffer, int offset, int length);
+        using AbstractOutputStream::write;
+        void close();
         
       private:
         FileDescriptorOutputStream(const FileDescriptorOutputStream& other);
         FileDescriptorOutputStream& operator = (const FileDescriptorOutputStream& other);
+
+        sk::io::FileDescriptor _descriptor;
     };
   }
 }

@@ -6,12 +6,14 @@ test-objects =
   ByteArrayOutputStreamTest.cc
   DataInputStreamTest.cc
   DataOutputStreamTest.cc
-# FileDescriptorInputStreamTest.cc
-# FileDescriptorOutputStreamTest.cc
+  FileDescriptorTest.cc
+  FileDescriptorInputStreamTest.cc
+  FileDescriptorOutputStreamTest.cc
 # FileInputStreamTest.cc
 # FileOutputStreamTest.cc
   IOExceptionTest.cc
   EOFExceptionTest.cc
+  ClosedChannelExceptionTest.cc
   TestSuite.cc
 ;
 

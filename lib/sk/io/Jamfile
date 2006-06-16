@@ -10,12 +10,14 @@ objects =
   DelegatingOutputStream.cc
   DataInputStream.cc
   DataOutputStream.cc
-#  FileDescriptorInputStream.cc
-#  FileDescriptorOutputStream.cc
-#  FileInputStream.cc
-#  FileOutputStream.cc
+  FileDescriptor.cc
+  FileDescriptorInputStream.cc
+  FileDescriptorOutputStream.cc
+  FileInputStream.cc
+  FileOutputStream.cc
   IOException.cc
   EOFException.cc
+  ClosedChannelException.cc
 ;
 
 make-library $(library) : $(objects) ;

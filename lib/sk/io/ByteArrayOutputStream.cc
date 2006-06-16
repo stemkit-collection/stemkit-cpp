@@ -10,6 +10,7 @@
 
 #include <sk/io/ByteArrayOutputStream.h>
 #include <sk/io/IOException.h>
+#include <sk/io/ClosedChannelException.h>
 
 sk::io::ByteArrayOutputStream::
 ByteArrayOutputStream(std::vector<char>& buffer)
@@ -37,7 +38,7 @@ write(const char* buffer, int offset, int length)
     return 0;
   }
   if(_closed == true) {
-    throw sk::io::IOException("Closed stream");
+    throw sk::io::ClosedChannelException();
   }
   _buffer.insert(_buffer.end(), buffer+offset, buffer+offset+length);
   return length;
