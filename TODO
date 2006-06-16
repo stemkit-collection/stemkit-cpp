@@ -1,5 +1,15 @@
+- Refactor sk::io::FileDescriptor to remove code duplication (in condition
+  checks).
 
-- Fix outstanding test failures.
+- Implement sk::util::ArrayList.
+
+- Implement sk::io::FileInputStream, sk::io::FileOutputStream.
+
+- Implement sk::sys::TrashDisposer
+
+- Implement sk::sys::Tracer
+
+- Implement sk::sys::Configurator
 
 - Add an IO class for handling pipes.
 

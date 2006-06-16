@@ -6,9 +6,7 @@ test-objects =
   ByteArrayOutputStreamTest.cc
   DataInputStreamTest.cc
   DataOutputStreamTest.cc
-  FileDescriptorTest.cc
-  FileDescriptorInputStreamTest.cc
-  FileDescriptorOutputStreamTest.cc
+  FileDescriptorStreamsTest.cc
 # FileInputStreamTest.cc
 # FileOutputStreamTest.cc
   IOExceptionTest.cc
