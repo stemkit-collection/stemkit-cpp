@@ -9,7 +9,7 @@
 #include <sk/io/DataInputStream.h>
 #include <sk/io/ByteArrayInputStream.h>
 #include <sk/io/EOFException.h>
-#include <sk/util/inspect.h>
+#include <sk/util/Container.h>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::io::test::DataInputStreamTest);
 
@@ -69,8 +69,7 @@ void
 sk::io::test::DataInputStreamTest::
 testReadLine()
 {
-  std::string s = "Hello, world!!!\nhe-he";
-  buffer().insert(buffer().begin(), s.begin(), s.end());
+  buffer() = sk::util::Container("Hello, world!!!\nhe-he");
 
   CPPUNIT_ASSERT_EQUAL(sk::util::String("Hello, world!!!\n"), stream().readLine());
   CPPUNIT_ASSERT_EQUAL(sk::util::String("he-he"), stream().readLine());

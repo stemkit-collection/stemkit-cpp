@@ -88,5 +88,4 @@ testWriteInt()
   CPPUNIT_ASSERT_EQUAL('\x00', buffer()[5]);
   CPPUNIT_ASSERT_EQUAL('\x00', buffer()[6]);
   CPPUNIT_ASSERT_EQUAL('\x00', buffer()[7]);
-
 }

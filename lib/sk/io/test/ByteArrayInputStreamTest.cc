@@ -8,6 +8,7 @@
 #include "ByteArrayInputStreamTest.h"
 #include <sk/io/ByteArrayInputStream.h>
 #include <sk/io/EOFException.h>
+#include <sk/util/Container.h>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::io::test::ByteArrayInputStreamTest);
 
@@ -93,8 +94,7 @@ void
 sk::io::test::ByteArrayInputStreamTest::
 testSkip()
 {
-  const char* s = "hello, world!!!";
-  std::vector<char> data(s, s + strlen(s));
+  sk::util::Container data("hello, world!!!");
   sk::io::ByteArrayInputStream stream(data);
 
   CPPUNIT_ASSERT_EQUAL(15, stream.available());
@@ -115,8 +115,7 @@ void
 sk::io::test::ByteArrayInputStreamTest::
 testMarkReset()
 {
-  const char* s = "hello, world!!!";
-  std::vector<char> data(s, s + strlen(s));
+  sk::util::Container data("hello, world!!!");
   sk::io::ByteArrayInputStream stream(data);
 
   CPPUNIT_ASSERT_EQUAL(15, stream.available());
