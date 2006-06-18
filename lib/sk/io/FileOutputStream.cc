@@ -7,11 +7,17 @@
 
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
-
 #include <sk/io/FileOutputStream.h>
 
 sk::io::FileOutputStream::
-FileOutputStream()
+FileOutputStream(const sk::io::File& file)
+  : sk::io::FileDescriptorOutputStream(file.writeDescriptor(false)), _file(file)
+{
+}
+
+sk::io::FileOutputStream::
+FileOutputStream(const sk::util::String& name, bool append)
+  : sk::io::FileDescriptorOutputStream(sk::io::File(name).writeDescriptor(append)), _file(name)
 {
 }
 
@@ -25,4 +31,11 @@ sk::io::FileOutputStream::
 getClass() const
 {
   return sk::util::Class("sk::io::FileOutputStream");
+}
+
+const sk::io::File&
+sk::io::FileOutputStream::
+getFile() const
+{
+  return _file;
 }

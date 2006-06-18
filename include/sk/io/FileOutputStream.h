@@ -8,23 +8,30 @@
 #ifndef _SK_IO_FILEOUTPUTSTREAM_
 #define _SK_IO_FILEOUTPUTSTREAM_
 
-#include <sk/util/Object.h>
+#include <sk/io/FileDescriptorOutputStream.h>
+#include <sk/io/File.h>
 
 namespace sk {
   namespace io {
     class FileOutputStream
-      : public virtual sk::util::Object 
+      : public sk::io::FileDescriptorOutputStream
     {
       public:
-        FileOutputStream();
+        FileOutputStream(const sk::io::File& file);
+        FileOutputStream(const sk::util::String& name);
+        FileOutputStream(const sk::util::String& name, bool append);
         virtual ~FileOutputStream();
+
+        const sk::io::File& getFile() const;
         
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
-        
+
       private:
         FileOutputStream(const FileOutputStream& other);
         FileOutputStream& operator = (const FileOutputStream& other);
+
+        sk::io::File _file;
     };
   }
 }

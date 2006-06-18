@@ -1,3 +1,4 @@
+# This comment is needed for tests.
 
 test = sk-io-test ;
 
@@ -6,9 +7,10 @@ test-objects =
   ByteArrayOutputStreamTest.cc
   DataInputStreamTest.cc
   DataOutputStreamTest.cc
+  FileDescriptorTest.cc
   FileDescriptorStreamsTest.cc
-# FileInputStreamTest.cc
-# FileOutputStreamTest.cc
+  FileTest.cc
+  FileStreamsTest.cc
   IOExceptionTest.cc
   EOFExceptionTest.cc
   ClosedChannelExceptionTest.cc

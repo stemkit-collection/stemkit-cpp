@@ -13,6 +13,7 @@ objects =
   FileDescriptor.cc
   FileDescriptorInputStream.cc
   FileDescriptorOutputStream.cc
+  File.cc
   FileInputStream.cc
   FileOutputStream.cc
   IOException.cc

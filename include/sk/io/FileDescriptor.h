@@ -17,6 +17,7 @@ namespace sk {
     {
       public:
         FileDescriptor(int fd);
+        FileDescriptor(const FileDescriptor& other);
         virtual ~FileDescriptor();
         
         void close();
@@ -27,7 +28,6 @@ namespace sk {
         const sk::util::Class getClass() const;
         
       private:
-        FileDescriptor(const FileDescriptor& other);
         FileDescriptor& operator = (const FileDescriptor& other);
 
         int _fd;

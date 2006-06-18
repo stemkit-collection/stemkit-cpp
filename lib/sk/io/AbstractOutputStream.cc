@@ -9,6 +9,7 @@
 #include <sk/util/String.h>
 
 #include <sk/io/AbstractOutputStream.h>
+#include <sk/io/IOException.h>
 
 const sk::util::Class
 sk::io::AbstractOutputStream::
@@ -30,14 +31,18 @@ write(const std::vector<char>& data, int offset)
   if(offset < 0) {
     offset = 0;
   }
-  return write(&data.front(), offset, data.size()-offset);
+  int n = write(&data.front(), offset, data.size()-offset);
+  if(n < 0) {
+    throw sk::io::IOException("sk::io::AbstractOutputStream::write(vector, offset)");
+  }
+  return n;
 }
 
 int 
 sk::io::AbstractOutputStream::
 write(const std::vector<char>& data)
 {
-  return write(&data.front(), 0, data.size());
+  return write(data, 0);
 }
 
 int 

@@ -8,16 +8,21 @@
 #ifndef _SK_IO_FILEINPUTSTREAM_
 #define _SK_IO_FILEINPUTSTREAM_
 
-#include <sk/util/Object.h>
+#include <sk/io/FileDescriptorInputStream.h>
+#include <sk/util/String.h>
+#include <sk/io/File.h>
 
 namespace sk {
   namespace io {
     class FileInputStream
-      : public virtual sk::util::Object 
+      : public sk::io::FileDescriptorInputStream
     {
       public:
-        FileInputStream();
+        FileInputStream(const sk::io::File& file);
+        FileInputStream(const sk::util::String& name);
         virtual ~FileInputStream();
+
+        const sk::io::File& getFile() const;
         
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
@@ -25,6 +30,8 @@ namespace sk {
       private:
         FileInputStream(const FileInputStream& other);
         FileInputStream& operator = (const FileInputStream& other);
+
+        sk::io::File _file;
     };
   }
 }

@@ -17,6 +17,12 @@ FileDescriptorOutputStream(int fd)
 }
 
 sk::io::FileDescriptorOutputStream::
+FileDescriptorOutputStream(const sk::io::FileDescriptor& descriptor)
+  : _descriptor(descriptor)
+{
+}
+
+sk::io::FileDescriptorOutputStream::
 ~FileDescriptorOutputStream()
 {
 }

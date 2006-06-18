@@ -17,6 +17,12 @@ FileDescriptorInputStream(int fd)
 }
 
 sk::io::FileDescriptorInputStream::
+FileDescriptorInputStream(const sk::io::FileDescriptor& descriptor)
+  : _descriptor(descriptor)
+{
+}
+
+sk::io::FileDescriptorInputStream::
 ~FileDescriptorInputStream()
 {
 }

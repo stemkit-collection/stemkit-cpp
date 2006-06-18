@@ -18,6 +18,7 @@ namespace sk {
     {
       public:
         FileDescriptorInputStream(int fd);
+        FileDescriptorInputStream(const sk::io::FileDescriptor& descriptor);
         virtual ~FileDescriptorInputStream();
         
         // sk::util::Object re-implementation.

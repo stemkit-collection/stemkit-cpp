@@ -5,8 +5,8 @@
  *  You must read and accept the license prior to use.
 */
 
-#ifndef _SK_IO_TEST_FILEOUTPUTSTREAMTEST_
-#define _SK_IO_TEST_FILEOUTPUTSTREAMTEST_
+#ifndef _SK_IO_TEST_FILETEST_
+#define _SK_IO_TEST_FILETEST_
 
 #include <cppunit/TestFixture.h>
 #include <cppunit/extensions/HelperMacros.h>
@@ -14,27 +14,31 @@
 namespace sk {
   namespace io {
     namespace test {
-      class FileOutputStreamTest
+      class FileTest
         : public CppUnit::TestFixture
       {
-        CPPUNIT_TEST_SUITE(sk::io::test::FileOutputStreamTest);
-          CPPUNIT_TEST(testSimple);
+        CPPUNIT_TEST_SUITE(sk::io::test::FileTest);
+          CPPUNIT_TEST(testOpenRead);
+          CPPUNIT_TEST(testOpenUnexistent);
+          CPPUNIT_TEST(testOpenWrite);
         CPPUNIT_TEST_SUITE_END();
         
         public:
-          FileOutputStreamTest();
-          virtual ~FileOutputStreamTest();
+          FileTest();
+          virtual ~FileTest();
           
           void setUp();
           void tearDown();
-          void testSimple();
+          void testOpenRead();
+          void testOpenUnexistent();
+          void testOpenWrite();
           
         private:
-          FileOutputStreamTest(const FileOutputStreamTest& other);
-          FileOutputStreamTest& operator = (const FileOutputStreamTest& other);
+          FileTest(const FileTest& other);
+          FileTest& operator = (const FileTest& other);
       };
     }
   }
 }
 
-#endif /* _SK_IO_TEST_FILEOUTPUTSTREAMTEST_ */
+#endif /* _SK_IO_TEST_FILETEST_ */

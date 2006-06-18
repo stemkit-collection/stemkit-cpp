@@ -11,7 +11,14 @@
 #include <sk/io/FileInputStream.h>
 
 sk::io::FileInputStream::
-FileInputStream()
+FileInputStream(const sk::io::File& file)
+  : sk::io::FileDescriptorInputStream(file.readDescriptor()), _file(file)
+{
+}
+
+sk::io::FileInputStream::
+FileInputStream(const sk::util::String& name)
+  : sk::io::FileDescriptorInputStream(sk::io::File(name).readDescriptor()), _file(name)
 {
 }
 
@@ -25,4 +32,11 @@ sk::io::FileInputStream::
 getClass() const
 {
   return sk::util::Class("sk::io::FileInputStream");
+}
+
+const sk::io::File&
+sk::io::FileInputStream::
+getFile() const
+{
+  return _file;
 }

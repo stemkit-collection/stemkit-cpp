@@ -94,7 +94,7 @@ read(std::vector<char>& buffer, int number)
     throw EOFException();
   }
   if(n<0) {
-    throw IOException("sk::io::AbstractInputStream::read(buffer, number)");
+    throw IOException("sk::io::AbstractInputStream::read(vector, number)");
   }
   buffer.resize(n);
   return buffer;

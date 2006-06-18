@@ -20,6 +20,15 @@ FileDescriptor(int fd)
 }
 
 sk::io::FileDescriptor::
+FileDescriptor(const sk::io::FileDescriptor& other)
+  : _fd(::dup(other._fd))
+{
+  if(_fd < 0) {
+    throw sk::io::IOException("Dup failed");
+  }
+}
+
+sk::io::FileDescriptor::
 ~FileDescriptor()
 {
   close();
