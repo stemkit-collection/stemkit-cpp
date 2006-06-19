@@ -62,3 +62,14 @@ testDescriptorsSame()
 
   CPPUNIT_ASSERT_EQUAL(stream.getFileDescriptor().getFileNumber(), stream.getFile().getFileDescriptor().getFileNumber());
 }
+
+void
+sk::io::test::FileStreamsTest::
+testAvailable()
+{
+  sk::io::FileInputStream stream("testdata");
+
+  CPPUNIT_ASSERT_EQUAL(off_t(81), stream.available());
+  CPPUNIT_ASSERT_EQUAL(20, stream.skip(20));
+  CPPUNIT_ASSERT_EQUAL(off_t(61), stream.available());
+}

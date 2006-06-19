@@ -12,6 +12,8 @@
 #include <sk/io/IOException.h>
 #include <sk/io/ClosedChannelException.h>
 #include <fcntl.h>
+#include <unistd.h>
+#include <sys/stat.h>
 
 sk::io::File::
 File(const sk::io::File& other)
@@ -131,4 +133,36 @@ numericMode(const sk::util::String& mode)
     return O_RDWR | O_APPEND | O_CREAT;
   }
   throw sk::io::IOException("Bad open mode");
+}
+
+off_t
+sk::io::File::
+position() const
+{
+  off_t n = lseek(getFileDescriptor().getFileNumber(), 0, SEEK_CUR);
+  if(n == -1) {
+    throw sk::io::IOException("lseek() failed");
+  }
+  return n;
+}
+
+off_t
+sk::io::File::
+size() const
+{
+  return stat().st_size;
+}
+
+struct ::stat&
+sk::io::File::
+stat() const
+{
+  if(_statHolder.isEmpty() == true) {
+    _statHolder.set(new struct stat);
+    int n = fstat(getFileDescriptor().getFileNumber(), &_statHolder.get());
+    if(n == -1) {
+      throw sk::io::IOException("fstat() failed");
+    }
+  }
+  return _statHolder.get();
 }

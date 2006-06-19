@@ -13,6 +13,8 @@
 #include <sk/util/String.h>
 #include <sk/io/FileDescriptor.h>
 
+struct stat;
+
 namespace sk {
   namespace io {
     class File
@@ -30,6 +32,8 @@ namespace sk {
         const sk::util::String getName() const;
         sk::io::FileDescriptor& getFileDescriptor() const;
         void close();
+        off_t size() const;
+        off_t position() const;
         
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
@@ -40,9 +44,11 @@ namespace sk {
         void open(const sk::util::String& mode, int permissions);
         void open(int mode, int permissions);
         int numericMode(const sk::util::String& mode);
+        struct ::stat& stat() const;
 
         sk::util::String _name;
         sk::util::Holder<sk::io::FileDescriptor> _descriptorHolder;
+        mutable sk::util::Holder<struct ::stat> _statHolder;
     };
   }
 }

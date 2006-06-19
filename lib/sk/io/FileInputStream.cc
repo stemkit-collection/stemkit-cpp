@@ -33,3 +33,10 @@ getClass() const
 {
   return sk::util::Class("sk::io::FileInputStream");
 }
+
+off_t
+sk::io::FileInputStream::
+available() const
+{
+  return getFile().size() - getFile().position();
+}

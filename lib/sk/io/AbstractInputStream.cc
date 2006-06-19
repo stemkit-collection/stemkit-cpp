@@ -48,11 +48,23 @@ available() const
   throw sk::util::UnsupportedOperationException("sk::io::AbstractInputStream::available()");
 }
 
+/* 
+ * Most ineffective implementation. It is to be refined in derrived classes.
+*/
 int
 sk::io::AbstractInputStream::
 skip(int number)
 {
-  throw sk::util::UnsupportedOperationException("sk::io::AbstractInputStream::skip()");
+  int counter;
+  for(counter=0; counter<number ;counter++) {
+    try {
+      read();
+    }
+    catch(const sk::io::EOFException& exception) {
+      break;
+    }
+  }
+  return counter;
 }
 
 char
