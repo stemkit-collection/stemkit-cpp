@@ -39,7 +39,7 @@ sk::io::test::FileTest::
 testOpenRead()
 {
   sk::io::File file("Jamfile");
-  sk::io::FileDescriptor descriptor = file.readDescriptor();
+  sk::io::FileDescriptor descriptor = file.getFileDescriptor();
 
   char c;
   CPPUNIT_ASSERT_EQUAL(1, descriptor.read(&c, 0, 1));
@@ -50,14 +50,12 @@ void
 sk::io::test::FileTest::
 testOpenUnexistent()
 {
-  sk::io::File file("NO_SUCH_FILE");
-  CPPUNIT_ASSERT_THROW(file.readDescriptor(), sk::io::IOException);
+  CPPUNIT_ASSERT_THROW(sk::io::File("NO_SUCH_FILE"), sk::io::IOException);
 }
 
 void
 sk::io::test::FileTest::
 testOpenWrite()
 {
-  sk::io::File file("Jamfile");
-  CPPUNIT_ASSERT_NO_THROW(file.writeDescriptor(true));
+  CPPUNIT_ASSERT_NO_THROW(sk::io::File("Jamfile", "a"));
 }

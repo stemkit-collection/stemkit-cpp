@@ -35,7 +35,7 @@ namespace sk {
 template<class Stream>
 sk::io::FileStreamCoupler<Stream>::
 FileStreamCoupler(std::auto_ptr<sk::io::File> file_auto_ptr)
-  : Stream(file_auto_ptr.get()->getFileDescriptor()), _fileHolder(file_auto_ptr.release())
+  : Stream(file_auto_ptr.get()->getFileDescriptor().getFileNumber()), _fileHolder(file_auto_ptr.release())
 {
 }
 

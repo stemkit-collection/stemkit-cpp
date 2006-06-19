@@ -9,12 +9,13 @@
 #define _SK_IO_FILEOUTPUTSTREAM_
 
 #include <sk/io/FileDescriptorOutputStream.h>
+#include <sk/io/FileStreamCoupler.h>
 #include <sk/io/File.h>
 
 namespace sk {
   namespace io {
     class FileOutputStream
-      : public sk::io::FileDescriptorOutputStream
+      : public FileStreamCoupler<FileDescriptorOutputStream>
     {
       public:
         FileOutputStream(const sk::io::File& file);
@@ -22,16 +23,12 @@ namespace sk {
         FileOutputStream(const sk::util::String& name, bool append);
         virtual ~FileOutputStream();
 
-        const sk::io::File& getFile() const;
-        
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
 
       private:
         FileOutputStream(const FileOutputStream& other);
         FileOutputStream& operator = (const FileOutputStream& other);
-
-        sk::io::File _file;
     };
   }
 }

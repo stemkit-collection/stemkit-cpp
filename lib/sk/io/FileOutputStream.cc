@@ -11,13 +11,19 @@
 
 sk::io::FileOutputStream::
 FileOutputStream(const sk::io::File& file)
-  : sk::io::FileDescriptorOutputStream(file.writeDescriptor(false)), _file(file)
+  : FileStreamCoupler<FileDescriptorOutputStream>(std::auto_ptr<File>(new File(file)))
+{
+}
+
+sk::io::FileOutputStream::
+FileOutputStream(const sk::util::String& name)
+  : FileStreamCoupler<FileDescriptorOutputStream>(std::auto_ptr<File>(new File(name, "w")))
 {
 }
 
 sk::io::FileOutputStream::
 FileOutputStream(const sk::util::String& name, bool append)
-  : sk::io::FileDescriptorOutputStream(sk::io::File(name).writeDescriptor(append)), _file(name)
+  : FileStreamCoupler<FileDescriptorOutputStream>(std::auto_ptr<File>(new File(name, (append ? "a" : "w"))))
 {
 }
 
@@ -31,11 +37,4 @@ sk::io::FileOutputStream::
 getClass() const
 {
   return sk::util::Class("sk::io::FileOutputStream");
-}
-
-const sk::io::File&
-sk::io::FileOutputStream::
-getFile() const
-{
-  return _file;
 }

@@ -103,3 +103,10 @@ write(const char* buffer, int offset, int length)
     return n;
   }
 }
+
+int
+sk::io::FileDescriptor::
+getFileNumber() const
+{
+  return _fd;
+}

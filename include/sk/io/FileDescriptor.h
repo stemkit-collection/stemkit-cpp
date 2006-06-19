@@ -19,6 +19,8 @@ namespace sk {
         FileDescriptor(int fd);
         FileDescriptor(const FileDescriptor& other);
         virtual ~FileDescriptor();
+
+        int getFileNumber() const;
         
         void close();
         int read(char* buffer, int offset, int length);

@@ -12,13 +12,13 @@
 
 sk::io::FileInputStream::
 FileInputStream(const sk::io::File& file)
-  : sk::io::FileDescriptorInputStream(file.readDescriptor()), _file(file)
+  : FileStreamCoupler<FileDescriptorInputStream>(std::auto_ptr<File>(new File(file)))
 {
 }
 
 sk::io::FileInputStream::
 FileInputStream(const sk::util::String& name)
-  : sk::io::FileDescriptorInputStream(sk::io::File(name).readDescriptor()), _file(name)
+  : FileStreamCoupler<FileDescriptorInputStream>(std::auto_ptr<File>(new File(name, "r")))
 {
 }
 
@@ -32,11 +32,4 @@ sk::io::FileInputStream::
 getClass() const
 {
   return sk::util::Class("sk::io::FileInputStream");
-}
-
-const sk::io::File&
-sk::io::FileInputStream::
-getFile() const
-{
-  return _file;
 }

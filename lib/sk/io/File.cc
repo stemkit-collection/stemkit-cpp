@@ -10,12 +10,48 @@
 
 #include <sk/io/File.h>
 #include <sk/io/IOException.h>
+#include <sk/io/ClosedChannelException.h>
 #include <fcntl.h>
+
+sk::io::File::
+File(const sk::io::File& other)
+  : _name(other.getName()), _descriptorHolder(new sk::io::FileDescriptor(other.getFileDescriptor()))
+{
+}
 
 sk::io::File::
 File(const sk::util::String& name)
   : _name(name)
 {
+  open("r", 0);
+}
+
+sk::io::File::
+File(const sk::util::String& name, const sk::util::String& mode)
+  : _name(name)
+{
+  open(mode, 0644);
+}
+
+sk::io::File::
+File(const sk::util::String& name, const sk::util::String& mode, int permissions)
+  : _name(name)
+{
+  open(mode, permissions);
+}
+
+sk::io::File::
+File(const sk::util::String& name, int mode)
+  : _name(name)
+{
+  open(mode, 0644);
+}
+
+sk::io::File::
+File(const sk::util::String& name, int mode, int permissions)
+  : _name(name)
+{
+  open(mode, permissions);
 }
 
 sk::io::File::
@@ -37,24 +73,62 @@ getName() const
   return _name;
 }
 
-sk::io::FileDescriptor
+void
 sk::io::File::
-readDescriptor() const
+close()
 {
-  int fd = ::open(_name.getChars(), O_RDONLY);
-  if(fd < 0) {
-    throw sk::io::IOException("open() failed");
-  }
-  return sk::io::FileDescriptor(fd);
+  _descriptorHolder.clear();
 }
 
-sk::io::FileDescriptor
+sk::io::FileDescriptor&
 sk::io::File::
-writeDescriptor(bool append) const
+getFileDescriptor() const
 {
-  int fd = ::open(_name.getChars(), O_WRONLY | O_CREAT | (append ? O_APPEND : O_TRUNC));
+  if(_descriptorHolder.isEmpty() == true) {
+    throw sk::io::ClosedChannelException();
+  }
+  return _descriptorHolder.get();
+}
+
+void
+sk::io::File::
+open(const sk::util::String& mode, int permissions)
+{
+  open(numericMode(mode), permissions);
+}
+
+void
+sk::io::File::
+open(int mode, int permissions)
+{
+  int fd = ::open(_name.getChars(), mode, permissions);
   if(fd < 0) {
     throw sk::io::IOException("open() failed");
   }
-  return sk::io::FileDescriptor(fd);
+  _descriptorHolder.set(new sk::io::FileDescriptor(fd));
+}
+
+int
+sk::io::File::
+numericMode(const sk::util::String& mode)
+{
+  if(mode == "r") {
+    return O_RDONLY;
+  }
+  if(mode == "r+") {
+    return O_RDWR;
+  }
+  if(mode == "w") {
+    return O_WRONLY | O_TRUNC | O_CREAT;
+  }
+  if(mode == "w+") {
+    return O_RDWR | O_TRUNC | O_CREAT;
+  }
+  if(mode == "a") {
+    return O_WRONLY | O_APPEND | O_CREAT;
+  }
+  if(mode == "a+") {
+    return O_RDWR | O_APPEND | O_CREAT;
+  }
+  throw sk::io::IOException("Bad open mode");
 }
