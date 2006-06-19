@@ -38,7 +38,7 @@ void
 sk::io::test::FileTest::
 testOpenRead()
 {
-  sk::io::File file("Jamfile");
+  sk::io::File file("testdata");
   sk::io::FileDescriptor descriptor = file.getFileDescriptor();
 
   char c;
@@ -57,5 +57,5 @@ void
 sk::io::test::FileTest::
 testOpenWrite()
 {
-  CPPUNIT_ASSERT_NO_THROW(sk::io::File("Jamfile", "a"));
+  CPPUNIT_ASSERT_NO_THROW(sk::io::File("testdata", "a"));
 }

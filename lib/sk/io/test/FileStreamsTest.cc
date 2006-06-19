@@ -38,27 +38,27 @@ void
 sk::io::test::FileStreamsTest::
 testRead()
 {
-  sk::io::FileInputStream stream("Jamfile");
+  sk::io::FileInputStream stream("testdata");
   sk::io::DataInputStream data(stream);
 
   sk::util::String expected = "# This comment is needed for tests.\n";
   CPPUNIT_ASSERT_EQUAL(expected.inspect(), data.readLine().inspect());
-  CPPUNIT_ASSERT_EQUAL(sk::util::String("Jamfile"), stream.getFile().getName());
+  CPPUNIT_ASSERT_EQUAL(sk::util::String("testdata"), stream.getFile().getName());
 }
 
 void
 sk::io::test::FileStreamsTest::
 testWriteOpen()
 {
-  sk::io::FileOutputStream stream("Jamfile", true);
-  CPPUNIT_ASSERT_EQUAL(sk::util::String("Jamfile"), stream.getFile().getName());
+  sk::io::FileOutputStream stream("testdata", true);
+  CPPUNIT_ASSERT_EQUAL(sk::util::String("testdata"), stream.getFile().getName());
 }
 
 void
 sk::io::test::FileStreamsTest::
 testDescriptorsSame()
 {
-  sk::io::FileOutputStream stream("Jamfile");
+  sk::io::FileInputStream stream("testdata");
 
   CPPUNIT_ASSERT_EQUAL(stream.getFileDescriptor().getFileNumber(), stream.getFile().getFileDescriptor().getFileNumber());
 }
