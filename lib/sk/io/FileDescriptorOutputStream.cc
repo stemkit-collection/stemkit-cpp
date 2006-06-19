@@ -47,3 +47,10 @@ write(const char* buffer, int offset, int length)
 {
   return _descriptor.write(buffer, offset, length);
 }
+
+const sk::io::FileDescriptor&
+sk::io::FileDescriptorOutputStream::
+getFileDescriptor() const
+{
+  return _descriptor;
+}

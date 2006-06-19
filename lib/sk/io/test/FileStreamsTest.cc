@@ -53,3 +53,12 @@ testWriteOpen()
   sk::io::FileOutputStream stream("Jamfile", true);
   CPPUNIT_ASSERT_EQUAL(sk::util::String("Jamfile"), stream.getFile().getName());
 }
+
+void
+sk::io::test::FileStreamsTest::
+testDescriptorsSame()
+{
+  sk::io::FileOutputStream stream("Jamfile");
+
+  CPPUNIT_ASSERT_EQUAL(stream.getFileDescriptor().getFileNumber(), stream.getFile().getFileDescriptor().getFileNumber());
+}

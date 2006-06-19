@@ -47,3 +47,10 @@ read(char* buffer, int offset, int length)
 {
   return _descriptor.read(buffer, offset, length);
 }
+
+const sk::io::FileDescriptor&
+sk::io::FileDescriptorInputStream::
+getFileDescriptor() const
+{
+  return _descriptor;
+}

@@ -20,6 +20,7 @@ namespace sk {
         CPPUNIT_TEST_SUITE(sk::io::test::FileStreamsTest);
           CPPUNIT_TEST(testRead);
           CPPUNIT_TEST(testWriteOpen);
+          CPPUNIT_TEST(testDescriptorsSame);
         CPPUNIT_TEST_SUITE_END();
         
         public:
@@ -30,6 +31,7 @@ namespace sk {
           void tearDown();
           void testRead();
           void testWriteOpen();
+          void testDescriptorsSame();
           
         private:
           FileStreamsTest(const FileStreamsTest& other);
