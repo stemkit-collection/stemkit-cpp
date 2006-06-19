@@ -29,7 +29,7 @@ namespace sk {
         int read(char* buffer, int offset, int length);
         using AbstractInputStream::read;
         void close();
-        int available() const;
+        off_t available() const;
         bool markSupported() const;
         int skip(int number);
         void mark(int readlimit);

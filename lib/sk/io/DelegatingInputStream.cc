@@ -77,7 +77,7 @@ skip(int number)
   return _stream.skip(number);
 }
 
-int 
+off_t
 sk::io::DelegatingInputStream::
 available() const
 {

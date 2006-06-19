@@ -64,7 +64,7 @@ close()
 {
 }
 
-int 
+off_t
 sk::io::ByteArrayInputStream::
 available() const
 {
@@ -101,7 +101,7 @@ int
 sk::io::ByteArrayInputStream::
 skip(int number)
 {
-  int distance = std::min(number, available());
+  int distance = std::min(number, int(available()));
   _cursor += distance;
 
   return distance;
