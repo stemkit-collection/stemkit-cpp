@@ -25,7 +25,7 @@ sk::io::File::
 File(const sk::util::String& name)
   : _name(name)
 {
-  open("r", 0);
+  open(O_RDONLY, 0);
 }
 
 sk::io::File::
@@ -132,7 +132,7 @@ numericMode(const sk::util::String& mode)
   if(mode == "a+") {
     return O_RDWR | O_APPEND | O_CREAT;
   }
-  throw sk::io::IOException("Bad open mode");
+  throw sk::io::IOException("Bad mode " + mode.inspect() + " in open()");
 }
 
 off_t
