@@ -7,6 +7,7 @@
 
 #include "ArrayListTest.h"
 #include <sk/util/ArrayList.h>
+#include "Probe.h"
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::util::test::ArrayListTest);
 
@@ -36,5 +37,5 @@ void
 sk::util::test::ArrayListTest::
 testCreate()
 {
-  ArrayList<String> list;
+  ArrayList<Probe> list;
 }
