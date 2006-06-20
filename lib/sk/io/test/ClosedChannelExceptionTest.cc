@@ -41,7 +41,7 @@ testThrow()
     throw ClosedChannelException();
   }
   catch(const sk::util::Exception& exception) {
-    CPPUNIT_ASSERT_EQUAL(sk::util::String("ERROR:Input/output error:Closed channel"), exception.getMessage());
+    CPPUNIT_ASSERT_EQUAL(sk::util::String("ERROR:Input/output:Closed channel"), exception.getMessage());
     CPPUNIT_ASSERT_EQUAL(sk::util::String("sk::io::ClosedChannelException"), exception.getClass().getName());
   }
 }

@@ -12,7 +12,7 @@
 
 sk::io::IOException::
 IOException(const sk::util::String& message)
-  : sk::util::Exception(join("Input/output error", message))
+  : sk::util::Exception(join("Input/output", message))
 {
 }
 

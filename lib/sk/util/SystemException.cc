@@ -12,7 +12,7 @@
 
 sk::util::SystemException::
 SystemException(const sk::util::String& message)
-  : sk::util::Exception(join("System error", message))
+  : sk::util::Exception(join("System", message))
 {
 }
 

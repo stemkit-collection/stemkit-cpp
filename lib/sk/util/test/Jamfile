@@ -26,6 +26,7 @@ test-objects =
   NumberFormatExceptionTest.cc
   SystemExceptionTest.cc
   UnsupportedOperationExceptionTest.cc
+  InsufficientMemoryExceptionTest.cc
 ;
 
 use-project-library $(test) : sk.util sk.cppunit ;

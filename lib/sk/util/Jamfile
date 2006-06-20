@@ -17,6 +17,7 @@ objects =
   NumberFormatException.cc
   SystemException.cc
   UnsupportedOperationException.cc
+  InsufficientMemoryException.cc
 ;
 
 make-library $(library) : $(objects) ;

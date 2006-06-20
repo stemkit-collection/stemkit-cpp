@@ -46,6 +46,13 @@ fileset {
       ReferenceSlot.h
       PointerSlot.h
       Holder.h
+      Selector.h
+      Processor.h
+      Collection.h
+      List.h
+      AbstractCollection.h
+      AbstractList.h
+      ArrayList.h
     }
   }
 
@@ -61,6 +68,7 @@ fileset {
       NumberFormatException.h
       SystemException.h
       UnsupportedOperationException.h
+      InsufficientMemoryException.h
     }
   }
   install.into('lib').binary {
