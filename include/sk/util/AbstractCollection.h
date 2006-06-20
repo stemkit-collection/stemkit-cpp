@@ -8,23 +8,24 @@
 #ifndef _SK_UTIL_ABSTRACTCOLLECTION_
 #define _SK_UTIL_ABSTRACTCOLLECTION_
 
-#include <sk/util/Object.h>
+#include <sk/util/Collection.h>
 
 namespace sk {
   namespace util {
+    template<class T>
     class AbstractCollection
-      : public virtual sk::util::Object 
+      : public virtual sk::util::Collection<T>
     {
       public:
-        AbstractCollection();
         virtual ~AbstractCollection();
         
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
         
       private:
-        AbstractCollection(const AbstractCollection& other);
-        AbstractCollection& operator = (const AbstractCollection& other);
+        AbstractCollection();
+        AbstractCollection(const AbstractCollection<T>& other);
+        AbstractCollection<T>& operator = (const AbstractCollection<T>& other);
     };
   }
 }

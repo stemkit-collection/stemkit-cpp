@@ -8,12 +8,12 @@
 #ifndef _SK_UTIL_ARRAYLIST_
 #define _SK_UTIL_ARRAYLIST_
 
-#include <sk/util/Object.h>
+#include <sk/util/AbstractList.h>
 
 namespace sk {
   namespace util {
     class ArrayList
-      : public virtual sk::util::Object 
+      : public sk::util::AbstractList
     {
       public:
         ArrayList();
@@ -23,8 +23,8 @@ namespace sk {
         const sk::util::Class getClass() const;
         
       private:
-        ArrayList(const ArrayList& other);
-        ArrayList& operator = (const ArrayList& other);
+        ArrayList(const ArrayList<T>& other);
+        ArrayList<T>& operator = (const ArrayList<T>& other);
     };
   }
 }

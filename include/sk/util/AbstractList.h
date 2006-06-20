@@ -8,23 +8,26 @@
 #ifndef _SK_UTIL_ABSTRACTLIST_
 #define _SK_UTIL_ABSTRACTLIST_
 
-#include <sk/util/Object.h>
+#include <sk/util/AbstractCollection.h>
+#include <sk/util/List.h>
 
 namespace sk {
   namespace util {
+    template<class T>
     class AbstractList
-      : public virtual sk::util::Object 
+      : public sk::util::AbstractCollection<T>,
+        public virtual sk::util::List<T> 
     {
       public:
-        AbstractList();
         virtual ~AbstractList();
         
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
         
       private:
-        AbstractList(const AbstractList& other);
-        AbstractList& operator = (const AbstractList& other);
+        AbstractList();
+        AbstractList(const AbstractList<T>& other);
+        AbstractList<T>& operator = (const AbstractList<T>& other);
     };
   }
 }

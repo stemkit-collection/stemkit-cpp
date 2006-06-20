@@ -7,9 +7,6 @@ objects =
   String.cc
   Container.cc
   Integer.cc
-  AbstractCollection.cc
-  AbstractList.cc
-  ArrayList.cc
   Exception.cc
   IllegalStateException.cc
   IndexOutOfBoundsException.cc
