@@ -24,6 +24,9 @@ namespace sk {
         
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
+
+        // sk::util::Collection<T> implementation.
+        void clear();
         
       private:
         ArrayList(const ArrayList<T>& other);
@@ -57,6 +60,14 @@ sk::util::ArrayList<T>::
 getClass() const
 {
   return sk::util::Class("sk::util::ArrayList");
+}
+
+template<class T>
+void
+sk::util::ArrayList<T>::
+clear()
+{
+  _container.clear();
 }
 
 #endif /* _SK_UTIL_ARRAYLIST_ */
