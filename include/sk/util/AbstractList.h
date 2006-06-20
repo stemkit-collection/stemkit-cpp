@@ -35,7 +35,7 @@ namespace sk {
         bool addAll(int index, const Collection<T>& other);
         using AbstractCollection<T>::addAll;
 
-        bool moveAll(int index, const Collection<T>& other);
+        bool moveAll(int index, Collection<T>& other);
         using AbstractCollection<T>::moveAll;
 
         T& get(int index) const;
@@ -113,7 +113,7 @@ addAll(int index, const Collection<T>& other)
 template<class T>
 bool 
 sk::util::AbstractList<T>::
-moveAll(int index, const Collection<T>& other) 
+moveAll(int index, Collection<T>& other) 
 {
   throw UnsupportedOperationException("sk::util::AbstractList::moveAll(index, collection)");
 }

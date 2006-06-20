@@ -55,7 +55,7 @@ namespace sk {
         
         /// Moves all of the elements from the specified collection to this
         /// collection.
-        virtual bool moveAll(const Collection<T>& other) = 0;
+        virtual bool moveAll(Collection<T>& other) = 0;
 
         /// Removes all of the elements from this collection.
         virtual void clear() = 0;

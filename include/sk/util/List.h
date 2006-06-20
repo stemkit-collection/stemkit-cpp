@@ -24,7 +24,7 @@ namespace sk {
         virtual bool addAll(int index, const Collection<T>& other) = 0;
         using Collection<T>::addAll;
 
-        virtual bool moveAll(int index, const Collection<T>& other) = 0;
+        virtual bool moveAll(int index, Collection<T>& other) = 0;
         using Collection<T>::moveAll;
 
         virtual T& get(int index) const = 0;

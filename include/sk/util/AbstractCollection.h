@@ -37,7 +37,7 @@ namespace sk {
         bool add(T& object);
         bool add(T* object);
         bool addAll(const Collection<T>& other);
-        bool moveAll(const Collection<T>& other);
+        bool moveAll(Collection<T>& other);
         void clear();
         bool remove(const T& object);
         bool remove(const Selector<T>& selector);
@@ -168,7 +168,7 @@ addAll(const Collection<T>& other)
 template<class T>
 bool 
 sk::util::AbstractCollection<T>::
-moveAll(const Collection<T>& other) 
+moveAll(Collection<T>& other) 
 {
   throw UnsupportedOperationException("sk::util::AbstractCollection::moveAll(collection)");
 }
