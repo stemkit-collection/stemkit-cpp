@@ -12,19 +12,12 @@
 
 namespace sk {
   namespace util {
+    template<class T>
     class Selector
       : public virtual sk::util::Object 
     {
       public:
-        Selector();
-        virtual ~Selector();
-        
-        // sk::util::Object re-implementation.
-        const sk::util::Class getClass() const;
-        
-      private:
-        Selector(const Selector& other);
-        Selector& operator = (const Selector& other);
+        virtual bool assess(const T& object) const = 0;
     };
   }
 }

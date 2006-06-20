@@ -8,24 +8,46 @@
 #ifndef _SK_UTIL_LIST_
 #define _SK_UTIL_LIST_
 
-#include <sk/util/Object.h>
+#include <sk/util/Collection.h>
 
 namespace sk {
   namespace util {
+    template<class T>
     class List
-      : public virtual sk::util::Object 
+      : public virtual sk::util::Collection
     {
       public:
-        List();
-        virtual ~List();
+        virtual void add(int index, T& object) = 0;
+        virtual void add(int index, T* object) = 0;
+        using Collection<T>::add;
         
-        // sk::util::Object re-implementation.
-        const sk::util::Class getClass() const;
-        
-      private:
-        List(const List& other);
-        List& operator = (const List& other);
-    };
+        virtual bool addAll(int index, const Collection<T>& other) = 0;
+        using Collection<T>::addAll;
+
+        virtual bool moveAll(int index, const Collection<T>& other) = 0;
+        using Collection<T>::moveAll;
+
+        virtual T& get(int index) const = 0;
+        using Collection<T>::get;
+
+        virtual int indexOf(const T& object) const = 0;
+        virtual int indexOf(const Selector<T>& selector) const = 0;
+
+        virtual int lastIndexOf(const T& object) const = 0;
+        virtual int lastIndexOf(const Selector<T>& selector) const = 0;
+
+        virtual T& remove(int index) = 0;
+        using Collection<T>::remove;
+
+        virtual T* cutoff(int index) = 0;
+        using Collection<T>::cutoff;
+
+        virtual T* release(int index) = 0;
+        using Collection<T>::release;
+
+        virtual void set(int index, T& object) = 0;
+        virtual void set(int index, T* object) = 0;
+    }
   }
 }
 

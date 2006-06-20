@@ -12,19 +12,12 @@
 
 namespace sk {
   namespace util {
+    template<class T>
     class Processor
       : public virtual sk::util::Object 
     {
       public:
-        Processor();
-        virtual ~Processor();
-        
-        // sk::util::Object re-implementation.
-        const sk::util::Class getClass() const;
-        
-      private:
-        Processor(const Processor& other);
-        Processor& operator = (const Processor& other);
+        virtual void process(T& object) const = 0;
     };
   }
 }
