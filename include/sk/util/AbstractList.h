@@ -28,64 +28,36 @@ namespace sk {
         const sk::util::Class getClass() const;
         
         // sk::util::List<T> implementation.
-        void add(int index, T& object) {
-          throw UnsupportedOperationException("sk::util::AbstractList::add(index, object&)");
-        }
-        void add(int index, T* object) {
-          throw UnsupportedOperationException("sk::util::AbstractList::add(index, object*)");
-        }
+        void add(int index, T& object);
+        void add(int index, T* object);
         using AbstractCollection<T>::add;
         
-        bool addAll(int index, const Collection<T>& other) {
-          throw UnsupportedOperationException("sk::util::AbstractList::addAll(index, collection)");
-        }
+        bool addAll(int index, const Collection<T>& other);
         using AbstractCollection<T>::addAll;
 
-        bool moveAll(int index, const Collection<T>& other) {
-          throw UnsupportedOperationException("sk::util::AbstractList::moveAll(index, collection)");
-        }
+        bool moveAll(int index, const Collection<T>& other);
         using AbstractCollection<T>::moveAll;
 
-        T& get(int index) const {
-          throw UnsupportedOperationException("sk::util::AbstractList::get(index)");
-        }
+        T& get(int index) const;
         using AbstractCollection<T>::get;
 
-        int indexOf(const T& object) const {
-          throw UnsupportedOperationException("sk::util::AbstractList::indexOf(object)");
-        }
-        int indexOf(const Selector<T>& selector) const {
-          throw UnsupportedOperationException("sk::util::AbstractList::indexOf(selector)");
-        }
+        int indexOf(const T& object) const;
+        int indexOf(const Selector<T>& selector) const;
 
-        int lastIndexOf(const T& object) const {
-          throw UnsupportedOperationException("sk::util::AbstractList::lastIndexOf(object)");
-        }
-        int lastIndexOf(const Selector<T>& selector) const {
-          throw UnsupportedOperationException("sk::util::AbstractList::lastIndexOf(selector)");
-        }
+        int lastIndexOf(const T& object) const;
+        int lastIndexOf(const Selector<T>& selector) const;
 
-        T& remove(int index) {
-          throw UnsupportedOperationException("sk::util::AbstractList::remove(index)");
-        }
+        T& remove(int index);
         using AbstractCollection<T>::remove;
 
-        T* cutoff(int index) {
-          throw UnsupportedOperationException("sk::util::AbstractList::cutoff(index)");
-        }
+        T* cutoff(int index);
         using AbstractCollection<T>::cutoff;
 
-        T* release(int index) {
-          throw UnsupportedOperationException("sk::util::AbstractList::release(index)");
-        }
+        T* release(int index);
         using AbstractCollection<T>::release;
 
-        void set(int index, T& object) {
-          throw UnsupportedOperationException("sk::util::AbstractList::set(index, object&)");
-        }
-        void set(int index, T* object) {
-          throw UnsupportedOperationException("sk::util::AbstractList::set(index, object*)");
-        }
+        void set(int index, T& object);
+        void set(int index, T* object);
 
       private:
         AbstractList(const AbstractList<T>& other);
@@ -112,6 +84,118 @@ sk::util::AbstractList<T>::
 getClass() const
 {
   return sk::util::Class("sk::util::AbstractList");
+}
+
+template<class T>
+void 
+sk::util::AbstractList<T>::
+add(int index, T& object) 
+{
+  throw UnsupportedOperationException("sk::util::AbstractList::add(index, object&)");
+}
+
+template<class T>
+void 
+sk::util::AbstractList<T>::
+add(int index, T* object) 
+{
+  throw UnsupportedOperationException("sk::util::AbstractList::add(index, object*)");
+}
+
+template<class T>
+bool 
+sk::util::AbstractList<T>::
+addAll(int index, const Collection<T>& other) 
+{
+  throw UnsupportedOperationException("sk::util::AbstractList::addAll(index, collection)");
+}
+
+template<class T>
+bool 
+sk::util::AbstractList<T>::
+moveAll(int index, const Collection<T>& other) 
+{
+  throw UnsupportedOperationException("sk::util::AbstractList::moveAll(index, collection)");
+}
+
+template<class T>
+T& 
+sk::util::AbstractList<T>::
+get(int index) const 
+{
+  throw UnsupportedOperationException("sk::util::AbstractList::get(index)");
+}
+
+template<class T>
+int 
+sk::util::AbstractList<T>::
+indexOf(const T& object) const 
+{
+  throw UnsupportedOperationException("sk::util::AbstractList::indexOf(object)");
+}
+
+template<class T>
+int 
+sk::util::AbstractList<T>::
+indexOf(const Selector<T>& selector) const 
+{
+  throw UnsupportedOperationException("sk::util::AbstractList::indexOf(selector)");
+}
+
+template<class T>
+int 
+sk::util::AbstractList<T>::
+lastIndexOf(const T& object) const 
+{
+  throw UnsupportedOperationException("sk::util::AbstractList::lastIndexOf(object)");
+}
+
+template<class T>
+int 
+sk::util::AbstractList<T>::
+lastIndexOf(const Selector<T>& selector) const 
+{
+  throw UnsupportedOperationException("sk::util::AbstractList::lastIndexOf(selector)");
+}
+
+template<class T>
+T& 
+sk::util::AbstractList<T>::
+remove(int index) 
+{
+  throw UnsupportedOperationException("sk::util::AbstractList::remove(index)");
+}
+
+template<class T>
+T* 
+sk::util::AbstractList<T>::
+cutoff(int index) 
+{
+  throw UnsupportedOperationException("sk::util::AbstractList::cutoff(index)");
+}
+
+template<class T>
+T* 
+sk::util::AbstractList<T>::
+release(int index) 
+{
+  throw UnsupportedOperationException("sk::util::AbstractList::release(index)");
+}
+
+template<class T>
+void 
+sk::util::AbstractList<T>::
+set(int index, T& object) 
+{
+  throw UnsupportedOperationException("sk::util::AbstractList::set(index, object&)");
+}
+
+template<class T>
+void 
+sk::util::AbstractList<T>::
+set(int index, T* object) 
+{
+  throw UnsupportedOperationException("sk::util::AbstractList::set(index, object*)");
 }
 
 #endif /* _SK_UTIL_ABSTRACTLIST_ */
