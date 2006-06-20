@@ -6,6 +6,7 @@
 */
 
 #include "ArrayListTest.h"
+#include <sk/util/ArrayList.h>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::util::test::ArrayListTest);
 
@@ -33,7 +34,7 @@ tearDown()
 
 void
 sk::util::test::ArrayListTest::
-testSimple()
+testCreate()
 {
-  CPPUNIT_ASSERT_EQUAL(true, false);
+  ArrayList<String> list;
 }

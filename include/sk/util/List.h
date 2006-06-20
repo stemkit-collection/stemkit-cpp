@@ -14,7 +14,7 @@ namespace sk {
   namespace util {
     template<class T>
     class List
-      : public virtual sk::util::Collection
+      : public virtual sk::util::Collection<T>
     {
       public:
         virtual void add(int index, T& object) = 0;
@@ -47,7 +47,7 @@ namespace sk {
 
         virtual void set(int index, T& object) = 0;
         virtual void set(int index, T* object) = 0;
-    }
+    };
   }
 }
 

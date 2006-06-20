@@ -18,7 +18,7 @@ namespace sk {
         : public CppUnit::TestFixture
       {
         CPPUNIT_TEST_SUITE(sk::util::test::ArrayListTest);
-          CPPUNIT_TEST(testSimple);
+          CPPUNIT_TEST(testCreate);
         CPPUNIT_TEST_SUITE_END();
         
         public:
@@ -27,7 +27,7 @@ namespace sk {
           
           void setUp();
           void tearDown();
-          void testSimple();
+          void testCreate();
           
         private:
           ArrayListTest(const ArrayListTest& other);

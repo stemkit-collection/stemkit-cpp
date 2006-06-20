@@ -14,7 +14,7 @@ test-objects =
   HolderTest.cc
 # AbstractCollectionTest.cc
 # AbstractListTest.cc
-# ArrayListTest.cc
+  ArrayListTest.cc
   TestSuite.cc
   ExceptionTest.cc
   IllegalStateExceptionTest.cc

@@ -9,6 +9,7 @@
 #define _SK_UTIL_COLLECTION_
 
 #include <sk/util/Object.h>
+#include <sk/util/Holder.h>
 #include <sk/util/Selector.h>
 #include <sk/util/Processor.h>
 
@@ -65,7 +66,7 @@ namespace sk {
 
         /// Removes a single element from this collection for which the
         /// specified selector assesses to true.
-        virtual bool remove(const Select<T>& selector) = 0;
+        virtual bool remove(const Selector<T>& selector) = 0;
 
         virtual T* cutoff(const T& object) = 0;
         virtual T* cutoff(const Selector<T>& selector) = 0;
