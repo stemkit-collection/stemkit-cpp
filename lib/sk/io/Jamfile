@@ -16,6 +16,8 @@ objects =
   File.cc
   FileInputStream.cc
   FileOutputStream.cc
+  BufferedInputStream.cc
+  BufferedOutputStream.cc
   IOException.cc
   EOFException.cc
   ClosedChannelException.cc

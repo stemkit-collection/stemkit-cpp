@@ -110,6 +110,8 @@ fileset {
       FileStreamCoupler.cxx
       FileInputStream.h
       FileOutputStream.h
+      BufferedInputStream.h
+      BufferedOutputStream.h
       InputStream.h
       OutputStream.h
       IOException.h

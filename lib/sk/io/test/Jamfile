@@ -10,6 +10,8 @@ test-objects =
   FileDescriptorStreamsTest.cc
   FileTest.cc
   FileStreamsTest.cc
+  BufferedInputStreamTest.cc
+  BufferedOutputStreamTest.cc
   IOExceptionTest.cc
   EOFExceptionTest.cc
   ClosedChannelExceptionTest.cc
