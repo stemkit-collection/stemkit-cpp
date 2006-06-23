@@ -5,45 +5,13 @@
  *  You must read and accept the license prior to use.
 */
 
-#ifndef _SK_UTIL_HOLDER_
-#define _SK_UTIL_HOLDER_
+#ifndef _SK_UTIL_HOLDER_CXX_
+#define _SK_UTIL_HOLDER_CXX_
 
-#include <sk/util/ReferenceSlot.h>
-#include <sk/util/PointerSlot.h>
+#include <sk/util/Holder.hxx>
+#include <sk/util/ReferenceSlot.cxx>
+#include <sk/util/PointerSlot.cxx>
 #include <sk/util/MissingResourceException.h>
-
-namespace sk {
-  namespace util {
-    template<typename T>
-    class Holder
-    {
-      public:
-        Holder();
-        explicit Holder(T* object);
-        explicit Holder(T& object);
-        virtual ~Holder();
-
-        bool contains(const T& object) const;
-        bool isEmpty() const;
-        T& get() const;
-
-        Holder<T>& set(T* object);
-        Holder<T>& set(T& object);
-
-        bool remove();
-        void clear();
-
-        T* release();
-        
-      private:
-        Holder(const Holder<T>& other);
-        Holder<T>& operator = (const Holder<T>& other);
-        Holder<T>& set(const Holder<T>& other);
-
-        Slot<T>* _slot;
-    };
-  }
-}
 
 template<class T>
 sk::util::Holder<T>::
@@ -163,4 +131,4 @@ release()
   return object;
 }
 
-#endif /* _SK_UTIL_HOLDER_ */
+#endif /* _SK_UTIL_HOLDER_CXX_ */

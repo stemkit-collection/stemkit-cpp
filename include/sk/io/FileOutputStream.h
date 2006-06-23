@@ -9,7 +9,7 @@
 #define _SK_IO_FILEOUTPUTSTREAM_
 
 #include <sk/io/FileDescriptorOutputStream.h>
-#include <sk/io/FileStreamCoupler.h>
+#include <sk/io/FileStreamCoupler.hxx>
 #include <sk/io/File.h>
 
 namespace sk {

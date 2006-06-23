@@ -12,6 +12,7 @@
 #include <sk/io/DataInputStream.h>
 #include <sk/io/DataOutputStream.h>
 #include <sk/io/EOFException.h>
+#include <sk/util/Holder.cxx>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::io::test::FileDescriptorStreamsTest);
 

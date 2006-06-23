@@ -6,7 +6,7 @@
 */
 
 #include "ArrayListTest.h"
-#include <sk/util/ArrayList.h>
+#include <sk/util/ArrayList.cxx>
 #include "Probe.h"
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::util::test::ArrayListTest);

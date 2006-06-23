@@ -9,7 +9,7 @@
 #define _SK_IO_FILEINPUTSTREAM_
 
 #include <sk/io/FileDescriptorInputStream.h>
-#include <sk/io/FileStreamCoupler.h>
+#include <sk/io/FileStreamCoupler.hxx>
 #include <sk/util/String.h>
 #include <sk/io/File.h>
 

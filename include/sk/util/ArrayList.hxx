@@ -5,10 +5,10 @@
  *  You must read and accept the license prior to use.
 */
 
-#ifndef _SK_UTIL_ARRAYLIST_
-#define _SK_UTIL_ARRAYLIST_
+#ifndef _SK_UTIL_ARRAYLIST_HXX_
+#define _SK_UTIL_ARRAYLIST_HXX_
 
-#include <sk/util/AbstractList.h>
+#include <sk/util/AbstractList.hxx>
 #include <sk/util/Class.h>
 #include <deque>
 
@@ -41,33 +41,4 @@ namespace sk {
   }
 }
 
-template<class T>
-sk::util::ArrayList<T>::
-ArrayList()
-{
-}
-
-template<class T>
-sk::util::ArrayList<T>::
-~ArrayList()
-{
-  (*this).clear();
-}
-
-template<class T>
-const sk::util::Class
-sk::util::ArrayList<T>::
-getClass() const
-{
-  return sk::util::Class("sk::util::ArrayList");
-}
-
-template<class T>
-void
-sk::util::ArrayList<T>::
-clear()
-{
-  _container.clear();
-}
-
-#endif /* _SK_UTIL_ARRAYLIST_ */
+#endif /* _SK_UTIL_ARRAYLIST_HXX_ */

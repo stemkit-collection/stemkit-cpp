@@ -6,7 +6,8 @@
 */
 
 #include "ReferenceSlotTest.h"
-#include <sk/util/ReferenceSlot.h>
+#include <sk/util/ReferenceSlot.hxx>
+#include <sk/util/ReferenceSlot.cxx>
 #include <sk/util/UnsupportedOperationException.h>
 #include <sk/util/String.h>
 

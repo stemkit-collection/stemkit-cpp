@@ -9,7 +9,7 @@
 #define _SK_IO_BYTEARRAYINPUTSTREAM_
 
 #include <sk/io/AbstractInputStream.h>
-#include <sk/util/Holder.h>
+#include <sk/util/Holder.hxx>
 #include <vector>
 
 namespace sk {

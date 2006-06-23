@@ -6,7 +6,7 @@
 */
 
 #include "HolderTest.h"
-#include <sk/util/Holder.h>
+#include <sk/util/Holder.cxx>
 #include <sk/util/MissingResourceException.h>
 #include <sk/util/UnsupportedOperationException.h>
 #include "Probe.h"

@@ -9,6 +9,7 @@
 #include <sk/util/String.h>
 
 #include <sk/io/FileInputStream.h>
+#include <sk/io/FileStreamCoupler.cxx>
 
 sk::io::FileInputStream::
 FileInputStream(const sk::io::File& file)

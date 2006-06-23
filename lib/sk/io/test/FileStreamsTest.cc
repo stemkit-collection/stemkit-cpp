@@ -9,6 +9,7 @@
 #include <sk/io/FileInputStream.h>
 #include <sk/io/FileOutputStream.h>
 #include <sk/io/DataInputStream.h>
+#include <sk/io/FileStreamCoupler.cxx>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::io::test::FileStreamsTest);
 

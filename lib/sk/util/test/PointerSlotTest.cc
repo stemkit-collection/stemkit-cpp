@@ -6,7 +6,8 @@
 */
 
 #include "PointerSlotTest.h"
-#include <sk/util/PointerSlot.h>
+#include <sk/util/PointerSlot.hxx>
+#include <sk/util/PointerSlot.cxx>
 #include <sk/util/MissingResourceException.h>
 #include <sk/util/NullPointerException.h>
 #include <sk/util/String.h>

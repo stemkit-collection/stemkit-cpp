@@ -10,6 +10,7 @@
 #include <sk/io/ByteArrayInputStream.h>
 #include <sk/io/EOFException.h>
 #include <sk/util/Container.h>
+#include <sk/util/Holder.cxx>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::io::test::DataInputStreamTest);
 

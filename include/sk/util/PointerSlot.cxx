@@ -5,38 +5,12 @@
  *  You must read and accept the license prior to use.
 */
 
-#ifndef _SK_UTIL_POINTERSLOT_
-#define _SK_UTIL_POINTERSLOT_
+#ifndef _SK_UTIL_POINTERSLOT_CXX_
+#define _SK_UTIL_POINTERSLOT_CXX_
 
-#include <sk/util/Slot.h>
+#include <sk/util/PointerSlot.hxx>
 #include <sk/util/MissingResourceException.h>
 #include <sk/util/NullPointerException.h>
-
-namespace sk {
-  namespace util {
-    template<class T>
-    class PointerSlot
-      : public virtual sk::util::Slot<T>
-    {
-      public:
-        PointerSlot(T* object);
-        virtual ~PointerSlot();
-        
-        // sk::util::Slot re-implementation.
-        T& get() const;
-        T* deprive();
-        
-        // sk::util::Object re-implementation.
-        const sk::util::String inspect() const;
-        
-      private:
-        PointerSlot(const PointerSlot<T>& other);
-        PointerSlot<T>& operator = (const PointerSlot<T>& other);
-
-        T* _object;
-    };
-  }
-}
 
 template<class T>
 sk::util::PointerSlot<T>::
@@ -88,4 +62,4 @@ inspect() const
   return '*';
 }
 
-#endif /* _SK_UTIL_POINTERSLOT_ */
+#endif /* _SK_UTIL_POINTERSLOT_CXX_ */

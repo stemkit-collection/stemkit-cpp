@@ -9,6 +9,7 @@
 #include <sk/io/DataOutputStream.h>
 #include <sk/io/ByteArrayOutputStream.h>
 #include <sk/util/inspect.h>
+#include <sk/util/Holder.cxx>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::io::test::DataOutputStreamTest);
 

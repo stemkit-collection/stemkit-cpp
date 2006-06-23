@@ -7,6 +7,7 @@
 
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
+#include <sk/io/FileStreamCoupler.cxx>
 #include <sk/io/FileOutputStream.h>
 
 sk::io::FileOutputStream::

@@ -9,7 +9,7 @@
 #define _SK_IO_FILE_
 
 #include <sk/util/Object.h>
-#include <sk/util/Holder.h>
+#include <sk/util/Holder.hxx>
 #include <sk/util/String.h>
 #include <sk/io/FileDescriptor.h>
 

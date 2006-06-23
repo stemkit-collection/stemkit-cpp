@@ -10,7 +10,7 @@
 
 #include <cppunit/TestFixture.h>
 #include <cppunit/extensions/HelperMacros.h>
-#include <sk/util/Holder.h>
+#include <sk/util/Holder.hxx>
 
 namespace sk {
   namespace io {

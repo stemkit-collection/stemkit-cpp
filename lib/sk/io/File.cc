@@ -7,6 +7,7 @@
 
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
+#include <sk/util/Holder.cxx>
 
 #include <sk/io/File.h>
 #include <sk/io/IOException.h>

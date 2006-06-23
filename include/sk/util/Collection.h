@@ -9,7 +9,7 @@
 #define _SK_UTIL_COLLECTION_
 
 #include <sk/util/Object.h>
-#include <sk/util/Holder.h>
+#include <sk/util/Holder.hxx>
 #include <sk/util/Selector.h>
 #include <sk/util/Processor.h>
 

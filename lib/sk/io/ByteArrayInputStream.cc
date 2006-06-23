@@ -9,6 +9,7 @@
 #include <sk/util/String.h>
 
 #include <sk/io/ByteArrayInputStream.h>
+#include <sk/util/Holder.cxx>
 #include <sk/io/IOException.h>
 #include <sk/io/EOFException.h>
 #include <sk/io/ClosedChannelException.h>
