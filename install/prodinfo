@@ -43,16 +43,22 @@ fileset {
       Integer.h
       String.h
       Slot.h
-      ReferenceSlot.h
-      PointerSlot.h
-      Holder.h
+      ReferenceSlot.hxx
+      ReferenceSlot.cxx
+      PointerSlot.hxx
+      PointerSlot.cxx
+      Holder.hxx
+      Holder.cxx
       Selector.h
       Processor.h
       Collection.h
       List.h
-      AbstractCollection.h
-      AbstractList.h
-      ArrayList.h
+      AbstractCollection.hxx
+      AbstractCollection.cxx
+      AbstractList.hxx
+      AbstractList.cxx
+      ArrayList.hxx
+      ArrayList.cxx
     }
   }
 
@@ -100,7 +106,8 @@ fileset {
       FileDescriptor.h
       FileDescriptorInputStream.h
       FileDescriptorOutputStream.h
-      FileStreamCoupler.h
+      FileStreamCoupler.hxx
+      FileStreamCoupler.cxx
       FileInputStream.h
       FileOutputStream.h
       InputStream.h
