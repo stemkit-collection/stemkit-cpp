@@ -6,6 +6,9 @@
 */
 
 #include "BufferedOutputStreamTest.h"
+#include <sk/util/Holder.cxx>
+#include <sk/io/ByteArrayOutputStream.h>
+#include <sk/io/BufferedOutputStream.h>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::io::test::BufferedOutputStreamTest);
 
@@ -23,17 +26,51 @@ void
 sk::io::test::BufferedOutputStreamTest::
 setUp()
 {
+  _containerHolder.set(new sk::util::Container());
+  _outputHolder.set(new ByteArrayOutputStream(container()));
+  _streamHolder.set(new BufferedOutputStream(output()));
 }
 
 void
 sk::io::test::BufferedOutputStreamTest::
 tearDown()
 {
+  _streamHolder.clear();
+  _outputHolder.clear();
+  _containerHolder.clear();
 }
 
 void
 sk::io::test::BufferedOutputStreamTest::
-testSimple()
+testBuffer()
 {
-  CPPUNIT_ASSERT_EQUAL(true, false);
+  _streamHolder.set(new BufferedOutputStream(output(), 12));
+
+  stream().write(sk::util::Container("abcdefg"));
+  CPPUNIT_ASSERT_EQUAL(0, container().size());
+  stream().write(sk::util::Container("xxxxx"));
+  CPPUNIT_ASSERT_EQUAL(0, container().size());
+  stream().write('z');
+
+  CPPUNIT_ASSERT_EQUAL(12, container().size());
+  CPPUNIT_ASSERT_EQUAL(sk::util::String("abcdefgxxxxx").inspect(), container().inspect());
+
+  stream().write('z');
+  stream().flush();
+
+  CPPUNIT_ASSERT_EQUAL(14, container().size());
+  CPPUNIT_ASSERT_EQUAL(sk::util::String("abcdefgxxxxxzz").inspect(), container().inspect());
+}
+
+void
+sk::io::test::BufferedOutputStreamTest::
+testFlushOnClose()
+{
+  stream().write(sk::util::Container("abcdefg"));
+  CPPUNIT_ASSERT_EQUAL(0, container().size());
+
+  stream().close();
+
+  CPPUNIT_ASSERT_EQUAL(7, container().size());
+  CPPUNIT_ASSERT_EQUAL(sk::util::String("abcdefg").inspect(), container().inspect());
 }

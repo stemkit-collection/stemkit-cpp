@@ -9,6 +9,7 @@
 #define _SK_IO_BUFFEREDOUTPUTSTREAM_
 
 #include <sk/io/DelegatingOutputStream.h>
+#include <vector>
 
 namespace sk {
   namespace io {
@@ -22,12 +23,18 @@ namespace sk {
         
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
+
+        // sk::io::DelegatingOutputStream re-implemenation.
+        int write(const char* buffer, int offset, int size);
+        void flush();
+        void close();
         
       private:
         BufferedOutputStream(const BufferedOutputStream& other);
         BufferedOutputStream& operator = (const BufferedOutputStream& other);
 
         int _size;
+        std::vector<char> _buffer;
     };
   }
 }
