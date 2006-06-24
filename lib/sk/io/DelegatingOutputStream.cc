@@ -56,23 +56,3 @@ write(const char* buffer, int offset, int length)
   return _stream.write(buffer, offset, length);
 }
 
-int 
-sk::io::DelegatingOutputStream::
-write(const std::vector<char>& data, int offset)
-{
-  return _stream.write(data, offset);
-}
-
-int 
-sk::io::DelegatingOutputStream::
-write(const std::vector<char>& data)
-{
-  return _stream.write(data);
-}
-
-int 
-sk::io::DelegatingOutputStream::
-write(char byte)
-{
-  return _stream.write(byte);
-}

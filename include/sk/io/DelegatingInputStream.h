@@ -8,12 +8,12 @@
 #ifndef _SK_IO_DELEGATINGINPUTSTREAM_
 #define _SK_IO_DELEGATINGINPUTSTREAM_
 
-#include <sk/io/InputStream.h>
+#include <sk/io/AbstractInputStream.h>
 
 namespace sk {
   namespace io {
     class DelegatingInputStream
-      : public virtual sk::io::InputStream
+      : public virtual sk::io::AbstractInputStream
     {
       public:
         DelegatingInputStream(sk::io::InputStream& stream);
@@ -25,16 +25,14 @@ namespace sk {
         const sk::util::Class getClass() const;
         
         // sk::io::InputStream implementation.
-        char read();
-        int read(char* buffer, int offset, int length);
-        std::vector<char> read(int number);
-        std::vector<char>& read(std::vector<char>& buffer, int number);
         void close();
         int skip(int number);
         off_t available() const;
         bool markSupported() const;
         void mark(int readlimit);
         void reset();
+        int read(char* buffer, int offset, int length);
+        using AbstractInputStream::read;
         
       private:
         DelegatingInputStream(const DelegatingInputStream& other);

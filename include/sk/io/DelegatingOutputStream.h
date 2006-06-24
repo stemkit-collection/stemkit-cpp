@@ -8,12 +8,12 @@
 #ifndef _SK_IO_DELEGATINGOUTPUTSTREAM_
 #define _SK_IO_DELEGATINGOUTPUTSTREAM_
 
-#include <sk/io/OutputStream.h>
+#include <sk/io/AbstractOutputStream.h>
 
 namespace sk {
   namespace io {
     class DelegatingOutputStream
-      : public virtual sk::io::OutputStream
+      : public virtual sk::io::AbstractOutputStream
     {
       public:
         DelegatingOutputStream(sk::io::OutputStream& stream);
@@ -28,9 +28,8 @@ namespace sk {
         void close();
         void flush();
         int write(const char* buffer, int offset, int length);
-        int write(const std::vector<char>& data, int offset);
-        int write(const std::vector<char>& data);
-        int write(char byte);
+        using AbstractOutputStream::write;
+
       private:
         DelegatingOutputStream(const DelegatingOutputStream& other);
         DelegatingOutputStream& operator = (const DelegatingOutputStream& other);

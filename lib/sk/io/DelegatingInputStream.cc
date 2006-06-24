@@ -35,32 +35,11 @@ getInputStream() const
   return _stream;
 }
 
-char 
-sk::io::DelegatingInputStream::
-read()
-{
-  return _stream.read();
-}
-
 int 
 sk::io::DelegatingInputStream::
 read(char* buffer, int offset, int length)
 {
   return _stream.read(buffer, offset, length);
-}
-
-std::vector<char> 
-sk::io::DelegatingInputStream::
-read(int number)
-{
-  return _stream.read(number);
-}
-
-std::vector<char>& 
-sk::io::DelegatingInputStream::
-read(std::vector<char>& buffer, int number)
-{
-  return _stream.read(buffer, number);
 }
 
 void 
