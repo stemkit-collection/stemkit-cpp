@@ -49,7 +49,7 @@ testBuffer()
   stream().write(sk::util::Container("abcdefg"));
   CPPUNIT_ASSERT_EQUAL(0, container().size());
   stream().write(sk::util::Container("xxxxx"));
-  CPPUNIT_ASSERT_EQUAL(0, container().size());
+  CPPUNIT_ASSERT_EQUAL(12, container().size());
   stream().write('z');
 
   CPPUNIT_ASSERT_EQUAL(12, container().size());
@@ -73,4 +73,13 @@ testFlushOnClose()
 
   CPPUNIT_ASSERT_EQUAL(7, container().size());
   CPPUNIT_ASSERT_EQUAL(sk::util::String("abcdefg").inspect(), container().inspect());
+}
+
+void
+sk::io::test::BufferedOutputStreamTest::
+testWriteLargerChunk()
+{
+  _streamHolder.set(new BufferedOutputStream(output(), 4));
+  stream().write(sk::util::Container("123412345"));
+  CPPUNIT_ASSERT_EQUAL(8, container().size());
 }

@@ -24,6 +24,7 @@ namespace sk {
         CPPUNIT_TEST_SUITE(sk::io::test::BufferedOutputStreamTest);
           CPPUNIT_TEST(testBuffer);
           CPPUNIT_TEST(testFlushOnClose);
+          CPPUNIT_TEST(testWriteLargerChunk);
         CPPUNIT_TEST_SUITE_END();
         
         public:
@@ -34,6 +35,7 @@ namespace sk {
           void tearDown();
           void testBuffer();
           void testFlushOnClose();
+          void testWriteLargerChunk();
           
         private:
           BufferedOutputStreamTest(const BufferedOutputStreamTest& other);

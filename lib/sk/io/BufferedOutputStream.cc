@@ -11,6 +11,7 @@
 #include <sk/io/BufferedOutputStream.h>
 
 #include <algorithm>
+#include <iostream>
 
 sk::io::BufferedOutputStream::
 BufferedOutputStream(sk::io::OutputStream& stream)
@@ -48,9 +49,18 @@ write(const char* buffer, int offset, int size)
   }
   _buffer.insert(_buffer.end(), buffer+offset, buffer+offset+size);
 
-  if(_buffer.size() > _size) {
-    DelegatingOutputStream::write(&_buffer.front(), 0, _size);
-    _buffer.erase(_buffer.begin(), _buffer.begin() + _size);
+  int written = 0;
+  int buffer_size = _buffer.size();
+  
+  while((buffer_size - written) >= _size) {
+    int n = DelegatingOutputStream::write(&_buffer.front(), written, _size);
+    if(n == 0) {
+      break;
+    }
+    written += n;
+  }
+  if(written != 0) {
+    _buffer.erase(_buffer.begin(), _buffer.begin() + written);
   }
   return size;
 }
