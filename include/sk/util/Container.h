@@ -21,6 +21,7 @@ namespace sk {
       public:
         Container();
         Container(int size);
+        Container(const char* buffer);
         Container(const char* buffer, int length);
         Container(const std::string& string);
         Container(const std::string& string, int number);
@@ -31,6 +32,12 @@ namespace sk {
         bool isEmpty() const;
         int size() const;
         int length() const;
+
+        Container& operator += (const char* buffer);
+        Container& operator += (const std::string& string);
+        Container& operator += (const std::vector<char>& other);
+
+        Container& append(const std::vector<char>& other);
         
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;

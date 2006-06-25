@@ -66,7 +66,7 @@ flushChunks(int chunk_size)
     int remaining = buffer_size - written;
     int outstanding = (chunk_size == 0 ? remaining : chunk_size);
 
-    if(remaining < outstanding) {
+    if(outstanding == 0 || remaining < outstanding) {
       break;
     }
     int n = DelegatingOutputStream::write(&_buffer.front(), written, outstanding);

@@ -18,6 +18,8 @@ namespace sk {
     class OutputStream;
 
     namespace test {
+      class MockOutputStream;
+
       class BufferedOutputStreamTest
         : public CppUnit::TestFixture
       {
@@ -41,17 +43,13 @@ namespace sk {
           BufferedOutputStreamTest(const BufferedOutputStreamTest& other);
           BufferedOutputStreamTest& operator = (const BufferedOutputStreamTest& other);
 
-          sk::util::Container& container() {
-            return _containerHolder.get();
+          MockOutputStream& mock() {
+            return _mockHolder.get();
           }
           sk::io::OutputStream& stream() {
             return _streamHolder.get();
           }
-          sk::io::OutputStream& output() {
-            return _outputHolder.get();
-          }
-          sk::util::Holder<sk::util::Container> _containerHolder;
-          sk::util::Holder<sk::io::OutputStream> _outputHolder;
+          sk::util::Holder<MockOutputStream> _mockHolder;
           sk::util::Holder<sk::io::OutputStream> _streamHolder;
       };
     }

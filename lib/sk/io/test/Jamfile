@@ -2,6 +2,7 @@
 test = sk-io-test ;
 
 test-objects = 
+  MockOutputStream.cc
   ByteArrayInputStreamTest.cc
   ByteArrayOutputStreamTest.cc
   DataInputStreamTest.cc

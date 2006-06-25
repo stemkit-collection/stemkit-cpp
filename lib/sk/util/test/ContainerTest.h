@@ -24,6 +24,7 @@ namespace sk {
           CPPUNIT_TEST(testFromVector);
           CPPUNIT_TEST(testFromAnother);
           CPPUNIT_TEST(testEmpty);
+          CPPUNIT_TEST(testAccumulate);
         CPPUNIT_TEST_SUITE_END();
         
         public:
@@ -38,6 +39,7 @@ namespace sk {
           void testFromVector();
           void testFromAnother();
           void testEmpty();
+          void testAccumulate();
           
         private:
           ContainerTest(const ContainerTest& other);

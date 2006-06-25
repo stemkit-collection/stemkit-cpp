@@ -22,6 +22,12 @@ Container(const std::string& string)
 }
 
 sk::util::Container::
+Container(const char* buffer)
+  : std::vector<char>(buffer, buffer + strlen(buffer))
+{
+}
+
+sk::util::Container::
 Container(const char* buffer, int length)
   : std::vector<char>(buffer, (buffer ? buffer + (length<0 ? 0 : length) : 0))
 {
@@ -90,4 +96,35 @@ sk::util::Container::
 isEmpty() const
 {
   return empty();
+}
+
+sk::util::Container& 
+sk::util::Container::
+operator += (const std::vector<char>& other)
+{
+  return append(other);
+}
+
+sk::util::Container& 
+sk::util::Container::
+operator += (const char* buffer)
+{
+  return append(Container(buffer));
+}
+
+sk::util::Container& 
+sk::util::Container::
+operator += (const std::string& string)
+{
+  return append(Container(string));
+}
+
+sk::util::Container& 
+sk::util::Container::
+append(const std::vector<char>& other)
+{
+  std::vector<char>& self = *this;
+  self.insert(self.end(), other.begin(), other.end());
+
+  return *this;
 }

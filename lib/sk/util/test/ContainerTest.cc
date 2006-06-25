@@ -103,3 +103,16 @@ testEmpty()
   CPPUNIT_ASSERT_EQUAL(0, Container().size());
   CPPUNIT_ASSERT_EQUAL(0, Container(0).size());
 }
+
+void 
+sk::util::test::ContainerTest::
+testAccumulate()
+{
+  Container data = "abc";
+
+  data += "zzz";
+  data += "UUU";
+
+  CPPUNIT_ASSERT_EQUAL(9, data.size());
+  CPPUNIT_ASSERT_EQUAL(String("abczzzUUU").inspect(), data.inspect());
+}

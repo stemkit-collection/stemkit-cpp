@@ -7,8 +7,8 @@
 
 #include "BufferedOutputStreamTest.h"
 #include <sk/util/Holder.cxx>
-#include <sk/io/ByteArrayOutputStream.h>
 #include <sk/io/BufferedOutputStream.h>
+#include "MockOutputStream.h"
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::io::test::BufferedOutputStreamTest);
 
@@ -26,9 +26,8 @@ void
 sk::io::test::BufferedOutputStreamTest::
 setUp()
 {
-  _containerHolder.set(new sk::util::Container());
-  _outputHolder.set(new ByteArrayOutputStream(container()));
-  _streamHolder.set(new BufferedOutputStream(output()));
+  _mockHolder.set(new MockOutputStream());
+  _streamHolder.set(new BufferedOutputStream(mock()));
 }
 
 void
@@ -36,30 +35,32 @@ sk::io::test::BufferedOutputStreamTest::
 tearDown()
 {
   _streamHolder.clear();
-  _outputHolder.clear();
-  _containerHolder.clear();
+  _mockHolder.clear();
 }
 
 void
 sk::io::test::BufferedOutputStreamTest::
 testBuffer()
 {
-  _streamHolder.set(new BufferedOutputStream(output(), 12));
+  _streamHolder.set(new BufferedOutputStream(mock(), 12));
 
   stream().write(sk::util::Container("abcdefg"));
-  CPPUNIT_ASSERT_EQUAL(0, container().size());
+  CPPUNIT_ASSERT_EQUAL(0, mock().chunks());
+  CPPUNIT_ASSERT_EQUAL(0, mock().dataSize());
   stream().write(sk::util::Container("xxxxx"));
-  CPPUNIT_ASSERT_EQUAL(12, container().size());
+  CPPUNIT_ASSERT_EQUAL(1, mock().chunks());
+  CPPUNIT_ASSERT_EQUAL(12, mock().dataSize());
   stream().write('z');
 
-  CPPUNIT_ASSERT_EQUAL(12, container().size());
-  CPPUNIT_ASSERT_EQUAL(sk::util::String("abcdefgxxxxx").inspect(), container().inspect());
+  CPPUNIT_ASSERT_EQUAL(12, mock().dataSize());
+  CPPUNIT_ASSERT_EQUAL(sk::util::String("abcdefgxxxxx").inspect(), mock().data().inspect());
 
   stream().write('z');
   stream().flush();
 
-  CPPUNIT_ASSERT_EQUAL(14, container().size());
-  CPPUNIT_ASSERT_EQUAL(sk::util::String("abcdefgxxxxxzz").inspect(), container().inspect());
+  CPPUNIT_ASSERT_EQUAL(2, mock().chunks());
+  CPPUNIT_ASSERT_EQUAL(14, mock().dataSize());
+  CPPUNIT_ASSERT_EQUAL(sk::util::String("abcdefgxxxxxzz").inspect(), mock().data().inspect());
 }
 
 void
@@ -67,19 +68,22 @@ sk::io::test::BufferedOutputStreamTest::
 testFlushOnClose()
 {
   stream().write(sk::util::Container("abcdefg"));
-  CPPUNIT_ASSERT_EQUAL(0, container().size());
+  CPPUNIT_ASSERT_EQUAL(0, mock().chunks());
+  CPPUNIT_ASSERT_EQUAL(0, mock().dataSize());
 
   stream().close();
 
-  CPPUNIT_ASSERT_EQUAL(7, container().size());
-  CPPUNIT_ASSERT_EQUAL(sk::util::String("abcdefg").inspect(), container().inspect());
+  CPPUNIT_ASSERT_EQUAL(1, mock().chunks());
+  CPPUNIT_ASSERT_EQUAL(7, mock().dataSize());
+  CPPUNIT_ASSERT_EQUAL(sk::util::String("abcdefg").inspect(), mock().data().inspect());
 }
 
 void
 sk::io::test::BufferedOutputStreamTest::
 testWriteLargerChunk()
 {
-  _streamHolder.set(new BufferedOutputStream(output(), 4));
+  _streamHolder.set(new BufferedOutputStream(mock(), 4));
   stream().write(sk::util::Container("123412345"));
-  CPPUNIT_ASSERT_EQUAL(8, container().size());
+  CPPUNIT_ASSERT_EQUAL(2, mock().chunks());
+  CPPUNIT_ASSERT_EQUAL(8, mock().dataSize());
 }
