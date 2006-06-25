@@ -21,6 +21,8 @@ namespace sk {
           MockOutputStream();
           virtual ~MockOutputStream();
 
+          void setDataLimit(int limit);
+
           int closeCounter() const;
           int flushCounter() const;
           int chunks() const;
@@ -44,6 +46,7 @@ namespace sk {
           bool _closeCounter;
           bool _flushCounter;
           std::vector<sk::util::Container> _dataChunks;
+          int _limit;
       };
     }
   }

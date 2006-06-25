@@ -15,7 +15,7 @@
 
 sk::io::test::MockOutputStream::
 MockOutputStream()
-  : _closeCounter(0), _flushCounter(0)
+  : _closeCounter(0), _flushCounter(0), _limit(0)
 {
 }
 
@@ -63,8 +63,16 @@ int
 sk::io::test::MockOutputStream::
 write(const char* buffer, int offset, int size)
 {
-  _dataChunks.push_back(sk::util::Container(buffer+offset, size));
-  return size;
+  int amount = (_limit==0 || size < _limit ? size : _limit);
+  _dataChunks.push_back(sk::util::Container(buffer+offset, amount));
+  return amount;
+}
+
+void 
+sk::io::test::MockOutputStream::
+setDataLimit(int limit)
+{
+  _limit = limit;
 }
 
 int 
