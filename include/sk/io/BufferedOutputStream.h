@@ -33,6 +33,8 @@ namespace sk {
         BufferedOutputStream(const BufferedOutputStream& other);
         BufferedOutputStream& operator = (const BufferedOutputStream& other);
 
+        void flushChunks(int chunk_size);
+
         int _size;
         std::vector<char> _buffer;
     };

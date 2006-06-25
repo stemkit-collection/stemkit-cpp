@@ -9,6 +9,7 @@
 #include <sk/util/String.h>
 
 #include <sk/io/BufferedOutputStream.h>
+#include <sk/io/IOException.h>
 
 #include <algorithm>
 #include <iostream>
@@ -28,6 +29,7 @@ BufferedOutputStream(sk::io::OutputStream& stream, int size)
 sk::io::BufferedOutputStream::
 ~BufferedOutputStream()
 {
+  flushChunks(0);
 }
 
 const sk::util::Class
@@ -49,11 +51,25 @@ write(const char* buffer, int offset, int size)
   }
   _buffer.insert(_buffer.end(), buffer+offset, buffer+offset+size);
 
+  flushChunks(_size);
+  return size;
+}
+
+void
+sk::io::BufferedOutputStream::
+flushChunks(int chunk_size)
+{
   int written = 0;
   int buffer_size = _buffer.size();
   
-  while((buffer_size - written) >= _size) {
-    int n = DelegatingOutputStream::write(&_buffer.front(), written, _size);
+  while(true) {
+    int remaining = buffer_size - written;
+    int outstanding = (chunk_size == 0 ? remaining : chunk_size);
+
+    if(remaining < outstanding) {
+      break;
+    }
+    int n = DelegatingOutputStream::write(&_buffer.front(), written, outstanding);
     if(n == 0) {
       break;
     }
@@ -62,16 +78,16 @@ write(const char* buffer, int offset, int size)
   if(written != 0) {
     _buffer.erase(_buffer.begin(), _buffer.begin() + written);
   }
-  return size;
 }
 
 void 
 sk::io::BufferedOutputStream::
 flush()
 {
-  if(_buffer.size() > 0) {
-    DelegatingOutputStream::write(&_buffer.front(), 0, _buffer.size());
-    _buffer.clear();
+  flushChunks(0);
+
+  if(_buffer.empty() == false) {
+    throw sk::io::IOException("Buffer flush failed");
   }
 }
 
