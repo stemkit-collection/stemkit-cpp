@@ -81,7 +81,7 @@ read(char* buffer, int offset, int length)
   }
   int remaining = available();
   if(remaining == 0) {
-    throw EOFException();
+    return 0;
   }
   int number = std::min(std::max(0, length), remaining);
   std::vector<char>::const_iterator start = _bufferHolder.get().begin();

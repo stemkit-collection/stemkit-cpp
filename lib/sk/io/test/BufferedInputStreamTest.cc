@@ -10,6 +10,7 @@
 
 #include <sk/util/Holder.cxx>
 #include <sk/io/BufferedInputStream.h>
+#include <sk/io/EOFException.h>
 #include <iostream>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::io::test::BufferedInputStreamTest);
@@ -61,4 +62,5 @@ testBuffer()
   CPPUNIT_ASSERT_EQUAL(4, mock().chunk(1).size());
 
   CPPUNIT_ASSERT_EQUAL(sk::util::Container("67890").inspect(), sk::util::Container(stream().read(10)).inspect());
+  CPPUNIT_ASSERT_THROW(stream().read(), sk::io::EOFException);
 }

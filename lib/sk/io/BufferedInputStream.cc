@@ -39,11 +39,28 @@ int
 sk::io::BufferedInputStream::
 read(char* buffer, int offset, int size)
 {
-  while(_container.size() < size) {
-    _container += getInputStream().read(_size);
+  if(size <= 0) {
+    return 0;
   }
-  std::copy(_container.begin(), _container.begin() + size, buffer + offset);
-  _container.erase(_container.begin(), _container.begin() + size);
+  char depot[_size];
 
-  return size;
+  while(_container.size() < size) {
+    int n = DelegatingInputStream::read(depot, 0, _size);
+    if(n < 0) {
+      return n;
+    }
+    if(n == 0) {
+      break;
+    }
+    _container.insert(_container.end(), depot, depot + n);
+  }
+  if(_container.isEmpty() == true) {
+    return 0;
+  }
+  int outstanding = std::min(_container.size(), size);
+
+  std::copy(_container.begin(), _container.begin() + outstanding, buffer + offset);
+  _container.erase(_container.begin(), _container.begin() + outstanding);
+
+  return outstanding;
 }

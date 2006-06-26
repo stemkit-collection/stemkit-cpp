@@ -146,6 +146,13 @@ readFully(char* buffer, int length)
   int offset = 0;
 
   while(offset < length) {
-    offset += stream.read(buffer, offset, length-offset);
+    int n = stream.read(buffer, offset, length-offset);
+    if(n == 0) {
+      throw sk::io::EOFException();
+    }
+    if(n < 0) {
+      throw sk::io::IOException("sk::io::DataInputStream::readFully()");
+    }
+    offset += n;
   }
 }
