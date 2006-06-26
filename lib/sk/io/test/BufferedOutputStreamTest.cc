@@ -135,3 +135,13 @@ testBufferLimitedWrite()
   CPPUNIT_ASSERT_EQUAL(sk::util::String("def").inspect(), mock().chunk(1).inspect());
   CPPUNIT_ASSERT_EQUAL(sk::util::String("gz").inspect(), mock().chunk(2).inspect());
 }
+
+void
+sk::io::test::BufferedOutputStreamTest::
+testZeroWrite()
+{
+  CPPUNIT_ASSERT_EQUAL(0, stream().write("", 0, 0));
+  stream().flush();
+
+  CPPUNIT_ASSERT_EQUAL(0, mock().chunks());
+}

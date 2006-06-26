@@ -3,6 +3,7 @@ test = sk-io-test ;
 
 test-objects = 
   MockOutputStream.cc
+  MockInputStream.cc
   ByteArrayInputStreamTest.cc
   ByteArrayOutputStreamTest.cc
   DataInputStreamTest.cc
@@ -11,7 +12,7 @@ test-objects =
   FileDescriptorStreamsTest.cc
   FileTest.cc
   FileStreamsTest.cc
-# BufferedInputStreamTest.cc
+  BufferedInputStreamTest.cc
   BufferedOutputStreamTest.cc
   IOExceptionTest.cc
   EOFExceptionTest.cc

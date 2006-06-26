@@ -9,6 +9,7 @@
 #include <sk/util/String.h>
 
 #include <sk/io/BufferedInputStream.h>
+#include <iostream>
 
 sk::io::BufferedInputStream::
 BufferedInputStream(sk::io::InputStream& stream)
@@ -32,4 +33,17 @@ sk::io::BufferedInputStream::
 getClass() const
 {
   return sk::util::Class("sk::io::BufferedInputStream");
+}
+
+int
+sk::io::BufferedInputStream::
+read(char* buffer, int offset, int size)
+{
+  while(_container.size() < size) {
+    _container += getInputStream().read(_size);
+  }
+  std::copy(_container.begin(), _container.begin() + size, buffer + offset);
+  _container.erase(_container.begin(), _container.begin() + size);
+
+  return size;
 }

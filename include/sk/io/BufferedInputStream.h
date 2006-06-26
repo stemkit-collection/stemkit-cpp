@@ -9,6 +9,7 @@
 #define _SK_IO_BUFFEREDINPUTSTREAM_
 
 #include <sk/io/DelegatingInputStream.h>
+#include <sk/util/Container.h>
 
 namespace sk {
   namespace io {
@@ -22,12 +23,17 @@ namespace sk {
         
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
+
+        // sk::io::InputStream implementation.
+        int read(char* buffer, int offset, int size);
+        using DelegatingInputStream::read;
         
       private:
         BufferedInputStream(const BufferedInputStream& other);
         BufferedInputStream& operator = (const BufferedInputStream& other);
 
         int _size;
+        sk::util::Container _container;
     };
   }
 }

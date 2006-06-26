@@ -29,6 +29,7 @@ namespace sk {
           CPPUNIT_TEST(testWriteLargerChunk);
           CPPUNIT_TEST(testNoBuffer);
           CPPUNIT_TEST(testBufferLimitedWrite);
+          CPPUNIT_TEST(testZeroWrite);
         CPPUNIT_TEST_SUITE_END();
         
         public:
@@ -42,6 +43,7 @@ namespace sk {
           void testWriteLargerChunk();
           void testNoBuffer();
           void testBufferLimitedWrite();
+          void testZeroWrite();
           
         private:
           BufferedOutputStreamTest(const BufferedOutputStreamTest& other);

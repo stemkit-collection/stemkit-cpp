@@ -25,9 +25,10 @@ namespace sk {
         const sk::util::Class getClass() const;
 
         // sk::io::DelegatingOutputStream re-implemenation.
-        int write(const char* buffer, int offset, int size);
         void flush();
         void close();
+        int write(const char* buffer, int offset, int size);
+        using DelegatingOutputStream::write;
         
       private:
         BufferedOutputStream(const BufferedOutputStream& other);

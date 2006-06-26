@@ -10,15 +10,20 @@
 
 #include <cppunit/TestFixture.h>
 #include <cppunit/extensions/HelperMacros.h>
+#include <sk/util/Holder.hxx>
 
 namespace sk {
   namespace io {
+    class InputStream;
+
     namespace test {
+      class MockInputStream;
+
       class BufferedInputStreamTest
         : public CppUnit::TestFixture
       {
         CPPUNIT_TEST_SUITE(sk::io::test::BufferedInputStreamTest);
-          CPPUNIT_TEST(testSimple);
+          CPPUNIT_TEST(testBuffer);
         CPPUNIT_TEST_SUITE_END();
         
         public:
@@ -27,11 +32,21 @@ namespace sk {
           
           void setUp();
           void tearDown();
-          void testSimple();
+          void testBuffer();
           
         private:
           BufferedInputStreamTest(const BufferedInputStreamTest& other);
           BufferedInputStreamTest& operator = (const BufferedInputStreamTest& other);
+
+          MockInputStream& mock() {
+            return _mockHolder.get();
+          }
+          InputStream& stream() {
+            return _streamHolder.get();
+          }
+
+          sk::util::Holder<MockInputStream> _mockHolder;
+          sk::util::Holder<InputStream> _streamHolder;
       };
     }
   }
