@@ -33,6 +33,9 @@ namespace sk {
         bool markSupported() const;
         void mark(int readlimit);
         void reset();
+
+      protected:
+        int filterReadEvents(int n);
     };
   }
 }

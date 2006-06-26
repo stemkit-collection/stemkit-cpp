@@ -45,7 +45,7 @@ int
 sk::io::FileDescriptorInputStream::
 read(char* buffer, int offset, int length)
 {
-  return _descriptor.read(buffer, offset, length);
+  return filterReadEvents(_descriptor.read(buffer, offset, length));
 }
 
 const sk::io::FileDescriptor&

@@ -79,10 +79,8 @@ read(char* buffer, int offset, int length)
   if(_closed == true) {
     throw sk::io::ClosedChannelException();
   }
-  int remaining = available();
-  if(remaining == 0) {
-    return 0;
-  }
+  int remaining = filterReadEvents(available());
+
   int number = std::min(std::max(0, length), remaining);
   std::vector<char>::const_iterator start = _bufferHolder.get().begin();
 

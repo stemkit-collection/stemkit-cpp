@@ -9,6 +9,7 @@
 #include <sk/util/String.h>
 
 #include <sk/io/BufferedInputStream.h>
+#include <sk/io/EOFException.h>
 #include <iostream>
 
 sk::io::BufferedInputStream::
@@ -42,20 +43,18 @@ read(char* buffer, int offset, int size)
   if(size <= 0) {
     return 0;
   }
-  char depot[_size];
+  try {
+    char depot[_size];
 
-  while(_container.size() < size) {
-    int n = DelegatingInputStream::read(depot, 0, _size);
-    if(n < 0) {
-      return n;
+    while(_container.size() < size) {
+      int n = filterReadEvents(DelegatingInputStream::read(depot, 0, _size));
+      _container.insert(_container.end(), depot, depot + n);
     }
-    if(n == 0) {
-      break;
-    }
-    _container.insert(_container.end(), depot, depot + n);
   }
+  catch(const sk::io::EOFException& excepion) {}
+
   if(_container.isEmpty() == true) {
-    return 0;
+    return filterReadEvents(0);
   }
   int outstanding = std::min(_container.size(), size);
 

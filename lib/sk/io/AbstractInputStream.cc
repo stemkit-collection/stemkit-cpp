@@ -72,14 +72,8 @@ sk::io::AbstractInputStream::
 read()
 {
   char c;
-  int n = read(&c, 0, 1);
+  filterReadEvents(read(&c, 0, 1));
 
-  if(n==0) {
-    throw EOFException();
-  }
-  if(n<0) {
-    throw IOException("sk::io::AbstractInputStream::read()");
-  }
   return int(c) & 0xff;
 }
 
@@ -100,14 +94,20 @@ read(std::vector<char>& buffer, int number)
     return buffer;
   }
   buffer.resize(number, 0);
+  buffer.resize(filterReadEvents(read(&buffer.front(), 0, number)));
 
-  int n = read(&buffer.front(), 0, number);
+  return buffer;
+}
+
+int
+sk::io::AbstractInputStream::
+filterReadEvents(int n)
+{
   if(n==0) {
     throw EOFException();
   }
   if(n<0) {
-    throw IOException("sk::io::AbstractInputStream::read(vector, number)");
+    throw IOException("read() failed");
   }
-  buffer.resize(n);
-  return buffer;
+  return n;
 }
