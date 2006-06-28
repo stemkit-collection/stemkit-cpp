@@ -77,10 +77,16 @@ fileset {
       InsufficientMemoryException.h
     }
   }
-  install.into('lib').binary {
-    library 'lib' => 'sk.util'
-  }
-  symlink 'lib/libsk.util.so' => 'libsk.util.so.1'
+  if ENV['MAKE_DLL'] == 'true'
+    install.into('lib').binary {
+      library 'lib' => 'sk.util'
+    }
+    symlink 'lib/libsk.util.so' => 'libsk.util.so.1'
+  else
+    install.into('lib').binary {
+      static_library 'lib' => 'sk.util'
+    }
+  end
 }
 
 fileset {
@@ -120,10 +126,16 @@ fileset {
     }
   }
 
-  install.into('lib').binary {
-    library 'lib' => 'sk.io'
-  }
-  symlink 'lib/libsk.io.so' => 'libsk.io.so.1'
+  if ENV['MAKE_DLL'] == 'true'
+    install.into('lib').binary {
+      library 'lib' => 'sk.io'
+    }
+    symlink 'lib/libsk.io.so' => 'libsk.io.so.1'
+  else
+    install.into('lib').binary {
+      static_library 'lib' => 'sk.io'
+    }
+  end
 }
 
 fileset {
@@ -148,9 +160,15 @@ fileset {
       TestRunner.h
     }
   }
-  install.into('lib').binary {
-    library 'lib' => 'sk.cppunit'
-  }
-  symlink 'lib/libsk.cppunit.so' => 'libsk.cppunit.so.1'
+  if ENV['MAKE_DLL'] == 'true'
+    install.into('lib').binary {
+      library 'lib' => 'sk.cppunit'
+    }
+    symlink 'lib/libsk.cppunit.so' => 'libsk.cppunit.so.1'
+  else
+    install.into('lib').binary {
+      static_library 'lib' => 'sk.cppunit'
+    }
+  end
 }
 

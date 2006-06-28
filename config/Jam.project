@@ -37,7 +37,7 @@ LD_EXPORT_DYNAMIC = -Wl,-E ;
 C++FLAGS = -Werror -Wreturn-type -Wno-ctor-dtor-privacy ;
 CCFLAGS = -Werror -Wreturn-type ;
 
-DEFINES  = HAS_STL HAS_NAMESPACE _REENTRANT ;
+DEFINES  = _REENTRANT ;
 INCLUDES = $(GENTOPDIR)/include $(SRCTOPDIR)/include ;
 
 rule platform-linux-x86
@@ -46,6 +46,17 @@ rule platform-linux-x86
   CCFLAGS += -fpic ;
   DEFINES += ;
   INCLUDES += $(SRCTOP:J=/)/platform/include/linux ;
+  SYSLIBS = crypt dl ;
+}
+
+rule platform-aix-ppc
+{
+  project.MAKE_DLL = false ;
+
+  # C++FLAGS += -fpic ;
+  # CCFLAGS += -fpic ;
+  DEFINES += ;
+  INCLUDES += $(SRCTOP:J=/)/platform/include/aix ;
   SYSLIBS = crypt dl ;
 }
 
@@ -79,6 +90,7 @@ rule platform-solaris-sparc
 
 switch $(PRODUCT_PLATFORM) {
   case rh-30-x86 : platform-linux-x86 ;
+  case aix-51-ppc : platform-aix-ppc ;
   case sun-9-sparc : platform-solaris-sparc ;
   case tiger-ppc : platform-macos-ppc ;
   case * : exit Unknown platform $(PRODUCT_PLATFORM) ;
@@ -102,7 +114,7 @@ MKDIR ?= mkdir -p ;
 RMRF ?= rm -rf ;
 RMF ?= rm -f ;
 
-CCOFLAGS ?= -O2 -fno-guess-branch-probability ;
+CCOFLAGS ?= -O0 -fno-guess-branch-probability ;
 DLLFLAGS ?= -shared ;
 
 UNITTEST_DIRS = $(CONTRIB_ROOT)/cppunit-$(CPPUNIT_VERSION) ;
@@ -113,3 +125,4 @@ CCALLFLAGS = $(CCFLAGS) $(CCDFLAGS) $(CCOFLAGS) ;
 C++LDALLFLAGS = $(CCFLAGS) $(CCDFLAGS) $(CCOFLAGS) $(C++LDFLAGS) ;
 
 system.export-to-env GCC_LIB_PATHLIST : $(GCC_ROOT)/lib/$(GCC_STDLIBS) ;
+system.export-to-env MAKE_DLL : $(project.MAKE_DLL) ;
