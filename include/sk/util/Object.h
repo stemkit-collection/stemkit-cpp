@@ -30,7 +30,7 @@ namespace sk {
 	virtual const Class getClass() const;
 
 	/// Returns a unique object id.
-	virtual unsigned int getId() const;
+	virtual long long getId() const;
 
 	/// Returns a string representation of the object. By default, it
 	/// returns the object's class and the objects's id.

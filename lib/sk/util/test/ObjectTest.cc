@@ -55,12 +55,12 @@ void
 sk::util::test::ObjectTest::
 testId()
 {
-  CPPUNIT_ASSERT_EQUAL(reinterpret_cast<unsigned int>(&getObject()), getObject().getId());
+  CPPUNIT_ASSERT_EQUAL(reinterpret_cast<long long>(&getObject()), getObject().getId());
 }
 
 namespace {
   struct Object : public virtual sk::util::Object {
-    virtual unsigned int getId() const {
+    virtual long long getId() const {
       return 21;
     }
   } object;

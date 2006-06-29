@@ -41,11 +41,11 @@ getClass() const
   return Class("sk::util::Object");
 }
 
-unsigned int
+long long
 sk::util::Object::
 getId() const
 {
-  return reinterpret_cast<int>(this);
+  return reinterpret_cast<long long>(this);
 }
 
 const sk::util::String

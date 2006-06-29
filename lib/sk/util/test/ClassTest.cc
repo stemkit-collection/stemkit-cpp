@@ -47,7 +47,7 @@ namespace {
     Class() 
       : sk::util::Class("abc") {}
 
-    unsigned int getId() const {
+    long long getId() const {
       return 21;
     }
   } klass;
