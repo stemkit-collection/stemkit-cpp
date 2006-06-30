@@ -15,7 +15,6 @@ project.DISTRIB_MODE = 2 ;
 project.DISTRIB_PRODINFO = $(SRCTOP:J=/)/install/prodinfo ;
 
 GCC_VERSION = 3.4.3 ;
-GCC_ROOT = $(HOME)/local/$(PRODUCT_PLATFORM)/gcc-$(GCC_VERSION) ;
 
 BOOST_VERSION = 1_32 ;
 CPPUNIT_VERSION = 1.10 ;
@@ -64,6 +63,7 @@ rule platform-osf-alpha
 rule platform-aix-ppc
 {
   project.MAKE_DLL = false ;
+  GCC_VERSION = 3.4.6 ;
 
   # C++FLAGS += -fpic ;
   # CCFLAGS += -fpic ;
@@ -76,8 +76,8 @@ rule platform-macos-ppc
 {
   project.MAKE_DLL = false ;
 
-  GCC_ROOT = ;
   GCC_VERSION = 4.0.0 ;
+  GCC_ROOT = /usr/local/gcc-$(GCC_VERSION) ;
 
   CC = gcc-4.0 ;
   C++ = g++-4.0 ;
@@ -109,7 +109,8 @@ switch $(PRODUCT_PLATFORM) {
   case * : exit Unknown platform $(PRODUCT_PLATFORM) ;
 }
 
-GCC_ROOT ?= /usr/local/gcc-$(GCC_VERSION) ;
+GCC_ROOT ?= $(HOME)/local/$(PRODUCT_PLATFORM)/gcc-$(GCC_VERSION) ;
+
 GCC_STDLIBS ?= libstdc++.so.6 libgcc_s.so.1 ;
 CONTRIB_ROOT ?= $(GCC_ROOT)/contrib ;
 
