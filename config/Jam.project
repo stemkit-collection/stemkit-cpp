@@ -48,6 +48,15 @@ rule platform-linux-x86
   SYSLIBS = crypt dl ;
 }
 
+rule platform-linux-amd64
+{
+  C++FLAGS += -fPIC ;
+  CCFLAGS += -fPIC ;
+  DEFINES += ;
+  INCLUDES += $(SRCTOP:J=/)/platform/include/linux ;
+  SYSLIBS = crypt dl ;
+}
+
 rule platform-osf-alpha
 {
   C++FLAGS += -fPIC ;
@@ -102,6 +111,7 @@ rule platform-solaris-sparc
 
 switch $(PRODUCT_PLATFORM) {
   case rh-30-x86 : platform-linux-x86 ;
+  case rh-40-amd64 : platform-linux-amd64 ;
   case rh-40-ia64 : platform-linux-x86 ;
   case aix-51-ppc : platform-aix-ppc ;
   case osf-51-alpha : platform-osf-alpha ;
