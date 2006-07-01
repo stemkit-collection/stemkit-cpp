@@ -50,11 +50,13 @@ rule platform-linux-x86
 
 rule platform-linux-amd64
 {
-  C++FLAGS += -fPIC ;
-  CCFLAGS += -fPIC ;
+  C++FLAGS += -fPIC -m32 ;
+  CCFLAGS += -fPIC -m32 ;
   DEFINES += ;
   INCLUDES += $(SRCTOP:J=/)/platform/include/linux ;
   SYSLIBS = crypt dl ;
+
+  LDFLAGS += -m elf_i386 ;
 }
 
 rule platform-osf-alpha
