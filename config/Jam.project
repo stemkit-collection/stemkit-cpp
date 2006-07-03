@@ -127,6 +127,7 @@ switch $(PRODUCT_PLATFORM) {
   case rh-30-x86 : platform-linux-x86 ;
   case rh-40-amd64 : platform-linux-amd64 ;
   case rh-40-ia64 : platform-linux-x86 ;
+  case rh-21-x86 : platform-linux-x86 ;
   case aix-51-ppc : platform-aix51-ppc ;
   case aix-52-ppc : platform-aix52-ppc ;
   case osf-51-alpha : platform-osf-alpha ;
