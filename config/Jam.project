@@ -71,10 +71,22 @@ rule platform-osf-alpha
   DLLFLAGS = -shared -Wl,-expect_unresolved,'*' ;
 }
 
-rule platform-aix-ppc
+rule platform-aix51-ppc
 {
   project.MAKE_DLL = false ;
   GCC_VERSION = 3.4.6 ;
+
+  # C++FLAGS += -fpic ;
+  # CCFLAGS += -fpic ;
+  DEFINES += ;
+  INCLUDES += $(SRCTOP:J=/)/platform/include/aix ;
+  SYSLIBS = crypt dl ;
+}
+
+rule platform-aix52-ppc
+{
+  project.MAKE_DLL = false ;
+  GCC_VERSION = 3.4.3 ;
 
   # C++FLAGS += -fpic ;
   # CCFLAGS += -fpic ;
@@ -115,8 +127,8 @@ switch $(PRODUCT_PLATFORM) {
   case rh-30-x86 : platform-linux-x86 ;
   case rh-40-amd64 : platform-linux-amd64 ;
   case rh-40-ia64 : platform-linux-x86 ;
-  case aix-51-ppc : platform-aix-ppc ;
-  case aix-52-ppc : platform-aix-ppc ;
+  case aix-51-ppc : platform-aix51-ppc ;
+  case aix-52-ppc : platform-aix52-ppc ;
   case osf-51-alpha : platform-osf-alpha ;
   case osf-40-alpha : platform-osf-alpha ;
   case sun-9-sparc : platform-solaris-sparc ;
