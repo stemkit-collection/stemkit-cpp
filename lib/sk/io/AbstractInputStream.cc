@@ -41,7 +41,7 @@ reset()
   throw sk::util::UnsupportedOperationException("sk::io::AbstractInputStream::reset()");
 }
 
-off_t
+long long
 sk::io::AbstractInputStream::
 available() const
 {

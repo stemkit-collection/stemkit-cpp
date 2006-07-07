@@ -136,18 +136,18 @@ numericMode(const sk::util::String& mode)
   throw sk::io::IOException("Bad mode " + mode.inspect() + " in open()");
 }
 
-off_t
+long long
 sk::io::File::
 position() const
 {
-  off_t n = lseek(getFileDescriptor().getFileNumber(), 0, SEEK_CUR);
+  long long n = lseek(getFileDescriptor().getFileNumber(), 0, SEEK_CUR);
   if(n == -1) {
     throw sk::io::IOException("lseek() failed");
   }
   return n;
 }
 
-off_t
+long long
 sk::io::File::
 size() const
 {

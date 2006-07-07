@@ -32,8 +32,8 @@ namespace sk {
         const sk::util::String getName() const;
         sk::io::FileDescriptor& getFileDescriptor() const;
         void close();
-        off_t size() const;
-        off_t position() const;
+        long long size() const;
+        long long position() const;
         
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;

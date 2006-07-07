@@ -70,7 +70,7 @@ testAvailable()
 {
   sk::io::FileInputStream stream("testdata");
 
-  CPPUNIT_ASSERT_EQUAL(off_t(81), stream.available());
+  CPPUNIT_ASSERT_EQUAL(81, int(stream.available()));
   CPPUNIT_ASSERT_EQUAL(20, stream.skip(20));
-  CPPUNIT_ASSERT_EQUAL(off_t(61), stream.available());
+  CPPUNIT_ASSERT_EQUAL(61, int(stream.available()));
 }

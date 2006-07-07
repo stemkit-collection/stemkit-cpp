@@ -65,7 +65,7 @@ close()
 {
 }
 
-off_t
+long long
 sk::io::ByteArrayInputStream::
 available() const
 {
