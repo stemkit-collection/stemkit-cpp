@@ -42,6 +42,7 @@ fileset {
       Class.h
       Integer.h
       String.h
+      Container.h
       Slot.h
       ReferenceSlot.hxx
       ReferenceSlot.cxx

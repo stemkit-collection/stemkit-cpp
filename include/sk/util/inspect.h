@@ -50,7 +50,7 @@ namespace sk {
               break;
             }
             default: {
-              if(isprint(character)) {
+              if(!(character&0x80) && isprint(character)) {
                 _stream << character;
               }
               else {

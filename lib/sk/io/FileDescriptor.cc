@@ -12,6 +12,7 @@
 #include <sk/io/EOFException.h>
 #include <sk/io/ClosedChannelException.h>
 #include <errno.h>
+#include <unistd.h>
 #include <fcntl.h>
 
 sk::io::FileDescriptor::

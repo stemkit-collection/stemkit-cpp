@@ -74,10 +74,7 @@ rule platform-osf-alpha
 rule platform-aix51-ppc
 {
   project.MAKE_DLL = false ;
-  GCC_VERSION = 3.4.6 ;
 
-  # C++FLAGS += -fpic ;
-  # CCFLAGS += -fpic ;
   DEFINES += ;
   INCLUDES += $(SRCTOP:J=/)/platform/include/aix ;
   SYSLIBS = crypt dl ;
@@ -86,10 +83,7 @@ rule platform-aix51-ppc
 rule platform-aix52-ppc
 {
   project.MAKE_DLL = false ;
-  GCC_VERSION = 3.4.3 ;
 
-  # C++FLAGS += -fpic ;
-  # CCFLAGS += -fpic ;
   DEFINES += ;
   INCLUDES += $(SRCTOP:J=/)/platform/include/aix ;
   SYSLIBS = crypt dl ;
@@ -123,6 +117,17 @@ rule platform-solaris-sparc
   SYSLIBS = socket nsl gen ;
 }
 
+rule platform-hpux-pa
+{
+  project.MAKE_DLL = false ;
+
+  C++FLAGS += -fPIC ;
+  CCFLAGS += -fPIC ;
+  DEFINES += ;
+  INCLUDES += $(SRCTOP:J=/)/include/hpux ;
+  SYSLIBS = ;
+}
+
 switch $(PRODUCT_PLATFORM) {
   case rh-30-x86 : platform-linux-x86 ;
   case rh-40-amd64 : platform-linux-amd64 ;
@@ -133,6 +138,9 @@ switch $(PRODUCT_PLATFORM) {
   case osf-51-alpha : platform-osf-alpha ;
   case osf-40-alpha : platform-osf-alpha ;
   case sun-9-sparc : platform-solaris-sparc ;
+  case sun-8-sparc : platform-solaris-sparc ;
+  case hp11-23-pa : platform-hpux-pa ;
+  case hp11-00-pa : platform-hpux-pa ;
   case tiger-ppc : platform-macos-ppc ;
   case * : exit Unknown platform $(PRODUCT_PLATFORM) ;
 }
