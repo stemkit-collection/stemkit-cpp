@@ -137,6 +137,7 @@ switch $(PRODUCT_PLATFORM) {
   case aix-52-ppc : platform-aix52-ppc ;
   case osf-51-alpha : platform-osf-alpha ;
   case osf-40-alpha : platform-osf-alpha ;
+  case sun-10-sparc : platform-solaris-sparc ;
   case sun-9-sparc : platform-solaris-sparc ;
   case sun-8-sparc : platform-solaris-sparc ;
   case hp11-23-pa : platform-hpux-pa ;
