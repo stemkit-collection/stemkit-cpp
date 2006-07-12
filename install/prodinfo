@@ -7,10 +7,17 @@ product {
   name 'SK'
   description 'Stemkit'
 
-  version '0.0.1'
-  user 'bin'
-  group 'bin'
   top '/usr/local/stemkit'
+  version '0.0.1'
+
+  case cache.platform
+    when 'cygwin-xp-x86'
+      user 'Guest'
+      group 'Guests'
+    else
+      user 'bin'
+      group 'bin'
+  end
 
   package {
     name 'cpp'

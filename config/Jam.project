@@ -108,6 +108,22 @@ rule platform-macos-ppc
   SYSLIBS = ;
 }
 
+rule platform-cygwin-x86
+{
+  project.MAKE_DLL = false ;
+
+  GCC_VERSION = 3.4.4 ;
+
+  CC = gcc ;
+  C++ = g++ ;
+
+  CCLDFLAGS = ;
+  LDFLAGS = ;
+  DEFINES += ;
+  INCLUDES += ;
+  SYSLIBS = ;
+}
+
 rule platform-solaris-sparc
 {
   C++FLAGS += -fPIC ;
@@ -143,6 +159,7 @@ switch $(PRODUCT_PLATFORM) {
   case hp11-23-pa : platform-hpux-pa ;
   case hp11-00-pa : platform-hpux-pa ;
   case tiger-ppc : platform-macos-ppc ;
+  case cygwin-xp-x86 : platform-cygwin-x86 ;
   case * : exit Unknown platform $(PRODUCT_PLATFORM) ;
 }
 
