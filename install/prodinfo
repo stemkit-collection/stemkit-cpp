@@ -15,7 +15,7 @@ product {
       user 'Guest'
       group 'Guests'
     else
-      user 'bin'
+      user 'root'
       group 'bin'
   end
 
