@@ -67,6 +67,8 @@ fileset {
       AbstractList.cxx
       ArrayList.hxx
       ArrayList.cxx
+      abstract_c_handle.hxx
+      abstract_c_handle.cxx
     }
   }
 

@@ -12,8 +12,8 @@
 #include <sk/util/InsufficientMemoryException.h>
 
 sk::util::InsufficientMemoryException::
-InsufficientMemoryException(int amount)
-  : sk::util::Exception(join("Memory allocation", "amount=" + sk::util::Integer::toString(amount))),
+InsufficientMemoryException(const sk::util::String& purpose, int amount)
+  : sk::util::Exception(join(join("Memory allocation", purpose), "amount=" + sk::util::Integer::toString(amount))),
     _amount(amount)
 {
 }
