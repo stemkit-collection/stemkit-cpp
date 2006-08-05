@@ -24,7 +24,7 @@ namespace sk {
         abstract_c_handle(const abstract_c_handle<T>& other);
         abstract_c_handle& operator = (const abstract_c_handle<T>& other);
 
-        bool _deletable;
+        const bool _deletable;
         T* _object;
     };
   }

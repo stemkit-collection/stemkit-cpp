@@ -28,7 +28,7 @@ template<class T>
 sk::util::abstract_c_handle<T>::
 ~abstract_c_handle()
 {
-  if(_deletable = true) {
+  if(_deletable == true) {
     delete _object;
   }
 }
