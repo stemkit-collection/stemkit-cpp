@@ -32,21 +32,19 @@ String(const std::string& string)
 {
 }
 
+#include <iostream>
 sk::util::String::
 String(const char* buffer, int size)
 {
-  for(int index=0; ;index++) {
-    if(index>=size || buffer[index] == 0) {
-      if(index) {
-        std::string::assign(buffer, index);
-      }
-      return;
-    }
-  }
+  int index = 0;
+
+  while(index<size && buffer[index++] != 0);
+  std::string::assign(buffer, 0, index);
 }
 
 sk::util::String::
 String(const std::string& string, int size)
+  : std::string(string, 0, std::min(int(strlen(string.c_str())), size))
 {
 }
 

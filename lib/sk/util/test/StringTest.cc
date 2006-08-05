@@ -126,3 +126,16 @@ testInspect()
   CPPUNIT_ASSERT_EQUAL(String("\"abcdefg\""), String("abcdefg").inspect());
   CPPUNIT_ASSERT_EQUAL(String("\"\\x01\\x8A\\r\\n\""), String("\01\x8a\015\012").inspect());
 }
+
+void
+sk::util::test::StringTest::
+testConstructFromStringWithLength()
+{
+  std::string s("abcd\0zzz", 8);
+  
+  CPPUNIT_ASSERT_EQUAL(String("abc").inspect(), String(s, 3).inspect());
+  CPPUNIT_ASSERT_EQUAL(3, String(s, 3).length());
+
+  CPPUNIT_ASSERT_EQUAL(4, String(s, 7).size());
+  CPPUNIT_ASSERT_EQUAL(String("abcd").inspect(), String(s, 7).inspect());
+}

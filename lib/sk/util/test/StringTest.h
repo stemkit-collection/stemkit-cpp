@@ -18,6 +18,7 @@ namespace sk {
         : public CppUnit::TestFixture
       {
         CPPUNIT_TEST_SUITE(sk::util::test::StringTest);
+          CPPUNIT_TEST(testConstructFromStringWithLength);
           CPPUNIT_TEST(testMisc);
           CPPUNIT_TEST(testEmpty);
           CPPUNIT_TEST(testCreate);
@@ -34,6 +35,7 @@ namespace sk {
           void setUp();
           void tearDown();
           void testMisc();
+          void testConstructFromStringWithLength();
           void testEmpty();
           void testCreate();
           void testSum();
