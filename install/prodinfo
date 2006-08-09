@@ -30,8 +30,19 @@ product {
       system-set-user-group
     }
     filesets %w{
-      util sys io cppunit
+      main util sys io cppunit
     }
+  }
+}
+
+fileset {
+  name "main"
+
+  directory %w{
+    bin
+  }
+  generate.as('bin/stemkit-info').source {
+    program 'install/make-info.rb'
   }
 }
 
