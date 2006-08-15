@@ -167,7 +167,7 @@ switch $(PRODUCT_PLATFORM) {
 
 GCC_ROOT ?= $(HOME)/local/$(PRODUCT_PLATFORM)/gcc-$(GCC_VERSION) ;
 
-GCC_STDLIBS ?= libstdc++.so.6 libgcc_s.so.1 ;
+GCC_STDLIBS ?= libstdc++.so libgcc_s.so ;
 CONTRIB_ROOT ?= $(GCC_ROOT)/contrib ;
 
 C++ ?= $(GCC_ROOT)/bin/g++ ;

@@ -101,8 +101,8 @@ fileset {
   if ENV['MAKE_DLL'] == 'true'
     install.into('lib').binary {
       library 'lib' => 'sk.util'
+      node 'lib/sk/util/libsk.util.so'
     }
-    symlink 'lib/libsk.util.so' => 'libsk.util.so.1'
   else
     install.into('lib').binary {
       static_library 'lib' => 'sk.util'
@@ -150,8 +150,8 @@ fileset {
   if ENV['MAKE_DLL'] == 'true'
     install.into('lib').binary {
       library 'lib' => 'sk.io'
+      node 'lib/sk/io/libsk.io.so'
     }
-    symlink 'lib/libsk.io.so' => 'libsk.io.so.1'
   else
     install.into('lib').binary {
       static_library 'lib' => 'sk.io'
@@ -184,8 +184,8 @@ fileset {
   if ENV['MAKE_DLL'] == 'true'
     install.into('lib').binary {
       library 'lib' => 'sk.cppunit'
+      node 'lib/sk/cppunit/libsk.cppunit.so'
     }
-    symlink 'lib/libsk.cppunit.so' => 'libsk.cppunit.so.1'
   else
     install.into('lib').binary {
       static_library 'lib' => 'sk.cppunit'
