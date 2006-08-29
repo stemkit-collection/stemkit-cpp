@@ -161,6 +161,7 @@ switch $(PRODUCT_PLATFORM) {
   case hp11-23-pa : platform-hpux-pa ;
   case hp11-00-pa : platform-hpux-pa ;
   case tiger-ppc : platform-macos-ppc ;
+  case tiger-x86 : platform-macos-ppc ;
   case cygwin-xp-x86 : platform-cygwin-x86 ;
   case * : exit Unknown platform $(PRODUCT_PLATFORM) ;
 }
