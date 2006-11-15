@@ -19,6 +19,9 @@ namespace sk {
       {
         CPPUNIT_TEST_SUITE(sk::io::test::AnonymousPipeTest);
           CPPUNIT_TEST(testCreate);
+          CPPUNIT_TEST(testReadWrite);
+          CPPUNIT_TEST(testCloseInput);
+          CPPUNIT_TEST(testCloseOutput);
         CPPUNIT_TEST_SUITE_END();
         
         public:
@@ -28,6 +31,9 @@ namespace sk {
           void setUp();
           void tearDown();
           void testCreate();
+          void testReadWrite();
+          void testCloseInput();
+          void testCloseOutput();
           
         private:
           AnonymousPipeTest(const AnonymousPipeTest& other);

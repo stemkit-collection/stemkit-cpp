@@ -7,13 +7,26 @@
 
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
-#include <sk/util/UnsupportedOperationException.h>
+#include <sk/util/Holder.cxx>
+#include <sk/util/SystemException.h>
 
 #include <sk/io/AnonymousPipe.h>
+#include <sk/io/FileDescriptorInputStream.h>
+#include <sk/io/FileDescriptorOutputStream.h>
+
+#include <unistd.h>
 
 sk::io::AnonymousPipe::
 AnonymousPipe()
 {
+  int fds[2];
+  
+  if(::pipe(fds) < 0) {
+    throw sk::util::SystemException("pipe()");
+  }
+
+  _inputStreamHolder.set(new sk::io::FileDescriptorInputStream(fds[0]));
+  _outputStreamHolder.set(new sk::io::FileDescriptorOutputStream(fds[1]));
 }
 
 sk::io::AnonymousPipe::
@@ -40,26 +53,26 @@ void
 sk::io::AnonymousPipe::
 closeInput()
 {
-  throw sk::util::UnsupportedOperationException("closeInput()");
+  _inputStreamHolder.get().close();
 }
 
 void 
 sk::io::AnonymousPipe::
 closeOutput()
 {
-  throw sk::util::UnsupportedOperationException("closeOutput()");
+  _outputStreamHolder.get().close();
 }
 
 sk::io::InputStream& 
 sk::io::AnonymousPipe::
 inputStream() const
 {
-  throw sk::util::UnsupportedOperationException("inputStream()");
+  return _inputStreamHolder.get();
 }
 
 sk::io::OutputStream& 
 sk::io::AnonymousPipe::
 outputStream() const
 {
-  throw sk::util::UnsupportedOperationException("outputStream()");
+  return _outputStreamHolder.get();
 }

@@ -8,6 +8,7 @@
 #ifndef _SK_IO_ANONYMOUSPIPE_
 #define _SK_IO_ANONYMOUSPIPE_
 
+#include <sk/util/Holder.hxx>
 #include <sk/io/Pipe.h>
 
 namespace sk {
@@ -33,6 +34,9 @@ namespace sk {
       private:
         AnonymousPipe(const AnonymousPipe& other);
         AnonymousPipe& operator = (const AnonymousPipe& other);
+
+        sk::util::Holder<sk::io::InputStream> _inputStreamHolder;
+        sk::util::Holder<sk::io::OutputStream> _outputStreamHolder;
     };
   }
 }
