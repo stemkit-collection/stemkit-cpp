@@ -6,6 +6,7 @@
 */
 
 #include "PtyTest.h"
+#include <sk/io/Pty.h>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::io::test::PtyTest);
 
@@ -33,7 +34,7 @@ tearDown()
 
 void
 sk::io::test::PtyTest::
-testSimple()
+testCreate()
 {
-  CPPUNIT_ASSERT_EQUAL(true, false);
+  sk::io::Pty pty;
 }

@@ -12,11 +12,13 @@
 
 namespace sk {
   namespace io {
+    class Pipe;
+
     class Process
       : public virtual sk::util::Object 
     {
       public:
-        Process();
+        Process(sk::io::Pipe& pipe);
         virtual ~Process();
         
         // sk::util::Object re-implementation.
@@ -25,6 +27,8 @@ namespace sk {
       private:
         Process(const Process& other);
         Process& operator = (const Process& other);
+
+        sk::io::Pipe& _pipe;
     };
   }
 }

@@ -12,19 +12,19 @@
 
 namespace sk {
   namespace io {
+    class InputStream;
+    class OutputStream;
+
     class Pipe
       : public virtual sk::util::Object 
     {
       public:
-        Pipe();
-        virtual ~Pipe();
-        
-        // sk::util::Object re-implementation.
-        const sk::util::Class getClass() const;
-        
-      private:
-        Pipe(const Pipe& other);
-        Pipe& operator = (const Pipe& other);
+        virtual void close() = 0;
+        virtual void closeInput() = 0;
+        virtual void closeOutput() = 0;
+
+        virtual InputStream& inputStream() const = 0;
+        virtual OutputStream& outputStream() const = 0;
     };
   }
 }

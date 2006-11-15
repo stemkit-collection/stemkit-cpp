@@ -25,6 +25,13 @@ namespace sk {
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
         
+        // sk::io::Pipe implementation.
+        void close();
+        void closeInput();
+        void closeOutput();
+        InputStream& inputStream() const;
+        OutputStream& outputStream() const;
+        
       private:
         Pty(const Pty& other);
         Pty& operator = (const Pty& other);

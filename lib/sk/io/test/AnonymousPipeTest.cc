@@ -6,6 +6,7 @@
 */
 
 #include "AnonymousPipeTest.h"
+#include <sk/io/AnonymousPipe.h>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::io::test::AnonymousPipeTest);
 
@@ -33,7 +34,7 @@ tearDown()
 
 void
 sk::io::test::AnonymousPipeTest::
-testSimple()
+testCreate()
 {
-  CPPUNIT_ASSERT_EQUAL(true, false);
+  AnonymousPipe pipe;
 }

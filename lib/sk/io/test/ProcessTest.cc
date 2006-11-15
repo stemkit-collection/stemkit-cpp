@@ -6,6 +6,8 @@
 */
 
 #include "ProcessTest.h"
+#include <sk/io/Process.h>
+#include <sk/io/AnonymousPipe.h>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::io::test::ProcessTest);
 
@@ -33,7 +35,8 @@ tearDown()
 
 void
 sk::io::test::ProcessTest::
-testSimple()
+testCreate()
 {
-  CPPUNIT_ASSERT_EQUAL(true, false);
+  sk::io::AnonymousPipe pipe;
+  sk::io::Process process(pipe);
 }

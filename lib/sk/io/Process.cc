@@ -11,7 +11,8 @@
 #include <sk/io/Process.h>
 
 sk::io::Process::
-Process()
+Process(sk::io::Pipe& pipe)
+  : _pipe(pipe)
 {
 }
 
