@@ -17,6 +17,9 @@ test-objects =
   IOExceptionTest.cc
   EOFExceptionTest.cc
   ClosedChannelExceptionTest.cc
+  AnonymousPipeTest.cc
+  PtyTest.cc
+  ProcessTest.cc
   TestSuite.cc
 ;
 

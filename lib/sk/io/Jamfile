@@ -21,6 +21,10 @@ objects =
   IOException.cc
   EOFException.cc
   ClosedChannelException.cc
+  AnonymousPipe.cc
+  Tty.cc
+  Pty.cc
+  Process.cc
 ;
 
 make-library $(library) : $(objects) ;
