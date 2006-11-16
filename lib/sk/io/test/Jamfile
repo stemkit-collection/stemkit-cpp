@@ -20,6 +20,7 @@ test-objects =
   AnonymousPipeTest.cc
   PtyTest.cc
   ProcessTest.cc
+  PipelineTest.cc
   TestSuite.cc
 ;
 
