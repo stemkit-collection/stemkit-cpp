@@ -6,21 +6,20 @@
 */
 
 #include <sk/util/Class.h>
-#include <sk/util/String.h>
+#include <sk/util/UnsupportedOperationException.h>
 
 #include <sk/io/Process.h>
+#include <sk/io/Pipe.h>
 
 #include <unistd.h>
 
 sk::io::Process::
-Process(sk::io::Pipe& pipe)
-  : _pipe(pipe), _listener(*this)
+Process(const sk::io::StandardStreamProvider& streamProvider, const sk::util::StringArray& cmdline)
 {
 }
 
 sk::io::Process::
-Process(sk::io::Pipe& pipe, sk::io::ProcessListener& listener)
-  : _pipe(pipe), _listener(listener)
+Process(const sk::util::StringArray& cmdline)
 {
 }
 
@@ -36,16 +35,25 @@ getClass() const
   return sk::util::Class("sk::io::Process");
 }
 
-void 
+sk::io::Pipe&
 sk::io::Process::
-started(io::Process& process)
+getStdin() const 
 {
+  throw sk::util::UnsupportedOperationException("getStdin()");
 }
 
-void 
+sk::io::Pipe&
 sk::io::Process::
-finished(io::Process& process)
+getStdout() const
 {
+  throw sk::util::UnsupportedOperationException("getStdout()");
+}
+
+sk::io::Pipe&
+sk::io::Process::
+getStderr() const
+{
+  throw sk::util::UnsupportedOperationException("getStderr()");
 }
 
 void 

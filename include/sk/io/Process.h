@@ -9,34 +9,34 @@
 #define _SK_IO_PROCESS_
 
 #include <sk/util/Object.h>
-#include <sk/io/ProcessListener.h>
+#include <sk/util/StringArray.h>
+#include <sk/io/StandardStreamProvider.h>
 
 namespace sk {
   namespace io {
     class Pipe;
 
     class Process
-      : public virtual sk::io::ProcessListener
+      : public virtual sk::io::StandardStreamProvider
     {
       public:
-        Process(sk::io::Pipe& pipe);
-        Process(sk::io::Pipe& pipe, sk::io::ProcessListener& listener);
+        Process(const sk::io::StandardStreamProvider& streamProvider, const sk::util::StringArray& cmdline);
+        Process(const sk::util::StringArray& cmdline);
         virtual ~Process();
         
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
 
-        // sk::io::ProcessListener implementation.
-        void started(io::Process& process);
-        void finished(io::Process& process);
-        void exec(const sk::util::String& command, const std::vector<char*>& args);
+        // sk::io::StandardStreamProvider implementation.
+        sk::io::Pipe& getStdin() const;
+        sk::io::Pipe& getStdout() const;
+        sk::io::Pipe& getStderr() const;
         
       private:
         Process(const Process& other);
         Process& operator = (const Process& other);
 
-        sk::io::Pipe& _pipe;
-        sk::io::ProcessListener& _listener;
+        void exec(const sk::util::String& command, const std::vector<char*>& args);
     };
   }
 }

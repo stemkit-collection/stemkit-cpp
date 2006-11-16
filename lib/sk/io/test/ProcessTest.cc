@@ -35,8 +35,14 @@ tearDown()
 
 void
 sk::io::test::ProcessTest::
-testCreate()
+testCreateFromStringLiteral()
 {
-  sk::io::AnonymousPipe pipe;
-  sk::io::Process process(pipe);
+  sk::io::Process process("true");
+}
+
+void
+sk::io::test::ProcessTest::
+testCreateFromStringArray()
+{
+  sk::io::Process process(sk::util::StringArray("true") + "aaa" + "bbb");
 }

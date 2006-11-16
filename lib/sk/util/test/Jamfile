@@ -15,6 +15,7 @@ test-objects =
 # AbstractCollectionTest.cc
 # AbstractListTest.cc
   ArrayListTest.cc
+  StringArrayTest.cc
   TestSuite.cc
   ExceptionTest.cc
   IllegalStateExceptionTest.cc

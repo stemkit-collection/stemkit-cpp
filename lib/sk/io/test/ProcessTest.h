@@ -18,7 +18,8 @@ namespace sk {
         : public CppUnit::TestFixture
       {
         CPPUNIT_TEST_SUITE(sk::io::test::ProcessTest);
-          CPPUNIT_TEST(testCreate);
+          CPPUNIT_TEST(testCreateFromStringLiteral);
+          CPPUNIT_TEST(testCreateFromStringArray);
         CPPUNIT_TEST_SUITE_END();
         
         public:
@@ -27,7 +28,8 @@ namespace sk {
           
           void setUp();
           void tearDown();
-          void testCreate();
+          void testCreateFromStringLiteral();
+          void testCreateFromStringArray();
           
         private:
           ProcessTest(const ProcessTest& other);
