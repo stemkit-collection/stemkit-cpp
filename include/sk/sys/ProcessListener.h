@@ -16,6 +16,7 @@ namespace sk {
       : public virtual sk::util::Object 
     {
       public:
+        virtual void processStarting() = 0;
         virtual int processStopping() = 0;
         virtual void processJoining() = 0;
     };

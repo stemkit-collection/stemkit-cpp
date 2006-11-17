@@ -103,6 +103,8 @@ start(const sk::util::StringArray& cmdline)
   }
   if(_pid == 0) {
     try {
+      _listener.processStarting();
+      
       processChild(cmdline);
       std::cerr << "ERROR:exec:" << sk::util::Integer::toString(errno) << ":" << strerror(errno) << ":" << cmdline.inspect() << std::endl;
     }
@@ -130,6 +132,12 @@ processChild(const sk::util::StringArray& cmdline)
   arguments.push_back(0);
 
   ::execvp(arguments[0], &arguments[0]);
+}
+
+void
+sk::sys::Process::
+processStarting()
+{
 }
 
 int

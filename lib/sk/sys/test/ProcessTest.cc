@@ -8,6 +8,8 @@
 #include "ProcessTest.h"
 #include <sk/sys/Process.h>
 #include <sk/io/AnonymousPipe.h>
+#include <sk/io/FileDescriptorOutputStream.h>
+#include <sk/util/Container.h>
 
 #include <signal.h>
 
@@ -131,4 +133,43 @@ testForcedStop()
   CPPUNIT_ASSERT_EQUAL(true, process.isKilled());
 
   CPPUNIT_ASSERT_EQUAL(SIGKILL, process.signal());
+}
+
+namespace {
+  struct Cleaner : public virtual sk::sys::ProcessListener {
+    Cleaner(sk::io::OutputStream& stream)
+      : _stream(stream) {}
+
+    void processStarting() {
+      _stream.close();
+    }
+    int processStopping() {
+      return 0;
+    }
+    void processJoining() {
+    }
+    sk::io::OutputStream& _stream;
+  };
+}
+
+void
+sk::sys::test::ProcessTest::
+testRedirectInput()
+{
+  sk::io::AnonymousPipe pipe;
+  sk::util::StringArray cmdline = sk::util::StringArray("sh") + "-c" + "read status; exit \"${status}\"";
+  Cleaner cleaner(pipe.outputStream());
+
+  sk::sys::Process process(pipe.inputStream(), cmdline, cleaner);
+  CPPUNIT_ASSERT_EQUAL(true, process.isAlive());
+
+  pipe.outputStream().write(sk::util::Container("71"));
+  pipe.outputStream().close();
+
+  process.join();
+
+  CPPUNIT_ASSERT_EQUAL(false, process.isAlive());
+  CPPUNIT_ASSERT_EQUAL(true, process.isExited());
+  CPPUNIT_ASSERT_EQUAL(false, process.isKilled());
+  CPPUNIT_ASSERT_EQUAL(71, process.exitStatus());
 }
