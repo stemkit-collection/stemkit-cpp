@@ -8,21 +8,21 @@
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
 
-#include <sk/io/Pipeline.h>
+#include <sk/sys/Pipeline.h>
 
-sk::io::Pipeline::
+sk::sys::Pipeline::
 Pipeline()
 {
 }
 
-sk::io::Pipeline::
+sk::sys::Pipeline::
 ~Pipeline()
 {
 }
 
 const sk::util::Class
-sk::io::Pipeline::
+sk::sys::Pipeline::
 getClass() const
 {
-  return sk::util::Class("sk::io::Pipeline");
+  return sk::util::Class("sk::sys::Pipeline");
 }

@@ -6,40 +6,40 @@
 */
 
 #include "ProcessTest.h"
-#include <sk/io/Process.h>
+#include <sk/sys/Process.h>
 #include <sk/io/AnonymousPipe.h>
 
 #include <signal.h>
 
-CPPUNIT_TEST_SUITE_REGISTRATION(sk::io::test::ProcessTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(sk::sys::test::ProcessTest);
 
-sk::io::test::ProcessTest::
+sk::sys::test::ProcessTest::
 ProcessTest()
 {
 }
 
-sk::io::test::ProcessTest::
+sk::sys::test::ProcessTest::
 ~ProcessTest()
 {
 }
 
 void
-sk::io::test::ProcessTest::
+sk::sys::test::ProcessTest::
 setUp()
 {
 }
 
 void
-sk::io::test::ProcessTest::
+sk::sys::test::ProcessTest::
 tearDown()
 {
 }
 
 void
-sk::io::test::ProcessTest::
+sk::sys::test::ProcessTest::
 testTrueCommand()
 {
-  sk::io::Process process("true");
+  sk::sys::Process process("true");
   CPPUNIT_ASSERT_EQUAL(true, process.isAlive());
 
   process.join();
@@ -52,10 +52,10 @@ testTrueCommand()
 }
 
 void
-sk::io::test::ProcessTest::
+sk::sys::test::ProcessTest::
 testFalseCommand()
 {
-  sk::io::Process process("false");
+  sk::sys::Process process("false");
   CPPUNIT_ASSERT_EQUAL(true, process.isAlive());
 
   process.join();
@@ -68,10 +68,10 @@ testFalseCommand()
 }
 
 void
-sk::io::test::ProcessTest::
+sk::sys::test::ProcessTest::
 testExitCode()
 {
-  sk::io::Process process(sk::util::StringArray("sh") + "-c" + "exit 5");
+  sk::sys::Process process(sk::util::StringArray("sh") + "-c" + "exit 5");
   CPPUNIT_ASSERT_EQUAL(true, process.isAlive());
 
   process.join();
@@ -84,10 +84,10 @@ testExitCode()
 }
 
 void
-sk::io::test::ProcessTest::
+sk::sys::test::ProcessTest::
 testKilled()
 {
-  sk::io::Process process(sk::util::StringArray("sh") + "-c" + "kill ${$}; sleep(60)");
+  sk::sys::Process process(sk::util::StringArray("sh") + "-c" + "kill ${$}; sleep(60)");
   CPPUNIT_ASSERT_EQUAL(true, process.isAlive());
 
   process.join();
@@ -100,10 +100,10 @@ testKilled()
 }
 
 void
-sk::io::test::ProcessTest::
+sk::sys::test::ProcessTest::
 testNormalStop()
 {
-  sk::io::Process process(sk::util::StringArray("sh") + "-c" + "sleep(60)");
+  sk::sys::Process process(sk::util::StringArray("sh") + "-c" + "sleep(60)");
   CPPUNIT_ASSERT_EQUAL(true, process.isAlive());
 
   process.stop();
@@ -116,10 +116,10 @@ testNormalStop()
 }
 
 void
-sk::io::test::ProcessTest::
+sk::sys::test::ProcessTest::
 testForcedStop()
 {
-  sk::io::Process process(sk::util::StringArray("sh") + "-c" + "trap '' 2; sleep(60)");
+  sk::sys::Process process(sk::util::StringArray("sh") + "-c" + "trap '' 2; sleep(60)");
   CPPUNIT_ASSERT_EQUAL(true, process.isAlive());
 
   process.stop();

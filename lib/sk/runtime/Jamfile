@@ -1,5 +1,5 @@
 
-library = sk.sys ;
+library = sk.runtime ;
 
 objects = 
   Tracer.cc

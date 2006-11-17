@@ -2,10 +2,12 @@
 test = sk-util-test ;
 
 test-objects = 
+  ProcessTest.cc
+  PipelineTest.cc
   TestSuite.cc
 ;
 
-use-project-library $(test) : sk.cppunit sk.sys sk.util ;
+use-project-library $(test) : sk.cppunit sk.sys sk.io sk.util ;
 
 use-unit-test $(test) $(test-objects) ;
 make-cpp-test $(test) : $(test-objects) ;

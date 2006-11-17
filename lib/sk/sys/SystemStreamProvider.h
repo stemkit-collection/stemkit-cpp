@@ -5,18 +5,17 @@
  *  You must read and accept the license prior to use.
 */
 
-#ifndef _SK_IO_SYSTEMSTREAMPROVIDER_
-#define _SK_IO_SYSTEMSTREAMPROVIDER_
+#ifndef _SK_SYS_SYSTEMSTREAMPROVIDER_
+#define _SK_SYS_SYSTEMSTREAMPROVIDER_
 
 #include <sk/util/Holder.hxx>
-#include <sk/io/StandardStreamProvider.h>
+#include <sk/sys/StandardStreamProvider.h>
+#include <sk/io/Pipe.h>
 
 namespace sk {
-  namespace io {
-    class Pipe;
-
+  namespace sys {
     class SystemStreamProvider
-      : public virtual sk::io::StandardStreamProvider
+      : public virtual sk::sys::StandardStreamProvider
     {
       public:
         SystemStreamProvider();
@@ -41,4 +40,4 @@ namespace sk {
   }
 }
 
-#endif /* _SK_IO_SYSTEMSTREAMPROVIDER_ */
+#endif /* _SK_SYS_SYSTEMSTREAMPROVIDER_ */

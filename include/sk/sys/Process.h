@@ -5,24 +5,22 @@
  *  You must read and accept the license prior to use.
 */
 
-#ifndef _SK_IO_PROCESS_
-#define _SK_IO_PROCESS_
+#ifndef _SK_SYS_PROCESS_
+#define _SK_SYS_PROCESS_
 
 #include <sk/util/Object.h>
 #include <sk/util/StringArray.h>
 #include <sk/util/Holder.hxx>
-#include <sk/io/StandardStreamProvider.h>
+#include <sk/sys/StandardStreamProvider.h>
+#include <sk/io/FileDescriptor.h>
 
 namespace sk {
-  namespace io {
-    class Pipe;
-    class FileDescriptor;
-
+  namespace sys {
     class Process
-      : public virtual sk::io::StandardStreamProvider
+      : public virtual sk::sys::StandardStreamProvider
     {
       public:
-        Process(const sk::io::StandardStreamProvider& streamProvider, const sk::util::StringArray& cmdline);
+        Process(const sk::sys::StandardStreamProvider& streamProvider, const sk::util::StringArray& cmdline);
         Process(const sk::util::StringArray& cmdline);
         virtual ~Process();
         
@@ -54,8 +52,8 @@ namespace sk {
         void assertNotAlive() const;
         void processChild(const sk::util::StringArray& cmdline);
 
-        sk::util::Holder<const sk::io::StandardStreamProvider> _streamProviderHolder;
-        sk::util::Holder<sk::io::StandardStreamProvider> _ownStreamProviderHolder;
+        sk::util::Holder<const sk::sys::StandardStreamProvider> _streamProviderHolder;
+        sk::util::Holder<sk::sys::StandardStreamProvider> _ownStreamProviderHolder;
         sk::util::StringArray _errors;
         int _pid;
         int _status;
@@ -63,4 +61,4 @@ namespace sk {
   }
 }
 
-#endif /* _SK_IO_PROCESS_ */
+#endif /* _SK_SYS_PROCESS_ */

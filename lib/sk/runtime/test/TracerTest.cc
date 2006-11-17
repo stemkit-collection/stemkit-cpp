@@ -6,34 +6,35 @@
 */
 
 #include "TracerTest.h"
+#include <sk/runtime/Tracer.h>
 
-CPPUNIT_TEST_SUITE_REGISTRATION(sk::sys::test::TracerTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(sk::runtime::test::TracerTest);
 
-sk::sys::test::TracerTest::
+sk::runtime::test::TracerTest::
 TracerTest()
 {
 }
 
-sk::sys::test::TracerTest::
+sk::runtime::test::TracerTest::
 ~TracerTest()
 {
 }
 
 void
-sk::sys::test::TracerTest::
+sk::runtime::test::TracerTest::
 setUp()
 {
 }
 
 void
-sk::sys::test::TracerTest::
+sk::runtime::test::TracerTest::
 tearDown()
 {
 }
 
 void
-sk::sys::test::TracerTest::
-testSimple()
+sk::runtime::test::TracerTest::
+testCreate()
 {
-  CPPUNIT_ASSERT_EQUAL(true, false);
+  Tracer tracer;
 }

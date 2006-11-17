@@ -5,13 +5,13 @@
  *  You must read and accept the license prior to use.
 */
 
-#ifndef _SK_SYS_TRACER_
-#define _SK_SYS_TRACER_
+#ifndef _SK_RUNTIME_TRACER_
+#define _SK_RUNTIME_TRACER_
 
 #include <sk/util/Object.h>
 
 namespace sk {
-  namespace sys {
+  namespace runtime {
     class Tracer
       : public virtual sk::util::Object 
     {
@@ -29,4 +29,4 @@ namespace sk {
   }
 }
 
-#endif /* _SK_SYS_TRACER_ */
+#endif /* _SK_RUNTIME_TRACER_ */

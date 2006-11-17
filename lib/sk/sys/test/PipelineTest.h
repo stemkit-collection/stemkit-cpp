@@ -5,19 +5,19 @@
  *  You must read and accept the license prior to use.
 */
 
-#ifndef _SK_IO_TEST_PIPELINETEST_
-#define _SK_IO_TEST_PIPELINETEST_
+#ifndef _SK_SYS_TEST_PIPELINETEST_
+#define _SK_SYS_TEST_PIPELINETEST_
 
 #include <cppunit/TestFixture.h>
 #include <cppunit/extensions/HelperMacros.h>
 
 namespace sk {
-  namespace io {
+  namespace sys {
     namespace test {
       class PipelineTest
         : public CppUnit::TestFixture
       {
-        CPPUNIT_TEST_SUITE(sk::io::test::PipelineTest);
+        CPPUNIT_TEST_SUITE(sk::sys::test::PipelineTest);
           CPPUNIT_TEST(testSimple);
         CPPUNIT_TEST_SUITE_END();
         
@@ -37,4 +37,4 @@ namespace sk {
   }
 }
 
-#endif /* _SK_IO_TEST_PIPELINETEST_ */
+#endif /* _SK_SYS_TEST_PIPELINETEST_ */

@@ -43,7 +43,7 @@ namespace {
   };
 }
 
-sk::io::SystemStreamProvider::
+sk::sys::SystemStreamProvider::
 SystemStreamProvider()
 {
   _stdinHolder.set(new InputPipe(dup(0)));
@@ -51,34 +51,34 @@ SystemStreamProvider()
   _stderrHolder.set(new OutputPipe(dup(2)));
 }
 
-sk::io::SystemStreamProvider::
+sk::sys::SystemStreamProvider::
 ~SystemStreamProvider()
 {
 }
 
 const sk::util::Class
-sk::io::SystemStreamProvider::
+sk::sys::SystemStreamProvider::
 getClass() const
 {
-  return sk::util::Class("sk::io::SystemStreamProvider");
+  return sk::util::Class("sk::sys::SystemStreamProvider");
 }
 
 sk::io::Pipe&
-sk::io::SystemStreamProvider::
+sk::sys::SystemStreamProvider::
 getStdin() const
 {
   return _stdinHolder.get();
 }
 
 sk::io::Pipe&
-sk::io::SystemStreamProvider::
+sk::sys::SystemStreamProvider::
 getStdout() const
 {
   return _stdoutHolder.get();
 }
 
 sk::io::Pipe&
-sk::io::SystemStreamProvider::
+sk::sys::SystemStreamProvider::
 getStderr() const
 {
   return _stderrHolder.get();

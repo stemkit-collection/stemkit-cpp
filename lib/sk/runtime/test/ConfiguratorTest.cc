@@ -6,34 +6,35 @@
 */
 
 #include "ConfiguratorTest.h"
+#include <sk/runtime/Configurator.h>
 
-CPPUNIT_TEST_SUITE_REGISTRATION(sk::sys::test::ConfiguratorTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(sk::runtime::test::ConfiguratorTest);
 
-sk::sys::test::ConfiguratorTest::
+sk::runtime::test::ConfiguratorTest::
 ConfiguratorTest()
 {
 }
 
-sk::sys::test::ConfiguratorTest::
+sk::runtime::test::ConfiguratorTest::
 ~ConfiguratorTest()
 {
 }
 
 void
-sk::sys::test::ConfiguratorTest::
+sk::runtime::test::ConfiguratorTest::
 setUp()
 {
 }
 
 void
-sk::sys::test::ConfiguratorTest::
+sk::runtime::test::ConfiguratorTest::
 tearDown()
 {
 }
 
 void
-sk::sys::test::ConfiguratorTest::
-testSimple()
+sk::runtime::test::ConfiguratorTest::
+testCreate()
 {
-  CPPUNIT_ASSERT_EQUAL(true, false);
+  Configurator configurator;
 }

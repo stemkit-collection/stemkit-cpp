@@ -5,20 +5,20 @@
  *  You must read and accept the license prior to use.
 */
 
-#ifndef _SK_SYS_TEST_TRASHDISPOSERTEST_
-#define _SK_SYS_TEST_TRASHDISPOSERTEST_
+#ifndef _SK_RUNTIME_TEST_TRASHDISPOSERTEST_
+#define _SK_RUNTIME_TEST_TRASHDISPOSERTEST_
 
 #include <cppunit/TestFixture.h>
 #include <cppunit/extensions/HelperMacros.h>
 
 namespace sk {
-  namespace sys {
+  namespace runtime {
     namespace test {
       class TrashDisposerTest
         : public CppUnit::TestFixture
       {
-        CPPUNIT_TEST_SUITE(sk::sys::test::TrashDisposerTest);
-          CPPUNIT_TEST(testSimple);
+        CPPUNIT_TEST_SUITE(sk::runtime::test::TrashDisposerTest);
+          CPPUNIT_TEST(testCreate);
         CPPUNIT_TEST_SUITE_END();
         
         public:
@@ -27,7 +27,7 @@ namespace sk {
           
           void setUp();
           void tearDown();
-          void testSimple();
+          void testCreate();
           
         private:
           TrashDisposerTest(const TrashDisposerTest& other);
@@ -37,4 +37,4 @@ namespace sk {
   }
 }
 
-#endif /* _SK_SYS_TEST_TRASHDISPOSERTEST_ */
+#endif /* _SK_RUNTIME_TEST_TRASHDISPOSERTEST_ */

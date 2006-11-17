@@ -5,24 +5,23 @@
  *  You must read and accept the license prior to use.
 */
 
-#ifndef _SK_IO_STANDARDSTREAMPROVIDER_
-#define _SK_IO_STANDARDSTREAMPROVIDER_
+#ifndef _SK_SYS_STANDARDSTREAMPROVIDER_
+#define _SK_SYS_STANDARDSTREAMPROVIDER_
 
 #include <sk/util/Object.h>
+#include <sk/io/Pipe.h>
 
 namespace sk {
-  namespace io {
-    class Pipe;
-
+  namespace sys {
     class StandardStreamProvider
       : public virtual sk::util::Object 
     {
       public:
-        virtual Pipe& getStdin() const = 0;
-        virtual Pipe& getStdout() const = 0;
-        virtual Pipe& getStderr() const = 0;
+        virtual sk::io::Pipe& getStdin() const = 0;
+        virtual sk::io::Pipe& getStdout() const = 0;
+        virtual sk::io::Pipe& getStderr() const = 0;
     };
   }
 }
 
-#endif /* _SK_IO_STANDARDSTREAMPROVIDER_ */
+#endif /* _SK_SYS_STANDARDSTREAMPROVIDER_ */

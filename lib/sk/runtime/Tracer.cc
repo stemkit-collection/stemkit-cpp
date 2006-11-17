@@ -8,21 +8,21 @@
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
 
-#include <sk/sys/Tracer.h>
+#include <sk/runtime/Tracer.h>
 
-sk::sys::Tracer::
+sk::runtime::Tracer::
 Tracer()
 {
 }
 
-sk::sys::Tracer::
+sk::runtime::Tracer::
 ~Tracer()
 {
 }
 
 const sk::util::Class
-sk::sys::Tracer::
+sk::runtime::Tracer::
 getClass() const
 {
-  return sk::util::Class("sk::sys::Tracer");
+  return sk::util::Class("sk::runtime::Tracer");
 }

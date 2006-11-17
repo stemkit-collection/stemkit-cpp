@@ -8,21 +8,21 @@
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
 
-#include <sk/sys/Configurator.h>
+#include <sk/runtime/Configurator.h>
 
-sk::sys::Configurator::
+sk::runtime::Configurator::
 Configurator()
 {
 }
 
-sk::sys::Configurator::
+sk::runtime::Configurator::
 ~Configurator()
 {
 }
 
 const sk::util::Class
-sk::sys::Configurator::
+sk::runtime::Configurator::
 getClass() const
 {
-  return sk::util::Class("sk::sys::Configurator");
+  return sk::util::Class("sk::runtime::Configurator");
 }

@@ -6,34 +6,35 @@
 */
 
 #include "TrashDisposerTest.h"
+#include <sk/runtime/TrashDisposer.h>
 
-CPPUNIT_TEST_SUITE_REGISTRATION(sk::sys::test::TrashDisposerTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(sk::runtime::test::TrashDisposerTest);
 
-sk::sys::test::TrashDisposerTest::
+sk::runtime::test::TrashDisposerTest::
 TrashDisposerTest()
 {
 }
 
-sk::sys::test::TrashDisposerTest::
+sk::runtime::test::TrashDisposerTest::
 ~TrashDisposerTest()
 {
 }
 
 void
-sk::sys::test::TrashDisposerTest::
+sk::runtime::test::TrashDisposerTest::
 setUp()
 {
 }
 
 void
-sk::sys::test::TrashDisposerTest::
+sk::runtime::test::TrashDisposerTest::
 tearDown()
 {
 }
 
 void
-sk::sys::test::TrashDisposerTest::
-testSimple()
+sk::runtime::test::TrashDisposerTest::
+testCreate()
 {
-  CPPUNIT_ASSERT_EQUAL(true, false);
+  TrashDisposer disposer;
 }

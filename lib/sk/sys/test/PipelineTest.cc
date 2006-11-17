@@ -7,32 +7,32 @@
 
 #include "PipelineTest.h"
 
-CPPUNIT_TEST_SUITE_REGISTRATION(sk::io::test::PipelineTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(sk::sys::test::PipelineTest);
 
-sk::io::test::PipelineTest::
+sk::sys::test::PipelineTest::
 PipelineTest()
 {
 }
 
-sk::io::test::PipelineTest::
+sk::sys::test::PipelineTest::
 ~PipelineTest()
 {
 }
 
 void
-sk::io::test::PipelineTest::
+sk::sys::test::PipelineTest::
 setUp()
 {
 }
 
 void
-sk::io::test::PipelineTest::
+sk::sys::test::PipelineTest::
 tearDown()
 {
 }
 
 void
-sk::io::test::PipelineTest::
+sk::sys::test::PipelineTest::
 testSimple()
 {
   CPPUNIT_ASSERT_EQUAL(true, false);

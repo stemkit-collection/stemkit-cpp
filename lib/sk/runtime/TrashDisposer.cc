@@ -8,21 +8,21 @@
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
 
-#include <sk/sys/TrashDisposer.h>
+#include <sk/runtime/TrashDisposer.h>
 
-sk::sys::TrashDisposer::
+sk::runtime::TrashDisposer::
 TrashDisposer()
 {
 }
 
-sk::sys::TrashDisposer::
+sk::runtime::TrashDisposer::
 ~TrashDisposer()
 {
 }
 
 const sk::util::Class
-sk::sys::TrashDisposer::
+sk::runtime::TrashDisposer::
 getClass() const
 {
-  return sk::util::Class("sk::sys::TrashDisposer");
+  return sk::util::Class("sk::runtime::TrashDisposer");
 }

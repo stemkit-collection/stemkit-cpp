@@ -5,13 +5,13 @@
  *  You must read and accept the license prior to use.
 */
 
-#ifndef _SK_SYS_TRASHOBSERVER_
-#define _SK_SYS_TRASHOBSERVER_
+#ifndef _SK_RUNTIME_TRASHOBSERVER_
+#define _SK_RUNTIME_TRASHOBSERVER_
 
 #include <sk/util/Object.h>
 
 namespace sk {
-  namespace sys {
+  namespace runtime {
     class TrashObserver
       : public virtual sk::util::Object 
     {
@@ -29,4 +29,4 @@ namespace sk {
   }
 }
 
-#endif /* _SK_SYS_TRASHOBSERVER_ */
+#endif /* _SK_RUNTIME_TRASHOBSERVER_ */

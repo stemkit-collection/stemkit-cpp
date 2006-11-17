@@ -5,13 +5,13 @@
  *  You must read and accept the license prior to use.
 */
 
-#ifndef _SK_SYS_TRASHDISPOSER_
-#define _SK_SYS_TRASHDISPOSER_
+#ifndef _SK_RUNTIME_TRASHDISPOSER_
+#define _SK_RUNTIME_TRASHDISPOSER_
 
 #include <sk/util/Object.h>
 
 namespace sk {
-  namespace sys {
+  namespace runtime {
     class TrashDisposer
       : public virtual sk::util::Object 
     {
@@ -29,4 +29,4 @@ namespace sk {
   }
 }
 
-#endif /* _SK_SYS_TRASHDISPOSER_ */
+#endif /* _SK_RUNTIME_TRASHDISPOSER_ */

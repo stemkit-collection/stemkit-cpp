@@ -5,13 +5,13 @@
  *  You must read and accept the license prior to use.
 */
 
-#ifndef _SK_IO_PIPELINE_
-#define _SK_IO_PIPELINE_
+#ifndef _SK_SYS_PIPELINE_
+#define _SK_SYS_PIPELINE_
 
 #include <sk/util/Object.h>
 
 namespace sk {
-  namespace io {
+  namespace sys {
     class Pipeline
       : public virtual sk::util::Object 
     {
@@ -29,4 +29,4 @@ namespace sk {
   }
 }
 
-#endif /* _SK_IO_PIPELINE_ */
+#endif /* _SK_SYS_PIPELINE_ */

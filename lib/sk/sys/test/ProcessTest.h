@@ -5,19 +5,19 @@
  *  You must read and accept the license prior to use.
 */
 
-#ifndef _SK_IO_TEST_PROCESSTEST_
-#define _SK_IO_TEST_PROCESSTEST_
+#ifndef _SK_SYS_TEST_PROCESSTEST_
+#define _SK_SYS_TEST_PROCESSTEST_
 
 #include <cppunit/TestFixture.h>
 #include <cppunit/extensions/HelperMacros.h>
 
 namespace sk {
-  namespace io {
+  namespace sys {
     namespace test {
       class ProcessTest
         : public CppUnit::TestFixture
       {
-        CPPUNIT_TEST_SUITE(sk::io::test::ProcessTest);
+        CPPUNIT_TEST_SUITE(sk::sys::test::ProcessTest);
           CPPUNIT_TEST(testTrueCommand);
           CPPUNIT_TEST(testFalseCommand);
           CPPUNIT_TEST(testExitCode);
@@ -47,4 +47,4 @@ namespace sk {
   }
 }
 
-#endif /* _SK_IO_TEST_PROCESSTEST_ */
+#endif /* _SK_SYS_TEST_PROCESSTEST_ */

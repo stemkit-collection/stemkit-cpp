@@ -11,7 +11,7 @@
 #include <sk/util/SystemException.h>
 #include <sk/util/IllegalStateException.h>
 
-#include <sk/io/Process.h>
+#include <sk/sys/Process.h>
 #include <sk/io/Pipe.h>
 #include <sk/io/FileDescriptorInputStream.h>
 #include <sk/io/FileDescriptorOutputStream.h>
@@ -26,62 +26,62 @@
 
 #include "SystemStreamProvider.h"
 
-sk::io::Process::
-Process(const sk::io::StandardStreamProvider& streamProvider, const sk::util::StringArray& cmdline)
-  : _streamProviderHolder(streamProvider), _ownStreamProviderHolder(new sk::io::SystemStreamProvider)
+sk::sys::Process::
+Process(const sk::sys::StandardStreamProvider& streamProvider, const sk::util::StringArray& cmdline)
+  : _streamProviderHolder(streamProvider), _ownStreamProviderHolder(new sk::sys::SystemStreamProvider)
 {
   start(cmdline);
 }
 
-sk::io::Process::
+sk::sys::Process::
 Process(const sk::util::StringArray& cmdline)
-  : _ownStreamProviderHolder(new sk::io::SystemStreamProvider)
+  : _ownStreamProviderHolder(new sk::sys::SystemStreamProvider)
 {
   start(cmdline);
 }
 
-sk::io::Process::
+sk::sys::Process::
 ~Process()
 {
   try {
     stop();
   }
   catch(const std::exception& exception) {
-    // std::cerr << "ERROR:sk::io::Process::~Process():" << sk::util::Integer::toString(getpid()) << ": " << exception.what() << std::endl;
+    // std::cerr << "ERROR:sk::sys::Process::~Process():" << sk::util::Integer::toString(getpid()) << ": " << exception.what() << std::endl;
     // throw;
   }
 }
 
 const sk::util::Class
-sk::io::Process::
+sk::sys::Process::
 getClass() const
 {
-  return sk::util::Class("sk::io::Process");
+  return sk::util::Class("sk::sys::Process");
 }
 
 sk::io::Pipe&
-sk::io::Process::
+sk::sys::Process::
 getStdin() const 
 {
   return _ownStreamProviderHolder.get().getStdin();
 }
 
 sk::io::Pipe&
-sk::io::Process::
+sk::sys::Process::
 getStdout() const
 {
   return _ownStreamProviderHolder.get().getStdout();
 }
 
 sk::io::Pipe&
-sk::io::Process::
+sk::sys::Process::
 getStderr() const
 {
   return _ownStreamProviderHolder.get().getStderr();
 }
 
 void
-sk::io::Process::
+sk::sys::Process::
 redirect(int from, const sk::io::FileDescriptor& to)
 {
   int fd = to.getFileNumber();
@@ -102,7 +102,7 @@ namespace {
 }
 
 void
-sk::io::Process::
+sk::sys::Process::
 start(const sk::util::StringArray& cmdline)
 {
   _pid = fork();
@@ -124,7 +124,7 @@ start(const sk::util::StringArray& cmdline)
   if(_streamProviderHolder.isEmpty() == false) {
     _streamProviderHolder.get().getStdout().closeInput();
   }
-  const sk::io::StandardStreamProvider& provider = _ownStreamProviderHolder.get();
+  const sk::sys::StandardStreamProvider& provider = _ownStreamProviderHolder.get();
 
   // provider.getStdin().closeInput();
   // provider.getStdout().closeOutput();
@@ -132,11 +132,11 @@ start(const sk::util::StringArray& cmdline)
 }
 
 void
-sk::io::Process::
+sk::sys::Process::
 processChild(const sk::util::StringArray& cmdline)
 {
   if(_streamProviderHolder.isEmpty() == false) {
-    const sk::io::StandardStreamProvider& provider = _streamProviderHolder.get();
+    const sk::sys::StandardStreamProvider& provider = _streamProviderHolder.get();
 
     redirect(0, provider.getStdout().inputStream().getFileDescriptor());
 
@@ -144,7 +144,7 @@ processChild(const sk::util::StringArray& cmdline)
     provider.getStdout().close();
     provider.getStderr().close();
   }
-  const sk::io::StandardStreamProvider& provider = _ownStreamProviderHolder.get();
+  const sk::sys::StandardStreamProvider& provider = _ownStreamProviderHolder.get();
 
   redirect(1, provider.getStdout().outputStream().getFileDescriptor());
   redirect(2, provider.getStderr().outputStream().getFileDescriptor());
@@ -161,7 +161,7 @@ processChild(const sk::util::StringArray& cmdline)
 }
 
 void
-sk::io::Process::
+sk::sys::Process::
 stop() 
 {
   if(isAlive() == false) {
@@ -177,7 +177,7 @@ stop()
 }
 
 bool
-sk::io::Process::
+sk::sys::Process::
 signalUnlessTerminates(int timeout, int signal)
 {
   void (*old_alarm_handler)(int) = ::signal(SIGALRM, SIG_IGN);
@@ -195,7 +195,7 @@ signalUnlessTerminates(int timeout, int signal)
 }
 
 void
-sk::io::Process::
+sk::sys::Process::
 join()
 {
   if(isAlive() == false) {
@@ -216,14 +216,14 @@ join()
 }
 
 bool
-sk::io::Process::
+sk::sys::Process::
 isSuccess() const
 {
   return isExited() && exitStatus() == 0;
 }
 
 bool
-sk::io::Process::
+sk::sys::Process::
 isExited() const
 {
   assertNotAlive();
@@ -232,7 +232,7 @@ isExited() const
 }
 
 bool
-sk::io::Process::
+sk::sys::Process::
 isKilled() const
 {
   assertNotAlive();
@@ -241,7 +241,7 @@ isKilled() const
 }
 
 void
-sk::io::Process::
+sk::sys::Process::
 assertNotAlive() const
 {
   if(isAlive() == true) {
@@ -250,7 +250,7 @@ assertNotAlive() const
 }
 
 int
-sk::io::Process::
+sk::sys::Process::
 exitStatus() const
 {
   if(isExited() == false) {
@@ -260,7 +260,7 @@ exitStatus() const
 }
 
 int
-sk::io::Process::
+sk::sys::Process::
 signal() const
 {
   if(isKilled() == false) {
@@ -270,7 +270,7 @@ signal() const
 }
 
 bool
-sk::io::Process::
+sk::sys::Process::
 isAlive() const
 {
   return _pid != -1;
