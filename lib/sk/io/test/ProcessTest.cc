@@ -9,6 +9,8 @@
 #include <sk/io/Process.h>
 #include <sk/io/AnonymousPipe.h>
 
+#include <signal.h>
+
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::io::test::ProcessTest);
 
 sk::io::test::ProcessTest::
@@ -35,14 +37,96 @@ tearDown()
 
 void
 sk::io::test::ProcessTest::
-testCreateFromStringLiteral()
+testTrueCommand()
 {
   sk::io::Process process("true");
+  CPPUNIT_ASSERT_EQUAL(true, process.isAlive());
+
+  process.join();
+
+  CPPUNIT_ASSERT_EQUAL(false, process.isAlive());
+  CPPUNIT_ASSERT_EQUAL(true, process.isExited());
+  CPPUNIT_ASSERT_EQUAL(false, process.isKilled());
+  CPPUNIT_ASSERT_EQUAL(0, process.exitStatus());
+  CPPUNIT_ASSERT_EQUAL(true, process.isSuccess());
 }
 
 void
 sk::io::test::ProcessTest::
-testCreateFromStringArray()
+testFalseCommand()
 {
-  sk::io::Process process(sk::util::StringArray("true") + "aaa" + "bbb");
+  sk::io::Process process("false");
+  CPPUNIT_ASSERT_EQUAL(true, process.isAlive());
+
+  process.join();
+
+  CPPUNIT_ASSERT_EQUAL(false, process.isAlive());
+  CPPUNIT_ASSERT_EQUAL(true, process.isExited());
+  CPPUNIT_ASSERT_EQUAL(false, process.isKilled());
+  CPPUNIT_ASSERT_EQUAL(1, process.exitStatus());
+  CPPUNIT_ASSERT_EQUAL(false, process.isSuccess());
+}
+
+void
+sk::io::test::ProcessTest::
+testExitCode()
+{
+  sk::io::Process process(sk::util::StringArray("sh") + "-c" + "exit 5");
+  CPPUNIT_ASSERT_EQUAL(true, process.isAlive());
+
+  process.join();
+
+  CPPUNIT_ASSERT_EQUAL(false, process.isAlive());
+  CPPUNIT_ASSERT_EQUAL(true, process.isExited());
+  CPPUNIT_ASSERT_EQUAL(false, process.isKilled());
+  CPPUNIT_ASSERT_EQUAL(5, process.exitStatus());
+  CPPUNIT_ASSERT_EQUAL(false, process.isSuccess());
+}
+
+void
+sk::io::test::ProcessTest::
+testKilled()
+{
+  sk::io::Process process(sk::util::StringArray("sh") + "-c" + "kill ${$}; sleep(60)");
+  CPPUNIT_ASSERT_EQUAL(true, process.isAlive());
+
+  process.join();
+
+  CPPUNIT_ASSERT_EQUAL(false, process.isAlive());
+  CPPUNIT_ASSERT_EQUAL(false, process.isExited());
+  CPPUNIT_ASSERT_EQUAL(true, process.isKilled());
+
+  CPPUNIT_ASSERT_EQUAL(SIGTERM, process.signal());
+}
+
+void
+sk::io::test::ProcessTest::
+testNormalStop()
+{
+  sk::io::Process process(sk::util::StringArray("sh") + "-c" + "sleep(60)");
+  CPPUNIT_ASSERT_EQUAL(true, process.isAlive());
+
+  process.stop();
+
+  CPPUNIT_ASSERT_EQUAL(false, process.isAlive());
+  CPPUNIT_ASSERT_EQUAL(false, process.isExited());
+  CPPUNIT_ASSERT_EQUAL(true, process.isKilled());
+
+  CPPUNIT_ASSERT_EQUAL(SIGTERM, process.signal());
+}
+
+void
+sk::io::test::ProcessTest::
+testForcedStop()
+{
+  sk::io::Process process(sk::util::StringArray("sh") + "-c" + "trap '' 2; sleep(60)");
+  CPPUNIT_ASSERT_EQUAL(true, process.isAlive());
+
+  process.stop();
+
+  CPPUNIT_ASSERT_EQUAL(false, process.isAlive());
+  CPPUNIT_ASSERT_EQUAL(false, process.isExited());
+  CPPUNIT_ASSERT_EQUAL(true, process.isKilled());
+
+  CPPUNIT_ASSERT_EQUAL(SIGKILL, process.signal());
 }

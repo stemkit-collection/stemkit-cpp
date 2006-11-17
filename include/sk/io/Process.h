@@ -16,6 +16,7 @@
 namespace sk {
   namespace io {
     class Pipe;
+    class FileDescriptor;
 
     class Process
       : public virtual sk::io::StandardStreamProvider
@@ -30,8 +31,10 @@ namespace sk {
 
         bool isSuccess() const;
         bool isExited() const;
+        bool isKilled() const;
         bool isAlive() const;
         int exitStatus() const;
+        int signal() const;
 
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
@@ -46,11 +49,16 @@ namespace sk {
         Process& operator = (const Process& other);
 
         void start(const sk::util::StringArray& cmdline);
-        void exec(const sk::util::String& command, const std::vector<char*>& args);
+        void redirect(int from, const sk::io::FileDescriptor& to);
+        bool signalUnlessTerminates(int timeout, int signal);
+        void assertNotAlive() const;
+        void processChild(const sk::util::StringArray& cmdline);
 
         sk::util::Holder<const sk::io::StandardStreamProvider> _streamProviderHolder;
         sk::util::Holder<sk::io::StandardStreamProvider> _ownStreamProviderHolder;
+        sk::util::StringArray _errors;
         int _pid;
+        int _status;
     };
   }
 }

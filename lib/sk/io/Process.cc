@@ -6,16 +6,23 @@
 */
 
 #include <sk/util/Class.h>
+#include <sk/util/Integer.h>
 #include <sk/util/Holder.cxx>
 #include <sk/util/SystemException.h>
 #include <sk/util/IllegalStateException.h>
 
 #include <sk/io/Process.h>
 #include <sk/io/Pipe.h>
+#include <sk/io/FileDescriptorInputStream.h>
+#include <sk/io/FileDescriptorOutputStream.h>
+#include <sk/io/DataInputStream.h>
+#include <sk/io/EOFException.h>
 
+#include <errno.h>
 #include <unistd.h>
 #include <sys/wait.h>
 #include <signal.h>
+#include <iostream>
 
 #include "SystemStreamProvider.h"
 
@@ -36,7 +43,13 @@ Process(const sk::util::StringArray& cmdline)
 sk::io::Process::
 ~Process()
 {
-  stop();
+  try {
+    stop();
+  }
+  catch(const sk::util::Exception& exception) {
+    // std::cerr << "ERROR:sk::io::Process::~Process():" << sk::util::Integer::toString(getpid()) << ": " << exception.getMessage().getChars() << std::endl;
+    // throw;
+  }
 }
 
 const sk::util::Class
@@ -67,11 +80,25 @@ getStderr() const
   return _ownStreamProviderHolder.get().getStderr();
 }
 
-void 
+void
 sk::io::Process::
-exec(const sk::util::String& command, const std::vector<char*>& args)
+redirect(int from, const sk::io::FileDescriptor& to)
 {
-  ::execvp(command.getChars(), &args[0]);
+  int fd = to.getFileNumber();
+  ::close(from);
+  ::dup(fd);
+}
+
+namespace {
+  struct ExecArgumentCollector : public virtual sk::util::Processor<const sk::util::String> {
+    ExecArgumentCollector(std::vector<char*>& arguments)
+      : _arguments(arguments) {}
+
+    void process(const sk::util::String& item) const {
+      _arguments.push_back(const_cast<char*>(item.getChars()));
+    }
+    std::vector<char*>& _arguments;
+  };
 }
 
 void
@@ -79,34 +106,60 @@ sk::io::Process::
 start(const sk::util::StringArray& cmdline)
 {
   _pid = fork();
+
   if(_pid < 0) {
-    sk::util::SystemException("fork()");
+    throw sk::util::SystemException("fork()");
   }
   if(_pid == 0) {
-    ::close(0);
-    ::close(1);
-    ::close(2);
+    // std::cerr << "CHILD: " << sk::util::Integer::toString(getpid()) << std::endl;
+    try {
+      processChild(cmdline);
+      std::cerr << "ERROR:exec:" << sk::util::Integer::toString(errno) << ":" << strerror(errno) << ":" << cmdline.inspect() << std::endl;
+    }
+    catch(const sk::util::Exception& exception) {
+      std::cerr << "ERROR:fork:" << exception.getMessage() << ":" << cmdline.inspect() << std::endl;
+    }
 
-    _stdin.cloneReadDescriptor();
-    _stdout.cloneWriteDescriptor();
-    _stderr.cloneWriteDescriptor();
-
-    _stdin.close();
-    _stdout.close();
-    _stderr.close();
-
-    std::vector<char*> arguments;
-
-    std::for_each(argv.begin(), argv.end(), ExecArgumentPusher(arguments));
-    arguments.push_back(0);
-
-    _listener.exec(argv[0], arguments);
-    std::cerr << "Process exec failure" << std::endl;
     _exit(1);
   }
-  _stdin.closeReadDescriptor();
-  _stdout.closeWriteDescriptor();
-  _stderr.closeWriteDescriptor();
+  // std::cerr << "PARENT: " << sk::util::Integer::toString(getpid()) << std::endl;
+  if(_streamProviderHolder.isEmpty() == false) {
+    _streamProviderHolder.get().getStdout().closeInput();
+  }
+  const sk::io::StandardStreamProvider& provider = _ownStreamProviderHolder.get();
+
+  // provider.getStdin().closeInput();
+  // provider.getStdout().closeOutput();
+  // provider.getStderr().closeOutput();
+}
+
+void
+sk::io::Process::
+processChild(const sk::util::StringArray& cmdline)
+{
+  if(_streamProviderHolder.isEmpty() == false) {
+    const sk::io::StandardStreamProvider& provider = _streamProviderHolder.get();
+
+    redirect(0, provider.getStdout().inputStream().getFileDescriptor());
+
+    provider.getStdin().close();
+    provider.getStdout().close();
+    provider.getStderr().close();
+  }
+  const sk::io::StandardStreamProvider& provider = _ownStreamProviderHolder.get();
+
+  redirect(1, provider.getStdout().outputStream().getFileDescriptor());
+  redirect(2, provider.getStderr().outputStream().getFileDescriptor());
+
+  provider.getStdin().close();
+  provider.getStdout().close();
+  provider.getStderr().close();
+
+  std::vector<char*> arguments;
+  cmdline.forEach(ExecArgumentCollector(arguments));
+  arguments.push_back(0);
+
+  ::execvp(arguments[0], &arguments[0]);
 }
 
 void
@@ -116,19 +169,31 @@ stop()
   if(isAlive() == false) {
     return;
   }
-  _stdin.close();
+  _ownStreamProviderHolder.get().getStdin().close();
 
-  void (*old_alarm_handler)(int) = signal(SIGALRM, SIG_IGN);
-  int old_alarm_remainder = alarm(1);
-
-  int status = waitpid(_pid, 0, 0);
-  signal(SIGALRM, old_alarm_handler);
-  alarm(old_alarm_remainder);
-
-  if(status < 0) {
-    kill(_pid, SIGKILL);
+  if(signalUnlessTerminates(1, SIGTERM)) {
+    signalUnlessTerminates(1, SIGKILL);
+    join();
   }
   _pid = -1;
+}
+
+bool
+sk::io::Process::
+signalUnlessTerminates(int timeout, int signal)
+{
+  void (*old_alarm_handler)(int) = ::signal(SIGALRM, SIG_IGN);
+  int old_alarm_remainder = ::alarm(timeout);
+
+  int status = ::waitpid(_pid, &_status, 0);
+  ::signal(SIGALRM, old_alarm_handler);
+  ::alarm(old_alarm_remainder);
+
+  if(status < 0) {
+    ::kill(_pid, signal);
+    return true;
+  }
+  return false;
 }
 
 void
@@ -138,9 +203,15 @@ join()
   if(isAlive() == false) {
     return;
   }
-  _errors = io::StreamContent(_stderr.inputStream()).get();
+  sk::io::DataInputStream stream(_ownStreamProviderHolder.get().getStderr().inputStream());
+  try {
+    while(true) {
+      _errors << stream.readLine();
+    }
+  }
+  catch(const sk::io::EOFException& exception) {}
 
-  if(waitpid(_pid, &_status, 0) < 0) {
+  if(::waitpid(_pid, &_status, 0) < 0) {
     throw sk::util::SystemException("waitpid()");
   }
   _pid = -1;
@@ -157,10 +228,27 @@ bool
 sk::io::Process::
 isExited() const
 {
-  if(isAlive() == true) {
-    throw sk::util::IllegalStateException("Process still alive");
-  }
+  assertNotAlive();
+
   return WIFEXITED(_status) ? true : false;
+}
+
+bool
+sk::io::Process::
+isKilled() const
+{
+  assertNotAlive();
+
+  return WIFSIGNALED(_status) ? true : false;
+}
+
+void
+sk::io::Process::
+assertNotAlive() const
+{
+  if(isAlive() == true) {
+    throw sk::util::IllegalStateException("Process " + sk::util::Integer::toString(_pid) + " still alive");
+  }
 }
 
 int
@@ -168,9 +256,19 @@ sk::io::Process::
 exitStatus() const
 {
   if(isExited() == false) {
-    throw sk::util::IllegalStateException("Process is terminated, not exited");
+    throw sk::util::IllegalStateException("Process killed, not exited");
   }
   return WEXITSTATUS(_status);
+}
+
+int
+sk::io::Process::
+signal() const
+{
+  if(isKilled() == false) {
+    throw sk::util::IllegalStateException("Process exited, not killed");
+  }
+  return WTERMSIG(_status);
 }
 
 bool

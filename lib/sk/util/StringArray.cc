@@ -40,6 +40,26 @@ getClass() const
   return sk::util::Class("sk::util::StringArray");
 }
 
+const sk::util::String
+sk::util::StringArray::
+inspect() const
+{
+  sk::util::String joined;
+  const_iterator iterator = begin();
+
+  while(iterator != end() ) {
+    joined += (*iterator).inspect();
+    if(++iterator != end()) {
+      joined += ',';
+    }
+    joined += ' ';
+  }
+  if(joined.size() > 0) {
+    joined = " " + joined;
+  }
+  return getClass().getName() + '[' + joined + ']';
+}
+
 int
 sk::util::StringArray::
 size() const
@@ -65,4 +85,21 @@ operator + (const sk::util::String& item) const
 
   array.push_back(item);
   return array;
+}
+
+void
+sk::util::StringArray::
+forEach(const sk::util::Processor<const sk::util::String>& processor) const
+{
+  for(const_iterator iterator=begin(); iterator != end() ;++iterator) {
+    processor.process(*iterator);
+  }
+}
+
+sk::util::StringArray&
+sk::util::StringArray::
+operator << (const sk::util::String& item) 
+{
+  push_back(item);
+  return *this;
 }

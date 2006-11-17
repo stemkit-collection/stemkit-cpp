@@ -29,8 +29,8 @@ namespace sk {
         void close();
         void closeInput();
         void closeOutput();
-        InputStream& inputStream() const;
-        OutputStream& outputStream() const;
+        FileDescriptorInputStream& inputStream() const;
+        FileDescriptorOutputStream& outputStream() const;
         
       private:
         Pty(const Pty& other);

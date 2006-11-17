@@ -7,6 +7,8 @@
 
 #include "StringArrayTest.h"
 #include <sk/util/StringArray.h>
+#include <sk/util/Class.h>
+#include <sk/util/IndexOutOfBoundsException.h>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::util::test::StringArrayTest);
 
@@ -60,3 +62,35 @@ testPlusString()
   CPPUNIT_ASSERT_EQUAL(2, result.size());
   CPPUNIT_ASSERT_EQUAL(sk::util::String("bbb"), result.get(1));
 }
+
+void
+sk::util::test::StringArrayTest::
+testAddString()
+{
+  sk::util::StringArray strings("aaa");
+  CPPUNIT_ASSERT_EQUAL(1, strings.size());
+
+  strings << "bbb" << "ccc";
+  CPPUNIT_ASSERT_EQUAL(3, strings.size());
+
+  CPPUNIT_ASSERT_EQUAL(sk::util::String("aaa"), strings.get(0));
+  CPPUNIT_ASSERT_EQUAL(sk::util::String("bbb"), strings.get(1));
+  CPPUNIT_ASSERT_EQUAL(sk::util::String("ccc"), strings.get(2));
+
+  CPPUNIT_ASSERT_THROW(strings.get(3), sk::util::IndexOutOfBoundsException);
+}
+
+void
+sk::util::test::StringArrayTest::
+testInspect()
+{
+  sk::util::StringArray strings;
+  CPPUNIT_ASSERT_EQUAL(strings.getClass().getName() + "[]", strings.inspect());
+
+  strings << "aaa";
+  CPPUNIT_ASSERT_EQUAL(strings.getClass().getName() + "[ \"aaa\" ]", strings.inspect());
+
+  strings << "bbb";
+  CPPUNIT_ASSERT_EQUAL(strings.getClass().getName() + "[ \"aaa\", \"bbb\" ]", strings.inspect());
+}
+

@@ -34,10 +34,6 @@ namespace sk {
         SystemStreamProvider(const SystemStreamProvider& other);
         SystemStreamProvider& operator = (const SystemStreamProvider& other);
 
-        void initStdin();
-        void initStdout();
-        void initStderr();
-
         sk::util::Holder<sk::io::Pipe> _stdinHolder;
         sk::util::Holder<sk::io::Pipe> _stdoutHolder;
         sk::util::Holder<sk::io::Pipe> _stderrHolder;

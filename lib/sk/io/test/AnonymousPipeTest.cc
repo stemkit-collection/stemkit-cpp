@@ -10,8 +10,8 @@
 #include <sk/util/String.h>
 #include <sk/util/Container.h>
 #include <sk/io/AnonymousPipe.h>
-#include <sk/io/OutputStream.h>
-#include <sk/io/InputStream.h>
+#include <sk/io/FileDescriptorOutputStream.h>
+#include <sk/io/FileDescriptorInputStream.h>
 #include <sk/io/DataInputStream.h>
 #include <sk/io/EOFException.h>
 

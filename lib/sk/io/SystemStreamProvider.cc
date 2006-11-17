@@ -11,15 +11,44 @@
 
 #include <sk/io/AbstractPipe.h>
 #include <sk/io/FileDescriptorInputStream.h>
+#include <sk/io/FileDescriptorOutputStream.h>
 
 #include "SystemStreamProvider.h"
+
+namespace {
+  struct InputPipe : public sk::io::AbstractPipe {
+    InputPipe(int fd) 
+      : _stream(fd) {}
+
+    void closeInput() {
+      _stream.close();
+    }
+    sk::io::FileDescriptorInputStream& inputStream() const {
+      return _stream;
+    }
+    mutable sk::io::FileDescriptorInputStream _stream;
+  };
+
+  struct OutputPipe : public sk::io::AbstractPipe {
+    OutputPipe(int fd) 
+      : _stream(fd) {}
+
+    void closeOutput() {
+      _stream.close();
+    }
+    sk::io::FileDescriptorOutputStream& outputStream() const {
+      return _stream;
+    }
+    mutable sk::io::FileDescriptorOutputStream _stream;
+  };
+}
 
 sk::io::SystemStreamProvider::
 SystemStreamProvider()
 {
-  initStdin();
-  initStdout();
-  initStderr();
+  _stdinHolder.set(new InputPipe(dup(0)));
+  _stdoutHolder.set(new OutputPipe(dup(1)));
+  _stderrHolder.set(new OutputPipe(dup(2)));
 }
 
 sk::io::SystemStreamProvider::
@@ -55,24 +84,3 @@ getStderr() const
   return _stderrHolder.get();
 }
 
-namespace {
-  struct StdinPipe : public sk::io::AbstractPipe {
-    StdinPipe() 
-      : _stream(0) {}
-
-    void closeInput() {
-      _stream.close();
-    }
-    sk::io::InputStream& inputStream() const {
-      return _stream;
-    }
-    mutable sk::io::FileDescriptorInputStream _stream;
-  };
-}
-
-void
-sk::io::SystemStreamProvider::
-initStdin()
-{
-  _stdinHolder.set(new StdinPipe);
-}

@@ -12,8 +12,8 @@
 
 namespace sk {
   namespace io {
-    class InputStream;
-    class OutputStream;
+    class FileDescriptorInputStream;
+    class FileDescriptorOutputStream;
 
     class Pipe
       : public virtual sk::util::Object 
@@ -23,8 +23,8 @@ namespace sk {
         virtual void closeInput() = 0;
         virtual void closeOutput() = 0;
 
-        virtual InputStream& inputStream() const = 0;
-        virtual OutputStream& outputStream() const = 0;
+        virtual FileDescriptorInputStream& inputStream() const = 0;
+        virtual FileDescriptorOutputStream& outputStream() const = 0;
     };
   }
 }

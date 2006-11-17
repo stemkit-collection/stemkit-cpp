@@ -28,15 +28,15 @@ namespace sk {
         void closeInput();
         void closeOutput();
 
-        InputStream& inputStream() const;
-        OutputStream& outputStream() const;
+        FileDescriptorInputStream& inputStream() const;
+        FileDescriptorOutputStream& outputStream() const;
 
       private:
         AnonymousPipe(const AnonymousPipe& other);
         AnonymousPipe& operator = (const AnonymousPipe& other);
 
-        sk::util::Holder<sk::io::InputStream> _inputStreamHolder;
-        sk::util::Holder<sk::io::OutputStream> _outputStreamHolder;
+        sk::util::Holder<sk::io::FileDescriptorInputStream> _inputStreamHolder;
+        sk::util::Holder<sk::io::FileDescriptorOutputStream> _outputStreamHolder;
     };
   }
 }

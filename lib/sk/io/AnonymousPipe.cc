@@ -63,14 +63,14 @@ closeOutput()
   _outputStreamHolder.get().close();
 }
 
-sk::io::InputStream& 
+sk::io::FileDescriptorInputStream& 
 sk::io::AnonymousPipe::
 inputStream() const
 {
   return _inputStreamHolder.get();
 }
 
-sk::io::OutputStream& 
+sk::io::FileDescriptorOutputStream& 
 sk::io::AnonymousPipe::
 outputStream() const
 {

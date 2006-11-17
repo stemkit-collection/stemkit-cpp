@@ -40,14 +40,14 @@ closeOutput()
   throw sk::util::UnsupportedOperationException("closeOutput()");
 }
 
-sk::io::InputStream& 
+sk::io::FileDescriptorInputStream& 
 sk::io::AbstractPipe::
 inputStream() const
 {
   throw sk::util::UnsupportedOperationException("inputStream()");
 }
 
-sk::io::OutputStream& 
+sk::io::FileDescriptorOutputStream& 
 sk::io::AbstractPipe::
 outputStream() const
 {
