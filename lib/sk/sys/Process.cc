@@ -13,7 +13,6 @@
 
 #include <sk/sys/Process.h>
 #include <sk/io/Pipe.h>
-#include <sk/io/FileDescriptorInputStream.h>
 #include <sk/io/FileDescriptorOutputStream.h>
 #include <sk/io/DataInputStream.h>
 #include <sk/io/EOFException.h>
@@ -23,19 +22,32 @@
 #include <sys/wait.h>
 #include <signal.h>
 #include <iostream>
-
-#include "SystemStreamProvider.h"
+#include <sys/time.h>
 
 sk::sys::Process::
-Process(const sk::sys::StandardStreamProvider& streamProvider, const sk::util::StringArray& cmdline)
-  : _streamProviderHolder(streamProvider), _ownStreamProviderHolder(new sk::sys::SystemStreamProvider)
+Process(sk::io::FileDescriptorInputStream& inputStream, const sk::util::StringArray& cmdline, ProcessListener& listener)
+  : _inputStreamHolder(inputStream), _listener(listener)
+{
+  start(cmdline);
+}
+
+sk::sys::Process::
+Process(sk::io::FileDescriptorInputStream& inputStream, const sk::util::StringArray& cmdline)
+  : _inputStreamHolder(inputStream), _listener(*this)
+{
+  start(cmdline);
+}
+
+sk::sys::Process::
+Process(const sk::util::StringArray& cmdline, ProcessListener& listener)
+  : _listener(listener)
 {
   start(cmdline);
 }
 
 sk::sys::Process::
 Process(const sk::util::StringArray& cmdline)
-  : _ownStreamProviderHolder(new sk::sys::SystemStreamProvider)
+  : _listener(*this)
 {
   start(cmdline);
 }
@@ -47,8 +59,8 @@ sk::sys::Process::
     stop();
   }
   catch(const std::exception& exception) {
-    // std::cerr << "ERROR:sk::sys::Process::~Process():" << sk::util::Integer::toString(getpid()) << ": " << exception.what() << std::endl;
-    // throw;
+    std::cerr << "ERROR:sk::sys::Process::~Process():" << sk::util::Integer::toString(getpid()) << ": " << exception.what() << std::endl;
+    throw;
   }
 }
 
@@ -57,27 +69,6 @@ sk::sys::Process::
 getClass() const
 {
   return sk::util::Class("sk::sys::Process");
-}
-
-sk::io::Pipe&
-sk::sys::Process::
-getStdin() const 
-{
-  return _ownStreamProviderHolder.get().getStdin();
-}
-
-sk::io::Pipe&
-sk::sys::Process::
-getStdout() const
-{
-  return _ownStreamProviderHolder.get().getStdout();
-}
-
-sk::io::Pipe&
-sk::sys::Process::
-getStderr() const
-{
-  return _ownStreamProviderHolder.get().getStderr();
 }
 
 void
@@ -121,43 +112,31 @@ start(const sk::util::StringArray& cmdline)
 
     _exit(1);
   }
-  if(_streamProviderHolder.isEmpty() == false) {
-    _streamProviderHolder.get().getStdout().closeInput();
+  if(_inputStreamHolder.isEmpty() == false) {
+    _inputStreamHolder.get().close();
   }
-  const sk::sys::StandardStreamProvider& provider = _ownStreamProviderHolder.get();
-
-  // provider.getStdin().closeInput();
-  // provider.getStdout().closeOutput();
-  // provider.getStderr().closeOutput();
 }
 
 void
 sk::sys::Process::
 processChild(const sk::util::StringArray& cmdline)
 {
-  if(_streamProviderHolder.isEmpty() == false) {
-    const sk::sys::StandardStreamProvider& provider = _streamProviderHolder.get();
-
-    redirect(0, provider.getStdout().inputStream().getFileDescriptor());
-
-    provider.getStdin().close();
-    provider.getStdout().close();
-    provider.getStderr().close();
+  if(_inputStreamHolder.isEmpty() == false) {
+    redirect(0, _inputStreamHolder.get().getFileDescriptor());
+    _inputStreamHolder.get().close();
   }
-  const sk::sys::StandardStreamProvider& provider = _ownStreamProviderHolder.get();
-
-  redirect(1, provider.getStdout().outputStream().getFileDescriptor());
-  redirect(2, provider.getStderr().outputStream().getFileDescriptor());
-
-  provider.getStdin().close();
-  provider.getStdout().close();
-  provider.getStderr().close();
-
   std::vector<char*> arguments;
   cmdline.forEach(ExecArgumentCollector(arguments));
   arguments.push_back(0);
 
   ::execvp(arguments[0], &arguments[0]);
+}
+
+int
+sk::sys::Process::
+processStopping()
+{
+  return 0;
 }
 
 void
@@ -167,11 +146,12 @@ stop()
   if(isAlive() == false) {
     return;
   }
-  _ownStreamProviderHolder.get().getStdin().close();
-
-  if(signalUnlessTerminates(1, SIGTERM)) {
+  if(signalUnlessTerminates(_listener.processStopping(), SIGTERM)) {
     signalUnlessTerminates(1, SIGKILL);
-    join();
+    try {
+      join();
+    }
+    catch(const std::exception& exception) {}
   }
   _pid = -1;
 }
@@ -180,18 +160,38 @@ bool
 sk::sys::Process::
 signalUnlessTerminates(int timeout, int signal)
 {
-  void (*old_alarm_handler)(int) = ::signal(SIGALRM, SIG_IGN);
-  int old_alarm_remainder = ::alarm(timeout);
-
-  int status = ::waitpid(_pid, &_status, 0);
-  ::signal(SIGALRM, old_alarm_handler);
-  ::alarm(old_alarm_remainder);
-
-  if(status < 0) {
-    ::kill(_pid, signal);
-    return true;
+  if(timeout > 0) {
+    time_t start_time = time(0);
+    while(true) {
+      int status = ::waitpid(_pid, &_status, WNOHANG);
+      if(status > 0) {
+        return false;
+      }
+      if(status < 0) {
+        throw sk::util::SystemException("waitpid()");
+      }
+      if(time(0) > (start_time + timeout)) {
+        break;
+      }
+    }
   }
-  return false;
+  ::kill(_pid, signal);
+  return true;
+}
+
+void
+sk::sys::Process::
+processJoining() 
+{
+  /*
+  sk::io::DataInputStream stream(_ownStreamProviderHolder.get().getStderr().inputStream());
+  try {
+    while(true) {
+      _errors << stream.readLine();
+    }
+  }
+  catch(const sk::io::EOFException& exception) {}
+  */
 }
 
 void
@@ -201,13 +201,7 @@ join()
   if(isAlive() == false) {
     return;
   }
-  sk::io::DataInputStream stream(_ownStreamProviderHolder.get().getStderr().inputStream());
-  try {
-    while(true) {
-      _errors << stream.readLine();
-    }
-  }
-  catch(const sk::io::EOFException& exception) {}
+  _listener.processJoining();
 
   if(::waitpid(_pid, &_status, 0) < 0) {
     throw sk::util::SystemException("waitpid()");

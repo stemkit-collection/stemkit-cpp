@@ -87,7 +87,7 @@ void
 sk::sys::test::ProcessTest::
 testKilled()
 {
-  sk::sys::Process process(sk::util::StringArray("sh") + "-c" + "kill ${$}; sleep(60)");
+  sk::sys::Process process(sk::util::StringArray("sh") + "-c" + "kill ${$}; exec sleep 2");
   CPPUNIT_ASSERT_EQUAL(true, process.isAlive());
 
   process.join();
@@ -103,9 +103,10 @@ void
 sk::sys::test::ProcessTest::
 testNormalStop()
 {
-  sk::sys::Process process(sk::util::StringArray("sh") + "-c" + "sleep(60)");
+  sk::sys::Process process(sk::util::StringArray("sh") + "-c" + "exec sleep 10");
   CPPUNIT_ASSERT_EQUAL(true, process.isAlive());
 
+  sleep(1);
   process.stop();
 
   CPPUNIT_ASSERT_EQUAL(false, process.isAlive());
@@ -119,9 +120,10 @@ void
 sk::sys::test::ProcessTest::
 testForcedStop()
 {
-  sk::sys::Process process(sk::util::StringArray("sh") + "-c" + "trap '' 2; sleep(60)");
+  sk::sys::Process process(sk::util::StringArray("sh") + "-c" + "trap '' 15; exec sleep 10");
   CPPUNIT_ASSERT_EQUAL(true, process.isAlive());
 
+  sleep(1);
   process.stop();
 
   CPPUNIT_ASSERT_EQUAL(false, process.isAlive());

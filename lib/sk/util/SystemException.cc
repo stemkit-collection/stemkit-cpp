@@ -9,10 +9,11 @@
 #include <sk/util/String.h>
 
 #include <sk/util/SystemException.h>
+#include <errno.h>
 
 sk::util::SystemException::
 SystemException(const sk::util::String& message)
-  : sk::util::Exception(join("System", message))
+  : sk::util::Exception(join(join(join("System", message), errno), strerror(errno)))
 {
 }
 

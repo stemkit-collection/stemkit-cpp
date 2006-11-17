@@ -8,6 +8,7 @@
 #include "SystemExceptionTest.h"
 #include <sk/util/SystemException.h>
 #include <sk/util/Class.h>
+#include <errno.h>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::util::test::SystemExceptionTest);
 
@@ -38,10 +39,12 @@ sk::util::test::SystemExceptionTest::
 testThrow()
 {
   try {
+    errno = 0;
     throw SystemException("zzz");
   }
   catch(const Exception& exception) {
-    CPPUNIT_ASSERT_EQUAL(String("ERROR:System:zzz"), exception.getMessage());
+    sk::util::String expected = "ERROR:System:zzz:0:";
+    CPPUNIT_ASSERT_EQUAL(expected, sk::util::String(exception.getMessage(), expected.length()));
     CPPUNIT_ASSERT_EQUAL(String("sk::util::SystemException"), exception.getClass().getName());
   }
 }

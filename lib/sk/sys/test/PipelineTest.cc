@@ -6,6 +6,7 @@
 */
 
 #include "PipelineTest.h"
+#include <sk/sys/Pipeline.h>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::sys::test::PipelineTest);
 
@@ -33,7 +34,7 @@ tearDown()
 
 void
 sk::sys::test::PipelineTest::
-testSimple()
+testCreate()
 {
-  CPPUNIT_ASSERT_EQUAL(true, false);
+  Pipeline pipe;
 }

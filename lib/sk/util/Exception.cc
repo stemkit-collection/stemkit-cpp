@@ -7,6 +7,7 @@
 
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
+#include <sk/util/Integer.h>
 
 #include <sk/util/Exception.h>
 
@@ -47,4 +48,11 @@ sk::util::Exception::
 join(const sk::util::String& s1, const sk::util::String& s2) const
 {
   return s1 + ':' + s2;
+}
+
+const sk::util::String
+sk::util::Exception::
+join(const sk::util::String& s1, int i1) const
+{
+  return join(s1, sk::util::Integer::toString(i1));
 }

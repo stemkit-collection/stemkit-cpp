@@ -11,22 +11,26 @@
 #include <sk/util/Object.h>
 #include <sk/util/StringArray.h>
 #include <sk/util/Holder.hxx>
-#include <sk/sys/StandardStreamProvider.h>
-#include <sk/io/FileDescriptor.h>
+#include <sk/io/FileDescriptorInputStream.h>
+#include <sk/sys/Executable.h>
+#include <sk/sys/ProcessListener.h>
 
 namespace sk {
   namespace sys {
     class Process
-      : public virtual sk::sys::StandardStreamProvider
+      : public virtual sk::sys::Executable,
+        public virtual sk::sys::ProcessListener
     {
       public:
-        Process(const sk::sys::StandardStreamProvider& streamProvider, const sk::util::StringArray& cmdline);
+        Process(sk::io::FileDescriptorInputStream& inputStream, const sk::util::StringArray& cmdline, ProcessListener& listener);
+        Process(sk::io::FileDescriptorInputStream& inputStream, const sk::util::StringArray& cmdline);
+        Process(const sk::util::StringArray& cmdline, ProcessListener& listener);
         Process(const sk::util::StringArray& cmdline);
         virtual ~Process();
         
+        // sk::sys::Executable implementation.
         void stop();
         void join();
-
         bool isSuccess() const;
         bool isExited() const;
         bool isKilled() const;
@@ -37,10 +41,9 @@ namespace sk {
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
 
-        // sk::io::StandardStreamProvider implementation.
-        sk::io::Pipe& getStdin() const;
-        sk::io::Pipe& getStdout() const;
-        sk::io::Pipe& getStderr() const;
+        // sk::sys::ProcessListener implementation.
+        int processStopping();
+        void processJoining();
 
       private:
         Process(const Process& other);
@@ -52,9 +55,8 @@ namespace sk {
         void assertNotAlive() const;
         void processChild(const sk::util::StringArray& cmdline);
 
-        sk::util::Holder<const sk::sys::StandardStreamProvider> _streamProviderHolder;
-        sk::util::Holder<sk::sys::StandardStreamProvider> _ownStreamProviderHolder;
-        sk::util::StringArray _errors;
+        sk::util::Holder<sk::io::FileDescriptorInputStream> _inputStreamHolder;
+        sk::sys::ProcessListener& _listener;
         int _pid;
         int _status;
     };

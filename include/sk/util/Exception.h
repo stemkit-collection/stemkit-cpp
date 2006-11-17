@@ -32,6 +32,7 @@ namespace sk {
 
       protected:
         const String join(const String& s1, const String& s2) const;
+        const String join(const String& s1, int i1) const;
 
       private:
         sk::util::String _message;

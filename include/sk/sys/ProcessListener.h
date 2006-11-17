@@ -5,23 +5,21 @@
  *  You must read and accept the license prior to use.
 */
 
-#ifndef _SK_SYS_STANDARDSTREAMPROVIDER_
-#define _SK_SYS_STANDARDSTREAMPROVIDER_
+#ifndef _SK_SYS_PROCESSLISTENER_
+#define _SK_SYS_PROCESSLISTENER_
 
 #include <sk/util/Object.h>
-#include <sk/io/Pipe.h>
 
 namespace sk {
   namespace sys {
-    class StandardStreamProvider
+    class ProcessListener
       : public virtual sk::util::Object 
     {
       public:
-        virtual sk::io::Pipe& getStdin() const = 0;
-        virtual sk::io::Pipe& getStdout() const = 0;
-        virtual sk::io::Pipe& getStderr() const = 0;
+        virtual int processStopping() = 0;
+        virtual void processJoining() = 0;
     };
   }
 }
 
-#endif /* _SK_SYS_STANDARDSTREAMPROVIDER_ */
+#endif /* _SK_SYS_PROCESSLISTENER_ */

@@ -2,7 +2,6 @@
 library = sk.sys ;
 
 objects = 
-  SystemStreamProvider.cc
   Process.cc
   Pipeline.cc
 ;
