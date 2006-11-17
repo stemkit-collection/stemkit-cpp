@@ -19,8 +19,6 @@ test-objects =
   ClosedChannelExceptionTest.cc
   AnonymousPipeTest.cc
   PtyTest.cc
-  ProcessTest.cc
-  PipelineTest.cc
   TestSuite.cc
 ;
 

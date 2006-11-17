@@ -13,6 +13,6 @@ int main(int argc, char **argv)
   CppUnit::TestFactoryRegistry &registry = CppUnit::TestFactoryRegistry::getRegistry();
   sk::cppunit::TestRunner runner;
 
-  runner.addTest(registry.makeTest());
+  runner.addTest( registry.makeTest() );
   return !runner.run();
 }
