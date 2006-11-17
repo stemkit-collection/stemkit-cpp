@@ -46,8 +46,8 @@ sk::io::Process::
   try {
     stop();
   }
-  catch(const sk::util::Exception& exception) {
-    // std::cerr << "ERROR:sk::io::Process::~Process():" << sk::util::Integer::toString(getpid()) << ": " << exception.getMessage().getChars() << std::endl;
+  catch(const std::exception& exception) {
+    // std::cerr << "ERROR:sk::io::Process::~Process():" << sk::util::Integer::toString(getpid()) << ": " << exception.what() << std::endl;
     // throw;
   }
 }
@@ -111,18 +111,16 @@ start(const sk::util::StringArray& cmdline)
     throw sk::util::SystemException("fork()");
   }
   if(_pid == 0) {
-    // std::cerr << "CHILD: " << sk::util::Integer::toString(getpid()) << std::endl;
     try {
       processChild(cmdline);
       std::cerr << "ERROR:exec:" << sk::util::Integer::toString(errno) << ":" << strerror(errno) << ":" << cmdline.inspect() << std::endl;
     }
-    catch(const sk::util::Exception& exception) {
-      std::cerr << "ERROR:fork:" << exception.getMessage() << ":" << cmdline.inspect() << std::endl;
+    catch(const std::exception& exception) {
+      std::cerr << "ERROR:fork:" << exception.what() << ":" << cmdline.inspect() << std::endl;
     }
 
     _exit(1);
   }
-  // std::cerr << "PARENT: " << sk::util::Integer::toString(getpid()) << std::endl;
   if(_streamProviderHolder.isEmpty() == false) {
     _streamProviderHolder.get().getStdout().closeInput();
   }
