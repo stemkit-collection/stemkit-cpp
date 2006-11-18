@@ -3,6 +3,7 @@ test = sk-util-test ;
 
 test-objects = 
   ProcessTest.cc
+  PipeProcessTest.cc
   PipelineTest.cc
   TestSuite.cc
 ;

@@ -3,6 +3,8 @@ library = sk.sys ;
 
 objects = 
   Process.cc
+  DelegatingExecutable.cc
+  PipeProcess.cc
   Pipeline.cc
 ;
 

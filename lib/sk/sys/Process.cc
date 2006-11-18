@@ -191,15 +191,6 @@ void
 sk::sys::Process::
 processJoining() 
 {
-  /*
-  sk::io::DataInputStream stream(_ownStreamProviderHolder.get().getStderr().inputStream());
-  try {
-    while(true) {
-      _errors << stream.readLine();
-    }
-  }
-  catch(const sk::io::EOFException& exception) {}
-  */
 }
 
 void
