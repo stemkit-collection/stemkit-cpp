@@ -65,7 +65,6 @@ testFalseCommand()
   CPPUNIT_ASSERT_EQUAL(false, process.isAlive());
   CPPUNIT_ASSERT_EQUAL(true, process.isExited());
   CPPUNIT_ASSERT_EQUAL(false, process.isKilled());
-  CPPUNIT_ASSERT_EQUAL(1, process.exitStatus());
   CPPUNIT_ASSERT_EQUAL(false, process.isSuccess());
 }
 
@@ -89,7 +88,7 @@ void
 sk::sys::test::ProcessTest::
 testKilled()
 {
-  sk::sys::Process process(sk::util::StringArray("sh") + "-c" + "kill ${$}; exec sleep 2");
+  sk::sys::Process process(sk::util::StringArray("sh") + "-c" + "kill -9 ${$}; exec sleep 2");
   CPPUNIT_ASSERT_EQUAL(true, process.isAlive());
 
   process.join();
@@ -98,7 +97,7 @@ testKilled()
   CPPUNIT_ASSERT_EQUAL(false, process.isExited());
   CPPUNIT_ASSERT_EQUAL(true, process.isKilled());
 
-  CPPUNIT_ASSERT_EQUAL(SIGTERM, process.signal());
+  CPPUNIT_ASSERT_EQUAL(SIGKILL, process.signal());
 }
 
 void
