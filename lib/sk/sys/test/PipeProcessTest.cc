@@ -46,7 +46,7 @@ testTranslate()
   process.outputStream().write(sk::util::Container("abcdaaa\n"));
   process.outputStream().close();
 
-  CPPUNIT_ASSERT_EQUAL(sk::util::String("AbcdAAA"), data.readLine());
+  CPPUNIT_ASSERT_EQUAL(sk::util::String("AbcdAAA\n").inspect(), data.readLine().inspect());
 
   process.join();
   CPPUNIT_ASSERT_EQUAL(false, process.isAlive());
