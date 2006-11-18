@@ -19,6 +19,9 @@ namespace sk {
       {
         CPPUNIT_TEST_SUITE(sk::sys::test::PipeProcessTest);
           CPPUNIT_TEST(testTranslate);
+          CPPUNIT_TEST(testDataNoErrors);
+          CPPUNIT_TEST(testErrorsNoData);
+          CPPUNIT_TEST(testArguments);
         CPPUNIT_TEST_SUITE_END();
         
         public:
@@ -28,6 +31,9 @@ namespace sk {
           void setUp();
           void tearDown();
           void testTranslate();
+          void testDataNoErrors();
+          void testErrorsNoData();
+          void testArguments();
           
         private:
           PipeProcessTest(const PipeProcessTest& other);
