@@ -16,7 +16,7 @@ namespace sk {
       : public virtual sk::sys::Executable
     {
       public:
-        DelegatingExecutable(sk::sys::Executable& executable);
+        DelegatingExecutable();
         virtual ~DelegatingExecutable();
         
         // sk::util::Object re-implementation.
@@ -32,11 +32,9 @@ namespace sk {
         int exitStatus() const;
         int signal() const;
 
-      private:
-        DelegatingExecutable(const DelegatingExecutable& other);
-        DelegatingExecutable& operator = (const DelegatingExecutable& other);
+      protected:
+        virtual sk::sys::Executable& getExecutable() const = 0;
 
-        sk::sys::Executable& _executable;
     };
   }
 }

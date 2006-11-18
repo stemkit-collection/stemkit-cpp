@@ -10,9 +10,10 @@
 
 #include <sk/sys/DelegatingExecutable.h>
 
+#include <iostream>
+
 sk::sys::DelegatingExecutable::
-DelegatingExecutable(sk::sys::Executable& executable)
-  : _executable(executable)
+DelegatingExecutable()
 {
 }
 
@@ -32,54 +33,54 @@ void
 sk::sys::DelegatingExecutable::
 stop()
 {
-  _executable.stop();
+  getExecutable().stop();
 }
 
 void 
 sk::sys::DelegatingExecutable::
 join()
 {
-  _executable.join();
+  getExecutable().join();
 }
 
 bool 
 sk::sys::DelegatingExecutable::
 isSuccess() const
 {
-  return _executable.isSuccess();
+  return getExecutable().isSuccess();
 }
 
 bool 
 sk::sys::DelegatingExecutable::
 isExited() const
 {
-  return _executable.isExited();
+  return getExecutable().isExited();
 }
 
 bool 
 sk::sys::DelegatingExecutable::
 isKilled() const
 {
-  return _executable.isKilled();
+  return getExecutable().isKilled();
 }
 
 bool 
 sk::sys::DelegatingExecutable::
 isAlive() const
 {
-  return _executable.isAlive();
+  return getExecutable().isAlive();
 }
 
 int 
 sk::sys::DelegatingExecutable::
 exitStatus() const
 {
-  return _executable.exitStatus();
+  return getExecutable().exitStatus();
 }
 
 int 
 sk::sys::DelegatingExecutable::
 signal() const
 {
-  return _executable.signal();
+  return getExecutable().signal();
 }

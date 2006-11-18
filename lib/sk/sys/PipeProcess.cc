@@ -14,6 +14,8 @@
 #include <sk/io/AnonymousPipe.h>
 #include <sk/io/FileDescriptorOutputStream.h>
 
+#include <iostream>
+
 class sk::sys::PipeProcess::Listener 
   : public virtual sk::sys::ProcessListener 
 {
@@ -29,14 +31,20 @@ class sk::sys::PipeProcess::Listener
 
 sk::sys::PipeProcess::
 PipeProcess(const sk::util::StringArray& cmdline)
-  : DelegatingExecutable(_process), _listenerHolder(new Listener), 
-    _process(_listenerHolder.get().stdinPipe.inputStream(), cmdline, _listenerHolder.get())
+  : _listenerHolder(new Listener), _process(_listenerHolder.get().stdinPipe.inputStream(), cmdline, _listenerHolder.get())
 {
 }
 
 sk::sys::PipeProcess::
 ~PipeProcess()
 {
+}
+
+sk::sys::Executable&
+sk::sys::PipeProcess::
+getExecutable() const
+{
+  return const_cast<Process&>(_process);
 }
 
 const sk::util::Class
@@ -69,6 +77,10 @@ processStarting()
 
   ::close(2);
   ::dup(stderrPipe.outputStream().getFileDescriptor().getFileNumber());
+
+  stdinPipe.close();
+  stdoutPipe.close();
+  stderrPipe.close();
 }
 
 int 

@@ -1,5 +1,5 @@
 
-test = sk-util-test ;
+test = sk-sys-test ;
 
 test-objects = 
   ProcessTest.cc

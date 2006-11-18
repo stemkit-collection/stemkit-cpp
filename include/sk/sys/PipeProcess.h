@@ -29,6 +29,10 @@ namespace sk {
         
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
+
+      protected:
+        // sk::sys::DelegatingExecutable implementation.
+        sk::sys::Executable& getExecutable() const;
         
       private:
         PipeProcess(const PipeProcess& other);
