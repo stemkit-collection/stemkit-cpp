@@ -8,11 +8,12 @@
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
 #include <sk/util/Holder.cxx>
-#include <sk/util/UnsupportedOperationException.h>
 
 #include <sk/sys/PipeProcess.h>
 #include <sk/io/AnonymousPipe.h>
+#include <sk/io/DataInputStream.h>
 #include <sk/io/FileDescriptorOutputStream.h>
+#include <sk/io/EOFException.h>
 
 class sk::sys::PipeProcess::Listener 
   : public virtual sk::sys::ProcessListener 
@@ -25,6 +26,8 @@ class sk::sys::PipeProcess::Listener
     sk::io::AnonymousPipe stdinPipe;
     sk::io::AnonymousPipe stdoutPipe;
     sk::io::AnonymousPipe stderrPipe;
+
+    sk::util::StringArray errors;
 };
 
 sk::sys::PipeProcess::
@@ -61,11 +64,25 @@ inputStream() const
   return _listenerHolder.get().stdoutPipe.inputStream();
 }
 
+sk::io::InputStream& 
+sk::sys::PipeProcess::
+inputErrorStream() const
+{
+  return _listenerHolder.get().stderrPipe.inputStream();
+}
+
 sk::io::OutputStream&
 sk::sys::PipeProcess::
 outputStream() const
 {
   return _listenerHolder.get().stdinPipe.outputStream();
+}
+
+const sk::util::StringArray& 
+sk::sys::PipeProcess::
+errors() const
+{
+  return _listenerHolder.get().errors;
 }
 
 void 
@@ -95,13 +112,13 @@ void
 sk::sys::PipeProcess::Listener::
 processJoining()
 {
-  /*
-  sk::io::DataInputStream stream(_ownStreamProviderHolder.get().getStderr().inputStream());
+  stdinPipe.outputStream().close();
+
+  sk::io::DataInputStream stream(stderrPipe.inputStream());
   try {
     while(true) {
-      _errors << stream.readLine();
+      errors << stream.readLine();
     }
   }
   catch(const sk::io::EOFException& exception) {}
-  */
 }

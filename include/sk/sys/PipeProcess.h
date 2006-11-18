@@ -25,7 +25,10 @@ namespace sk {
         virtual ~PipeProcess();
 
         sk::io::InputStream& inputStream() const;
+        sk::io::InputStream& inputErrorStream() const;
         sk::io::OutputStream& outputStream() const;
+
+        const sk::util::StringArray& errors() const;
         
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
