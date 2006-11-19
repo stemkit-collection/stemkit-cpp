@@ -33,7 +33,13 @@ namespace sk {
         int signal() const;
 
       protected:
-        virtual sk::sys::Executable& getExecutable() const = 0;
+        // This way of obtaining an object to delegate to was chosen here over
+        // passing it in the constructor for the reason. At least one compiler
+        // (gcc-3.4.3) does not handle the latter correctly when used to
+        // delegate to a data member.
+        //
+        virtual sk::sys::Executable& getExecutable() = 0;
+        virtual const sk::sys::Executable& getExecutable() const = 0;
 
     };
   }

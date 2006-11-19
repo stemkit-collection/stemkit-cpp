@@ -15,10 +15,9 @@
 #include <sk/io/FileDescriptorOutputStream.h>
 #include <sk/io/EOFException.h>
 
-class sk::sys::PipeProcess::Listener 
+struct sk::sys::PipeProcess::Listener 
   : public virtual sk::sys::ProcessListener 
 {
-  public:
     void processStarting();
     int processStopping();
     void processJoining();
@@ -45,9 +44,16 @@ sk::sys::PipeProcess::
 
 sk::sys::Executable&
 sk::sys::PipeProcess::
+getExecutable()
+{
+  return _process;
+}
+
+const sk::sys::Executable&
+sk::sys::PipeProcess::
 getExecutable() const
 {
-  return const_cast<Process&>(_process);
+  return _process;
 }
 
 const sk::util::Class

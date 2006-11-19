@@ -33,15 +33,15 @@ namespace sk {
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
 
-      protected:
-        // sk::sys::DelegatingExecutable implementation.
-        sk::sys::Executable& getExecutable() const;
-        
       private:
         PipeProcess(const PipeProcess& other);
         PipeProcess& operator = (const PipeProcess& other);
 
-        class Listener;
+        // sk::sys::DelegatingExecutable implementation.
+        sk::sys::Executable& getExecutable();
+        const sk::sys::Executable& getExecutable() const;
+        
+        struct Listener;
 
         sk::util::Holder<Listener> _listenerHolder;
         sk::sys::Process _process;
