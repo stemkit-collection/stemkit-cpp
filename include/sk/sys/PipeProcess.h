@@ -22,6 +22,7 @@ namespace sk {
     {
       public:
         PipeProcess(const sk::util::StringArray& cmdline);
+        PipeProcess(sk::io::FileDescriptorInputStream& inputStream, const sk::util::StringArray& cmdline);
         virtual ~PipeProcess();
 
         sk::io::InputStream& inputStream() const;

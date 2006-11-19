@@ -9,7 +9,9 @@
 #include <sk/sys/PipeProcess.h>
 #include <sk/io/DataInputStream.h>
 #include <sk/io/EOFException.h>
+#include <sk/io/ClosedChannelException.h>
 #include <sk/util/Container.h>
+#include <sk/io/FileInputStream.h>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::sys::test::PipeProcessTest);
 
@@ -141,4 +143,23 @@ testAlltogether()
 
   CPPUNIT_ASSERT_EQUAL(1, process.errors().size());
   CPPUNIT_ASSERT_EQUAL(sk::util::String("BAD: second\n").inspect(), process.errors().get(0).inspect());
+}
+
+void
+sk::sys::test::PipeProcessTest::
+testInputRedirect()
+{
+  sk::io::FileInputStream input("test-data");
+  PipeProcess process(input, sk::util::StringArray("tr") + "a" + "A");
+  sk::io::DataInputStream data(process.inputStream());
+
+  CPPUNIT_ASSERT_THROW(process.outputStream().write('a'), sk::io::ClosedChannelException);
+  CPPUNIT_ASSERT_EQUAL(sk::util::String("Line1: AAA\n").inspect(), data.readLine().inspect());
+  CPPUNIT_ASSERT_EQUAL(sk::util::String("Line2: bbb\n").inspect(), data.readLine().inspect());
+  CPPUNIT_ASSERT_EQUAL(sk::util::String("Line3: ccc\n").inspect(), data.readLine().inspect());
+  CPPUNIT_ASSERT_THROW(data.readLine(), sk::io::EOFException);
+
+  process.join();
+  CPPUNIT_ASSERT_EQUAL(0, process.errors().size());
+  CPPUNIT_ASSERT_EQUAL(true, process.isSuccess());
 }

@@ -38,6 +38,15 @@ PipeProcess(const sk::util::StringArray& cmdline)
 }
 
 sk::sys::PipeProcess::
+PipeProcess(sk::io::FileDescriptorInputStream& inputStream, const sk::util::StringArray& cmdline)
+  : _listenerHolder(new Listener), _process(inputStream, cmdline, _listenerHolder.get())
+{
+  _listenerHolder.get().stdinPipe.close();
+  _listenerHolder.get().stdoutPipe.closeOutput();
+  _listenerHolder.get().stderrPipe.closeOutput();
+}
+
+sk::sys::PipeProcess::
 ~PipeProcess()
 {
 }

@@ -24,6 +24,7 @@ namespace sk {
           CPPUNIT_TEST(testArguments);
           CPPUNIT_TEST(testErrorsAfterJoin);
           CPPUNIT_TEST(testAlltogether);
+          CPPUNIT_TEST(testInputRedirect);
         CPPUNIT_TEST_SUITE_END();
         
         public:
@@ -38,6 +39,7 @@ namespace sk {
           void testArguments();
           void testErrorsAfterJoin();
           void testAlltogether();
+          void testInputRedirect();
           
         private:
           PipeProcessTest(const PipeProcessTest& other);
