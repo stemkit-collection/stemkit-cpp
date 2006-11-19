@@ -22,6 +22,8 @@ namespace sk {
           CPPUNIT_TEST(testDataNoErrors);
           CPPUNIT_TEST(testErrorsNoData);
           CPPUNIT_TEST(testArguments);
+          CPPUNIT_TEST(testErrorsAfterJoin);
+          CPPUNIT_TEST(testAlltogether);
         CPPUNIT_TEST_SUITE_END();
         
         public:
@@ -34,6 +36,8 @@ namespace sk {
           void testDataNoErrors();
           void testErrorsNoData();
           void testArguments();
+          void testErrorsAfterJoin();
+          void testAlltogether();
           
         private:
           PipeProcessTest(const PipeProcessTest& other);
