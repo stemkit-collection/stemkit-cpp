@@ -23,7 +23,8 @@ objects =
   ClosedChannelException.cc
   AbstractPipe.cc
   AnonymousPipe.cc
-  Tty.cc
+  DelegatingTty.cc
+  TtyDevice.cc
   Pty.cc
 ;
 

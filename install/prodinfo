@@ -60,6 +60,7 @@ fileset {
       Class.h
       Integer.h
       String.h
+      StringArray.h
       Container.h
       Slot.h
       ReferenceSlot.hxx
@@ -130,6 +131,11 @@ fileset {
       DelegatingInputStream.h
       DelegatingOutputStream.h
       File.h
+      Pipe.h
+      Tty.h
+      TtyDevice.h
+      DelegatingTty.h
+      Pty.h
       FileDescriptor.h
       FileDescriptorInputStream.h
       FileDescriptorOutputStream.h
@@ -166,6 +172,27 @@ fileset {
     include/sk/sys
     lib
   }
+  install.into('include/sk/sys').source {
+    file 'include/sk/sys' => %w{
+      DelegatingExecutable.h
+      Executable.h
+      PipeProcess.h
+      Pipeline.h
+      Process.h
+      ProcessListener.h
+    }
+  }
+
+  if ENV['MAKE_DLL'] == 'true'
+    install.into('lib').binary {
+      library 'lib' => 'sk.sys'
+      node 'lib/sk/sys/libsk.sys.so'
+    }
+  else
+    install.into('lib').binary {
+      static_library 'lib' => 'sk.sys'
+    }
+  end
 }
 
 fileset {

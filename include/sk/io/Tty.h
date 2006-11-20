@@ -16,15 +16,6 @@ namespace sk {
       : public virtual sk::util::Object 
     {
       public:
-        Tty();
-        virtual ~Tty();
-        
-        // sk::util::Object re-implementation.
-        const sk::util::Class getClass() const;
-        
-      private:
-        Tty(const Tty& other);
-        Tty& operator = (const Tty& other);
     };
   }
 }

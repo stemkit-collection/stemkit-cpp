@@ -8,14 +8,16 @@
 #ifndef _SK_IO_PTY_
 #define _SK_IO_PTY_
 
-#include <sk/util/Object.h>
-#include <sk/io/Tty.h>
+#include <sk/util/Holder.hxx>
+#include <sk/io/DelegatingTty.h>
 #include <sk/io/Pipe.h>
 
 namespace sk {
   namespace io {
+    class TtyDevice;
+
     class Pty
-      : public sk::io::Tty,
+      : public sk::io::DelegatingTty,
         public virtual sk::io::Pipe
     {
       public:
@@ -35,6 +37,12 @@ namespace sk {
       private:
         Pty(const Pty& other);
         Pty& operator = (const Pty& other);
+
+        // sk::io::DelegatingTty implementation.
+        sk::io::Tty& getTty();
+        const sk::io::Tty& getTty() const;
+
+        sk::util::Holder<sk::io::TtyDevice> _ttyHolder;
     };
   }
 }

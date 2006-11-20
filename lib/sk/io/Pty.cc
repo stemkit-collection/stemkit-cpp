@@ -7,9 +7,11 @@
 
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
+#include <sk/util/Holder.cxx>
 #include <sk/util/UnsupportedOperationException.h>
 
 #include <sk/io/Pty.h>
+#include <sk/io/TtyDevice.h>
 
 sk::io::Pty::
 Pty()
@@ -63,4 +65,18 @@ sk::io::Pty::
 outputStream() const
 {
   throw sk::util::UnsupportedOperationException("outputStream()");
+}
+
+sk::io::Tty& 
+sk::io::Pty::
+getTty()
+{
+  return _ttyHolder.get();
+}
+
+const sk::io::Tty& 
+sk::io::Pty::
+getTty() const
+{
+  return _ttyHolder.get();
 }

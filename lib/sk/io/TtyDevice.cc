@@ -8,21 +8,22 @@
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
 
-#include <sk/io/Tty.h>
+#include <sk/io/TtyDevice.h>
 
-sk::io::Tty::
-Tty()
+sk::io::TtyDevice::
+TtyDevice(const sk::util::String& name)
+  : sk::io::File(name)
 {
 }
 
-sk::io::Tty::
-~Tty()
+sk::io::TtyDevice::
+~TtyDevice()
 {
 }
 
 const sk::util::Class
-sk::io::Tty::
+sk::io::TtyDevice::
 getClass() const
 {
-  return sk::util::Class("sk::io::Tty");
+  return sk::util::Class("sk::io::TtyDevice");
 }
