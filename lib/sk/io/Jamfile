@@ -25,6 +25,7 @@ objects =
   AnonymousPipe.cc
   DelegatingTty.cc
   TtyDevice.cc
+  PtyImpl.cc
   Pty.cc
 ;
 

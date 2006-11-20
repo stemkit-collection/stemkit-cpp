@@ -11,7 +11,7 @@
 #include <sk/util/UnsupportedOperationException.h>
 
 #include <sk/io/Pty.h>
-#include <sk/io/TtyDevice.h>
+#include "PtyImpl.h"
 
 sk::io::Pty::
 Pty()
@@ -71,12 +71,12 @@ sk::io::Tty&
 sk::io::Pty::
 getTty()
 {
-  return _ttyHolder.get();
+  return _implHolder.get().getTty();
 }
 
 const sk::io::Tty& 
 sk::io::Pty::
 getTty() const
 {
-  return _ttyHolder.get();
+  return _implHolder.get().getTty();
 }

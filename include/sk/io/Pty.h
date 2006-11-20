@@ -14,7 +14,7 @@
 
 namespace sk {
   namespace io {
-    class TtyDevice;
+    class PtyImpl;
 
     class Pty
       : public sk::io::DelegatingTty,
@@ -42,7 +42,7 @@ namespace sk {
         sk::io::Tty& getTty();
         const sk::io::Tty& getTty() const;
 
-        sk::util::Holder<sk::io::TtyDevice> _ttyHolder;
+        sk::util::Holder<PtyImpl> _implHolder;
     };
   }
 }
