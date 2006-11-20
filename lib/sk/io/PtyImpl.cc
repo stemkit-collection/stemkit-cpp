@@ -13,7 +13,9 @@
 
 sk::io::PtyImpl::
 PtyImpl()
+  : _master("/dev/ptmx", "w")
 {
+  setWindow(24, 80);
 }
 
 sk::io::PtyImpl::
@@ -41,3 +43,4 @@ getTty()  const
 {
   return _ttyHolder.get();
 }
+

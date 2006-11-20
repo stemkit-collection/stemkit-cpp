@@ -15,6 +15,7 @@
 
 sk::io::Pty::
 Pty()
+  : _implHolder(new PtyImpl)
 {
 }
 

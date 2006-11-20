@@ -26,6 +26,7 @@ objects =
   DelegatingTty.cc
   TtyDevice.cc
   PtyImpl.cc
+  PtySpecifics.cc
   Pty.cc
 ;
 

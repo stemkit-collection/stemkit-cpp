@@ -5,38 +5,30 @@
  *  You must read and accept the license prior to use.
 */
 
-#ifndef _SK_IO_PTYIMPL_
-#define _SK_IO_PTYIMPL_
+#ifndef _SK_IO_PTYSPECIFICS_
+#define _SK_IO_PTYSPECIFICS_
 
 #include <sk/util/Object.h>
-#include <sk/util/Holder.hxx>
-#include <sk/io/File.h>
 
 namespace sk {
   namespace io {
-    class Tty;
-
-    class PtyImpl
+    class PtySpecifics
       : public virtual sk::util::Object 
     {
       public:
-        PtyImpl();
-        virtual ~PtyImpl();
+        PtySpecifics();
+        virtual ~PtySpecifics();
 
-        sk::io::Tty& getTty();
-        const sk::io::Tty& getTty() const;
-
+        void setup();
+        
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
         
       private:
-        PtyImpl(const PtyImpl& other);
-        PtyImpl& operator = (const PtyImpl& other);
-
-        sk::util::Holder<sk::io::Tty> _ttyHolder;
-        sk::io::File _master;
+        PtySpecifics(const PtySpecifics& other);
+        PtySpecifics& operator = (const PtySpecifics& other);
     };
   }
 }
 
-#endif /* _SK_IO_PTYIMPL_ */
+#endif /* _SK_IO_PTYSPECIFICS_ */
