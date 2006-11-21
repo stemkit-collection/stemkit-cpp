@@ -26,7 +26,7 @@ objects =
   DelegatingTty.cc
   TtyDevice.cc
   PtyImpl.cc
-  PtySpecifics.cc
+  PtySpecifics-$(project.PTY_SPECIFICS).cc
   Pty.cc
 ;
 
