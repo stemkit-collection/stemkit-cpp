@@ -7,9 +7,21 @@
 
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
-#include <sk/util/UnsupportedOperationException.h>
+#include <sk/util/Holder.cxx>
 
 #include <sk/io/AbstractPipe.h>
+#include <sk/io/FileDescriptorInputStream.h>
+#include <sk/io/FileDescriptorOutputStream.h>
+
+sk::io::AbstractPipe::
+AbstractPipe()
+{
+}
+
+sk::io::AbstractPipe::
+~AbstractPipe()
+{
+}
 
 const sk::util::Class
 sk::io::AbstractPipe::
@@ -30,26 +42,54 @@ void
 sk::io::AbstractPipe::
 closeInput()
 {
-  throw sk::util::UnsupportedOperationException("closeInput()");
+  _inputStreamHolder.get().close();
 }
 
 void 
 sk::io::AbstractPipe::
 closeOutput()
 {
-  throw sk::util::UnsupportedOperationException("closeOutput()");
+  _outputStreamHolder.get().close();
 }
 
 sk::io::FileDescriptorInputStream& 
 sk::io::AbstractPipe::
 inputStream() const
 {
-  throw sk::util::UnsupportedOperationException("inputStream()");
+  return _inputStreamHolder.get();
 }
 
 sk::io::FileDescriptorOutputStream& 
 sk::io::AbstractPipe::
 outputStream() const
 {
-  throw sk::util::UnsupportedOperationException("outputStream()");
+  return _outputStreamHolder.get();
+}
+
+void 
+sk::io::AbstractPipe::
+setInputFileDescriptor(int fd)
+{
+  _inputStreamHolder.set(new FileDescriptorInputStream(fd));
+}
+
+void 
+sk::io::AbstractPipe::
+setOutputFileDescriptor(int fd)
+{
+  _outputStreamHolder.set(new FileDescriptorOutputStream(fd));
+}
+
+void 
+sk::io::AbstractPipe::
+setInputFileDescriptor(const sk::io::FileDescriptor& descriptor)
+{
+  _inputStreamHolder.set(new FileDescriptorInputStream(descriptor));
+}
+
+void 
+sk::io::AbstractPipe::
+setOutputFileDescriptor(const sk::io::FileDescriptor& descriptor)
+{
+  _outputStreamHolder.set(new FileDescriptorOutputStream(descriptor));
 }

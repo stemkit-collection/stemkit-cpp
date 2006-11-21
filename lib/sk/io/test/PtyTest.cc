@@ -38,11 +38,30 @@ tearDown()
 
 void
 sk::io::test::PtyTest::
-testAsPipe()
+testMasterSlavePipe()
 {
   sk::io::Pty pty;
-  sk::io::DataInputStream data(pty.inputStream());
+  sk::io::DataInputStream data(pty.getMasterSlavePipe().inputStream());
 
-  pty.outputStream().write(sk::util::Container("Hello\n"));
+  pty.getMasterSlavePipe().outputStream().write(sk::util::Container("Hello\n"));
   CPPUNIT_ASSERT_EQUAL(sk::util::String("Hello\n").inspect(), data.readLine().inspect());
+}
+
+void
+sk::io::test::PtyTest::
+testSlaveMasterPipe()
+{
+  sk::io::Pty pty;
+  sk::io::DataInputStream data(pty.getSlaveMasterPipe().inputStream());
+
+  pty.getSlaveMasterPipe().outputStream().write(sk::util::Container("Hello\n"));
+  CPPUNIT_ASSERT_EQUAL(sk::util::String("Hello\r\n").inspect(), data.readLine().inspect());
+}
+
+void 
+sk::io::test::PtyTest::
+testSlaveTty()
+{
+  sk::io::Pty pty;
+  CPPUNIT_ASSERT_EQUAL(1, isatty(pty.getMasterSlavePipe().inputStream().getFileDescriptor().getFileNumber()));
 }

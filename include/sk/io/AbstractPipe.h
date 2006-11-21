@@ -9,9 +9,12 @@
 #define _SK_IO_ABSTRACTPIPE_
 
 #include <sk/io/Pipe.h>
+#include <sk/util/Holder.hxx>
 
 namespace sk {
   namespace io {
+    class FileDescriptor;
+
     class AbstractPipe
       : public virtual sk::io::Pipe
     {
@@ -25,6 +28,19 @@ namespace sk {
         void closeOutput();
         FileDescriptorInputStream& inputStream() const;
         FileDescriptorOutputStream& outputStream() const;
+
+      protected:
+        AbstractPipe();
+        virtual ~AbstractPipe();
+
+        void setInputFileDescriptor(int fd);
+        void setOutputFileDescriptor(int fd);
+        void setInputFileDescriptor(const sk::io::FileDescriptor& descriptor);
+        void setOutputFileDescriptor(const sk::io::FileDescriptor& descriptor);
+
+      private:
+        sk::util::Holder<sk::io::FileDescriptorInputStream> _inputStreamHolder;
+        sk::util::Holder<sk::io::FileDescriptorOutputStream> _outputStreamHolder;
     };
   }
 }

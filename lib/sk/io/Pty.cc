@@ -16,6 +16,16 @@
 #include <sk/io/FileDescriptorOutputStream.h>
 
 #include "PtyImpl.h"
+#include <sk/io/AbstractPipe.h>
+
+namespace {
+  struct FileDescriptorPipe : public sk::io::AbstractPipe {
+    FileDescriptorPipe(const sk::io::FileDescriptor& output, const sk::io::FileDescriptor& input) {
+      setOutputFileDescriptor(output);
+      setInputFileDescriptor(input);
+    }
+  };
+}
 
 sk::io::Pty::
 Pty()
@@ -23,8 +33,11 @@ Pty()
 {
   _implHolder.get().setup();
 
-  _inputStreamHolder.set(new FileInputStream(_implHolder.get().getSlave()));
-  _outputStreamHolder.set(new FileDescriptorOutputStream(_implHolder.get().getMaster()));
+  const sk::io::FileDescriptor& masterFileDescriptor = _implHolder.get().getMaster();
+  const sk::io::FileDescriptor& slaveFileDescriptor = _implHolder.get().getSlave().getFileDescriptor();
+
+  _masterSlavePipeHolder.set(new FileDescriptorPipe(masterFileDescriptor, slaveFileDescriptor));
+  _slaveMasterPipeHolder.set(new FileDescriptorPipe(slaveFileDescriptor, masterFileDescriptor));
 
   setLines(24);
   setColumns(80);
@@ -42,43 +55,19 @@ getClass() const
   return sk::util::Class("sk::io::Pty");
 }
 
+const sk::util::String
+sk::io::Pty::
+getName() const
+{
+  return _implHolder.get().getSlave().getName();
+}
+
 void 
 sk::io::Pty::
 close()
 {
-  closeInput();
-  closeOutput();
-}
-
-
-void 
-sk::io::Pty::
-closeInput()
-{
-  _inputStreamHolder.get().close();
-  _implHolder.get().getSlave().close();
-}
-
-void 
-sk::io::Pty::
-closeOutput()
-{
-  _outputStreamHolder.get().close();
   _implHolder.get().getMaster().close();
-}
-
-sk::io::FileDescriptorInputStream& 
-sk::io::Pty::
-inputStream() const
-{
-  return _inputStreamHolder.get();
-}
-
-sk::io::FileDescriptorOutputStream& 
-sk::io::Pty::
-outputStream() const
-{
-  return _outputStreamHolder.get();
+  _implHolder.get().getSlave().close();
 }
 
 sk::io::Tty& 
@@ -93,4 +82,18 @@ sk::io::Pty::
 getTty() const
 {
   return _implHolder.get().getTty();
+}
+
+sk::io::Pipe& 
+sk::io::Pty::
+getMasterSlavePipe()
+{
+  return _masterSlavePipeHolder.get();
+}
+
+sk::io::Pipe& 
+sk::io::Pty::
+getSlaveMasterPipe()
+{
+  return _slaveMasterPipeHolder.get();
 }

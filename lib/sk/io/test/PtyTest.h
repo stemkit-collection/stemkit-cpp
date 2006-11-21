@@ -18,7 +18,9 @@ namespace sk {
         : public CppUnit::TestFixture
       {
         CPPUNIT_TEST_SUITE(sk::io::test::PtyTest);
-          CPPUNIT_TEST(testAsPipe);
+          CPPUNIT_TEST(testMasterSlavePipe);
+          CPPUNIT_TEST(testSlaveMasterPipe);
+          CPPUNIT_TEST(testSlaveTty);
         CPPUNIT_TEST_SUITE_END();
         
         public:
@@ -27,7 +29,9 @@ namespace sk {
           
           void setUp();
           void tearDown();
-          void testAsPipe();
+          void testMasterSlavePipe();
+          void testSlaveMasterPipe();
+          void testSlaveTty();
           
         private:
           PtyTest(const PtyTest& other);

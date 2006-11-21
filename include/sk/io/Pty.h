@@ -19,22 +19,19 @@ namespace sk {
     class PtyImpl;
 
     class Pty
-      : public sk::io::DelegatingTty,
-        public virtual sk::io::Pipe
+      : public sk::io::DelegatingTty
     {
       public:
         Pty();
         virtual ~Pty();
+
+        void close();
+        const sk::util::String getName() const;
+        sk::io::Pipe& getMasterSlavePipe();
+        sk::io::Pipe& getSlaveMasterPipe();
         
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
-        
-        // sk::io::Pipe implementation.
-        void close();
-        void closeInput();
-        void closeOutput();
-        sk::io::FileDescriptorInputStream& inputStream() const;
-        sk::io::FileDescriptorOutputStream& outputStream() const;
         
       private:
         Pty(const Pty& other);
@@ -45,8 +42,8 @@ namespace sk {
         const sk::io::Tty& getTty() const;
 
         sk::util::Holder<PtyImpl> _implHolder;
-        sk::util::Holder<sk::io::FileDescriptorInputStream> _inputStreamHolder;
-        sk::util::Holder<sk::io::FileDescriptorOutputStream> _outputStreamHolder;
+        sk::util::Holder<sk::io::Pipe> _masterSlavePipeHolder;
+        sk::util::Holder<sk::io::Pipe> _slaveMasterPipeHolder;
     };
   }
 }

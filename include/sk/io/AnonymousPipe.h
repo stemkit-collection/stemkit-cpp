@@ -8,13 +8,12 @@
 #ifndef _SK_IO_ANONYMOUSPIPE_
 #define _SK_IO_ANONYMOUSPIPE_
 
-#include <sk/util/Holder.hxx>
-#include <sk/io/Pipe.h>
+#include <sk/io/AbstractPipe.h>
 
 namespace sk {
   namespace io {
     class AnonymousPipe
-      : public virtual sk::io::Pipe
+      : public sk::io::AbstractPipe
     {
       public:
         AnonymousPipe();
@@ -23,20 +22,9 @@ namespace sk {
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
         
-        // sk::io::Pipe implementation.
-        void close();
-        void closeInput();
-        void closeOutput();
-
-        FileDescriptorInputStream& inputStream() const;
-        FileDescriptorOutputStream& outputStream() const;
-
       private:
         AnonymousPipe(const AnonymousPipe& other);
         AnonymousPipe& operator = (const AnonymousPipe& other);
-
-        sk::util::Holder<sk::io::FileDescriptorInputStream> _inputStreamHolder;
-        sk::util::Holder<sk::io::FileDescriptorOutputStream> _outputStreamHolder;
     };
   }
 }
