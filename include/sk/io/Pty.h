@@ -11,8 +11,8 @@
 #include <sk/util/Holder.hxx>
 #include <sk/io/DelegatingTty.h>
 #include <sk/io/Pipe.h>
-#include <sk/io/FileInputStream.h>
-#include <sk/io/FileOutputStream.h>
+#include <sk/io/FileDescriptorInputStream.h>
+#include <sk/io/FileDescriptorOutputStream.h>
 
 namespace sk {
   namespace io {
@@ -33,8 +33,8 @@ namespace sk {
         void close();
         void closeInput();
         void closeOutput();
-        FileDescriptorInputStream& inputStream() const;
-        FileDescriptorOutputStream& outputStream() const;
+        sk::io::FileDescriptorInputStream& inputStream() const;
+        sk::io::FileDescriptorOutputStream& outputStream() const;
         
       private:
         Pty(const Pty& other);
@@ -45,8 +45,8 @@ namespace sk {
         const sk::io::Tty& getTty() const;
 
         sk::util::Holder<PtyImpl> _implHolder;
-        mutable sk::io::FileInputStream _inputStream;
-        mutable sk::io::FileOutputStream _outputStream;
+        sk::util::Holder<sk::io::FileDescriptorInputStream> _inputStreamHolder;
+        sk::util::Holder<sk::io::FileDescriptorOutputStream> _outputStreamHolder;
     };
   }
 }

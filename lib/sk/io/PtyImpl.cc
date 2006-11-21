@@ -14,9 +14,7 @@
 
 sk::io::PtyImpl::
 PtyImpl()
-  : _master("/dev/ptmx", "r+")
 {
-  setup(_master.getFileDescriptor().getFileNumber());
 }
 
 sk::io::PtyImpl::
@@ -35,33 +33,40 @@ sk::io::Tty&
 sk::io::PtyImpl::
 getTty() 
 {
-  return _deviceHolder.get();
+  return _slaveHolder.get();
 }
 
 const sk::io::Tty&
 sk::io::PtyImpl::
 getTty()  const
 {
-  return _deviceHolder.get();
+  return _slaveHolder.get();
+}
+
+int 
+sk::io::PtyImpl::
+makeMaster(const sk::io::FileDescriptor& descriptor)
+{
+  return _masterHolder.set(new sk::io::FileDescriptor(descriptor)).get().getFileNumber();
 }
 
 int
 sk::io::PtyImpl::
 makeSlave(const sk::util::String& name)
 {
-  return _deviceHolder.set(new TtyDevice(name)).get().getFileDescriptor().getFileNumber();
+  return _slaveHolder.set(new TtyDevice(name)).get().getFileDescriptor().getFileNumber();
 }
 
-sk::io::File& 
+sk::io::FileDescriptor& 
 sk::io::PtyImpl::
 getMaster()
 {
-  return _master;
+  return _masterHolder.get();
 }
 
 sk::io::TtyDevice&
 sk::io::PtyImpl::
 getSlave()
 {
-  return _deviceHolder.get();
+  return _slaveHolder.get();
 }

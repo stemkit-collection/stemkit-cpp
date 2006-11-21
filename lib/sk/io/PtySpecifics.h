@@ -17,10 +17,12 @@ namespace sk {
     class PtySpecifics
       : public virtual sk::util::Object 
     {
-      protected:
-        void setup(int fd);
+      public:
+        void setup();
         
+      protected:
         virtual int makeSlave(const sk::util::String& name) = 0;
+        virtual int makeMaster(const sk::io::FileDescriptor& descriptor) = 0;
     };
   }
 }

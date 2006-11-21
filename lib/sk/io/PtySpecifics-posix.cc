@@ -12,15 +12,23 @@
 
 #include "PtySpecifics.h"
 #include <stdlib.h>
+#include <fcntl.h>
 
 void
 sk::io::PtySpecifics::
-setup(int fd)
+setup()
 {
+  int fd = posix_openpt(O_RDWR);
+  if(fd < 0) {
+    throw sk::util::SystemException("posix_openpt()");
+  }
+  fd = makeMaster(FileDescriptor(fd));
+
   if(unlockpt(fd) < 0) {
     throw sk::util::SystemException("unlockpt()");
   }
-  grantpt(fd);
-
+  if(grantpt(fd) < 0) {
+    throw sk::util::SystemException("grantpt()");
+  }
   makeSlave(ptsname(fd));
 }

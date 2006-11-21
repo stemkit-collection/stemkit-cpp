@@ -12,14 +12,20 @@
 
 #include <sk/io/Pty.h>
 #include <sk/io/TtyDevice.h>
-#include <sk/io/File.h>
+#include <sk/io/FileInputStream.h>
+#include <sk/io/FileDescriptorOutputStream.h>
 
 #include "PtyImpl.h"
 
 sk::io::Pty::
 Pty()
-  : _implHolder(new PtyImpl), _inputStream(_implHolder.get().getSlave()), _outputStream(_implHolder.get().getMaster())
+  : _implHolder(new PtyImpl)
 {
+  _implHolder.get().setup();
+
+  _inputStreamHolder.set(new FileInputStream(_implHolder.get().getSlave()));
+  _outputStreamHolder.set(new FileDescriptorOutputStream(_implHolder.get().getMaster()));
+
   setLines(24);
   setColumns(80);
 }
@@ -49,7 +55,7 @@ void
 sk::io::Pty::
 closeInput()
 {
-  _inputStream.close();
+  _inputStreamHolder.get().close();
   _implHolder.get().getSlave().close();
 }
 
@@ -57,7 +63,7 @@ void
 sk::io::Pty::
 closeOutput()
 {
-  _outputStream.close();
+  _outputStreamHolder.get().close();
   _implHolder.get().getMaster().close();
 }
 
@@ -65,14 +71,14 @@ sk::io::FileDescriptorInputStream&
 sk::io::Pty::
 inputStream() const
 {
-  return _inputStream;
+  return _inputStreamHolder.get();
 }
 
 sk::io::FileDescriptorOutputStream& 
 sk::io::Pty::
 outputStream() const
 {
-  return _outputStream;
+  return _outputStreamHolder.get();
 }
 
 sk::io::Tty& 

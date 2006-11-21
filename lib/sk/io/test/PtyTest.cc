@@ -10,6 +10,8 @@
 #include <sk/io/DataInputStream.h>
 #include <sk/util/Container.h>
 
+#include <iostream>
+
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::io::test::PtyTest);
 
 sk::io::test::PtyTest::

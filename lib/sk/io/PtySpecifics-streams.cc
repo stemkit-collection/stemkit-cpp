@@ -12,23 +12,6 @@
 
 #include "PtySpecifics.h"
 
-sk::io::PtySpecifics::
-PtySpecifics()
-{
-}
-
-sk::io::PtySpecifics::
-~PtySpecifics()
-{
-}
-
-const sk::util::Class
-sk::io::PtySpecifics::
-getClass() const
-{
-  return sk::util::Class("sk::io::PtySpecifics");
-}
-
 namespace {
   struct ModulePusher : public virtual sk::util::Processor<const sk::util::String> {
     ModulePusher(int fd) 
@@ -45,16 +28,17 @@ namespace {
 
 void
 sk::io::PtySpecifics::
-setup(int fd)
+setup()
 {
+  int fd = makeMaster(sk::io::File("/dev/ptmx", "r+").getFileDescriptor())
+
   if(unlockpt(fd) < 0) {
     throw sk::util::SystemException("unlockpt()");
   }
   if(grantpt(fd) < 0) {
     throw sk::util::SystemException("grantpt()");
   }
-  int fd = makeSlave(ptsname(fd));
 
   sk::util::StringArray modules = sk::uitl::StringArray("ptem") + "ldterm" + "ttcompat";
-  modules.forEach(ModulePusher(fd));
+  modules.forEach(ModulePusher(makeSlave(ptsname(fd))));
 }

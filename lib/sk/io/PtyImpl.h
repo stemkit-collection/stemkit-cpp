@@ -10,12 +10,12 @@
 
 #include <sk/util/Object.h>
 #include <sk/util/Holder.hxx>
-#include <sk/io/File.h>
 
 #include "PtySpecifics.h"
 
 namespace sk {
   namespace io {
+    class FileDescriptor;
     class TtyDevice;
 
     class PtyImpl
@@ -25,7 +25,7 @@ namespace sk {
         PtyImpl();
         virtual ~PtyImpl();
 
-        sk::io::File& getMaster();
+        sk::io::FileDescriptor& getMaster();
         sk::io::TtyDevice& getSlave();
 
         sk::io::Tty& getTty();
@@ -36,13 +36,14 @@ namespace sk {
         
         // sk::io::PtySpecifics implementation.
         int makeSlave(const sk::util::String& name);
+        int makeMaster(const sk::io::FileDescriptor& descriptor);
 
       private:
         PtyImpl(const PtyImpl& other);
         PtyImpl& operator = (const PtyImpl& other);
 
-        sk::util::Holder<sk::io::TtyDevice> _deviceHolder;
-        sk::io::File _master;
+        sk::util::Holder<sk::io::FileDescriptor> _masterHolder;
+        sk::util::Holder<sk::io::TtyDevice> _slaveHolder;
     };
   }
 }

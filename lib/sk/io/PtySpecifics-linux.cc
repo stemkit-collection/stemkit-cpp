@@ -15,8 +15,9 @@
 
 void
 sk::io::PtySpecifics::
-setup(int fd)
+setup()
 {
+  int fd = makeMaster(sk::io::File("/dev/ptmx", "r+").getFileDescriptor())
   if(unlockpt(fd) < 0) {
     throw sk::util::SystemException("unlockpt()");
   }
