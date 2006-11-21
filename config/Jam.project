@@ -48,6 +48,8 @@ rule platform-linux-x86
   DEFINES += ;
   INCLUDES += $(SRCTOP:J=/)/platform/include/linux ;
   SYSLIBS = crypt dl ;
+
+  project.PTY_SPECIFICS = linux ;
 }
 
 rule platform-linux-amd64
@@ -59,6 +61,8 @@ rule platform-linux-amd64
   SYSLIBS = crypt dl ;
 
   LDFLAGS += -m elf_i386 ;
+
+  project.PTY_SPECIFICS = linux ;
 }
 
 rule platform-osf-alpha

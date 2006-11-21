@@ -9,6 +9,7 @@
 #include <sk/util/String.h>
 #include <sk/util/SystemException.h>
 #include <sk/io/FileDescriptor.h>
+#include <sk/io/File.h>
 
 #include "PtySpecifics.h"
 #include <stdlib.h>
@@ -17,7 +18,7 @@ void
 sk::io::PtySpecifics::
 setup()
 {
-  int fd = makeMaster(sk::io::File("/dev/ptmx", "r+").getFileDescriptor())
+  int fd = makeMaster(sk::io::File("/dev/ptmx", "r+").getFileDescriptor());
   if(unlockpt(fd) < 0) {
     throw sk::util::SystemException("unlockpt()");
   }
