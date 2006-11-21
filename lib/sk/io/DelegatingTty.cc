@@ -26,3 +26,17 @@ getClass() const
 {
   return sk::util::Class("sk::io::DelegatingTty");
 }
+
+void 
+sk::io::DelegatingTty::
+setLines(int lines)
+{
+  getTty().setLines(lines);
+}
+
+void 
+sk::io::DelegatingTty::
+setColumns(int columns)
+{
+  getTty().setColumns(columns);
+}

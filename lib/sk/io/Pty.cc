@@ -11,12 +11,17 @@
 #include <sk/util/UnsupportedOperationException.h>
 
 #include <sk/io/Pty.h>
+#include <sk/io/TtyDevice.h>
+#include <sk/io/File.h>
+
 #include "PtyImpl.h"
 
 sk::io::Pty::
 Pty()
-  : _implHolder(new PtyImpl)
+  : _implHolder(new PtyImpl), _inputStream(_implHolder.get().getSlave()), _outputStream(_implHolder.get().getMaster())
 {
+  setLines(24);
+  setColumns(80);
 }
 
 sk::io::Pty::
@@ -44,28 +49,30 @@ void
 sk::io::Pty::
 closeInput()
 {
-  throw sk::util::UnsupportedOperationException("closeInput()");
+  _inputStream.close();
+  _implHolder.get().getSlave().close();
 }
 
 void 
 sk::io::Pty::
 closeOutput()
 {
-  throw sk::util::UnsupportedOperationException("closeOutput()");
+  _outputStream.close();
+  _implHolder.get().getMaster().close();
 }
 
 sk::io::FileDescriptorInputStream& 
 sk::io::Pty::
 inputStream() const
 {
-  throw sk::util::UnsupportedOperationException("inputStream()");
+  return _inputStream;
 }
 
 sk::io::FileDescriptorOutputStream& 
 sk::io::Pty::
 outputStream() const
 {
-  throw sk::util::UnsupportedOperationException("outputStream()");
+  return _outputStream;
 }
 
 sk::io::Tty& 

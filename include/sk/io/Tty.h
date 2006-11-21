@@ -16,6 +16,8 @@ namespace sk {
       : public virtual sk::util::Object 
     {
       public:
+        virtual void setLines(int lines) = 0;
+        virtual void setColumns(int columns) = 0;
     };
   }
 }

@@ -12,21 +12,15 @@
 
 namespace sk {
   namespace io {
+    class FileDescriptor;
+
     class PtySpecifics
       : public virtual sk::util::Object 
     {
-      public:
-        PtySpecifics();
-        virtual ~PtySpecifics();
-
-        void setup();
+      protected:
+        void setup(int fd);
         
-        // sk::util::Object re-implementation.
-        const sk::util::Class getClass() const;
-        
-      private:
-        PtySpecifics(const PtySpecifics& other);
-        PtySpecifics& operator = (const PtySpecifics& other);
+        virtual int makeSlave(const sk::util::String& name) = 0;
     };
   }
 }

@@ -8,14 +8,15 @@
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
 #include <sk/util/Holder.cxx>
+#include <sk/io/TtyDevice.h>
 
 #include "PtyImpl.h"
 
 sk::io::PtyImpl::
 PtyImpl()
-  : _master("/dev/ptmx", "w")
+  : _master("/dev/ptmx", "r+")
 {
-  setWindow(24, 80);
+  setup(_master.getFileDescriptor().getFileNumber());
 }
 
 sk::io::PtyImpl::
@@ -34,13 +35,33 @@ sk::io::Tty&
 sk::io::PtyImpl::
 getTty() 
 {
-  return _ttyHolder.get();
+  return _deviceHolder.get();
 }
 
 const sk::io::Tty&
 sk::io::PtyImpl::
 getTty()  const
 {
-  return _ttyHolder.get();
+  return _deviceHolder.get();
 }
 
+int
+sk::io::PtyImpl::
+makeSlave(const sk::util::String& name)
+{
+  return _deviceHolder.set(new TtyDevice(name)).get().getFileDescriptor().getFileNumber();
+}
+
+sk::io::File& 
+sk::io::PtyImpl::
+getMaster()
+{
+  return _master;
+}
+
+sk::io::TtyDevice&
+sk::io::PtyImpl::
+getSlave()
+{
+  return _deviceHolder.get();
+}

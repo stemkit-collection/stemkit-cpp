@@ -12,16 +12,21 @@
 #include <sk/util/Holder.hxx>
 #include <sk/io/File.h>
 
+#include "PtySpecifics.h"
+
 namespace sk {
   namespace io {
-    class Tty;
+    class TtyDevice;
 
     class PtyImpl
-      : public virtual sk::util::Object 
+      : public sk::io::PtySpecifics
     {
       public:
         PtyImpl();
         virtual ~PtyImpl();
+
+        sk::io::File& getMaster();
+        sk::io::TtyDevice& getSlave();
 
         sk::io::Tty& getTty();
         const sk::io::Tty& getTty() const;
@@ -29,11 +34,14 @@ namespace sk {
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
         
+        // sk::io::PtySpecifics implementation.
+        int makeSlave(const sk::util::String& name);
+
       private:
         PtyImpl(const PtyImpl& other);
         PtyImpl& operator = (const PtyImpl& other);
 
-        sk::util::Holder<sk::io::Tty> _ttyHolder;
+        sk::util::Holder<sk::io::TtyDevice> _deviceHolder;
         sk::io::File _master;
     };
   }

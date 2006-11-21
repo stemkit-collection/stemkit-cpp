@@ -7,6 +7,8 @@
 
 #include "PtyTest.h"
 #include <sk/io/Pty.h>
+#include <sk/io/DataInputStream.h>
+#include <sk/util/Container.h>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::io::test::PtyTest);
 
@@ -34,7 +36,11 @@ tearDown()
 
 void
 sk::io::test::PtyTest::
-testCreate()
+testAsPipe()
 {
   sk::io::Pty pty;
+  sk::io::DataInputStream data(pty.inputStream());
+
+  pty.outputStream().write(sk::util::Container("Hello\n"));
+  CPPUNIT_ASSERT_EQUAL(sk::util::String("Hello\n").inspect(), data.readLine().inspect());
 }

@@ -20,6 +20,10 @@ namespace sk {
       public:
         TtyDevice(const sk::util::String& name);
         virtual ~TtyDevice();
+
+        // sk::io::Tty implementation.
+        void setLines(int lines);
+        void setColumns(int columns);
         
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;

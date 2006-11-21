@@ -45,20 +45,16 @@ namespace {
 
 void
 sk::io::PtySpecifics::
-setup()
+setup(int fd)
 {
-  int fd = _master.getFileDescriptor().getFileNumber();
-
   if(unlockpt(fd) < 0) {
     throw sk::util::SystemException("unlockpt()");
   }
   if(grantpt(fd) < 0) {
     throw sk::util::SystemException("grantpt()");
   }
-  sk::io::TtyDevice slave(ptsname(fd));
+  int fd = makeSlave(ptsname(fd));
 
-  sk::util::StringArray modules = sk::uitl::StringArray() + "ptem" + "ldterm" + "ttcompat";
-  modules.forEach(ModulePusher(slave.getFileDescriptor().getFileNumber()));
-
-  return slave;
+  sk::util::StringArray modules = sk::uitl::StringArray("ptem") + "ldterm" + "ttcompat";
+  modules.forEach(ModulePusher(fd));
 }

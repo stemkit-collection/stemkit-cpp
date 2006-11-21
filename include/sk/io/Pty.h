@@ -11,6 +11,8 @@
 #include <sk/util/Holder.hxx>
 #include <sk/io/DelegatingTty.h>
 #include <sk/io/Pipe.h>
+#include <sk/io/FileInputStream.h>
+#include <sk/io/FileOutputStream.h>
 
 namespace sk {
   namespace io {
@@ -43,6 +45,8 @@ namespace sk {
         const sk::io::Tty& getTty() const;
 
         sk::util::Holder<PtyImpl> _implHolder;
+        mutable sk::io::FileInputStream _inputStream;
+        mutable sk::io::FileOutputStream _outputStream;
     };
   }
 }

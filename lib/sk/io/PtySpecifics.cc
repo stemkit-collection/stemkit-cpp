@@ -7,36 +7,20 @@
 
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
+#include <sk/util/SystemException.h>
+#include <sk/io/FileDescriptor.h>
 
 #include "PtySpecifics.h"
-
-sk::io::PtySpecifics::
-PtySpecifics()
-{
-}
-
-sk::io::PtySpecifics::
-~PtySpecifics()
-{
-}
-
-const sk::util::Class
-sk::io::PtySpecifics::
-getClass() const
-{
-  return sk::util::Class("sk::io::PtySpecifics");
-}
+#include <stdlib.h>
 
 void
 sk::io::PtySpecifics::
-setup()
+setup(int fd)
 {
-  int fd = _master.getFileDescriptor().getFileNumber();
-
   if(unlockpt(fd) < 0) {
     throw sk::util::SystemException("unlockpt()");
   }
   grantpt(fd);
 
-  sk::io::TtyDevice(ptsname(fd), "w+", O_RDWR | O_NOCTTY);
+  makeSlave(ptsname(fd));
 }
