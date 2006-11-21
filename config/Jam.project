@@ -139,6 +139,8 @@ rule platform-solaris-sparc
   DEFINES += ;
   INCLUDES += $(SRCTOP:J=/)/include/solaris ;
   SYSLIBS = socket nsl gen ;
+
+  project.PTY_SPECIFICS = streams ;
 }
 
 rule platform-hpux-pa

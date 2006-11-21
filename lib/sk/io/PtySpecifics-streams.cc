@@ -9,6 +9,11 @@
 
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
+#include <sk/util/Integer.h>
+#include <sk/util/StringArray.h>
+#include <sk/util/Processor.h>
+#include <sk/util/SystemException.h>
+#include <sk/io/File.h>
 
 #include "PtySpecifics.h"
 
@@ -19,7 +24,7 @@ namespace {
 
     void process(const sk::util::String& module) const {
       if(ioctl(_fd, I_PUSH, module.getChars()) < 0) {
-        throw sk::util::SystemException("ioctl(" + _fd + ", I_PUSH, " + module.inspect() + ")");
+        throw sk::util::SystemException(sk::util::String("ioctl(") + sk::util::Integer::toString(_fd) + ", I_PUSH, " + module.inspect() + ")");
       }
     }
     int _fd;
@@ -30,7 +35,7 @@ void
 sk::io::PtySpecifics::
 setup()
 {
-  int fd = makeMaster(sk::io::File("/dev/ptmx", "r+").getFileDescriptor())
+  int fd = makeMaster(sk::io::File("/dev/ptmx", "r+").getFileDescriptor());
 
   if(unlockpt(fd) < 0) {
     throw sk::util::SystemException("unlockpt()");
@@ -38,7 +43,6 @@ setup()
   if(grantpt(fd) < 0) {
     throw sk::util::SystemException("grantpt()");
   }
-
-  sk::util::StringArray modules = sk::uitl::StringArray("ptem") + "ldterm" + "ttcompat";
+  sk::util::StringArray modules = sk::util::StringArray("ptem") + "ldterm" + "ttcompat";
   modules.forEach(ModulePusher(makeSlave(ptsname(fd))));
 }
