@@ -42,9 +42,14 @@ testMasterSlavePipe()
 {
   sk::io::Pty pty;
   sk::io::DataInputStream data(pty.getMasterSlavePipe().inputStream());
+  sk::io::DataInputStream echo(pty.getSlaveMasterPipe().inputStream());
 
   pty.getMasterSlavePipe().outputStream().write(sk::util::Container("Hello\n"));
   CPPUNIT_ASSERT_EQUAL(sk::util::String("Hello\n").inspect(), data.readLine().inspect());
+
+  pty.getSlaveMasterPipe().outputStream().write(sk::util::Container("Hi\n"));
+  CPPUNIT_ASSERT_EQUAL(sk::util::String("Hello\r\n").inspect(), echo.readLine().inspect());
+  CPPUNIT_ASSERT_EQUAL(sk::util::String("Hi\r\n").inspect(), echo.readLine().inspect());
 }
 
 void

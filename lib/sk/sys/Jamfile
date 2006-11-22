@@ -5,6 +5,7 @@ objects =
   Process.cc
   DelegatingExecutable.cc
   PipeProcess.cc
+  PtyProcess.cc
   Pipeline.cc
 ;
 

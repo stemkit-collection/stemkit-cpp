@@ -66,7 +66,21 @@ void
 sk::io::Pty::
 close()
 {
+  closeMaster();
+  closeSlave();
+}
+
+void
+sk::io::Pty::
+closeMaster()
+{
   _implHolder.get().getMaster().close();
+}
+
+void
+sk::io::Pty::
+closeSlave()
+{
   _implHolder.get().getSlave().close();
 }
 
