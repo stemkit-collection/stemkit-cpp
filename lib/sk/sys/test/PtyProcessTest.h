@@ -20,6 +20,7 @@ namespace sk {
         CPPUNIT_TEST_SUITE(sk::sys::test::PtyProcessTest);
           CPPUNIT_TEST(testTranslate);
           CPPUNIT_TEST(testTty);
+          CPPUNIT_TEST(testSu);
         CPPUNIT_TEST_SUITE_END();
         
         public:
@@ -30,6 +31,7 @@ namespace sk {
           void tearDown();
           void testTranslate();
           void testTty();
+          void testSu();
           
         private:
           PtyProcessTest(const PtyProcessTest& other);
