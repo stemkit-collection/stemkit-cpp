@@ -6,6 +6,7 @@
 */
 
 #include "UserTest.h"
+#include <sk/sys/User.h>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::sys::test::UserTest);
 
@@ -33,7 +34,10 @@ tearDown()
 
 void
 sk::sys::test::UserTest::
-testSimple()
+testFind()
 {
-  CPPUNIT_ASSERT_EQUAL(true, false);
+  sk::sys::User user = sk::sys::User::find("root");
+
+  CPPUNIT_ASSERT_EQUAL(sk::util::String("root"), user.getName());
+  CPPUNIT_ASSERT_EQUAL(0, user.getUid());
 }

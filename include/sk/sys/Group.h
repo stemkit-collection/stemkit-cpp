@@ -9,6 +9,7 @@
 #define _SK_SYS_GROUP_
 
 #include <sk/util/Object.h>
+#include <sk/util/String.h>
 
 namespace sk {
   namespace sys {
@@ -16,15 +17,24 @@ namespace sk {
       : public virtual sk::util::Object 
     {
       public:
-        Group();
+        // Default copy constructor is sufficient for now.
+        // Group(const Group& other);
         virtual ~Group();
+
+        const sk::util::String getName() const;
+        int getGid() const;
         
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
+
+        static const sk::sys::Group find(const sk::util::String& name);
         
       private:
-        Group(const Group& other);
+        Group(const sk::util::String& name, int id);
         Group& operator = (const Group& other);
+
+        sk::util::String _name;
+        int _id;
     };
   }
 }

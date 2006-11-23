@@ -6,6 +6,7 @@
 */
 
 #include "GroupTest.h"
+#include <sk/sys/Group.h>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::sys::test::GroupTest);
 
@@ -33,7 +34,8 @@ tearDown()
 
 void
 sk::sys::test::GroupTest::
-testSimple()
+testFind()
 {
-  CPPUNIT_ASSERT_EQUAL(true, false);
+  sk::sys::Group group = sk::sys::Group::find("bin");
+  CPPUNIT_ASSERT_EQUAL(sk::util::String("bin"), group.getName());
 }

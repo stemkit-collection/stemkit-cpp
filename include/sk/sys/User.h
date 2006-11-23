@@ -9,6 +9,7 @@
 #define _SK_SYS_USER_
 
 #include <sk/util/Object.h>
+#include <sk/util/String.h>
 
 namespace sk {
   namespace sys {
@@ -16,15 +17,24 @@ namespace sk {
       : public virtual sk::util::Object 
     {
       public:
-        User();
+        // Default copy constructor is sufficient for now.
+        // User(const User& other);
         virtual ~User();
+
+        const sk::util::String getName() const;
+        int getUid() const;
         
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
         
+        static const sk::sys::User find(const sk::util::String& name);
+
       private:
-        User(const User& other);
+        User(const sk::util::String& name, int id);
         User& operator = (const User& other);
+
+        sk::util::String _name;
+        int _id;
     };
   }
 }
