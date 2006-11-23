@@ -23,7 +23,6 @@ namespace sk {
     {
       public:
         PtyProcess(const sk::util::StringArray& cmdline);
-        PtyProcess(sk::io::FileDescriptorInputStream& inputStream, const sk::util::StringArray& cmdline);
         virtual ~PtyProcess();
 
         sk::io::Pty& getPty();

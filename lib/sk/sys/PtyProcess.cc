@@ -34,14 +34,6 @@ PtyProcess(const sk::util::StringArray& cmdline)
 }
 
 sk::sys::PtyProcess::
-PtyProcess(sk::io::FileDescriptorInputStream& inputStream, const sk::util::StringArray& cmdline)
-  : _listenerHolder(new Listener), _process(inputStream, cmdline, _listenerHolder.get())
-{
-  _listenerHolder.get().pty.getMasterSlavePipe().close();
-  _listenerHolder.get().pty.getSlaveMasterPipe().closeOutput();
-}
-
-sk::sys::PtyProcess::
 ~PtyProcess()
 {
 }
@@ -114,6 +106,8 @@ processStarting()
 
   pty.getMasterSlavePipe().closeOutput();
   pty.getSlaveMasterPipe().close();
+  pty.closeMaster();
+  pty.closeSlave();
 }
 
 int 
