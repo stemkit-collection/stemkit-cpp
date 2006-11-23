@@ -67,11 +67,11 @@ getClass() const
   return sk::util::Class("sk::sys::PtyProcess");
 }
 
-const sk::util::String
+sk::io::Pty&
 sk::sys::PtyProcess::
-getPtyName() const
+getPty()
 {
-  return _listenerHolder.get().pty.getName();
+  return _listenerHolder.get().pty;
 }
 
 sk::io::InputStream& 

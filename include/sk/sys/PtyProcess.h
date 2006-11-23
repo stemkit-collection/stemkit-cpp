@@ -14,6 +14,7 @@
 
 #include <sk/io/InputStream.h>
 #include <sk/io/OutputStream.h>
+#include <sk/io/Pty.h>
 
 namespace sk {
   namespace sys {
@@ -25,7 +26,7 @@ namespace sk {
         PtyProcess(sk::io::FileDescriptorInputStream& inputStream, const sk::util::StringArray& cmdline);
         virtual ~PtyProcess();
 
-        const sk::util::String getPtyName() const;
+        sk::io::Pty& getPty();
 
         sk::io::InputStream& inputStream() const;
         sk::io::InputStream& inputErrorStream() const;

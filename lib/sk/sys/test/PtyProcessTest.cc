@@ -63,7 +63,7 @@ testTty()
   PtyProcess process(sk::util::StringArray("tty"));
   sk::io::DataInputStream data(process.inputStream());
   CPPUNIT_ASSERT_EQUAL(true, process.isAlive());
-  CPPUNIT_ASSERT_EQUAL((process.getPtyName() + "\r\n").inspect(), data.readLine().inspect());
+  CPPUNIT_ASSERT_EQUAL((process.getPty().getName() + "\r\n").inspect(), data.readLine().inspect());
 
   process.join();
   CPPUNIT_ASSERT_EQUAL(false, process.isAlive());

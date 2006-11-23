@@ -27,6 +27,13 @@ getClass() const
   return sk::util::Class("sk::io::DelegatingTty");
 }
 
+const sk::util::String
+sk::io::DelegatingTty::
+getName() const
+{
+  return getTty().getName();
+}
+
 void 
 sk::io::DelegatingTty::
 setLines(int lines)

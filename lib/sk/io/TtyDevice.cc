@@ -29,6 +29,13 @@ getClass() const
   return sk::util::Class("sk::io::TtyDevice");
 }
 
+const sk::util::String
+sk::io::TtyDevice::
+getName() const
+{
+  return sk::io::File::getName();
+}
+
 void
 sk::io::TtyDevice::
 setLines(int lines)

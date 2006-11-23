@@ -19,6 +19,8 @@ namespace sk {
         DelegatingTty();
         virtual ~DelegatingTty();
 
+        // sk::io::Tty implementation.
+        const sk::util::String getName() const;
         void setLines(int lines);
         void setColumns(int columns);
 

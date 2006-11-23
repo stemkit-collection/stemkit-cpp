@@ -29,7 +29,6 @@ namespace sk {
         void closeSlave();
         void closeMaster();
 
-        const sk::util::String getName() const;
         sk::io::Pipe& getMasterSlavePipe();
         sk::io::Pipe& getSlaveMasterPipe();
         
