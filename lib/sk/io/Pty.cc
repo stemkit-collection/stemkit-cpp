@@ -68,6 +68,9 @@ close()
 {
   closeMaster();
   closeSlave();
+
+  _masterSlavePipeHolder.get().close();
+  _slaveMasterPipeHolder.get().close();
 }
 
 void

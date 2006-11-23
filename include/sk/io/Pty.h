@@ -45,8 +45,8 @@ namespace sk {
         const sk::io::Tty& getTty() const;
 
         sk::util::Holder<PtyImpl> _implHolder;
-        sk::util::Holder<sk::io::Pipe> _masterSlavePipeHolder;
         sk::util::Holder<sk::io::Pipe> _slaveMasterPipeHolder;
+        sk::util::Holder<sk::io::Pipe> _masterSlavePipeHolder;
     };
   }
 }

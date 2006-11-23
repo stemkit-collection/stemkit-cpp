@@ -42,8 +42,8 @@ namespace sk {
         PtyImpl(const PtyImpl& other);
         PtyImpl& operator = (const PtyImpl& other);
 
-        sk::util::Holder<sk::io::FileDescriptor> _masterHolder;
         sk::util::Holder<sk::io::TtyDevice> _slaveHolder;
+        sk::util::Holder<sk::io::FileDescriptor> _masterHolder;
     };
   }
 }
