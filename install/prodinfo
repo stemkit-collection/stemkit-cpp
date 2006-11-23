@@ -177,9 +177,12 @@ fileset {
       DelegatingExecutable.h
       Executable.h
       PipeProcess.h
+      PtyProcess.h
       Pipeline.h
       Process.h
       ProcessListener.h
+      User.h
+      Group.h
     }
   }
 

@@ -7,6 +7,8 @@ objects =
   PipeProcess.cc
   PtyProcess.cc
   Pipeline.cc
+  Group.cc
+  User.cc
 ;
 
 make-library $(library) : $(objects) ;
