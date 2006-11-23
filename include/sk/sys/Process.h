@@ -50,14 +50,13 @@ namespace sk {
         Process(const Process& other);
         Process& operator = (const Process& other);
 
-        void start(const sk::util::StringArray& cmdline);
-        void redirect(int from, const sk::io::FileDescriptor& to);
+        void start(sk::io::FileDescriptorInputStream& inputStream, const sk::util::StringArray& cmdline);
         bool signalUnlessTerminates(int timeout, int signal);
+        sk::io::FileDescriptorInputStream& defaultInputStream();
         void assertNotAlive() const;
-        void processChild(const sk::util::StringArray& cmdline);
 
-        sk::util::Holder<sk::io::FileDescriptorInputStream> _inputStreamHolder;
         sk::sys::ProcessListener& _listener;
+        sk::util::Holder<sk::io::FileDescriptorInputStream> _defaultInputStreamHolder;
         int _pid;
         int _status;
     };

@@ -13,7 +13,7 @@
 
 #include <sk/sys/Process.h>
 #include <sk/io/Pipe.h>
-#include <sk/io/FileDescriptorOutputStream.h>
+#include <sk/io/FileInputStream.h>
 #include <sk/io/DataInputStream.h>
 #include <sk/io/EOFException.h>
 
@@ -26,30 +26,30 @@
 
 sk::sys::Process::
 Process(sk::io::FileDescriptorInputStream& inputStream, const sk::util::StringArray& cmdline, ProcessListener& listener)
-  : _inputStreamHolder(inputStream), _listener(listener)
+  : _listener(listener)
 {
-  start(cmdline);
+  start(inputStream, cmdline);
 }
 
 sk::sys::Process::
 Process(sk::io::FileDescriptorInputStream& inputStream, const sk::util::StringArray& cmdline)
-  : _inputStreamHolder(inputStream), _listener(*this)
+  : _listener(*this)
 {
-  start(cmdline);
+  start(inputStream, cmdline);
 }
 
 sk::sys::Process::
 Process(const sk::util::StringArray& cmdline, ProcessListener& listener)
   : _listener(listener)
 {
-  start(cmdline);
+  start(defaultInputStream(), cmdline);
 }
 
 sk::sys::Process::
 Process(const sk::util::StringArray& cmdline)
   : _listener(*this)
 {
-  start(cmdline);
+  start(defaultInputStream(), cmdline);
 }
 
 sk::sys::Process::
@@ -71,15 +71,6 @@ getClass() const
   return sk::util::Class("sk::sys::Process");
 }
 
-void
-sk::sys::Process::
-redirect(int from, const sk::io::FileDescriptor& to)
-{
-  int fd = to.getFileNumber();
-  ::close(from);
-  ::dup(fd);
-}
-
 namespace {
   struct ExecArgumentCollector : public virtual sk::util::Processor<const sk::util::String> {
     ExecArgumentCollector(std::vector<char*>& arguments)
@@ -92,9 +83,16 @@ namespace {
   };
 }
 
+sk::io::FileDescriptorInputStream&
+sk::sys::Process::
+defaultInputStream()
+{
+  return _defaultInputStreamHolder.set(new sk::io::FileInputStream("/dev/null")).get();
+}
+
 void
 sk::sys::Process::
-start(const sk::util::StringArray& cmdline)
+start(sk::io::FileDescriptorInputStream& inputStream, const sk::util::StringArray& cmdline)
 {
   _pid = fork();
 
@@ -105,7 +103,15 @@ start(const sk::util::StringArray& cmdline)
     try {
       _listener.processStarting();
       
-      processChild(cmdline);
+      ::close(0);
+      ::dup(inputStream.getFileDescriptor().getFileNumber());
+      inputStream.close();
+
+      std::vector<char*> arguments;
+      cmdline.forEach(ExecArgumentCollector(arguments));
+      arguments.push_back(0);
+
+      ::execvp(arguments[0], &arguments[0]);
       std::cerr << "ERROR:exec:" << sk::util::Integer::toString(errno) << ":" << strerror(errno) << ":" << cmdline.inspect() << std::endl;
     }
     catch(const std::exception& exception) {
@@ -114,24 +120,7 @@ start(const sk::util::StringArray& cmdline)
 
     _exit(1);
   }
-  if(_inputStreamHolder.isEmpty() == false) {
-    _inputStreamHolder.get().close();
-  }
-}
-
-void
-sk::sys::Process::
-processChild(const sk::util::StringArray& cmdline)
-{
-  if(_inputStreamHolder.isEmpty() == false) {
-    redirect(0, _inputStreamHolder.get().getFileDescriptor());
-    _inputStreamHolder.get().close();
-  }
-  std::vector<char*> arguments;
-  cmdline.forEach(ExecArgumentCollector(arguments));
-  arguments.push_back(0);
-
-  ::execvp(arguments[0], &arguments[0]);
+  inputStream.close();
 }
 
 void

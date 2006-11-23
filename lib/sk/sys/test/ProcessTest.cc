@@ -172,3 +172,14 @@ testRedirectInput()
   CPPUNIT_ASSERT_EQUAL(false, process.isKilled());
   CPPUNIT_ASSERT_EQUAL(71, process.exitStatus());
 }
+
+void
+sk::sys::test::ProcessTest::
+testNoHangOnInputRead()
+{
+  sk::sys::Process process(sk::util::StringArray("sh") + "-c" + "read ${line}");
+  CPPUNIT_ASSERT_EQUAL(true, process.isAlive());
+
+  process.join();
+  CPPUNIT_ASSERT_EQUAL(false, process.isSuccess());
+}
