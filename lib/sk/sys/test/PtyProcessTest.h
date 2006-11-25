@@ -20,7 +20,7 @@ namespace sk {
         CPPUNIT_TEST_SUITE(sk::sys::test::PtyProcessTest);
           CPPUNIT_TEST(testTranslate);
           CPPUNIT_TEST(testTty);
-          // CPPUNIT_TEST(testSu);
+          CPPUNIT_TEST(testSu);
         CPPUNIT_TEST_SUITE_END();
         
         public:

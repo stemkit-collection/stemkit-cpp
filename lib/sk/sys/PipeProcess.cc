@@ -110,7 +110,7 @@ processStarting()
   ::close(2);
   ::dup(stderrPipe.outputStream().getFileDescriptor().getFileNumber());
 
-  stdinPipe.closeOutput();
+  stdinPipe.close();
   stdoutPipe.close();
   stderrPipe.close();
 }

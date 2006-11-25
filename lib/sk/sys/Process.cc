@@ -101,12 +101,12 @@ start(sk::io::FileDescriptorInputStream& inputStream, const sk::util::StringArra
   }
   if(_pid == 0) {
     try {
-      _listener.processStarting();
-      
       ::close(0);
       ::dup(inputStream.getFileDescriptor().getFileNumber());
       inputStream.close();
 
+      _listener.processStarting();
+      
       std::vector<char*> arguments;
       cmdline.forEach(ExecArgumentCollector(arguments));
       arguments.push_back(0);

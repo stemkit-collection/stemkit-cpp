@@ -11,9 +11,13 @@
 
 #include <sk/sys/PtyProcess.h>
 #include <sk/io/Pty.h>
+#include <sk/io/File.h>
 #include <sk/io/DataInputStream.h>
 #include <sk/io/FileDescriptorOutputStream.h>
 #include <sk/io/EOFException.h>
+
+#include <sys/ioctl.h>
+#include <iostream>
 
 struct sk::sys::PtyProcess::Listener 
   : public virtual sk::sys::ProcessListener 
@@ -98,16 +102,21 @@ void
 sk::sys::PtyProcess::Listener::
 processStarting()
 {
+  setsid();
+  
+  sk::io::File ctty(pty.getName(), "r+");
+  ::close(0);
+  ::dup(ctty.getFileDescriptor().getFileNumber());
+
+  // int result = ioctl(0, TIOCSCTTY);
+
   ::close(1);
   ::dup(pty.getSlaveMasterPipe().outputStream().getFileDescriptor().getFileNumber());
 
   ::close(2);
   ::dup(pty.getSlaveMasterPipe().outputStream().getFileDescriptor().getFileNumber());
 
-  pty.getMasterSlavePipe().closeOutput();
-  pty.getSlaveMasterPipe().close();
-  pty.closeMaster();
-  pty.closeSlave();
+  pty.close();
 }
 
 int 

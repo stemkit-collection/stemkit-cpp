@@ -78,12 +78,9 @@ testSu()
   sk::io::DataInputStream data(process.inputStream());
   CPPUNIT_ASSERT_EQUAL(true, process.isAlive());
 
-  sleep(1);
-  process.outputStream().write(sk::util::Container("zzz\r"));
-  data.readLine();
-  data.readLine();
-  // CPPUNIT_ASSERT_EQUAL(sk::util::String("").inspect(), data.readLine().inspect());
-
+  while(true) {
+    std::cerr<< "C: " << process.inputStream().read() << std::endl;
+  }
   process.join();
   CPPUNIT_ASSERT_EQUAL(false, process.isAlive());
   CPPUNIT_ASSERT_EQUAL(false, process.isSuccess());
