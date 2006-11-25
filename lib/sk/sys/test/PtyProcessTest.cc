@@ -49,7 +49,15 @@ testTranslate()
   process.outputStream().write('\04');
 
   CPPUNIT_ASSERT_EQUAL(sk::util::String("abcdaaa\r\n").inspect(), data.readLine().inspect());
-  CPPUNIT_ASSERT_EQUAL(sk::util::String("AbcdAAA\r\n").inspect(), data.readLine().inspect());
+
+  sk::util::String result = data.readLine();
+
+  if(result.at(0) == '^') {
+    CPPUNIT_ASSERT_EQUAL(sk::util::String("^D\010\010AbcdAAA\r\n").inspect(), result.inspect());
+  }
+  else {
+    CPPUNIT_ASSERT_EQUAL(sk::util::String("AbcdAAA\r\n").inspect(), result.inspect());
+  }
 
   process.join();
   CPPUNIT_ASSERT_EQUAL(false, process.isAlive());
@@ -78,11 +86,21 @@ testSu()
   sk::io::DataInputStream data(process.inputStream());
   CPPUNIT_ASSERT_EQUAL(true, process.isAlive());
 
+  std::cerr << "PTY: " << process.getPty().getName() << std::endl;
   while(true) {
-    std::cerr<< "C: " << process.inputStream().read() << std::endl;
+    char c = process.inputStream().read();
+    std::cerr << "C: " << c << std::endl;
+    if(c == ':') {
+      break;
+    }
+  }
+  // process.outputStream().write(sk::util::Container("root\n"));
+
+  while(true) {
+    std::cerr << "L: " << data.readLine().inspect() << std::endl;
   }
   process.join();
   CPPUNIT_ASSERT_EQUAL(false, process.isAlive());
-  CPPUNIT_ASSERT_EQUAL(false, process.isSuccess());
+  CPPUNIT_ASSERT_EQUAL(true, process.isSuccess());
 }
 

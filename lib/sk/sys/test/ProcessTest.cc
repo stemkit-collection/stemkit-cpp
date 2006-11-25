@@ -177,7 +177,7 @@ void
 sk::sys::test::ProcessTest::
 testNoHangOnInputRead()
 {
-  sk::sys::Process process(sk::util::StringArray("sh") + "-c" + "read ${line}");
+  sk::sys::Process process(sk::util::StringArray("sh") + "-c" + "read line");
   CPPUNIT_ASSERT_EQUAL(true, process.isAlive());
 
   process.join();

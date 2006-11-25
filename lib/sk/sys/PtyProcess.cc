@@ -16,9 +16,6 @@
 #include <sk/io/FileDescriptorOutputStream.h>
 #include <sk/io/EOFException.h>
 
-#include <sys/ioctl.h>
-#include <iostream>
-
 struct sk::sys::PtyProcess::Listener 
   : public virtual sk::sys::ProcessListener 
 {
@@ -107,8 +104,6 @@ processStarting()
   sk::io::File ctty(pty.getName(), "r+");
   ::close(0);
   ::dup(ctty.getFileDescriptor().getFileNumber());
-
-  // int result = ioctl(0, TIOCSCTTY);
 
   ::close(1);
   ::dup(pty.getSlaveMasterPipe().outputStream().getFileDescriptor().getFileNumber());
