@@ -55,6 +55,13 @@ getClass() const
   return sk::util::Class("sk::io::Pty");
 }
 
+const sk::util::String
+sk::io::Pty::
+getName() const
+{
+  return _implHolder.get().getSlave().getName();
+}
+
 void 
 sk::io::Pty::
 close()

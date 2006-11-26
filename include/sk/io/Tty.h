@@ -9,7 +9,6 @@
 #define _SK_IO_TTY_
 
 #include <sk/util/Object.h>
-#include <sk/util/String.h>
 
 namespace sk {
   namespace io {
@@ -17,7 +16,6 @@ namespace sk {
       : public virtual sk::util::Object 
     {
       public:
-        virtual const sk::util::String getName() const = 0;
         virtual void setLines(int lines) = 0;
         virtual void setColumns(int columns) = 0;
     };

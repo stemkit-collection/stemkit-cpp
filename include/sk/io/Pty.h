@@ -25,6 +25,8 @@ namespace sk {
         Pty();
         virtual ~Pty();
 
+        const sk::util::String getName() const;
+
         void close();
         void closeSlave();
         void closeMaster();
