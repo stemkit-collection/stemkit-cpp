@@ -29,9 +29,10 @@ struct sk::sys::PtyProcess::Listener
 
 sk::sys::PtyProcess::
 PtyProcess(const sk::util::StringArray& cmdline)
-  : _listenerHolder(new Listener), _process(_listenerHolder.get().pty.getMasterSlavePipe().inputStream(), cmdline, _listenerHolder.get())
+  : _listenerHolder(new Listener), _process(getPty().getMasterSlavePipe().inputStream(), cmdline, _listenerHolder.get())
 {
-  _listenerHolder.get().pty.getSlaveMasterPipe().closeOutput();
+  getPty().getSlaveMasterPipe().closeOutput();
+  getPty().closeTty();
 }
 
 sk::sys::PtyProcess::

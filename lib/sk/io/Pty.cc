@@ -33,14 +33,18 @@ Pty()
 {
   _implHolder.get().setup();
 
-  const sk::io::FileDescriptor& masterFileDescriptor = _implHolder.get().getMaster();
-  const sk::io::FileDescriptor& slaveFileDescriptor = _implHolder.get().getSlave();
+  sk::io::FileDescriptor& masterFileDescriptor = _implHolder.get().getMaster();
+  sk::io::FileDescriptor& slaveFileDescriptor = _implHolder.get().getSlave();
 
   _masterSlavePipeHolder.set(new FileDescriptorPipe(masterFileDescriptor, slaveFileDescriptor));
   _slaveMasterPipeHolder.set(new FileDescriptorPipe(slaveFileDescriptor, masterFileDescriptor));
+  _ttyHolder.set(new TtyFileDescriptor(slaveFileDescriptor));
 
   setLines(24);
   setColumns(80);
+
+  slaveFileDescriptor.close();
+  masterFileDescriptor.close();
 }
 
 sk::io::Pty::
@@ -66,8 +70,7 @@ void
 sk::io::Pty::
 close()
 {
-  closeMaster();
-  closeSlave();
+  closeTty();
 
   _masterSlavePipeHolder.get().close();
   _slaveMasterPipeHolder.get().close();
@@ -75,30 +78,23 @@ close()
 
 void
 sk::io::Pty::
-closeMaster()
+closeTty()
 {
-  _implHolder.get().getMaster().close();
-}
-
-void
-sk::io::Pty::
-closeSlave()
-{
-  _implHolder.get().getSlave().close();
+  _ttyHolder.get().close();
 }
 
 sk::io::Tty& 
 sk::io::Pty::
 getTty()
 {
-  return _implHolder.get().getTty();
+  return _ttyHolder.get();
 }
 
 const sk::io::Tty& 
 sk::io::Pty::
 getTty() const
 {
-  return _implHolder.get().getTty();
+  return _ttyHolder.get();
 }
 
 sk::io::Pipe& 

@@ -17,6 +17,7 @@
 namespace sk {
   namespace io {
     class PtyImpl;
+    class TtyFileDescriptor;
 
     class Pty
       : public sk::io::DelegatingTty
@@ -28,8 +29,7 @@ namespace sk {
         const sk::util::String getName() const;
 
         void close();
-        void closeSlave();
-        void closeMaster();
+        void closeTty();
 
         sk::io::Pipe& getMasterSlavePipe();
         sk::io::Pipe& getSlaveMasterPipe();
@@ -46,6 +46,7 @@ namespace sk {
         const sk::io::Tty& getTty() const;
 
         sk::util::Holder<PtyImpl> _implHolder;
+        sk::util::Holder<sk::io::TtyFileDescriptor> _ttyHolder;
         sk::util::Holder<sk::io::Pipe> _slaveMasterPipeHolder;
         sk::util::Holder<sk::io::Pipe> _masterSlavePipeHolder;
     };

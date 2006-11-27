@@ -8,8 +8,7 @@
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
 #include <sk/util/Holder.cxx>
-#include <sk/io/TtyFileDescriptor.h>
-#include <sk/io/TtyDevice.h>
+#include <sk/io/File.h>
 
 #include "PtyImpl.h"
 
@@ -30,20 +29,6 @@ getClass() const
   return sk::util::Class("sk::io::PtyImpl");
 }
 
-sk::io::Tty&
-sk::io::PtyImpl::
-getTty() 
-{
-  return _slaveHolder.get();
-}
-
-const sk::io::Tty&
-sk::io::PtyImpl::
-getTty()  const
-{
-  return _slaveHolder.get();
-}
-
 int 
 sk::io::PtyImpl::
 makeMaster(const sk::io::FileDescriptor& descriptor)
@@ -56,7 +41,7 @@ sk::io::PtyImpl::
 makeSlave(const sk::util::String& name)
 {
   _name = name;
-  return _slaveHolder.set(new TtyFileDescriptor(TtyDevice(name).getFileDescriptor())).get().getFileNumber();
+  return _slaveHolder.set(new sk::io::FileDescriptor(File(name, "r+").getFileDescriptor())).get().getFileNumber();
 }
 
 const sk::util::String
@@ -73,7 +58,7 @@ getMaster()
   return _masterHolder.get();
 }
 
-sk::io::TtyFileDescriptor&
+sk::io::FileDescriptor&
 sk::io::PtyImpl::
 getSlave()
 {
