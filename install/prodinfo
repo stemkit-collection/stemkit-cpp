@@ -136,6 +136,7 @@ fileset {
       TtyDevice.h
       DelegatingTty.h
       Pty.h
+      TtyFileDescriptor.h
       FileDescriptor.h
       FileDescriptorInputStream.h
       FileDescriptorOutputStream.h
