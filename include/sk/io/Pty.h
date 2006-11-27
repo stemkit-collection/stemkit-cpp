@@ -9,6 +9,7 @@
 #define _SK_IO_PTY_
 
 #include <sk/util/Holder.hxx>
+#include <sk/util/String.h>
 #include <sk/io/DelegatingTty.h>
 #include <sk/io/Pipe.h>
 #include <sk/io/FileDescriptorInputStream.h>
@@ -16,7 +17,6 @@
 
 namespace sk {
   namespace io {
-    class PtyImpl;
     class TtyFileDescriptor;
 
     class Pty
@@ -45,7 +45,7 @@ namespace sk {
         sk::io::Tty& getTty();
         const sk::io::Tty& getTty() const;
 
-        sk::util::Holder<PtyImpl> _implHolder;
+        sk::util::String _name;
         sk::util::Holder<sk::io::TtyFileDescriptor> _ttyHolder;
         sk::util::Holder<sk::io::Pipe> _slaveMasterPipeHolder;
         sk::util::Holder<sk::io::Pipe> _masterSlavePipeHolder;

@@ -29,22 +29,18 @@ namespace {
 
 sk::io::Pty::
 Pty()
-  : _implHolder(new PtyImpl)
 {
-  _implHolder.get().setup();
+  PtyImpl pty;
+  pty.setup();
 
-  sk::io::FileDescriptor& masterFileDescriptor = _implHolder.get().getMaster();
-  sk::io::FileDescriptor& slaveFileDescriptor = _implHolder.get().getSlave();
+  _masterSlavePipeHolder.set(new FileDescriptorPipe(pty.getMaster(), pty.getSlave()));
+  _slaveMasterPipeHolder.set(new FileDescriptorPipe(pty.getSlave(), pty.getMaster()));
+  _ttyHolder.set(new TtyFileDescriptor(pty.getSlave()));
 
-  _masterSlavePipeHolder.set(new FileDescriptorPipe(masterFileDescriptor, slaveFileDescriptor));
-  _slaveMasterPipeHolder.set(new FileDescriptorPipe(slaveFileDescriptor, masterFileDescriptor));
-  _ttyHolder.set(new TtyFileDescriptor(slaveFileDescriptor));
+  _name = pty.getName();
 
   setLines(24);
   setColumns(80);
-
-  slaveFileDescriptor.close();
-  masterFileDescriptor.close();
 }
 
 sk::io::Pty::
@@ -63,7 +59,7 @@ const sk::util::String
 sk::io::Pty::
 getName() const
 {
-  return _implHolder.get().getName();
+  return _name;
 }
 
 void 
