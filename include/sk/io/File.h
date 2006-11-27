@@ -30,8 +30,8 @@ namespace sk {
         virtual ~File();
 
         const sk::util::String getName() const;
-        sk::io::FileDescriptor& getFileDescriptor() const;
-        void close();
+        virtual sk::io::FileDescriptor& getFileDescriptor() const;
+        virtual void close();
         long long size() const;
         long long position() const;
         

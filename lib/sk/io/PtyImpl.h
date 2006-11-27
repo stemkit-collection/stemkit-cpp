@@ -15,8 +15,9 @@
 
 namespace sk {
   namespace io {
+    class Tty;
     class FileDescriptor;
-    class TtyDevice;
+    class TtyFileDescriptor;
 
     class PtyImpl
       : public sk::io::PtySpecifics
@@ -26,10 +27,11 @@ namespace sk {
         virtual ~PtyImpl();
 
         sk::io::FileDescriptor& getMaster();
-        sk::io::TtyDevice& getSlave();
+        sk::io::TtyFileDescriptor& getSlave();
 
         sk::io::Tty& getTty();
         const sk::io::Tty& getTty() const;
+        const sk::util::String getName() const;
 
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
@@ -42,7 +44,8 @@ namespace sk {
         PtyImpl(const PtyImpl& other);
         PtyImpl& operator = (const PtyImpl& other);
 
-        sk::util::Holder<sk::io::TtyDevice> _slaveHolder;
+        sk::util::String _name;
+        sk::util::Holder<sk::io::TtyFileDescriptor> _slaveHolder;
         sk::util::Holder<sk::io::FileDescriptor> _masterHolder;
     };
   }

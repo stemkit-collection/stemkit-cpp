@@ -7,7 +7,7 @@
 
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
-#include <sk/util/UnsupportedOperationException.h>
+#include <sk/util/Holder.cxx>
 
 #include <sk/io/TtyDevice.h>
 
@@ -15,6 +15,7 @@ sk::io::TtyDevice::
 TtyDevice(const sk::util::String& name)
   : sk::io::File(name, "r+")
 {
+  _descriptorHolder.set(new sk::io::TtyFileDescriptor(sk::io::File::getFileDescriptor()));
 }
 
 sk::io::TtyDevice::
@@ -29,18 +30,31 @@ getClass() const
   return sk::util::Class("sk::io::TtyDevice");
 }
 
-void
+sk::io::TtyFileDescriptor&
 sk::io::TtyDevice::
-setLines(int lines)
+getFileDescriptor() const
 {
-  // TODO: Provide actual implementation, ignoring the call for now.
-  // throw sk::util::UnsupportedOperationException("setLines()");
+  return _descriptorHolder.get();
 }
 
-void 
+sk::io::Tty& 
 sk::io::TtyDevice::
-setColumns(int columns)
+getTty() 
 {
-  // TODO: Provide actual implementation, ignoring the call for now.
-  // throw sk::util::UnsupportedOperationException("setColumns()");
+  return _descriptorHolder.get();
+}
+
+const sk::io::Tty& 
+sk::io::TtyDevice::
+getTty() const
+{
+  return _descriptorHolder.get();
+}
+
+void
+sk::io::TtyDevice::
+close()
+{
+  sk::io::File::close();
+  _descriptorHolder.get().close();
 }

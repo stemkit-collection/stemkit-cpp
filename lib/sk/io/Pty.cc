@@ -11,9 +11,9 @@
 #include <sk/util/UnsupportedOperationException.h>
 
 #include <sk/io/Pty.h>
-#include <sk/io/TtyDevice.h>
 #include <sk/io/FileInputStream.h>
 #include <sk/io/FileDescriptorOutputStream.h>
+#include <sk/io/TtyFileDescriptor.h>
 
 #include "PtyImpl.h"
 #include <sk/io/AbstractPipe.h>
@@ -34,7 +34,7 @@ Pty()
   _implHolder.get().setup();
 
   const sk::io::FileDescriptor& masterFileDescriptor = _implHolder.get().getMaster();
-  const sk::io::FileDescriptor& slaveFileDescriptor = _implHolder.get().getSlave().getFileDescriptor();
+  const sk::io::FileDescriptor& slaveFileDescriptor = _implHolder.get().getSlave();
 
   _masterSlavePipeHolder.set(new FileDescriptorPipe(masterFileDescriptor, slaveFileDescriptor));
   _slaveMasterPipeHolder.set(new FileDescriptorPipe(slaveFileDescriptor, masterFileDescriptor));
@@ -59,7 +59,7 @@ const sk::util::String
 sk::io::Pty::
 getName() const
 {
-  return _implHolder.get().getSlave().getName();
+  return _implHolder.get().getName();
 }
 
 void 

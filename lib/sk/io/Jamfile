@@ -23,8 +23,9 @@ objects =
   ClosedChannelException.cc
   AbstractPipe.cc
   AnonymousPipe.cc
-  DelegatingTty.cc
+  TtyFileDescriptor.cc
   TtyDevice.cc
+  DelegatingTty.cc
   PtyImpl.cc
   PtySpecifics-$(project.PTY_SPECIFICS).cc
   Pty.cc
