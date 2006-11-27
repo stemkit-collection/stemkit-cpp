@@ -9,6 +9,7 @@
 #define _SK_SYS_USER_
 
 #include <sk/util/Object.h>
+#include <sk/util/Holder.hxx>
 #include <sk/util/Processor.h>
 #include <sk/util/String.h>
 
@@ -35,7 +36,7 @@ namespace sk {
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
         
-        static const sk::sys::User find(const sk::util::String& name);
+        static bool find(const sk::util::String& name, sk::util::Holder<sk::sys::User>& holder);
         static void forEach(const sk::util::Processor<const sk::sys::User>& processor);
 
       private:

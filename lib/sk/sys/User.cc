@@ -118,17 +118,12 @@ namespace {
   };
 }
 
-const sk::sys::User
+bool
 sk::sys::User::
-find(const sk::util::String& name)
+find(const sk::util::String& name, sk::util::Holder<sk::sys::User>& holder)
 {
-  sk::util::Holder<sk::sys::User> _holder;
-  forEach(NameComparator(name, _holder));
-
-  if(_holder.isEmpty() == true) {
-    throw sk::util::MissingResourceException("User not found:" + name);
-  }
-  return _holder.get();
+  forEach(NameComparator(name, holder));
+  return holder.isEmpty() == false;
 }
 
 void

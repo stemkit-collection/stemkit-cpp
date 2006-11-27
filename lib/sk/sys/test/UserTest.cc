@@ -6,6 +6,7 @@
 */
 
 #include "UserTest.h"
+#include <sk/util/Holder.cxx>
 #include <sk/sys/User.h>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::sys::test::UserTest);
@@ -36,16 +37,19 @@ void
 sk::sys::test::UserTest::
 testFind()
 {
-  sk::sys::User user = sk::sys::User::find("root");
-
-  CPPUNIT_ASSERT_EQUAL(sk::util::String("root"), user.getName());
-  CPPUNIT_ASSERT_EQUAL(0, user.getUid());
+  sk::util::Holder<sk::sys::User> holder;
+  
+  CPPUNIT_ASSERT_EQUAL(true, sk::sys::User::find("root", holder));
+  CPPUNIT_ASSERT_EQUAL(sk::util::String("root"), holder.get().getName());
+  CPPUNIT_ASSERT_EQUAL(0, holder.get().getUid());
 }
 
 void 
 sk::sys::test::UserTest::
 testAuthenticate()
 {
-  sk::sys::User user = sk::sys::User::find("root");
-  CPPUNIT_ASSERT_EQUAL(true, user.authenticate("root"));
+  sk::util::Holder<sk::sys::User> holder; 
+  
+  CPPUNIT_ASSERT_EQUAL(true, sk::sys::User::find("root", holder));
+  CPPUNIT_ASSERT_EQUAL(false, holder.get().authenticate("root"));
 }

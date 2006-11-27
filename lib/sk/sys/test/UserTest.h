@@ -19,7 +19,7 @@ namespace sk {
       {
         CPPUNIT_TEST_SUITE(sk::sys::test::UserTest);
           CPPUNIT_TEST(testFind);
-          // CPPUNIT_TEST(testAuthenticate);
+          CPPUNIT_TEST(testAuthenticate);
         CPPUNIT_TEST_SUITE_END();
         
         public:
