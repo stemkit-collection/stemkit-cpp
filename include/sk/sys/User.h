@@ -9,7 +9,10 @@
 #define _SK_SYS_USER_
 
 #include <sk/util/Object.h>
+#include <sk/util/Processor.h>
 #include <sk/util/String.h>
+
+struct passwd;
 
 namespace sk {
   namespace sys {
@@ -22,19 +25,29 @@ namespace sk {
         virtual ~User();
 
         const sk::util::String getName() const;
+        const sk::util::String getComment() const;
+        const sk::util::String getHome() const;
+        const sk::util::String getShell() const;
         int getUid() const;
+        int getGid() const;
+        bool authenticate(const sk::util::String& password) const;
         
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
         
         static const sk::sys::User find(const sk::util::String& name);
+        static void forEach(const sk::util::Processor<const sk::sys::User>& processor);
 
       private:
-        User(const sk::util::String& name, int id);
+        User(const struct passwd& entry);
         User& operator = (const User& other);
 
         sk::util::String _name;
-        int _id;
+        sk::util::String _home;
+        sk::util::String _shell;
+        sk::util::String _comment;
+        int _uid;
+        int _gid;
     };
   }
 }

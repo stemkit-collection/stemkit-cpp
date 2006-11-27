@@ -41,3 +41,11 @@ testFind()
   CPPUNIT_ASSERT_EQUAL(sk::util::String("root"), user.getName());
   CPPUNIT_ASSERT_EQUAL(0, user.getUid());
 }
+
+void 
+sk::sys::test::UserTest::
+testAuthenticate()
+{
+  sk::sys::User user = sk::sys::User::find("root");
+  CPPUNIT_ASSERT_EQUAL(true, user.authenticate("root"));
+}

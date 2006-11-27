@@ -19,6 +19,7 @@ namespace sk {
       {
         CPPUNIT_TEST_SUITE(sk::sys::test::UserTest);
           CPPUNIT_TEST(testFind);
+          // CPPUNIT_TEST(testAuthenticate);
         CPPUNIT_TEST_SUITE_END();
         
         public:
@@ -28,6 +29,7 @@ namespace sk {
           void setUp();
           void tearDown();
           void testFind();
+          void testAuthenticate();
           
         private:
           UserTest(const UserTest& other);
