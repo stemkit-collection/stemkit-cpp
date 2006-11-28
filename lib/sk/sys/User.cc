@@ -9,6 +9,7 @@
 #include <sk/util/String.h>
 #include <sk/util/Container.h>
 #include <sk/util/Holder.cxx>
+#include <sk/io/AnonymousPipe.h>
 #include <sk/sys/PtyProcess.h>
 #include <sk/io/IOException.h>
 
@@ -82,6 +83,11 @@ bool
 sk::sys::User::
 authenticate(const sk::util::String& password) const 
 {
+  // The following "trick" of keeping at least 3 file descriptors open before
+  // using PtyProcess is needed for the case may 0, 1 or 2 be closed for some 
+  // reason.
+  sk::io::AnonymousPipe p1;
+  sk::io::AnonymousPipe p2;
   sk::sys::PtyProcess process(sk::util::StringArray("su") + getName() + "-c" + "true");
 
   while(true) {
