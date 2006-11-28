@@ -11,6 +11,7 @@
 #include <sk/util/Container.h>
 
 #include <iostream>
+#include <unistd.h>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::io::test::PtyTest);
 

@@ -12,6 +12,7 @@
 #include <sk/util/Container.h>
 
 #include <signal.h>
+#include <unistd.h>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::sys::test::ProcessTest);
 

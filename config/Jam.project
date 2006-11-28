@@ -84,6 +84,8 @@ rule platform-aix51-ppc
   DEFINES += ;
   INCLUDES += $(SRCTOP:J=/)/platform/include/aix ;
   SYSLIBS = crypt dl ;
+
+  project.PTY_SPECIFICS = aix ;
 }
 
 rule platform-aix52-ppc
@@ -93,6 +95,8 @@ rule platform-aix52-ppc
   DEFINES += ;
   INCLUDES += $(SRCTOP:J=/)/platform/include/aix ;
   SYSLIBS = crypt dl ;
+
+  project.PTY_SPECIFICS = aix ;
 }
 
 rule platform-macos-ppc
@@ -152,6 +156,8 @@ rule platform-hpux-pa
   DEFINES += ;
   INCLUDES += $(SRCTOP:J=/)/include/hpux ;
   SYSLIBS = ;
+
+  project.PTY_SPECIFICS = streams-hp ;
 }
 
 switch $(PRODUCT_PLATFORM) {
@@ -169,6 +175,7 @@ switch $(PRODUCT_PLATFORM) {
   case hp11-23-pa : platform-hpux-pa ;
   case hp11-00-pa : platform-hpux-pa ;
   case hp11-11-pa : platform-hpux-pa ;
+  case hp11-23-ia64 : platform-hpux-pa ;
   case tiger-ppc : platform-macos-ppc ;
   case tiger-x86 : platform-macos-ppc ;
   case cygwin-xp-x86 : platform-cygwin-x86 ;

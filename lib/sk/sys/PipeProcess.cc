@@ -15,6 +15,8 @@
 #include <sk/io/FileDescriptorOutputStream.h>
 #include <sk/io/EOFException.h>
 
+#include <unistd.h>
+
 struct sk::sys::PipeProcess::Listener 
   : public virtual sk::sys::ProcessListener 
 {

@@ -16,5 +16,4 @@ setup()
 
   stream.push("ptem");
   stream.push("ldterm");
-  stream.push("ttcompat");
 }

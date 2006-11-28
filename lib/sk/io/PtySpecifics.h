@@ -20,7 +20,6 @@ namespace sk {
       public:
         void setup();
         
-      protected:
         virtual int makeSlave(const sk::util::String& name) = 0;
         virtual int makeMaster(const sk::io::FileDescriptor& descriptor) = 0;
     };

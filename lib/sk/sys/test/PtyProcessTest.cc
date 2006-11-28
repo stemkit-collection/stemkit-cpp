@@ -55,6 +55,9 @@ testTranslate()
   if(result.at(0) == '^') {
     CPPUNIT_ASSERT_EQUAL(sk::util::String("^D\010\010AbcdAAA\r\n").inspect(), result.inspect());
   }
+  else if(result.at(0) == '\04') {
+    CPPUNIT_ASSERT_EQUAL(sk::util::String("\004AbcdAAA\r\n").inspect(), result.inspect());
+  }
   else {
     CPPUNIT_ASSERT_EQUAL(sk::util::String("AbcdAAA\r\n").inspect(), result.inspect());
   }
