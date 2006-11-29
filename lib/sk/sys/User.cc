@@ -96,6 +96,7 @@ authenticate(const sk::util::String& password) const
       break;
     }
   }
+  sleep(1);
   process.outputStream().write(sk::util::Container(password + "\n"));
 
   try {
