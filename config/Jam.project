@@ -75,6 +75,8 @@ rule platform-osf-alpha
 
   CC_SONAME_FLAG = "-Wl,-soname," ;
   DLLFLAGS = -shared -Wl,-expect_unresolved,'*' ;
+
+  project.PTY_SPECIFICS = streams-hp ;
 }
 
 rule platform-aix51-ppc
