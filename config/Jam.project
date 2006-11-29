@@ -149,13 +149,33 @@ rule platform-solaris-sparc
 
 rule platform-hpux-pa
 {
-  project.MAKE_DLL = false ;
+  project.MAKE_DLL = true ;
 
   C++FLAGS += -fPIC ;
   CCFLAGS += -fPIC ;
   DEFINES += ;
   INCLUDES += $(SRCTOP:J=/)/include/hpux ;
   SYSLIBS = ;
+
+  C++LDFLAGS += -Wl,+s ;
+  CC_SONAME_FLAG = -Wl,+h ;
+  jam.DSO_EXTENTION = sl ;
+
+  project.PTY_SPECIFICS = streams-hp ;
+}
+
+rule platform-hpux-ia64
+{
+  project.MAKE_DLL = true ;
+
+  C++FLAGS += -fPIC ;
+  CCFLAGS += -fPIC ;
+  DEFINES += ;
+  INCLUDES += $(SRCTOP:J=/)/include/hpux ;
+  SYSLIBS = ;
+
+  C++LDFLAGS += -Wl,+s ;
+  CC_SONAME_FLAG = -Wl,+h ;
 
   project.PTY_SPECIFICS = streams-hp ;
 }
@@ -175,7 +195,7 @@ switch $(PRODUCT_PLATFORM) {
   case hp11-23-pa : platform-hpux-pa ;
   case hp11-00-pa : platform-hpux-pa ;
   case hp11-11-pa : platform-hpux-pa ;
-  case hp11-23-ia64 : platform-hpux-pa ;
+  case hp11-23-ia64 : platform-hpux-ia64 ;
   case tiger-ppc : platform-macos-ppc ;
   case tiger-x86 : platform-macos-ppc ;
   case cygwin-xp-x86 : platform-cygwin-x86 ;
