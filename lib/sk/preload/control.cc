@@ -10,6 +10,7 @@
 #include <sstream>
 
 #include <stdlib.h>
+#include <unistd.h>
 
 namespace sk {
   namespace preload {
@@ -39,17 +40,27 @@ process_recursion_depth()
 {
   const char* depth = getenv("LD_PRELOAD_DEPTH");
   if(depth && getenv("LD_PRELOAD")) {
-    int value = atoi(depth);
-    if(value > 0) {
-      --value;
+    int value = 0;
+    int oldpid = 0;
 
-      std::stringstream stream;
-      stream << "LD_PRELOAD_DEPTH=" << value;
-      putenv(const_cast<char*>((new std::string(stream.str()))->c_str()));
+    sscanf(depth, "%d:%d", &value, &oldpid);
+    if(value <= 0) {
+      return;
+    }
 
-      if(value == 0) {
-        putenv("LD_PRELOAD=");
-      }
+    int pid = getpid();
+    if(oldpid == pid) {
+      return;
+    }
+
+    --value;
+
+    std::stringstream stream;
+    stream << "LD_PRELOAD_DEPTH=" << value << ":" << pid;
+    putenv(const_cast<char*>((new std::string(stream.str()))->c_str()));
+
+    if(value == 0) {
+      putenv("LD_PRELOAD=");
     }
   }
 }
