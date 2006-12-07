@@ -172,13 +172,13 @@ rule platform-hpux-ia64
 
   GCC_ROOT = $(HOME)/local/$(PRODUCT_PLATFORM)/aCC ;
 
-  CC = /opt/aCC/bin/aCC ;
+  CC = /opt/aCC/bin/aCC -Ae ;
   C++ = /opt/aCC/bin/aCC ;
   LD = ld ;
   AR = ar -cq ;
 
-  C++FLAGS = +W2997 -DPIC ;
-  CCFLAGS = +W2997 -DPIC ;
+  C++FLAGS = +W2997 +We -DPIC ;
+  CCFLAGS = +W2997 +We -DPIC ;
   CCOFLAGS = -O0 ;
   DLLFLAGS = -b ;
   C++LDFLAGS += -Wl,+s ;

@@ -8,6 +8,7 @@
 #include "PtyProcessTest.h"
 #include <sk/sys/PtyProcess.h>
 #include <sk/io/DataInputStream.h>
+#include <sk/io/EOFException.h>
 #include <sk/util/Container.h>
 
 #include <iostream>
@@ -99,9 +100,13 @@ testSu()
   }
   // process.outputStream().write(sk::util::Container("root\n"));
 
-  while(true) {
-    std::cerr << "L: " << data.readLine().inspect() << std::endl;
+  try {
+    while(true) {
+      std::cerr << "L: " << data.readLine().inspect() << std::endl;
+    }
   }
+  catch(const sk::io::EOFException& exception) {}
+
   process.join();
   CPPUNIT_ASSERT_EQUAL(false, process.isAlive());
   CPPUNIT_ASSERT_EQUAL(true, process.isSuccess());

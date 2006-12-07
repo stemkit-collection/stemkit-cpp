@@ -41,7 +41,7 @@ namespace sk {
           MockInputStream(const MockInputStream& other);
           MockInputStream& operator = (const MockInputStream& other);
 
-          bool _closeCounter;
+          int _closeCounter;
           sk::util::Container _data;
           std::vector<sk::util::Container> _chunks;
           sk::util::Holder<InputStream> _streamHolder;
