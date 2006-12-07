@@ -16,6 +16,7 @@
 #include <sk/sys/User.h>
 #include <pwd.h>
 #include <sys/types.h>
+#include <unistd.h>
 
 #include <iostream>
 

@@ -44,11 +44,11 @@ read(char* buffer, int offset, int size)
     return 0;
   }
   try {
-    char depot[_size];
+    std::vector<char> depot(_size, 0);
 
     while(_container.size() < size) {
-      int n = filterReadEvents(DelegatingInputStream::read(depot, 0, _size));
-      _container.insert(_container.end(), depot, depot + n);
+      int n = filterReadEvents(DelegatingInputStream::read(&depot[0], 0, _size));
+      _container.insert(_container.end(), depot.begin(), depot.begin() + n);
     }
   }
   catch(const sk::io::EOFException& excepion) {}

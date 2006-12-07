@@ -12,6 +12,7 @@
 
 #include <sstream>
 #include <algorithm>
+#include <functional>
 #include <iomanip>
 
 namespace sk {

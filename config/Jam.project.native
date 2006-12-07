@@ -170,14 +170,23 @@ rule platform-hpux-ia64
 {
   project.MAKE_DLL = true ;
 
-  C++FLAGS += -fPIC ;
-  CCFLAGS += -fPIC ;
+  GCC_ROOT = $(HOME)/local/$(PRODUCT_PLATFORM)/aCC ;
+
+  CC = /opt/aCC/bin/aCC ;
+  C++ = /opt/aCC/bin/aCC ;
+  LD = ld ;
+  AR = ar -cq ;
+
+  C++FLAGS = +W2997 -DPIC ;
+  CCFLAGS = +W2997 -DPIC ;
+  CCOFLAGS = -O0 ;
+  DLLFLAGS = -b ;
+  C++LDFLAGS += -Wl,+s ;
+  CC_SONAME_FLAG = -Wl,+h ;
+
   DEFINES += ;
   INCLUDES += $(SRCTOP:J=/)/include/hpux ;
   SYSLIBS = ;
-
-  C++LDFLAGS += -Wl,+s ;
-  CC_SONAME_FLAG = -Wl,+h ;
 
   project.PTY_SPECIFICS = streams-hp ;
 }

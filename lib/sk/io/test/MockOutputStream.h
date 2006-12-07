@@ -43,8 +43,8 @@ namespace sk {
           MockOutputStream(const MockOutputStream& other);
           MockOutputStream& operator = (const MockOutputStream& other);
 
-          bool _closeCounter;
-          bool _flushCounter;
+          int _closeCounter;
+          int _flushCounter;
           std::vector<sk::util::Container> _dataChunks;
           int _limit;
       };
