@@ -1,0 +1,237 @@
+# vim:ft=
+
+project.MAKE_DLL = true ;
+
+# project.LIB_PREFIX = $(JAMCONFIG_LIBRARY_PREFIX) ;
+project.LIB_MAJOR = $(JAMCONFIG_LIBRARY_MAJOR) ;
+
+PRODUCT_NAME = $(JAMCONFIG_PRODUCT_NAME) ;
+PRODUCT_RELEASE = $(JAMCONFIG_PRODUCT_RELEASE) ;
+PRODUCT_BUILD = $(JAMCONFIG_PRODUCT_BUILD) ;
+PRODUCT_PLATFORM = $(JAMCONFIG_PRODUCT_PLATFORM) ;
+
+# project.DISTRIB_ENV = $(SRCTOP:J=/)/project/config/environment ;
+project.DISTRIB_MODE = 2 ;
+project.DISTRIB_PRODINFO = $(SRCTOP:J=/)/install/prodinfo ;
+
+INSTALL_LAUNCHER = sudo ;
+
+GCC_VERSION = 3.4.3 ;
+
+BOOST_VERSION = 1_32 ;
+CPPUNIT_VERSION = 1.10 ;
+
+C++ = ;
+CC = ;
+LD = ;
+AR = ;
+
+MKDIR = ;
+RMRF = ;
+RMF = ;
+
+CCLDFLAGS = ;
+LDFLAGS = ;
+DLLFLAGS = ;
+LD_EXPORT_DYNAMIC = -Wl,-E ;
+
+C++FLAGS = -Werror -Wreturn-type -Wno-ctor-dtor-privacy ;
+CCFLAGS = -Werror -Wreturn-type ;
+
+DEFINES  = _REENTRANT ;
+INCLUDES = $(GENTOPDIR)/include $(SRCTOPDIR)/include ;
+
+rule platform-linux-x86
+{
+  C++FLAGS += -fpic ;
+  CCFLAGS += -fpic ;
+  DEFINES += ;
+  INCLUDES += $(SRCTOP:J=/)/platform/include/linux ;
+  SYSLIBS = crypt dl ;
+
+  project.PTY_SPECIFICS = linux ;
+}
+
+rule platform-linux-amd64
+{
+  C++FLAGS += -fPIC -m32 ;
+  CCFLAGS += -fPIC -m32 ;
+  DEFINES += ;
+  INCLUDES += $(SRCTOP:J=/)/platform/include/linux ;
+  SYSLIBS = crypt dl ;
+
+  LDFLAGS += -m elf_i386 ;
+
+  project.PTY_SPECIFICS = linux ;
+}
+
+rule platform-osf-alpha
+{
+  C++FLAGS += -fPIC ;
+  CCFLAGS += -fPIC ;
+  DEFINES += ;
+  INCLUDES += $(SRCTOP:J=/)/platform/include/osf ;
+  SYSLIBS = ;
+
+  CC_SONAME_FLAG = "-Wl,-soname," ;
+  DLLFLAGS = -shared -Wl,-expect_unresolved,'*' ;
+
+  project.PTY_SPECIFICS = streams-hp ;
+}
+
+rule platform-aix51-ppc
+{
+  project.MAKE_DLL = false ;
+
+  DEFINES += ;
+  INCLUDES += $(SRCTOP:J=/)/platform/include/aix ;
+  SYSLIBS = crypt dl ;
+
+  project.PTY_SPECIFICS = aix ;
+}
+
+rule platform-aix52-ppc
+{
+  project.MAKE_DLL = false ;
+
+  DEFINES += ;
+  INCLUDES += $(SRCTOP:J=/)/platform/include/aix ;
+  SYSLIBS = crypt dl ;
+
+  project.PTY_SPECIFICS = aix ;
+}
+
+rule platform-macos-ppc
+{
+  project.MAKE_DLL = false ;
+
+  GCC_VERSION = 4.0.0 ;
+  GCC_ROOT = /usr/local/gcc-$(GCC_VERSION) ;
+
+  CC = gcc-4.0 ;
+  C++ = g++-4.0 ;
+
+  CCLDFLAGS = ;
+  LDFLAGS = ;
+  C++FLAGS += -fPIC ;
+  CCFLAGS += -fPIC ;
+  DEFINES += ;
+  INCLUDES += ;
+  SYSLIBS = ;
+
+  project.PTY_SPECIFICS = posix ;
+}
+
+rule platform-cygwin-x86
+{
+  project.MAKE_DLL = false ;
+
+  GCC_VERSION = 3.4.4 ;
+
+  CC = gcc ;
+  C++ = g++ ;
+
+  CCLDFLAGS = ;
+  LDFLAGS = ;
+  DEFINES += ;
+  INCLUDES += ;
+  SYSLIBS = ;
+}
+
+rule platform-solaris-sparc
+{
+  C++FLAGS += -fPIC ;
+  CCFLAGS += -fPIC ;
+  DEFINES += ;
+  INCLUDES += $(SRCTOP:J=/)/include/solaris ;
+  SYSLIBS = socket nsl gen ;
+
+  project.PTY_SPECIFICS = streams ;
+}
+
+rule platform-hpux-pa
+{
+  project.MAKE_DLL = true ;
+
+  C++FLAGS += -fPIC ;
+  CCFLAGS += -fPIC ;
+  DEFINES += ;
+  INCLUDES += $(SRCTOP:J=/)/include/hpux ;
+  SYSLIBS = ;
+
+  C++LDFLAGS += -Wl,+s ;
+  CC_SONAME_FLAG = -Wl,+h ;
+  jam.DSO_EXTENTION = sl ;
+
+  project.PTY_SPECIFICS = streams-hp ;
+}
+
+rule platform-hpux-ia64
+{
+  project.MAKE_DLL = true ;
+
+  C++FLAGS += -fPIC ;
+  CCFLAGS += -fPIC ;
+  DEFINES += ;
+  INCLUDES += $(SRCTOP:J=/)/include/hpux ;
+  SYSLIBS = ;
+
+  C++LDFLAGS += -Wl,+s ;
+  CC_SONAME_FLAG = -Wl,+h ;
+
+  project.PTY_SPECIFICS = streams-hp ;
+}
+
+switch $(PRODUCT_PLATFORM) {
+  case rh-30-x86 : platform-linux-x86 ;
+  case rh-40-amd64 : platform-linux-amd64 ;
+  case rh-40-ia64 : platform-linux-x86 ;
+  case rh-21-x86 : platform-linux-x86 ;
+  case aix-51-ppc : platform-aix51-ppc ;
+  case aix-52-ppc : platform-aix52-ppc ;
+  case osf-51-alpha : platform-osf-alpha ;
+  case osf-40-alpha : platform-osf-alpha ;
+  case sun-10-sparc : platform-solaris-sparc ;
+  case sun-9-sparc : platform-solaris-sparc ;
+  case sun-8-sparc : platform-solaris-sparc ;
+  case hp11-23-pa : platform-hpux-pa ;
+  case hp11-00-pa : platform-hpux-pa ;
+  case hp11-11-pa : platform-hpux-pa ;
+  case hp11-23-ia64 : platform-hpux-ia64 ;
+  case tiger-ppc : platform-macos-ppc ;
+  case tiger-x86 : platform-macos-ppc ;
+  case cygwin-xp-x86 : platform-cygwin-x86 ;
+  case * : exit Unknown platform $(PRODUCT_PLATFORM) ;
+}
+
+GCC_ROOT ?= $(HOME)/local/$(PRODUCT_PLATFORM)/gcc-$(GCC_VERSION) ;
+
+GCC_STDLIBS ?= libstdc++.so libgcc_s.so ;
+CONTRIB_ROOT ?= $(GCC_ROOT)/contrib ;
+
+C++ ?= $(GCC_ROOT)/bin/g++ ;
+CC ?= $(GCC_ROOT)/bin/gcc ;
+# C++ ?= g++-4.0 ;
+# CC ?= gcc-4.0 ;
+
+LIBDIRS += $(GCC_ROOT)/lib ;
+
+LD ?= `$(CC) --print-prog-name=ld` ;
+AR ?= `$(CC) --print-prog-name=ar` -cq ;
+
+MKDIR ?= mkdir -p ;
+RMRF ?= rm -rf ;
+RMF ?= rm -f ;
+
+CCOFLAGS ?= -O0 -fno-guess-branch-probability ;
+DLLFLAGS ?= -shared ;
+
+UNITTEST_DIRS = $(CONTRIB_ROOT)/cppunit-$(CPPUNIT_VERSION) ;
+UNITTEST_LIBS = cppunit ;
+
+C++ALLFLAGS = $(C++FLAGS) $(CCDFLAGS) $(CCOFLAGS) ;
+CCALLFLAGS = $(CCFLAGS) $(CCDFLAGS) $(CCOFLAGS) ;
+C++LDALLFLAGS = $(CCFLAGS) $(CCDFLAGS) $(CCOFLAGS) $(C++LDFLAGS) ;
+
+system.export-to-env GCC_LIB_PATHLIST : $(GCC_ROOT)/lib/$(GCC_STDLIBS) ;
+system.export-to-env MAKE_DLL : $(project.MAKE_DLL) ;
