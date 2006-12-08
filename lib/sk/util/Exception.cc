@@ -13,7 +13,7 @@
 
 sk::util::Exception::
 Exception(const sk::util::String& message)
-  : _message(message)
+  : _message(join("ERROR", message))
 {
 }
 
@@ -26,7 +26,7 @@ const sk::util::String
 sk::util::Exception::
 getMessage() const
 {
-  return join("ERROR", _message);
+  return _message;
 }
 
 const sk::util::Class
@@ -40,7 +40,7 @@ const char*
 sk::util::Exception::
 what() const throw()
 {
-  return getMessage().getChars();
+  return _message.getChars();
 }
 
 const sk::util::String

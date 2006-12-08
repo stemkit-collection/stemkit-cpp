@@ -49,7 +49,7 @@ void
 sk::io::test::ByteArrayInputStreamTest::
 testReadOneByOne()
 {
-  char* data = "abc";
+  char data[] = "abc";
   sk::io::ByteArrayInputStream stream(data, 4);
 
   CPPUNIT_ASSERT_EQUAL(4, int(stream.available()));
@@ -66,7 +66,7 @@ void
 sk::io::test::ByteArrayInputStreamTest::
 testReadByVector()
 {
-  char* data = "abcdefg";
+  char data[] = "abcdefg";
   sk::io::ByteArrayInputStream stream(data, strlen(data));
 
   CPPUNIT_ASSERT_EQUAL(7, int(stream.available()));

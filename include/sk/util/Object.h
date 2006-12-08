@@ -43,7 +43,7 @@ namespace sk {
       protected:
 	Object();
     };
-  };
-};
+  }
+}
 
 #endif

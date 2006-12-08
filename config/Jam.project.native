@@ -38,6 +38,9 @@ LD_EXPORT_DYNAMIC = -Wl,-E ;
 C++FLAGS = -Werror -Wreturn-type -Wno-ctor-dtor-privacy ;
 CCFLAGS = -Werror -Wreturn-type ;
 
+CCOFLAGS = -O0 -fno-guess-branch-probability ;
+DLLFLAGS = -shared ;
+
 DEFINES  = _REENTRANT ;
 INCLUDES = $(GENTOPDIR)/include $(SRCTOPDIR)/include ;
 
@@ -140,8 +143,18 @@ rule platform-cygwin-x86
 
 rule platform-solaris-sparc
 {
-  C++FLAGS += -fPIC ;
-  CCFLAGS += -fPIC ;
+  GCC_ROOT = $(HOME)/local/$(PRODUCT_PLATFORM)/SUNWspro ;
+
+  CC = /opt/studio11/SUNWspro/bin/cc -Xa ;
+  C++ = /opt/studio11/SUNWspro/bin/CC ;
+  LD = ld ;
+  AR = ar -cq ;
+
+  CCFLAGS = -xs -KPIC ;
+  C++FLAGS = -xs -KPIC -instances=static ;
+  CCOFLAGS = ;
+  DLLFLAGS = -G ;
+
   DEFINES += ;
   INCLUDES += $(SRCTOP:J=/)/include/solaris ;
   SYSLIBS = socket nsl gen ;
@@ -151,8 +164,6 @@ rule platform-solaris-sparc
 
 rule platform-hpux-pa
 {
-  project.MAKE_DLL = true ;
-
   C++FLAGS += -fPIC ;
   CCFLAGS += -fPIC ;
   DEFINES += ;
@@ -168,8 +179,6 @@ rule platform-hpux-pa
 
 rule platform-hpux-ia64
 {
-  project.MAKE_DLL = true ;
-
   GCC_ROOT = $(HOME)/local/$(PRODUCT_PLATFORM)/aCC ;
 
   CC = /opt/aCC/bin/aCC -Ae ;
@@ -231,9 +240,6 @@ AR ?= `$(CC) --print-prog-name=ar` -cq ;
 MKDIR ?= mkdir -p ;
 RMRF ?= rm -rf ;
 RMF ?= rm -f ;
-
-CCOFLAGS ?= -O0 -fno-guess-branch-probability ;
-DLLFLAGS ?= -shared ;
 
 UNITTEST_DIRS = $(CONTRIB_ROOT)/cppunit-$(CPPUNIT_VERSION) ;
 UNITTEST_LIBS = cppunit ;

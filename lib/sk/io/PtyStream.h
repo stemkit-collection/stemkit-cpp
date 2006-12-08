@@ -16,6 +16,7 @@
 #include <sk/util/SystemException.h>
 #include <sk/io/File.h>
 
+#include <unistd.h>
 #include <sys/stropts.h>
 
 namespace sk {

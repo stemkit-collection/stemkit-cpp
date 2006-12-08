@@ -73,8 +73,7 @@ testReadLine()
   buffer() = sk::util::Container("Hello, world!!!\nhe-he");
 
   CPPUNIT_ASSERT_EQUAL(sk::util::String("Hello, world!!!\n"), stream().readLine());
-  CPPUNIT_ASSERT_EQUAL(sk::util::String("he-he"), stream().readLine());
-
+  CPPUNIT_ASSERT_EQUAL(sk::util::String("he-he").inspect(), stream().readLine().inspect());
   CPPUNIT_ASSERT_THROW(stream().readLine(), sk::io::EOFException);
 }
 
