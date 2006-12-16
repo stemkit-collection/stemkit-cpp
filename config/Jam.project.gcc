@@ -149,6 +149,17 @@ rule platform-solaris-sparc
   project.PTY_SPECIFICS = streams ;
 }
 
+rule platform-solaris-x86
+{
+  C++FLAGS += -fpic ;
+  CCFLAGS += -fpic ;
+  DEFINES += ;
+  INCLUDES += $(SRCTOP:J=/)/include/solaris ;
+  SYSLIBS = socket nsl gen ;
+
+  project.PTY_SPECIFICS = streams ;
+}
+
 rule platform-hpux-pa
 {
   project.MAKE_DLL = true ;
@@ -191,6 +202,7 @@ switch $(PRODUCT_PLATFORM) {
   case aix-52-ppc : platform-aix52-ppc ;
   case osf-51-alpha : platform-osf-alpha ;
   case osf-40-alpha : platform-osf-alpha ;
+  case sun-10-x86 : platform-solaris-x86 ;
   case sun-10-sparc : platform-solaris-sparc ;
   case sun-9-sparc : platform-solaris-sparc ;
   case sun-8-sparc : platform-solaris-sparc ;
