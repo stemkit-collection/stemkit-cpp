@@ -39,12 +39,18 @@ void
 sk::io::test::FileStreamsTest::
 testRead()
 {
-  sk::io::FileInputStream stream("testdata");
+  const sk::util::String srcdir = getenv("JAM_SRCDIR");
+  sk::util::String datafile = "testdata";
+
+  if(srcdir.empty() == false) {
+    datafile = srcdir + '/' + datafile;
+  }
+  sk::io::FileInputStream stream(datafile);
   sk::io::DataInputStream data(stream);
 
   sk::util::String expected = "# This comment is needed for tests.\n";
   CPPUNIT_ASSERT_EQUAL(expected.inspect(), data.readLine().inspect());
-  CPPUNIT_ASSERT_EQUAL(sk::util::String("testdata"), stream.getFile().getName());
+  CPPUNIT_ASSERT_EQUAL(sk::util::String(datafile), stream.getFile().getName());
 }
 
 void
@@ -68,7 +74,13 @@ void
 sk::io::test::FileStreamsTest::
 testAvailable()
 {
-  sk::io::FileInputStream stream("testdata");
+  const sk::util::String srcdir = getenv("JAM_SRCDIR");
+  sk::util::String datafile = "testdata";
+
+  if(srcdir.empty() == false) {
+    datafile = srcdir + '/' + datafile;
+  }
+  sk::io::FileInputStream stream(datafile);
 
   CPPUNIT_ASSERT_EQUAL(81, int(stream.available()));
   CPPUNIT_ASSERT_EQUAL(20, stream.skip(20));

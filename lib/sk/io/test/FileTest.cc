@@ -38,7 +38,13 @@ void
 sk::io::test::FileTest::
 testOpenRead()
 {
-  sk::io::File file("testdata");
+  const sk::util::String srcdir = getenv("JAM_SRCDIR");
+  sk::util::String datafile = "testdata";
+
+  if(srcdir.empty() == false) {
+    datafile = srcdir + '/' + datafile;
+  }
+  sk::io::File file(datafile);
   sk::io::FileDescriptor descriptor = file.getFileDescriptor();
 
   char c;

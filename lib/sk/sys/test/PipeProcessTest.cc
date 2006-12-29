@@ -149,7 +149,13 @@ void
 sk::sys::test::PipeProcessTest::
 testInputRedirect()
 {
-  sk::io::FileInputStream input("test-data");
+  const sk::util::String srcdir = getenv("JAM_SRCDIR");
+  sk::util::String datafile = "test-data";
+  
+  if(srcdir.empty() == false) {
+    datafile = srcdir + '/' + datafile;
+  }
+  sk::io::FileInputStream input(datafile);
   PipeProcess process(input, sk::util::StringArray("tr") + "a" + "A");
   sk::io::DataInputStream data(process.inputStream());
 
