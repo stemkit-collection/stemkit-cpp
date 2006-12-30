@@ -10,6 +10,8 @@
 #include <sk/io/FileDescriptor.h>
 #include <sk/io/IOException.h>
 
+#include <sk/cppunit/SourcePath.h>
+
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::io::test::FileTest);
 
 sk::io::test::FileTest::
@@ -38,13 +40,7 @@ void
 sk::io::test::FileTest::
 testOpenRead()
 {
-  const sk::util::String srcdir = getenv("JAM_SRCDIR");
-  sk::util::String datafile = "testdata";
-
-  if(srcdir.empty() == false) {
-    datafile = srcdir + '/' + datafile;
-  }
-  sk::io::File file(datafile);
+  sk::io::File file(sk::cppunit::SourcePath::make("testdata"));
   sk::io::FileDescriptor descriptor = file.getFileDescriptor();
 
   char c;

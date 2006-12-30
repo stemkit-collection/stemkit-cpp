@@ -13,6 +13,8 @@
 #include <sk/util/Container.h>
 #include <sk/io/FileInputStream.h>
 
+#include <sk/cppunit/SourcePath.h>
+
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::sys::test::PipeProcessTest);
 
 sk::sys::test::PipeProcessTest::
@@ -149,13 +151,7 @@ void
 sk::sys::test::PipeProcessTest::
 testInputRedirect()
 {
-  const sk::util::String srcdir = getenv("JAM_SRCDIR");
-  sk::util::String datafile = "test-data";
-  
-  if(srcdir.empty() == false) {
-    datafile = srcdir + '/' + datafile;
-  }
-  sk::io::FileInputStream input(datafile);
+  sk::io::FileInputStream input(sk::cppunit::SourcePath::make("test-data"));
   PipeProcess process(input, sk::util::StringArray("tr") + "a" + "A");
   sk::io::DataInputStream data(process.inputStream());
 

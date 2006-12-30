@@ -11,6 +11,8 @@
 #include <sk/io/DataInputStream.h>
 #include <sk/io/FileStreamCoupler.cxx>
 
+#include <sk/cppunit/SourcePath.h>
+
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::io::test::FileStreamsTest);
 
 sk::io::test::FileStreamsTest::
@@ -39,12 +41,7 @@ void
 sk::io::test::FileStreamsTest::
 testRead()
 {
-  const sk::util::String srcdir = getenv("JAM_SRCDIR");
-  sk::util::String datafile = "testdata";
-
-  if(srcdir.empty() == false) {
-    datafile = srcdir + '/' + datafile;
-  }
+  const sk::util::String datafile = sk::cppunit::SourcePath::make("testdata");
   sk::io::FileInputStream stream(datafile);
   sk::io::DataInputStream data(stream);
 
@@ -74,13 +71,7 @@ void
 sk::io::test::FileStreamsTest::
 testAvailable()
 {
-  const sk::util::String srcdir = getenv("JAM_SRCDIR");
-  sk::util::String datafile = "testdata";
-
-  if(srcdir.empty() == false) {
-    datafile = srcdir + '/' + datafile;
-  }
-  sk::io::FileInputStream stream(datafile);
+  sk::io::FileInputStream stream(sk::cppunit::SourcePath::make("testdata"));
 
   CPPUNIT_ASSERT_EQUAL(81, int(stream.available()));
   CPPUNIT_ASSERT_EQUAL(20, stream.skip(20));

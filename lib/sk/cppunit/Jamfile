@@ -4,6 +4,7 @@ library = sk.cppunit ;
 objects = 
   SingleLineOutputter.cc
   TestRunner.cc
+  SourcePath.cc
 ;
 
 use-unit-test $(objects) ;
