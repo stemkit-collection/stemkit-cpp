@@ -22,7 +22,7 @@ String(char character)
 
 sk::util::String::
 String(const char* buffer)
-  : std::string(buffer)
+  : std::string(buffer ? buffer : "")
 {
 }
 
@@ -32,13 +32,12 @@ String(const std::string& string)
 {
 }
 
-#include <iostream>
 sk::util::String::
 String(const char* buffer, int size)
 {
   int index = 0;
 
-  while(index<size && buffer[index++] != 0);
+  while(buffer && index<size && buffer[index++] != 0);
   std::string::assign(buffer, 0, index);
 }
 
