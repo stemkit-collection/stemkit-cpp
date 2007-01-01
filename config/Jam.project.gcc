@@ -119,6 +119,11 @@ rule platform-macos-ppc
   INCLUDES += ;
   SYSLIBS = ;
 
+  DLLFLAGS = -dynamiclib ;
+  C++LDFLAGS += ;
+  CC_SONAME_FLAG = -Wl,+h ;
+  jam.DSO_EXTENTION = dylib ;
+
   project.PTY_SPECIFICS = posix ;
 }
 
