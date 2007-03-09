@@ -23,12 +23,7 @@ CPPUNIT_VERSION = 1.10 ;
 
 C++ = ;
 CC = ;
-LD = ;
 AR = ;
-
-MKDIR = ;
-RMRF = ;
-RMF = ;
 
 CCLDFLAGS = ;
 LDFLAGS = ;
@@ -233,12 +228,7 @@ CC ?= $(GCC_ROOT)/bin/gcc ;
 
 LIBDIRS += $(GCC_ROOT)/lib ;
 
-LD ?= `$(CC) --print-prog-name=ld` ;
-AR ?= `$(CC) --print-prog-name=ar` -cq ;
-
-MKDIR ?= mkdir -p ;
-RMRF ?= rm -rf ;
-RMF ?= rm -f ;
+AR ?= ar -cq ;
 
 CCOFLAGS ?= -O0 -fno-guess-branch-probability ;
 DLLFLAGS ?= -shared ;
