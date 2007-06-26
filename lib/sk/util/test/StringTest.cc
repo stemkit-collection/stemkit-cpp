@@ -48,6 +48,9 @@ void
 sk::util::test::StringTest::
 testEmpty()
 {
+  const char* empty = 0;
+
+  CPPUNIT_ASSERT_EQUAL(true, String(empty).isEmpty());
   CPPUNIT_ASSERT_EQUAL(true, String().isEmpty());
   CPPUNIT_ASSERT_EQUAL(false, String("abc").isEmpty());
   CPPUNIT_ASSERT_EQUAL(std::string(), std::string(String()));
@@ -138,4 +141,39 @@ testConstructFromStringWithLength()
 
   CPPUNIT_ASSERT_EQUAL(4, String(s, 7).size());
   CPPUNIT_ASSERT_EQUAL(String("abcd").inspect(), String(s, 7).inspect());
+}
+
+void
+sk::util::test::StringTest::
+testStartsWith()
+{
+  CPPUNIT_ASSERT_EQUAL(true, String("abc").startsWith("abc"));
+  CPPUNIT_ASSERT_EQUAL(true, String("abc").startsWith("ab"));
+  CPPUNIT_ASSERT_EQUAL(false, String("abc").startsWith("ac"));
+  CPPUNIT_ASSERT_EQUAL(true, String("abc").startsWith(""));
+  CPPUNIT_ASSERT_EQUAL(false, String("abc").startsWith("abcd"));
+}
+
+void
+sk::util::test::StringTest::
+testEndsWith()
+{
+  CPPUNIT_ASSERT_EQUAL(true, String("abc").endsWith("abc"));
+  CPPUNIT_ASSERT_EQUAL(true, String("abc").endsWith("bc"));
+  CPPUNIT_ASSERT_EQUAL(false, String("abc").endsWith("ab"));
+  CPPUNIT_ASSERT_EQUAL(true, String("abc").endsWith(""));
+  CPPUNIT_ASSERT_EQUAL(false, String("abc").endsWith("aabc"));
+}
+
+void
+sk::util::test::StringTest::
+testEquals()
+{
+  CPPUNIT_ASSERT_EQUAL(true, String("abc").equals("abc"));
+  CPPUNIT_ASSERT_EQUAL(false, String("abc").equals("abcd"));
+  CPPUNIT_ASSERT_EQUAL(false, String("abc").equals("aabc"));
+  CPPUNIT_ASSERT_EQUAL(false, String("abc").equals("ab"));
+  CPPUNIT_ASSERT_EQUAL(false, String("abc").equals("bc"));
+  CPPUNIT_ASSERT_EQUAL(false, String("abc").equals("b"));
+  CPPUNIT_ASSERT_EQUAL(false, String("abc").equals(""));
 }

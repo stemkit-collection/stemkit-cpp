@@ -125,6 +125,55 @@ trim() const
   return substr(start, end-start);
 }
 
+bool
+sk::util::String::
+startsWith(const sk::util::String& prefix) const
+{
+  if(prefix.length() > length()) {
+    return false;
+  }
+  return std::string::compare(0, prefix.length(), prefix) == 0;
+}
+
+bool
+sk::util::String::
+startsWith(const char* prefix) const
+{
+  return startsWith(sk::util::String(prefix));
+}
+
+bool
+sk::util::String::
+endsWith(const sk::util::String& suffix) const
+{
+  int offset = length() - suffix.length();
+  if(offset < 0) {
+    return false;
+  }
+  return std::string::compare(offset, suffix.length(), suffix) == 0;
+}
+
+bool
+sk::util::String::
+endsWith(const char* suffix) const
+{
+  return endsWith(sk::util::String(suffix));
+}
+
+bool 
+sk::util::String::
+equals(const sk::util::String& other) const
+{
+  return std::string::compare(other) == 0;
+}
+
+bool 
+sk::util::String::
+equals(const char* other) const
+{
+  return equals(sk::util::String(other));
+}
+
 const sk::util::String
 sk::util::String::
 inspect() const

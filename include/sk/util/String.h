@@ -38,6 +38,18 @@ namespace sk {
         const String trim() const;
         const String strip() const;
 
+        /// Tests if this string starts with the specified prefix.
+        bool startsWith(const sk::util::String& prefix) const;
+        bool startsWith(const char* prefix) const;
+
+        /// Tests if this string ends with the specified suffix.
+        bool endsWith(const sk::util::String& suffix) const;
+        bool endsWith(const char* suffix) const;
+
+        /// Compares this string to the other specified string.
+        bool equals(const sk::util::String& other) const;
+        bool equals(const char* other) const;
+
         /// Returns a representation of this string as a C string.
         const char* getChars() const;
 

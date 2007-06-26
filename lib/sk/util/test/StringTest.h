@@ -26,6 +26,9 @@ namespace sk {
           CPPUNIT_TEST(testAssignment);
           CPPUNIT_TEST(testTrim);
           CPPUNIT_TEST(testInspect);
+          CPPUNIT_TEST(testStartsWith);
+          CPPUNIT_TEST(testEndsWith);
+          CPPUNIT_TEST(testEquals);
         CPPUNIT_TEST_SUITE_END();
         
         public:
@@ -42,6 +45,9 @@ namespace sk {
           void testAssignment();
           void testTrim();
           void testInspect();
+          void testStartsWith();
+          void testEndsWith();
+          void testEquals();
           
         private:
           StringTest(const StringTest& other);
