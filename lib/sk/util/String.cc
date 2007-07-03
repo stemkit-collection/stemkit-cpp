@@ -8,6 +8,7 @@
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
 #include <sk/util/inspect.h>
+#include <algorithm>
 
 sk::util::String::
 String()
@@ -172,6 +173,29 @@ sk::util::String::
 equals(const char* other) const
 {
   return equals(sk::util::String(other));
+}
+
+namespace {
+  inline bool compareCharsIgnoreCase(char c1, char c2) {
+    return toupper(c1) == toupper(c2);
+  }
+}
+
+bool 
+sk::util::String::
+equalsIgnoreCase(const sk::util::String& other) const
+{
+  if(size() != other.size()) {
+    return false;
+  }
+  return std::equal(begin(), end(), other.begin(), compareCharsIgnoreCase);
+}
+
+bool 
+sk::util::String::
+equalsIgnoreCase(const char* other) const
+{
+  return equalsIgnoreCase(sk::util::String(other));
 }
 
 const sk::util::String

@@ -29,6 +29,7 @@ namespace sk {
           CPPUNIT_TEST(testStartsWith);
           CPPUNIT_TEST(testEndsWith);
           CPPUNIT_TEST(testEquals);
+          CPPUNIT_TEST(testEqualsIgnoreCase);
         CPPUNIT_TEST_SUITE_END();
         
         public:
@@ -48,6 +49,7 @@ namespace sk {
           void testStartsWith();
           void testEndsWith();
           void testEquals();
+          void testEqualsIgnoreCase();
           
         private:
           StringTest(const StringTest& other);

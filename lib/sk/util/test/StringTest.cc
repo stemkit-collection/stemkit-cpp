@@ -177,3 +177,10 @@ testEquals()
   CPPUNIT_ASSERT_EQUAL(false, String("abc").equals("b"));
   CPPUNIT_ASSERT_EQUAL(false, String("abc").equals(""));
 }
+void
+sk::util::test::StringTest::
+testEqualsIgnoreCase()
+{
+  CPPUNIT_ASSERT_EQUAL(true, String("abc").equalsIgnoreCase("ABC"));
+  CPPUNIT_ASSERT_EQUAL(true, String("AbC").equalsIgnoreCase("aBc"));
+}
