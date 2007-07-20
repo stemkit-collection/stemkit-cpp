@@ -118,8 +118,12 @@ void
 sk::util::test::StringTest::
 testTrim()
 {
+  const char* s = 0;
   CPPUNIT_ASSERT_EQUAL(String("zzz"), String("\t  zzz  \t\t").trim());
   CPPUNIT_ASSERT_EQUAL(String("cba"), String(" \r\t \ncba").strip());
+  CPPUNIT_ASSERT_EQUAL(String(""), String("    ").strip());
+  CPPUNIT_ASSERT_EQUAL(String(""), String("").strip());
+  CPPUNIT_ASSERT_EQUAL(String(""), String(s).strip());
 }
 
 void

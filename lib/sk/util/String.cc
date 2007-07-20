@@ -120,10 +120,12 @@ sk::util::String::
 trim() const
 {
   const std::string whitespace = " \t\r\n\b\f";
-  int start = find_first_not_of(whitespace);
-  int end = find_first_of(whitespace, start);
-  
-  return substr(start, end-start);
+  std::string::size_type start = find_first_not_of(whitespace);
+  if(start != std::string::npos) {
+    std::string::size_type end = find_first_of(whitespace, start);
+    return substr(start, end == std::string::npos ? end : end - start);
+  }
+  return "";
 }
 
 bool
