@@ -47,6 +47,23 @@ rule platform-linux-x86
   project.PTY_SPECIFICS = linux ;
 }
 
+rule platform-interix-x86
+{
+  GCC_VERSION = 3.4.6 ;
+  project.MAKE_DLL = false ;
+
+  # CC = gcc ;
+  # C++ = g++ ;
+
+  C++FLAGS += -fpic ;
+  CCFLAGS += -fpic ;
+  DEFINES += ;
+  INCLUDES += $(SRCTOP:J=/)/platform/include/interix ;
+  SYSLIBS = crypt dl ;
+
+  project.PTY_SPECIFICS = linux ;
+}
+
 rule platform-linux-amd64
 {
   C++FLAGS += -fPIC -m32 ;
@@ -213,6 +230,7 @@ switch $(PRODUCT_PLATFORM) {
   case tiger-ppc : platform-macos-ppc ;
   case tiger-x86 : platform-macos-ppc ;
   case cygwin-xp-x86 : platform-cygwin-x86 ;
+  case win32-sfu-x86 : platform-interix-x86 ;
   case * : exit Unknown platform $(PRODUCT_PLATFORM) ;
 }
 
