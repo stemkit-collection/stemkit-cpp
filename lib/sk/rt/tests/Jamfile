@@ -1,0 +1,12 @@
+
+test = test-rt ;
+
+test-objects =
+  TestSuite.cc
+  LoggerTest.cc
+;
+
+use-project-libraries $(test) : sk.cppunit sk.rt sk.rt.logger sk.util ;
+
+use-unit-test $(test) $(test-objects) ;
+make-cpp-test $(test) : $(test-objects) ;

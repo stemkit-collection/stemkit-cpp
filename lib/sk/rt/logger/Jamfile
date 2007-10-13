@@ -1,0 +1,9 @@
+
+library = sk.rt.logger ;
+
+objects = 
+  Spot.cc
+  Controller.cc
+;
+
+make-library $(library) : $(objects) ;

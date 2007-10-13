@@ -1,4 +1,4 @@
-/*  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
+/*  Copyright (c) 2007, Gennady Bystritsky <bystr@mac.com>
  *  
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
@@ -8,21 +8,21 @@
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
 
-#include <sk/runtime/Configurator.h>
+#include <sk/rt/logger/Spot.h>
 
-sk::runtime::Configurator::
-Configurator()
+sk::rt::logger::Spot::
+Spot()
 {
 }
 
-sk::runtime::Configurator::
-~Configurator()
+sk::rt::logger::Spot::
+~Spot()
 {
 }
 
 const sk::util::Class
-sk::runtime::Configurator::
+sk::rt::logger::Spot::
 getClass() const
 {
-  return sk::util::Class("sk::runtime::Configurator");
+  return sk::util::Class("sk::rt::logger::Spot");
 }

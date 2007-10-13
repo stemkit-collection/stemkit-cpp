@@ -1,0 +1,9 @@
+
+library = sk.rt ;
+
+objects = 
+  Logger.cc
+;
+
+make-library $(library) : $(objects) ;
+make-subdirs logger tests ;

@@ -1,4 +1,4 @@
-/*  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
+/*  Copyright (c) 2007, Gennady Bystritsky <bystr@mac.com>
  *  
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
@@ -8,21 +8,21 @@
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
 
-#include <sk/runtime/Tracer.h>
+#include <sk/rt/logger/Controller.h>
 
-sk::runtime::Tracer::
-Tracer()
+sk::rt::logger::Controller::
+Controller()
 {
 }
 
-sk::runtime::Tracer::
-~Tracer()
+sk::rt::logger::Controller::
+~Controller()
 {
 }
 
 const sk::util::Class
-sk::runtime::Tracer::
+sk::rt::logger::Controller::
 getClass() const
 {
-  return sk::util::Class("sk::runtime::Tracer");
+  return sk::util::Class("sk::rt::logger::Controller");
 }
