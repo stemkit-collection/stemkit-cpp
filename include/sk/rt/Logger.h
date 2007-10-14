@@ -17,6 +17,9 @@
 
 namespace sk {
   namespace rt {
+    namespace logger {
+      class Config;
+    }
     class Logger
       : public virtual sk::rt::logger::ScopeProvider
     {
@@ -45,6 +48,7 @@ namespace sk {
         static logger::Controller _controller;
         const sk::util::Object& _object;
 
+        logger::Config& _config;
         sk::util::String _name;
     };
   }

@@ -21,10 +21,11 @@ namespace sk {
         : public virtual sk::util::Object 
       {
         public:
-          Stream(const Level& level, const ScopeProvider& provider);
+          Stream(bool enabled, const Level& level, const ScopeProvider& provider);
           Stream(const Stream& other);
           virtual ~Stream();
 
+          bool isEnabled() const;
           const sk::util::String getScopeName() const;
           const Level& getLevel() const;
           
@@ -35,11 +36,14 @@ namespace sk {
           Stream& operator = (const Stream& other);
           const ScopeProvider& _provider;
           const Level& _level;
+          bool _enabled;
       };
 
       template<typename T>
-      const sk::rt::logger::Stream& operator<<(const sk::rt::logger::Stream& stream, const T& object) {
-        std::cerr << stream.getLevel().getName() << ":" << stream.getScopeName() << ": " << object << std::endl;
+      inline const sk::rt::logger::Stream& operator<<(const sk::rt::logger::Stream& stream, const T& object) {
+        if(stream.isEnabled() == true) {
+          std::cerr << stream.getLevel().getName() << ":" << stream.getScopeName() << ": " << object << std::endl;
+        }
         return stream;
       }
     }

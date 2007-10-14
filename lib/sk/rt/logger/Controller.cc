@@ -26,3 +26,10 @@ getClass() const
 {
   return sk::util::Class("sk::rt::logger::Controller");
 }
+
+sk::rt::logger::Config& 
+sk::rt::logger::Controller::
+findConfig(const sk::util::String& name)
+{
+  return _defaultConfig;
+}

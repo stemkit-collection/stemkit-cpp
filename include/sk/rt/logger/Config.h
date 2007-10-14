@@ -5,37 +5,30 @@
  *  You must read and accept the license prior to use.
 */
 
-#ifndef _SK_RT_LOGGER_CONTROLLER_
-#define _SK_RT_LOGGER_CONTROLLER_
+#ifndef _SK_RT_LOGGER_CONFIG_
+#define _SK_RT_LOGGER_CONFIG_
 
 #include <sk/util/Object.h>
-#include <sk/rt/logger/Config.h>
 
 namespace sk {
   namespace rt {
     namespace logger {
-      class Config;
-
-      class Controller
+      class Config
         : public virtual sk::util::Object 
       {
         public:
-          Controller();
-          virtual ~Controller();
-
-          Config& findConfig(const sk::util::String& name);
+          Config();
+          virtual ~Config();
           
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
           
         private:
-          Controller(const Controller& other);
-          Controller& operator = (const Controller& other);
-
-          Config _defaultConfig;
+          Config(const Config& other);
+          Config& operator = (const Config& other);
       };
     }
   }
 }
 
-#endif /* _SK_RT_LOGGER_CONTROLLER_ */
+#endif /* _SK_RT_LOGGER_CONFIG_ */

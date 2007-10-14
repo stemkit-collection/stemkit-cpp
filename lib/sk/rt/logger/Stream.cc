@@ -11,8 +11,8 @@
 #include <sk/rt/logger/Stream.h>
 
 sk::rt::logger::Stream::
-Stream(const Level& level, const ScopeProvider& provider)
-  : _level(level), _provider(provider) 
+Stream(bool enabled, const Level& level, const ScopeProvider& provider)
+  : _enabled(enabled), _level(level), _provider(provider) 
 {
 }
 
@@ -40,4 +40,11 @@ sk::rt::logger::Stream::
 getLevel() const 
 {
   return _level;
+}
+
+bool
+sk::rt::logger::Stream::
+isEnabled() const
+{
+  return _enabled;
 }
