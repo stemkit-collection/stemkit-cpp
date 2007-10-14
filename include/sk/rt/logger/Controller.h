@@ -9,7 +9,6 @@
 #define _SK_RT_LOGGER_CONTROLLER_
 
 #include <sk/util/Object.h>
-#include <sk/rt/logger/Config.h>
 
 namespace sk {
   namespace rt {
@@ -31,8 +30,6 @@ namespace sk {
         private:
           Controller(const Controller& other);
           Controller& operator = (const Controller& other);
-
-          Config _defaultConfig;
       };
     }
   }

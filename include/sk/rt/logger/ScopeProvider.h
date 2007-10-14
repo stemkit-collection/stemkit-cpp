@@ -13,10 +13,13 @@
 namespace sk {
   namespace rt {
     namespace logger {
+      class Config;
+
       class ScopeProvider
         : public virtual sk::util::Object 
       {
         public:
+          virtual const sk::rt::logger::Config& config() const = 0;
           virtual const sk::util::String getScopeName() const = 0;
       };
     }

@@ -10,7 +10,7 @@
 
 #include <sk/util/Object.h>
 #include <sk/rt/logger/ScopeProvider.h>
-#include <iostream>
+#include <ostream>
 
 namespace sk {
   namespace rt {
@@ -21,13 +21,14 @@ namespace sk {
         : public virtual sk::util::Object 
       {
         public:
-          Stream(bool enabled, const Level& level, const ScopeProvider& provider);
+          Stream(const Level& level, const ScopeProvider& provider);
           Stream(const Stream& other);
           virtual ~Stream();
 
           bool isEnabled() const;
           const sk::util::String getScopeName() const;
           const Level& getLevel() const;
+          std::ostream& getStream() const;
           
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
@@ -42,7 +43,7 @@ namespace sk {
       template<typename T>
       inline const sk::rt::logger::Stream& operator<<(const sk::rt::logger::Stream& stream, const T& object) {
         if(stream.isEnabled() == true) {
-          std::cerr << stream.getLevel().getName() << ":" << stream.getScopeName() << ": " << object << std::endl;
+          stream.getStream() << stream.getLevel().getName() << ":" << stream.getScopeName() << ": " << object << std::endl;
         }
         return stream;
       }

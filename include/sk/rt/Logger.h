@@ -28,7 +28,6 @@ namespace sk {
         Logger(const sk::util::String& name);
         virtual ~Logger();
 
-        const sk::util::String getScopeName() const;
         static logger::Controller& controller();
 
         const logger::Stream error(const sk::rt::logger::Spot& spot = sk::rt::logger::Spot::NOTSET) const;
@@ -40,6 +39,10 @@ namespace sk {
         
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
+
+        // sk::rt::logger::ScopeProvider implementation.
+        const sk::util::String getScopeName() const;
+        const logger::Config& config() const;
         
       private:
         Logger(const Logger& other);

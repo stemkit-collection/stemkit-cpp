@@ -9,6 +9,7 @@
 #include <sk/util/String.h>
 
 #include <sk/rt/logger/Controller.h>
+#include "DisablingConfig.h"
 
 sk::rt::logger::Controller::
 Controller()
@@ -31,5 +32,6 @@ sk::rt::logger::Config&
 sk::rt::logger::Controller::
 findConfig(const sk::util::String& name)
 {
-  return _defaultConfig;
+  static DisablingConfig config;
+  return config;
 }

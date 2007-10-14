@@ -9,10 +9,13 @@
 #include <sk/util/String.h>
 
 #include <sk/rt/logger/Stream.h>
+#include <sk/rt/logger/Config.h>
+
+#include <iostream>
 
 sk::rt::logger::Stream::
-Stream(bool enabled, const Level& level, const ScopeProvider& provider)
-  : _enabled(enabled), _level(level), _provider(provider) 
+Stream(const Level& level, const ScopeProvider& provider)
+  : _enabled(provider.config().checkLevel(level)), _level(level), _provider(provider) 
 {
 }
 
@@ -47,4 +50,11 @@ sk::rt::logger::Stream::
 isEnabled() const
 {
   return _enabled;
+}
+
+std::ostream&
+sk::rt::logger::Stream::
+getStream() const
+{
+  return _provider.config().stream();
 }

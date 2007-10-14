@@ -9,23 +9,19 @@
 #define _SK_RT_LOGGER_CONFIG_
 
 #include <sk/util/Object.h>
+#include <ostream>
 
 namespace sk {
   namespace rt {
     namespace logger {
+      class Level;
+
       class Config
         : public virtual sk::util::Object 
       {
         public:
-          Config();
-          virtual ~Config();
-          
-          // sk::util::Object re-implementation.
-          const sk::util::Class getClass() const;
-          
-        private:
-          Config(const Config& other);
-          Config& operator = (const Config& other);
+          virtual bool checkLevel(const Level& level) const = 0;
+          virtual std::ostream& stream() const = 0;
       };
     }
   }

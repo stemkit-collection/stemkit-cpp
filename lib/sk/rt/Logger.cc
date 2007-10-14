@@ -54,44 +54,51 @@ controller()
   return _controller;
 }
 
+const sk::rt::logger::Config&
+sk::rt::Logger::
+config() const
+{
+  return _config;
+}
+
 const sk::rt::logger::Stream
 sk::rt::Logger::
 info(const sk::rt::logger::Spot& spot) const
 {
-  return sk::rt::logger::Stream(true, logger::Level::INFO, *this);
+  return sk::rt::logger::Stream(logger::Level::INFO, *this);
 }
 
 const sk::rt::logger::Stream
 sk::rt::Logger::
 error(const sk::rt::logger::Spot& spot) const
 {
-  return sk::rt::logger::Stream(true, logger::Level::ERROR, *this);
+  return sk::rt::logger::Stream(logger::Level::ERROR, *this);
 }
 
 const sk::rt::logger::Stream
 sk::rt::Logger::
 warning(const sk::rt::logger::Spot& spot) const
 {
-  return sk::rt::logger::Stream(true, logger::Level::WARNING, *this);
+  return sk::rt::logger::Stream(logger::Level::WARNING, *this);
 }
 
 const sk::rt::logger::Stream
 sk::rt::Logger::
 notice(const sk::rt::logger::Spot& spot) const
 {
-  return sk::rt::logger::Stream(true, logger::Level::NOTICE, *this);
+  return sk::rt::logger::Stream(logger::Level::NOTICE, *this);
 }
 
 const sk::rt::logger::Stream
 sk::rt::Logger::
 debug(const sk::rt::logger::Spot& spot) const
 {
-  return sk::rt::logger::Stream(true, logger::Level::DEBUG, *this);
+  return sk::rt::logger::Stream(logger::Level::DEBUG, *this);
 }
 
 const sk::rt::logger::Stream
 sk::rt::Logger::
 detail(const sk::rt::logger::Spot& spot) const
 {
-  return sk::rt::logger::Stream(true, logger::Level::DETAIL, *this);
+  return sk::rt::logger::Stream(logger::Level::DETAIL, *this);
 }
