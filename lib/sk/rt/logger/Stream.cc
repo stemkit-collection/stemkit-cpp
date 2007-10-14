@@ -15,10 +15,10 @@
 
 sk::rt::logger::Stream::
 Stream(const Level& level, const ScopeProvider& provider)
-  : _enabled(provider.config().checkLevel(level)), _provider(provider) 
+  : _enabled(provider.config().checkLevel(level)), _stream(provider.config().getStream()) 
 {
   if(isEnabled() == true) {
-    getStream() << level.getName() << ":" << _provider.getScopeName() << ": ";
+    getStream() << level.getName() << ":" << provider.getScopeName() << ": ";
   }
 }
 
@@ -48,5 +48,5 @@ std::ostream&
 sk::rt::logger::Stream::
 getStream() const
 {
-  return _provider.config().stream();
+  return _stream;
 }

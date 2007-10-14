@@ -21,7 +21,10 @@ namespace sk {
       {
         public:
           virtual bool checkLevel(const Level& level) const = 0;
-          virtual std::ostream& stream() const = 0;
+          virtual std::ostream& getStream() const = 0;
+          virtual bool isShowPid() const = 0;
+          virtual bool isShowTime() const = 0;
+          virtual bool isShowObject() const = 0;
       };
     }
   }

@@ -34,7 +34,7 @@ namespace sk {
           
         private:
           Stream& operator = (const Stream& other);
-          const ScopeProvider& _provider;
+          std::ostream& _stream;
           bool _enabled;
       };
 

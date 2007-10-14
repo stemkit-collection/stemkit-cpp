@@ -5,7 +5,6 @@ objects =
   Spot.cc
   Level.cc
   Controller.cc
-  DisablingConfig.cc
   Stream.cc
 ;
 

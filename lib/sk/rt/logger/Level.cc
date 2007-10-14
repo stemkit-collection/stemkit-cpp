@@ -46,6 +46,13 @@ getName() const
   return _name;
 }
 
+int 
+sk::rt::logger::Level::
+toInt() const
+{
+  return _value;
+}
+
 bool
 sk::rt::logger::Level::
 operator==(const Level& other) const

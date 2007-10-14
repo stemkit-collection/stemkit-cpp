@@ -10,34 +10,49 @@
 
 #include <sk/util/Object.h>
 #include <sk/util/Holder.hxx>
-#include <sk/rt/logger/IController.h>
+#include <sk/rt/logger/Config.h>
 
 namespace sk {
   namespace rt {
     namespace logger {
-      class Config;
+      class Level;
 
       class Controller
-        : public virtual sk::rt::logger::IController
+        : public virtual sk::rt::logger::Config
       {
         public:
           Controller();
           virtual ~Controller();
 
           void setStream(std::ostream& stream);
+          void setLevel(const Level& level);
+
+          void setShowPid(bool state);
+          void setShowTime(bool state);
+          void setShowObject(bool state);
+
+          const Level& getLevel() const;
           Config& findConfig(const sk::util::String& name);
           
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
 
-          // sk::rt::logger::IController implementation.
+          // sk::rt::logger::Config implementation.
           std::ostream& getStream() const;
+          bool checkLevel(const sk::rt::logger::Level& level) const;
+          bool isShowPid() const;
+          bool isShowTime() const;
+          bool isShowObject() const;
           
         private:
           Controller(const Controller& other);
           Controller& operator = (const Controller& other);
 
           sk::util::Holder<std::ostream> _streamHolder;
+          sk::util::Holder<const Level> _levelHolder;
+          bool _showPid;
+          bool _showTime;
+          bool _showObject;
       };
     }
   }

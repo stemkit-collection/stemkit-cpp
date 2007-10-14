@@ -19,6 +19,7 @@ namespace sk {
         public:
           virtual ~Level();
 
+          int toInt() const;
           const sk::util::String& getName() const;
           
           // sk::util::Object re-implementation.
