@@ -26,7 +26,7 @@ Stream(const Level& level, const ScopeProvider& provider)
     }
     _stream << level.getName() << ":" << provider.getScopeName();
     if(provider.config().isShowObject() == true) {
-      _stream << ':' << std::hex << provider.getObject().getId();
+      _stream << ':' << &provider.getObject();
     }
     _stream << ": ";
   }
