@@ -10,6 +10,7 @@
 
 #include <sk/util/Object.h>
 #include <sk/rt/logger/ScopeProvider.h>
+#include <sk/rt/logger/Level.h>
 #include <ostream>
 
 namespace sk {

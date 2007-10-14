@@ -24,17 +24,31 @@ void
 sk::rt::tests::LoggerTest::
 setUp()
 {
+  _stream.clear();
+  Logger::controller().setStream(_stream);
 }
 
 void
 sk::rt::tests::LoggerTest::
 tearDown()
 {
+  _stream.clear();
 }
 
 void
 sk::rt::tests::LoggerTest::
-testCreateName()
+testDefaultNoOutputButError()
 {
   Logger logger("abc");
+
+  logger.info() << "aaa";
+  logger.warning() << "bbb";
+  logger.notice() << "ccc";
+  logger.debug() << "ddd";
+  logger.detail() << "eee";
+
+  CPPUNIT_ASSERT_EQUAL(true, _stream.str().empty());
+
+  logger.error() << "zzz";
+  CPPUNIT_ASSERT_EQUAL(sk::util::String("ERROR:abc: zzz\n").inspect(), sk::util::String(_stream.str()).inspect());
 }

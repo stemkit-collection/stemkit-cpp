@@ -12,12 +12,14 @@
 
 int sk::rt::logger::Level::_counter = 0;
 
-const sk::rt::logger::Level sk::rt::logger::Level::ERROR("error");
-const sk::rt::logger::Level sk::rt::logger::Level::WARNING("warning");
-const sk::rt::logger::Level sk::rt::logger::Level::NOTICE("notice");
-const sk::rt::logger::Level sk::rt::logger::Level::INFO("info");
-const sk::rt::logger::Level sk::rt::logger::Level::DETAIL("detail");
-const sk::rt::logger::Level sk::rt::logger::Level::DEBUG("debug");
+#define DEFINE_LEVEL(level) const sk::rt::logger::Level sk::rt::logger::Level::level(#level)
+
+DEFINE_LEVEL(ERROR);
+DEFINE_LEVEL(WARNING);
+DEFINE_LEVEL(NOTICE);
+DEFINE_LEVEL(INFO);
+DEFINE_LEVEL(DETAIL);
+DEFINE_LEVEL(DEBUG);
 
 sk::rt::logger::Level::
 Level(const sk::util::String& name)

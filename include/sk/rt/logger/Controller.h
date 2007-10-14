@@ -9,6 +9,8 @@
 #define _SK_RT_LOGGER_CONTROLLER_
 
 #include <sk/util/Object.h>
+#include <sk/util/Holder.hxx>
+#include <sk/rt/logger/IController.h>
 
 namespace sk {
   namespace rt {
@@ -16,20 +18,26 @@ namespace sk {
       class Config;
 
       class Controller
-        : public virtual sk::util::Object 
+        : public virtual sk::rt::logger::IController
       {
         public:
           Controller();
           virtual ~Controller();
 
+          void setStream(std::ostream& stream);
           Config& findConfig(const sk::util::String& name);
           
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
+
+          // sk::rt::logger::IController implementation.
+          std::ostream& getStream() const;
           
         private:
           Controller(const Controller& other);
           Controller& operator = (const Controller& other);
+
+          sk::util::Holder<std::ostream> _streamHolder;
       };
     }
   }

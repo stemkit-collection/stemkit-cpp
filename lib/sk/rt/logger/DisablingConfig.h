@@ -13,11 +13,13 @@
 namespace sk {
   namespace rt {
     namespace logger {
+      class IController; 
+
       class DisablingConfig
         : public virtual sk::rt::logger::Config
       {
         public:
-          DisablingConfig();
+          DisablingConfig(IController& controller);
           virtual ~DisablingConfig();
           
           // sk::util::Object re-implementation.
@@ -30,6 +32,8 @@ namespace sk {
         private:
           DisablingConfig(const DisablingConfig& other);
           DisablingConfig& operator = (const DisablingConfig& other);
+
+          IController& _controller;
       };
     }
   }

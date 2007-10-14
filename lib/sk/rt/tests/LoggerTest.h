@@ -11,6 +11,8 @@
 #include <cppunit/TestFixture.h>
 #include <cppunit/extensions/HelperMacros.h>
 
+#include <sstream>
+
 namespace sk {
   namespace rt {
     namespace tests {
@@ -18,7 +20,7 @@ namespace sk {
         : public CppUnit::TestFixture
       {
         CPPUNIT_TEST_SUITE(sk::rt::tests::LoggerTest);
-          CPPUNIT_TEST(testCreateName);
+          CPPUNIT_TEST(testDefaultNoOutputButError);
         CPPUNIT_TEST_SUITE_END();
         
         public:
@@ -27,11 +29,12 @@ namespace sk {
           
           void setUp();
           void tearDown();
-          void testCreateName();
+          void testDefaultNoOutputButError();
           
         private:
           LoggerTest(const LoggerTest& other);
           LoggerTest& operator = (const LoggerTest& other);
+          std::stringstream _stream;
       };
     }
   }

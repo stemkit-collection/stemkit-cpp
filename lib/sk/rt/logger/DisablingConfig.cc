@@ -9,10 +9,13 @@
 #include <sk/util/String.h>
 #include <sk/util/IllegalStateException.h>
 
+#include <sk/rt/logger/IController.h>
+#include <sk/rt/logger/Level.h>
 #include "DisablingConfig.h"
 
 sk::rt::logger::DisablingConfig::
-DisablingConfig()
+DisablingConfig(IController& controller)
+  : _controller(controller)
 {
 }
 
@@ -32,12 +35,12 @@ bool
 sk::rt::logger::DisablingConfig::
 checkLevel(const sk::rt::logger::Level& level) const
 {
-  return false;
+  return level == Level::ERROR;
 }
 
 std::ostream&
 sk::rt::logger::DisablingConfig::
 stream() const
 {
-  throw sk::util::IllegalStateException("stream()");
+  return _controller.getStream();
 }
