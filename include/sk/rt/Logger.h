@@ -31,7 +31,7 @@ namespace sk {
         const sk::util::String getScopeName() const;
         static logger::Controller& controller();
 
-        const logger::Stream fatal(const sk::rt::logger::Spot& spot = sk::rt::logger::Spot::NOTSET) const;
+        const logger::Stream error(const sk::rt::logger::Spot& spot = sk::rt::logger::Spot::NOTSET) const;
         const logger::Stream warning(const sk::rt::logger::Spot& spot = sk::rt::logger::Spot::NOTSET) const;
         const logger::Stream notice(const sk::rt::logger::Spot& spot = sk::rt::logger::Spot::NOTSET) const;
         const logger::Stream info(const sk::rt::logger::Spot& spot = sk::rt::logger::Spot::NOTSET) const;

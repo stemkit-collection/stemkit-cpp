@@ -26,7 +26,7 @@ namespace sk {
 
           bool operator==(const Level& other) const;
 
-          static const Level FATAL;
+          static const Level ERROR;
           static const Level WARNING;
           static const Level INFO;
           static const Level DEBUG;

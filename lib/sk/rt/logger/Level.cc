@@ -12,7 +12,7 @@
 
 int sk::rt::logger::Level::_counter = 0;
 
-const sk::rt::logger::Level sk::rt::logger::Level::FATAL("fatal");
+const sk::rt::logger::Level sk::rt::logger::Level::ERROR("error");
 const sk::rt::logger::Level sk::rt::logger::Level::WARNING("warning");
 const sk::rt::logger::Level sk::rt::logger::Level::NOTICE("notice");
 const sk::rt::logger::Level sk::rt::logger::Level::INFO("info");

@@ -63,9 +63,9 @@ info(const sk::rt::logger::Spot& spot) const
 
 const sk::rt::logger::Stream
 sk::rt::Logger::
-fatal(const sk::rt::logger::Spot& spot) const
+error(const sk::rt::logger::Spot& spot) const
 {
-  return sk::rt::logger::Stream(true, logger::Level::FATAL, *this);
+  return sk::rt::logger::Stream(true, logger::Level::ERROR, *this);
 }
 
 const sk::rt::logger::Stream
