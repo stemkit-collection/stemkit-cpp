@@ -21,6 +21,7 @@ namespace sk {
         public:
           virtual const sk::rt::logger::Config& config() const = 0;
           virtual const sk::util::String getScopeName() const = 0;
+          virtual const sk::util::Object& getObject() const = 0;
       };
     }
   }

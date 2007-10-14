@@ -42,6 +42,7 @@ namespace sk {
 
         // sk::rt::logger::ScopeProvider implementation.
         const sk::util::String getScopeName() const;
+        const sk::util::Object& getObject() const;
         const logger::Config& config() const;
         
       private:

@@ -18,7 +18,17 @@ Stream(const Level& level, const ScopeProvider& provider)
   : _enabled(provider.config().checkLevel(level)), _stream(provider.config().getStream()) 
 {
   if(isEnabled() == true) {
-    getStream() << level.getName() << ":" << provider.getScopeName() << ": ";
+    if(provider.config().isShowPid() == true) {
+      _stream << '[' << getpid() << "] ";
+    }
+    if(provider.config().isShowTime() == true) {
+      _stream << "yymmddHHMMSS" << ' ';
+    }
+    _stream << level.getName() << ":" << provider.getScopeName();
+    if(provider.config().isShowObject() == true) {
+      _stream << ':' << std::hex << provider.getObject().getId();
+    }
+    _stream << ": ";
   }
 }
 

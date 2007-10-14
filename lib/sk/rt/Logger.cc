@@ -47,6 +47,13 @@ getScopeName() const
   return _name;
 }
 
+const sk::util::Object&
+sk::rt::Logger::
+getObject() const
+{
+  return _object;
+}
+
 sk::rt::logger::Controller&
 sk::rt::Logger::
 controller() 
