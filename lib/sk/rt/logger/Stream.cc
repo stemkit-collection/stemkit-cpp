@@ -15,13 +15,19 @@
 
 sk::rt::logger::Stream::
 Stream(const Level& level, const ScopeProvider& provider)
-  : _enabled(provider.config().checkLevel(level)), _level(level), _provider(provider) 
+  : _enabled(provider.config().checkLevel(level)), _provider(provider) 
 {
+  if(isEnabled() == true) {
+    getStream() << level.getName() << ":" << _provider.getScopeName() << ": ";
+  }
 }
 
 sk::rt::logger::Stream::
 ~Stream()
 {
+  if(isEnabled() == true) {
+    getStream() << std::endl;
+  }
 }
 
 const sk::util::Class
@@ -29,20 +35,6 @@ sk::rt::logger::Stream::
 getClass() const
 {
   return sk::util::Class("sk::rt::logger::Stream");
-}
-
-const sk::util::String
-sk::rt::logger::Stream::
-getScopeName() const
-{
-  return _provider.getScopeName();
-}
-
-const sk::rt::logger::Level&
-sk::rt::logger::Stream::
-getLevel() const 
-{
-  return _level;
 }
 
 bool

@@ -52,3 +52,13 @@ testDefaultNoOutputButError()
   logger.error() << "zzz";
   CPPUNIT_ASSERT_EQUAL(sk::util::String("ERROR:abc: zzz\n").inspect(), sk::util::String(_stream.str()).inspect());
 }
+
+void
+sk::rt::tests::LoggerTest::
+testConcatenation()
+{
+  Logger logger("zzz");
+
+  logger.error() << "aaa" << ' ' << "bbb" << ' ' << "ccc";
+  CPPUNIT_ASSERT_EQUAL(sk::util::String("ERROR:zzz: aaa bbb ccc\n").inspect(), sk::util::String(_stream.str()).inspect());
+}

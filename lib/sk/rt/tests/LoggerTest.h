@@ -21,6 +21,7 @@ namespace sk {
       {
         CPPUNIT_TEST_SUITE(sk::rt::tests::LoggerTest);
           CPPUNIT_TEST(testDefaultNoOutputButError);
+          CPPUNIT_TEST(testConcatenation);
         CPPUNIT_TEST_SUITE_END();
         
         public:
@@ -30,6 +31,7 @@ namespace sk {
           void setUp();
           void tearDown();
           void testDefaultNoOutputButError();
+          void testConcatenation();
           
         private:
           LoggerTest(const LoggerTest& other);
