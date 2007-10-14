@@ -9,6 +9,7 @@
 #include <sk/util/String.h>
 
 #include <sk/rt/Logger.h>
+#include <sk/rt/logger/Level.h>
 
 sk::rt::logger::Controller sk::rt::Logger::_controller;
 
@@ -57,40 +58,40 @@ const sk::rt::logger::Stream
 sk::rt::Logger::
 info(const sk::rt::logger::Spot& spot) const
 {
-  return sk::rt::logger::Stream("info", *this);
+  return sk::rt::logger::Stream(logger::Level::INFO, *this);
 }
 
 const sk::rt::logger::Stream
 sk::rt::Logger::
 fatal(const sk::rt::logger::Spot& spot) const
 {
-  return sk::rt::logger::Stream("fatal", *this);
+  return sk::rt::logger::Stream(logger::Level::FATAL, *this);
 }
 
 const sk::rt::logger::Stream
 sk::rt::Logger::
 warning(const sk::rt::logger::Spot& spot) const
 {
-  return sk::rt::logger::Stream("warning", *this);
+  return sk::rt::logger::Stream(logger::Level::WARNING, *this);
 }
 
 const sk::rt::logger::Stream
 sk::rt::Logger::
 notice(const sk::rt::logger::Spot& spot) const
 {
-  return sk::rt::logger::Stream("notice", *this);
+  return sk::rt::logger::Stream(logger::Level::NOTICE, *this);
 }
 
 const sk::rt::logger::Stream
 sk::rt::Logger::
 debug(const sk::rt::logger::Spot& spot) const
 {
-  return sk::rt::logger::Stream("debug", *this);
+  return sk::rt::logger::Stream(logger::Level::DEBUG, *this);
 }
 
 const sk::rt::logger::Stream
 sk::rt::Logger::
 detail(const sk::rt::logger::Spot& spot) const
 {
-  return sk::rt::logger::Stream("detail", *this);
+  return sk::rt::logger::Stream(logger::Level::DETAIL, *this);
 }

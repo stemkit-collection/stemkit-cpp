@@ -15,16 +15,18 @@
 namespace sk {
   namespace rt {
     namespace logger {
+      class Level;
+
       class Stream
         : public virtual sk::util::Object 
       {
         public:
-          Stream(const sk::util::String& level, const ScopeProvider& provider);
+          Stream(const Level& level, const ScopeProvider& provider);
           Stream(const Stream& other);
           virtual ~Stream();
 
           const sk::util::String getScopeName() const;
-          const sk::util::String getLevel() const;
+          const Level& getLevel() const;
           
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
@@ -32,12 +34,12 @@ namespace sk {
         private:
           Stream& operator = (const Stream& other);
           const ScopeProvider& _provider;
-          const sk::util::String _level;
+          const Level& _level;
       };
 
       template<typename T>
       const sk::rt::logger::Stream& operator<<(const sk::rt::logger::Stream& stream, const T& object) {
-        std::cerr << stream.getLevel() << ": " << stream.getScopeName() << ": " << object << std::endl;
+        std::cerr << stream.getLevel().getName() << ":" << stream.getScopeName() << ": " << object << std::endl;
         return stream;
       }
     }

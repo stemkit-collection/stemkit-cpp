@@ -11,7 +11,7 @@
 #include <sk/rt/logger/Stream.h>
 
 sk::rt::logger::Stream::
-Stream(const sk::util::String& level, const ScopeProvider& provider)
+Stream(const Level& level, const ScopeProvider& provider)
   : _level(level), _provider(provider) 
 {
 }
@@ -35,7 +35,7 @@ getScopeName() const
   return _provider.getScopeName();
 }
 
-const sk::util::String
+const sk::rt::logger::Level&
 sk::rt::logger::Stream::
 getLevel() const 
 {
