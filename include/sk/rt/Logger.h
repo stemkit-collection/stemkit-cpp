@@ -12,18 +12,28 @@
 #include <sk/util/String.h>
 #include <sk/rt/logger/Spot.h>
 #include <sk/rt/logger/Controller.h>
+#include <sk/rt/logger/Stream.h>
+#include <sk/rt/logger/ScopeProvider.h>
 
 namespace sk {
   namespace rt {
     class Logger
-      : public virtual sk::util::Object 
+      : public virtual sk::rt::logger::ScopeProvider
     {
       public:
         Logger(const sk::util::Object& object);
         Logger(const sk::util::String& name);
         virtual ~Logger();
 
+        const sk::util::String getScopeName() const;
         static logger::Controller& controller();
+
+        const logger::Stream fatal(const sk::rt::logger::Spot& spot = sk::rt::logger::Spot::NOTSET) const;
+        const logger::Stream warning(const sk::rt::logger::Spot& spot = sk::rt::logger::Spot::NOTSET) const;
+        const logger::Stream notice(const sk::rt::logger::Spot& spot = sk::rt::logger::Spot::NOTSET) const;
+        const logger::Stream info(const sk::rt::logger::Spot& spot = sk::rt::logger::Spot::NOTSET) const;
+        const logger::Stream debug(const sk::rt::logger::Spot& spot = sk::rt::logger::Spot::NOTSET) const;
+        const logger::Stream detail(const sk::rt::logger::Spot& spot = sk::rt::logger::Spot::NOTSET) const;
         
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
@@ -33,6 +43,9 @@ namespace sk {
         Logger& operator = (const Logger& other);
 
         static logger::Controller _controller;
+        const sk::util::Object& _object;
+
+        sk::util::String _name;
     };
   }
 }

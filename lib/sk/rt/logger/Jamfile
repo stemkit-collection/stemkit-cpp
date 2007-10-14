@@ -4,6 +4,7 @@ library = sk.rt.logger ;
 objects = 
   Spot.cc
   Controller.cc
+  Stream.cc
 ;
 
 make-library $(library) : $(objects) ;

@@ -10,6 +10,9 @@
 
 #include <sk/rt/logger/Spot.h>
 
+const sk::rt::logger::Spot sk::rt::logger::Spot::UNKNOWN;
+const sk::rt::logger::Spot sk::rt::logger::Spot::NOTSET;
+
 sk::rt::logger::Spot::
 Spot()
 {
