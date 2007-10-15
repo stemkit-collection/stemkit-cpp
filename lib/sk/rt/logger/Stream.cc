@@ -28,7 +28,9 @@ Stream(const Level& level, const ILogger& logger)
       _stream << buffer << ' ';
     }
 
-    _stream << level.getName() << ":" << logger.getScopeName();
+    _stream << level.getName() << ":";
+    logger.serializeScope(_stream);
+
     if(_config.isShowObject() == true) {
       _stream << ':' << &logger.getObject();
     }

@@ -15,21 +15,21 @@ sk::rt::logger::Controller sk::rt::Logger::_controller;
 
 sk::rt::Logger::
 Logger(const sk::util::Object& object)
-  : _object(object), _name(object.getClass().getName()), _config(_controller.findConfig(_name))
+  : _parent(*this), _object(object), _name(object.getClass().getName()), _config(_controller.findConfig(_name))
 {
   info() << "Enter";
 }
 
 sk::rt::Logger::
 Logger(const sk::util::String& name)
-  : _object(*this), _name(name), _config(_controller.findConfig(_name))
+  : _parent(*this), _object(*this), _name(name), _config(_controller.findConfig(_name))
 {
   info() << "Enter";
 }
 
 sk::rt::Logger::
 Logger(const Logger& parent, const sk::util::String& name)
-  : _object(parent.getObject()), _name(name), _config(parent.getConfig())
+  : _parent(parent), _object(parent.getObject()), _name(name), _config(parent.getConfig())
 {
   info() << "Enter";
 }
@@ -47,11 +47,15 @@ getClass() const
   return sk::util::Class("sk::rt::Logger");
 }
 
-const sk::util::String
+void
 sk::rt::Logger::
-getScopeName() const
+serializeScope(std::ostream& stream) const
 {
-  return _name;
+  if(&_parent != this) {
+    _parent.serializeScope(stream);
+    stream << '#';
+  }
+  stream << _name;
 }
 
 const sk::util::Object&

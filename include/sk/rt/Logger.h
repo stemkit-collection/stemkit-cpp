@@ -43,9 +43,9 @@ namespace sk {
         const sk::util::Class getClass() const;
 
         // sk::rt::logger::ILogger implementation.
-        const sk::util::String getScopeName() const;
+        void serializeScope(std::ostream& stream) const;
         const sk::util::Object& getObject() const;
-        const logger::Config& config() const;
+        const logger::Config& getConfig() const;
         
       private:
         Logger(const Logger& parent, const sk::util::String& name);
@@ -54,6 +54,7 @@ namespace sk {
         static logger::Controller _controller;
         const sk::util::Object& _object;
 
+        const Logger& _parent;
         const logger::Config& _config;
         sk::util::String _name;
     };

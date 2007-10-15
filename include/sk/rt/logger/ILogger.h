@@ -19,9 +19,9 @@ namespace sk {
         : public virtual sk::util::Object 
       {
         public:
-          virtual const sk::rt::logger::Config& config() const = 0;
-          virtual const sk::util::String getScopeName() const = 0;
+          virtual const sk::rt::logger::Config& getConfig() const = 0;
           virtual const sk::util::Object& getObject() const = 0;
+          virtual void serializeScope(std::ostream& stream) const = 0;
       };
     }
   }
