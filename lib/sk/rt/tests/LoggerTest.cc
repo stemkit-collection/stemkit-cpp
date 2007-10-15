@@ -86,7 +86,7 @@ testScope()
     logger.info() << "c";
   }
   CPPUNIT_ASSERT_EQUAL(
-    sk::util::String("INFO:s1: Enter\nINFO:s1: a\nINFO:s1#s2: Enter\nINFO:s1#s2: b\nINFO:s1#s2: Leave\nINFO:s1: c\nINFO:s1: Leave\n").inspect(),
+    sk::util::String("INFO:s1: Enter (name)\nINFO:s1: a\nINFO:s1#s2: Enter (scope)\nINFO:s1#s2: b\nINFO:s1#s2: Leave\nINFO:s1: c\nINFO:s1: Leave\n").inspect(),
     sk::util::String(_stream.str()).inspect()
   );
 }

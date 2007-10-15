@@ -17,21 +17,30 @@ sk::rt::Logger::
 Logger(const sk::util::Object& object)
   : _parent(*this), _object(object), _name(object.getClass().getName()), _config(_controller.findConfig(_name))
 {
-  info() << "Enter";
+  info() << "Enter (object)";
+}
+
+sk::rt::Logger::
+Logger(const Logger& other)
+  : _parent(&other._parent == &other ? *this : other._parent),
+    _object(&other._object == &other ? *this : other._object),
+    _name(other._name), _config(other._config)
+{
+  info() << "Enter (copy)";
 }
 
 sk::rt::Logger::
 Logger(const sk::util::String& name)
   : _parent(*this), _object(*this), _name(name), _config(_controller.findConfig(_name))
 {
-  info() << "Enter";
+  info() << "Enter (name)";
 }
 
 sk::rt::Logger::
 Logger(const Logger& parent, const sk::util::String& name)
   : _parent(parent), _object(parent.getObject()), _name(name), _config(parent.getConfig())
 {
-  info() << "Enter";
+  info() << "Enter (scope)";
 }
 
 sk::rt::Logger::
