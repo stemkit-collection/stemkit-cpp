@@ -11,6 +11,7 @@
 #include <sk/rt/logger/Stream.h>
 #include <sk/rt/logger/Config.h>
 
+#include <unistd.h>
 #include <iostream>
 
 sk::rt::logger::Stream::
