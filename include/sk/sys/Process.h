@@ -25,8 +25,10 @@ namespace sk {
       public:
         Process(sk::io::FileDescriptorInputStream& inputStream, const sk::util::StringArray& cmdline, ProcessListener& listener);
         Process(sk::io::FileDescriptorInputStream& inputStream, const sk::util::StringArray& cmdline);
+        Process(sk::io::FileDescriptorInputStream& inputStream, ProcessListener& listener);
         Process(const sk::util::StringArray& cmdline, ProcessListener& listener);
         Process(const sk::util::StringArray& cmdline);
+        Process(ProcessListener& listener);
         virtual ~Process();
         
         // sk::sys::Executable implementation.

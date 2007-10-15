@@ -32,6 +32,13 @@ Process(sk::io::FileDescriptorInputStream& inputStream, const sk::util::StringAr
 }
 
 sk::sys::Process::
+Process(sk::io::FileDescriptorInputStream& inputStream, ProcessListener& listener)
+  : _logger(*this), _listener(listener)
+{
+  start(inputStream, sk::util::StringArray());
+}
+
+sk::sys::Process::
 Process(sk::io::FileDescriptorInputStream& inputStream, const sk::util::StringArray& cmdline)
   : _logger(*this), _listener(*this)
 {
@@ -43,6 +50,13 @@ Process(const sk::util::StringArray& cmdline, ProcessListener& listener)
   : _logger(*this), _listener(listener)
 {
   start(defaultInputStream(), cmdline);
+}
+
+sk::sys::Process::
+Process(ProcessListener& listener)
+  : _logger(*this), _listener(listener)
+{
+  start(defaultInputStream(), sk::util::StringArray());
 }
 
 sk::sys::Process::
@@ -107,12 +121,14 @@ start(sk::io::FileDescriptorInputStream& inputStream, const sk::util::StringArra
 
       _listener.processStarting();
       
-      std::vector<char*> arguments;
-      cmdline.forEach(ExecArgumentCollector(arguments));
-      arguments.push_back(0);
+      if(cmdline.empty() == false) {
+        std::vector<char*> arguments;
+        cmdline.forEach(ExecArgumentCollector(arguments));
+        arguments.push_back(0);
 
-      ::execvp(arguments[0], &arguments[0]);
-      std::cerr << "ERROR:exec:" << sk::util::Integer::toString(errno) << ":" << strerror(errno) << ":" << cmdline.inspect() << std::endl;
+        ::execvp(arguments[0], &arguments[0]);
+        std::cerr << "ERROR:exec:" << sk::util::Integer::toString(errno) << ":" << strerror(errno) << ":" << cmdline.inspect() << std::endl;
+      }
     }
     catch(const std::exception& exception) {
       std::cerr << "ERROR:fork:" << exception.what() << ":" << cmdline.inspect() << std::endl;
@@ -165,6 +181,9 @@ signalUnlessTerminates(int timeout, int signal)
         return false;
       }
       if(status < 0) {
+        if(errno == EINTR) {
+          continue;
+        }
         throw sk::util::SystemException("waitpid()");
       }
       if(time(0) > (start_time + timeout)) {
@@ -191,8 +210,20 @@ join()
   }
   _listener.processJoining();
 
-  if(::waitpid(_pid, &_status, 0) < 0) {
-    throw sk::util::SystemException("waitpid()");
+  while(true) {
+    int result = ::waitpid(_pid, &_status, 0);
+    if(result < 0) {
+      if(errno == EINTR) {
+        continue;
+      }
+      throw sk::util::SystemException("waitpid()");
+    }
+    if(result == _pid) {
+      break;
+    }
+    throw sk::util::IllegalStateException(
+      "waitpid() returned " + sk::util::Integer::toString(result) + ", expected pid " + sk::util::Integer::toString(_pid)
+    );
   }
   _pid = -1;
 }

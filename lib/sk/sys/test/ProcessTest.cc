@@ -10,6 +10,7 @@
 #include <sk/io/AnonymousPipe.h>
 #include <sk/io/FileDescriptorOutputStream.h>
 #include <sk/util/Container.h>
+#include <iostream>
 
 #include <signal.h>
 #include <unistd.h>
@@ -184,3 +185,47 @@ testNoHangOnInputRead()
   process.join();
   CPPUNIT_ASSERT_EQUAL(false, process.isSuccess());
 }
+
+namespace {
+  struct Worker : public virtual sk::sys::ProcessListener {
+    Worker(sk::io::OutputStream& stream)
+      : _stream(stream) {}
+
+    void processStarting() {
+      _stream.close();
+
+      int number;
+      std::cin >> number ;
+
+      _exit(number);
+    }
+    int processStopping() {
+      return 0;
+    }
+    void processJoining() {
+    }
+    sk::io::OutputStream& _stream;
+  };
+}
+
+void
+sk::sys::test::ProcessTest::
+testSpawn()
+{
+  sk::io::AnonymousPipe pipe;
+  Worker worker(pipe.outputStream());
+
+  sk::sys::Process process(pipe.inputStream(), worker);
+  CPPUNIT_ASSERT_EQUAL(true, process.isAlive());
+
+  pipe.outputStream().write(sk::util::Container("84"));
+  pipe.outputStream().close();
+
+  process.join();
+
+  CPPUNIT_ASSERT_EQUAL(false, process.isAlive());
+  CPPUNIT_ASSERT_EQUAL(true, process.isExited());
+  CPPUNIT_ASSERT_EQUAL(false, process.isKilled());
+  CPPUNIT_ASSERT_EQUAL(84, process.exitStatus());
+}
+

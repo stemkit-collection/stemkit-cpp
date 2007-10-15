@@ -26,6 +26,7 @@ namespace sk {
           CPPUNIT_TEST(testForcedStop);
           CPPUNIT_TEST(testRedirectInput);
           CPPUNIT_TEST(testNoHangOnInputRead);
+          CPPUNIT_TEST(testSpawn);
         CPPUNIT_TEST_SUITE_END();
         
         public:
@@ -42,6 +43,7 @@ namespace sk {
           void testForcedStop();
           void testRedirectInput();
           void testNoHangOnInputRead();
+          void testSpawn();
           
         private:
           ProcessTest(const ProcessTest& other);
