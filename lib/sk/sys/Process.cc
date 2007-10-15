@@ -26,28 +26,28 @@
 
 sk::sys::Process::
 Process(sk::io::FileDescriptorInputStream& inputStream, const sk::util::StringArray& cmdline, ProcessListener& listener)
-  : _listener(listener)
+  : _logger(*this), _listener(listener)
 {
   start(inputStream, cmdline);
 }
 
 sk::sys::Process::
 Process(sk::io::FileDescriptorInputStream& inputStream, const sk::util::StringArray& cmdline)
-  : _listener(*this)
+  : _logger(*this), _listener(*this)
 {
   start(inputStream, cmdline);
 }
 
 sk::sys::Process::
 Process(const sk::util::StringArray& cmdline, ProcessListener& listener)
-  : _listener(listener)
+  : _logger(*this), _listener(listener)
 {
   start(defaultInputStream(), cmdline);
 }
 
 sk::sys::Process::
 Process(const sk::util::StringArray& cmdline)
-  : _listener(*this)
+  : _logger(*this), _listener(*this)
 {
   start(defaultInputStream(), cmdline);
 }

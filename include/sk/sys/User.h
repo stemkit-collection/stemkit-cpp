@@ -12,6 +12,7 @@
 #include <sk/util/Holder.hxx>
 #include <sk/util/Processor.h>
 #include <sk/util/String.h>
+#include <sk/rt/Logger.h>
 
 struct passwd;
 
@@ -44,6 +45,7 @@ namespace sk {
         User(const struct passwd& entry);
         User& operator = (const User& other);
 
+        const sk::rt::Logger _logger;
         sk::util::String _name;
         sk::util::String _home;
         sk::util::String _shell;

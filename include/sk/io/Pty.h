@@ -14,6 +14,7 @@
 #include <sk/io/Pipe.h>
 #include <sk/io/FileDescriptorInputStream.h>
 #include <sk/io/FileDescriptorOutputStream.h>
+#include <sk/rt/Logger.h>
 
 namespace sk {
   namespace io {
@@ -45,6 +46,7 @@ namespace sk {
         sk::io::Tty& getTty();
         const sk::io::Tty& getTty() const;
 
+        const sk::rt::Logger _logger;
         sk::util::String _name;
         sk::util::Holder<sk::io::TtyFileDescriptor> _ttyHolder;
         sk::util::Holder<sk::io::Pipe> _slaveMasterPipeHolder;

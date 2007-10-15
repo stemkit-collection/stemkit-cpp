@@ -23,7 +23,7 @@
 
 sk::sys::User::
 User(const struct passwd& entry)
-  : _name(entry.pw_name), _uid(entry.pw_uid), _gid(entry.pw_gid), _home(entry.pw_dir), _shell(entry.pw_shell), _comment(entry.pw_gecos)
+  : _logger(*this), _name(entry.pw_name), _uid(entry.pw_uid), _gid(entry.pw_gid), _home(entry.pw_dir), _shell(entry.pw_shell), _comment(entry.pw_gecos)
 {
 }
 
@@ -85,11 +85,15 @@ bool
 sk::sys::User::
 authenticate(const sk::util::String& password) const 
 {
+  const sk::rt::Logger& logger = _logger.scope(__FUNCTION__);
+
   // The following "trick" of keeping at least 3 file descriptors open before
   // using PtyProcess is needed for the case may 0, 1 or 2 be closed for some 
   // reason.
+  //
   sk::io::AnonymousPipe p1;
   sk::io::AnonymousPipe p2;
+
   sk::sys::PtyProcess process(sk::util::StringArray("su") + getName() + "-c" + "true");
 
   while(true) {

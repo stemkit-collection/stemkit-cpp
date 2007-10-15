@@ -14,6 +14,7 @@
 #include <sk/io/FileDescriptorInputStream.h>
 #include <sk/sys/Executable.h>
 #include <sk/sys/ProcessListener.h>
+#include <sk/rt/Logger.h>
 
 namespace sk {
   namespace sys {
@@ -55,6 +56,7 @@ namespace sk {
         sk::io::FileDescriptorInputStream& defaultInputStream();
         void assertNotAlive() const;
 
+        const sk::rt::Logger _logger;
         sk::sys::ProcessListener& _listener;
         sk::util::Holder<sk::io::FileDescriptorInputStream> _defaultInputStreamHolder;
         int _pid;
