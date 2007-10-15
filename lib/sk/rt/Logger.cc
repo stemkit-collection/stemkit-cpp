@@ -24,13 +24,20 @@ sk::rt::Logger::
 Logger(const sk::util::String& name)
   : _object(*this), _name(name), _config(_controller.findConfig(_name))
 {
-  info() << "Leave";
+  info() << "Enter";
+}
+
+sk::rt::Logger::
+Logger(const Logger& parent, const sk::util::String& name)
+  : _object(parent.getObject()), _name(name), _config(parent.config())
+{
+  info() << "Enter";
 }
 
 sk::rt::Logger::
 ~Logger()
 {
-  info() << "Destroyed";
+  info() << "Leave";
 }
 
 const sk::util::Class
@@ -108,4 +115,11 @@ sk::rt::Logger::
 detail(const sk::rt::logger::Spot& spot) const
 {
   return sk::rt::logger::Stream(logger::Level::DETAIL, *this);
+}
+
+const sk::rt::Logger
+sk::rt::Logger::
+scope(const sk::util::String& name) const
+{
+  return Logger(*this, name);
 }

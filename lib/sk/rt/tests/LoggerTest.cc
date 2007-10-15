@@ -7,6 +7,7 @@
 
 #include "LoggerTest.h"
 #include <sk/rt/Logger.h>
+#include <sk/rt/logger/Level.h>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::rt::tests::LoggerTest);
 
@@ -67,4 +68,25 @@ testConcatenation()
   logger.error() << "ddd";
 
   CPPUNIT_ASSERT_EQUAL(sk::util::String("ERROR:zzz: aaa bbb ccc\nERROR:zzz: ddd\n").inspect(), sk::util::String(_stream.str()).inspect());
+}
+
+void
+sk::rt::tests::LoggerTest::
+testScope()
+{
+  Logger::controller().setLevel(logger::Level::INFO);
+  {
+    const Logger logger("s1");
+    logger.info() << "a";
+
+    {
+      Logger inner = logger.scope("s2");
+      inner.info() << "b";
+    }
+    logger.info() << "c";
+  }
+  CPPUNIT_ASSERT_EQUAL(
+    sk::util::String("INFO:s1: Enter\nINFO:s1: a\nINFO:s1#s2: Enter\nINFO:s1#s2: b\nINFO:s1#s2: Leave\nINFO:s1: c\nINFO:s1: Leave\n").inspect(),
+    sk::util::String(_stream.str()).inspect()
+  );
 }

@@ -14,7 +14,7 @@
 #include <iostream>
 
 sk::rt::logger::Stream::
-Stream(const Level& level, const ScopeProvider& provider)
+Stream(const Level& level, const ILogger& provider)
   : _enabled(provider.config().checkLevel(level)), _stream(provider.config().getStream()) 
 {
   if(isEnabled() == true) {

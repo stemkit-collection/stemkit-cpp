@@ -13,7 +13,7 @@
 #include <sk/rt/logger/Spot.h>
 #include <sk/rt/logger/Controller.h>
 #include <sk/rt/logger/Stream.h>
-#include <sk/rt/logger/ScopeProvider.h>
+#include <sk/rt/logger/ILogger.h>
 
 namespace sk {
   namespace rt {
@@ -21,14 +21,16 @@ namespace sk {
       class Config;
     }
     class Logger
-      : public virtual sk::rt::logger::ScopeProvider
+      : public virtual sk::rt::logger::ILogger
     {
       public:
         Logger(const sk::util::Object& object);
         Logger(const sk::util::String& name);
+        Logger(const Logger& other);
         virtual ~Logger();
 
         static logger::Controller& controller();
+        const Logger scope(const sk::util::String& name) const;
 
         const logger::Stream error(const sk::rt::logger::Spot& spot = sk::rt::logger::Spot::NOTSET) const;
         const logger::Stream warning(const sk::rt::logger::Spot& spot = sk::rt::logger::Spot::NOTSET) const;
@@ -40,19 +42,19 @@ namespace sk {
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
 
-        // sk::rt::logger::ScopeProvider implementation.
+        // sk::rt::logger::ILogger implementation.
         const sk::util::String getScopeName() const;
         const sk::util::Object& getObject() const;
         const logger::Config& config() const;
         
       private:
-        Logger(const Logger& other);
+        Logger(const Logger& parent, const sk::util::String& name);
         Logger& operator = (const Logger& other);
 
         static logger::Controller _controller;
         const sk::util::Object& _object;
 
-        logger::Config& _config;
+        const logger::Config& _config;
         sk::util::String _name;
     };
   }
