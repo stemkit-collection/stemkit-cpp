@@ -15,15 +15,13 @@
 
 sk::rt::logger::Stream::
 Stream(const Level& level, const ILogger& logger)
-  : _enabled(logger.config().checkLevel(level)), _stream(logger.config().getStream()) 
+  : _config(logger.getConfig()), _enabled(_config.checkLevel(level)), _stream(_config.getStream()) 
 {
   if(isEnabled() == true) {
-    const Config& config = logger.config();
-
-    if(config.isShowPid() == true) {
+    if(_config.isShowPid() == true) {
       _stream << '[' << getpid() << "] ";
     }
-    if(config.isShowTime() == true) {
+    if(_config.isShowTime() == true) {
       char buffer[32];
       time_t now = time(0);
       strftime(buffer, sizeof(buffer), "%y/%m/%d %H:%M:%S", localtime(&now));
@@ -31,7 +29,7 @@ Stream(const Level& level, const ILogger& logger)
     }
 
     _stream << level.getName() << ":" << logger.getScopeName();
-    if(config.isShowObject() == true) {
+    if(_config.isShowObject() == true) {
       _stream << ':' << &logger.getObject();
     }
     _stream << ": ";

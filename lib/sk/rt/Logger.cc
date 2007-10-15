@@ -29,7 +29,7 @@ Logger(const sk::util::String& name)
 
 sk::rt::Logger::
 Logger(const Logger& parent, const sk::util::String& name)
-  : _object(parent.getObject()), _name(name), _config(parent.config())
+  : _object(parent.getObject()), _name(name), _config(parent.getConfig())
 {
   info() << "Enter";
 }
@@ -70,7 +70,7 @@ controller()
 
 const sk::rt::logger::Config&
 sk::rt::Logger::
-config() const
+getConfig() const
 {
   return _config;
 }
