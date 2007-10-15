@@ -30,7 +30,7 @@ product {
       system-set-user-group
     }
     filesets %w{
-      main util sys io cppunit
+      main util sys io rt cppunit
     }
   }
 }
@@ -157,6 +157,43 @@ fileset {
   install.into('lib').binary {
     list = %w{
       sk.io
+    }
+    if ENV['MAKE_DLL'] == 'true'
+      library 'lib' => list
+    else
+      static_library 'lib' => list
+    end
+  }
+}
+
+fileset {
+  name 'rt'
+
+  directory %w{
+    include/sk/rt
+    include/sk/rt/logging
+    lib
+  }
+  install.into('include/sk/rt').source {
+    file 'include/sk/rt' => %w{
+      Logger.h
+    }
+  }
+
+  install.into('include/sk/rt/logger').source {
+    file 'include/sk/rt/logger' => %w{
+      Config.h
+      Controller.h
+      ILogger.h
+      Level.h
+      Spot.h
+      Stream.h
+    }
+  }
+
+  install.into('lib').binary {
+    list = %w{
+      sk.rt.bundle
     }
     if ENV['MAKE_DLL'] == 'true'
       library 'lib' => list
