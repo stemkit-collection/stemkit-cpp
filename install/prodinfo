@@ -7,8 +7,8 @@ product {
   name 'SK'
   description 'Stemkit'
 
-  top '/usr/local/stemkit'
-  version '0.0.1'
+  top '/usr/local/stemkit-0.2'
+  version '0.2'
 
   case cache.platform
     when 'cygwin-xp-x86'
