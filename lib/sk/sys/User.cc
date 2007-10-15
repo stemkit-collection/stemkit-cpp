@@ -11,6 +11,8 @@
 #include <sk/util/Holder.cxx>
 #include <sk/io/AnonymousPipe.h>
 #include <sk/sys/PtyProcess.h>
+#include <sk/sys/Process.h>
+#include <sk/sys/AbstractProcessListener.h>
 #include <sk/io/IOException.h>
 #include <sk/util/MissingResourceException.h>
 
@@ -81,36 +83,59 @@ getGid() const
   return _gid;
 }
 
+
+namespace {
+  struct Authenticator : public sk::sys::AbstractProcessListener {
+    Authenticator(const sk::sys::User& user, const sk::util::String& password)
+      : _user(user), _password(password) {}
+
+    void processStarting() {
+      // This is needed to be able to open a pty when EUID != UID. Without it 
+      // opening of a pty slave device fails on AIX.
+      //
+      seteuid(getuid());
+      
+      // The following "trick" of keeping at least 3 file descriptors open before
+      // using PtyProcess is needed for the case may 0, 1 or 2 be closed for some 
+      // reason.
+      //
+      sk::io::AnonymousPipe p1;
+      sk::io::AnonymousPipe p2;
+
+      sk::sys::PtyProcess process(sk::util::StringArray("su") + _user.getName() + "-c" + "true");
+
+      while(true) {
+        char c = process.inputStream().read();
+        if(c == ':') {
+          break;
+        }
+      }
+      sleep(1);
+      process.outputStream().write(sk::util::Container(_password + "\n"));
+
+      try {
+        while(true) {
+          process.inputStream().read();
+        }
+      }
+      catch(const sk::io::IOException& exception) {}
+      process.join();
+
+      _exit(process.isSuccess() ? 0: 1);
+    }
+    const sk::sys::User& _user;
+    const sk::util::String& _password;
+  };
+}
+
 bool
 sk::sys::User::
 authenticate(const sk::util::String& password) const 
 {
   const sk::rt::Logger& logger = _logger.scope(__FUNCTION__);
 
-  // The following "trick" of keeping at least 3 file descriptors open before
-  // using PtyProcess is needed for the case may 0, 1 or 2 be closed for some 
-  // reason.
-  //
-  sk::io::AnonymousPipe p1;
-  sk::io::AnonymousPipe p2;
-
-  sk::sys::PtyProcess process(sk::util::StringArray("su") + getName() + "-c" + "true");
-
-  while(true) {
-    char c = process.inputStream().read();
-    if(c == ':') {
-      break;
-    }
-  }
-  sleep(1);
-  process.outputStream().write(sk::util::Container(password + "\n"));
-
-  try {
-    while(true) {
-      process.inputStream().read();
-    }
-  }
-  catch(const sk::io::IOException& exception) {}
+  Authenticator authenticator(*this, password);
+  sk::sys::Process process(authenticator);
   process.join();
 
   return process.isSuccess();

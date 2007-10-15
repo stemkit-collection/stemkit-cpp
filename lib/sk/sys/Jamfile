@@ -3,6 +3,7 @@ library = sk.sys ;
 
 objects = 
   Process.cc
+  AbstractProcessListener.cc
   DelegatingExecutable.cc
   PipeProcess.cc
   PtyProcess.cc
@@ -14,5 +15,12 @@ objects =
 make-library $(library) : $(objects) ;
 make-subdir test ;
 
-use-project-library user-probe : sk.sys sk.io sk.util sk.rt.bundle ;
-make-program user-probe : user-probe.cc $(objects) ;
+probes = 
+  user-probe
+;
+use-project-library $(probes) : sk.sys sk.io sk.util sk.rt.bundle ;
+
+local _probe ;
+for _probe in $(probes) {
+  make-program $(_probe) : $(_probe).cc $(objects) ;
+}

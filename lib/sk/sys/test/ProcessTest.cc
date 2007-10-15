@@ -7,6 +7,7 @@
 
 #include "ProcessTest.h"
 #include <sk/sys/Process.h>
+#include <sk/sys/AbstractProcessListener.h>
 #include <sk/io/AnonymousPipe.h>
 #include <sk/io/FileDescriptorOutputStream.h>
 #include <sk/util/Container.h>
@@ -137,17 +138,12 @@ testForcedStop()
 }
 
 namespace {
-  struct Cleaner : public virtual sk::sys::ProcessListener {
+  struct Cleaner : public sk::sys::AbstractProcessListener {
     Cleaner(sk::io::OutputStream& stream)
       : _stream(stream) {}
 
     void processStarting() {
       _stream.close();
-    }
-    int processStopping() {
-      return 0;
-    }
-    void processJoining() {
     }
     sk::io::OutputStream& _stream;
   };
@@ -187,7 +183,7 @@ testNoHangOnInputRead()
 }
 
 namespace {
-  struct Worker : public virtual sk::sys::ProcessListener {
+  struct Worker : public virtual sk::sys::AbstractProcessListener {
     Worker(sk::io::OutputStream& stream)
       : _stream(stream) {}
 
@@ -198,11 +194,6 @@ namespace {
       std::cin >> number ;
 
       _exit(number);
-    }
-    int processStopping() {
-      return 0;
-    }
-    void processJoining() {
     }
     sk::io::OutputStream& _stream;
   };

@@ -219,6 +219,7 @@ fileset {
       Pipeline.h
       Process.h
       ProcessListener.h
+      AbstractProcessListener.h
       User.h
       Group.h
     }
