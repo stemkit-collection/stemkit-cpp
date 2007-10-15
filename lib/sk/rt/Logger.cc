@@ -17,14 +17,14 @@ sk::rt::Logger::
 Logger(const sk::util::Object& object)
   : _object(object), _name(object.getClass().getName()), _config(_controller.findConfig(_name))
 {
-  info() << "Created";
+  info() << "Enter";
 }
 
 sk::rt::Logger::
 Logger(const sk::util::String& name)
   : _object(*this), _name(name), _config(_controller.findConfig(_name))
 {
-  info() << "Created";
+  info() << "Leave";
 }
 
 sk::rt::Logger::

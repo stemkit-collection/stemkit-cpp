@@ -18,14 +18,20 @@ Stream(const Level& level, const ScopeProvider& provider)
   : _enabled(provider.config().checkLevel(level)), _stream(provider.config().getStream()) 
 {
   if(isEnabled() == true) {
-    if(provider.config().isShowPid() == true) {
+    const Config& config = provider.config();
+
+    if(config.isShowPid() == true) {
       _stream << '[' << getpid() << "] ";
     }
-    if(provider.config().isShowTime() == true) {
-      _stream << "yymmddHHMMSS" << ' ';
+    if(config.isShowTime() == true) {
+      char buffer[32];
+      time_t now = time(0);
+      strftime(buffer, sizeof(buffer), "%y/%m/%d %H:%M:%S", localtime(&now));
+      _stream << buffer << ' ';
     }
+
     _stream << level.getName() << ":" << provider.getScopeName();
-    if(provider.config().isShowObject() == true) {
+    if(config.isShowObject() == true) {
       _stream << ':' << &provider.getObject();
     }
     _stream << ": ";

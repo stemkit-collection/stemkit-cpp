@@ -60,8 +60,11 @@ testConcatenation()
   Logger logger("zzz");
 
   // Logger::controller().setShowPid(true);
+  // Logger::controller().setShowTime(true);
   // Logger::controller().setShowObject(true);
 
   logger.error() << "aaa" << ' ' << "bbb" << ' ' << "ccc";
-  CPPUNIT_ASSERT_EQUAL(sk::util::String("ERROR:zzz: aaa bbb ccc\n").inspect(), sk::util::String(_stream.str()).inspect());
+  logger.error() << "ddd";
+
+  CPPUNIT_ASSERT_EQUAL(sk::util::String("ERROR:zzz: aaa bbb ccc\nERROR:zzz: ddd\n").inspect(), sk::util::String(_stream.str()).inspect());
 }
