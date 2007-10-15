@@ -12,6 +12,7 @@
 #include <sk/io/AnonymousPipe.h>
 #include <sk/sys/PtyProcess.h>
 #include <sk/io/IOException.h>
+#include <sk/util/MissingResourceException.h>
 
 #include <sk/sys/User.h>
 #include <pwd.h>
@@ -124,6 +125,17 @@ namespace {
     const sk::util::String& _name;
     sk::util::Holder<sk::sys::User>& _holder;
   };
+}
+
+const sk::sys::User
+sk::sys::User::
+find(const sk::util::String& name)
+{
+  sk::util::Holder<sk::sys::User> holder;
+  if(find(name, holder) == true) {
+    return holder.get();
+  }
+  throw sk::util::MissingResourceException(name);
 }
 
 bool
