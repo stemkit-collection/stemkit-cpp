@@ -1,0 +1,2 @@
+
+make-merged-library sk.rt.bundle : lib/sk.rt lib/sk.rt.logger ;

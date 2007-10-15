@@ -6,4 +6,4 @@ objects =
 ;
 
 make-library $(library) : $(objects) ;
-make-subdirs logger tests ;
+make-subdirs logger bundle tests ;

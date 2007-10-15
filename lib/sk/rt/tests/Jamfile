@@ -6,7 +6,7 @@ test-objects =
   LoggerTest.cc
 ;
 
-use-project-libraries $(test) : sk.cppunit sk.rt sk.rt.logger sk.util ;
+use-project-libraries $(test) : sk.cppunit sk.rt.bundle sk.util ;
 
 use-unit-test $(test) $(test-objects) ;
 make-cpp-test $(test) : $(test-objects) ;

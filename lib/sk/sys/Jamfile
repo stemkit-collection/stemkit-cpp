@@ -14,5 +14,5 @@ objects =
 make-library $(library) : $(objects) ;
 make-subdir test ;
 
-use-project-library user-probe : sk.sys sk.io sk.util sk.rt sk.rt.logger ;
+use-project-library user-probe : sk.sys sk.io sk.util sk.rt.bundle ;
 make-program user-probe : user-probe.cc $(objects) ;

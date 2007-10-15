@@ -38,7 +38,7 @@ probes =
   pty-probe
 ;
 
-use-project-libraries $(probes) : sk.util sk.io sk.rt sk.rt.logger ;
+use-project-libraries $(probes) : sk.util sk.rt.bundle sk.io ;
 
 local _probe ;
 for _probe in $(probes) {

@@ -19,7 +19,8 @@ namespace sk {
       : public virtual sk::util::Object 
     {
       public:
-        PtySpecifics();
+        PtySpecifics() 
+          : _logger("sk::io::PtySpecifics") {}
         void setup();
         
         virtual int makeSlave(const sk::util::String& name) = 0;
@@ -29,12 +30,6 @@ namespace sk {
         const sk::rt::Logger _logger;
     };
   }
-}
-
-sk::io::PtySpecifics::
-PtySpecifics() 
-  : _logger("sk::io::PtySpecifics")
-{
 }
 
 #endif /* _SK_IO_PTYSPECIFICS_ */
