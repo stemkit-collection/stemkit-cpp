@@ -20,16 +20,16 @@ Stream(const Level& level, const ILogger& logger)
 {
   if(isEnabled() == true) {
     if(_config.isShowPid() == true) {
-      _stream << '[' << getpid() << "] ";
+      _stream << getpid() << ' ';
     }
     if(_config.isShowTime() == true) {
       char buffer[32];
       time_t now = time(0);
-      strftime(buffer, sizeof(buffer), "%y/%m/%d %H:%M:%S", localtime(&now));
-      _stream << buffer << ' ';
+      strftime(buffer, sizeof(buffer), "%y/%m/%d %H:%M:%S ", localtime(&now));
+      _stream << buffer;
     }
 
-    _stream << level.getName() << ":";
+    _stream << level.getName() << ':';
     logger.serializeScope(_stream);
 
     if(_config.isShowObject() == true) {

@@ -33,3 +33,14 @@ objects =
 
 make-library $(library) : $(objects) ;
 make-subdir test ;
+
+probes = 
+  pty-probe
+;
+
+use-project-libraries $(probes) : sk.util sk.io sk.rt sk.rt.logger ;
+
+local _probe ;
+for _probe in $(probes) {
+  make-program $(_probe) : $(_probe).cc ;
+}

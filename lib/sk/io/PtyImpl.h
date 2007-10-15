@@ -10,6 +10,7 @@
 
 #include <sk/util/Object.h>
 #include <sk/util/Holder.hxx>
+#include <sk/rt/Logger.h>
 
 #include "PtySpecifics.h"
 
@@ -40,6 +41,7 @@ namespace sk {
         PtyImpl(const PtyImpl& other);
         PtyImpl& operator = (const PtyImpl& other);
 
+        sk::rt::Logger _logger;
         sk::util::String _name;
         sk::util::Holder<sk::io::FileDescriptor> _slaveHolder;
         sk::util::Holder<sk::io::FileDescriptor> _masterHolder;
