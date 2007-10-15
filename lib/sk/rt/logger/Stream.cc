@@ -14,11 +14,11 @@
 #include <iostream>
 
 sk::rt::logger::Stream::
-Stream(const Level& level, const ILogger& provider)
-  : _enabled(provider.config().checkLevel(level)), _stream(provider.config().getStream()) 
+Stream(const Level& level, const ILogger& logger)
+  : _enabled(logger.config().checkLevel(level)), _stream(logger.config().getStream()) 
 {
   if(isEnabled() == true) {
-    const Config& config = provider.config();
+    const Config& config = logger.config();
 
     if(config.isShowPid() == true) {
       _stream << '[' << getpid() << "] ";
@@ -30,9 +30,9 @@ Stream(const Level& level, const ILogger& provider)
       _stream << buffer << ' ';
     }
 
-    _stream << level.getName() << ":" << provider.getScopeName();
+    _stream << level.getName() << ":" << logger.getScopeName();
     if(config.isShowObject() == true) {
-      _stream << ':' << &provider.getObject();
+      _stream << ':' << &logger.getObject();
     }
     _stream << ": ";
   }
