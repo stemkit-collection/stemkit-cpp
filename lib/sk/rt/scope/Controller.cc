@@ -8,6 +8,7 @@
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
 #include <sk/util/Holder.cxx>
+#include <sk/util/MissingResourceException.h>
 
 #include <sk/rt/scope/Controller.h>
 #include <sk/rt/logger/Level.h>
@@ -32,7 +33,7 @@ getClass() const
   return sk::util::Class("sk::rt::scope::Controller");
 }
 
-sk::rt::logger::Config& 
+sk::rt::scope::Config& 
 sk::rt::scope::Controller::
 findConfig(const sk::util::String& name)
 {
@@ -107,4 +108,18 @@ sk::rt::scope::Controller::
 isShowObject() const
 {
   return _showObject;
+}
+
+const sk::util::String
+sk::rt::scope::Controller::
+getProperty(const sk::util::String& name) const
+{
+  throw sk::util::MissingResourceException(name);
+}
+
+bool
+sk::rt::scope::Controller::
+hasProperty(const sk::util::String& name) const
+{
+  return false;
 }

@@ -10,6 +10,8 @@
 
 #include <sk/util/Object.h>
 #include <sk/util/String.h>
+#include <sk/util/Boolean.h>
+
 #include <sk/rt/logger/Spot.h>
 #include <sk/rt/scope/Controller.h>
 #include <sk/rt/logger/Stream.h>
@@ -17,9 +19,6 @@
 
 namespace sk {
   namespace rt {
-    namespace logger {
-      class Config;
-    }
     class Scope
       : public virtual scope::IScope
     {
@@ -38,6 +37,14 @@ namespace sk {
         const logger::Stream info(const sk::rt::logger::Spot& spot = sk::rt::logger::Spot::NOTSET) const;
         const logger::Stream debug(const sk::rt::logger::Spot& spot = sk::rt::logger::Spot::NOTSET) const;
         const logger::Stream detail(const sk::rt::logger::Spot& spot = sk::rt::logger::Spot::NOTSET) const;
+
+        const sk::util::String getProperty(const sk::util::String& name) const;
+        bool hasProperty(const sk::util::String& name) const;
+
+        const sk::util::String getProperty(const sk::util::String& name, const sk::util::String& fallback) const;
+        const sk::util::String getProperty(const sk::util::String& name, const char* fallback) const;
+        int getProperty(const sk::util::String& name, int fallback) const;
+        bool getProperty(const sk::util::String& name, const sk::util::Boolean& fallback) const;
         
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
@@ -45,7 +52,7 @@ namespace sk {
         // sk::rt::scope::IScope implementation.
         void agregateScopeName(std::ostream& stream) const;
         const sk::util::Object& getObject() const;
-        const logger::Config& getConfig() const;
+        const scope::Config& getConfig() const;
         
       private:
         Scope(const Scope& parent, const sk::util::String& name);
@@ -55,7 +62,7 @@ namespace sk {
         const sk::util::Object& _object;
 
         const Scope& _parent;
-        const logger::Config& _config;
+        const scope::Config& _config;
         sk::util::String _name;
     };
   }

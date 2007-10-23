@@ -10,7 +10,7 @@
 
 #include <sk/util/Object.h>
 #include <sk/util/Holder.hxx>
-#include <sk/rt/logger/Config.h>
+#include <sk/rt/scope/Config.h>
 
 namespace sk {
   namespace rt {
@@ -19,7 +19,7 @@ namespace sk {
     }
     namespace scope {
       class Controller
-        : public virtual logger::Config
+        : public virtual scope::Config
       {
         public:
           Controller();
@@ -32,7 +32,7 @@ namespace sk {
           void setShowTime(bool state);
           void setShowObject(bool state);
 
-          logger::Config& findConfig(const sk::util::String& name);
+          scope::Config& findConfig(const sk::util::String& name);
           
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
@@ -43,6 +43,10 @@ namespace sk {
           bool isShowPid() const;
           bool isShowTime() const;
           bool isShowObject() const;
+          
+          // sk::rt::scope::Config implementation.
+          const sk::util::String getProperty(const sk::util::String& name) const;
+          bool hasProperty(const sk::util::String& name) const;
           
         private:
           Controller(const Controller& other);

@@ -7,9 +7,13 @@
 
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
+#include <sk/util/Integer.h>
+#include <sk/util/Boolean.h>
 
 #include <sk/rt/Scope.h>
 #include <sk/rt/logger/Level.h>
+#include <sk/util/MissingResourceException.h>
+#include <sk/util/NumberFormatException.h>
 
 sk::rt::scope::Controller sk::rt::Scope::_controller;
 
@@ -81,7 +85,7 @@ controller()
   return _controller;
 }
 
-const sk::rt::logger::Config&
+const sk::rt::scope::Config&
 sk::rt::Scope::
 getConfig() const
 {
@@ -135,4 +139,62 @@ sk::rt::Scope::
 scope(const sk::util::String& name) const
 {
   return Scope(*this, name);
+}
+
+const sk::util::String 
+sk::rt::Scope::
+getProperty(const sk::util::String& name) const
+{
+  return _config.getProperty(name);
+}
+
+bool 
+sk::rt::Scope::
+hasProperty(const sk::util::String& name) const
+{
+  return _config.hasProperty(name);
+}
+
+const sk::util::String 
+sk::rt::Scope::
+getProperty(const sk::util::String& name, const sk::util::String& fallback) const
+{
+  try {
+    return _config.getProperty(name);
+  }
+  catch(const sk::util::MissingResourceException& exception) {}
+
+  return fallback;
+}
+
+const sk::util::String 
+sk::rt::Scope::
+getProperty(const sk::util::String& name, const char* fallback) const
+{
+  return getProperty(name, sk::util::String(fallback));
+}
+
+int 
+sk::rt::Scope::
+getProperty(const sk::util::String& name, int fallback) const
+{
+  try {
+    return sk::util::Integer::parseInt(_config.getProperty(name)); 
+  }
+  catch(const sk::util::MissingResourceException& exception) {}
+  catch(const sk::util::NumberFormatException& exception) {}
+
+  return fallback;
+}
+
+bool 
+sk::rt::Scope::
+getProperty(const sk::util::String& name, const sk::util::Boolean& fallback) const
+{
+  try {
+    return sk::util::Boolean::parseBoolean(_config.getProperty(name));
+  }
+  catch(const sk::util::MissingResourceException& exception) {}
+
+  return fallback.booleanValue();
 }
