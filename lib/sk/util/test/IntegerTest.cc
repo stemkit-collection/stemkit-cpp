@@ -9,6 +9,7 @@
 #include <sk/util/Integer.h>
 #include <sk/util/String.h>
 #include <sk/util/Class.h>
+#include <sk/util/NumberFormatException.h>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::util::test::IntegerTest);
 
@@ -62,4 +63,17 @@ testStaticToHexString()
   CPPUNIT_ASSERT_EQUAL(String("0"), Integer::toString(0x0, 16));
   CPPUNIT_ASSERT_EQUAL(String("ff"), Integer::toString(0xff, 16));
   CPPUNIT_ASSERT_EQUAL(String("1234abc"), Integer::toString(0x1234abc, 16));
+}
+
+void
+sk::util::test::IntegerTest::
+testParseInt()
+{
+  CPPUNIT_ASSERT_EQUAL(456, Integer::parseInt("456"));
+  CPPUNIT_ASSERT_THROW(Integer::parseInt("abc"), NumberFormatException);
+
+  CPPUNIT_ASSERT_EQUAL(0x123fc, Integer::parseInt("123fc", 16));
+  CPPUNIT_ASSERT_EQUAL(0x123fc, Integer::parseInt("123FC", 16));
+  CPPUNIT_ASSERT_THROW(Integer::parseInt("123FG"), NumberFormatException);
+
 }

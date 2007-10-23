@@ -9,6 +9,7 @@ test-objects =
   StringTest.cc
   ContainerTest.cc
   IntegerTest.cc
+  BooleanTest.cc
   ReferenceSlotTest.cc
   PointerSlotTest.cc
   HolderTest.cc

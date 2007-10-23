@@ -21,6 +21,8 @@ namespace sk {
 
         static const String toString(int value);
         static const String toString(int value, int radix);
+        static int parseInt(const sk::util::String& value);
+        static int parseInt(const sk::util::String& value, int radix);
         
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;

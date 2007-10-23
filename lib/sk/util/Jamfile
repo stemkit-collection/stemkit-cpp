@@ -7,6 +7,7 @@ objects =
   String.cc
   Container.cc
   Integer.cc
+  Boolean.cc
   StringArray.cc
   Exception.cc
   IllegalStateException.cc
