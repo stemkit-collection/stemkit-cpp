@@ -18,7 +18,7 @@ make-subdir test ;
 probes = 
   user-probe
 ;
-use-project-library $(probes) : sk.sys sk.io sk.util sk.rt.bundle ;
+use-project-library $(probes) : sk.sys sk.rt.bundle sk.io sk.util ;
 
 local _probe ;
 for _probe in $(probes) {
