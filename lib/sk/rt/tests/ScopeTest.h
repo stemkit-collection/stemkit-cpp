@@ -5,8 +5,8 @@
  *  You must read and accept the license prior to use.
 */
 
-#ifndef _SK_RT_TESTS_LOGGERTEST_
-#define _SK_RT_TESTS_LOGGERTEST_
+#ifndef _SK_RT_TESTS_SCOPETEST_
+#define _SK_RT_TESTS_SCOPETEST_
 
 #include <cppunit/TestFixture.h>
 #include <cppunit/extensions/HelperMacros.h>
@@ -16,18 +16,18 @@
 namespace sk {
   namespace rt {
     namespace tests {
-      class LoggerTest
+      class ScopeTest
         : public CppUnit::TestFixture
       {
-        CPPUNIT_TEST_SUITE(sk::rt::tests::LoggerTest);
+        CPPUNIT_TEST_SUITE(sk::rt::tests::ScopeTest);
           CPPUNIT_TEST(testDefaultNoOutputButError);
           CPPUNIT_TEST(testConcatenation);
           CPPUNIT_TEST(testScope);
         CPPUNIT_TEST_SUITE_END();
         
         public:
-          LoggerTest();
-          virtual ~LoggerTest();
+          ScopeTest();
+          virtual ~ScopeTest();
           
           void setUp();
           void tearDown();
@@ -36,12 +36,12 @@ namespace sk {
           void testScope();
           
         private:
-          LoggerTest(const LoggerTest& other);
-          LoggerTest& operator = (const LoggerTest& other);
+          ScopeTest(const ScopeTest& other);
+          ScopeTest& operator = (const ScopeTest& other);
           std::stringstream _stream;
       };
     }
   }
 }
 
-#endif /* _SK_RT_TESTS_LOGGERTEST_ */
+#endif /* _SK_RT_TESTS_SCOPETEST_ */

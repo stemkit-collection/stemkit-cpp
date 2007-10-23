@@ -3,7 +3,7 @@ test = test-rt ;
 
 test-objects =
   TestSuite.cc
-  LoggerTest.cc
+  ScopeTest.cc
 ;
 
 use-project-libraries $(test) : sk.cppunit sk.rt.bundle sk.util ;

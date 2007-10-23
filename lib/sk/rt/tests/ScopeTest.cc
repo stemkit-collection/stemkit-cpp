@@ -5,24 +5,24 @@
  *  You must read and accept the license prior to use.
 */
 
-#include "LoggerTest.h"
+#include "ScopeTest.h"
 #include <sk/rt/Scope.h>
 #include <sk/rt/logger/Level.h>
 
-CPPUNIT_TEST_SUITE_REGISTRATION(sk::rt::tests::LoggerTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(sk::rt::tests::ScopeTest);
 
-sk::rt::tests::LoggerTest::
-LoggerTest()
+sk::rt::tests::ScopeTest::
+ScopeTest()
 {
 }
 
-sk::rt::tests::LoggerTest::
-~LoggerTest()
+sk::rt::tests::ScopeTest::
+~ScopeTest()
 {
 }
 
 void
-sk::rt::tests::LoggerTest::
+sk::rt::tests::ScopeTest::
 setUp()
 {
   _stream.clear();
@@ -30,14 +30,14 @@ setUp()
 }
 
 void
-sk::rt::tests::LoggerTest::
+sk::rt::tests::ScopeTest::
 tearDown()
 {
   _stream.clear();
 }
 
 void
-sk::rt::tests::LoggerTest::
+sk::rt::tests::ScopeTest::
 testDefaultNoOutputButError()
 {
   Scope scope("abc");
@@ -55,7 +55,7 @@ testDefaultNoOutputButError()
 }
 
 void
-sk::rt::tests::LoggerTest::
+sk::rt::tests::ScopeTest::
 testConcatenation()
 {
   Scope scope("zzz");
@@ -71,7 +71,7 @@ testConcatenation()
 }
 
 void
-sk::rt::tests::LoggerTest::
+sk::rt::tests::ScopeTest::
 testScope()
 {
   Scope::controller().setLevel(logger::Level::INFO);
