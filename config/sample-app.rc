@@ -1,0 +1,23 @@
+<!-- vim:set ft=xml: -->
+
+<scope name="app">
+  <log show-object="true" show-time="true" show-pid="true">
+    <file location="bin/logs" name="abc" size="10MB" span="5" />
+    <level severity="notice" type="less-and" />
+  </log>
+
+  <property name="aaa" value="AAA" />
+  <property name="bbb" value="BBB" />
+
+  <scope name="sk::util::User">
+    <log>
+      <file size="5MB" />
+      <level severity="detail" type="only" />
+    </log>
+
+    <property name="aaa" value="ZZZ" />
+    <property name="ccc">
+      This is an example of a multi-line property.
+    </property>
+  </scope>
+</scope>

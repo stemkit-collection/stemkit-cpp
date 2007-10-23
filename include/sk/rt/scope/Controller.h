@@ -32,7 +32,6 @@ namespace sk {
           void setShowTime(bool state);
           void setShowObject(bool state);
 
-          const logger::Level& getLevel() const;
           logger::Config& findConfig(const sk::util::String& name);
           
           // sk::util::Object re-implementation.

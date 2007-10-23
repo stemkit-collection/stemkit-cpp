@@ -15,7 +15,8 @@
 
 sk::rt::scope::Controller::
 Controller()
-  : _streamHolder(std::cerr), _showPid(false), _showTime(false), _showObject(false)
+  : _streamHolder(std::cerr), _showPid(false), _showTime(false), _showObject(false),
+    _levelHolder(logger::Level::ERROR)
 {
 }
 
@@ -59,18 +60,11 @@ getStream() const
   return _streamHolder.get();
 }
 
-const sk::rt::logger::Level&
-sk::rt::scope::Controller::
-getLevel() const
-{
-  return _levelHolder.isEmpty() == false ? _levelHolder.get() : logger::Level::ERROR;
-}
-
 bool
 sk::rt::scope::Controller::
 checkLevel(const sk::rt::logger::Level& level) const
 {
-  return level.toInt() <= getLevel().toInt();
+  return level.toInt() <= _levelHolder.get().toInt();
 }
 
 void
