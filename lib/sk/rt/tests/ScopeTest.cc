@@ -90,3 +90,15 @@ testScope()
     sk::util::String(_stream.str()).inspect()
   );
 }
+
+void
+sk::rt::tests::ScopeTest::
+testDefaultProperties()
+{
+  Scope scope("s1");
+  CPPUNIT_ASSERT_EQUAL(false, scope.hasProperty("abc"));
+  CPPUNIT_ASSERT_EQUAL(45, scope.getProperty("abc", 45));
+  CPPUNIT_ASSERT_EQUAL(true, scope.getProperty("abc", sk::util::Boolean::TRUE));
+  CPPUNIT_ASSERT_EQUAL(false, scope.getProperty("abc", sk::util::Boolean::FALSE));
+  CPPUNIT_ASSERT_EQUAL(sk::util::String("zzz"), scope.getProperty("abc", "zzz"));
+}
