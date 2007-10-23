@@ -6,7 +6,7 @@
 */
 
 #include "LoggerTest.h"
-#include <sk/rt/Logger.h>
+#include <sk/rt/Scope.h>
 #include <sk/rt/logger/Level.h>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::rt::tests::LoggerTest);
@@ -26,7 +26,7 @@ sk::rt::tests::LoggerTest::
 setUp()
 {
   _stream.clear();
-  Logger::controller().setStream(_stream);
+  Scope::controller().setStream(_stream);
 }
 
 void
@@ -40,17 +40,17 @@ void
 sk::rt::tests::LoggerTest::
 testDefaultNoOutputButError()
 {
-  Logger logger("abc");
+  Scope scope("abc");
 
-  logger.info() << "aaa";
-  logger.warning() << "bbb";
-  logger.notice() << "ccc";
-  logger.debug() << "ddd";
-  logger.detail() << "eee";
+  scope.info() << "aaa";
+  scope.warning() << "bbb";
+  scope.notice() << "ccc";
+  scope.debug() << "ddd";
+  scope.detail() << "eee";
 
   CPPUNIT_ASSERT_EQUAL(true, _stream.str().empty());
 
-  logger.error() << "zzz";
+  scope.error() << "zzz";
   CPPUNIT_ASSERT_EQUAL(sk::util::String("ERROR:abc: zzz\n").inspect(), sk::util::String(_stream.str()).inspect());
 }
 
@@ -58,14 +58,14 @@ void
 sk::rt::tests::LoggerTest::
 testConcatenation()
 {
-  Logger logger("zzz");
+  Scope scope("zzz");
 
   // Logger::controller().setShowPid(true);
   // Logger::controller().setShowTime(true);
   // Logger::controller().setShowObject(true);
 
-  logger.error() << "aaa" << ' ' << "bbb" << ' ' << "ccc";
-  logger.error() << "ddd";
+  scope.error() << "aaa" << ' ' << "bbb" << ' ' << "ccc";
+  scope.error() << "ddd";
 
   CPPUNIT_ASSERT_EQUAL(sk::util::String("ERROR:zzz: aaa bbb ccc\nERROR:zzz: ddd\n").inspect(), sk::util::String(_stream.str()).inspect());
 }
@@ -74,16 +74,16 @@ void
 sk::rt::tests::LoggerTest::
 testScope()
 {
-  Logger::controller().setLevel(logger::Level::INFO);
+  Scope::controller().setLevel(logger::Level::INFO);
   {
-    const Logger logger("s1");
-    logger.info() << "a";
+    const Scope scope("s1");
+    scope.info() << "a";
 
     {
-      Logger inner = logger.scope("s2");
+      Scope inner = scope.scope("s2");
       inner.info() << "b";
     }
-    logger.info() << "c";
+    scope.info() << "c";
   }
   CPPUNIT_ASSERT_EQUAL(
     sk::util::String("INFO:s1: Enter (name)\nINFO:s1: a\nINFO:s1#s2: Enter (scope)\nINFO:s1#s2: b\nINFO:s1#s2: Leave\nINFO:s1: c\nINFO:s1: Leave\n").inspect(),

@@ -8,20 +8,20 @@
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
 
-#include <sk/rt/Logger.h>
+#include <sk/rt/Scope.h>
 #include <sk/rt/logger/Level.h>
 
-sk::rt::logger::Controller sk::rt::Logger::_controller;
+sk::rt::scope::Controller sk::rt::Scope::_controller;
 
-sk::rt::Logger::
-Logger(const sk::util::Object& object)
+sk::rt::Scope::
+Scope(const sk::util::Object& object)
   : _parent(*this), _object(object), _name(object.getClass().getName()), _config(_controller.findConfig(_name))
 {
   info() << "Enter (object)";
 }
 
-sk::rt::Logger::
-Logger(const Logger& other)
+sk::rt::Scope::
+Scope(const Scope& other)
   : _parent(&other._parent == &other ? *this : other._parent),
     _object(&other._object == &other ? *this : other._object),
     _name(other._name), _config(other._config)
@@ -29,110 +29,110 @@ Logger(const Logger& other)
   info() << "Enter (copy)";
 }
 
-sk::rt::Logger::
-Logger(const sk::util::String& name)
+sk::rt::Scope::
+Scope(const sk::util::String& name)
   : _parent(*this), _object(*this), _name(name), _config(_controller.findConfig(_name))
 {
   info() << "Enter (name)";
 }
 
-sk::rt::Logger::
-Logger(const Logger& parent, const sk::util::String& name)
+sk::rt::Scope::
+Scope(const Scope& parent, const sk::util::String& name)
   : _parent(parent), _object(parent.getObject()), _name(name), _config(parent.getConfig())
 {
   info() << "Enter (scope)";
 }
 
-sk::rt::Logger::
-~Logger()
+sk::rt::Scope::
+~Scope()
 {
   info() << "Leave";
 }
 
 const sk::util::Class
-sk::rt::Logger::
+sk::rt::Scope::
 getClass() const
 {
-  return sk::util::Class("sk::rt::Logger");
+  return sk::util::Class("sk::rt::Scope");
 }
 
 void
-sk::rt::Logger::
-serializeScope(std::ostream& stream) const
+sk::rt::Scope::
+agregateScopeName(std::ostream& stream) const
 {
   if(&_parent != this) {
-    _parent.serializeScope(stream);
+    _parent.agregateScopeName(stream);
     stream << '#';
   }
   stream << _name;
 }
 
 const sk::util::Object&
-sk::rt::Logger::
+sk::rt::Scope::
 getObject() const
 {
   return _object;
 }
 
-sk::rt::logger::Controller&
-sk::rt::Logger::
+sk::rt::scope::Controller&
+sk::rt::Scope::
 controller() 
 {
   return _controller;
 }
 
 const sk::rt::logger::Config&
-sk::rt::Logger::
+sk::rt::Scope::
 getConfig() const
 {
   return _config;
 }
 
 const sk::rt::logger::Stream
-sk::rt::Logger::
+sk::rt::Scope::
 info(const sk::rt::logger::Spot& spot) const
 {
   return sk::rt::logger::Stream(logger::Level::INFO, *this);
 }
 
 const sk::rt::logger::Stream
-sk::rt::Logger::
+sk::rt::Scope::
 error(const sk::rt::logger::Spot& spot) const
 {
   return sk::rt::logger::Stream(logger::Level::ERROR, *this);
 }
 
 const sk::rt::logger::Stream
-sk::rt::Logger::
+sk::rt::Scope::
 warning(const sk::rt::logger::Spot& spot) const
 {
   return sk::rt::logger::Stream(logger::Level::WARNING, *this);
 }
 
 const sk::rt::logger::Stream
-sk::rt::Logger::
+sk::rt::Scope::
 notice(const sk::rt::logger::Spot& spot) const
 {
   return sk::rt::logger::Stream(logger::Level::NOTICE, *this);
 }
 
 const sk::rt::logger::Stream
-sk::rt::Logger::
+sk::rt::Scope::
 debug(const sk::rt::logger::Spot& spot) const
 {
   return sk::rt::logger::Stream(logger::Level::DEBUG, *this);
 }
 
 const sk::rt::logger::Stream
-sk::rt::Logger::
+sk::rt::Scope::
 detail(const sk::rt::logger::Spot& spot) const
 {
   return sk::rt::logger::Stream(logger::Level::DETAIL, *this);
 }
 
-const sk::rt::Logger
-sk::rt::Logger::
+const sk::rt::Scope
+sk::rt::Scope::
 scope(const sk::util::String& name) const
 {
-  return Logger(*this, name);
+  return Scope(*this, name);
 }

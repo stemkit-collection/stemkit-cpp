@@ -2,8 +2,8 @@
 library = sk.rt ;
 
 objects = 
-  Logger.cc
+  Scope.cc
 ;
 
 make-library $(library) : $(objects) ;
-make-subdirs logger bundle tests ;
+make-subdirs scope logger bundle tests ;

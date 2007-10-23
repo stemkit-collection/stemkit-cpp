@@ -25,7 +25,7 @@
 
 sk::sys::User::
 User(const struct passwd& entry)
-  : _logger(*this), _name(entry.pw_name), _uid(entry.pw_uid), _gid(entry.pw_gid), _home(entry.pw_dir), _shell(entry.pw_shell), _comment(entry.pw_gecos)
+  : _scope(*this), _name(entry.pw_name), _uid(entry.pw_uid), _gid(entry.pw_gid), _home(entry.pw_dir), _shell(entry.pw_shell), _comment(entry.pw_gecos)
 {
 }
 
@@ -132,7 +132,7 @@ bool
 sk::sys::User::
 authenticate(const sk::util::String& password) const 
 {
-  const sk::rt::Logger& logger = _logger.scope(__FUNCTION__);
+  const sk::rt::Scope& scope = _scope.scope(__FUNCTION__);
 
   Authenticator authenticator(*this, password);
   sk::sys::Process process(authenticator);

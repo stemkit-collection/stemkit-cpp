@@ -9,7 +9,7 @@
 #define _SK_IO_ANONYMOUSPIPE_
 
 #include <sk/io/AbstractPipe.h>
-#include <sk/rt/Logger.h>
+#include <sk/rt/Scope.h>
 
 namespace sk {
   namespace io {
@@ -27,7 +27,7 @@ namespace sk {
         AnonymousPipe(const AnonymousPipe& other);
         AnonymousPipe& operator = (const AnonymousPipe& other);
 
-        const sk::rt::Logger _logger;
+        const sk::rt::Scope _scope;
     };
   }
 }

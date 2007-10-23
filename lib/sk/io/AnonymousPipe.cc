@@ -15,7 +15,7 @@
 
 sk::io::AnonymousPipe::
 AnonymousPipe()
-  : _logger(*this)
+  : _scope(*this)
 {
   int fds[2];
   

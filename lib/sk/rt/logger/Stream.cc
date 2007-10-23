@@ -15,8 +15,8 @@
 #include <iostream>
 
 sk::rt::logger::Stream::
-Stream(const Level& level, const ILogger& logger)
-  : _config(logger.getConfig()), _enabled(_config.checkLevel(level)), _stream(_config.getStream()) 
+Stream(const Level& level, const scope::IScope& scope)
+  : _config(scope.getConfig()), _enabled(_config.checkLevel(level)), _stream(_config.getStream()) 
 {
   if(isEnabled() == true) {
     if(_config.isShowPid() == true) {
@@ -30,10 +30,10 @@ Stream(const Level& level, const ILogger& logger)
     }
 
     _stream << level.getName() << ':';
-    logger.serializeScope(_stream);
+    scope.agregateScopeName(_stream);
 
     if(_config.isShowObject() == true) {
-      _stream << ':' << &logger.getObject();
+      _stream << ':' << &scope.getObject();
     }
     _stream << ": ";
   }

@@ -9,107 +9,107 @@
 #include <sk/util/String.h>
 #include <sk/util/Holder.cxx>
 
-#include <sk/rt/logger/Controller.h>
+#include <sk/rt/scope/Controller.h>
 #include <sk/rt/logger/Level.h>
 #include <iostream>
 
-sk::rt::logger::Controller::
+sk::rt::scope::Controller::
 Controller()
   : _streamHolder(std::cerr), _showPid(false), _showTime(false), _showObject(false)
 {
 }
 
-sk::rt::logger::Controller::
+sk::rt::scope::Controller::
 ~Controller()
 {
 }
 
 const sk::util::Class
-sk::rt::logger::Controller::
+sk::rt::scope::Controller::
 getClass() const
 {
-  return sk::util::Class("sk::rt::logger::Controller");
+  return sk::util::Class("sk::rt::scope::Controller");
 }
 
 sk::rt::logger::Config& 
-sk::rt::logger::Controller::
+sk::rt::scope::Controller::
 findConfig(const sk::util::String& name)
 {
   return *this;
 }
 
 void
-sk::rt::logger::Controller::
+sk::rt::scope::Controller::
 setStream(std::ostream& stream)
 {
   _streamHolder.set(stream);
 }
 
 void 
-sk::rt::logger::Controller::
-setLevel(const Level& level)
+sk::rt::scope::Controller::
+setLevel(const logger::Level& level)
 {
   _levelHolder.set(level);
 }
 
 std::ostream&
-sk::rt::logger::Controller::
+sk::rt::scope::Controller::
 getStream() const
 {
   return _streamHolder.get();
 }
 
 const sk::rt::logger::Level&
-sk::rt::logger::Controller::
+sk::rt::scope::Controller::
 getLevel() const
 {
-  return _levelHolder.isEmpty() == false ? _levelHolder.get() : Level::ERROR;
+  return _levelHolder.isEmpty() == false ? _levelHolder.get() : logger::Level::ERROR;
 }
 
 bool
-sk::rt::logger::Controller::
+sk::rt::scope::Controller::
 checkLevel(const sk::rt::logger::Level& level) const
 {
   return level.toInt() <= getLevel().toInt();
 }
 
 void
-sk::rt::logger::Controller::
+sk::rt::scope::Controller::
 setShowPid(bool state) 
 {
   _showPid = state;
 }
 
 void 
-sk::rt::logger::Controller::
+sk::rt::scope::Controller::
 setShowTime(bool state)
 {
   _showTime = state;
 }
 
 void
-sk::rt::logger::Controller::
+sk::rt::scope::Controller::
 setShowObject(bool state)
 {
   _showObject = state;
 }
 
 bool
-sk::rt::logger::Controller::
+sk::rt::scope::Controller::
 isShowPid() const 
 {
   return _showPid;
 }
 
 bool
-sk::rt::logger::Controller::
+sk::rt::scope::Controller::
 isShowTime() const
 {
   return _showTime;
 }
 
 bool
-sk::rt::logger::Controller::
+sk::rt::scope::Controller::
 isShowObject() const
 {
   return _showObject;

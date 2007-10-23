@@ -5,32 +5,32 @@
  *  You must read and accept the license prior to use.
 */
 
-#ifndef _SK_RT_LOGGER_
-#define _SK_RT_LOGGER_
+#ifndef _SK_RT_SCOPE_
+#define _SK_RT_SCOPE_
 
 #include <sk/util/Object.h>
 #include <sk/util/String.h>
 #include <sk/rt/logger/Spot.h>
-#include <sk/rt/logger/Controller.h>
+#include <sk/rt/scope/Controller.h>
 #include <sk/rt/logger/Stream.h>
-#include <sk/rt/logger/ILogger.h>
+#include <sk/rt/scope/IScope.h>
 
 namespace sk {
   namespace rt {
     namespace logger {
       class Config;
     }
-    class Logger
-      : public virtual sk::rt::logger::ILogger
+    class Scope
+      : public virtual scope::IScope
     {
       public:
-        Logger(const sk::util::Object& object);
-        Logger(const sk::util::String& name);
-        Logger(const Logger& other);
-        virtual ~Logger();
+        Scope(const sk::util::Object& object);
+        Scope(const sk::util::String& name);
+        Scope(const Scope& other);
+        virtual ~Scope();
 
-        static logger::Controller& controller();
-        const Logger scope(const sk::util::String& name) const;
+        static scope::Controller& controller();
+        const Scope scope(const sk::util::String& name) const;
 
         const logger::Stream error(const sk::rt::logger::Spot& spot = sk::rt::logger::Spot::NOTSET) const;
         const logger::Stream warning(const sk::rt::logger::Spot& spot = sk::rt::logger::Spot::NOTSET) const;
@@ -42,19 +42,19 @@ namespace sk {
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
 
-        // sk::rt::logger::ILogger implementation.
-        void serializeScope(std::ostream& stream) const;
+        // sk::rt::scope::IScope implementation.
+        void agregateScopeName(std::ostream& stream) const;
         const sk::util::Object& getObject() const;
         const logger::Config& getConfig() const;
         
       private:
-        Logger(const Logger& parent, const sk::util::String& name);
-        Logger& operator = (const Logger& other);
+        Scope(const Scope& parent, const sk::util::String& name);
+        Scope& operator = (const Scope& other);
 
-        static logger::Controller _controller;
+        static scope::Controller _controller;
         const sk::util::Object& _object;
 
-        const Logger& _parent;
+        const Scope& _parent;
         const logger::Config& _config;
         sk::util::String _name;
     };
@@ -63,4 +63,4 @@ namespace sk {
 
 #define SK_LOGSPOT sk::rt::logger::Spot::function(__FUNCTION__, __LINE__)
 
-#endif /* _SK_RT_LOGGER_ */
+#endif /* _SK_RT_SCOPE_ */

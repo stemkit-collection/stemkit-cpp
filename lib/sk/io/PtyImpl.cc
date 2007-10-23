@@ -14,7 +14,7 @@
 
 sk::io::PtyImpl::
 PtyImpl()
-  : _logger(*this)
+  : _scope(*this)
 {
 }
 

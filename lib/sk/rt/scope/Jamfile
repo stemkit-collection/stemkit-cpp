@@ -1,0 +1,8 @@
+
+library = sk.rt.scope ;
+
+objects = 
+  Controller.cc
+;
+
+make-library $(library) : $(objects) ;

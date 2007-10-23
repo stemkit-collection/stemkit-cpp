@@ -31,7 +31,7 @@ struct sk::sys::PtyProcess::Listener
 
 sk::sys::PtyProcess::
 PtyProcess(const sk::util::StringArray& cmdline)
-  : _logger(*this),
+  : _scope(*this),
     _listenerHolder(new Listener), _process(getPty().getMasterSlavePipe().inputStream(), cmdline, _listenerHolder.get())
 {
   getPty().getSlaveMasterPipe().closeOutput();
@@ -68,7 +68,7 @@ sk::io::Pty&
 sk::sys::PtyProcess::
 getPty()
 {
-  const sk::rt::Logger logger = _logger.scope(__FUNCTION__);
+  const sk::rt::Scope scope = _scope.scope(__FUNCTION__);
   return _listenerHolder.get().pty;
 }
 

@@ -4,7 +4,6 @@ library = sk.rt.logger ;
 objects = 
   Spot.cc
   Level.cc
-  Controller.cc
   Stream.cc
 ;
 

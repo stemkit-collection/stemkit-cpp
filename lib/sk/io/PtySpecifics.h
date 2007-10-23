@@ -9,7 +9,7 @@
 #define _SK_IO_PTYSPECIFICS_
 
 #include <sk/util/Object.h>
-#include <sk/rt/Logger.h>
+#include <sk/rt/Scope.h>
 
 namespace sk {
   namespace io {
@@ -20,14 +20,15 @@ namespace sk {
     {
       public:
         PtySpecifics() 
-          : _logger("sk::io::PtySpecifics") {}
+          : _scope("sk::io::PtySpecifics") {}
+
         void setup();
         
         virtual int makeSlave(const sk::util::String& name) = 0;
         virtual int makeMaster(const sk::io::FileDescriptor& descriptor) = 0;
 
       private:
-        const sk::rt::Logger _logger;
+        const sk::rt::Scope _scope;
     };
   }
 }

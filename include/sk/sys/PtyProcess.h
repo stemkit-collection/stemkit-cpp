@@ -11,7 +11,7 @@
 #include <sk/util/Holder.hxx>
 #include <sk/sys/Process.h>
 #include <sk/sys/DelegatingExecutable.h>
-#include <sk/rt/Logger.h>
+#include <sk/rt/Scope.h>
 
 #include <sk/io/InputStream.h>
 #include <sk/io/OutputStream.h>
@@ -47,7 +47,7 @@ namespace sk {
         
         struct Listener;
 
-        const sk::rt::Logger _logger;
+        const sk::rt::Scope _scope;
         sk::util::Holder<Listener> _listenerHolder;
         sk::sys::Process _process;
     };

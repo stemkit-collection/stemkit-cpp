@@ -29,7 +29,7 @@ namespace {
 
 sk::io::Pty::
 Pty()
-  : _logger(*this)
+  : _scope(*this)
 {
   PtyImpl pty;
   pty.setup();
