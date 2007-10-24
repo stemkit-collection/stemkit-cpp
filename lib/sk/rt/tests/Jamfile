@@ -2,8 +2,9 @@
 test = test-rt ;
 
 test-objects =
-  TestSuite.cc
   ScopeTest.cc
+  AgregatorTest.cc
+  TestSuite.cc
 ;
 
 use-project-libraries $(test) : sk.cppunit sk.rt.bundle sk.util ;

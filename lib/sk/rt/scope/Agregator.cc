@@ -44,6 +44,7 @@ obtain(const sk::util::String& name)
     return iterator->second;
   }
   return _subordinates.insert(std::make_pair(name, Agregator(*this))).first->second;
+  // return *this;
 }
 
 sk::rt::scope::Config&
@@ -51,4 +52,11 @@ sk::rt::scope::Agregator::
 getConfig() const
 {
   return _configHolderHolder.get().get();
+}
+
+int
+sk::rt::scope::Agregator::
+size() const
+{
+  return _subordinates.size();
 }

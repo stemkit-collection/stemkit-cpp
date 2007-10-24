@@ -25,6 +25,7 @@ namespace sk {
           
           Config& getConfig() const;
           Agregator& obtain(const sk::util::String& name);
+          int size() const;
           
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
