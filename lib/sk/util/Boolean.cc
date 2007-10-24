@@ -11,8 +11,8 @@
 
 #include <strings.h>
 
-const sk::util::Boolean sk::util::Boolean::TRUE(true);
-const sk::util::Boolean sk::util::Boolean::FALSE(false);
+const sk::util::Boolean sk::util::Boolean::B_TRUE(true);
+const sk::util::Boolean sk::util::Boolean::B_FALSE(false);
 
 sk::util::Boolean::
 Boolean(bool value)
@@ -64,7 +64,7 @@ const sk::util::Boolean&
 sk::util::Boolean::
 valueOf(bool value)
 {
-  return value ? Boolean::TRUE : Boolean::FALSE;
+  return value ? B_TRUE : B_FALSE;
 }
 
 #include <iostream>

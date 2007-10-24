@@ -36,8 +36,8 @@ namespace sk {
         static const Boolean& valueOf(const char* value);
         static const sk::util::String toString(bool value);
 
-        static const Boolean TRUE;
-        static const Boolean FALSE;
+        static const Boolean B_TRUE;
+        static const Boolean B_FALSE;
 
       private:
         bool _value;

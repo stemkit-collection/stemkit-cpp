@@ -36,8 +36,8 @@ void
 sk::util::test::BooleanTest::
 testConstants()
 {
-  CPPUNIT_ASSERT_EQUAL(true, Boolean::TRUE.booleanValue());
-  CPPUNIT_ASSERT_EQUAL(false, Boolean::FALSE.booleanValue());
+  CPPUNIT_ASSERT_EQUAL(true, Boolean::B_TRUE.booleanValue());
+  CPPUNIT_ASSERT_EQUAL(false, Boolean::B_FALSE.booleanValue());
 }
 
 void
