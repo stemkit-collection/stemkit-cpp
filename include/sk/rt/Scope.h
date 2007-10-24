@@ -15,13 +15,13 @@
 #include <sk/rt/logger/Spot.h>
 #include <sk/rt/scope/Controller.h>
 #include <sk/rt/logger/Stream.h>
-#include <sk/rt/scope/IScope.h>
+#include <sk/rt/logger/IScope.h>
 #include <sk/rt/scope/IConfig.h>
 
 namespace sk {
   namespace rt {
     class Scope
-      : public virtual scope::IScope
+      : public virtual logger::IScope
     {
       public:
         Scope(const sk::util::Object& object);

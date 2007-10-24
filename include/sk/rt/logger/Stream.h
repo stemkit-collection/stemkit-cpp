@@ -9,7 +9,7 @@
 #define _SK_RT_LOGGER_STREAM_
 
 #include <sk/util/Object.h>
-#include <sk/rt/scope/IScope.h>
+#include <sk/rt/logger/IScope.h>
 #include <sk/rt/logger/Level.h>
 #include <ostream>
 
@@ -22,7 +22,7 @@ namespace sk {
         : public virtual sk::util::Object 
       {
         public:
-          Stream(const Level& level, const scope::IScope& scope);
+          Stream(const Level& level, const logger::IScope& scope);
           Stream(const Stream& other);
           virtual ~Stream();
 

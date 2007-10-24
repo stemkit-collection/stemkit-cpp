@@ -5,8 +5,8 @@
  *  You must read and accept the license prior to use.
 */
 
-#ifndef _SK_RT_SCOPE_ISCOPE_
-#define _SK_RT_SCOPE_ISCOPE_
+#ifndef _SK_RT_LOGGER_ISCOPE_
+#define _SK_RT_LOGGER_ISCOPE_
 
 #include <sk/util/Object.h>
 
@@ -14,8 +14,7 @@ namespace sk {
   namespace rt {
     namespace logger {
       class IConfig;
-    }
-    namespace scope {
+
       class IScope
         : public virtual sk::util::Object 
       {
@@ -28,4 +27,4 @@ namespace sk {
   }
 }
 
-#endif /* _SK_RT_SCOPE_ISCOPE_ */
+#endif /* _SK_RT_LOGGER_ISCOPE_ */

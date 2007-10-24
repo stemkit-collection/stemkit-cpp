@@ -15,7 +15,7 @@
 #include <iostream>
 
 sk::rt::logger::Stream::
-Stream(const Level& level, const scope::IScope& scope)
+Stream(const Level& level, const logger::IScope& scope)
   : _config(scope.getConfig()), _enabled(_config.checkLogLevel(level)), _stream(_config.getLogStream()) 
 {
   if(isEnabled() == true) {
