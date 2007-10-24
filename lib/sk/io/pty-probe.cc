@@ -6,7 +6,7 @@
 
 int main()
 {
-  sk::rt::scope::Config& config = sk::rt::Scope::controller().getConfig();
+  sk::rt::scope::Config& config = sk::rt::Scope::controller().getAgregator().getConfig();
   config.setLogLevel(sk::rt::logger::Level::DEBUG);
   config.setLogPid(true);
   config.setLogTime(true);

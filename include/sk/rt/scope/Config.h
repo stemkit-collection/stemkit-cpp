@@ -21,8 +21,6 @@ namespace sk {
           Config();
           virtual ~Config();
           
-          scope::IConfig& findConfig(const sk::util::String& name);
-          
           void setLogStream(std::ostream& stream);
           void setLogLevel(const logger::Level& level);
 

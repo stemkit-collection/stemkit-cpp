@@ -19,7 +19,7 @@ sk::rt::scope::Controller sk::rt::Scope::_controller;
 
 sk::rt::Scope::
 Scope(const sk::util::Object& object)
-  : _parent(*this), _object(object), _name(object.getClass().getName()), _config(_controller.getConfig().findConfig(_name))
+  : _parent(*this), _object(object), _name(object.getClass().getName()), _agregator(_controller.getAgregator().obtain(_name))
 {
   info() << "Enter (object)";
 }
@@ -28,21 +28,21 @@ sk::rt::Scope::
 Scope(const Scope& other)
   : _parent(&other._parent == &other ? *this : other._parent),
     _object(&other._object == &other ? *this : other._object),
-    _name(other._name), _config(other._config)
+    _name(other._name), _agregator(other._agregator)
 {
   info() << "Enter (copy)";
 }
 
 sk::rt::Scope::
 Scope(const sk::util::String& name)
-  : _parent(*this), _object(*this), _name(name), _config(_controller.getConfig().findConfig(_name))
+  : _parent(*this), _object(*this), _name(name), _agregator(_controller.getAgregator().obtain(_name))
 {
   info() << "Enter (name)";
 }
 
 sk::rt::Scope::
 Scope(const Scope& parent, const sk::util::String& name)
-  : _parent(parent), _object(parent.getObject()), _name(name), _config(parent.getConfig())
+  : _parent(parent), _object(parent.getObject()), _name(name), _agregator(parent.getAgregator().obtain(name))
 {
   info() << "Enter (scope)";
 }
@@ -85,11 +85,18 @@ controller()
   return _controller;
 }
 
+sk::rt::scope::Agregator&
+sk::rt::Scope::
+getAgregator() const
+{
+  return _agregator;
+}
+
 const sk::rt::scope::IConfig&
 sk::rt::Scope::
 getConfig() const
 {
-  return _config;
+  return _agregator.getConfig();
 }
 
 const sk::rt::logger::Stream
@@ -145,14 +152,14 @@ const sk::util::String
 sk::rt::Scope::
 getProperty(const sk::util::String& name) const
 {
-  return _config.getProperty(name);
+  return getConfig().getProperty(name);
 }
 
 bool 
 sk::rt::Scope::
 hasProperty(const sk::util::String& name) const
 {
-  return _config.hasProperty(name);
+  return getConfig().hasProperty(name);
 }
 
 const sk::util::String 
@@ -160,7 +167,7 @@ sk::rt::Scope::
 getProperty(const sk::util::String& name, const sk::util::String& fallback) const
 {
   try {
-    return _config.getProperty(name);
+    return getConfig().getProperty(name);
   }
   catch(const sk::util::MissingResourceException& exception) {}
 
@@ -179,7 +186,7 @@ sk::rt::Scope::
 getProperty(const sk::util::String& name, int fallback) const
 {
   try {
-    return sk::util::Integer::parseInt(_config.getProperty(name)); 
+    return sk::util::Integer::parseInt(getConfig().getProperty(name)); 
   }
   catch(const sk::util::MissingResourceException& exception) {}
   catch(const sk::util::NumberFormatException& exception) {}
@@ -192,7 +199,7 @@ sk::rt::Scope::
 getProperty(const sk::util::String& name, const sk::util::Boolean& fallback) const
 {
   try {
-    return sk::util::Boolean::parseBoolean(_config.getProperty(name));
+    return sk::util::Boolean::parseBoolean(getConfig().getProperty(name));
   }
   catch(const sk::util::MissingResourceException& exception) {}
 

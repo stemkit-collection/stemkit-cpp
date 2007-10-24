@@ -34,13 +34,6 @@ getClass() const
   return sk::util::Class("sk::rt::scope::Config");
 }
 
-sk::rt::scope::IConfig& 
-sk::rt::scope::Config::
-findConfig(const sk::util::String& name)
-{
-  return *this;
-}
-
 void
 sk::rt::scope::Config::
 setLogStream(std::ostream& stream)
