@@ -20,11 +20,11 @@ namespace sk {
         : public virtual sk::util::Object 
       {
         public:
-          virtual bool checkLevel(const Level& level) const = 0;
-          virtual std::ostream& getStream() const = 0;
-          virtual bool isShowPid() const = 0;
-          virtual bool isShowTime() const = 0;
-          virtual bool isShowObject() const = 0;
+          virtual bool checkLogLevel(const Level& level) const = 0;
+          virtual std::ostream& getLogStream() const = 0;
+          virtual bool isLogPid() const = 0;
+          virtual bool isLogTime() const = 0;
+          virtual bool isLogObject() const = 0;
       };
     }
   }

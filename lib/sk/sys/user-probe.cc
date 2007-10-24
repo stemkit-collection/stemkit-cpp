@@ -9,9 +9,9 @@ int main(int argc, char* argv[])
     std::cerr << "USAGE: " << argv[0] << " <user> <password>" << std::endl;
     return 2;
   }
-  sk::rt::Scope::controller().setLevel(sk::rt::logger::Level::DEBUG);
-  sk::rt::Scope::controller().setShowPid(true);
-  sk::rt::Scope::controller().setShowObject(true);
+  sk::rt::Scope::controller().setLogLevel(sk::rt::logger::Level::DEBUG);
+  sk::rt::Scope::controller().setLogPid(true);
+  sk::rt::Scope::controller().setLogObject(true);
 
   bool result = sk::sys::User::find(argv[1]).authenticate(argv[2]);
   std::cerr << "RESULT: " << result << std::endl;

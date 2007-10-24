@@ -26,7 +26,7 @@ sk::rt::tests::ScopeTest::
 setUp()
 {
   _stream.clear();
-  Scope::controller().setStream(_stream);
+  Scope::controller().setLogStream(_stream);
 }
 
 void
@@ -74,7 +74,7 @@ void
 sk::rt::tests::ScopeTest::
 testScope()
 {
-  Scope::controller().setLevel(logger::Level::INFO);
+  Scope::controller().setLogLevel(logger::Level::INFO);
   {
     const Scope scope("s1");
     scope.info() << "a";

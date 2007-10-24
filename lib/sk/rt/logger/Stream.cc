@@ -16,13 +16,13 @@
 
 sk::rt::logger::Stream::
 Stream(const Level& level, const scope::IScope& scope)
-  : _config(scope.getConfig()), _enabled(_config.checkLevel(level)), _stream(_config.getStream()) 
+  : _config(scope.getConfig()), _enabled(_config.checkLogLevel(level)), _stream(_config.getLogStream()) 
 {
   if(isEnabled() == true) {
-    if(_config.isShowPid() == true) {
+    if(_config.isLogPid() == true) {
       _stream << getpid() << ' ';
     }
-    if(_config.isShowTime() == true) {
+    if(_config.isLogTime() == true) {
       char buffer[32];
       time_t now = time(0);
       strftime(buffer, sizeof(buffer), "%y/%m/%d %H:%M:%S ", localtime(&now));
@@ -32,7 +32,7 @@ Stream(const Level& level, const scope::IScope& scope)
     _stream << level.getName() << ':';
     scope.agregateScopeName(_stream);
 
-    if(_config.isShowObject() == true) {
+    if(_config.isLogObject() == true) {
       _stream << ':' << &scope.getObject();
     }
     _stream << ": ";

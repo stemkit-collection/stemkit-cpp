@@ -25,12 +25,12 @@ namespace sk {
           Controller();
           virtual ~Controller();
 
-          void setStream(std::ostream& stream);
-          void setLevel(const logger::Level& level);
+          void setLogStream(std::ostream& stream);
+          void setLogLevel(const logger::Level& level);
 
-          void setShowPid(bool state);
-          void setShowTime(bool state);
-          void setShowObject(bool state);
+          void setLogPid(bool state);
+          void setLogTime(bool state);
+          void setLogObject(bool state);
 
           scope::Config& findConfig(const sk::util::String& name);
           
@@ -38,11 +38,11 @@ namespace sk {
           const sk::util::Class getClass() const;
 
           // sk::rt::logger::Config implementation.
-          std::ostream& getStream() const;
-          bool checkLevel(const logger::Level& level) const;
-          bool isShowPid() const;
-          bool isShowTime() const;
-          bool isShowObject() const;
+          std::ostream& getLogStream() const;
+          bool checkLogLevel(const logger::Level& level) const;
+          bool isLogPid() const;
+          bool isLogTime() const;
+          bool isLogObject() const;
           
           // sk::rt::scope::Config implementation.
           const sk::util::String getProperty(const sk::util::String& name) const;
