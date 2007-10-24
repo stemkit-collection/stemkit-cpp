@@ -19,7 +19,7 @@ sk::rt::scope::Controller sk::rt::Scope::_controller;
 
 sk::rt::Scope::
 Scope(const sk::util::Object& object)
-  : _parent(*this), _object(object), _name(object.getClass().getName()), _config(_controller.findConfig(_name))
+  : _parent(*this), _object(object), _name(object.getClass().getName()), _config(_controller.getConfig().findConfig(_name))
 {
   info() << "Enter (object)";
 }
@@ -35,7 +35,7 @@ Scope(const Scope& other)
 
 sk::rt::Scope::
 Scope(const sk::util::String& name)
-  : _parent(*this), _object(*this), _name(name), _config(_controller.findConfig(_name))
+  : _parent(*this), _object(*this), _name(name), _config(_controller.getConfig().findConfig(_name))
 {
   info() << "Enter (name)";
 }
@@ -85,7 +85,7 @@ controller()
   return _controller;
 }
 
-const sk::rt::scope::Config&
+const sk::rt::scope::IConfig&
 sk::rt::Scope::
 getConfig() const
 {

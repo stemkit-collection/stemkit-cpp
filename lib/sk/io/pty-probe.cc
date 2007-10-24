@@ -6,10 +6,11 @@
 
 int main()
 {
-  sk::rt::Scope::controller().setLogLevel(sk::rt::logger::Level::DEBUG);
-  sk::rt::Scope::controller().setLogPid(true);
-  sk::rt::Scope::controller().setLogTime(true);
-  sk::rt::Scope::controller().setLogObject(true);
+  sk::rt::scope::Config& config = sk::rt::Scope::controller().getConfig();
+  config.setLogLevel(sk::rt::logger::Level::DEBUG);
+  config.setLogPid(true);
+  config.setLogTime(true);
+  config.setLogObject(true);
 
   sk::rt::Scope scope("main()");
 

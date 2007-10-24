@@ -16,6 +16,7 @@
 #include <sk/rt/scope/Controller.h>
 #include <sk/rt/logger/Stream.h>
 #include <sk/rt/scope/IScope.h>
+#include <sk/rt/scope/IConfig.h>
 
 namespace sk {
   namespace rt {
@@ -52,7 +53,7 @@ namespace sk {
         // sk::rt::scope::IScope implementation.
         void agregateScopeName(std::ostream& stream) const;
         const sk::util::Object& getObject() const;
-        const scope::Config& getConfig() const;
+        const scope::IConfig& getConfig() const;
         
       private:
         Scope(const Scope& parent, const sk::util::String& name);
@@ -62,7 +63,7 @@ namespace sk {
         const sk::util::Object& _object;
 
         const Scope& _parent;
-        const scope::Config& _config;
+        const scope::IConfig& _config;
         sk::util::String _name;
     };
   }

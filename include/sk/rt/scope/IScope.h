@@ -5,22 +5,22 @@
  *  You must read and accept the license prior to use.
 */
 
-#ifndef _SK_RT_SCOPE_ILOGGER_
-#define _SK_RT_SCOPE_ILOGGER_
+#ifndef _SK_RT_SCOPE_ISCOPE_
+#define _SK_RT_SCOPE_ISCOPE_
 
 #include <sk/util/Object.h>
 
 namespace sk {
   namespace rt {
     namespace logger {
-      class Config;
+      class IConfig;
     }
     namespace scope {
       class IScope
         : public virtual sk::util::Object 
       {
         public:
-          virtual const logger::Config& getConfig() const = 0;
+          virtual const logger::IConfig& getConfig() const = 0;
           virtual const sk::util::Object& getObject() const = 0;
           virtual void agregateScopeName(std::ostream& stream) const = 0;
       };
@@ -28,4 +28,4 @@ namespace sk {
   }
 }
 
-#endif /* _SK_RT_SCOPE_ILOGGER_ */
+#endif /* _SK_RT_SCOPE_ISCOPE_ */

@@ -5,8 +5,8 @@
  *  You must read and accept the license prior to use.
 */
 
-#ifndef _SK_RT_LOGGER_CONFIG_
-#define _SK_RT_LOGGER_CONFIG_
+#ifndef _SK_RT_LOGGER_ICONFIG_
+#define _SK_RT_LOGGER_ICONFIG_
 
 #include <sk/util/Object.h>
 #include <ostream>
@@ -16,7 +16,7 @@ namespace sk {
     namespace logger {
       class Level;
 
-      class Config
+      class IConfig
         : public virtual sk::util::Object 
       {
         public:
@@ -30,4 +30,4 @@ namespace sk {
   }
 }
 
-#endif /* _SK_RT_LOGGER_CONFIG_ */
+#endif /* _SK_RT_LOGGER_ICONFIG_ */

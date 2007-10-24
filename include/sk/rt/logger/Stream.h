@@ -35,7 +35,7 @@ namespace sk {
         private:
           Stream& operator = (const Stream& other);
 
-          const Config& _config;
+          const logger::IConfig& _config;
           std::ostream& _stream;
           bool _enabled;
       };

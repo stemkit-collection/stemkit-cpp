@@ -9,7 +9,7 @@
 #include <sk/util/String.h>
 
 #include <sk/rt/logger/Stream.h>
-#include <sk/rt/logger/Config.h>
+#include <sk/rt/logger/IConfig.h>
 
 #include <unistd.h>
 #include <iostream>

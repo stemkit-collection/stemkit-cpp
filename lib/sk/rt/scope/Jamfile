@@ -3,6 +3,7 @@ library = sk.rt.scope ;
 
 objects = 
   Controller.cc
+  Config.cc
 ;
 
 make-library $(library) : $(objects) ;

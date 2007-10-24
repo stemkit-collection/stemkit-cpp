@@ -7,17 +7,11 @@
 
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
-#include <sk/util/Holder.cxx>
-#include <sk/util/MissingResourceException.h>
 
 #include <sk/rt/scope/Controller.h>
-#include <sk/rt/logger/Level.h>
-#include <iostream>
 
 sk::rt::scope::Controller::
 Controller()
-  : _streamHolder(std::cerr), _showPid(false), _showTime(false), _showObject(false),
-    _levelHolder(logger::Level::ERROR)
 {
 }
 
@@ -33,93 +27,9 @@ getClass() const
   return sk::util::Class("sk::rt::scope::Controller");
 }
 
-sk::rt::scope::Config& 
+sk::rt::scope::Config&
 sk::rt::scope::Controller::
-findConfig(const sk::util::String& name)
+getConfig() 
 {
-  return *this;
-}
-
-void
-sk::rt::scope::Controller::
-setLogStream(std::ostream& stream)
-{
-  _streamHolder.set(stream);
-}
-
-void 
-sk::rt::scope::Controller::
-setLogLevel(const logger::Level& level)
-{
-  _levelHolder.set(level);
-}
-
-std::ostream&
-sk::rt::scope::Controller::
-getLogStream() const
-{
-  return _streamHolder.get();
-}
-
-bool
-sk::rt::scope::Controller::
-checkLogLevel(const sk::rt::logger::Level& level) const
-{
-  return level.toInt() <= _levelHolder.get().toInt();
-}
-
-void
-sk::rt::scope::Controller::
-setLogPid(bool state) 
-{
-  _showPid = state;
-}
-
-void 
-sk::rt::scope::Controller::
-setLogTime(bool state)
-{
-  _showTime = state;
-}
-
-void
-sk::rt::scope::Controller::
-setLogObject(bool state)
-{
-  _showObject = state;
-}
-
-bool
-sk::rt::scope::Controller::
-isLogPid() const 
-{
-  return _showPid;
-}
-
-bool
-sk::rt::scope::Controller::
-isLogTime() const
-{
-  return _showTime;
-}
-
-bool
-sk::rt::scope::Controller::
-isLogObject() const
-{
-  return _showObject;
-}
-
-const sk::util::String
-sk::rt::scope::Controller::
-getProperty(const sk::util::String& name) const
-{
-  throw sk::util::MissingResourceException(name);
-}
-
-bool
-sk::rt::scope::Controller::
-hasProperty(const sk::util::String& name) const
-{
-  return false;
+  return _config;
 }
