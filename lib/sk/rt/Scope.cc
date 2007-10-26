@@ -35,7 +35,7 @@ Scope(const Scope& other)
 
 sk::rt::Scope::
 Scope(const sk::util::String& name)
-  : _parent(*this), _object(*this), _name(name), _agregator(_controller.getAgregator().obtain(_name))
+  : _parent(*this), _object(*this), _name(name), _agregator(_controller.getAgregator().obtain(name))
 {
   info() << "Enter (name)";
 }

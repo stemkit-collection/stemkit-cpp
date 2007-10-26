@@ -62,11 +62,11 @@ namespace sk {
         Scope& operator = (const Scope& other);
 
         static scope::Controller _controller;
-        const sk::util::Object& _object;
 
-        const Scope& _parent;
-        scope::Agregator& _agregator;
         sk::util::String _name;
+        const Scope& _parent;
+        const sk::util::Object& _object;
+        scope::Agregator& _agregator;
     };
   }
 }
