@@ -23,8 +23,11 @@ namespace sk {
         String(const char* buffer);
         String(const char* buffer, int size);
         String(const std::string& string);
+        String(const sk::util::String& string);
         String(const std::string& string, int size);
         virtual ~String();
+
+        String& operator=(const sk::util::String& other);
 
         /// Returns true if this string is empty.
         bool isEmpty() const;

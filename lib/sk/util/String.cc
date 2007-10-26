@@ -34,6 +34,12 @@ String(const std::string& string)
 }
 
 sk::util::String::
+String(const sk::util::String& string)
+  : std::string(string)
+{
+}
+
+sk::util::String::
 String(const char* buffer, int size)
 {
   int index = 0;
@@ -57,6 +63,16 @@ sk::util::String::
 operator const char * () const
 {
   return getChars();
+}
+
+sk::util::String&
+sk::util::String::
+operator=(const sk::util::String& other)
+{
+  std::string& self = *this;
+  self = other;
+
+  return *this;
 }
 
 const sk::util::Class
