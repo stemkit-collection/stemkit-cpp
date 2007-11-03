@@ -9,7 +9,7 @@
 #define _SK_RT_SCOPE_CONTROLLER_
 
 #include <sk/util/Object.h>
-#include <sk/rt/scope/Agregator.h>
+#include <sk/rt/scope/Aggregator.h>
 
 namespace sk {
   namespace rt {
@@ -24,7 +24,7 @@ namespace sk {
           Controller();
           virtual ~Controller();
 
-          scope::Agregator& getAgregator();
+          scope::Aggregator& getAggregator();
           
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
@@ -33,7 +33,7 @@ namespace sk {
           Controller(const Controller& other);
           Controller& operator = (const Controller& other);
 
-          scope::Agregator _agregator;
+          scope::Aggregator _aggregator;
       };
     }
   }

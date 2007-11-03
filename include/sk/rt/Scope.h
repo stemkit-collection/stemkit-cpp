@@ -29,7 +29,7 @@ namespace sk {
         Scope(const Scope& other);
         virtual ~Scope();
 
-        scope::Agregator& getAgregator() const;
+        scope::Aggregator& getAggregator() const;
 
         static scope::Controller& controller();
         const Scope scope(const sk::util::String& name) const;
@@ -66,7 +66,7 @@ namespace sk {
         sk::util::String _name;
         const Scope& _parent;
         const sk::util::Object& _object;
-        scope::Agregator& _agregator;
+        scope::Aggregator& _aggregator;
     };
   }
 }

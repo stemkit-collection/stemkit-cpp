@@ -19,7 +19,7 @@ sk::rt::scope::Controller sk::rt::Scope::_controller;
 
 sk::rt::Scope::
 Scope(const sk::util::Object& object)
-  : _parent(*this), _object(object), _name(object.getClass().getName()), _agregator(_controller.getAgregator().obtain(_name))
+  : _parent(*this), _object(object), _name(object.getClass().getName()), _aggregator(_controller.getAggregator().obtain(_name))
 {
   info() << "Enter (object)";
 }
@@ -28,21 +28,21 @@ sk::rt::Scope::
 Scope(const Scope& other)
   : _parent(&other._parent == &other ? *this : other._parent),
     _object(&other._object == &other ? *this : other._object),
-    _name(other._name), _agregator(other._agregator)
+    _name(other._name), _aggregator(other._aggregator)
 {
   info() << "Enter (copy)";
 }
 
 sk::rt::Scope::
 Scope(const sk::util::String& name)
-  : _parent(*this), _object(*this), _name(name), _agregator(_controller.getAgregator().obtain(name))
+  : _parent(*this), _object(*this), _name(name), _aggregator(_controller.getAggregator().obtain(name))
 {
   info() << "Enter (name)";
 }
 
 sk::rt::Scope::
 Scope(const Scope& parent, const sk::util::String& name)
-  : _parent(parent), _object(parent.getObject()), _name(name), _agregator(parent.getAgregator().obtain(name))
+  : _parent(parent), _object(parent.getObject()), _name(name), _aggregator(parent.getAggregator().obtain(name))
 {
   info() << "Enter (scope)";
 }
@@ -85,18 +85,18 @@ controller()
   return _controller;
 }
 
-sk::rt::scope::Agregator&
+sk::rt::scope::Aggregator&
 sk::rt::Scope::
-getAgregator() const
+getAggregator() const
 {
-  return _agregator;
+  return _aggregator;
 }
 
 const sk::rt::scope::IConfig&
 sk::rt::Scope::
 getConfig() const
 {
-  return _agregator.getConfig();
+  return _aggregator.getConfig();
 }
 
 const sk::rt::logger::Stream

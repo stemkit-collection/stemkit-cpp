@@ -27,9 +27,9 @@ getClass() const
   return sk::util::Class("sk::rt::scope::Controller");
 }
 
-sk::rt::scope::Agregator&
+sk::rt::scope::Aggregator&
 sk::rt::scope::Controller::
-getAgregator() 
+getAggregator() 
 {
-  return _agregator;
+  return _aggregator;
 }

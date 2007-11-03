@@ -4,7 +4,7 @@ library = sk.rt.scope ;
 objects = 
   Controller.cc
   Config.cc
-  Agregator.cc
+  Aggregator.cc
 ;
 
 make-library $(library) : $(objects) ;

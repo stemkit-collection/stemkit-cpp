@@ -5,8 +5,8 @@
  *  You must read and accept the license prior to use.
 */
 
-#ifndef _SK_RT_SCOPE_AGREGATOR_
-#define _SK_RT_SCOPE_AGREGATOR_
+#ifndef _SK_RT_SCOPE_AGGREGATOR_
+#define _SK_RT_SCOPE_AGGREGATOR_
 
 #include <sk/util/Object.h>
 #include <sk/rt/scope/Config.h>
@@ -15,30 +15,30 @@
 namespace sk {
   namespace rt {
     namespace scope {
-      class Agregator
+      class Aggregator
         : public virtual sk::util::Object 
       {
         public:
-          Agregator();
-          Agregator(const Agregator& other);
-          virtual ~Agregator();
+          Aggregator();
+          Aggregator(const Aggregator& other);
+          virtual ~Aggregator();
           
           Config& getConfig() const;
-          Agregator& obtain(const sk::util::String& name);
+          Aggregator& obtain(const sk::util::String& name);
           int size() const;
           
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
 
         private:
-          Agregator& operator = (const Agregator& other);
+          Aggregator& operator = (const Aggregator& other);
 
           sk::util::Holder<sk::util::Holder<Config> > _configHolderHolder;
-          typedef std::map<sk::util::String, Agregator> registry;
+          typedef std::map<sk::util::String, Aggregator> registry;
           registry _subordinates;
       };
     }
   }
 }
 
-#endif /* _SK_RT_SCOPE_AGREGATOR_ */
+#endif /* _SK_RT_SCOPE_AGGREGATOR_ */
