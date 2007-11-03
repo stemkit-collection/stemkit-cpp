@@ -59,12 +59,6 @@ sk::util::String::
 {
 }
 
-sk::util::String::
-operator const char * () const
-{
-  return getChars();
-}
-
 sk::util::String&
 sk::util::String::
 operator=(const sk::util::String& other)
