@@ -6,4 +6,4 @@ objects =
 ;
 
 make-library $(library) : $(objects) ;
-make-subdirs scope logger bundle tests ;
+make-subdirs scope logger config bundle tests ;

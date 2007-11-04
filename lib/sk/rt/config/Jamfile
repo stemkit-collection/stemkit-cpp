@@ -1,0 +1,9 @@
+
+library = sk.rt.config ;
+
+objects = 
+  Locator.cc
+;
+
+make-library $(library) : $(objects) ;
+make-subdirs test ;
