@@ -14,16 +14,44 @@
 
 #include <sstream>
 
+const sk::rt::config::SpotLocator sk::rt::config::SpotLocator::DUMMY;
+
+sk::rt::config::SpotLocator::
+SpotLocator()
+{
+  becomeDummy();
+}
+
+void
+sk::rt::config::SpotLocator::
+becomeDummy()
+{
+  _locatorHolder.set(*this);
+}
+
+bool
+sk::rt::config::SpotLocator::
+isDummy() const
+{
+  return (_locatorHolder.isEmpty() == false) && (&_locatorHolder.get() == this);
+}
+
 sk::rt::config::SpotLocator::
 SpotLocator(const sk::util::String& item, const sk::util::String& location, const SpotLocator& other)
-  : _item(item), _location(location), _locatorHolder(new SpotLocator(other))
+  : _item(item), _location(location)
 {
+  if(other.isDummy() == false) {
+    _locatorHolder.set(new SpotLocator(other));
+  }
 }
 
 sk::rt::config::SpotLocator::
 SpotLocator(const sk::util::String& location, const SpotLocator& other)
-  : _item(other._item), _location(location), _locatorHolder(new SpotLocator(other))
+  : _item(other._item), _location(location)
 {
+  if(other.isDummy() == false) {
+    _locatorHolder.set(new SpotLocator(other));
+  }
 }
 
 sk::rt::config::SpotLocator::
@@ -36,7 +64,10 @@ sk::rt::config::SpotLocator::
 SpotLocator(const SpotLocator& other)
   : _item(other._item), _location(other._location)
 {
-  if(other._locatorHolder.isEmpty() == false) {
+  if(other.isDummy() == true) {
+    becomeDummy();
+  }
+  else if(other._locatorHolder.isEmpty() == false) {
     _locatorHolder.set(new SpotLocator(other._locatorHolder.get()));
   }
 }

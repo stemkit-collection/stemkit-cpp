@@ -18,6 +18,12 @@ UprootLocator(const sk::util::String& item, const sk::util::String& location, co
 }
 
 sk::rt::config::UprootLocator::
+UprootLocator(const sk::util::String& item, const sk::util::String& location)
+  : SpotLocator(item, location, figure_locator(item, location, SpotLocator::DUMMY))
+{
+}
+
+sk::rt::config::UprootLocator::
 ~UprootLocator()
 {
 }

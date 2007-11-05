@@ -30,9 +30,16 @@ namespace sk {
           
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
+
+        protected:
+          static const SpotLocator DUMMY;
           
         private:
+          SpotLocator();
           SpotLocator& operator = (const SpotLocator& other);
+
+          void becomeDummy();
+          bool isDummy() const;
 
           const sk::util::String _item;
           const sk::util::String _location;
