@@ -28,7 +28,7 @@ namespace sk {
           UprootLocator(const UprootLocator& other);
           UprootLocator& operator = (const UprootLocator& other);
 
-          static const SpotLocator figure_locator(const sk::util::String& item, const sk::util::String& location, const SpotLocator& other);
+          static const SpotLocator figureLocator(const sk::util::String& item, const sk::util::String& location, const SpotLocator& other);
       };
     }
   }

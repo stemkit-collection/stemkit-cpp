@@ -4,6 +4,7 @@ test = test-rt-config ;
 test-objects =
   SpotLocatorTest.cc
   UprootLocatorTest.cc
+  HomeLocatorTest.cc
   TestSuite.cc
 ;
 

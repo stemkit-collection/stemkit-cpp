@@ -20,8 +20,8 @@ namespace sk {
       {
         public:
           SpotLocator(const sk::util::String& item, const sk::util::String& location, const SpotLocator& other);
-          SpotLocator(const sk::util::String& location, const SpotLocator& other);
           SpotLocator(const sk::util::String& item, const sk::util::String& location);
+          SpotLocator(const sk::util::String& location, const SpotLocator& other);
           SpotLocator(const SpotLocator& other);
           virtual ~SpotLocator();
 

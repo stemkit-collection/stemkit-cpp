@@ -8,16 +8,17 @@
 #ifndef _SK_RT_CONFIG_HOMELOCATOR_
 #define _SK_RT_CONFIG_HOMELOCATOR_
 
-#include <sk/util/Object.h>
+#include <sk/rt/config/SpotLocator.h>
 
 namespace sk {
   namespace rt {
     namespace config {
       class HomeLocator
-        : public virtual sk::util::Object 
+        : public SpotLocator
       {
         public:
-          HomeLocator();
+          HomeLocator(const sk::util::String& item, const SpotLocator& other);
+          HomeLocator(const sk::util::String& item);
           virtual ~HomeLocator();
           
           // sk::util::Object re-implementation.
@@ -26,6 +27,8 @@ namespace sk {
         private:
           HomeLocator(const HomeLocator& other);
           HomeLocator& operator = (const HomeLocator& other);
+
+          static const sk::util::String figureHomeLocation();
       };
     }
   }

@@ -11,7 +11,14 @@
 #include <sk/rt/config/HomeLocator.h>
 
 sk::rt::config::HomeLocator::
-HomeLocator()
+HomeLocator(const sk::util::String& item, const SpotLocator& other)
+  : SpotLocator(item, figureHomeLocation(), other)
+{
+}
+
+sk::rt::config::HomeLocator::
+HomeLocator(const sk::util::String& item)
+  : SpotLocator(item, figureHomeLocation())
 {
 }
 
@@ -25,4 +32,11 @@ sk::rt::config::HomeLocator::
 getClass() const
 {
   return sk::util::Class("sk::rt::config::HomeLocator");
+}
+
+const sk::util::String
+sk::rt::config::HomeLocator::
+figureHomeLocation()
+{
+  return getenv("HOME");
 }

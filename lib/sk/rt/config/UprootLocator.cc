@@ -13,13 +13,13 @@
 
 sk::rt::config::UprootLocator::
 UprootLocator(const sk::util::String& item, const sk::util::String& location, const SpotLocator& other)
-  : SpotLocator(item, location, figure_locator(item, location, other))
+  : SpotLocator(item, location, figureLocator(item, location, other))
 {
 }
 
 sk::rt::config::UprootLocator::
 UprootLocator(const sk::util::String& item, const sk::util::String& location)
-  : SpotLocator(item, location, figure_locator(item, location, SpotLocator::DUMMY))
+  : SpotLocator(item, location, figureLocator(item, location, SpotLocator::DUMMY))
 {
 }
 
@@ -30,11 +30,11 @@ sk::rt::config::UprootLocator::
 
 const sk::rt::config::SpotLocator
 sk::rt::config::UprootLocator::
-figure_locator(const sk::util::String& item, const sk::util::String& location, const SpotLocator& other)
+figureLocator(const sk::util::String& item, const sk::util::String& location, const SpotLocator& other)
 {
-  sk::rt::Scope scope("figure_locator");
-  scope.info("I") << item.inspect();
-  scope.info("L") << location.inspect();
+  sk::rt::Scope scope("figureLocator");
+  scope.info("item") << item.inspect();
+  scope.info("location") << location.inspect();
 
   std::string::size_type index = location.find_last_of('/');
   if(index != std::string::npos) { 

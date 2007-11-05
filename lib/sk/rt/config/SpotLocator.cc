@@ -17,26 +17,6 @@
 const sk::rt::config::SpotLocator sk::rt::config::SpotLocator::DUMMY;
 
 sk::rt::config::SpotLocator::
-SpotLocator()
-{
-  becomeDummy();
-}
-
-void
-sk::rt::config::SpotLocator::
-becomeDummy()
-{
-  _locatorHolder.set(*this);
-}
-
-bool
-sk::rt::config::SpotLocator::
-isDummy() const
-{
-  return (_locatorHolder.isEmpty() == false) && (&_locatorHolder.get() == this);
-}
-
-sk::rt::config::SpotLocator::
 SpotLocator(const sk::util::String& item, const sk::util::String& location, const SpotLocator& other)
   : _item(item), _location(location)
 {
@@ -73,8 +53,28 @@ SpotLocator(const SpotLocator& other)
 }
 
 sk::rt::config::SpotLocator::
+SpotLocator()
+{
+  becomeDummy();
+}
+
+sk::rt::config::SpotLocator::
 ~SpotLocator()
 {
+}
+
+void
+sk::rt::config::SpotLocator::
+becomeDummy()
+{
+  _locatorHolder.set(*this);
+}
+
+bool
+sk::rt::config::SpotLocator::
+isDummy() const
+{
+  return (_locatorHolder.isEmpty() == false) && (&_locatorHolder.get() == this);
 }
 
 const sk::util::Class
