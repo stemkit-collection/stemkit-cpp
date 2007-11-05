@@ -27,8 +27,8 @@ sk::rt::config::UprootLocator::
 figure_locator(const sk::util::String& item, const sk::util::String& location, const SpotLocator& other)
 {
   sk::rt::Scope scope("figure_locator");
-  scope.info() << "I: " << item.inspect();
-  scope.info() << "L: " << location.inspect();
+  scope.info("I") << item.inspect();
+  scope.info("L") << location.inspect();
 
   std::string::size_type index = location.find_last_of('/');
   if(index != std::string::npos && index != 0) { 

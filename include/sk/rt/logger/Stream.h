@@ -22,7 +22,7 @@ namespace sk {
         : public virtual sk::util::Object 
       {
         public:
-          Stream(const Level& level, const logger::IScope& scope);
+          Stream(const sk::util::String& label, const Level& level, const logger::IScope& scope);
           Stream(const Stream& other);
           virtual ~Stream();
 

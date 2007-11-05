@@ -15,7 +15,7 @@
 #include <iostream>
 
 sk::rt::logger::Stream::
-Stream(const Level& level, const logger::IScope& scope)
+Stream(const sk::util::String& label, const Level& level, const logger::IScope& scope)
   : _config(scope.getConfig()), _enabled(_config.checkLogLevel(level)), _stream(_config.getLogStream()) 
 {
   if(isEnabled() == true) {
@@ -34,6 +34,9 @@ Stream(const Level& level, const logger::IScope& scope)
 
     if(_config.isLogObject() == true) {
       _stream << ':' << &scope.getObject();
+    }
+    if(&label != &sk::util::String::EMPTY) {
+      _stream << ':' << label;
     }
     _stream << ": ";
   }

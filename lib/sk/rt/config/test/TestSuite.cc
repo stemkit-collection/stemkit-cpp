@@ -18,7 +18,7 @@ int main(int argc, char **argv)
   CppUnit::TestFactoryRegistry &registry = CppUnit::TestFactoryRegistry::getRegistry();
   sk::cppunit::TestRunner runner;
 
-  // sk::rt::Scope::controller().getAggregator().getConfig().setLogLevel(sk::rt::logger::Level::DEBUG);
+  sk::rt::Scope::controller().getAggregator().getConfig().setLogLevel(sk::rt::logger::Level::DEBUG);
 
   if(argc == 2) {
     sk::cppunit::SourcePath::setBase(argv[1]);

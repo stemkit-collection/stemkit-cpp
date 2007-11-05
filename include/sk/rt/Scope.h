@@ -34,12 +34,12 @@ namespace sk {
         static scope::Controller& controller();
         const Scope scope(const sk::util::String& name) const;
 
-        const logger::Stream error(const sk::rt::logger::Spot& spot = sk::rt::logger::Spot::NOTSET) const;
-        const logger::Stream warning(const sk::rt::logger::Spot& spot = sk::rt::logger::Spot::NOTSET) const;
-        const logger::Stream notice(const sk::rt::logger::Spot& spot = sk::rt::logger::Spot::NOTSET) const;
-        const logger::Stream info(const sk::rt::logger::Spot& spot = sk::rt::logger::Spot::NOTSET) const;
-        const logger::Stream debug(const sk::rt::logger::Spot& spot = sk::rt::logger::Spot::NOTSET) const;
-        const logger::Stream detail(const sk::rt::logger::Spot& spot = sk::rt::logger::Spot::NOTSET) const;
+        const logger::Stream error(const sk::util::String& label = sk::util::String::EMPTY, const sk::rt::logger::Spot& spot = sk::rt::logger::Spot::NOTSET) const;
+        const logger::Stream warning(const sk::util::String& label = sk::util::String::EMPTY, const sk::rt::logger::Spot& spot = sk::rt::logger::Spot::NOTSET) const;
+        const logger::Stream notice(const sk::util::String& label = sk::util::String::EMPTY, const sk::rt::logger::Spot& spot = sk::rt::logger::Spot::NOTSET) const;
+        const logger::Stream info(const sk::util::String& label = sk::util::String::EMPTY, const sk::rt::logger::Spot& spot = sk::rt::logger::Spot::NOTSET) const;
+        const logger::Stream debug(const sk::util::String& label = sk::util::String::EMPTY, const sk::rt::logger::Spot& spot = sk::rt::logger::Spot::NOTSET) const;
+        const logger::Stream detail(const sk::util::String& label = sk::util::String::EMPTY, const sk::rt::logger::Spot& spot = sk::rt::logger::Spot::NOTSET) const;
 
         const sk::util::String getProperty(const sk::util::String& name) const;
         bool hasProperty(const sk::util::String& name) const;
