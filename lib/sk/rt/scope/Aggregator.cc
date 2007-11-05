@@ -44,7 +44,6 @@ obtain(const sk::util::String& name)
     return iterator->second;
   }
   return _subordinates.insert(std::make_pair(name, Aggregator(*this))).first->second;
-  // return *this;
 }
 
 sk::rt::scope::Config&

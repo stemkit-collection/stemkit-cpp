@@ -5,8 +5,8 @@
  *  You must read and accept the license prior to use.
 */
 
-#ifndef _SK_RT_CONFIG_TEST_LOCATORTEST_
-#define _SK_RT_CONFIG_TEST_LOCATORTEST_
+#ifndef _SK_RT_CONFIG_TEST_SPOTLOCATORTEST_
+#define _SK_RT_CONFIG_TEST_SPOTLOCATORTEST_
 
 #include <cppunit/TestFixture.h>
 #include <cppunit/extensions/HelperMacros.h>
@@ -15,28 +15,30 @@ namespace sk {
   namespace rt {
     namespace config {
       namespace test {
-        class LocatorTest
+        class SpotLocatorTest
           : public CppUnit::TestFixture
         {
-          CPPUNIT_TEST_SUITE(sk::rt::config::test::LocatorTest);
-            CPPUNIT_TEST(testBasics);
+          CPPUNIT_TEST_SUITE(sk::rt::config::test::SpotLocatorTest);
+            CPPUNIT_TEST(testStandAlone);
+            CPPUNIT_TEST(testCascading);
           CPPUNIT_TEST_SUITE_END();
           
           public:
-            LocatorTest();
-            virtual ~LocatorTest();
+            SpotLocatorTest();
+            virtual ~SpotLocatorTest();
             
             void setUp();
             void tearDown();
-            void testBasics();
+            void testStandAlone();
+            void testCascading();
             
           private:
-            LocatorTest(const LocatorTest& other);
-            LocatorTest& operator = (const LocatorTest& other);
+            SpotLocatorTest(const SpotLocatorTest& other);
+            SpotLocatorTest& operator = (const SpotLocatorTest& other);
         };
       }
     }
   }
 }
 
-#endif /* _SK_RT_CONFIG_TEST_LOCATORTEST_ */
+#endif /* _SK_RT_CONFIG_TEST_SPOTLOCATORTEST_ */

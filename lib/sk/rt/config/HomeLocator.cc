@@ -8,21 +8,21 @@
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
 
-#include <sk/rt/config/Locator.h>
+#include <sk/rt/config/HomeLocator.h>
 
-sk::rt::config::Locator::
-Locator()
+sk::rt::config::HomeLocator::
+HomeLocator()
 {
 }
 
-sk::rt::config::Locator::
-~Locator()
+sk::rt::config::HomeLocator::
+~HomeLocator()
 {
 }
 
 const sk::util::Class
-sk::rt::config::Locator::
+sk::rt::config::HomeLocator::
 getClass() const
 {
-  return sk::util::Class("sk::rt::config::Locator");
+  return sk::util::Class("sk::rt::config::HomeLocator");
 }

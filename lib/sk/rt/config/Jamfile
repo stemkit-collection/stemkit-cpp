@@ -2,7 +2,8 @@
 library = sk.rt.config ;
 
 objects = 
-  Locator.cc
+  SpotLocator.cc
+  UprootLocator.cc
 ;
 
 make-library $(library) : $(objects) ;
