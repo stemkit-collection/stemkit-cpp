@@ -10,6 +10,8 @@
 #include <sk/util/inspect.h>
 #include <algorithm>
 
+const sk::util::String sk::util::String::EMPTY;
+
 sk::util::String::
 String()
 {

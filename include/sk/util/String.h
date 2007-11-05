@@ -66,6 +66,8 @@ namespace sk {
         const sk::util::Class getClass() const;
         const String toString() const;
         const String inspect() const;
+
+        static const String EMPTY;
     };
   }
 }
