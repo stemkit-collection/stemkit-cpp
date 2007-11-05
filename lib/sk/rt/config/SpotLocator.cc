@@ -8,13 +8,30 @@
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
 #include <sk/util/Holder.cxx>
+#include <sk/util/MissingResourceException.h>
 
 #include <sk/rt/config/SpotLocator.h>
 #include <sk/rt/config/StreamProcessor.h>
 
 #include <sstream>
+#include <fstream>
 
 const sk::rt::config::SpotLocator sk::rt::config::SpotLocator::DUMMY;
+sk::util::Holder<const sk::rt::config::NamedStreamOpener> sk::rt::config::SpotLocator::_streamOpenerHolder;
+
+void
+sk::rt::config::SpotLocator::
+setStreamOpener(const NamedStreamOpener& opener)
+{
+  _streamOpenerHolder.set(opener);
+}
+
+void
+sk::rt::config::SpotLocator::
+clearStreamOpener()
+{
+  _streamOpenerHolder.clear();
+}
 
 sk::rt::config::SpotLocator::
 SpotLocator(const sk::util::String& item, const sk::util::String& location, const SpotLocator& other)
@@ -84,15 +101,34 @@ getClass() const
   return sk::util::Class("sk::rt::config::SpotLocator");
 }
 
+const sk::rt::config::NamedStreamOpener&
+sk::rt::config::SpotLocator::
+getStreamOpener() const
+{
+  return *this;
+}
+
 void
 sk::rt::config::SpotLocator::
-invoke(const StreamProcessor& processor, bool simulate) const
+invoke(const StreamProcessor& processor) const
 {
   if(_locatorHolder.isEmpty() == false) {
-    _locatorHolder.get().invoke(processor, simulate);
+    _locatorHolder.get().invoke(processor);
   }
-  if(simulate == true) {
-    std::stringstream stream;
-    processor.process(stream, _location);
+  try {
+    std::auto_ptr<std::istream> stream = getStreamOpener().openStream(_location + '/' + _item);
+    processor.process(*stream, _location);
   }
+  catch(const sk::util::MissingResourceException& exception) {}
+}
+
+std::auto_ptr<std::istream>
+sk::rt::config::SpotLocator::
+openStream(const sk::util::String& name) const
+{
+  std::auto_ptr<std::ifstream> file_ptr(new std::ifstream(name.getChars()));
+  if(file_ptr.get()->good()) {
+    return std::auto_ptr<std::istream>(file_ptr.release());
+  }
+  throw sk::util::MissingResourceException(name);
 }

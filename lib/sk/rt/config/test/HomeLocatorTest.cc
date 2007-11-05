@@ -52,7 +52,7 @@ testStandAlone()
 {
   HomeLocator locator(".abcrc");
   std::vector<sk::util::String> locations;
-  locator.invoke(Processor(locations), true);
+  locator.invoke(Processor(locations));
 
   CPPUNIT_ASSERT_EQUAL(size_t(1), locations.size());
   CPPUNIT_ASSERT_EQUAL(sk::util::String(getenv("HOME")).inspect(), locations.at(0).inspect());

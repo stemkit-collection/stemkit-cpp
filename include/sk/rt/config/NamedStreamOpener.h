@@ -5,24 +5,24 @@
  *  You must read and accept the license prior to use.
 */
 
-#ifndef _SK_RT_CONFIG_LOCATOR_
-#define _SK_RT_CONFIG_LOCATOR_
+#ifndef _SK_RT_CONFIG_NAMEDSTREAMOPENER_
+#define _SK_RT_CONFIG_NAMEDSTREAMOPENER_
 
 #include <sk/util/Object.h>
+#include <memory>
+#include <istream>
 
 namespace sk {
   namespace rt {
     namespace config {
-      class StreamProcessor;
-
-      class Locator
+      class NamedStreamOpener
         : public virtual sk::util::Object 
       {
         public:
-          virtual void invoke(const StreamProcessor& processor) const = 0;
+          virtual std::auto_ptr<std::istream> openStream(const sk::util::String& name) const = 0;
       };
     }
   }
 }
 
-#endif /* _SK_RT_CONFIG_LOCATOR_ */
+#endif /* _SK_RT_CONFIG_NAMEDSTREAMOPENER_ */

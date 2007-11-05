@@ -52,7 +52,7 @@ testOneLevel()
 {
   UprootLocator locator("ttt", "uuu");
   std::vector<sk::util::String> locations;
-  locator.invoke(Processor(locations), true);
+  locator.invoke(Processor(locations));
 
   CPPUNIT_ASSERT_EQUAL(size_t(1), locations.size());
   CPPUNIT_ASSERT_EQUAL(sk::util::String("uuu"), locations.at(0));
@@ -64,7 +64,7 @@ testOneLevelCascading()
 {
   UprootLocator locator("abc", "a", SpotLocator("zzz", "/u"));
   std::vector<sk::util::String> locations;
-  locator.invoke(Processor(locations), true);
+  locator.invoke(Processor(locations));
 
   CPPUNIT_ASSERT_EQUAL(size_t(2), locations.size());
   CPPUNIT_ASSERT_EQUAL(sk::util::String("/u"), locations.at(0));
@@ -77,7 +77,7 @@ testMultiLevel()
 {
   UprootLocator locator("zzz", "a/b/c");
   std::vector<sk::util::String> locations;
-  locator.invoke(Processor(locations), true);
+  locator.invoke(Processor(locations));
 
   CPPUNIT_ASSERT_EQUAL(size_t(3), locations.size());
   CPPUNIT_ASSERT_EQUAL(sk::util::String("a"), locations.at(0));
@@ -91,7 +91,7 @@ testMultiLevelFromRoot()
 {
   UprootLocator locator("zzz", "/a/b/c");
   std::vector<sk::util::String> locations;
-  locator.invoke(Processor(locations), true);
+  locator.invoke(Processor(locations));
 
   CPPUNIT_ASSERT_EQUAL(size_t(4), locations.size());
   CPPUNIT_ASSERT_EQUAL(sk::util::String("/"), locations.at(0));
@@ -106,7 +106,7 @@ testMultiLevelCascading()
 {
   UprootLocator locator("abc", "a/b/c", SpotLocator("zzz", "/u"));
   std::vector<sk::util::String> locations;
-  locator.invoke(Processor(locations), true);
+  locator.invoke(Processor(locations));
 
   CPPUNIT_ASSERT_EQUAL(size_t(4), locations.size());
   CPPUNIT_ASSERT_EQUAL(sk::util::String("/u"), locations.at(0));

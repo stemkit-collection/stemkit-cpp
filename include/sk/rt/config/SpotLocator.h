@@ -9,6 +9,8 @@
 #define _SK_RT_CONFIG_SPOTLOCATOR_
 
 #include <sk/rt/config/Locator.h>
+#include <sk/rt/config/NamedStreamOpener.h>
+
 #include <sk/util/String.h>
 #include <sk/util/Holder.hxx>
 
@@ -16,7 +18,8 @@ namespace sk {
   namespace rt {
     namespace config {
       class SpotLocator
-        : public virtual Locator
+        : public virtual Locator,
+          public virtual NamedStreamOpener
       {
         public:
           SpotLocator(const sk::util::String& item, const sk::util::String& location, const SpotLocator& other);
@@ -25,8 +28,14 @@ namespace sk {
           SpotLocator(const SpotLocator& other);
           virtual ~SpotLocator();
 
+          static void setStreamOpener(const NamedStreamOpener& opener);
+          static void clearStreamOpener();
+
           // sk::rt::config::Locator implementation.
-          void invoke(const StreamProcessor& processor, bool simulate) const;
+          void invoke(const StreamProcessor& processor) const;
+
+          // sk::rt::config::NamedStreamOpener imlementation.
+          std::auto_ptr<std::istream> openStream(const sk::util::String& name) const;
           
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
@@ -40,10 +49,13 @@ namespace sk {
 
           void becomeDummy();
           bool isDummy() const;
+          const NamedStreamOpener& getStreamOpener() const;
 
           const sk::util::String _item;
           const sk::util::String _location;
           sk::util::Holder<SpotLocator> _locatorHolder;
+
+          static sk::util::Holder<const NamedStreamOpener> _streamOpenerHolder;
       };
     }
   }

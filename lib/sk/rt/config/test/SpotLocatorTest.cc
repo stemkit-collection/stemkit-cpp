@@ -53,7 +53,7 @@ testStandAlone()
   SpotLocator locator("abc", "a/b/c");
   std::vector<sk::util::String> locations;
 
-  locator.invoke(Processor(locations), true);
+  locator.invoke(Processor(locations));
 
   CPPUNIT_ASSERT_EQUAL(size_t(1), locations.size());
   CPPUNIT_ASSERT_EQUAL(sk::util::String("a/b/c"), locations.at(0));
@@ -66,7 +66,7 @@ testCascading()
   SpotLocator locator("a/b", SpotLocator("c/d", SpotLocator("abc", "e/z")));
   std::vector<sk::util::String> locations;
 
-  locator.invoke(Processor(locations), true);
+  locator.invoke(Processor(locations));
 
   CPPUNIT_ASSERT_EQUAL(size_t(3), locations.size());
   CPPUNIT_ASSERT_EQUAL(sk::util::String("e/z"), locations.at(0));
