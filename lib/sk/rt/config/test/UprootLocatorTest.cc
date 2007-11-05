@@ -87,6 +87,21 @@ testMultiLevel()
 
 void
 sk::rt::config::test::UprootLocatorTest::
+testMultiLevelFromRoot()
+{
+  UprootLocator locator("zzz", "/a/b/c");
+  std::vector<sk::util::String> locations;
+  locator.invoke(Processor(locations), true);
+
+  CPPUNIT_ASSERT_EQUAL(size_t(4), locations.size());
+  CPPUNIT_ASSERT_EQUAL(sk::util::String("/"), locations.at(0));
+  CPPUNIT_ASSERT_EQUAL(sk::util::String("/a"), locations.at(1));
+  CPPUNIT_ASSERT_EQUAL(sk::util::String("/a/b"), locations.at(2));
+  CPPUNIT_ASSERT_EQUAL(sk::util::String("/a/b/c"), locations.at(3));
+}
+
+void
+sk::rt::config::test::UprootLocatorTest::
 testMultiLevelCascading()
 {
   UprootLocator locator("abc", "a/b/c", SpotLocator("zzz", "/u"));

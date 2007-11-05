@@ -22,6 +22,7 @@ namespace sk {
             CPPUNIT_TEST(testOneLevel);
             CPPUNIT_TEST(testOneLevelCascading);
             CPPUNIT_TEST(testMultiLevel);
+            CPPUNIT_TEST(testMultiLevelFromRoot);
             CPPUNIT_TEST(testMultiLevelCascading);
           CPPUNIT_TEST_SUITE_END();
           
@@ -34,6 +35,7 @@ namespace sk {
             void testOneLevel();
             void testOneLevelCascading();
             void testMultiLevel();
+            void testMultiLevelFromRoot();
             void testMultiLevelCascading();
             
           private:
