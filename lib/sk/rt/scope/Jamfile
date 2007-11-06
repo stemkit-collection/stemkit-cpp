@@ -8,4 +8,11 @@ objects =
   XmlConfigLoader.cc
 ;
 
-make-library $(library) : $(objects) ;
+xml-objects = 
+  XmlProcessor.cc
+;
+
+use-defines $(xml-objects) : TINYXML_USE_STL ;
+make-library $(library) : $(objects) $(xml-objects) ;
+
+make-subdirs test ;

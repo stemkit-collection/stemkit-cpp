@@ -1,0 +1,17 @@
+
+test = test-rt-scope ;
+
+test-xml-objects =
+  XmlProcessorTest.cc
+;
+
+test-objects =
+  $(test-xml-objects)
+  TestSuite.cc
+;
+
+use-defines $(test-xml-objects) : TINYXML_USE_STL ;
+use-project-libraries $(test) : sk.cppunit sk.rt.bundle sk.util ;
+
+use-unit-test $(test) $(test-objects) ;
+make-cpp-test $(test) : $(test-objects) ;

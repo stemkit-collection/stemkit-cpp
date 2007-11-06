@@ -9,6 +9,9 @@
 #include <sk/util/String.h>
 
 #include "XmlConfigLoader.h"
+#include "XmlProcessor.h"
+
+#include <sstream>
 
 sk::rt::scope::XmlConfigLoader::
 XmlConfigLoader(const sk::util::String& top, scope::Aggregator& aggregator)
@@ -32,4 +35,12 @@ void
 sk::rt::scope::XmlConfigLoader::
 process(std::istream& stream, const sk::util::String& location) const 
 {
+  std::string incoming;
+  std::stringstream content;
+
+  while(getline(stream, incoming).eof() == false) {
+    content << stream << std::endl;
+  }
+  XmlProcessor processor(content.str(), location, _aggregator);
+  processor.processElement(_top);
 }
