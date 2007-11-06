@@ -1,0 +1,16 @@
+
+library = other.tinyxml ;
+test = xmltest ;
+
+objects =
+  tinystr.cpp
+  tinyxml.cpp
+  tinyxmlerror.cpp
+  tinyxmlparser.cpp
+;
+
+use-defines $(objects) $(test).cpp : TINYXML_USE_STL ;
+use-project-library $(test) $(test).cpp $(objects) : other.tinyxml ;
+
+make-library $(library) : $(objects) ;
+make-cpp-test $(test) : $(test).cpp ;
