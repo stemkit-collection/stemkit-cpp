@@ -27,6 +27,7 @@ namespace sk {
           void setLogPid(bool state);
           void setLogTime(bool state);
           void setLogObject(bool state);
+          void setProperty(const sk::util::String& name, const sk::util::String& value);
 
           // sk::rt::logger::IConfig implementation.
           std::ostream& getLogStream() const;

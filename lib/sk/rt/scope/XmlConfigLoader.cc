@@ -42,5 +42,5 @@ process(std::istream& stream, const sk::util::String& location) const
     content << stream << std::endl;
   }
   XmlProcessor processor(content.str(), location, _aggregator);
-  processor.processElement(_top);
+  processor.start(_top);
 }

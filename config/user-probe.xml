@@ -1,0 +1,5 @@
+<scope name="app">
+  <log show-time="true">
+    <level severity="info" />
+  </log>
+</scope>

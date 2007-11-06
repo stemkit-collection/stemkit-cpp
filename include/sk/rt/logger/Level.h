@@ -9,6 +9,7 @@
 #define _SK_RT_LOGGER_LEVEL_
 
 #include <sk/util/Object.h>
+#include <vector>
 
 namespace sk {
   namespace rt {
@@ -19,27 +20,30 @@ namespace sk {
         public:
           virtual ~Level();
 
+          static const Level& valueOf(const sk::util::String& name);
           int toInt() const;
           const sk::util::String& getName() const;
           
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
+          const sk::util::String toString() const;
 
           bool operator==(const Level& other) const;
 
+          static const Level NONE;
           static const Level ERROR;
           static const Level WARNING;
-          static const Level INFO;
-          static const Level DEBUG;
           static const Level NOTICE;
+          static const Level INFO;
           static const Level DETAIL;
+          static const Level DEBUG;
           
         private:
           Level(const sk::util::String& name);
           Level(const Level& other);
           Level& operator = (const Level& other);
 
-          static int _counter;
+          static std::vector<Level*> _levels;
 
           int _value;
           const sk::util::String _name;

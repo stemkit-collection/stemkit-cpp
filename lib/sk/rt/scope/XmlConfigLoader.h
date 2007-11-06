@@ -31,7 +31,7 @@ namespace sk {
           XmlConfigLoader& operator = (const XmlConfigLoader& other);
 
           scope::Aggregator& _aggregator;
-          const sk::util::String& _top;
+          const sk::util::String _top;
       };
     }
   }

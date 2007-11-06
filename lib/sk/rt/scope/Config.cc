@@ -117,3 +117,9 @@ hasProperty(const sk::util::String& name) const
 {
   return false;
 }
+
+void
+sk::rt::scope::Config::
+setProperty(const sk::util::String& name, const sk::util::String& value)
+{
+}

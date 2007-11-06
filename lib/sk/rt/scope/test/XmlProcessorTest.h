@@ -24,6 +24,7 @@ namespace sk {
           CPPUNIT_TEST_SUITE(sk::rt::scope::test::XmlProcessorTest);
             CPPUNIT_TEST(testEmpty);
             CPPUNIT_TEST(testTopOnly);
+            CPPUNIT_TEST(testTopLogInfo);
           CPPUNIT_TEST_SUITE_END();
           
           public:
@@ -34,6 +35,7 @@ namespace sk {
             void tearDown();
             void testEmpty();
             void testTopOnly();
+            void testTopLogInfo();
             
           private:
             XmlProcessorTest(const XmlProcessorTest& other);
