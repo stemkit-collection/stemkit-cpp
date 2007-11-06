@@ -7,6 +7,7 @@
 
 #include "BooleanTest.h"
 #include <sk/util/Boolean.h>
+#include <sstream>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::util::test::BooleanTest);
 
@@ -86,4 +87,14 @@ testToString()
 
   CPPUNIT_ASSERT_EQUAL(String("true"), Boolean(true).inspect());
   CPPUNIT_ASSERT_EQUAL(String("false"), Boolean(false).inspect());
+}
+
+void
+sk::util::test::BooleanTest::
+testStreamOutput()
+{
+  std::stringstream stream;
+  stream << Boolean(true) << ':' << Boolean(false);
+
+  CPPUNIT_ASSERT_EQUAL(std::string("true:false"), stream.str());
 }

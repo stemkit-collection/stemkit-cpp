@@ -23,6 +23,7 @@ namespace sk {
           CPPUNIT_TEST(testParse);
           CPPUNIT_TEST(testValueOf);
           CPPUNIT_TEST(testToString);
+          CPPUNIT_TEST(testStreamOutput);
         CPPUNIT_TEST_SUITE_END();
         
         public:
@@ -36,6 +37,7 @@ namespace sk {
           void testParse();
           void testValueOf();
           void testToString();
+          void testStreamOutput();
           
         private:
           BooleanTest(const BooleanTest& other);

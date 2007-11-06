@@ -10,6 +10,7 @@
 
 #include <sk/util/Object.h>
 #include <sk/util/String.h>
+#include <ostream>
 
 namespace sk {
   namespace util {
@@ -42,6 +43,8 @@ namespace sk {
       private:
         bool _value;
     };
+
+    std::ostream& operator << (std::ostream& stream, const sk::util::Boolean& boolean);
   }
 }
 
