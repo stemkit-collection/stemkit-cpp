@@ -5,6 +5,7 @@ objects =
   Controller.cc
   Config.cc
   Aggregator.cc
+  XmlConfigLoader.cc
 ;
 
 make-library $(library) : $(objects) ;

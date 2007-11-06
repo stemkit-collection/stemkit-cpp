@@ -27,7 +27,7 @@ namespace sk {
           Controller();
           virtual ~Controller();
 
-          void load(const config::Locator& locator);
+          void loadXmlConfig(const config::Locator& locator);
           scope::Aggregator& getAggregator();
           
           // sk::util::Object re-implementation.

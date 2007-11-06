@@ -11,6 +11,8 @@
 #include <sk/rt/scope/Controller.h>
 #include <sk/rt/config/Locator.h>
 
+#include "XmlConfigLoader.h"
+
 sk::rt::scope::Controller::
 Controller()
 {
@@ -37,6 +39,7 @@ getAggregator()
 
 void
 sk::rt::scope::Controller::
-load(const config::Locator& locator) 
+loadXmlConfig(const config::Locator& locator) 
 {
+  locator.invoke(XmlConfigLoader(_aggregator));
 }
