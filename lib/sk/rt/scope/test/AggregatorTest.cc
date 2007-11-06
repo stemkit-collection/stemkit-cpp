@@ -8,32 +8,32 @@
 #include "AggregatorTest.h"
 #include <sk/rt/scope/Aggregator.h>
 
-CPPUNIT_TEST_SUITE_REGISTRATION(sk::rt::tests::AggregatorTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(sk::rt::scope::test::AggregatorTest);
 
-sk::rt::tests::AggregatorTest::
+sk::rt::scope::test::AggregatorTest::
 AggregatorTest()
 {
 }
 
-sk::rt::tests::AggregatorTest::
+sk::rt::scope::test::AggregatorTest::
 ~AggregatorTest()
 {
 }
 
 void
-sk::rt::tests::AggregatorTest::
+sk::rt::scope::test::AggregatorTest::
 setUp()
 {
 }
 
 void
-sk::rt::tests::AggregatorTest::
+sk::rt::scope::test::AggregatorTest::
 tearDown()
 {
 }
 
 void
-sk::rt::tests::AggregatorTest::
+sk::rt::scope::test::AggregatorTest::
 testInner()
 {
   scope::Aggregator aggregator;

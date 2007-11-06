@@ -7,6 +7,7 @@ test-xml-objects =
 
 test-objects =
   $(test-xml-objects)
+  AggregatorTest.cc
   TestSuite.cc
 ;
 

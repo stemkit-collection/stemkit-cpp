@@ -3,7 +3,6 @@ test = test-rt ;
 
 test-objects =
   ScopeTest.cc
-  AggregatorTest.cc
   TestSuite.cc
 ;
 
