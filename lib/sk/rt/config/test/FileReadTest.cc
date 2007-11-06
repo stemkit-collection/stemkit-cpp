@@ -6,10 +6,8 @@
 */
 
 #include "FileReadTest.h"
-#include <sk/rt/config/UprootLocator.h>
+#include <sk/rt/config/CwdUprootLocator.h>
 #include <sk/rt/config/StreamProcessor.h>
-#include <unistd.h>
-#include <vector>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::rt::config::test::FileReadTest);
 
@@ -56,8 +54,7 @@ void
 sk::rt::config::test::FileReadTest::
 testReadPasswdFromCwd()
 {
-  std::vector<char> buffer(1024, 0);
-  UprootLocator locator("etc/passwd", getcwd(&buffer.front(), buffer.size()));
+  CwdUprootLocator locator("etc/passwd");
 
   std::vector<sk::util::String> content;
   std::vector<sk::util::String> locations;

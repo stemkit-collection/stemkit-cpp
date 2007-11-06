@@ -4,6 +4,7 @@ library = sk.rt.config ;
 objects = 
   SpotLocator.cc
   UprootLocator.cc
+  CwdUprootLocator.cc
   HomeLocator.cc
 ;
 
