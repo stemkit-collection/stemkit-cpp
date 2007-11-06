@@ -11,8 +11,8 @@
 #include "XmlConfigLoader.h"
 
 sk::rt::scope::XmlConfigLoader::
-XmlConfigLoader(scope::Aggregator& aggregator)
-  : _aggregator(aggregator)
+XmlConfigLoader(const sk::util::String& top, scope::Aggregator& aggregator)
+  : _top(top), _aggregator(aggregator)
 {
 }
 

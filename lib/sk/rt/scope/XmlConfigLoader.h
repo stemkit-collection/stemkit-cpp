@@ -19,7 +19,7 @@ namespace sk {
         : public virtual config::StreamProcessor
       {
         public:
-          XmlConfigLoader(scope::Aggregator& aggregator);
+          XmlConfigLoader(const sk::util::String& top, scope::Aggregator& aggregator);
           virtual ~XmlConfigLoader();
 
           void process(std::istream& stream, const sk::util::String& location) const;
@@ -31,6 +31,7 @@ namespace sk {
           XmlConfigLoader& operator = (const XmlConfigLoader& other);
 
           scope::Aggregator& _aggregator;
+          const sk::util::String& _top;
       };
     }
   }
