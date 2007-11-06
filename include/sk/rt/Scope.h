@@ -29,8 +29,6 @@ namespace sk {
         Scope(const Scope& other);
         virtual ~Scope();
 
-        scope::Aggregator& getAggregator() const;
-
         static scope::Controller& controller();
         const Scope scope(const sk::util::String& name) const;
 
@@ -52,6 +50,7 @@ namespace sk {
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
 
+      protected:
         // sk::rt::scope::IScope implementation.
         void agregateScopeName(std::ostream& stream) const;
         const sk::util::Object& getObject() const;
@@ -61,12 +60,14 @@ namespace sk {
         Scope(const Scope& parent, const sk::util::String& name);
         Scope& operator = (const Scope& other);
 
-        static scope::Controller _controller;
+        scope::Aggregator& getAggregator() const;
 
         sk::util::String _name;
         const Scope& _parent;
         const sk::util::Object& _object;
         scope::Aggregator& _aggregator;
+
+        static scope::Controller _controller;
     };
   }
 }
