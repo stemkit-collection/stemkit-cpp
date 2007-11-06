@@ -16,6 +16,9 @@ namespace sk {
     namespace logger {
       class Level;
     }
+    namespace config {
+      class Locator;
+    }
     namespace scope {
       class Controller
         : public virtual sk::util::Object
@@ -24,6 +27,7 @@ namespace sk {
           Controller();
           virtual ~Controller();
 
+          void load(const config::Locator& locator);
           scope::Aggregator& getAggregator();
           
           // sk::util::Object re-implementation.

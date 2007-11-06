@@ -25,7 +25,6 @@ namespace sk {
           const sk::util::Class getClass() const;
           
         private:
-          CwdUprootLocator(const CwdUprootLocator& other);
           CwdUprootLocator& operator = (const CwdUprootLocator& other);
 
           static const sk::util::String figureCurrentDirctory();

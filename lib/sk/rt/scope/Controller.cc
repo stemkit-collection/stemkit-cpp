@@ -9,6 +9,7 @@
 #include <sk/util/String.h>
 
 #include <sk/rt/scope/Controller.h>
+#include <sk/rt/config/Locator.h>
 
 sk::rt::scope::Controller::
 Controller()
@@ -32,4 +33,10 @@ sk::rt::scope::Controller::
 getAggregator() 
 {
   return _aggregator;
+}
+
+void
+sk::rt::scope::Controller::
+load(const config::Locator& locator) 
+{
 }
