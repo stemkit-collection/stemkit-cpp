@@ -70,13 +70,20 @@ void
 sk::rt::scope::test::XmlProcessorTest::
 testTopLogInfo()
 {
+  CPPUNIT_ASSERT_EQUAL(false, _aggregatorHolder.get().getConfig().isLogObject());
+  CPPUNIT_ASSERT_EQUAL(false, _aggregatorHolder.get().obtain("aaa").getConfig().isLogTime());
+  CPPUNIT_ASSERT_EQUAL(false, _aggregatorHolder.get().getConfig().isLogPid());
+  CPPUNIT_ASSERT_EQUAL(false, _aggregatorHolder.get().getConfig().checkLogLevel(logger::Level::WARNING));
+  CPPUNIT_ASSERT_EQUAL(false, _aggregatorHolder.get().getConfig().checkLogLevel(logger::Level::NOTICE));
+  CPPUNIT_ASSERT_EQUAL(false, _aggregatorHolder.get().getConfig().checkLogLevel(logger::Level::INFO));
+
   XmlProcessor processor("<scope name='app'><log show-time='true'><level severity='notice'/></log></scope>", "a/b/c", _aggregatorHolder.get());
   processor.start("app");
 
   CPPUNIT_ASSERT_EQUAL(false, _aggregatorHolder.get().getConfig().isLogObject());
-  CPPUNIT_ASSERT_EQUAL(true, _aggregatorHolder.get().getConfig().isLogTime());
+  CPPUNIT_ASSERT_EQUAL(true, _aggregatorHolder.get().obtain("aaa").getConfig().isLogTime());
   CPPUNIT_ASSERT_EQUAL(false, _aggregatorHolder.get().getConfig().isLogPid());
-  CPPUNIT_ASSERT_EQUAL(true, _aggregatorHolder.get().getConfig().checkLogLevel(logger::Level::WARNING));
+  CPPUNIT_ASSERT_EQUAL(true, _aggregatorHolder.get().obtain("bbb").getConfig().checkLogLevel(logger::Level::WARNING));
   CPPUNIT_ASSERT_EQUAL(true, _aggregatorHolder.get().getConfig().checkLogLevel(logger::Level::NOTICE));
   CPPUNIT_ASSERT_EQUAL(false, _aggregatorHolder.get().getConfig().checkLogLevel(logger::Level::INFO));
 }
