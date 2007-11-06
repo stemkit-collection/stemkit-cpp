@@ -22,18 +22,6 @@ sk::rt::config::test::SpotLocatorTest::
 {
 }
 
-void
-sk::rt::config::test::SpotLocatorTest::
-setUp()
-{
-}
-
-void
-sk::rt::config::test::SpotLocatorTest::
-tearDown()
-{
-}
-
 namespace {
   struct Processor : public virtual sk::rt::config::StreamProcessor {
     Processor(std::vector<sk::util::String>& locations)

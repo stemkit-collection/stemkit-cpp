@@ -2,6 +2,7 @@
 test = test-rt-config ;
 
 test-objects =
+  MockingTestFixture.cc
   SpotLocatorTest.cc
   UprootLocatorTest.cc
   HomeLocatorTest.cc

@@ -22,18 +22,6 @@ sk::rt::config::test::UprootLocatorTest::
 {
 }
 
-void
-sk::rt::config::test::UprootLocatorTest::
-setUp()
-{
-}
-
-void
-sk::rt::config::test::UprootLocatorTest::
-tearDown()
-{
-}
-
 namespace {
   struct Processor : public virtual sk::rt::config::StreamProcessor {
     Processor(std::vector<sk::util::String>& locations)

@@ -22,27 +22,20 @@ sk::rt::config::test::HomeLocatorTest::
 {
 }
 
-void
-sk::rt::config::test::HomeLocatorTest::
-setUp()
-{
-}
-
-void
-sk::rt::config::test::HomeLocatorTest::
-tearDown()
-{
-}
-
 namespace {
   struct Processor : public virtual sk::rt::config::StreamProcessor {
-    Processor(std::vector<sk::util::String>& locations)
-      : _locations(locations) {}
+    Processor(std::vector<sk::util::String>& locations, std::vector<sk::util::String>& streams)
+      : _locations(locations), _streams(streams) {}
 
     void process(std::istream& stream, const sk::util::String& location) const {
+      sk::util::String content;
+      stream >> content;
+
       _locations.push_back(location);
+      _streams.push_back(content);
     }
     std::vector<sk::util::String>& _locations;
+    std::vector<sk::util::String>& _streams;
   };
 }
 
@@ -52,8 +45,12 @@ testStandAlone()
 {
   HomeLocator locator(".abcrc");
   std::vector<sk::util::String> locations;
-  locator.invoke(Processor(locations));
+  std::vector<sk::util::String> streams;
+  locator.invoke(Processor(locations, streams));
 
   CPPUNIT_ASSERT_EQUAL(size_t(1), locations.size());
+  CPPUNIT_ASSERT_EQUAL(size_t(1), streams.size());
+
   CPPUNIT_ASSERT_EQUAL(sk::util::String(getenv("HOME")).inspect(), locations.at(0).inspect());
+  CPPUNIT_ASSERT_EQUAL((sk::util::String(getenv("HOME")) + "/.abcrc").inspect(), streams.at(0).inspect());
 }

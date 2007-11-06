@@ -13,7 +13,6 @@
 #include <sk/rt/config/SpotLocator.h>
 #include <sk/rt/config/StreamProcessor.h>
 
-#include <sstream>
 #include <fstream>
 
 const sk::rt::config::SpotLocator sk::rt::config::SpotLocator::DUMMY;
@@ -105,7 +104,7 @@ const sk::rt::config::NamedStreamOpener&
 sk::rt::config::SpotLocator::
 getStreamOpener() const
 {
-  return *this;
+  return _streamOpenerHolder.isEmpty() == true ? *this : _streamOpenerHolder.get() ;
 }
 
 void

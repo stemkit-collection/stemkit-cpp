@@ -8,15 +8,14 @@
 #ifndef _SK_RT_CONFIG_TEST_UPROOTLOCATORTEST_
 #define _SK_RT_CONFIG_TEST_UPROOTLOCATORTEST_
 
-#include <cppunit/TestFixture.h>
-#include <cppunit/extensions/HelperMacros.h>
+#include "MockingTestFixture.h"
 
 namespace sk {
   namespace rt {
     namespace config {
       namespace test {
         class UprootLocatorTest
-          : public CppUnit::TestFixture
+          : public MockingTestFixture
         {
           CPPUNIT_TEST_SUITE(sk::rt::config::test::UprootLocatorTest);
             CPPUNIT_TEST(testOneLevel);
@@ -30,8 +29,6 @@ namespace sk {
             UprootLocatorTest();
             virtual ~UprootLocatorTest();
             
-            void setUp();
-            void tearDown();
             void testOneLevel();
             void testOneLevelCascading();
             void testMultiLevel();

@@ -8,15 +8,14 @@
 #ifndef _SK_RT_CONFIG_TEST_HOMELOCATORTEST_
 #define _SK_RT_CONFIG_TEST_HOMELOCATORTEST_
 
-#include <cppunit/TestFixture.h>
-#include <cppunit/extensions/HelperMacros.h>
+#include "MockingTestFixture.h"
 
 namespace sk {
   namespace rt {
     namespace config {
       namespace test {
         class HomeLocatorTest
-          : public CppUnit::TestFixture
+          : public MockingTestFixture
         {
           CPPUNIT_TEST_SUITE(sk::rt::config::test::HomeLocatorTest);
             CPPUNIT_TEST(testStandAlone);
@@ -26,8 +25,6 @@ namespace sk {
             HomeLocatorTest();
             virtual ~HomeLocatorTest();
             
-            void setUp();
-            void tearDown();
             void testStandAlone();
             
           private:

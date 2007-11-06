@@ -8,15 +8,14 @@
 #ifndef _SK_RT_CONFIG_TEST_SPOTLOCATORTEST_
 #define _SK_RT_CONFIG_TEST_SPOTLOCATORTEST_
 
-#include <cppunit/TestFixture.h>
-#include <cppunit/extensions/HelperMacros.h>
+#include "MockingTestFixture.h"
 
 namespace sk {
   namespace rt {
     namespace config {
       namespace test {
         class SpotLocatorTest
-          : public CppUnit::TestFixture
+          : public MockingTestFixture
         {
           CPPUNIT_TEST_SUITE(sk::rt::config::test::SpotLocatorTest);
             CPPUNIT_TEST(testStandAlone);
@@ -27,8 +26,6 @@ namespace sk {
             SpotLocatorTest();
             virtual ~SpotLocatorTest();
             
-            void setUp();
-            void tearDown();
             void testStandAlone();
             void testCascading();
             
