@@ -22,6 +22,7 @@ namespace sk {
         virtual ~PointerSlot();
         
         // sk::util::Slot re-implementation.
+        bool isOwner() const;
         T& get() const;
         T* deprive();
         

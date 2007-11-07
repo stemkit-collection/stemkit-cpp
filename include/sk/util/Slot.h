@@ -17,6 +17,7 @@ namespace sk {
       : public virtual sk::util::Object 
     {
       public:
+        virtual bool isOwner() const = 0;
         virtual T& get() const = 0;
         virtual T* deprive() = 0;
     };

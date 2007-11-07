@@ -25,6 +25,14 @@ sk::util::ReferenceSlot<T>::
 }
 
 template<class T>
+bool
+sk::util::ReferenceSlot<T>::
+isOwner() const
+{
+  return false;
+}
+
+template<class T>
 T&
 sk::util::ReferenceSlot<T>::
 get() const

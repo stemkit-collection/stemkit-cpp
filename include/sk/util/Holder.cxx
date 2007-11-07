@@ -79,6 +79,17 @@ get() const
 template<class T>
 bool
 sk::util::Holder<T>::
+isOwner() const
+{
+  if(_slot == 0) {
+    throw MissingResourceException("sk::util::Holder#isOwner()");
+  }
+  return _slot->isOwner();
+}
+
+template<class T>
+bool
+sk::util::Holder<T>::
 isEmpty() const
 {
   return _slot==0 ? true : false;

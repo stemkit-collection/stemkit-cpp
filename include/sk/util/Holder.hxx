@@ -23,6 +23,7 @@ namespace sk {
 
         bool contains(const T& object) const;
         bool isEmpty() const;
+        bool isOwner() const;
         T& get() const;
 
         Holder<T>& set(T* object);

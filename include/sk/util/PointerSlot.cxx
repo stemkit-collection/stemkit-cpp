@@ -30,6 +30,14 @@ sk::util::PointerSlot<T>::
 }
 
 template<class T>
+bool
+sk::util::PointerSlot<T>::
+isOwner() const
+{
+  return true;
+}
+
+template<class T>
 T&
 sk::util::PointerSlot<T>::
 get() const
