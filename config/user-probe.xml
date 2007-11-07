@@ -1,5 +1,11 @@
-<scope name="app">
+<scope>
   <log show-time="true">
-    <level severity="info" />
+    <level severity="none" />
   </log>
+
+  <scope name="sk::uti:User">
+    <log>
+      <level severity="none" />
+    </log>
+  </scope>
 </scope>

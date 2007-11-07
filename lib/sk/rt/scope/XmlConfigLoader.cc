@@ -39,7 +39,7 @@ process(std::istream& stream, const sk::util::String& location) const
   std::stringstream content;
 
   while(getline(stream, incoming).eof() == false) {
-    content << stream << std::endl;
+    content << incoming << std::endl;
   }
   XmlProcessor processor(content.str(), location, _aggregator);
   processor.start(_top);
