@@ -10,6 +10,7 @@
 
 #include <sk/rt/logger/IConfig.h>
 #include <sk/util/String.h>
+#include <sk/util/Boolean.h>
 
 namespace sk {
   namespace rt {
@@ -19,6 +20,10 @@ namespace sk {
       {
         public:
           virtual const sk::util::String getProperty(const sk::util::String& name) const = 0;
+          virtual const sk::util::String getProperty(const sk::util::String& name, const sk::util::String& fallback) const = 0;
+          virtual const sk::util::String getProperty(const sk::util::String& name, const char* fallback) const = 0;
+          virtual bool getProperty(const sk::util::String& name, const sk::util::Boolean& fallback) const = 0;
+          virtual int getProperty(const sk::util::String& name, int fallback) const = 0;
           virtual bool hasProperty(const sk::util::String& name) const = 0;
       };
     }

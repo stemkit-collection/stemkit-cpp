@@ -47,7 +47,7 @@ aggregator()
 
 void
 sk::rt::scope::test::XmlConfigLoaderTest::
-testSimple()
+testBigPicture()
 {
   XmlConfigLoader loader("app", aggregator());
   std::stringstream stream;
@@ -56,15 +56,31 @@ testSimple()
     "  <log>\n"
     "    <level severity='none' />\n"
     "  </log>\n"
+    "  <property name='p1' value='ub2' />\n"
+    "  <property name='p2' value='219' />\n"
     "  <scope name='zzz'>\n"
     "    <log show-time='true'>\n"
     "      <level severity='notice' />\n"
     "    </log>\n"
+    "    <property name='p1'>\n"
+    "      Hello,\n"
+    "      World.\n"
+    "    </property>\n"
     "  </scope>\n"
     "</scope>\n"
   ;
   loader.process(stream, "/a/b/c");
 
   CPPUNIT_ASSERT_EQUAL(true, aggregator().obtain("zzz").getConfig().isLogTime());
+  CPPUNIT_ASSERT_EQUAL(true, aggregator().obtain("zzz").obtain("abc").getConfig().isLogTime());
   CPPUNIT_ASSERT_EQUAL(false, aggregator().getConfig().isLogTime());
+  CPPUNIT_ASSERT_EQUAL(false, aggregator().obtain("uuu").getConfig().isLogTime());
+
+  CPPUNIT_ASSERT_EQUAL(sk::util::String("ub2").inspect(), aggregator().getConfig().getProperty("p1").inspect());
+  CPPUNIT_ASSERT_EQUAL(sk::util::String("219").inspect(), aggregator().getConfig().getProperty("p2").inspect());
+  CPPUNIT_ASSERT_EQUAL(219, aggregator().getConfig().getProperty("p2", 0));
+  CPPUNIT_ASSERT_EQUAL(17, aggregator().getConfig().getProperty("p1", 17));
+  CPPUNIT_ASSERT_EQUAL(19, aggregator().getConfig().getProperty("p3", 19));
+
+  CPPUNIT_ASSERT_EQUAL(sk::util::String("").inspect(), aggregator().obtain("zzz").getConfig().getProperty("p1").inspect());
 }

@@ -10,6 +10,7 @@
 
 #include <sk/util/Holder.hxx>
 #include <sk/rt/scope/IConfig.h>
+#include <map>
 
 namespace sk {
   namespace rt {
@@ -39,6 +40,10 @@ namespace sk {
           
           // sk::rt::scope::Config implementation.
           const sk::util::String getProperty(const sk::util::String& name) const;
+          const sk::util::String getProperty(const sk::util::String& name, const sk::util::String& fallback) const;
+          const sk::util::String getProperty(const sk::util::String& name, const char* fallback) const;
+          bool getProperty(const sk::util::String& name, const sk::util::Boolean& fallback) const;
+          int getProperty(const sk::util::String& name, int fallback) const;
           bool hasProperty(const sk::util::String& name) const;
           
           // sk::util::Object re-implementation.
@@ -53,6 +58,8 @@ namespace sk {
           bool _logPid;
           bool _logTime;
           bool _logObject;
+          typedef std::map<sk::util::String, sk::util::String> registry;
+          registry _properties;
       };
     }
   }

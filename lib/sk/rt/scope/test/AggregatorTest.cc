@@ -54,7 +54,7 @@ testInner()
   CPPUNIT_ASSERT_EQUAL(false, aggregator.getConfig().isLogTime());
   CPPUNIT_ASSERT_EQUAL(false, inner.getConfig().isLogTime());
 
-  aggregator.getConfig().setLogTime(true);
+  aggregator.getConfigForUpdate().setLogTime(true);
 
   CPPUNIT_ASSERT_EQUAL(true, aggregator.getConfig().isLogTime());
   CPPUNIT_ASSERT_EQUAL(true, inner.getConfig().isLogTime());

@@ -6,8 +6,8 @@ test-xml-objects =
 ;
 
 test-objects =
-#   $(test-xml-objects)
-#   AggregatorTest.cc
+  $(test-xml-objects)
+  AggregatorTest.cc
   XmlConfigLoaderTest.cc
   TestSuite.cc
 ;

@@ -121,6 +121,6 @@ updateProperties(const TiXmlHandle& handle, scope::Config& config)
 {
   for(TiXmlElement* item=handle.FirstChild("property").ToElement(); item ;item=item->NextSiblingElement(item->Value())) {
     const char* value = item->Attribute("value");
-    config.setProperty(item->Attribute("name"), value ? value : item->ToText()->Value());
+    config.setProperty(item->Attribute("name"), value);
   }
 }
