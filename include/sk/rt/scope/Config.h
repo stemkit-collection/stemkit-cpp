@@ -19,6 +19,7 @@ namespace sk {
       {
         public:
           Config();
+          Config(const Config& other);
           virtual ~Config();
           
           void setLogStream(std::ostream& stream);
@@ -44,7 +45,6 @@ namespace sk {
           const sk::util::Class getClass() const;
           
         private:
-          Config(const Config& other);
           Config& operator = (const Config& other);
 
           sk::util::Holder<std::ostream> _streamHolder;

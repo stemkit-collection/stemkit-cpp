@@ -1,17 +1,12 @@
 
 #include <sk/rt/Scope.h>
-#include <sk/rt/logger/Level.h>
 #include <sk/io/Pty.h>
 #include <unistd.h>
+#include <sk/rt/config/CwdUprootLocator.h>
 
 int main()
 {
-  sk::rt::scope::Config& config = sk::rt::Scope::controller().getAggregator().getConfig();
-  config.setLogLevel(sk::rt::logger::Level::DEBUG);
-  config.setLogPid(true);
-  config.setLogTime(true);
-  config.setLogObject(true);
-
+  sk::rt::Scope::controller().loadXmlConfig("pty", sk::rt::config::CwdUprootLocator("src/config/probe.xml"));
   sk::rt::Scope scope("main()");
 
   int uid = getuid();

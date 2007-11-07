@@ -23,7 +23,8 @@ namespace sk {
           Aggregator(const Aggregator& other);
           virtual ~Aggregator();
           
-          Config& getConfig() const;
+          const Config& getConfig() const;
+          Config& getConfigForUpdate();
           Aggregator& obtain(const sk::util::String& name);
           int size() const;
           
@@ -32,6 +33,9 @@ namespace sk {
 
         private:
           Aggregator& operator = (const Aggregator& other);
+
+          void ensureOwnConfigHolder();
+          void ensureOwnConfig();
 
           sk::util::Holder<sk::util::Holder<Config> > _configHolderHolder;
           typedef std::map<sk::util::String, Aggregator> registry;

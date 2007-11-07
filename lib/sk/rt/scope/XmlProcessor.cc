@@ -72,7 +72,7 @@ void
 sk::rt::scope::XmlProcessor::
 process(const TiXmlHandle& handle, scope::Aggregator& aggregator) 
 {
-  updateConfig(handle, aggregator.getConfig());
+  updateConfig(handle, aggregator.getConfigForUpdate());
 
   for(TiXmlElement* item=handle.FirstChild("scope").ToElement(); item ;item=item->NextSiblingElement(item->Value())) {
     const sk::util::String name = sk::util::String(item->Attribute("name")).trim();

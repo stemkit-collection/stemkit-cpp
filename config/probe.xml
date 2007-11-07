@@ -1,0 +1,11 @@
+<scope name="user">
+  <log show-time="false">
+    <level severity="info" />
+  </log>
+
+  <scope name="sk::sys::User">
+    <log show-time="true">
+      <level severity="none" />
+    </log>
+  </scope>
+</scope>

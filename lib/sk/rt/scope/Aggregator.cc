@@ -43,13 +43,42 @@ obtain(const sk::util::String& name)
   if(iterator != _subordinates.end()) {
     return iterator->second;
   }
+  ensureOwnConfigHolder();
   return _subordinates.insert(std::make_pair(name, Aggregator(*this))).first->second;
+}
+
+void
+sk::rt::scope::Aggregator::
+ensureOwnConfigHolder()
+{
+  if(_configHolderHolder.isOwner() == false) {
+    _configHolderHolder.set(new sk::util::Holder<Config>(_configHolderHolder.get().get()));
+  }
+}
+
+void
+sk::rt::scope::Aggregator::
+ensureOwnConfig()
+{
+  if(_configHolderHolder.get().isOwner() == false) {
+    _configHolderHolder.get().set(new Config(_configHolderHolder.get().get()));
+  }
+}
+
+const sk::rt::scope::Config&
+sk::rt::scope::Aggregator::
+getConfig() const
+{
+  return _configHolderHolder.get().get();
 }
 
 sk::rt::scope::Config&
 sk::rt::scope::Aggregator::
-getConfig() const
+getConfigForUpdate()
 {
+  ensureOwnConfigHolder();
+  ensureOwnConfig();
+
   return _configHolderHolder.get().get();
 }
 

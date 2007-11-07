@@ -23,6 +23,13 @@ Config()
 }
 
 sk::rt::scope::Config::
+Config(const Config& other)
+  : _streamHolder(other.getLogStream()), _logPid(other.isLogPid()), _logTime(other.isLogTime()), _logObject(other.isLogObject()),
+    _levelHolder(other._levelHolder.get())
+{
+}
+
+sk::rt::scope::Config::
 ~Config()
 {
 }
