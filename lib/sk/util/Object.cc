@@ -9,6 +9,7 @@
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
 #include <sk/util/Integer.h>
+#include <sk/util/UnsupportedOperationException.h>
 
 sk::util::Object::
 Object() 
@@ -32,6 +33,13 @@ sk::util::Object::
 self() const
 {
   return *this;
+}
+
+sk::util::Object*
+sk::util::Object::
+clone() const
+{
+  throw sk::util::UnsupportedOperationException(getClass().getName() + '#' + "clone()");
 }
 
 const sk::util::Class
