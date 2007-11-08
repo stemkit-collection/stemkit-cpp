@@ -8,6 +8,7 @@
 #include "XmlConfigLoaderTest.h"
 #include "../XmlConfigLoader.h"
 #include <sk/rt/scope/Aggregator.h>
+#include <sk/rt/Logger/Level.h>
 #include <sk/util/Holder.cxx>
 
 #include <sstream>
@@ -54,14 +55,12 @@ testBigPicture()
   stream << 
     "<scope name='app'>\n" 
     "  <log>\n"
-    "    <level severity='none' />\n"
+    "    <level severity='warning' />\n"
     "  </log>\n"
     "  <property name='p1' value='ub2' />\n"
     "  <property name='p2' value='219' />\n"
     "  <scope name='zzz'>\n"
-    "    <log show-time='true'>\n"
-    "      <level severity='notice' />\n"
-    "    </log>\n"
+    "    <log show-time='true' level='info' />\n"
     "    <property name='p1'>\n"
     "      Hello,\n"
     "      World.\n"
@@ -83,4 +82,12 @@ testBigPicture()
   CPPUNIT_ASSERT_EQUAL(19, aggregator().getConfig().getProperty("p3", 19));
 
   CPPUNIT_ASSERT_EQUAL(sk::util::String("").inspect(), aggregator().obtain("zzz").getConfig().getProperty("p1").inspect());
+
+  CPPUNIT_ASSERT_EQUAL(true, aggregator().getConfig().checkLogLevel(logger::Level::ERROR));
+  CPPUNIT_ASSERT_EQUAL(true, aggregator().getConfig().checkLogLevel(logger::Level::WARNING));
+  CPPUNIT_ASSERT_EQUAL(false, aggregator().getConfig().checkLogLevel(logger::Level::NOTICE));
+
+  CPPUNIT_ASSERT_EQUAL(true, aggregator().obtain("zzz").getConfig().checkLogLevel(logger::Level::INFO));
+  CPPUNIT_ASSERT_EQUAL(true, aggregator().obtain("zzz").getConfig().checkLogLevel(logger::Level::INFO));
+  CPPUNIT_ASSERT_EQUAL(false, aggregator().obtain("zzz").getConfig().checkLogLevel(logger::Level::DETAIL));
 }

@@ -1,7 +1,5 @@
 <scope name="user">
-  <log show-time="false">
-    <level severity="info" />
-  </log>
+  <log level="info" show-time="false" />
 
   <scope name="sk::sys::User">
     <log show-time="true">

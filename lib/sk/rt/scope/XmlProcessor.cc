@@ -100,6 +100,16 @@ namespace {
     }
     return fallback.booleanValue();
   }
+
+  const sk::util::String attribute(TiXmlElement* element, const sk::util::String& name, const char* fallback) {
+    if(element) {
+      const char* value = element->Attribute(name.getChars());
+      if(value) {
+        return value;
+      }
+    }
+    return fallback;
+  }
 }
 
 void 
@@ -110,6 +120,10 @@ updateLogInfo(const TiXmlHandle& handle, scope::Config& config)
   config.setLogTime(attribute(handle.ToElement(), "show-time", config.isLogTime()));
   config.setLogPid(attribute(handle.ToElement(), "show-pid", config.isLogPid()));
 
+  const sk::util::String level(attribute(handle.ToElement(), "level", "").trim());
+  if(level.isEmpty() == false) {
+    config.setLogLevel(sk::rt::logger::Level::valueOf(level));
+  }
   for(TiXmlElement* item=handle.FirstChild("level").ToElement(); item ;item=item->NextSiblingElement(item->Value())) {
     config.setLogLevel(sk::rt::logger::Level::valueOf(item->Attribute("severity")));
   }
