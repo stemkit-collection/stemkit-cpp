@@ -81,7 +81,7 @@ testBigPicture()
   CPPUNIT_ASSERT_EQUAL(17, aggregator().getConfig().getProperty("p1", 17));
   CPPUNIT_ASSERT_EQUAL(19, aggregator().getConfig().getProperty("p3", 19));
 
-  CPPUNIT_ASSERT_EQUAL(sk::util::String("").inspect(), aggregator().obtain("zzz").getConfig().getProperty("p1").inspect());
+  CPPUNIT_ASSERT_EQUAL(sk::util::String("Hello, World.").inspect(), aggregator().obtain("zzz").getConfig().getProperty("p1").inspect());
 
   CPPUNIT_ASSERT_EQUAL(true, aggregator().getConfig().checkLogLevel(logger::Level::ERROR));
   CPPUNIT_ASSERT_EQUAL(true, aggregator().getConfig().checkLogLevel(logger::Level::WARNING));

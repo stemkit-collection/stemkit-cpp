@@ -15,6 +15,9 @@
 #include <sk/rt/logger/Level.h>
 #include <other/tinyxml/tinyxml.h>
 
+#include <iostream>
+#include <sstream>
+
 sk::rt::scope::XmlProcessor::
 XmlProcessor(const std::string& xml, const sk::util::String& location, scope::Aggregator& aggregator)
   : _location(location), _aggregator(aggregator), _documentHolder(new TiXmlDocument)
@@ -129,12 +132,27 @@ updateLogInfo(const TiXmlHandle& handle, scope::Config& config)
   }
 }
 
+namespace {
+  const sk::util::String figure_text(const char* value, TiXmlNode* node) {
+    if(value) {
+      return value;
+    }
+    std::stringstream text_element_collector;
+    for(TiXmlNode* item=node->FirstChild(); item ;item=item->NextSibling()) {
+      if(item->Type() == TiXmlNode::TEXT) {
+        text_element_collector << item->ToText()->ValueStr();
+      }
+    }
+    return text_element_collector.str();
+  }
+}
+
 void
 sk::rt::scope::XmlProcessor::
 updateProperties(const TiXmlHandle& handle, scope::Config& config) 
 {
   for(TiXmlElement* item=handle.FirstChild("property").ToElement(); item ;item=item->NextSiblingElement(item->Value())) {
-    const char* value = item->Attribute("value");
-    config.setProperty(item->Attribute("name"), value);
+    config.setProperty(item->Attribute("name"), figure_text(item->Attribute("value"), item));
   }
 }
+
