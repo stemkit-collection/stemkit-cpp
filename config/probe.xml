@@ -1,5 +1,5 @@
 <scope name="user">
-  <log level="info" show-time="false" />
+  <log destination="std::cout" level="info" show-time="false" />
 
   <scope name="sk::sys::User">
     <log show-time="true">

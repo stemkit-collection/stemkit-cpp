@@ -123,6 +123,18 @@ updateLogInfo(const TiXmlHandle& handle, scope::Config& config)
   config.setLogTime(attribute(handle.ToElement(), "show-time", config.isLogTime()));
   config.setLogPid(attribute(handle.ToElement(), "show-pid", config.isLogPid()));
 
+  const sk::util::String destination = attribute(handle.ToElement(), "destination", "");
+  if(destination.equals("std::cout")) {
+    config.setLogStream(std::cout);
+  }
+  else if(destination.equals("std::clog")) {
+    config.setLogStream(std::clog);
+  }
+  else if(destination.equals("file")) {
+  }
+  else {
+    config.setLogStream(std::cerr);
+  }
   const sk::util::String level(attribute(handle.ToElement(), "level", "").trim());
   if(level.isEmpty() == false) {
     config.setLogLevel(sk::rt::logger::Level::valueOf(level));
