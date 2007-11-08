@@ -42,10 +42,10 @@ namespace sk {
           XmlProcessor(const XmlProcessor& other);
           XmlProcessor& operator = (const XmlProcessor& other);
 
-          void process(const TiXmlHandle& handle, scope::Aggregator& aggregator);
-          void updateConfig(const TiXmlHandle& handle, scope::Config& config);
-          void updateLogInfo(const TiXmlHandle& handle, scope::Config& config);
-          void updateProperties(const TiXmlHandle& handle, scope::Config& config);
+          static void process(const TiXmlHandle& handle, scope::Aggregator& aggregator);
+          static void updateConfig(const TiXmlHandle& handle, scope::Config& config);
+          static void updateLogInfo(const TiXmlHandle& handle, scope::Config& config);
+          static void updateProperties(const TiXmlHandle& handle, scope::Config& config);
 
           const sk::util::String _location;
           scope::Aggregator& _aggregator;
