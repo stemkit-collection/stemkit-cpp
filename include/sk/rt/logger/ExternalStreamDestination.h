@@ -19,16 +19,17 @@ namespace sk {
       {
         public:
           ExternalStreamDestination(std::ostream& destination);
+          ExternalStreamDestination(const ExternalStreamDestination& other);
           virtual ~ExternalStreamDestination();
 
           // sk::rt::logger::Destinaiton implementation.
           void dispatch(std::stringstream& stream);
+          ExternalStreamDestination* clone() const;
           
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
           
         private:
-          ExternalStreamDestination(const ExternalStreamDestination& other);
           ExternalStreamDestination& operator = (const ExternalStreamDestination& other);
 
           std::ostream& _destination;

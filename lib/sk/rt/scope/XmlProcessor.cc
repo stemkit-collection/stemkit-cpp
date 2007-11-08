@@ -13,6 +13,7 @@
 #include "XmlProcessor.h"
 #include <sk/rt/scope/Aggregator.h>
 #include <sk/rt/logger/Level.h>
+#include <sk/rt/logger/ExternalStreamDestination.h>
 #include <other/tinyxml/tinyxml.h>
 
 #include <iostream>
@@ -125,16 +126,17 @@ updateLogInfo(const TiXmlHandle& handle, scope::Config& config)
 
   const sk::util::String destination = attribute(handle.ToElement(), "destination", "");
   if(destination.equals("std::cout")) {
-    config.setLogStream(std::cout);
+    config.setLogDestination(logger::ExternalStreamDestination(std::cout));
   }
   else if(destination.equals("std::clog")) {
-    config.setLogStream(std::clog);
+    config.setLogDestination(logger::ExternalStreamDestination(std::clog));
+  }
+  else if(destination.equals("std::cerr")) {
+    config.setLogDestination(logger::ExternalStreamDestination(std::cerr));
   }
   else if(destination.equals("file")) {
   }
-  else {
-    config.setLogStream(std::cerr);
-  }
+
   const sk::util::String level(attribute(handle.ToElement(), "level", "").trim());
   if(level.isEmpty() == false) {
     config.setLogLevel(sk::rt::logger::Level::valueOf(level));

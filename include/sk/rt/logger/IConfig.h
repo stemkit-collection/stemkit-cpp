@@ -9,6 +9,7 @@
 #define _SK_RT_LOGGER_ICONFIG_
 
 #include <sk/util/Object.h>
+#include <sk/rt/logger/Destination.h>
 #include <ostream>
 
 namespace sk {
@@ -21,7 +22,7 @@ namespace sk {
       {
         public:
           virtual bool checkLogLevel(const Level& level) const = 0;
-          virtual std::ostream& getLogStream() const = 0;
+          virtual logger::Destination& getLogDestination() const = 0;
           virtual bool isLogPid() const = 0;
           virtual bool isLogTime() const = 0;
           virtual bool isLogObject() const = 0;

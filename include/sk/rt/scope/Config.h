@@ -23,7 +23,7 @@ namespace sk {
           Config(const Config& other);
           virtual ~Config();
           
-          void setLogStream(std::ostream& stream);
+          void setLogDestination(const logger::Destination& destination);
           void setLogLevel(const logger::Level& level);
 
           void setLogPid(bool state);
@@ -32,7 +32,7 @@ namespace sk {
           void setProperty(const sk::util::String& name, const sk::util::String& value);
 
           // sk::rt::logger::IConfig implementation.
-          std::ostream& getLogStream() const;
+          logger::Destination& getLogDestination() const;
           bool checkLogLevel(const logger::Level& level) const;
           bool isLogPid() const;
           bool isLogTime() const;
@@ -52,7 +52,7 @@ namespace sk {
         private:
           Config& operator = (const Config& other);
 
-          sk::util::Holder<std::ostream> _streamHolder;
+          sk::util::Holder<logger::Destination> _destinationHolder;
           sk::util::Holder<const logger::Level> _levelHolder;
 
           bool _logPid;

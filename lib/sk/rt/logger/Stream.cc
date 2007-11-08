@@ -12,11 +12,10 @@
 #include <sk/rt/logger/IConfig.h>
 
 #include <unistd.h>
-#include <iostream>
 
 sk::rt::logger::Stream::
 Stream(const sk::util::String& label, const Level& level, const logger::IScope& scope)
-  : _config(scope.getConfig()), _enabled(_config.checkLogLevel(level)), _stream(_config.getLogStream()) 
+  : _config(scope.getConfig()), _enabled(_config.checkLogLevel(level))
 {
   if(isEnabled() == true) {
     if(_config.isLogPid() == true) {
@@ -46,7 +45,8 @@ sk::rt::logger::Stream::
 ~Stream()
 {
   if(isEnabled() == true) {
-    getStream() << std::endl;
+    _stream << std::endl;
+    _config.getLogDestination().dispatch(_stream);
   }
 }
 

@@ -19,6 +19,7 @@ namespace sk {
       {
         public:
           virtual void dispatch(std::stringstream& stream) = 0;
+          virtual Destination* clone() const = 0;
       };
     }
   }

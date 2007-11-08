@@ -8,6 +8,7 @@
 #include "ScopeTest.h"
 #include <sk/rt/Scope.h>
 #include <sk/rt/logger/Level.h>
+#include <sk/rt/logger/ExternalStreamDestination.h>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::rt::tests::ScopeTest);
 
@@ -26,7 +27,7 @@ sk::rt::tests::ScopeTest::
 setUp()
 {
   _stream.clear();
-  Scope::controller().getAggregator().getConfigForUpdate().setLogStream(_stream);
+  Scope::controller().getAggregator().getConfigForUpdate().setLogDestination(logger::ExternalStreamDestination(_stream));
 }
 
 void

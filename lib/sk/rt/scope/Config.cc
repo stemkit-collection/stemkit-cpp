@@ -15,20 +15,21 @@
 
 #include <sk/rt/logger/Level.h>
 #include <sk/rt/scope/Config.h>
+#include <sk/rt/logger/ExternalStreamDestination.h>
 
 #include <iostream>
 
 sk::rt::scope::Config::
 Config()
-  : _streamHolder(std::cerr), _logPid(false), _logTime(false), _logObject(false),
-    _levelHolder(logger::Level::ERROR)
+  : _destinationHolder(new logger::ExternalStreamDestination(std::cerr)), _logPid(false), 
+    _logTime(false), _logObject(false), _levelHolder(logger::Level::ERROR)
 {
 }
 
 sk::rt::scope::Config::
 Config(const Config& other)
-  : _streamHolder(other.getLogStream()), _logPid(other.isLogPid()), _logTime(other.isLogTime()), _logObject(other.isLogObject()),
-    _levelHolder(other._levelHolder.get()), _properties(other._properties)
+  : _destinationHolder(other.getLogDestination().clone()), _logPid(other.isLogPid()), _logTime(other.isLogTime()), 
+    _logObject(other.isLogObject()), _levelHolder(other._levelHolder.get()), _properties(other._properties)
 {
 }
 
@@ -46,9 +47,9 @@ getClass() const
 
 void
 sk::rt::scope::Config::
-setLogStream(std::ostream& stream)
+setLogDestination(const logger::Destination& destination)
 {
-  _streamHolder.set(stream);
+  _destinationHolder.set(destination.clone());
 }
 
 void 
@@ -58,11 +59,11 @@ setLogLevel(const logger::Level& level)
   _levelHolder.set(level);
 }
 
-std::ostream&
+sk::rt::logger::Destination& 
 sk::rt::scope::Config::
-getLogStream() const
+getLogDestination() const
 {
-  return _streamHolder.get();
+  return _destinationHolder.get();
 }
 
 bool

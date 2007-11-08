@@ -11,7 +11,7 @@
 #include <sk/util/Object.h>
 #include <sk/rt/logger/IScope.h>
 #include <sk/rt/logger/Level.h>
-#include <ostream>
+#include <sstream>
 
 namespace sk {
   namespace rt {
@@ -36,7 +36,7 @@ namespace sk {
           Stream& operator = (const Stream& other);
 
           const logger::IConfig& _config;
-          std::ostream& _stream;
+          mutable std::stringstream _stream;
           bool _enabled;
       };
 

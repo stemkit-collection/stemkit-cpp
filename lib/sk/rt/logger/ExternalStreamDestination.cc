@@ -17,6 +17,12 @@ ExternalStreamDestination(std::ostream& destination)
 }
 
 sk::rt::logger::ExternalStreamDestination::
+ExternalStreamDestination(const ExternalStreamDestination& other)
+  : _destination(other._destination)
+{
+}
+
+sk::rt::logger::ExternalStreamDestination::
 ~ExternalStreamDestination()
 {
 }
@@ -33,4 +39,11 @@ sk::rt::logger::ExternalStreamDestination::
 dispatch(std::stringstream& stream) 
 {
   _destination << stream.rdbuf();
+}
+
+sk::rt::logger::ExternalStreamDestination*
+sk::rt::logger::ExternalStreamDestination::
+clone() const
+{
+  return new ExternalStreamDestination(*this);
 }
