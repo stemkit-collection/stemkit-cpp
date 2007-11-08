@@ -5,6 +5,8 @@ objects =
   Spot.cc
   Level.cc
   Stream.cc
+  ExternalStreamDestination.cc
+  FileDestination.cc
 ;
 
 make-library $(library) : $(objects) ;

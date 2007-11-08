@@ -8,7 +8,7 @@
 #include "XmlConfigLoaderTest.h"
 #include "../XmlConfigLoader.h"
 #include <sk/rt/scope/Aggregator.h>
-#include <sk/rt/Logger/Level.h>
+#include <sk/rt/logger/Level.h>
 #include <sk/util/Holder.cxx>
 
 #include <sstream>
