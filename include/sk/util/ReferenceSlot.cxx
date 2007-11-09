@@ -11,46 +11,46 @@
 #include <sk/util/ReferenceSlot.hxx>
 #include <sk/util/UnsupportedOperationException.h>
 
-template<class T>
-sk::util::ReferenceSlot<T>::
+template<typename T, typename Mixin>
+sk::util::ReferenceSlot<T, Mixin>::
 ReferenceSlot(T& object)
   : _object(object)
 {
 }
 
-template<class T>
-sk::util::ReferenceSlot<T>::
+template<typename T, typename Mixin>
+sk::util::ReferenceSlot<T, Mixin>::
 ~ReferenceSlot()
 {
 }
 
-template<class T>
+template<typename T, typename Mixin>
 bool
-sk::util::ReferenceSlot<T>::
+sk::util::ReferenceSlot<T, Mixin>::
 isOwner() const
 {
   return false;
 }
 
-template<class T>
+template<typename T, typename Mixin>
 T&
-sk::util::ReferenceSlot<T>::
+sk::util::ReferenceSlot<T, Mixin>::
 get() const
 {
   return _object;
 }
 
-template<class T>
+template<typename T, typename Mixin>
 T*
-sk::util::ReferenceSlot<T>::
+sk::util::ReferenceSlot<T, Mixin>::
 deprive()
 {
   throw sk::util::UnsupportedOperationException("sk::util::ReferenceSlot#deprive()");
 }
 
-template<class T>
+template<typename T, typename Mixin>
 const sk::util::String
-sk::util::ReferenceSlot<T>::
+sk::util::ReferenceSlot<T, Mixin>::
 inspect() const
 {
   return '&';

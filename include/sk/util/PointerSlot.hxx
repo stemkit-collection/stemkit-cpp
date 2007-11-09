@@ -8,14 +8,14 @@
 #ifndef _SK_UTIL_POINTERSLOT_HXX_
 #define _SK_UTIL_POINTERSLOT_HXX_
 
-#include <sk/util/Slot.hxx>
+#include <sk/util/MixableSlot.hxx>
 #include <sk/util/String.h>
 
 namespace sk {
   namespace util {
-    template<class T>
+    template<typename T, typename Mixin = DefautlSlotMixin>
     class PointerSlot
-      : public virtual sk::util::Slot<T>
+      : public sk::util::MixableSlot<T, Mixin>
     {
       public:
         PointerSlot(T* object);
@@ -30,8 +30,8 @@ namespace sk {
         const sk::util::String inspect() const;
         
       private:
-        PointerSlot(const PointerSlot<T>& other);
-        PointerSlot<T>& operator = (const PointerSlot<T>& other);
+        PointerSlot(const PointerSlot<T, Mixin>& other);
+        PointerSlot<T, Mixin>& operator = (const PointerSlot<T, Mixin>& other);
 
         T* _object;
     };

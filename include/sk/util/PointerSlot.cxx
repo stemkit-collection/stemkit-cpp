@@ -12,8 +12,8 @@
 #include <sk/util/MissingResourceException.h>
 #include <sk/util/NullPointerException.h>
 
-template<class T>
-sk::util::PointerSlot<T>::
+template<typename T, typename Mixin>
+sk::util::PointerSlot<T, Mixin>::
 PointerSlot(T* object)
   : _object(object)
 {
@@ -22,24 +22,24 @@ PointerSlot(T* object)
   }
 }
 
-template<class T>
-sk::util::PointerSlot<T>::
+template<typename T, typename Mixin>
+sk::util::PointerSlot<T, Mixin>::
 ~PointerSlot()
 {
   delete _object;
 }
 
-template<class T>
+template<typename T, typename Mixin>
 bool
-sk::util::PointerSlot<T>::
+sk::util::PointerSlot<T, Mixin>::
 isOwner() const
 {
   return true;
 }
 
-template<class T>
+template<typename T, typename Mixin>
 T&
-sk::util::PointerSlot<T>::
+sk::util::PointerSlot<T, Mixin>::
 get() const
 {
   if(_object == 0) {
@@ -48,9 +48,9 @@ get() const
   return *_object;
 }
 
-template<class T>
+template<typename T, typename Mixin>
 T*
-sk::util::PointerSlot<T>::
+sk::util::PointerSlot<T, Mixin>::
 deprive()
 {
   if(_object == 0) {
@@ -62,9 +62,9 @@ deprive()
   return object;
 }
 
-template<class T>
+template<typename T, typename Mixin>
 const sk::util::String
-sk::util::PointerSlot<T>::
+sk::util::PointerSlot<T, Mixin>::
 inspect() const
 {
   return '*';

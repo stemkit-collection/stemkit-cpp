@@ -8,13 +8,14 @@
 #ifndef _SK_UTIL_REFERENCESLOT_HXX_
 #define _SK_UTIL_REFERENCESLOT_HXX_
 
-#include <sk/util/Slot.hxx>
+#include <sk/util/MixableSlot.hxx>
+#include <sk/util/String.h>
 
 namespace sk {
   namespace util {
-    template<class T>
+    template<typename T, typename Mixin = DefautlSlotMixin>
     class ReferenceSlot
-      : public virtual sk::util::Slot<T>
+      : public sk::util::MixableSlot<T, Mixin>
     {
       public:
         ReferenceSlot(T& object);
@@ -29,8 +30,8 @@ namespace sk {
         const sk::util::String inspect() const;
         
       private:
-        ReferenceSlot(const ReferenceSlot<T>& other);
-        ReferenceSlot<T>& operator = (const ReferenceSlot<T>& other);
+        ReferenceSlot(const ReferenceSlot<T, Mixin>& other);
+        ReferenceSlot<T, Mixin>& operator = (const ReferenceSlot<T, Mixin>& other);
 
         T& _object;
     };
