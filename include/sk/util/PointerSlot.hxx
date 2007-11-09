@@ -8,7 +8,7 @@
 #ifndef _SK_UTIL_POINTERSLOT_HXX_
 #define _SK_UTIL_POINTERSLOT_HXX_
 
-#include <sk/util/Slot.h>
+#include <sk/util/Slot.hxx>
 #include <sk/util/String.h>
 
 namespace sk {

@@ -62,7 +62,7 @@ fileset {
       String.h
       StringArray.h
       Container.h
-      Slot.h
+      Slot.hxx
       ReferenceSlot.hxx
       ReferenceSlot.cxx
       PointerSlot.hxx

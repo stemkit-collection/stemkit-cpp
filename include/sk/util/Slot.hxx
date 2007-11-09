@@ -5,8 +5,8 @@
  *  You must read and accept the license prior to use.
 */
 
-#ifndef _SK_UTIL_SLOT_
-#define _SK_UTIL_SLOT_
+#ifndef _SK_UTIL_SLOT_HXX_
+#define _SK_UTIL_SLOT_HXX_
 
 #include <sk/util/Object.h>
 
@@ -24,4 +24,4 @@ namespace sk {
   }
 }
 
-#endif /* _SK_UTIL_SLOT_ */
+#endif /* _SK_UTIL_SLOT_HXX_ */

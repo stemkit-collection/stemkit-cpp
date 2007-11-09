@@ -8,7 +8,7 @@
 #ifndef _SK_UTIL_REFERENCESLOT_HXX_
 #define _SK_UTIL_REFERENCESLOT_HXX_
 
-#include <sk/util/Slot.h>
+#include <sk/util/Slot.hxx>
 
 namespace sk {
   namespace util {
