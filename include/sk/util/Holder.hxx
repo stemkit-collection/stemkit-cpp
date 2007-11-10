@@ -13,10 +13,20 @@
 namespace sk {
   namespace util {
     struct DefaultPolicy {};
+    struct SharingPolicy {};
+    struct CloningPolicy {};
+    struct AliasingPolicy {};
+
+    struct ReferenceCounting {};
 
     template<typename T, typename Policy = DefaultPolicy, typename SlotActions = DefaultSlotMixin>
     class Holder
     {
+      public:
+        typedef Holder<T, SharingPolicy, ReferenceCounting> Sharing;
+        typedef Holder<T, CloningPolicy, DefaultSlotMixin> Cloning;
+        typedef Holder<T, AliasingPolicy, DefaultSlotMixin> Aliasing;
+
       public:
         Holder();
         explicit Holder(T* object);
