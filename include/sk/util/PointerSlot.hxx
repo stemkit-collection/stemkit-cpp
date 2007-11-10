@@ -13,7 +13,7 @@
 
 namespace sk {
   namespace util {
-    template<typename T, typename Mixin = DefautlSlotMixin>
+    template<typename T, typename Mixin = DefaultSlotMixin>
     class PointerSlot
       : public sk::util::MixableSlot<T, Mixin>
     {

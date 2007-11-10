@@ -12,11 +12,9 @@
 
 namespace sk {
   namespace util {
-    class DefautlSlotMixin
-    {
-    };
+    struct DefaultSlotMixin {};
 
-    template<typename T, typename Mixin = DefautlSlotMixin>
+    template<typename T, typename Mixin = DefaultSlotMixin>
     class MixableSlot
       : public virtual sk::util::Slot<T>,
         public Mixin

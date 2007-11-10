@@ -12,7 +12,9 @@
 
 namespace sk {
   namespace util {
-    template<typename T>
+    struct DefaultPolicy {};
+
+    template<typename T, typename Policy = DefaultPolicy, typename SlotActions = DefaultSlotMixin>
     class Holder
     {
       public:
@@ -26,8 +28,8 @@ namespace sk {
         bool isOwner() const;
         T& get() const;
 
-        Holder<T>& set(T* object);
-        Holder<T>& set(T& object);
+        Holder<T, Policy, SlotActions>& set(T* object);
+        Holder<T, Policy, SlotActions>& set(T& object);
 
         bool remove();
         void clear();
@@ -35,11 +37,11 @@ namespace sk {
         T* release();
         
       private:
-        Holder(const Holder<T>& other);
-        Holder<T>& operator = (const Holder<T>& other);
-        Holder<T>& set(const Holder<T>& other);
+        Holder(const Holder<T, Policy, SlotActions>& other);
+        Holder<T, Policy, SlotActions>& operator = (const Holder<T, Policy, SlotActions>& other);
+        Holder<T, Policy, SlotActions>& set(const Holder<T, Policy, SlotActions>& other);
 
-        MixableSlot<T>* _slot;
+        MixableSlot<T, SlotActions>* _slot;
     };
   }
 }
