@@ -8,7 +8,7 @@
 #ifndef _SK_UTIL_HOLDER_HXX_
 #define _SK_UTIL_HOLDER_HXX_
 
-#include <sk/util/Slot.hxx>
+#include <sk/util/MixableSlot.hxx>
 
 namespace sk {
   namespace util {
@@ -39,7 +39,7 @@ namespace sk {
         Holder<T>& operator = (const Holder<T>& other);
         Holder<T>& set(const Holder<T>& other);
 
-        Slot<T>* _slot;
+        MixableSlot<T>* _slot;
     };
   }
 }
