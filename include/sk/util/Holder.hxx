@@ -28,33 +28,40 @@ namespace sk {
     };
 
     template<typename T, typename SlotActions = DefaultSlotMixin>
-    struct StoringPolicy 
+    class StoringPolicy 
     {
-      StoringPolicy() : _slot(0) {}
-      MixableSlot<T, SlotActions>* _slot;
+      protected: 
+        StoringPolicy() 
+          : _slot(0) {}
 
-      void set(T& object) {
-        _slot = new ReferenceSlot<T, SlotActions>(object);
-      }
-      void set(T* object) {
-        _slot = new PointerSlot<T, SlotActions>(object);
-      }
-      bool isEmpty() const {
-        return _slot == 0;
-      }
-      T& get() const {
-        return _slot->get();
-      }
-      bool isOwner() const {
-        return _slot->isOwner();
-      }
-      void clear() {
-        delete _slot;
-        _slot = 0;
-      }
-      T* deprive() {
-        return _slot->deprive();
-      }
+        void set(T& object) {
+          _slot = new ReferenceSlot<T, SlotActions>(object);
+        }
+        void set(T* object) {
+          _slot = new PointerSlot<T, SlotActions>(object);
+        }
+        bool isEmpty() const {
+          return _slot == 0;
+        }
+        T& get() const {
+          return _slot->get();
+        }
+        bool isOwner() const {
+          return _slot->isOwner();
+        }
+        void clear() {
+          delete _slot;
+          _slot = 0;
+        }
+        T* deprive() {
+          return _slot->deprive();
+        }
+
+      private:
+        StoringPolicy(const StoringPolicy<T, SlotActions>& other);
+        StoringPolicy<T, SlotActions>& operator = (const StoringPolicy<T, SlotActions>& other);
+
+        MixableSlot<T, SlotActions>* _slot;
     };
 
     template<typename T>
@@ -97,10 +104,6 @@ namespace sk {
 
         T* release();
         
-      private:
-        Holder(const Holder<T, Policy>& other);
-        Holder<T, Policy>& operator = (const Holder<T, Policy>& other);
-        Holder<T, Policy>& set(const Holder<T, Policy>& other);
     };
   }
 }
