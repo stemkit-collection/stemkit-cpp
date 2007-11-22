@@ -134,6 +134,7 @@ rule platform-macos-ppc
   C++LDFLAGS += ;
   CC_SONAME_FLAG = -Wl,+h ;
   jam.DSO_EXTENTION = dylib ;
+  RANLIB = ranlib -s ;
 
   project.PTY_SPECIFICS = posix ;
 }
@@ -240,12 +241,8 @@ CONTRIB_ROOT ?= $(GCC_ROOT)/contrib ;
 
 C++ ?= $(GCC_ROOT)/bin/g++ ;
 CC ?= $(GCC_ROOT)/bin/gcc ;
-# C++ ?= g++-4.0 ;
-# CC ?= gcc-4.0 ;
 
 LIBDIRS += $(GCC_ROOT)/lib ;
-
-AR ?= ar -cq ;
 
 CCOFLAGS ?= -O0 -fno-guess-branch-probability ;
 DLLFLAGS ?= -shared ;
