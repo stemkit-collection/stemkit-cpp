@@ -79,7 +79,7 @@ bool
 sk::util::Holder<T, Policy>::
 isOwner() const
 {
-  if(Policy::isEmtpy() == true) {
+  if(Policy::isEmpty() == true) {
     throw MissingResourceException("sk::util::Holder#isOwner()");
   }
   return Policy::isOwner();
