@@ -12,20 +12,46 @@
 
 namespace sk {
   namespace util {
-    struct DefaultPolicy {};
-    struct SharingPolicy {};
-    struct CloningPolicy {};
-    struct AliasingPolicy {};
+    struct ReferenceCountingMixin {
+      ReferenceCountingMixin() 
+        : _counter(0) {}
 
-    struct ReferenceCounting {};
+      bool increase() {
+        return _counter++ == 0;
+      }
+      bool decrease() {
+        return _counter > 0 ? --_counter == 0 : true;
+      }
+      int _counter;
+    };
 
-    template<typename T, typename Policy = DefaultPolicy, typename SlotActions = DefaultSlotMixin>
+    template<typename T, typename SlotActions = DefaultSlotMixin>
+    struct StoringPolicy 
+    {
+      StoringPolicy() : _slot(0) {}
+      MixableSlot<T, SlotActions>* _slot;
+    };
+
+    template<typename T>
+    struct SharingPolicy : public StoringPolicy<T, ReferenceCountingMixin> {
+    };
+
+    template<typename T>
+    struct CloningPolicy : public StoringPolicy<T> {
+    };
+
+    template<typename T>
+    struct AliasingPolicy : public StoringPolicy<T> {
+    };
+
+    template<typename T, typename Policy = StoringPolicy<T> >
     class Holder
+      : public Policy
     {
       public:
-        typedef Holder<T, SharingPolicy, ReferenceCounting> Sharing;
-        typedef Holder<T, CloningPolicy, DefaultSlotMixin> Cloning;
-        typedef Holder<T, AliasingPolicy, DefaultSlotMixin> Aliasing;
+        typedef Holder<T, SharingPolicy<T> > Sharing;
+        typedef Holder<T, CloningPolicy<T> > Cloning;
+        typedef Holder<T, AliasingPolicy<T> > Aliasing;
 
       public:
         Holder();
@@ -38,8 +64,8 @@ namespace sk {
         bool isOwner() const;
         T& get() const;
 
-        Holder<T, Policy, SlotActions>& set(T* object);
-        Holder<T, Policy, SlotActions>& set(T& object);
+        Holder<T, Policy>& set(T* object);
+        Holder<T, Policy>& set(T& object);
 
         bool remove();
         void clear();
@@ -47,11 +73,9 @@ namespace sk {
         T* release();
         
       private:
-        Holder(const Holder<T, Policy, SlotActions>& other);
-        Holder<T, Policy, SlotActions>& operator = (const Holder<T, Policy, SlotActions>& other);
-        Holder<T, Policy, SlotActions>& set(const Holder<T, Policy, SlotActions>& other);
-
-        MixableSlot<T, SlotActions>* _slot;
+        Holder(const Holder<T, Policy>& other);
+        Holder<T, Policy>& operator = (const Holder<T, Policy>& other);
+        Holder<T, Policy>& set(const Holder<T, Policy>& other);
     };
   }
 }

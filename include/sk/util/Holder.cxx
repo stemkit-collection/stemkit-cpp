@@ -13,61 +13,59 @@
 #include <sk/util/PointerSlot.cxx>
 #include <sk/util/MissingResourceException.h>
 
-template<typename T, typename Policy, typename SlotActions>
-sk::util::Holder<T, Policy, SlotActions>::
+template<typename T, typename Policy>
+sk::util::Holder<T, Policy>::
 Holder()
-  : _slot(0)
 {
 }
 
-template<typename T, typename Policy, typename SlotActions>
-sk::util::Holder<T, Policy, SlotActions>::
+template<typename T, typename Policy>
+sk::util::Holder<T, Policy>::
 Holder(T& object)
-  : _slot(0)
 {
   set(object);
 }
 
-template<typename T, typename Policy, typename SlotActions>
-sk::util::Holder<T, Policy, SlotActions>::
+template<typename T, typename Policy>
+sk::util::Holder<T, Policy>::
 Holder(T* object)
-  : _slot(0)
 {
   set(object);
 }
 
-template<typename T, typename Policy, typename SlotActions>
-sk::util::Holder<T, Policy, SlotActions>::
+template<typename T, typename Policy>
+sk::util::Holder<T, Policy>::
 ~Holder()
 {
   remove();
 }
 
-template<typename T, typename Policy, typename SlotActions>
-sk::util::Holder<T, Policy, SlotActions>&
-sk::util::Holder<T, Policy, SlotActions>::
+template<typename T, typename Policy>
+sk::util::Holder<T, Policy>&
+sk::util::Holder<T, Policy>::
 set(T& object)
 {
   remove();
   _slot = new ReferenceSlot<T, SlotActions>(object);
+  
   return *this;
 }
 
-template<typename T, typename Policy, typename SlotActions>
-sk::util::Holder<T, Policy, SlotActions>&
-sk::util::Holder<T, Policy, SlotActions>::
+template<typename T, typename Policy>
+sk::util::Holder<T, Policy>&
+sk::util::Holder<T, Policy>::
 set(T* object)
 {
   remove();
   if(object != 0) {
-    _slot = new PointerSlot<T, SlotActions>(object);
+    _slot = 0; // new PointerSlot<T, SlotActions>(object);
   }
   return *this;
 }
 
-template<typename T, typename Policy, typename SlotActions>
+template<typename T, typename Policy>
 T&
-sk::util::Holder<T, Policy, SlotActions>::
+sk::util::Holder<T, Policy>::
 get() const
 {
   if(_slot == 0) {
@@ -76,9 +74,9 @@ get() const
   return _slot->get();
 }
 
-template<typename T, typename Policy, typename SlotActions>
+template<typename T, typename Policy>
 bool
-sk::util::Holder<T, Policy, SlotActions>::
+sk::util::Holder<T, Policy>::
 isOwner() const
 {
   if(_slot == 0) {
@@ -87,17 +85,17 @@ isOwner() const
   return _slot->isOwner();
 }
 
-template<typename T, typename Policy, typename SlotActions>
+template<typename T, typename Policy>
 bool
-sk::util::Holder<T, Policy, SlotActions>::
+sk::util::Holder<T, Policy>::
 isEmpty() const
 {
   return _slot==0 ? true : false;
 }
 
-template<typename T, typename Policy, typename SlotActions>
+template<typename T, typename Policy>
 bool
-sk::util::Holder<T, Policy, SlotActions>::
+sk::util::Holder<T, Policy>::
 contains(const T& object) const
 {
   if(_slot == 0) {
@@ -106,9 +104,9 @@ contains(const T& object) const
   return &_slot->get() == &object ? true : false;
 }
 
-template<typename T, typename Policy, typename SlotActions>
+template<typename T, typename Policy>
 bool
-sk::util::Holder<T, Policy, SlotActions>::
+sk::util::Holder<T, Policy>::
 remove()
 {
   if(_slot == 0) {
@@ -120,17 +118,17 @@ remove()
   return true;
 }
 
-template<typename T, typename Policy, typename SlotActions>
+template<typename T, typename Policy>
 void
-sk::util::Holder<T, Policy, SlotActions>::
+sk::util::Holder<T, Policy>::
 clear()
 {
   remove();
 }
 
-template<typename T, typename Policy, typename SlotActions>
+template<typename T, typename Policy>
 T*
-sk::util::Holder<T, Policy, SlotActions>::
+sk::util::Holder<T, Policy>::
 release()
 {
   get();
