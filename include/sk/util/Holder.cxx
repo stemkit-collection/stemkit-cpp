@@ -46,7 +46,7 @@ sk::util::Holder<T, Policy>::
 set(T& object)
 {
   remove();
-  _slot = new ReferenceSlot<T, SlotActions>(object);
+  Policy::set(object);
   
   return *this;
 }
@@ -58,7 +58,7 @@ set(T* object)
 {
   remove();
   if(object != 0) {
-    _slot = 0; // new PointerSlot<T, SlotActions>(object);
+    Policy::set(object);
   }
   return *this;
 }
@@ -68,10 +68,10 @@ T&
 sk::util::Holder<T, Policy>::
 get() const
 {
-  if(_slot == 0) {
+  if(Policy::isEmpty() == true) {
     throw MissingResourceException("sk::util::Holder#get()");
   }
-  return _slot->get();
+  return Policy::get();
 }
 
 template<typename T, typename Policy>
@@ -79,10 +79,10 @@ bool
 sk::util::Holder<T, Policy>::
 isOwner() const
 {
-  if(_slot == 0) {
+  if(Policy::isEmtpy() == true) {
     throw MissingResourceException("sk::util::Holder#isOwner()");
   }
-  return _slot->isOwner();
+  return Policy::isOwner();
 }
 
 template<typename T, typename Policy>
@@ -90,7 +90,7 @@ bool
 sk::util::Holder<T, Policy>::
 isEmpty() const
 {
-  return _slot==0 ? true : false;
+  return Policy::isEmpty();
 }
 
 template<typename T, typename Policy>
@@ -98,10 +98,10 @@ bool
 sk::util::Holder<T, Policy>::
 contains(const T& object) const
 {
-  if(_slot == 0) {
+  if(Policy::isEmpty() == true) {
     return false;
   }
-  return &_slot->get() == &object ? true : false;
+  return &Policy::get() == &object ? true : false;
 }
 
 template<typename T, typename Policy>
@@ -109,11 +109,10 @@ bool
 sk::util::Holder<T, Policy>::
 remove()
 {
-  if(_slot == 0) {
+  if(Policy::isEmpty() == true) {
     return false;
   }
-  delete _slot;
-  _slot = 0;
+  Policy::clear();
 
   return true;
 }
@@ -133,7 +132,7 @@ release()
 {
   get();
 
-  T* object = _slot->deprive();
+  T* object = Policy::deprive();
   remove();
   set(*object);
 

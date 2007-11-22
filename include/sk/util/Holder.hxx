@@ -9,6 +9,8 @@
 #define _SK_UTIL_HOLDER_HXX_
 
 #include <sk/util/MixableSlot.hxx>
+#include <sk/util/ReferenceSlot.hxx>
+#include <sk/util/PointerSlot.hxx>
 
 namespace sk {
   namespace util {
@@ -30,6 +32,29 @@ namespace sk {
     {
       StoringPolicy() : _slot(0) {}
       MixableSlot<T, SlotActions>* _slot;
+
+      void set(T& object) {
+        _slot = new ReferenceSlot<T, SlotActions>(object);
+      }
+      void set(T* object) {
+        _slot = new PointerSlot<T, SlotActions>(object);
+      }
+      bool isEmpty() const {
+        return _slot == 0;
+      }
+      T& get() const {
+        return _slot->get();
+      }
+      bool isOwner() const {
+        return _slot->isOwner();
+      }
+      void clear() {
+        delete _slot;
+        _slot = 0;
+      }
+      T* deprive() {
+        return _slot->deprive();
+      }
     };
 
     template<typename T>
