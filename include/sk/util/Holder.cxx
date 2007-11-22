@@ -9,8 +9,8 @@
 #define _SK_UTIL_HOLDER_CXX_
 
 #include <sk/util/Holder.hxx>
-#include <sk/util/ReferenceSlot.cxx>
-#include <sk/util/PointerSlot.cxx>
+#include <sk/util/slot/Reference.cxx>
+#include <sk/util/slot/Pointer.cxx>
 #include <sk/util/MissingResourceException.h>
 
 template<typename T, typename Policy>

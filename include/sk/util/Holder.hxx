@@ -8,9 +8,9 @@
 #ifndef _SK_UTIL_HOLDER_HXX_
 #define _SK_UTIL_HOLDER_HXX_
 
-#include <sk/util/MixableSlot.hxx>
-#include <sk/util/ReferenceSlot.hxx>
-#include <sk/util/PointerSlot.hxx>
+#include <sk/util/slot/Mixable.hxx>
+#include <sk/util/slot/Reference.hxx>
+#include <sk/util/slot/Pointer.hxx>
 
 namespace sk {
   namespace util {
@@ -27,7 +27,7 @@ namespace sk {
       int _counter;
     };
 
-    template<typename T, typename SlotActions = DefaultSlotMixin>
+    template<typename T, typename SlotActions = slot::mixin::None>
     class StoringPolicy 
     {
       protected: 
@@ -35,10 +35,10 @@ namespace sk {
           : _slot(0) {}
 
         void set(T& object) {
-          _slot = new ReferenceSlot<T, SlotActions>(object);
+          _slot = new slot::Reference<T, SlotActions>(object);
         }
         void set(T* object) {
-          _slot = new PointerSlot<T, SlotActions>(object);
+          _slot = new slot::Pointer<T, SlotActions>(object);
         }
         bool isEmpty() const {
           return _slot == 0;
@@ -61,7 +61,7 @@ namespace sk {
         StoringPolicy(const StoringPolicy<T, SlotActions>& other);
         StoringPolicy<T, SlotActions>& operator = (const StoringPolicy<T, SlotActions>& other);
 
-        MixableSlot<T, SlotActions>* _slot;
+        slot::Mixable<T, SlotActions>* _slot;
     };
 
     template<typename T>

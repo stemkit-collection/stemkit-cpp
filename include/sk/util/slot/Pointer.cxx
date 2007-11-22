@@ -5,33 +5,33 @@
  *  You must read and accept the license prior to use.
 */
 
-#ifndef _SK_UTIL_POINTERSLOT_CXX_
-#define _SK_UTIL_POINTERSLOT_CXX_
+#ifndef _SK_UTIL_SLOT_POINTER_CXX_
+#define _SK_UTIL_SLOT_POINTER_CXX_
 
-#include <sk/util/PointerSlot.hxx>
+#include <sk/util/slot/Pointer.hxx>
 #include <sk/util/MissingResourceException.h>
 #include <sk/util/NullPointerException.h>
 
 template<typename T, typename Mixin>
-sk::util::PointerSlot<T, Mixin>::
-PointerSlot(T* object)
+sk::util::slot::Pointer<T, Mixin>::
+Pointer(T* object)
   : _object(object)
 {
   if(_object == 0) {
-    throw NullPointerException("sk::util::PointerSlot()");
+    throw NullPointerException("sk::util::slot::Pointer()");
   }
 }
 
 template<typename T, typename Mixin>
-sk::util::PointerSlot<T, Mixin>::
-~PointerSlot()
+sk::util::slot::Pointer<T, Mixin>::
+~Pointer()
 {
   delete _object;
 }
 
 template<typename T, typename Mixin>
 bool
-sk::util::PointerSlot<T, Mixin>::
+sk::util::slot::Pointer<T, Mixin>::
 isOwner() const
 {
   return true;
@@ -39,22 +39,22 @@ isOwner() const
 
 template<typename T, typename Mixin>
 T&
-sk::util::PointerSlot<T, Mixin>::
+sk::util::slot::Pointer<T, Mixin>::
 get() const
 {
   if(_object == 0) {
-    throw MissingResourceException("sk::util::PointerSlot#get()");
+    throw MissingResourceException("sk::util::slot::Pointer#get()");
   }
   return *_object;
 }
 
 template<typename T, typename Mixin>
 T*
-sk::util::PointerSlot<T, Mixin>::
+sk::util::slot::Pointer<T, Mixin>::
 deprive()
 {
   if(_object == 0) {
-    throw MissingResourceException("sk::util::PointerSlot#deprive()");
+    throw MissingResourceException("sk::util::slot::Pointer#deprive()");
   }
   T* object = _object;
   _object = 0;
@@ -64,10 +64,10 @@ deprive()
 
 template<typename T, typename Mixin>
 const sk::util::String
-sk::util::PointerSlot<T, Mixin>::
+sk::util::slot::Pointer<T, Mixin>::
 inspect() const
 {
   return '*';
 }
 
-#endif /* _SK_UTIL_POINTERSLOT_CXX_ */
+#endif /* _SK_UTIL_SLOT_POINTER_CXX_ */

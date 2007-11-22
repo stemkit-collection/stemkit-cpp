@@ -6,8 +6,7 @@
 */
 
 #include "PointerSlotTest.h"
-#include <sk/util/PointerSlot.hxx>
-#include <sk/util/PointerSlot.cxx>
+#include <sk/util/slot/Pointer.cxx>
 #include <sk/util/MissingResourceException.h>
 #include <sk/util/NullPointerException.h>
 #include <sk/util/String.h>
@@ -46,7 +45,7 @@ testGet()
   CPPUNIT_ASSERT_EQUAL(0, Probe::getCounter());
   {
     Probe* probe = new Probe("dcba");
-    PointerSlot<Probe> slot(probe);
+    slot::Pointer<Probe> slot(probe);
 
     CPPUNIT_ASSERT_EQUAL(1, Probe::getCounter());
     CPPUNIT_ASSERT_EQUAL(String("dcba"), slot.get().getName());
@@ -62,7 +61,7 @@ testDeprive()
   Probe* probe = new Probe("dcba");
   CPPUNIT_ASSERT_EQUAL(1, Probe::getCounter());
   {
-    PointerSlot<Probe> slot(probe);
+    slot::Pointer<Probe> slot(probe);
 
     CPPUNIT_ASSERT_EQUAL(1, Probe::getCounter());
     Probe* probe2 = slot.deprive();
@@ -84,8 +83,8 @@ sk::util::test::PointerSlotTest::
 testMisc()
 {
   String* s = new String("abcd");
-  PointerSlot<String> slot(s);
+  slot::Pointer<String> slot(s);
 
-  CPPUNIT_ASSERT_THROW(new PointerSlot<String>(0), NullPointerException);
+  CPPUNIT_ASSERT_THROW(new slot::Pointer<String>(0), NullPointerException);
   CPPUNIT_ASSERT_EQUAL(String("*"), slot.inspect());
 }

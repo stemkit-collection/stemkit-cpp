@@ -6,8 +6,7 @@
 */
 
 #include "ReferenceSlotTest.h"
-#include <sk/util/ReferenceSlot.hxx>
-#include <sk/util/ReferenceSlot.cxx>
+#include <sk/util/slot/Reference.cxx>
 #include <sk/util/UnsupportedOperationException.h>
 #include <sk/util/String.h>
 
@@ -40,7 +39,7 @@ sk::util::test::ReferenceSlotTest::
 testGet()
 {
   String s("abcd");
-  ReferenceSlot<String> slot(s);
+  slot::Reference<String> slot(s);
 
   CPPUNIT_ASSERT_EQUAL(String("abcd"), slot.get());
   CPPUNIT_ASSERT_EQUAL(&s, &slot.get());
@@ -51,7 +50,7 @@ sk::util::test::ReferenceSlotTest::
 testDeprive()
 {
   String s("abcd");
-  ReferenceSlot<String> slot(s);
+  slot::Reference<String> slot(s);
 
   CPPUNIT_ASSERT_THROW(slot.deprive(), UnsupportedOperationException);
   CPPUNIT_ASSERT_EQUAL(String("abcd"), slot.get());
@@ -62,7 +61,7 @@ sk::util::test::ReferenceSlotTest::
 testMisc()
 {
   String s("abcd");
-  ReferenceSlot<String> slot(s);
+  slot::Reference<String> slot(s);
 
   CPPUNIT_ASSERT_EQUAL(String("&"), slot.inspect());
 }
