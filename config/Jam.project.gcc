@@ -117,8 +117,7 @@ rule platform-macos-ppc
 {
   project.MAKE_DLL = false ;
 
-  GCC_VERSION = 4.0.0 ;
-  GCC_ROOT = /usr/local/gcc-$(GCC_VERSION) ;
+  GCC_VERSION = 4.0.1 ;
 
   CC = gcc-4.0 ;
   C++ = g++-4.0 ;
