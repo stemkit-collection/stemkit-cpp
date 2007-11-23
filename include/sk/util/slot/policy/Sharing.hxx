@@ -8,7 +8,7 @@
 #ifndef _SK_UTIL_SLOT_POLICY_SHARING_HXX_
 #define _SK_UTIL_SLOT_POLICY_SHARING_HXX_
 
-#include <sk/util/slot/mixin/ReferenceCounter.h>
+#include <sk/util/slot/mixin/LinkCounter.h>
 #include <sk/util/slot/policy/Storing.hxx>
 
 namespace sk {
@@ -17,8 +17,18 @@ namespace sk {
       namespace policy {
         template<typename T>
         class Sharing 
-          : public Storing<T, slot::mixin::ReferenceCounter> 
+          : public Storing<T, slot::mixin::LinkCounter> 
         {
+          public:
+            Sharing() {
+            }
+
+            Sharing(const Sharing<T>& other) {
+            }
+
+            int getLinks() const {
+              return Storing<T, slot::mixin::LinkCounter>::getSlot().getCounter();
+            }
         };
       }
     }

@@ -5,8 +5,8 @@
  *  You must read and accept the license prior to use.
 */
 
-#ifndef _SK_UTIL_SLOT_MIXIN_REFERENCECOUNTER_
-#define _SK_UTIL_SLOT_MIXIN_REFERENCECOUNTER_
+#ifndef _SK_UTIL_SLOT_MIXIN_LINKCOUNTER_
+#define _SK_UTIL_SLOT_MIXIN_LINKCOUNTER_
 
 #include <sk/util/Object.h>
 
@@ -14,9 +14,9 @@ namespace sk {
   namespace util {
     namespace slot {
       namespace mixin {
-        class ReferenceCounter {
+        class LinkCounter {
           public:
-            ReferenceCounter() 
+            LinkCounter() 
               : _counter(0) {}
 
             bool increase() {
@@ -27,6 +27,10 @@ namespace sk {
               return _counter > 0 ? --_counter == 0 : true;
             }
 
+            int getCounter() const {
+              return _counter;
+            }
+
           private:
             int _counter;
         };
@@ -35,4 +39,4 @@ namespace sk {
   }
 }
 
-#endif /* _SK_UTIL_SLOT_MIXIN_REFERENCECOUNTER_ */
+#endif /* _SK_UTIL_SLOT_MIXIN_LINKCOUNTER_ */

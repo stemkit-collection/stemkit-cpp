@@ -29,25 +29,21 @@ namespace sk {
               _slot = new slot::Pointer<T, SlotMixin>(object);
             }
 
-            bool isEmpty() const {
-              return _slot == 0;
+            bool hasSlot() const {
+              return _slot != 0;
             }
 
-            T& get() const {
-              return _slot->get();
-            }
-
-            bool isOwner() const {
-              return _slot->isOwner();
-            }
-
-            void clear() {
+            void clearSlot() {
               delete _slot;
               _slot = 0;
             }
 
-            T* deprive() {
-              return _slot->deprive();
+            const slot::Mixable<T, SlotMixin>& getSlot() const {
+              return *_slot;
+            }
+
+            slot::Mixable<T, SlotMixin>& getSlot() {
+              return *_slot;
             }
 
           private:

@@ -68,10 +68,10 @@ T&
 sk::util::Holder<T, Policy>::
 get() const
 {
-  if(Policy::isEmpty() == true) {
+  if(Policy::hasSlot() == false) {
     throw MissingResourceException("sk::util::Holder#get()");
   }
-  return Policy::get();
+  return Policy::getSlot().get();
 }
 
 template<typename T, typename Policy>
@@ -79,10 +79,10 @@ bool
 sk::util::Holder<T, Policy>::
 isOwner() const
 {
-  if(Policy::isEmpty() == true) {
+  if(Policy::hasSlot() == false) {
     throw MissingResourceException("sk::util::Holder#isOwner()");
   }
-  return Policy::isOwner();
+  return Policy::getSlot().isOwner();
 }
 
 template<typename T, typename Policy>
@@ -90,7 +90,7 @@ bool
 sk::util::Holder<T, Policy>::
 isEmpty() const
 {
-  return Policy::isEmpty();
+  return Policy::hasSlot() == false;
 }
 
 template<typename T, typename Policy>
@@ -98,10 +98,10 @@ bool
 sk::util::Holder<T, Policy>::
 contains(const T& object) const
 {
-  if(Policy::isEmpty() == true) {
+  if(Policy::hasSlot() == false) {
     return false;
   }
-  return &Policy::get() == &object ? true : false;
+  return &Policy::getSlot().get() == &object ? true : false;
 }
 
 template<typename T, typename Policy>
@@ -109,10 +109,10 @@ bool
 sk::util::Holder<T, Policy>::
 remove()
 {
-  if(Policy::isEmpty() == true) {
+  if(Policy::hasSlot() == false) {
     return false;
   }
-  Policy::clear();
+  Policy::clearSlot();
 
   return true;
 }
@@ -132,7 +132,7 @@ release()
 {
   get();
 
-  T* object = Policy::deprive();
+  T* object = Policy::getSlot().deprive();
   remove();
   set(*object);
 
