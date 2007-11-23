@@ -48,6 +48,7 @@ testCreateWithReference()
   CPPUNIT_ASSERT_EQUAL(false, holder.isEmpty());
   CPPUNIT_ASSERT_EQUAL(true, holder.contains(probe));
   CPPUNIT_ASSERT_EQUAL(false, holder.contains(Probe("bbb")));
+  CPPUNIT_ASSERT_EQUAL(false, holder.isOwner());
 }
 
 void
@@ -64,6 +65,7 @@ testCreateWithPointer()
     CPPUNIT_ASSERT_EQUAL(false, holder.isEmpty());
     CPPUNIT_ASSERT_EQUAL(true, holder.contains(*probe));
     CPPUNIT_ASSERT_EQUAL(false, holder.contains(Probe("bbb")));
+    CPPUNIT_ASSERT_EQUAL(true, holder.isOwner());
   }
   CPPUNIT_ASSERT_EQUAL(0, Probe::getCounter());
 }
@@ -103,9 +105,11 @@ testRelease()
   Holder<Probe> holder(probe);
 
   CPPUNIT_ASSERT_EQUAL(1, Probe::getCounter());
+  CPPUNIT_ASSERT_EQUAL(true, holder.isOwner());
 
   Probe* released = holder.release();
 
+  CPPUNIT_ASSERT_EQUAL(false, holder.isOwner());
   CPPUNIT_ASSERT_EQUAL(1, Probe::getCounter());
   CPPUNIT_ASSERT_EQUAL(false, holder.isEmpty());
   CPPUNIT_ASSERT_EQUAL(probe, released);
