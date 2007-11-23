@@ -15,7 +15,9 @@ namespace sk {
     namespace slot {
       namespace policy {
         template<typename T>
-        struct Aliasing : public Storing<T> {
+        struct Aliasing 
+          : public Storing<T> 
+        {
         };
       }
     }

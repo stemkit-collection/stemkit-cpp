@@ -15,7 +15,9 @@ namespace sk {
     namespace slot {
       namespace policy {
         template<typename T>
-        struct Cloning : public Storing<T> {
+        struct Cloning 
+          : public Storing<T> 
+        {
         };
       }
     }

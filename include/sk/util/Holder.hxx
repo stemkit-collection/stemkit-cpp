@@ -45,7 +45,6 @@ namespace sk {
         void clear();
 
         T* release();
-        
     };
   }
 }

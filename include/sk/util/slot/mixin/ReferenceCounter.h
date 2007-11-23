@@ -26,6 +26,7 @@ namespace sk {
             bool decrease() {
               return _counter > 0 ? --_counter == 0 : true;
             }
+
           private:
             int _counter;
         };

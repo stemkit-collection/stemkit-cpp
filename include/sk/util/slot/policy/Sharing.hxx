@@ -16,7 +16,9 @@ namespace sk {
     namespace slot {
       namespace policy {
         template<typename T>
-        class Sharing : public Storing<T, slot::mixin::ReferenceCounter> {
+        class Sharing 
+          : public Storing<T, slot::mixin::ReferenceCounter> 
+        {
         };
       }
     }
