@@ -38,6 +38,10 @@ namespace sk {
               return _slot != 0;
             }
 
+            static bool hasSlot(const Storing<T, SlotMixin>& other) {
+              return other.hasSlot();
+            }
+
             void clearSlot() {
               delete _slot;
               _slot = 0;
@@ -48,6 +52,10 @@ namespace sk {
                 throw MissingResourceException("sk::util::slot::policy::Storing#getSlot()");
               }
               return *_slot;
+            }
+
+            static slot::Mixable<T, SlotMixin>& getSlot(const Storing<T, SlotMixin>& other) {
+              return other.getSlot();
             }
 
           private:

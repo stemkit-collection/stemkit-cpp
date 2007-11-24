@@ -18,6 +18,34 @@ namespace sk {
         struct Cloning 
           : public Storing<T> 
         {
+          public:
+            Cloning() {
+            }
+
+            Cloning(const Cloning<T>& other) {
+              if(other.hasSlot() == true) {
+                setObject(other.getSlot().get());
+              }
+            }
+
+            Cloning(const Storing<T>& other) {
+              if(hasSlot(other) == true) {
+                setObject(getSlot(other).get());
+              }
+            }
+            
+          protected:
+            void setObject(T& object) {
+              Storing<T>::setObject(object.clone());
+            }
+
+            void setObject(const T& object) {
+              Storing<T>::setObject(object.clone());
+            }
+
+            void setObject(T* object) {
+              Storing<T>::setObject(object);
+            }
         };
       }
     }

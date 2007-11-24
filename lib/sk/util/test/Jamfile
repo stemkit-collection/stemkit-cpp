@@ -15,6 +15,7 @@ test-objects =
   HolderTest.cc
   SharingHolderTest.cc
   AliasingHolderTest.cc
+  CloningHolderTest.cc
 # AbstractCollectionTest.cc
 # AbstractListTest.cc
   ArrayListTest.cc

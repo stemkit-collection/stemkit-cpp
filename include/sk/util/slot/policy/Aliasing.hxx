@@ -30,14 +30,8 @@ namespace sk {
             }
 
             Aliasing(const Storing<T>& other) {
-              if(other.hasSlot()) {
-                Storing<T>::setObject(other.getSlot().get());
-              }
-            }
-
-            Aliasing(const Storing<T, mixin::LinkCounter>& other) {
-              if(other.hasSlot()) {
-                Storing<T>::setObject(other.getSlot().get());
+              if(hasSlot(other)) {
+                Storing<T>::setObject(getSlot(other).get());
               }
             }
         };
