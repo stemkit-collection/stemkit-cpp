@@ -9,6 +9,7 @@
 #define _SK_UTIL_SLOT_POLICY_STORING_HXX_
 
 #include <sk/util/slot/Mixable.hxx>
+#include <sk/util/MissingResourceException.h>
 
 namespace sk {
   namespace util {
@@ -21,12 +22,16 @@ namespace sk {
             Storing() 
               : _slot(0) {}
 
-            void set(T& object) {
-              _slot = new slot::Reference<T, SlotMixin>(object);
+            void setSlot(slot::Mixable<T, SlotMixin>* slot) {
+              _slot = slot;
             }
 
-            void set(T* object) {
-              _slot = new slot::Pointer<T, SlotMixin>(object);
+            void setObject(T& object) {
+              setSlot(new slot::Reference<T, SlotMixin>(object));
+            }
+
+            void setObject(T* object) {
+              setSlot(new slot::Pointer<T, SlotMixin>(object));
             }
 
             bool hasSlot() const {
@@ -39,16 +44,24 @@ namespace sk {
             }
 
             const slot::Mixable<T, SlotMixin>& getSlot() const {
+              ensureSlot();
               return *_slot;
             }
 
             slot::Mixable<T, SlotMixin>& getSlot() {
+              ensureSlot();
               return *_slot;
             }
 
           private:
             Storing(const Storing<T, SlotMixin>& other);
             Storing<T, SlotMixin>& operator = (const Storing<T, SlotMixin>& other);
+
+            void ensureSlot() const {
+              if(hasSlot() == false) {
+                throw MissingResourceException("sk::util::slot::policy::Storing#ensureSlot()");
+              }
+            }
 
             slot::Mixable<T, SlotMixin>* _slot;
         };

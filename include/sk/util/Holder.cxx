@@ -11,7 +11,6 @@
 #include <sk/util/Holder.hxx>
 #include <sk/util/slot/Reference.cxx>
 #include <sk/util/slot/Pointer.cxx>
-#include <sk/util/MissingResourceException.h>
 
 template<typename T, typename Policy>
 sk::util::Holder<T, Policy>::
@@ -46,8 +45,8 @@ sk::util::Holder<T, Policy>::
 set(T& object)
 {
   remove();
-  Policy::set(object);
-  
+
+  Policy::setObject(object);
   return *this;
 }
 
@@ -57,8 +56,9 @@ sk::util::Holder<T, Policy>::
 set(T* object)
 {
   remove();
+  
   if(object != 0) {
-    Policy::set(object);
+    Policy::setObject(object);
   }
   return *this;
 }
@@ -68,9 +68,6 @@ T&
 sk::util::Holder<T, Policy>::
 get() const
 {
-  if(Policy::hasSlot() == false) {
-    throw MissingResourceException("sk::util::Holder#get()");
-  }
   return Policy::getSlot().get();
 }
 
@@ -79,9 +76,6 @@ bool
 sk::util::Holder<T, Policy>::
 isOwner() const
 {
-  if(Policy::hasSlot() == false) {
-    throw MissingResourceException("sk::util::Holder#isOwner()");
-  }
   return Policy::getSlot().isOwner();
 }
 
@@ -130,8 +124,6 @@ T*
 sk::util::Holder<T, Policy>::
 release()
 {
-  get();
-
   T* object = Policy::getSlot().deprive();
   remove();
   set(*object);
