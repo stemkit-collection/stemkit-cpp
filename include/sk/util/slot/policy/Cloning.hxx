@@ -39,10 +39,6 @@ namespace sk {
               Storing<T>::setObject(object.clone());
             }
 
-            void setObject(const T& object) {
-              Storing<T>::setObject(object.clone());
-            }
-
             void setObject(T* object) {
               Storing<T>::setObject(object);
             }

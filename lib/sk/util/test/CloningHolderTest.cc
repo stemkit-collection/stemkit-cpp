@@ -72,7 +72,7 @@ void
 sk::util::test::CloningHolderTest::
 testStringLiteral()
 {
-  Holder<String>::Cloning holder("abc");
+  Holder<const String>::Cloning holder("abc");
   CPPUNIT_ASSERT_EQUAL(true, holder.isOwner());
   CPPUNIT_ASSERT_EQUAL(String("abc").inspect(), holder.get().inspect());
 }

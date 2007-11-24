@@ -27,13 +27,6 @@ Holder(T& object)
 
 template<typename T, typename Policy>
 sk::util::Holder<T, Policy>::
-Holder(const T& object)
-{
-  set(object);
-}
-
-template<typename T, typename Policy>
-sk::util::Holder<T, Policy>::
 Holder(T* object)
 {
   set(object);
@@ -57,17 +50,6 @@ template<typename T, typename Policy>
 sk::util::Holder<T, Policy>&
 sk::util::Holder<T, Policy>::
 set(T& object)
-{
-  remove();
-
-  Policy::setObject(object);
-  return *this;
-}
-
-template<typename T, typename Policy>
-sk::util::Holder<T, Policy>&
-sk::util::Holder<T, Policy>::
-set(const T& object)
 {
   remove();
 
