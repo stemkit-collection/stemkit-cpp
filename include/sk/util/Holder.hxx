@@ -14,6 +14,7 @@
 #include <sk/util/slot/policy/Storing.hxx>
 #include <sk/util/slot/policy/Sharing.hxx>
 #include <sk/util/slot/policy/Cloning.hxx>
+#include <sk/util/slot/policy/Copying.hxx>
 #include <sk/util/slot/policy/Aliasing.hxx>
 
 namespace sk {
@@ -25,6 +26,7 @@ namespace sk {
       public:
         typedef Holder<T, slot::policy::Sharing<T> > Sharing;
         typedef Holder<T, slot::policy::Cloning<T> > Cloning;
+        typedef Holder<T, slot::policy::Copying<T> > Copying;
         typedef Holder<T, slot::policy::Aliasing<T> > Aliasing;
 
       public:
