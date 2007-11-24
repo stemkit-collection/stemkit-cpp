@@ -9,15 +9,37 @@
 #define _SK_UTIL_SLOT_POLICY_ALIASING_HXX_
 
 #include <sk/util/slot/policy/Storing.hxx>
+#include <sk/util/slot/mixin/LinkCounter.h>
 
 namespace sk {
   namespace util {
     namespace slot {
       namespace policy {
         template<typename T>
-        struct Aliasing 
+        class Aliasing 
           : public Storing<T> 
         {
+          public:
+            Aliasing() {
+            }
+
+            Aliasing(const Aliasing<T>& other) {
+              if(other.hasSlot()) {
+                Storing<T>::setObject(other.getSlot().get());
+              }
+            }
+
+            Aliasing(const Storing<T>& other) {
+              if(other.hasSlot()) {
+                Storing<T>::setObject(other.getSlot().get());
+              }
+            }
+
+            Aliasing(const Storing<T, mixin::LinkCounter>& other) {
+              if(other.hasSlot()) {
+                Storing<T>::setObject(other.getSlot().get());
+              }
+            }
         };
       }
     }
