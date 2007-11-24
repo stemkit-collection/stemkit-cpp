@@ -61,6 +61,13 @@ sk::util::String::
 {
 }
 
+sk::util::String*
+sk::util::String::
+clone() const
+{
+  return new String(*this);
+}
+
 sk::util::String&
 sk::util::String::
 operator=(const sk::util::String& other)
