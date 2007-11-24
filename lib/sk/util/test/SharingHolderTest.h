@@ -18,7 +18,7 @@ namespace sk {
         : public CppUnit::TestFixture
       {
         CPPUNIT_TEST_SUITE(sk::util::test::SharingHolderTest);
-          // CPPUNIT_TEST(testBasics);
+          CPPUNIT_TEST(testBasics);
         CPPUNIT_TEST_SUITE_END();
         
         public:

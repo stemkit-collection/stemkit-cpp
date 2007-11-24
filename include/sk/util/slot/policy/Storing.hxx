@@ -43,25 +43,16 @@ namespace sk {
               _slot = 0;
             }
 
-            const slot::Mixable<T, SlotMixin>& getSlot() const {
-              ensureSlot();
-              return *_slot;
-            }
-
-            slot::Mixable<T, SlotMixin>& getSlot() {
-              ensureSlot();
+            slot::Mixable<T, SlotMixin>& getSlot() const {
+              if(hasSlot() == false) {
+                throw MissingResourceException("sk::util::slot::policy::Storing#getSlot()");
+              }
               return *_slot;
             }
 
           private:
             Storing(const Storing<T, SlotMixin>& other);
             Storing<T, SlotMixin>& operator = (const Storing<T, SlotMixin>& other);
-
-            void ensureSlot() const {
-              if(hasSlot() == false) {
-                throw MissingResourceException("sk::util::slot::policy::Storing#ensureSlot()");
-              }
-            }
 
             slot::Mixable<T, SlotMixin>* _slot;
         };

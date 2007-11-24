@@ -17,17 +17,45 @@ namespace sk {
       namespace policy {
         template<typename T>
         class Sharing 
-          : public Storing<T, slot::mixin::LinkCounter> 
+          : public Storing<T, slot::mixin::LinkCounter>
         {
+          typedef Storing<T, slot::mixin::LinkCounter> Super;
+
           public:
             Sharing() {
             }
 
             Sharing(const Sharing<T>& other) {
+              if(other.hasSlot() == true) {
+                Super::setSlot(&other.getSlot());
+                Super::getSlot().link();
+              }
             }
 
             int getLinks() const {
-              return Storing<T, slot::mixin::LinkCounter>::getSlot().getCounter();
+              return Super::getSlot().getCounter();
+            }
+
+          protected:
+            void setObject(T* object) {
+              Super::setObject(object);
+              Super::getSlot().link();
+            }
+            
+            void setObject(T& object) {
+              Super::setObject(object);
+              Super::getSlot().link();
+            }
+
+            void clearSlot() {
+              if(Super::hasSlot() == true) {
+                if(Super::getSlot().unlink() == true) {
+                  Super::clearSlot();
+                }
+                else {
+                  Super::setSlot(0);
+                }
+              }
             }
         };
       }
