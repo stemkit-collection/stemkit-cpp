@@ -24,14 +24,30 @@ namespace sk {
             }
 
             Aliasing(const Aliasing<T>& other) {
-              if(other.hasSlot()) {
-                Storing<T>::setObject(other.getSlot().get());
-              }
+              alias(other);
             }
 
             Aliasing(const Storing<T>& other) {
-              if(hasSlot(other)) {
-                Storing<T>::setObject(getSlot(other).get());
+              alias(other);
+            }
+
+            void operator=(const Aliasing<T>& other) {
+              alias(other);
+            }
+
+            void operator=(const Storing<T>& other) {
+              alias(other);
+            }
+
+          private:
+            void alias(const Storing<T>& other) {
+              if(&other == this) {
+                return;
+              } 
+              Storing<T>::clearSlot();
+
+              if(hasSlot(other) == true) {
+                setObject(getSlot(other).get());
               }
             }
         };

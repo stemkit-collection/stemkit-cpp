@@ -36,6 +36,9 @@ namespace sk {
         explicit Holder(T& object);
         virtual ~Holder();
 
+        Holder<T, Policy>& operator=(const Holder<T, Policy>& other);
+        Holder<T, Policy>& operator=(const slot::policy::Storing<T>& other);
+
         bool contains(const T& object) const;
         bool isEmpty() const;
         bool isOwner() const;

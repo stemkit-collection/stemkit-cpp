@@ -49,6 +49,24 @@ sk::util::Holder<T, Policy>::
 template<typename T, typename Policy>
 sk::util::Holder<T, Policy>&
 sk::util::Holder<T, Policy>::
+operator=(const Holder<T, Policy>& other)
+{
+  Policy::operator=(other);
+  return *this;
+}
+
+template<typename T, typename Policy>
+sk::util::Holder<T, Policy>&
+sk::util::Holder<T, Policy>::
+operator=(const slot::policy::Storing<T>& other)
+{
+  Policy::operator=(other);
+  return *this;
+}
+
+template<typename T, typename Policy>
+sk::util::Holder<T, Policy>&
+sk::util::Holder<T, Policy>::
 set(T& object)
 {
   remove();

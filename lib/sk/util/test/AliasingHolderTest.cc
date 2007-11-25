@@ -43,3 +43,37 @@ testBasics()
   CPPUNIT_ASSERT_EQUAL(false, other.isOwner());
   CPPUNIT_ASSERT_EQUAL(&holder.get(), &other.get());
 }
+
+void
+sk::util::test::AliasingHolderTest::
+testAssignment()
+{
+  Holder<String>::Aliasing holder(new String("aaa"));
+  Holder<String>::Aliasing other(new String("zzz"));
+  
+  CPPUNIT_ASSERT_EQUAL(true, holder.isOwner());
+  CPPUNIT_ASSERT_EQUAL(true, other.isOwner());
+  CPPUNIT_ASSERT_EQUAL(String("zzz").inspect(), other.get().inspect());
+
+  other = holder;
+
+  CPPUNIT_ASSERT_EQUAL(false, other.isOwner());
+  CPPUNIT_ASSERT_EQUAL(&holder.get(), &other.get());
+}
+
+void
+sk::util::test::AliasingHolderTest::
+testAssignmentFromOther()
+{
+  Holder<String> holder(new String("aaa"));
+  Holder<String>::Aliasing other(new String("zzz"));
+  
+  CPPUNIT_ASSERT_EQUAL(true, holder.isOwner());
+  CPPUNIT_ASSERT_EQUAL(true, other.isOwner());
+  CPPUNIT_ASSERT_EQUAL(String("zzz").inspect(), other.get().inspect());
+
+  other = holder;
+
+  CPPUNIT_ASSERT_EQUAL(false, other.isOwner());
+  CPPUNIT_ASSERT_EQUAL(&holder.get(), &other.get());
+}
