@@ -42,11 +42,6 @@ namespace sk {
               Super::getSlot().link();
             }
             
-            void setObject(T& object) {
-              Super::setObject(object);
-              Super::getSlot().link();
-            }
-
             void clearSlot() {
               if(Super::hasSlot() == true) {
                 if(Super::getSlot().unlink() == true) {
@@ -59,6 +54,10 @@ namespace sk {
             }
 
           private:
+            // Ability to add object by reference is not available for this
+            // type of holder.
+            void setObject(T& object);
+
             void accept(const Sharing<T>& other) {
               if(&other == this) {
                 return;
