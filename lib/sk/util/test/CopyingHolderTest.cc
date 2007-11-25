@@ -76,3 +76,42 @@ testStringLiteral()
   CPPUNIT_ASSERT_EQUAL(true, holder.isOwner());
   CPPUNIT_ASSERT_EQUAL(String("abc").inspect(), holder.get().inspect());
 }
+
+void
+sk::util::test::CopyingHolderTest::
+testAssignment()
+{
+  Holder<const String>::Copying holder("abc");
+  Holder<const String>::Copying other("cba");
+
+  CPPUNIT_ASSERT_EQUAL(String("cba").inspect(), other.get().inspect());
+  other = holder;
+
+  CPPUNIT_ASSERT_EQUAL(String("abc").inspect(), holder.get().inspect());
+  CPPUNIT_ASSERT_EQUAL(String("abc").inspect(), other.get().inspect());
+
+  CPPUNIT_ASSERT_EQUAL(true, holder.isOwner());
+  CPPUNIT_ASSERT_EQUAL(true, other.isOwner());
+  CPPUNIT_ASSERT(&holder.get() != &other.get());
+}
+
+void
+sk::util::test::CopyingHolderTest::
+testAssignmentFromOther()
+{
+  Holder<const String> holder(new String("abc"));
+  Holder<const String>::Aliasing alias(holder);
+  Holder<const String>::Copying other("cba");
+
+  CPPUNIT_ASSERT_EQUAL(String("cba").inspect(), other.get().inspect());
+  other = alias;
+
+  CPPUNIT_ASSERT_EQUAL(String("abc").inspect(), holder.get().inspect());
+  CPPUNIT_ASSERT_EQUAL(String("abc").inspect(), other.get().inspect());
+
+  CPPUNIT_ASSERT_EQUAL(true, holder.isOwner());
+  CPPUNIT_ASSERT_EQUAL(false, alias.isOwner());
+  CPPUNIT_ASSERT_EQUAL(true, other.isOwner());
+  CPPUNIT_ASSERT(&holder.get() != &other.get());
+  CPPUNIT_ASSERT(&alias.get() != &other.get());
+}

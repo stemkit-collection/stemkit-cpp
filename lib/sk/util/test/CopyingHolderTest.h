@@ -22,6 +22,8 @@ namespace sk {
           CPPUNIT_TEST(testCopyConstructor);
           CPPUNIT_TEST(testCopyFromAlias);
           CPPUNIT_TEST(testStringLiteral);
+          CPPUNIT_TEST(testAssignment);
+          CPPUNIT_TEST(testAssignmentFromOther);
         CPPUNIT_TEST_SUITE_END();
         
         public:
@@ -34,6 +36,8 @@ namespace sk {
           void testCopyConstructor();
           void testCopyFromAlias();
           void testStringLiteral();
+          void testAssignment();
+          void testAssignmentFromOther();
           
         private:
           CopyingHolderTest(const CopyingHolderTest& other);
