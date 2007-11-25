@@ -27,13 +27,6 @@ Config()
 }
 
 sk::rt::scope::Config::
-Config(const Config& other)
-  : _destinationHolder(other.getLogDestination().clone()), _logPid(other.isLogPid()), _logTime(other.isLogTime()), 
-    _logObject(other.isLogObject()), _levelHolder(other._levelHolder.get()), _properties(other._properties)
-{
-}
-
-sk::rt::scope::Config::
 ~Config()
 {
 }

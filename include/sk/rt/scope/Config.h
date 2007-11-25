@@ -20,7 +20,6 @@ namespace sk {
       {
         public:
           Config();
-          Config(const Config& other);
           virtual ~Config();
           
           void setLogDestination(const logger::Destination& destination);
