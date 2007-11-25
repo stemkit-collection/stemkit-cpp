@@ -23,15 +23,19 @@ namespace sk {
             }
 
             Cloning(const Cloning<T>& other) {
-              if(other.hasSlot() == true) {
-                setObject(other.getSlot().get());
-              }
+              makeClone(other);
             }
 
             Cloning(const Storing<T>& other) {
-              if(hasSlot(other) == true) {
-                setObject(getSlot(other).get());
-              }
+              makeClone(other);
+            }
+
+            void operator=(const Cloning<T>& other) {
+              makeClone(other);
+            }
+
+            void operator=(const Storing<T>& other) {
+              makeClone(other);
             }
             
           protected:
@@ -41,6 +45,17 @@ namespace sk {
 
             void setObject(T* object) {
               Storing<T>::setObject(object);
+            }
+
+            void makeClone(const Storing<T>& other) {
+              if(&other == this) {
+                return;
+              }
+              Storing<T>::clearSlot();
+
+              if(hasSlot(other) == true) {
+                setObject(getSlot(other).get());
+              }
             }
         };
       }
