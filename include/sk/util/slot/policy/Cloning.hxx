@@ -19,8 +19,7 @@ namespace sk {
           : public Storing<T> 
         {
           public:
-            Cloning() {
-            }
+            Cloning() {}
 
             Cloning(const Cloning<T>& other) {
               makeClone(other);

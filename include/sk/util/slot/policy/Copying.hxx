@@ -19,8 +19,7 @@ namespace sk {
           : public Storing<T> 
         {
           public:
-            Copying() {
-            }
+            Copying() {}
 
             Copying(const Copying<T>& other) {
               makeCopy(other);

@@ -20,8 +20,7 @@ namespace sk {
           : public Storing<T> 
         {
           public:
-            Aliasing() {
-            }
+            Aliasing() {}
 
             Aliasing(const Aliasing<T>& other) {
               alias(other);

@@ -22,8 +22,7 @@ namespace sk {
           typedef Storing<T, slot::mixin::LinkCounter> Super;
 
           public:
-            Sharing() {
-            }
+            Sharing() {}
 
             Sharing(const Sharing<T>& other) {
               accept(other);
