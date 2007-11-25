@@ -26,10 +26,11 @@ namespace sk {
             }
 
             Sharing(const Sharing<T>& other) {
-              if(other.hasSlot() == true) {
-                Super::setSlot(&other.getSlot());
-                Super::getSlot().link();
-              }
+              accept(other);
+            }
+
+            void operator=(const Sharing<T>& other) {
+              accept(other);
             }
 
             int getLinks() const {
@@ -55,6 +56,19 @@ namespace sk {
                 else {
                   Super::setSlot(0);
                 }
+              }
+            }
+
+          private:
+            void accept(const Sharing<T>& other) {
+              if(&other == this) {
+                return;
+              }
+              clearSlot();
+
+              if(other.hasSlot() == true) {
+                Super::setSlot(&other.getSlot());
+                Super::getSlot().link();
               }
             }
         };

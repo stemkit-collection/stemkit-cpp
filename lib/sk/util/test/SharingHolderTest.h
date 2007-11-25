@@ -19,6 +19,7 @@ namespace sk {
       {
         CPPUNIT_TEST_SUITE(sk::util::test::SharingHolderTest);
           CPPUNIT_TEST(testBasics);
+          CPPUNIT_TEST(testAssignment);
         CPPUNIT_TEST_SUITE_END();
         
         public:
@@ -28,6 +29,7 @@ namespace sk {
           void setUp();
           void tearDown();
           void testBasics();
+          void testAssignment();
           
         private:
           SharingHolderTest(const SharingHolderTest& other);
