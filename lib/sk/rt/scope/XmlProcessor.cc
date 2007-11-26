@@ -139,7 +139,7 @@ updateLogInfo(const TiXmlHandle& handle, scope::Config& config)
 
   const sk::util::String level(attribute(handle.ToElement(), "level", "").trim());
   if(level.isEmpty() == false) {
-    config.setLogLevel(sk::rt::logger::Level::valueOf(level));
+    config.setLogLevel(logger::Level::valueOf(level));
   }
   for(TiXmlElement* item=handle.FirstChild("level").ToElement(); item ;item=item->NextSiblingElement(item->Value())) {
     config.setLogLevel(sk::rt::logger::Level::valueOf(item->Attribute("severity")));
