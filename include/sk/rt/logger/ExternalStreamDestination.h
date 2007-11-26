@@ -19,7 +19,6 @@ namespace sk {
       {
         public:
           ExternalStreamDestination(std::ostream& destination);
-          ExternalStreamDestination(const ExternalStreamDestination& other);
           virtual ~ExternalStreamDestination();
 
           // sk::rt::logger::Destinaiton implementation.

@@ -22,7 +22,7 @@ Stream(const sk::util::String& label, const Level& level, const logger::IScope& 
       _stream << getpid() << ' ';
     }
     if(_config.isLogTime() == true) {
-      char buffer[32];
+      char buffer[64];
       time_t now = time(0);
       strftime(buffer, sizeof(buffer), "%y/%m/%d %H:%M:%S ", localtime(&now));
       _stream << buffer;

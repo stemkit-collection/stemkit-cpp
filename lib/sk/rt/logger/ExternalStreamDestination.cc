@@ -17,12 +17,6 @@ ExternalStreamDestination(std::ostream& destination)
 }
 
 sk::rt::logger::ExternalStreamDestination::
-ExternalStreamDestination(const ExternalStreamDestination& other)
-  : _destination(other._destination)
-{
-}
-
-sk::rt::logger::ExternalStreamDestination::
 ~ExternalStreamDestination()
 {
 }
