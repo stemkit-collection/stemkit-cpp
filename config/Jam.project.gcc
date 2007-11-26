@@ -229,6 +229,7 @@ switch $(PRODUCT_PLATFORM) {
   case hp11-23-ia64 : platform-hpux-ia64 ;
   case tiger-ppc : platform-macos-ppc ;
   case tiger-x86 : platform-macos-ppc ;
+  case mac-10.5-x86 : platform-macos-ppc ;
   case cygwin-xp-x86 : platform-cygwin-x86 ;
   case win32-sfu-x86 : platform-interix-x86 ;
   case * : exit Unknown platform $(PRODUCT_PLATFORM) ;
