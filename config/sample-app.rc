@@ -2,7 +2,7 @@
 
 <scope name="app">
   <log show-object="true" show-time="true" show-pid="true">
-    <file location="bin/logs" name="abc" size="10MB" span="5" />
+    <file location="bin/logs" name="abc" size="10MB" chunks="5" />
     <level severity="notice" type="less-and" />
   </log>
 
