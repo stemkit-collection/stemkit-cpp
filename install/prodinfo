@@ -7,8 +7,8 @@ product {
   name 'SK'
   description 'Stemkit'
 
-  top '/usr/local/stemkit-0.2'
-  version '0.2'
+  top '/usr/local/stemkit-0.3'
+  version '0.3'
 
   case cache.platform
     when 'cygwin-xp-x86'
@@ -53,50 +53,14 @@ fileset {
     include/sk/util
     lib
   }
-  install.into('include/sk/util').source {
-    file 'include/sk/util' => %w{
-      inspect.h
-      Object.h
-      Class.h
-      Integer.h
-      String.h
-      StringArray.h
-      Container.h
-      Slot.hxx
-      ReferenceSlot.hxx
-      ReferenceSlot.cxx
-      PointerSlot.hxx
-      PointerSlot.cxx
-      Holder.hxx
-      Holder.cxx
-      Selector.h
-      Processor.h
-      Collection.h
-      List.h
-      AbstractCollection.hxx
-      AbstractCollection.cxx
-      AbstractList.hxx
-      AbstractList.cxx
-      ArrayList.hxx
-      ArrayList.cxx
-      abstract_c_handle.hxx
-      abstract_c_handle.cxx
-    }
-  }
-
-  install.into('include/sk/util').source {
-    file 'include/sk/util' => %w{
-      Exception.h
-      IllegalStateException.h
-      IndexOutOfBoundsException.h
-      InterruptedException.h
-      MissingResourceException.h
-      NoSuchElementException.h
-      NullPointerException.h
-      NumberFormatException.h
-      SystemException.h
-      UnsupportedOperationException.h
-      InsufficientMemoryException.h
+  install.as('include/sk/util').source {
+    tree('include/sk/util') { |_location, _item|
+      case _item
+        when '.svn'
+          nil
+        else
+          true
+      end
     }
   }
   install.into('lib').binary {
@@ -118,39 +82,14 @@ fileset {
     include/sk/io
     lib
   }
-  install.into('include/sk/io').source {
-    file 'include/sk/io' => %w{
-      AbstractInputStream.h
-      AbstractOutputStream.h
-      ByteArrayInputStream.h
-      ByteArrayOutputStream.h
-      DataInput.h
-      DataInputStream.h
-      DataOutput.h
-      DataOutputStream.h
-      DelegatingInputStream.h
-      DelegatingOutputStream.h
-      File.h
-      Pipe.h
-      Tty.h
-      TtyDevice.h
-      DelegatingTty.h
-      Pty.h
-      TtyFileDescriptor.h
-      FileDescriptor.h
-      FileDescriptorInputStream.h
-      FileDescriptorOutputStream.h
-      FileStreamCoupler.hxx
-      FileStreamCoupler.cxx
-      FileInputStream.h
-      FileOutputStream.h
-      BufferedInputStream.h
-      BufferedOutputStream.h
-      InputStream.h
-      OutputStream.h
-      IOException.h
-      EOFException.h
-      ClosedChannelException.h
+  install.as('include/sk/io').source {
+    tree('include/sk/io') { |_location, _item|
+      case _item
+        when '.svn'
+          nil
+        else
+          true
+      end
     }
   }
 
@@ -174,20 +113,14 @@ fileset {
     include/sk/rt/logging
     lib
   }
-  install.into('include/sk/rt').source {
-    file 'include/sk/rt' => %w{
-      Logger.h
-    }
-  }
-
-  install.into('include/sk/rt/logger').source {
-    file 'include/sk/rt/logger' => %w{
-      Config.h
-      Controller.h
-      ILogger.h
-      Level.h
-      Spot.h
-      Stream.h
+  install.as('include/sk/rt').source {
+    tree('include/sk/rt') { |_location, _item|
+      case _item
+        when '.svn'
+          nil
+        else
+          true
+      end
     }
   }
 
@@ -210,18 +143,14 @@ fileset {
     include/sk/sys
     lib
   }
-  install.into('include/sk/sys').source {
-    file 'include/sk/sys' => %w{
-      DelegatingExecutable.h
-      Executable.h
-      PipeProcess.h
-      PtyProcess.h
-      Pipeline.h
-      Process.h
-      ProcessListener.h
-      AbstractProcessListener.h
-      User.h
-      Group.h
+  install.as('include/sk/sys').source {
+    tree('include/sk/sys') { |_location, _item|
+      case _item
+        when '.svn'
+          nil
+        else
+          true
+      end
     }
   }
 
@@ -244,10 +173,14 @@ fileset {
     include/sk/cppunit
     lib
   }
-  install.into('include/sk/cppunit').source {
-    file 'include/sk/cppunit' => %w{
-      SingleLineOutputter.h
-      TestRunner.h
+  install.as('include/sk/cppunit').source {
+    tree('include/sk/cppunit') { |_location, _item|
+      case _item
+        when '.svn'
+          nil
+        else
+          true
+      end
     }
   }
   install.into('lib').binary {
