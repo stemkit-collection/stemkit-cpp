@@ -12,7 +12,7 @@
 #include <sk/rt/logger/FileDestination.h>
 
 sk::rt::logger::FileDestination::
-FileDestination()
+FileDestination(const sk::util::String& path)
 {
 }
 
@@ -28,9 +28,30 @@ getClass() const
   return sk::util::Class("sk::rt::logger::FileDestination");
 }
 
+sk::rt::logger::FileDestination*
+sk::rt::logger::FileDestination::
+clone() const
+{
+  return new FileDestination(*this);
+}
+
 void
 sk::rt::logger::FileDestination::
 dispatch(std::stringstream& stream)
 {
   throw sk::util::UnsupportedOperationException("dispatch()");
+}
+
+void
+sk::rt::logger::FileDestination::
+setSize(const sk::util::String& specification)
+{
+  throw sk::util::UnsupportedOperationException("setSize()");
+}
+
+void
+sk::rt::logger::FileDestination::
+setChunks(const sk::util::String& specification)
+{
+  throw sk::util::UnsupportedOperationException("setChunks()");
 }

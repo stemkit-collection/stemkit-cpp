@@ -58,7 +58,7 @@ void
 sk::rt::scope::XmlProcessor::
 start(const sk::util::String& scope)
 {
-  process(findScopeElement(getHandle(), scope), _aggregator);
+  process(findScopeElement(getHandle(), scope), scope, _aggregator);
 }
 
 TiXmlElement*
@@ -75,8 +75,9 @@ findScopeElement(const TiXmlHandle& handle, const sk::util::String& name)
 
 void
 sk::rt::scope::XmlProcessor::
-process(const TiXmlHandle& handle, scope::Aggregator& aggregator) 
+process(const TiXmlHandle& handle, const sk::util::String& scopeBuffer, scope::Aggregator& aggregator) 
 {
+  _scopeBuffer = scopeBuffer;
   updateConfig(handle, aggregator.getConfigForUpdate());
 
   for(TiXmlElement* item=handle.FirstChild("scope").ToElement(); item ;item=item->NextSiblingElement(item->Value())) {
@@ -84,7 +85,7 @@ process(const TiXmlHandle& handle, scope::Aggregator& aggregator)
     if(name.isEmpty() == true) {
       continue;
     }
-    process(item, aggregator.obtain(name));
+    process(item, scopeBuffer + '-' + name, aggregator.obtain(name));
   }
 }
 
@@ -99,14 +100,14 @@ updateConfig(const TiXmlHandle& handle, scope::Config& config)
 }
 
 namespace {
-  bool attribute(TiXmlElement* element, const sk::util::String& name, const sk::util::Boolean& fallback) {
+  bool attribute(TiXmlElement* element, const sk::util::String& name, bool fallback) {
     if(element) {
       return sk::util::Boolean::parseBoolean(element->Attribute(name.getChars()));
     }
-    return fallback.booleanValue();
+    return fallback;
   }
 
-  const sk::util::String attribute(TiXmlElement* element, const sk::util::String& name, const char* fallback) {
+  const sk::util::String attribute(TiXmlElement* element, const sk::util::String& name, const sk::util::String& fallback) {
     if(element) {
       const char* value = element->Attribute(name.getChars());
       if(value) {
@@ -115,6 +116,11 @@ namespace {
     }
     return fallback;
   }
+
+  const sk::util::String attribute(TiXmlElement* element, const sk::util::String& name, const char* fallback) {
+    return attribute(element, name, sk::util::String(fallback));
+  }
+
 }
 
 void 
@@ -191,8 +197,16 @@ void
 sk::rt::scope::XmlProcessor::
 updateFileDestination(const TiXmlHandle& handle, const char* tag, scope::Config& config) 
 {
-  attribute(handle.ToElement(), join(tag, "location"), "");
-  attribute(handle.ToElement(), join(tag, "name"), "");
-  attribute(handle.ToElement(), join(tag, "size"), "");
-  attribute(handle.ToElement(), join(tag, "chunks"), "");
+  sk::util::String location = attribute(handle.ToElement(), join(tag, "location"), "").trim();
+  sk::util::String name = attribute(handle.ToElement(), join(tag, "name"), _scopeBuffer).trim();
+
+  if(location.startsWith('/') == false) {
+    location = _location + '/' + location;
+  }
+  logger::FileDestination destination(location + '/' + name);
+
+  destination.setSize(attribute(handle.ToElement(), join(tag, "size"), "10M"));
+  destination.setChunks(attribute(handle.ToElement(), join(tag, "chunks"), "3"));
+
+  config.setLogDestination(destination);
 }

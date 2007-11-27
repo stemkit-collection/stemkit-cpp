@@ -42,7 +42,7 @@ namespace sk {
           XmlProcessor(const XmlProcessor& other);
           XmlProcessor& operator = (const XmlProcessor& other);
 
-          void process(const TiXmlHandle& handle, scope::Aggregator& aggregator);
+          void process(const TiXmlHandle& handle, const sk::util::String& scopeBuffer, scope::Aggregator& aggregator);
           void updateConfig(const TiXmlHandle& handle, scope::Config& config);
           void updateLogInfo(const TiXmlHandle& handle, scope::Config& config);
           void updateFileDestination(const TiXmlHandle& handle, const char* tag, scope::Config& config);
@@ -52,6 +52,7 @@ namespace sk {
           scope::Aggregator& _aggregator;
           sk::util::Holder<TiXmlDocument> _documentHolder;
           sk::util::Holder<TiXmlHandle> _handleHolder;
+          sk::util::String _scopeBuffer;
       };
     }
   }

@@ -17,17 +17,20 @@ namespace sk {
         : public virtual Destination
       {
         public:
-          FileDestination();
+          FileDestination(const sk::util::String& path);
           virtual ~FileDestination();
+
+          void setSize(const sk::util::String& specification);
+          void setChunks(const sk::util::String& specification);
 
           // sk::rt::logger::Destination implementation.
           void dispatch(std::stringstream& stream);
           
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
+          FileDestination* clone() const;
           
         private:
-          FileDestination(const FileDestination& other);
           FileDestination& operator = (const FileDestination& other);
       };
     }
