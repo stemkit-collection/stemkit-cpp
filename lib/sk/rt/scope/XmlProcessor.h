@@ -45,7 +45,7 @@ namespace sk {
           void process(const TiXmlHandle& handle, scope::Aggregator& aggregator);
           void updateConfig(const TiXmlHandle& handle, scope::Config& config);
           void updateLogInfo(const TiXmlHandle& handle, scope::Config& config);
-          void updateFileDestination(const TiXmlHandle& handle, scope::Config& config);
+          void updateFileDestination(const TiXmlHandle& handle, const char* tag, scope::Config& config);
           void updateProperties(const TiXmlHandle& handle, scope::Config& config);
 
           const sk::util::String _location;

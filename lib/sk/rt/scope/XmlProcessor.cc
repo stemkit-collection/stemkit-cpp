@@ -121,6 +121,8 @@ void
 sk::rt::scope::XmlProcessor::
 updateLogInfo(const TiXmlHandle& handle, scope::Config& config) 
 {
+  const char* file_tag = "file";
+
   config.setLogObject(attribute(handle.ToElement(), "show-object", config.isLogObject()));
   config.setLogTime(attribute(handle.ToElement(), "show-time", config.isLogTime()));
   config.setLogPid(attribute(handle.ToElement(), "show-pid", config.isLogPid()));
@@ -135,9 +137,12 @@ updateLogInfo(const TiXmlHandle& handle, scope::Config& config)
   else if(destination.equals("std::cerr")) {
     config.setLogDestination(logger::ExternalStreamDestination(std::cerr));
   }
+  else if(destination.equals(file_tag)) {
+    updateFileDestination(handle, file_tag, config);
+  }
   else {
-    for(TiXmlElement* item=handle.FirstChild("file").ToElement(); item ;item=item->NextSiblingElement(item->Value())) {
-      updateFileDestination(item, config);
+    for(TiXmlElement* item=handle.FirstChild(file_tag).ToElement(); item ;item=item->NextSiblingElement(item->Value())) {
+      updateFileDestination(item, 0, config);
     }
   }
   const sk::util::String level(attribute(handle.ToElement(), "level", "").trim());
@@ -173,12 +178,21 @@ updateProperties(const TiXmlHandle& handle, scope::Config& config)
   }
 }
 
+namespace {
+  const sk::util::String join(const char* tag, const sk::util::String& name) {
+    if(tag == 0) {
+      return name;
+    }
+    return tag + ("-" + name);
+  }
+}
+
 void
 sk::rt::scope::XmlProcessor::
-updateFileDestination(const TiXmlHandle& handle, scope::Config& config) 
+updateFileDestination(const TiXmlHandle& handle, const char* tag, scope::Config& config) 
 {
-  attribute(handle.ToElement(), "location", "");
-  attribute(handle.ToElement(), "name", "");
-  attribute(handle.ToElement(), "size", "");
-  attribute(handle.ToElement(), "chunks", "");
+  attribute(handle.ToElement(), join(tag, "location"), "");
+  attribute(handle.ToElement(), join(tag, "name"), "");
+  attribute(handle.ToElement(), join(tag, "size"), "");
+  attribute(handle.ToElement(), join(tag, "chunks"), "");
 }
