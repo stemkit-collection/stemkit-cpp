@@ -9,6 +9,7 @@ objects =
   Integer.cc
   Boolean.cc
   StringArray.cc
+  Pathname.cc
   Exception.cc
   IllegalStateException.cc
   IndexOutOfBoundsException.cc

@@ -12,7 +12,8 @@
 #include <sk/rt/logger/FileDestination.h>
 
 sk::rt::logger::FileDestination::
-FileDestination(const sk::util::String& path)
+FileDestination(const sk::util::Pathname& pathname)
+  : _pathname(pathname)
 {
 }
 

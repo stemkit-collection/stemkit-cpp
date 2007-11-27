@@ -9,6 +9,7 @@
 #include <sk/util/String.h>
 #include <sk/util/Boolean.h>
 #include <sk/util/Holder.cxx>
+#include <sk/util/Pathname.h>
 
 #include "XmlProcessor.h"
 #include <sk/rt/scope/Aggregator.h>
@@ -197,13 +198,10 @@ void
 sk::rt::scope::XmlProcessor::
 updateFileDestination(const TiXmlHandle& handle, const char* tag, scope::Config& config) 
 {
-  sk::util::String location = attribute(handle.ToElement(), join(tag, "location"), "").trim();
-  sk::util::String name = attribute(handle.ToElement(), join(tag, "name"), _scopeBuffer).trim();
+  sk::util::Pathname pathname(attribute(handle.ToElement(), join(tag, "name"), _scopeBuffer));
+  pathname.front(attribute(handle.ToElement(), join(tag, "location"), ""));
 
-  if(location.startsWith('/') == false) {
-    location = _location + '/' + location;
-  }
-  logger::FileDestination destination(location + '/' + name);
+  logger::FileDestination destination(pathname.front(_location));
 
   destination.setSize(attribute(handle.ToElement(), join(tag, "size"), "10M"));
   destination.setChunks(attribute(handle.ToElement(), join(tag, "chunks"), "3"));

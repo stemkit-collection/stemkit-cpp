@@ -9,6 +9,7 @@
 #define _SK_RT_LOGGER_FILEDESTINATION_
 
 #include <sk/rt/logger/Destination.h>
+#include <sk/util/Pathname.h>
 
 namespace sk {
   namespace rt {
@@ -17,7 +18,7 @@ namespace sk {
         : public virtual Destination
       {
         public:
-          FileDestination(const sk::util::String& path);
+          FileDestination(const sk::util::Pathname& pathname);
           virtual ~FileDestination();
 
           void setSize(const sk::util::String& specification);
@@ -32,6 +33,7 @@ namespace sk {
           
         private:
           FileDestination& operator = (const FileDestination& other);
+          sk::util::Pathname _pathname;
       };
     }
   }

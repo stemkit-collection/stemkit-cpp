@@ -17,6 +17,7 @@ test-objects =
   AliasingHolderTest.cc
   CloningHolderTest.cc
   CopyingHolderTest.cc
+  PathnameTest.cc
 # AbstractCollectionTest.cc
 # AbstractListTest.cc
   ArrayListTest.cc
