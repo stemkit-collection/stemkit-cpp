@@ -86,3 +86,15 @@ sk::rt::logger::FileDestination::
 openFile()
 {
 }
+
+void
+sk::rt::logger::FileDestination::
+renameFile()
+{
+}
+
+void
+sk::rt::logger::FileDestination::
+initFile()
+{
+}
