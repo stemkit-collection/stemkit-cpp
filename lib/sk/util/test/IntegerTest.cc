@@ -77,3 +77,19 @@ testParseInt()
   CPPUNIT_ASSERT_THROW(Integer::parseInt("123FG"), NumberFormatException);
 
 }
+
+void
+sk::util::test::IntegerTest::
+testParseIntGuess()
+{
+  CPPUNIT_ASSERT_EQUAL(0x12, Integer::parseInt("0x12"));
+  CPPUNIT_ASSERT_EQUAL(0x67B, Integer::parseInt("0X67b"));
+  CPPUNIT_ASSERT_EQUAL(0x25, Integer::parseInt("0b100101"));
+  CPPUNIT_ASSERT_EQUAL(0764, Integer::parseInt("0764"));
+  
+  CPPUNIT_ASSERT_EQUAL(1024, Integer::parseInt("1K"));
+  CPPUNIT_ASSERT_EQUAL(15 * 1024, Integer::parseInt("15K"));
+
+  CPPUNIT_ASSERT_EQUAL(1024 * 1024, Integer::parseInt("1M"));
+  CPPUNIT_ASSERT_EQUAL(10 * 1024 * 1024, Integer::parseInt("10M"));
+}

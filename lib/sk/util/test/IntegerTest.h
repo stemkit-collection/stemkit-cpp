@@ -22,6 +22,7 @@ namespace sk {
           CPPUNIT_TEST(testStaticToString);
           CPPUNIT_TEST(testStaticToHexString);
           CPPUNIT_TEST(testParseInt);
+          CPPUNIT_TEST(testParseIntGuess);
         CPPUNIT_TEST_SUITE_END();
         
         public:
@@ -34,6 +35,7 @@ namespace sk {
           void testStaticToString();
           void testStaticToHexString();
           void testParseInt();
+          void testParseIntGuess();
           
         private:
           IntegerTest(const IntegerTest& other);

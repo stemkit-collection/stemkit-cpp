@@ -9,6 +9,7 @@
 #include <sk/util/String.h>
 #include <sk/util/Integer.h>
 #include <sk/util/NumberFormatException.h>
+#include <strings.h>
 
 #include <sstream>
 #include <iomanip>
@@ -88,5 +89,36 @@ int
 sk::util::Integer::
 parseInt(const sk::util::String& value)
 {
-  return parse(value.getChars(), value.size(), 0, 10);
+  const char* buffer = value.getChars();
+  int size = value.size();
+  int multiplier = 1;
+  int base = 10;
+
+  if(strncasecmp("0x", buffer, 2) == 0) {
+    buffer += 2;
+    size -= 2;
+    base = 16;
+  }
+  else if(strncasecmp("0b", buffer, 2) == 0) {
+    buffer += 2;
+    size -= 2;
+    base = 2;
+  }
+  else if(*buffer == '0') {
+    buffer += 1;
+    size -= 1;
+    base = 8;
+  }
+
+  if(size) {
+    if(strncasecmp("M", buffer + size - 1, 1) == 0) {
+      multiplier = 1024 * 1024;
+      size -= 1;
+    }
+    else if(strncasecmp("K", buffer + size - 1, 1) == 0) {
+      multiplier = 1024;
+      size -= 1;
+    }
+  }
+  return parse(buffer, size, 0, base) * multiplier;
 }
