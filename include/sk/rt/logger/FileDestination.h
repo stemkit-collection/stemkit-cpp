@@ -10,6 +10,8 @@
 
 #include <sk/rt/logger/Destination.h>
 #include <sk/util/Pathname.h>
+#include <sk/util/Holder.hxx>
+#include <fstream>
 
 namespace sk {
   namespace rt {
@@ -33,9 +35,17 @@ namespace sk {
           
         private:
           FileDestination& operator = (const FileDestination& other);
+          
+          void openFile();
+          void renameFile();
+          void initFile();
+
           sk::util::Pathname _pathname;
           int _size;
           int _chunks;
+          int _nextChunk;
+          off_t _bytesWritten;
+          sk::util::Holder<std::fstream>::Sharing _fileHolder;
       };
     }
   }

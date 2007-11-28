@@ -8,6 +8,7 @@
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
 #include <sk/util/Integer.h>
+#include <sk/util/Holder.cxx>
 #include <sk/util/NumberFormatException.h>
 #include <sk/util/UnsupportedOperationException.h>
 
@@ -15,7 +16,7 @@
 
 sk::rt::logger::FileDestination::
 FileDestination(const sk::util::Pathname& pathname)
-  : _pathname(pathname), _size(0), _chunks(0)
+  : _pathname(pathname), _size(0), _chunks(0), _bytesWritten(0), _fileHolder(new std::fstream)
 {
 }
 
@@ -42,7 +43,22 @@ void
 sk::rt::logger::FileDestination::
 dispatch(std::stringstream& stream)
 {
-  throw sk::util::UnsupportedOperationException("dispatch()");
+  if(_bytesWritten == 0) {
+    openFile();
+  }
+  _fileHolder.get() << stream.rdbuf();
+  
+  if(_size > 0) {
+    _bytesWritten += stream.str().size();
+    if(_bytesWritten > _size) {
+      _bytesWritten = 0;
+      renameFile();
+      initFile();
+    }
+  }
+  else {
+    _bytesWritten = 1;
+  }
 }
 
 void
@@ -63,4 +79,10 @@ setChunks(const sk::util::String& specification)
     _chunks = sk::util::Integer::parseInt(specification);
   }
   catch(const sk::util::NumberFormatException& exception) {}
+}
+
+void
+sk::rt::logger::FileDestination::
+openFile()
+{
 }
