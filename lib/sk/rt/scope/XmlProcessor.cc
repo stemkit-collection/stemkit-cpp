@@ -198,7 +198,7 @@ void
 sk::rt::scope::XmlProcessor::
 updateFileDestination(const TiXmlHandle& handle, const char* tag, scope::Config& config) 
 {
-  sk::util::Pathname pathname(attribute(handle.ToElement(), join(tag, "name"), _scopeBuffer));
+  sk::util::Pathname pathname(attribute(handle.ToElement(), join(tag, "name"), _scopeBuffer), "log");
   pathname.front(attribute(handle.ToElement(), join(tag, "location"), ""));
 
   logger::FileDestination destination(pathname.front(_location));
