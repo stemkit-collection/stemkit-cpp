@@ -10,7 +10,7 @@
 #include <sk/util/Integer.h>
 #include <sk/util/Holder.cxx>
 #include <sk/util/NumberFormatException.h>
-#include <sk/util/UnsupportedOperationException.h>
+#include <sk/util/IllegalStateException.h>
 #include <sk/util/SystemException.h>
 
 #include <sk/rt/logger/FileDestination.h>
@@ -134,11 +134,13 @@ sk::rt::logger::FileDestination::
 initFile()
 {
   std::ofstream file(_pathname.toString().getChars());
-  if(file.good() == true) {
-    file << '[' << _pathname.basename() << '-' << _nextChunk << ']' << std::endl;
-  }
   if(file.good() == false) {
-    throw "Cannot initialize file " + _pathname.toString().inspect();
+    throw sk::util::SystemException("Cannot access " + _pathname.toString().inspect());
+  }
+  file << '[' << _pathname.basename() << '-' << _nextChunk << ']' << std::endl;
+
+  if(file.good() == false) {
+    throw sk::util::IllegalStateException("Cannot initialize " + _pathname.toString().inspect());
   }
 }
 
