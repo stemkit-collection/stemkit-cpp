@@ -7,13 +7,15 @@
 
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
-
+#include <sk/util/Integer.h>
+#include <sk/util/NumberFormatException.h>
 #include <sk/util/UnsupportedOperationException.h>
+
 #include <sk/rt/logger/FileDestination.h>
 
 sk::rt::logger::FileDestination::
 FileDestination(const sk::util::Pathname& pathname)
-  : _pathname(pathname)
+  : _pathname(pathname), _size(0), _chunks(0)
 {
 }
 
@@ -47,12 +49,18 @@ void
 sk::rt::logger::FileDestination::
 setSize(const sk::util::String& specification)
 {
-  throw sk::util::UnsupportedOperationException("setSize()");
+  try {
+    _size = sk::util::Integer::parseInt(specification);
+  }
+  catch(const sk::util::NumberFormatException& exception) {}
 }
 
 void
 sk::rt::logger::FileDestination::
 setChunks(const sk::util::String& specification)
 {
-  throw sk::util::UnsupportedOperationException("setChunks()");
+  try {
+    _chunks = sk::util::Integer::parseInt(specification);
+  }
+  catch(const sk::util::NumberFormatException& exception) {}
 }

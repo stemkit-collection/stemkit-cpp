@@ -34,6 +34,8 @@ namespace sk {
         private:
           FileDestination& operator = (const FileDestination& other);
           sk::util::Pathname _pathname;
+          int _size;
+          int _chunks;
       };
     }
   }
