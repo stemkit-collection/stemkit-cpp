@@ -37,8 +37,10 @@ namespace sk {
           FileDestination& operator = (const FileDestination& other);
           
           void openFile();
-          void renameFile();
+          void closeFile();
+          void backupFile();
           void initFile();
+          bool scanFile();
 
           sk::util::Pathname _pathname;
           int _size;
