@@ -7,6 +7,7 @@
 
 #include "StringTest.h"
 #include <sk/util/String.h>
+#include <sk/util/IndexOutOfBoundsException.h>
 #include <sk/util/Class.h>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::util::test::StringTest);
@@ -181,10 +182,65 @@ testEquals()
   CPPUNIT_ASSERT_EQUAL(false, String("abc").equals("b"));
   CPPUNIT_ASSERT_EQUAL(false, String("abc").equals(""));
 }
+
 void
 sk::util::test::StringTest::
 testEqualsIgnoreCase()
 {
   CPPUNIT_ASSERT_EQUAL(true, String("abc").equalsIgnoreCase("ABC"));
   CPPUNIT_ASSERT_EQUAL(true, String("AbC").equalsIgnoreCase("aBc"));
+}
+
+void
+sk::util::test::StringTest::
+testSqueeze()
+{
+  String s("aaabbbccc");
+
+  CPPUNIT_ASSERT_EQUAL(String("aaabccc").inspect(), s.squeeze('b').inspect());
+  CPPUNIT_ASSERT_EQUAL(String("abbbccc").inspect(), s.squeeze('a').inspect());
+  CPPUNIT_ASSERT_EQUAL(String("aaabbbc").inspect(), s.squeeze('c').inspect());
+}
+
+void
+sk::util::test::StringTest::
+testIndex()
+{
+  String s("aaabbbccc");
+  CPPUNIT_ASSERT_EQUAL(-1, s.indexOf('z'));
+  CPPUNIT_ASSERT_EQUAL(-1, s.lastIndexOf('z'));
+
+  CPPUNIT_ASSERT_EQUAL(0, s.indexOf('a'));
+  CPPUNIT_ASSERT_EQUAL(2, s.lastIndexOf('a'));
+
+  CPPUNIT_ASSERT_EQUAL(3, s.indexOf('b'));
+  CPPUNIT_ASSERT_EQUAL(5, s.lastIndexOf('b'));
+
+  CPPUNIT_ASSERT_EQUAL(6, s.indexOf('c'));
+  CPPUNIT_ASSERT_EQUAL(8, s.lastIndexOf('c'));
+}
+
+void
+sk::util::test::StringTest::
+testSubstring()
+{
+  String s("aaabbbccc");
+
+  CPPUNIT_ASSERT_EQUAL(String("bccc").inspect(), s.substring(5).inspect());
+  CPPUNIT_ASSERT_EQUAL(String("").inspect(), s.substring(9).inspect());
+  CPPUNIT_ASSERT_EQUAL(String("aaabbbccc").inspect(), s.substring(0).inspect());
+  CPPUNIT_ASSERT_THROW(s.substring(-1), sk::util::IndexOutOfBoundsException);
+
+  CPPUNIT_ASSERT_THROW(s.substring(10), sk::util::IndexOutOfBoundsException);
+
+  CPPUNIT_ASSERT_EQUAL(String("aaab").inspect(), s.substring(0, 4).inspect());
+  CPPUNIT_ASSERT_EQUAL(String("abbbc").inspect(), s.substring(2, 7).inspect());
+  CPPUNIT_ASSERT_EQUAL(String("bccc").inspect(), s.substring(5, 9).inspect());
+  CPPUNIT_ASSERT_EQUAL(String("aaabbbccc").inspect(), s.substring(0, 9).inspect());
+  CPPUNIT_ASSERT_EQUAL(String("").inspect(), s.substring(5, 5).inspect());
+
+  CPPUNIT_ASSERT_THROW(s.substring(-1, 5), sk::util::IndexOutOfBoundsException);
+  // CPPUNIT_ASSERT_THROW(s.substring(2, 10), sk::util::IndexOutOfBoundsException);
+  // CPPUNIT_ASSERT_THROW(s.substring(10, 10), sk::util::IndexOutOfBoundsException);
+  // CPPUNIT_ASSERT_THROW(s.substring(5, 4), sk::util::IndexOutOfBoundsException);
 }

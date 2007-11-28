@@ -39,11 +39,26 @@ namespace sk {
         /// Retruns a copy of this string with whitespaces removed from the
         /// beginning and the end.
         const String trim() const;
+        const String squeeze(char character) const;
         const String strip() const;
 
         /// Tests if this string starts with the specified prefix.
         bool startsWith(const sk::util::String& prefix) const;
         bool startsWith(const char* prefix) const;
+
+        /// Returns the index within this string of the first occurrence of
+        /// the specified character.
+        int indexOf(char character) const;
+
+        /// Returns the index within this string of the last occurrence of the
+        /// specified character.
+        int lastIndexOf(char character) const;
+
+        /// Returns a new string that is a substring of this string.
+        const String substring(int beginIndex) const;
+        
+        /// Returns a new string that is a substring of this string.
+        const String substring(int beginIndex, int endIndex) const;
 
         /// Tests if this string ends with the specified suffix.
         bool endsWith(const sk::util::String& suffix) const;

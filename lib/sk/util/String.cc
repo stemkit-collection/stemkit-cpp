@@ -8,6 +8,7 @@
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
 #include <sk/util/inspect.h>
+#include <sk/util/IndexOutOfBoundsException.h>
 #include <algorithm>
 
 const sk::util::String sk::util::String::EMPTY;
@@ -231,6 +232,84 @@ sk::util::String::
 strip() const
 {
   return trim();
+}
+
+namespace {
+  struct UniqueChecker
+    : public std::binary_function<char, char, bool>
+  {
+    UniqueChecker(char character)
+      : _character(character) {}
+
+    bool operator()(char c1, char c2) const {
+      return c1 == c2 && c1 == _character;
+    }
+    char _character;
+  };
+}
+
+const sk::util::String
+sk::util::String::
+squeeze(char character) const
+{
+  String result;
+  std::unique_copy(begin(), end(), std::back_insert_iterator<std::string>(result), UniqueChecker(character));
+
+  return result;
+}
+
+int
+sk::util::String::
+indexOf(char character) const
+{
+  size_type pos = std::string::find_first_of(character);
+  if(pos == std::string::npos) {
+    return -1;
+  }
+  return pos - 0;
+}
+
+int
+sk::util::String::
+lastIndexOf(char character) const
+{
+  size_type pos = std::string::find_last_of(character);
+  if(pos == std::string::npos) {
+    return -1;
+  }
+  return pos - 0;
+}
+
+const sk::util::String
+sk::util::String::
+substring(int beginIndex) const
+{
+  if(beginIndex < 0 || beginIndex > size()) {
+    throw IndexOutOfBoundsException("substring()");
+  }
+  if(beginIndex == 0) {
+    return *this;
+  }
+  if(beginIndex == size()) {
+    return String::EMPTY;
+  }
+  return std::string::substr(beginIndex);
+}
+
+const sk::util::String
+sk::util::String::
+substring(int beginIndex, int endIndex) const
+{
+  if(beginIndex < 0 || endIndex > size() || beginIndex > endIndex) {
+    throw IndexOutOfBoundsException("substring()");
+  }
+  if(beginIndex == 0 && endIndex == size()) {
+    return *this;
+  }
+  if(beginIndex == endIndex) {
+    return String::EMPTY;
+  }
+  return std::string::substr(beginIndex, endIndex - beginIndex);
 }
 
 const sk::util::String operator + (const sk::util::String& s1, const sk::util::String& s2)

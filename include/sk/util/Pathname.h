@@ -18,17 +18,25 @@ namespace sk {
     {
       public:
         Pathname(const sk::util::String& component);
+        Pathname(const sk::util::String& component, const sk::util::String& defaultExtension);
         virtual ~Pathname();
+
+        bool isAbsolute() const;
+        const sk::util::String basename() const;
+        const sk::util::String dirname() const;
 
         Pathname& front(const sk::util::String& component);
         
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
+        const sk::util::String toString() const;
         
       private:
         Pathname& operator = (const Pathname& other);
 
-        sk::util::String _collector;
+        void normalizePrepended(const sk::util::String& trimmedComponent);
+
+        sk::util::String _pathname;
     };
   }
 }

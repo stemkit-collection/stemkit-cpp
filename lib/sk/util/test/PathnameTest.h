@@ -19,6 +19,7 @@ namespace sk {
       {
         CPPUNIT_TEST_SUITE(sk::util::test::PathnameTest);
           CPPUNIT_TEST(testBasics);
+          CPPUNIT_TEST(testExtension);
         CPPUNIT_TEST_SUITE_END();
         
         public:
@@ -26,8 +27,9 @@ namespace sk {
           virtual ~PathnameTest();
           
           void setUp();
-          void testBasics();
           void tearDown();
+          void testBasics();
+          void testExtension();
           
         private:
           PathnameTest(const PathnameTest& other);

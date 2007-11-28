@@ -30,6 +30,9 @@ namespace sk {
           CPPUNIT_TEST(testEndsWith);
           CPPUNIT_TEST(testEquals);
           CPPUNIT_TEST(testEqualsIgnoreCase);
+          CPPUNIT_TEST(testSqueeze);
+          CPPUNIT_TEST(testIndex);
+          CPPUNIT_TEST(testSubstring);
         CPPUNIT_TEST_SUITE_END();
         
         public:
@@ -50,6 +53,9 @@ namespace sk {
           void testEndsWith();
           void testEquals();
           void testEqualsIgnoreCase();
+          void testSqueeze();
+          void testIndex();
+          void testSubstring();
           
         private:
           StringTest(const StringTest& other);
