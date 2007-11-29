@@ -18,7 +18,7 @@
 
 sk::rt::logger::FileDestination::
 FileDestination(const sk::util::Pathname& pathname)
-  : _pathname(pathname), _size(0), _chunks(0), _nextChunk(0), _bytesWritten(0), _fileHolder(new std::fstream)
+  : _pathname(pathname), _size(0), _backups(0), _nextBackup(0), _bytesWritten(0), _fileHolder(new std::fstream)
 {
   _fileHolder.get().exceptions(std::ios::eofbit | std::ios::failbit | std::ios::badbit);
 }
@@ -79,10 +79,10 @@ setSize(const sk::util::String& specification)
 
 void
 sk::rt::logger::FileDestination::
-setChunks(const sk::util::String& specification)
+setBackups(const sk::util::String& specification)
 {
   try {
-    _chunks = sk::util::Integer::parseInt(specification);
+    _backups = sk::util::Integer::parseInt(specification);
   }
   catch(const sk::util::NumberFormatException& exception) {}
 }
@@ -117,7 +117,7 @@ void
 sk::rt::logger::FileDestination::
 backupFile()
 {
-  sk::util::String backup = _pathname.toString() + '-' + sk::util::Integer::toString(_nextChunk);
+  sk::util::String backup = _pathname.toString() + '-' + sk::util::Integer::toString(_nextBackup);
   unlink(backup.getChars());
   if(link(_pathname.toString().getChars(), backup.getChars()) < 0) {
     throw sk::util::SystemException("link()");
@@ -125,9 +125,9 @@ backupFile()
   if(unlink(_pathname.toString().getChars()) < 0) {
     throw sk::util::SystemException("unlink()");
   }
-  _nextChunk += 1;
-  if(_nextChunk >= _chunks) {
-    _nextChunk = 0;
+  _nextBackup += 1;
+  if(_nextBackup >= _backups) {
+    _nextBackup = 0;
   }
 }
 
@@ -139,7 +139,7 @@ initFile()
   if(file.good() == false) {
     throw sk::util::SystemException("Cannot access " + _pathname.toString().inspect());
   }
-  file << '[' << _pathname.basename() << '-' << _nextChunk << ']' << std::endl;
+  file << '[' << _pathname.basename() << '-' << _nextBackup << ']' << std::endl;
 
   if(file.good() == false) {
     throw sk::util::IllegalStateException("Cannot initialize " + _pathname.toString().inspect());
@@ -157,7 +157,7 @@ scanFile()
   sk::util::String line;
   if(std::getline(file, line).good() == true) {
     sk::util::String format = '[' + _pathname.basename() + "-%d" + ']';
-    if(sscanf(line.getChars(), format.getChars(), &_nextChunk) == 1) {
+    if(sscanf(line.getChars(), format.getChars(), &_nextBackup) == 1) {
       return true;
     }
   }

@@ -24,7 +24,7 @@ namespace sk {
           virtual ~FileDestination();
 
           void setSize(const sk::util::String& specification);
-          void setChunks(const sk::util::String& specification);
+          void setBackups(const sk::util::String& specification);
 
           // sk::rt::logger::Destination implementation.
           void dispatch(std::stringstream& stream);
@@ -42,11 +42,11 @@ namespace sk {
           void initFile();
           bool scanFile();
 
-          sk::util::Pathname _pathname;
           int _size;
-          int _chunks;
-          int _nextChunk;
+          int _backups;
+          int _nextBackup;
           off_t _bytesWritten;
+          sk::util::Pathname _pathname;
           sk::util::Holder<std::fstream>::Sharing _fileHolder;
       };
     }

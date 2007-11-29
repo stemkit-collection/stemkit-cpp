@@ -204,7 +204,7 @@ updateFileDestination(const TiXmlHandle& handle, const char* tag, scope::Config&
   logger::FileDestination destination(pathname.front(_location));
 
   destination.setSize(attribute(handle.ToElement(), join(tag, "size"), "10M"));
-  destination.setChunks(attribute(handle.ToElement(), join(tag, "chunks"), "3"));
+  destination.setBackups(attribute(handle.ToElement(), join(tag, "backups"), "3"));
 
   config.setLogDestination(destination);
 }
