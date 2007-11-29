@@ -30,9 +30,9 @@ getClass() const
 
 void
 sk::rt::logger::ExternalStreamDestination::
-dispatch(std::stringstream& stream) 
+dispatch(const char* buffer, int size) 
 {
-  _destination << stream.rdbuf();
+  _destination.write(buffer, size);
 }
 
 sk::rt::logger::ExternalStreamDestination*

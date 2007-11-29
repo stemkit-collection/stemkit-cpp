@@ -24,7 +24,7 @@ namespace sk {
           virtual ~DirectFileDestination();
 
           // sk::rt::logger::Destination implementation.
-          void dispatch(std::stringstream& stream);
+          void dispatch(const char* buffer, int size);
           
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;

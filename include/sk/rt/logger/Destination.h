@@ -18,7 +18,7 @@ namespace sk {
         : public virtual sk::util::Object 
       {
         public:
-          virtual void dispatch(std::stringstream& stream) = 0;
+          virtual void dispatch(const char* buffer, int size) = 0;
           virtual Destination* clone() const = 0;
       };
     }

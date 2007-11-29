@@ -1,5 +1,7 @@
 <scope name="user">
-  <log file-location="logs" file-size="2K" destination="file" level="info" show-pid="true" show-time="false" />
+  <log level="info" show-process="true" show-pid="true" show-time="false">
+    <file location="logs" size="2K" use-pipe="true" />
+  </log>
 
   <scope name="sk::sys::User">
     <log show-time="true">

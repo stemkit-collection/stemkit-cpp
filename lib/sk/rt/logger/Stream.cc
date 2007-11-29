@@ -46,7 +46,7 @@ sk::rt::logger::Stream::
 {
   if(isEnabled() == true) {
     _stream << std::endl;
-    _config.getLogDestination().dispatch(_stream);
+    _config.getLogDestination().dispatch(_stream.str().c_str(), _stream.str().size());
   }
 }
 

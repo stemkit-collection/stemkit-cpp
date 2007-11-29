@@ -22,7 +22,7 @@ namespace sk {
           virtual ~ExternalStreamDestination();
 
           // sk::rt::logger::Destinaiton implementation.
-          void dispatch(std::stringstream& stream);
+          void dispatch(const char* buffer, int size);
           ExternalStreamDestination* clone() const;
           
           // sk::util::Object re-implementation.

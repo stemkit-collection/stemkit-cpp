@@ -43,16 +43,16 @@ clone() const
 
 void
 sk::rt::logger::DirectFileDestination::
-dispatch(std::stringstream& stream)
+dispatch(const char* buffer, int size)
 {
   if(_bytesWritten == 0) {
     openFile();
   }
-  _fileHolder.get() << stream.rdbuf();
+  _fileHolder.get().write(buffer, size);
   _fileHolder.get().flush();
   
   if(getSize() > 0) {
-    _bytesWritten += stream.str().size();
+    _bytesWritten += size;
     if(_bytesWritten > getSize()) {
       closeFile();
       backupFile();
