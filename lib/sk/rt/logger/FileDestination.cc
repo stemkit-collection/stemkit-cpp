@@ -50,6 +50,7 @@ dispatch(std::stringstream& stream)
     openFile();
   }
   _fileHolder.get() << stream.rdbuf();
+  _fileHolder.get().flush();
   
   if(_size > 0) {
     _bytesWritten += stream.str().size();
@@ -117,6 +118,7 @@ sk::rt::logger::FileDestination::
 backupFile()
 {
   sk::util::String backup = _pathname.toString() + '-' + sk::util::Integer::toString(_nextChunk);
+  unlink(backup.getChars());
   if(link(_pathname.toString().getChars(), backup.getChars()) < 0) {
     throw sk::util::SystemException("link()");
   }
@@ -124,7 +126,7 @@ backupFile()
     throw sk::util::SystemException("unlink()");
   }
   _nextChunk += 1;
-  if(_nextChunk > _chunks) {
+  if(_nextChunk >= _chunks) {
     _nextChunk = 0;
   }
 }

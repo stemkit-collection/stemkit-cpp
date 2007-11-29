@@ -1,9 +1,13 @@
 <scope name="user">
-  <log destination="std::cout" level="info" show-time="false" />
+  <log file-location="logs" file-size="2K" destination="file" level="info" show-pid="true" show-time="false" />
 
   <scope name="sk::sys::User">
     <log show-time="true">
       <level severity="none" />
     </log>
   </scope>
+</scope>
+
+<scope name="pty">
+  <log file-location="logs" file-size="2K" destination="file" level="debug" show-time="true" show-object="true" />
 </scope>
