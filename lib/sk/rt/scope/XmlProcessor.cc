@@ -15,7 +15,8 @@
 #include <sk/rt/scope/Aggregator.h>
 #include <sk/rt/logger/Level.h>
 #include <sk/rt/logger/ExternalStreamDestination.h>
-#include <sk/rt/logger/FileDestination.h>
+#include <sk/rt/logger/DirectFileDestination.h>
+#include <sk/rt/logger/PipedFileDestination.h>
 #include <other/tinyxml/tinyxml.h>
 
 #include <iostream>
@@ -199,12 +200,17 @@ sk::rt::scope::XmlProcessor::
 updateFileDestination(const TiXmlHandle& handle, const char* tag, scope::Config& config) 
 {
   sk::util::Pathname pathname(attribute(handle.ToElement(), join(tag, "name"), _scopeBuffer), "log");
-  pathname.front(attribute(handle.ToElement(), join(tag, "location"), ""));
+  pathname.front(attribute(handle.ToElement(), join(tag, "location"), "")).front(_location);
 
-  logger::FileDestination destination(pathname.front(_location));
+  sk::util::Holder<logger::FileDestination> holder;
+  if(attribute(handle.ToElement(), join(tag, "use-pipe"), false) == true) {
+    holder.set(new logger::PipedFileDestination(pathname));
+  }
+  else {
+    holder.set(new logger::DirectFileDestination(pathname));
+  }
+  holder.get().setSize(attribute(handle.ToElement(), join(tag, "size"), "10M"));
+  holder.get().setBackups(attribute(handle.ToElement(), join(tag, "backups"), "3"));
 
-  destination.setSize(attribute(handle.ToElement(), join(tag, "size"), "10M"));
-  destination.setBackups(attribute(handle.ToElement(), join(tag, "backups"), "3"));
-
-  config.setLogDestination(destination);
+  config.setLogDestination(holder.get());
 }

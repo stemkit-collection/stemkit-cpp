@@ -10,8 +10,6 @@
 
 #include <sk/rt/logger/Destination.h>
 #include <sk/util/Pathname.h>
-#include <sk/util/Holder.hxx>
-#include <fstream>
 
 namespace sk {
   namespace rt {
@@ -23,31 +21,26 @@ namespace sk {
           FileDestination(const sk::util::Pathname& pathname);
           virtual ~FileDestination();
 
-          void setSize(const sk::util::String& specification);
-          void setBackups(const sk::util::String& specification);
+          const sk::util::Pathname& getPathname() const;
 
-          // sk::rt::logger::Destination implementation.
-          void dispatch(std::stringstream& stream);
-          
+          void setSize(const sk::util::String& specification);
+          void setSize(int size);
+
+          void setBackups(const sk::util::String& specification);
+          void setBackups(int backups);
+
+          int getSize() const;
+          int getBackups() const;
+
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
-          FileDestination* clone() const;
           
         private:
           FileDestination& operator = (const FileDestination& other);
           
-          void openFile();
-          void closeFile();
-          void backupFile();
-          void initFile();
-          bool scanFile();
-
           int _size;
           int _backups;
-          int _nextBackup;
-          off_t _bytesWritten;
           sk::util::Pathname _pathname;
-          sk::util::Holder<std::fstream>::Sharing _fileHolder;
       };
     }
   }

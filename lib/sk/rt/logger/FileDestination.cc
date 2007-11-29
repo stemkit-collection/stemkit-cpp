@@ -8,19 +8,14 @@
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
 #include <sk/util/Integer.h>
-#include <sk/util/Holder.cxx>
 #include <sk/util/NumberFormatException.h>
-#include <sk/util/IllegalStateException.h>
-#include <sk/util/SystemException.h>
 
 #include <sk/rt/logger/FileDestination.h>
-#include <unistd.h>
 
 sk::rt::logger::FileDestination::
 FileDestination(const sk::util::Pathname& pathname)
-  : _pathname(pathname), _size(0), _backups(0), _nextBackup(0), _bytesWritten(0), _fileHolder(new std::fstream)
+  : _pathname(pathname), _size(0), _backups(0)
 {
-  _fileHolder.get().exceptions(std::ios::eofbit | std::ios::failbit | std::ios::badbit);
 }
 
 sk::rt::logger::FileDestination::
@@ -35,36 +30,11 @@ getClass() const
   return sk::util::Class("sk::rt::logger::FileDestination");
 }
 
-sk::rt::logger::FileDestination*
+const sk::util::Pathname&
 sk::rt::logger::FileDestination::
-clone() const
+getPathname() const
 {
-  return new FileDestination(*this);
-}
-
-void
-sk::rt::logger::FileDestination::
-dispatch(std::stringstream& stream)
-{
-  if(_bytesWritten == 0) {
-    openFile();
-  }
-  _fileHolder.get() << stream.rdbuf();
-  _fileHolder.get().flush();
-  
-  if(_size > 0) {
-    _bytesWritten += stream.str().size();
-    if(_bytesWritten > _size) {
-      closeFile();
-      backupFile();
-      initFile();
-
-      _bytesWritten = 0;
-    }
-  }
-  else {
-    _bytesWritten = 1;
-  }
+  return _pathname;
 }
 
 void
@@ -79,6 +49,13 @@ setSize(const sk::util::String& specification)
 
 void
 sk::rt::logger::FileDestination::
+setSize(int size)
+{
+  _size = size;
+}
+
+void
+sk::rt::logger::FileDestination::
 setBackups(const sk::util::String& specification)
 {
   try {
@@ -89,77 +66,21 @@ setBackups(const sk::util::String& specification)
 
 void
 sk::rt::logger::FileDestination::
-openFile()
+setBackups(int backups)
 {
-  closeFile();
-
-  if(scanFile() == false) {
-    initFile();
-  }
-  _fileHolder.get().open(_pathname.toString().getChars(), std::ios::in | std::ios::out);
-  _fileHolder.get().seekp(0, std::ios::end);
-  _bytesWritten = _fileHolder.get().tellp();
+  _backups = backups;
 }
 
-void
+int 
 sk::rt::logger::FileDestination::
-closeFile()
+getSize() const
 {
-  try {
-    _fileHolder.get().close();
-  }
-  catch(...) {}
-
-  _fileHolder.get().clear();
+  return _size;
 }
 
-void
+int 
 sk::rt::logger::FileDestination::
-backupFile()
+getBackups() const
 {
-  sk::util::String backup = _pathname.toString() + '-' + sk::util::Integer::toString(_nextBackup);
-  unlink(backup.getChars());
-  if(link(_pathname.toString().getChars(), backup.getChars()) < 0) {
-    throw sk::util::SystemException("link()");
-  }
-  if(unlink(_pathname.toString().getChars()) < 0) {
-    throw sk::util::SystemException("unlink()");
-  }
-  _nextBackup += 1;
-  if(_nextBackup >= _backups) {
-    _nextBackup = 0;
-  }
-}
-
-void
-sk::rt::logger::FileDestination::
-initFile()
-{
-  std::ofstream file(_pathname.toString().getChars());
-  if(file.good() == false) {
-    throw sk::util::SystemException("Cannot access " + _pathname.toString().inspect());
-  }
-  file << '[' << _pathname.basename() << '-' << _nextBackup << ']' << std::endl;
-
-  if(file.good() == false) {
-    throw sk::util::IllegalStateException("Cannot initialize " + _pathname.toString().inspect());
-  }
-}
-
-bool
-sk::rt::logger::FileDestination::
-scanFile()
-{
-  std::ifstream file(_pathname.toString().getChars());
-  if(file.good() == false)  {
-    return false;
-  }
-  sk::util::String line;
-  if(std::getline(file, line).good() == true) {
-    sk::util::String format = '[' + _pathname.basename() + "-%d" + ']';
-    if(sscanf(line.getChars(), format.getChars(), &_nextBackup) == 1) {
-      return true;
-    }
-  }
-  return false;
+  return _backups;
 }

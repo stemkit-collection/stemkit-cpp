@@ -7,6 +7,8 @@ objects =
   Stream.cc
   ExternalStreamDestination.cc
   FileDestination.cc
+  DirectFileDestination.cc
+  PipedFileDestination.cc
 ;
 
 make-library $(library) : $(objects) ;
