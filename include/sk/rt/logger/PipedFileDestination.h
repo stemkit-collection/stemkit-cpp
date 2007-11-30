@@ -19,6 +19,7 @@ namespace sk {
       {
         public:
           PipedFileDestination(const sk::util::Pathname& pathname);
+          PipedFileDestination(const PipedFileDestination& other);
           virtual ~PipedFileDestination();
           
           // sk::rt::logger::Destination implementation.
@@ -31,10 +32,12 @@ namespace sk {
         private:
           PipedFileDestination& operator = (const PipedFileDestination& other);
 
+          void cleanup();
           void makePipe();
           void waitData(int descriptor);
 
           int _descriptor;
+          pid_t _pid;
       };
     }
   }

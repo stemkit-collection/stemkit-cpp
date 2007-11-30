@@ -1,6 +1,10 @@
+<scope>
+  <log destination="std::cerr" level="info" show-time="true" show-object="true" />
+</scope>
+
 <scope name="user">
   <log level="info" show-process="true" show-pid="true" show-time="false">
-    <file location="logs" size="2K" use-pipe="true" />
+    <file location="logs" size="2K" backups="3" use-pipe="true" />
   </log>
 
   <scope name="sk::sys::User">
