@@ -54,6 +54,8 @@ dispatch(const char* buffer, int size)
   if(getSize() > 0) {
     _bytesWritten += size;
     if(_bytesWritten > getSize()) {
+      _fileHolder.get() << "[---Switched---]" << std::endl;
+
       closeFile();
       backupFile();
       initFile();
@@ -118,7 +120,7 @@ initFile()
   if(file.good() == false) {
     throw sk::util::SystemException("Cannot access " + getPathname().toString().inspect());
   }
-  file << '[' << getPathname().basename() << '-' << _nextBackup << ']' << std::endl;
+  file << '[' << getPathname().basename() << '-' << _nextBackup << " of " << getBackups() << ']' << std::endl;
 
   if(file.good() == false) {
     throw sk::util::IllegalStateException("Cannot initialize " + getPathname().toString().inspect());
@@ -135,8 +137,10 @@ scanFile()
   }
   sk::util::String line;
   if(std::getline(file, line).good() == true) {
-    sk::util::String format = '[' + getPathname().basename() + "-%d" + ']';
-    if(sscanf(line.getChars(), format.getChars(), &_nextBackup) == 1) {
+    sk::util::String format = '[' + getPathname().basename() + "-%d of %d" + ']';
+    int backups;
+
+    if(sscanf(line.getChars(), format.getChars(), &_nextBackup, &backups) == 2) {
       return true;
     }
   }
