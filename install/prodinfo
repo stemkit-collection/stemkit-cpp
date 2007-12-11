@@ -27,7 +27,6 @@ product {
       system-query-top
       system-create-files
       system-set-permissions
-      system-set-user-group
     }
     filesets %w{
       main util sys io rt cppunit
@@ -110,7 +109,7 @@ fileset {
 
   directory %w{
     include/sk/rt
-    include/sk/rt/logging
+    include/sk/rt/logger
     lib
   }
   install.as('include/sk/rt').source {

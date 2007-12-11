@@ -29,6 +29,8 @@ namespace sk {
         Scope(const Scope& other);
         virtual ~Scope();
 
+        Scope& operator = (const Scope& other);
+
         static scope::Controller& controller();
         const Scope scope(const sk::util::String& name) const;
 
@@ -58,7 +60,6 @@ namespace sk {
         
       private:
         Scope(const Scope& parent, const sk::util::String& name);
-        Scope& operator = (const Scope& other);
 
         scope::Aggregator& getAggregator() const;
 
