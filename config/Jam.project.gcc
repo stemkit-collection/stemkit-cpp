@@ -35,6 +35,46 @@ CCFLAGS = -Werror -Wreturn-type ;
 DEFINES  = _REENTRANT ;
 INCLUDES = $(GENTOPDIR)/include $(SRCTOPDIR)/include ;
 
+rule platform-nt-x86
+{
+  core.load-config Jam.windows ;
+  project.MAKE_DLL = false ;
+  project.DO_NOT_USE_LIBRARY_MAJOR = true ;
+
+  CPPUNIT_VERSION = 1.12 ;
+  UNITTEST_LIBS = cppunitd.lib ;
+
+  CCDFLAGS = ;
+  CCOFLAGS = ;
+  C++FLAGS = ;
+  CCFLAGS = ;
+
+  INCLUDES = ;
+  LIBDIRS = ;
+
+  INCLUDES += [ util.make-path $(GENTOP) include ] ;
+  INCLUDES += [ util.make-path $(SRCTOP) include ] ;
+  INCLUDES += [ util.make-path $(SRCTOP) platform include windows-visual-studio ] ;
+  INCLUDES += [ util.make-path $(SRCTOP) platform include generic ] ;
+
+  core.ensure-defined JAM_MSVS_ROOT ;
+  mswin.setup-visual-studio8 "$(JAM_MSVS_ROOT:J= )" ;
+
+  # C++FLAGS = /TP /MT /EHsc /FD /WX ;
+  # CCFLAGS =  /TC /MT /EHsc /FD /WX /W3 ;
+  C++FLAGS = /TP /MT /EHsc /FD ;
+  CCFLAGS =  /TC /MT /EHsc /FD /W3 ;
+  CCOFLAGS = /O2 ;
+
+  # LINKER_FLAGS += /STACK:9000000 /MACHINE:X86 /NODEFAULTLIB:LIBCP.LIB /DEFAULTLIB:LIBCPMT.LIB ;
+  DEFINES += WINVER=0x0500 ;
+
+  project.CURSES_LIBS = ;
+  spo.LICENSE_DEFINES = ;
+
+  CONTRIB_ROOT = [ util.make-path C: qtools build visual-studio-8 ] ;
+}
+
 rule platform-linux-x86
 {
   C++FLAGS += -fpic ;
@@ -232,6 +272,7 @@ switch $(PRODUCT_PLATFORM) {
   case mac-10.5-x86 : platform-macos-ppc ;
   case cygwin-xp-x86 : platform-cygwin-x86 ;
   case win32-sfu-x86 : platform-interix-x86 ;
+  case windows-x86 : platform-nt-x86 ;
   case * : exit Unknown platform $(PRODUCT_PLATFORM) ;
 }
 
@@ -248,8 +289,8 @@ LIBDIRS += $(GCC_ROOT)/lib ;
 CCOFLAGS ?= -O0 -fno-guess-branch-probability ;
 DLLFLAGS ?= -shared ;
 
-UNITTEST_DIRS = $(CONTRIB_ROOT)/cppunit-$(CPPUNIT_VERSION) ;
-UNITTEST_LIBS = cppunit ;
+UNITTEST_DIRS ?= $(CONTRIB_ROOT)/cppunit-$(CPPUNIT_VERSION) ;
+UNITTEST_LIBS ?= cppunit ;
 
 C++ALLFLAGS = $(C++FLAGS) $(CCDFLAGS) $(CCOFLAGS) ;
 CCALLFLAGS = $(CCFLAGS) $(CCDFLAGS) $(CCOFLAGS) ;
