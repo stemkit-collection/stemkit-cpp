@@ -125,6 +125,7 @@ testTrim()
   CPPUNIT_ASSERT_EQUAL(String(""), String("    ").strip());
   CPPUNIT_ASSERT_EQUAL(String(""), String("").strip());
   CPPUNIT_ASSERT_EQUAL(String(""), String(s).strip());
+  CPPUNIT_ASSERT_EQUAL(String("Hello, World!!!"), String("   Hello, World!!!       ").trim());
 }
 
 void
