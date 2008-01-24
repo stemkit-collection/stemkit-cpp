@@ -42,7 +42,7 @@ rule platform-nt-x86
   project.DO_NOT_USE_LIBRARY_MAJOR = true ;
 
   CPPUNIT_VERSION = 1.12 ;
-  UNITTEST_LIBS = cppunitd.lib ;
+  UNITTEST_LIBS = cppunit ;
 
   CCDFLAGS = ;
   CCOFLAGS = ;
@@ -60,19 +60,17 @@ rule platform-nt-x86
   core.ensure-defined JAM_MSVS_ROOT ;
   mswin.setup-visual-studio8 "$(JAM_MSVS_ROOT:J= )" ;
 
-  # C++FLAGS = /TP /MT /EHsc /FD /WX ;
-  # CCFLAGS =  /TC /MT /EHsc /FD /WX /W3 ;
-  C++FLAGS = /TP /MT /EHsc /FD ;
-  CCFLAGS =  /TC /MT /EHsc /FD /W3 ;
+  C++FLAGS += /WX /WL ;
+  CCFLAGS += /WX /W3 ;
   CCOFLAGS = /O2 ;
 
-  # LINKER_FLAGS += /STACK:9000000 /MACHINE:X86 /NODEFAULTLIB:LIBCP.LIB /DEFAULTLIB:LIBCPMT.LIB ;
+  LINKER_FLAGS += /STACK:9000000 /MACHINE:X86 ;
   DEFINES += WINVER=0x0500 ;
 
   project.CURSES_LIBS = ;
-  spo.LICENSE_DEFINES = ;
 
   CONTRIB_ROOT = [ util.make-path C: qtools build visual-studio-8 ] ;
+  SYSLIBS = shlwapi ;
 }
 
 rule platform-linux-x86
