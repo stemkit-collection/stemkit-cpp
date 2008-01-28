@@ -13,13 +13,13 @@
 
 sk::rt::config::CwdUprootLocator::
 CwdUprootLocator(const sk::util::String& item, const SpotLocator& other)
-  : UprootLocator(item, figureCurrentDirctory(), other)
+  : UprootLocator(item, figureCurrentDirectory(), other)
 {
 }
 
 sk::rt::config::CwdUprootLocator::
 CwdUprootLocator(const sk::util::String& item)
-  : UprootLocator(item, figureCurrentDirctory())
+  : UprootLocator(item, figureCurrentDirectory())
 {
 }
 
@@ -37,7 +37,7 @@ getClass() const
 
 const sk::util::String
 sk::rt::config::CwdUprootLocator::
-figureCurrentDirctory()
+figureCurrentDirectory()
 {
   char buffer[1024];
   return getcwd(buffer, sizeof(buffer));
