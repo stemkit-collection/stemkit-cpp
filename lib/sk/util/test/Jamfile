@@ -22,6 +22,7 @@ test-objects =
 # AbstractListTest.cc
   ArrayListTest.cc
   StringArrayTest.cc
+  StringHashTest.cc
   TestSuite.cc
   ExceptionTest.cc
   IllegalStateExceptionTest.cc
