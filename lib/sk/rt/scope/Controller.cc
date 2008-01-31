@@ -41,12 +41,26 @@ void
 sk::rt::scope::Controller::
 loadXmlConfig(const config::Locator& locator) 
 {
-  locator.invoke(XmlConfigLoader(sk::util::String::EMPTY, _aggregator));
+  locator.invoke(XmlConfigLoader(sk::util::String::EMPTY, _aggregator, sk::util::StringHash()));
 }
 
 void
 sk::rt::scope::Controller::
 loadXmlConfig(const sk::util::String& top, const config::Locator& locator) 
 {
-  locator.invoke(XmlConfigLoader(top, _aggregator));
+  locator.invoke(XmlConfigLoader(top, _aggregator, sk::util::StringHash()));
+}
+
+void
+sk::rt::scope::Controller::
+loadXmlConfig(const config::Locator& locator, const sk::util::StringHash& values) 
+{
+  locator.invoke(XmlConfigLoader(sk::util::String::EMPTY, _aggregator, values));
+}
+
+void
+sk::rt::scope::Controller::
+loadXmlConfig(const sk::util::String& top, const config::Locator& locator, const sk::util::StringHash& values) 
+{
+  locator.invoke(XmlConfigLoader(top, _aggregator, values));
 }

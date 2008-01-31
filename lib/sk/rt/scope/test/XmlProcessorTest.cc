@@ -44,7 +44,7 @@ void
 sk::rt::scope::test::XmlProcessorTest::
 testEmpty()
 {
-  XmlProcessor processor("", "a/b/c", _aggregatorHolder.get());
+  XmlProcessor processor("", "a/b/c", _aggregatorHolder.get(), sk::util::StringHash());
   CPPUNIT_ASSERT_EQUAL(sk::util::String("a/b/c").inspect(), processor.getLocation().inspect());
   CPPUNIT_ASSERT(processor.findScopeElement(processor.getHandle()) == 0);
 }
@@ -53,7 +53,7 @@ void
 sk::rt::scope::test::XmlProcessorTest::
 testTopOnly()
 {
-  XmlProcessor processor("<scope id='a' /><scope name='aaa' id='b' />", "a/b/c", _aggregatorHolder.get());
+  XmlProcessor processor("<scope id='a' /><scope name='aaa' id='b' />", "a/b/c", _aggregatorHolder.get(), sk::util::StringHash());
   CPPUNIT_ASSERT_EQUAL(sk::util::String("a/b/c").inspect(), processor.getLocation().inspect());
 
   TiXmlElement* unnamed_scope = processor.findScopeElement(processor.getHandle());
@@ -77,7 +77,7 @@ testTopLogInfo()
   CPPUNIT_ASSERT_EQUAL(false, _aggregatorHolder.get().getConfig().checkLogLevel(logger::Level::NOTICE));
   CPPUNIT_ASSERT_EQUAL(false, _aggregatorHolder.get().getConfig().checkLogLevel(logger::Level::INFO));
 
-  XmlProcessor processor("<scope name='app'><log show-time='true'><level severity='notice'/></log></scope>", "a/b/c", _aggregatorHolder.get());
+  XmlProcessor processor("<scope name='app'><log show-time='true'><level severity='notice'/></log></scope>", "a/b/c", _aggregatorHolder.get(), sk::util::StringHash());
   processor.start("app");
 
   CPPUNIT_ASSERT_EQUAL(false, _aggregatorHolder.get().getConfig().isLogObject());

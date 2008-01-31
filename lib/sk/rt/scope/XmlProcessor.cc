@@ -23,8 +23,8 @@
 #include <sstream>
 
 sk::rt::scope::XmlProcessor::
-XmlProcessor(const std::string& xml, const sk::util::String& location, scope::Aggregator& aggregator)
-  : _location(location), _aggregator(aggregator), _documentHolder(new TiXmlDocument)
+XmlProcessor(const std::string& xml, const sk::util::String& location, scope::Aggregator& aggregator, const sk::util::StringHash& values)
+  : _location(location), _aggregator(aggregator), _values(values), _documentHolder(new TiXmlDocument)
 {
   _documentHolder.get().Parse(xml.c_str());
   _handleHolder.set(new TiXmlHandle(&_documentHolder.get()));
@@ -182,12 +182,18 @@ updateProperties(const TiXmlHandle& handle, scope::Config& config)
   }
 }
 
+namespace {
+  const sk::util::String expand(const sk::util::String& value) {
+    return value;
+  }
+}
+
 void
 sk::rt::scope::XmlProcessor::
 updateFileDestination(const TiXmlHandle& handle, scope::Config& config) 
 {
-  sk::util::Pathname pathname(attribute(handle.ToElement(), "name", _scopeBuffer), "log");
-  pathname.front(attribute(handle.ToElement(), "location", "")).front(_location);
+  sk::util::Pathname pathname(expand(attribute(handle.ToElement(), "name", _scopeBuffer)), "log");
+  pathname.front(expand(attribute(handle.ToElement(), "location", ""))).front(_location);
 
   sk::util::Holder<logger::FileDestination> holder;
   if(attribute(handle.ToElement(), "use-pipe", false) == true) {

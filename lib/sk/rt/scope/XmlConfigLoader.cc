@@ -14,8 +14,8 @@
 #include <sstream>
 
 sk::rt::scope::XmlConfigLoader::
-XmlConfigLoader(const sk::util::String& top, scope::Aggregator& aggregator)
-  : _top(top), _aggregator(aggregator)
+XmlConfigLoader(const sk::util::String& top, scope::Aggregator& aggregator, const sk::util::StringHash& values)
+  : _top(top), _aggregator(aggregator), _values(values)
 {
 }
 
@@ -41,6 +41,6 @@ process(std::istream& stream, const sk::util::String& location) const
   while(getline(stream, incoming).eof() == false) {
     content << incoming << std::endl;
   }
-  XmlProcessor processor(content.str(), location, _aggregator);
+  XmlProcessor processor(content.str(), location, _aggregator, _values);
   processor.start(_top);
 }
