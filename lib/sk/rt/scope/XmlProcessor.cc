@@ -129,8 +129,6 @@ void
 sk::rt::scope::XmlProcessor::
 updateLogInfo(const TiXmlHandle& handle, scope::Config& config) 
 {
-  const char* file_tag = "file";
-
   config.setLogObject(attribute(handle.ToElement(), "show-object", config.isLogObject()));
   config.setLogTime(attribute(handle.ToElement(), "show-time", config.isLogTime()));
   config.setLogPid(attribute(handle.ToElement(), "show-pid", config.isLogPid()));
@@ -145,14 +143,12 @@ updateLogInfo(const TiXmlHandle& handle, scope::Config& config)
   else if(destination.equals("std::cerr")) {
     config.setLogDestination(logger::ExternalStreamDestination(std::cerr));
   }
-  else if(destination.equals(file_tag)) {
-    updateFileDestination(handle, file_tag, config);
-  }
-  else {
-    for(TiXmlElement* item=handle.FirstChild(file_tag).ToElement(); item ;item=item->NextSiblingElement(item->Value())) {
-      updateFileDestination(item, 0, config);
+  else if(destination.equals("file")) {
+    for(TiXmlElement* item=handle.FirstChild(destination).ToElement(); item ;item=item->NextSiblingElement(item->Value())) {
+      updateFileDestination(item, config);
     }
   }
+
   const sk::util::String level(attribute(handle.ToElement(), "level", "").trim());
   if(level.isEmpty() == false) {
     config.setLogLevel(logger::Level::valueOf(level));
@@ -186,31 +182,22 @@ updateProperties(const TiXmlHandle& handle, scope::Config& config)
   }
 }
 
-namespace {
-  const sk::util::String join(const char* tag, const sk::util::String& name) {
-    if(tag == 0) {
-      return name;
-    }
-    return tag + ("-" + name);
-  }
-}
-
 void
 sk::rt::scope::XmlProcessor::
-updateFileDestination(const TiXmlHandle& handle, const char* tag, scope::Config& config) 
+updateFileDestination(const TiXmlHandle& handle, scope::Config& config) 
 {
-  sk::util::Pathname pathname(attribute(handle.ToElement(), join(tag, "name"), _scopeBuffer), "log");
-  pathname.front(attribute(handle.ToElement(), join(tag, "location"), "")).front(_location);
+  sk::util::Pathname pathname(attribute(handle.ToElement(), "name", _scopeBuffer), "log");
+  pathname.front(attribute(handle.ToElement(), "location", "")).front(_location);
 
   sk::util::Holder<logger::FileDestination> holder;
-  if(attribute(handle.ToElement(), join(tag, "use-pipe"), false) == true) {
+  if(attribute(handle.ToElement(), "use-pipe", false) == true) {
     holder.set(new logger::PipedFileDestination(pathname));
   }
   else {
     holder.set(new logger::DirectFileDestination(pathname));
   }
-  holder.get().setSize(attribute(handle.ToElement(), join(tag, "size"), "10M"));
-  holder.get().setBackups(attribute(handle.ToElement(), join(tag, "backups"), "3"));
+  holder.get().setSize(attribute(handle.ToElement(), "size", "10M"));
+  holder.get().setBackups(attribute(handle.ToElement(), "backups", "3"));
 
   config.setLogDestination(holder.get());
 }
