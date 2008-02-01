@@ -43,8 +43,6 @@ testDefaultNoOutputButError()
 {
   Scope scope("abc");
 
-  scope.info() << "aaa";
-  scope.warning() << "bbb";
   scope.notice() << "ccc";
   scope.debug() << "ddd";
   scope.detail() << "eee";
@@ -75,7 +73,7 @@ void
 sk::rt::tests::ScopeTest::
 testScope()
 {
-  Scope::controller().getAggregator().getConfigForUpdate().setLogLevel(logger::Level::INFO);
+  Scope::controller().getAggregator().getConfigForUpdate().setLogLevel(logger::Level::NOTICE);
   {
     const Scope scope("s1");
     scope.info() << "a";
@@ -87,7 +85,7 @@ testScope()
     scope.info() << "c";
   }
   CPPUNIT_ASSERT_EQUAL(
-    sk::util::String("INFO:s1: Enter (name)\nINFO:s1: a\nINFO:s1#s2: Enter (scope)\nINFO:s1#s2: b\nINFO:s1#s2: Leave\nINFO:s1: c\nINFO:s1: Leave\n").inspect(),
+    sk::util::String("NOTICE:s1: Enter (name)\nINFO:s1: a\nNOTICE:s1#s2: Enter (scope)\nINFO:s1#s2: b\nNOTICE:s1#s2: Leave\nINFO:s1: c\nNOTICE:s1: Leave\n").inspect(),
     sk::util::String(_stream.str()).inspect()
   );
 }
