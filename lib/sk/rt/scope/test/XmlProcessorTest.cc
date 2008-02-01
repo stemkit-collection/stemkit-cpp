@@ -45,7 +45,7 @@ void
 sk::rt::scope::test::XmlProcessorTest::
 testEmpty()
 {
-  XmlProcessor processor("", "a/b/c", _aggregatorHolder.get(), sk::util::StringHash());
+  XmlProcessor processor("", "a/b/c", _aggregatorHolder.get(), std::map<std::string, std::string>());
   CPPUNIT_ASSERT_EQUAL(sk::util::String("a/b/c").inspect(), processor.getLocation().inspect());
   CPPUNIT_ASSERT(processor.findScopeElement(processor.getHandle()) == 0);
 }
@@ -54,7 +54,7 @@ void
 sk::rt::scope::test::XmlProcessorTest::
 testTopOnly()
 {
-  XmlProcessor processor("<scope id='a' /><scope name='aaa' id='b' />", "a/b/c", _aggregatorHolder.get(), sk::util::StringHash());
+  XmlProcessor processor("<scope id='a' /><scope name='aaa' id='b' />", "a/b/c", _aggregatorHolder.get(), std::map<std::string, std::string>());
   CPPUNIT_ASSERT_EQUAL(sk::util::String("a/b/c").inspect(), processor.getLocation().inspect());
 
   TiXmlElement* unnamed_scope = processor.findScopeElement(processor.getHandle());
@@ -79,7 +79,7 @@ testTopLogInfo()
   CPPUNIT_ASSERT_EQUAL(true, _aggregatorHolder.get().getConfig().checkLogLevel(logger::Level::WARNING));
   CPPUNIT_ASSERT_EQUAL(true, _aggregatorHolder.get().getConfig().checkLogLevel(logger::Level::ERROR));
 
-  XmlProcessor processor("<scope name='app'><log show-time='true'><level severity='warning'/></log></scope>", "a/b/c", _aggregatorHolder.get(), sk::util::StringHash());
+  XmlProcessor processor("<scope name='app'><log show-time='true'><level severity='warning'/></log></scope>", "a/b/c", _aggregatorHolder.get(), std::map<std::string, std::string>());
   processor.start("app");
 
   CPPUNIT_ASSERT_EQUAL(false, _aggregatorHolder.get().getConfig().isLogObject());
@@ -95,7 +95,7 @@ void
 sk::rt::scope::test::XmlProcessorTest::
 testValueSubstituion()
 {
-  sk::util::StringHash values;
+  std::map<std::string, std::string> values;
   values["port"] = "2222";
 
   XmlProcessor processor(

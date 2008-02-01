@@ -11,7 +11,7 @@
 #include <sk/util/Object.h>
 #include <sk/util/String.h>
 #include <sk/util/Holder.hxx>
-#include <sk/util/StringHash.h>
+#include <map>
 
 class TiXmlDocument;
 class TiXmlHandle;
@@ -27,7 +27,7 @@ namespace sk {
         : public virtual sk::util::Object 
       {
         public:
-          XmlProcessor(const std::string& xml, const sk::util::String& location, scope::Aggregator& aggregator, const sk::util::StringHash& values);
+          XmlProcessor(const std::string& xml, const sk::util::String& location, scope::Aggregator& aggregator, const std::map<std::string, std::string>& values);
           virtual ~XmlProcessor();
 
           void start(const sk::util::String& scope);
@@ -52,7 +52,7 @@ namespace sk {
 
           const sk::util::String _location;
           scope::Aggregator& _aggregator;
-          sk::util::StringHash _values;
+          std::map<std::string, std::string> _values;
           sk::util::Holder<TiXmlDocument> _documentHolder;
           sk::util::Holder<TiXmlHandle> _handleHolder;
           sk::util::String _scopeBuffer;

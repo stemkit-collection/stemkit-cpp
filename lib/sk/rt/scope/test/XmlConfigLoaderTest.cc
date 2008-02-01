@@ -50,7 +50,7 @@ void
 sk::rt::scope::test::XmlConfigLoaderTest::
 testBigPicture()
 {
-  XmlConfigLoader loader("app", aggregator(), sk::util::StringHash());
+  XmlConfigLoader loader("app", aggregator(), std::map<std::string, std::string>());
   std::stringstream stream;
   stream << 
     "<scope name='app'>\n" 

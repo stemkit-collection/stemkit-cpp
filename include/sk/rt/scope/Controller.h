@@ -10,7 +10,7 @@
 
 #include <sk/util/Object.h>
 #include <sk/rt/scope/Aggregator.h>
-#include <sk/util/StringHash.h>
+#include <map>
 
 namespace sk {
   namespace rt {
@@ -30,8 +30,8 @@ namespace sk {
 
           void loadXmlConfig(const config::Locator& locator);
           void loadXmlConfig(const sk::util::String& top, const config::Locator& locator);
-          void loadXmlConfig(const config::Locator& locator, const sk::util::StringHash& values);
-          void loadXmlConfig(const sk::util::String& top, const config::Locator& locator, const sk::util::StringHash& values);
+          void loadXmlConfig(const config::Locator& locator, const std::map<std::string, std::string>& values);
+          void loadXmlConfig(const sk::util::String& top, const config::Locator& locator, const std::map<std::string, std::string>& values);
 
           scope::Aggregator& getAggregator();
           
