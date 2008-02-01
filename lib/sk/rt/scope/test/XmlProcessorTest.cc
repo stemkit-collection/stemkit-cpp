@@ -12,6 +12,7 @@
 #include <sk/util/Holder.cxx>
 #include <sk/rt/scope/Aggregator.h>
 #include <sk/rt/logger/Level.h>
+#include <sk/rt/logger/DirectFileDestination.h>
 #include <other/tinyxml/tinyxml.h>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::rt::scope::test::XmlProcessorTest);
@@ -88,4 +89,28 @@ testTopLogInfo()
   CPPUNIT_ASSERT_EQUAL(true, _aggregatorHolder.get().obtain("bbb").getConfig().checkLogLevel(logger::Level::ERROR));
   CPPUNIT_ASSERT_EQUAL(false, _aggregatorHolder.get().getConfig().checkLogLevel(logger::Level::NOTICE));
   CPPUNIT_ASSERT_EQUAL(false, _aggregatorHolder.get().getConfig().checkLogLevel(logger::Level::INFO));
+}
+
+void
+sk::rt::scope::test::XmlProcessorTest::
+testValueSubstituion()
+{
+  sk::util::StringHash values;
+  values["port"] = "2222";
+
+  XmlProcessor processor(
+    "<scope name='app'>\
+        <log destination='file' >\
+          <file location='log-#{port}' name='zzz-#{aaa}-bbb' />\
+        </log>\
+     </scope>\
+    ", "a/b/c", _aggregatorHolder.get(), values
+  );
+  processor.start("app");
+
+  logger::Destination& destination = _aggregatorHolder.get().getConfig().getLogDestination();
+  logger::DirectFileDestination& file = dynamic_cast<logger::DirectFileDestination&>(destination);
+
+  CPPUNIT_ASSERT_EQUAL(sk::util::String("a/b/c/log-2222"), file.getPathname().dirname());
+  CPPUNIT_ASSERT_EQUAL(sk::util::String("zzz--bbb.log"), file.getPathname().basename());
 }

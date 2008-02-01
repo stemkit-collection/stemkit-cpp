@@ -25,6 +25,7 @@ namespace sk {
             CPPUNIT_TEST(testEmpty);
             CPPUNIT_TEST(testTopOnly);
             CPPUNIT_TEST(testTopLogInfo);
+            CPPUNIT_TEST(testValueSubstituion);
           CPPUNIT_TEST_SUITE_END();
           
           public:
@@ -36,6 +37,7 @@ namespace sk {
             void testEmpty();
             void testTopOnly();
             void testTopLogInfo();
+            void testValueSubstituion();
             
           private:
             XmlProcessorTest(const XmlProcessorTest& other);
