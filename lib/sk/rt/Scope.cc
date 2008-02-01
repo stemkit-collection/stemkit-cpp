@@ -21,7 +21,7 @@ sk::rt::Scope::
 Scope(const sk::util::Object& object)
   : _parent(*this), _object(object), _name(object.getClass().getName()), _aggregator(_controller.getAggregator().obtain(_name))
 {
-  info() << "Enter (object)";
+  notice() << "Enter (object)";
 }
 
 sk::rt::Scope::
@@ -30,27 +30,27 @@ Scope(const Scope& other)
     _object(&other._object == &other ? *this : other._object),
     _name(other._name), _aggregator(other._aggregator)
 {
-  info() << "Enter (copy)";
+  notice() << "Enter (copy)";
 }
 
 sk::rt::Scope::
 Scope(const sk::util::String& name)
   : _parent(*this), _object(*this), _name(name), _aggregator(_controller.getAggregator().obtain(name))
 {
-  info() << "Enter (name)";
+  notice() << "Enter (name)";
 }
 
 sk::rt::Scope::
 Scope(const Scope& parent, const sk::util::String& name)
   : _parent(parent), _object(parent.getObject()), _name(name), _aggregator(parent.getAggregator().obtain(name))
 {
-  info() << "Enter (scope)";
+  notice() << "Enter (scope)";
 }
 
 sk::rt::Scope::
 ~Scope()
 {
-  info() << "Leave";
+  notice() << "Leave";
 }
 
 sk::rt::Scope& 

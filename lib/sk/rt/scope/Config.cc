@@ -22,7 +22,7 @@
 sk::rt::scope::Config::
 Config()
   : _destinationHolder(new logger::ExternalStreamDestination(std::cerr)), _logPid(false), 
-    _logTime(false), _logObject(false), _levelHolder(logger::Level::ERROR)
+    _logTime(false), _logObject(false), _levelHolder(logger::Level::INFO)
 {
 }
 
