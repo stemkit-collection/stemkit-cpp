@@ -48,10 +48,11 @@ namespace sk {
           void updateLogInfo(const TiXmlHandle& handle, scope::Config& config);
           void updateFileDestination(const TiXmlHandle& handle, scope::Config& config);
           void updateProperties(const TiXmlHandle& handle, scope::Config& config);
+          const sk::util::String expand(const sk::util::String& value);
 
           const sk::util::String _location;
           scope::Aggregator& _aggregator;
-          const sk::util::StringHash& _values;
+          sk::util::StringHash _values;
           sk::util::Holder<TiXmlDocument> _documentHolder;
           sk::util::Holder<TiXmlHandle> _handleHolder;
           sk::util::String _scopeBuffer;

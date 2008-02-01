@@ -182,10 +182,28 @@ updateProperties(const TiXmlHandle& handle, scope::Config& config)
   }
 }
 
-namespace {
-  const sk::util::String expand(const sk::util::String& value) {
-    return value;
+const sk::util::String 
+sk::rt::scope::XmlProcessor::
+expand(const sk::util::String& value)
+{
+  std::stringstream stream;
+  std::string::size_type index = 0;
+
+  while(true) {
+    std::string::size_type start = value.find("#{", index, 2);
+    stream << value.substr(index, start);
+
+    if(start == std::string::npos) {
+      break;
+    }
+    std::string::size_type end = value.find('}', start + 2);
+    stream << _values[value.substr(start + 2, end - start - 2)];
+    if(end == std::string::npos) {
+      break;
+    }
+    index = end + 1;
   }
+  return stream.str();
 }
 
 void
