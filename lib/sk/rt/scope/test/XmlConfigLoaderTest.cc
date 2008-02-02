@@ -54,7 +54,7 @@ testBigPicture()
   std::stringstream stream;
   stream << 
     "<scope name='app'>\n" 
-    "  <log>\n"
+    "  <log show-pid='true'>\n"
     "    <level severity='warning' />\n"
     "  </log>\n"
     "  <property name='p1' value='ub2' />\n"
@@ -71,9 +71,12 @@ testBigPicture()
   loader.process(stream, "/a/b/c");
 
   CPPUNIT_ASSERT_EQUAL(true, aggregator().obtain("zzz").getConfig().isLogTime());
+  CPPUNIT_ASSERT_EQUAL(true, aggregator().obtain("zzz").obtain("abc").getConfig().isLogPid());
+  CPPUNIT_ASSERT_EQUAL(true, aggregator().obtain("zzz").getConfig().isLogPid());
   CPPUNIT_ASSERT_EQUAL(true, aggregator().obtain("zzz").obtain("abc").getConfig().isLogTime());
   CPPUNIT_ASSERT_EQUAL(false, aggregator().getConfig().isLogTime());
   CPPUNIT_ASSERT_EQUAL(false, aggregator().obtain("uuu").getConfig().isLogTime());
+  CPPUNIT_ASSERT_EQUAL(true, aggregator().obtain("uuu").getConfig().isLogPid());
 
   CPPUNIT_ASSERT_EQUAL(sk::util::String("ub2").inspect(), aggregator().getConfig().getProperty("p1").inspect());
   CPPUNIT_ASSERT_EQUAL(sk::util::String("219").inspect(), aggregator().getConfig().getProperty("p2").inspect());
