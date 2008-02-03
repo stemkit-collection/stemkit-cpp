@@ -80,6 +80,8 @@ sk::rt::scope::XmlProcessor::
 process(const TiXmlHandle& handle, const sk::util::String& scopeBuffer, scope::Aggregator& aggregator) 
 {
   _scopeBuffer = scopeBuffer;
+  _values["scope"] = _scopeBuffer;
+
   updateConfig(handle, aggregator.getConfigForUpdate());
 
   for(TiXmlElement* item=handle.FirstChild("scope").ToElement(); item ;item=item->NextSiblingElement(item->Value())) {
@@ -220,7 +222,7 @@ sk::rt::scope::XmlProcessor::
 updateFileDestination(const TiXmlHandle& handle, scope::Config& config) 
 {
   sk::util::Pathname pathname(attribute(handle.ToElement(), "name", _scopeBuffer), "log");
-  pathname.front(attribute(handle.ToElement(), "location", "")).front(_location);
+  pathname.front(attribute(handle.ToElement(), "location", ".")).front(_location);
 
   sk::util::Holder<logger::FileDestination> holder;
   if(attribute(handle.ToElement(), "use-pipe", false) == true) {
