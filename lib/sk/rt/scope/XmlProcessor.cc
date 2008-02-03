@@ -104,7 +104,10 @@ updateConfig(const TiXmlHandle& handle, scope::Config& config)
 namespace {
   bool attribute(TiXmlElement* element, const sk::util::String& name, bool fallback) {
     if(element) {
-      return sk::util::Boolean::parseBoolean(element->Attribute(name.getChars()));
+      const char* value = element->Attribute(name.getChars());
+      if(value) {
+        return sk::util::Boolean::parseBoolean(value);
+      }
     }
     return fallback;
   }
