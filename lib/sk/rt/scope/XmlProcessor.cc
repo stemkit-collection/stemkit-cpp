@@ -101,31 +101,37 @@ updateConfig(const TiXmlHandle& handle, scope::Config& config)
   updateProperties(handle, config);
 }
 
-namespace {
-  bool attribute(TiXmlElement* element, const sk::util::String& name, bool fallback) {
-    if(element) {
-      const char* value = element->Attribute(name.getChars());
-      if(value) {
-        return sk::util::Boolean::parseBoolean(value);
-      }
+bool 
+sk::rt::scope::XmlProcessor::
+attribute(TiXmlElement* element, const sk::util::String& name, bool fallback) 
+{
+  if(element) {
+    const char* value = element->Attribute(name.getChars());
+    if(value) {
+      return sk::util::Boolean::parseBoolean(expand(value));
     }
-    return fallback;
   }
+  return fallback;
+}
 
-  const sk::util::String attribute(TiXmlElement* element, const sk::util::String& name, const sk::util::String& fallback) {
-    if(element) {
-      const char* value = element->Attribute(name.getChars());
-      if(value) {
-        return value;
-      }
+const sk::util::String 
+sk::rt::scope::XmlProcessor::
+attribute(TiXmlElement* element, const sk::util::String& name, const sk::util::String& fallback) 
+{
+  if(element) {
+    const char* value = element->Attribute(name.getChars());
+    if(value) {
+      return expand(value);
     }
-    return fallback;
   }
+  return fallback;
+}
 
-  const sk::util::String attribute(TiXmlElement* element, const sk::util::String& name, const char* fallback) {
-    return attribute(element, name, sk::util::String(fallback));
-  }
-
+const sk::util::String 
+sk::rt::scope::XmlProcessor::
+attribute(TiXmlElement* element, const sk::util::String& name, const char* fallback) 
+{
+  return attribute(element, name, sk::util::String(fallback));
 }
 
 void 
@@ -213,8 +219,8 @@ void
 sk::rt::scope::XmlProcessor::
 updateFileDestination(const TiXmlHandle& handle, scope::Config& config) 
 {
-  sk::util::Pathname pathname(expand(attribute(handle.ToElement(), "name", _scopeBuffer)), "log");
-  pathname.front(expand(attribute(handle.ToElement(), "location", ""))).front(_location);
+  sk::util::Pathname pathname(attribute(handle.ToElement(), "name", _scopeBuffer), "log");
+  pathname.front(attribute(handle.ToElement(), "location", "")).front(_location);
 
   sk::util::Holder<logger::FileDestination> holder;
   if(attribute(handle.ToElement(), "use-pipe", false) == true) {

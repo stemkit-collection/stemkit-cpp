@@ -48,6 +48,11 @@ namespace sk {
           void updateLogInfo(const TiXmlHandle& handle, scope::Config& config);
           void updateFileDestination(const TiXmlHandle& handle, scope::Config& config);
           void updateProperties(const TiXmlHandle& handle, scope::Config& config);
+
+          bool attribute(TiXmlElement* element, const sk::util::String& name, bool fallback);
+          const sk::util::String attribute(TiXmlElement* element, const sk::util::String& name, const sk::util::String& fallback);
+          const sk::util::String attribute(TiXmlElement* element, const sk::util::String& name, const char* fallback);
+
           const sk::util::String expand(const sk::util::String& value);
 
           const sk::util::String _location;
