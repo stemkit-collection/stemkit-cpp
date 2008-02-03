@@ -37,7 +37,6 @@ namespace sk {
           void waitData(int descriptor);
 
           int _descriptor;
-          pid_t _pid;
       };
     }
   }

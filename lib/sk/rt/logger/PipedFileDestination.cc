@@ -18,13 +18,13 @@
 
 sk::rt::logger::PipedFileDestination::
 PipedFileDestination(const sk::util::Pathname& pathname)
-  : FileDestination(pathname), _descriptor(-1), _pid(0)
+  : FileDestination(pathname), _descriptor(-1)
 {
 }
 
 sk::rt::logger::PipedFileDestination::
 PipedFileDestination(const PipedFileDestination& other)
-  : FileDestination(other), _descriptor(-1), _pid(0)
+  : FileDestination(other), _descriptor(-1)
 {
 }
 
@@ -41,10 +41,6 @@ cleanup()
   if(_descriptor >= 0) {
     ::close(_descriptor);
     _descriptor = -1;
-  }
-  if(_pid) {
-    while(::waitpid(_pid, 0, 0) < 0 && errno == EINTR);
-    _pid = 0;
   }
 }
 
@@ -85,21 +81,28 @@ makePipe()
   if(::pipe(descriptors) < 0) {
     throw sk::util::SystemException("makePipe()");
   }
-  int _pid = fork();
-  switch(_pid) {
+  int pid = fork();
+  switch(pid) {
     case 0: {
-      ::close(descriptors[1]);
-      waitData(descriptors[0]);
+      setpgrp();
+      setsid();
+
+      if(fork() == 0) {
+        ::close(descriptors[1]);
+        waitData(descriptors[0]);
+      }
       ::_exit(0);
     }
     case -1: {
       ::close(descriptors[0]);
       ::close(descriptors[1]);
-      _pid = 0;
 
-      throw sk::util::SystemException("makePipe()");
+      throw sk::util::SystemException("makePipe(), fork");
     }
     default: {
+      if(::waitpid(pid, 0, 0) < 0) {
+        throw sk::util::SystemException("makePipe(), waitpid");
+      }
       ::close(descriptors[0]);
       _descriptor = descriptors[1];
     }

@@ -3,7 +3,7 @@
 </scope>
 
 <scope name="user">
-  <log destination="file" level="info" show-process="true" show-pid="true" show-time="false">
+  <log destination="file" level="debug" show-object="true" show-pid="true" show-time="false">
     <file location="logs" size="2K" backups="3" use-pipe="true" />
   </log>
 
