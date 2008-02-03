@@ -194,7 +194,7 @@ rule platform-solaris-sparc
 {
   C++FLAGS += -fPIC ;
   CCFLAGS += -fPIC ;
-  DEFINES += ;
+  DEFINES += _FILE_OFFSET_BITS=64 ;
   INCLUDES += $(SRCTOP:J=/)/include/solaris ;
   SYSLIBS = socket nsl gen ;
 
