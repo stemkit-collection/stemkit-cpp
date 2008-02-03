@@ -3,21 +3,16 @@
 cache.platform = TSC::Platform.current.name
 cache.os = TSC::Platform.current.driver
 
+cache.version = '0.4'
+
 product {
   name 'SK'
   description 'Stemkit'
 
-  top '/usr/local/stemkit-0.4'
-  version '0.4'
+  top ENV['CONTRIB_ROOT'] || '/usr/local'
+  base "stemkit-#{cache.version}"
 
-  case cache.platform
-    when 'cygwin-xp-x86'
-      user 'Guest'
-      group 'Guests'
-    else
-      user 'root'
-      group 'bin'
-  end
+  version cache.version
 
   package {
     name 'cpp'

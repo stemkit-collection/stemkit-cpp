@@ -13,8 +13,6 @@ PRODUCT_PLATFORM = $(JAMCONFIG_PRODUCT_PLATFORM) ;
 # project.DISTRIB_ENV = $(SRCTOP:J=/)/project/config/environment ;
 project.DISTRIB_PRODINFO = $(SRCTOP:J=/)/install/prodinfo ;
 
-INSTALL_LAUNCHER = sudo ;
-
 GCC_VERSION = 3.4.3 ;
 
 BOOST_VERSION = 1_32 ;
@@ -295,4 +293,5 @@ CCALLFLAGS = $(CCFLAGS) $(CCDFLAGS) $(CCOFLAGS) ;
 C++LDALLFLAGS = $(CCFLAGS) $(CCDFLAGS) $(CCOFLAGS) $(C++LDFLAGS) ;
 
 system.export-to-env GCC_LIB_PATHLIST : $(GCC_ROOT)/lib/$(GCC_STDLIBS) ;
+system.export-to-env CONTRIB_ROOT : $(CONTRIB_ROOT) ;
 system.export-to-env MAKE_DLL : $(project.MAKE_DLL) ;
