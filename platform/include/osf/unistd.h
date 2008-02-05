@@ -5,11 +5,11 @@
  *  You must read and accept the license prior to use.
 */
 
-#ifndef _PLATFORM_MACOS_TIGER_UNISTD_
-#define _PLATFORM_MACOS_TIGER_UNISTD_
+#ifndef _PLATFORM_OSF_UNISTD_
+#define _PLATFORM_OSF_UNISTD_
 
 #include <../include/unistd.h>
 
 #define setpgrp() setpgid(0, getpid())
 
-#endif /* _PLATFORM_MACOS_TIGER_UNISTD_ */
+#endif /* _PLATFORM_OSF_UNISTD_ */

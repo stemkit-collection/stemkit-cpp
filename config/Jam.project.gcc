@@ -121,7 +121,7 @@ rule platform-osf-alpha
   SYSLIBS = ;
 
   CC_SONAME_FLAG = "-Wl,-soname," ;
-  DLLFLAGS = -shared -Wl,-expect_unresolved,'*' ;
+  DLLFLAGS = -shared -Wl,-expect_unresolved,* ;
 
   project.PTY_SPECIFICS = streams-hp ;
 }
