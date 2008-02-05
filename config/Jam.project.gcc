@@ -101,8 +101,8 @@ rule platform-interix-x86
 
 rule platform-linux-amd64
 {
-  C++FLAGS += -fPIC -m64 ;
-  CCFLAGS += -fPIC -m64 ;
+  C++FLAGS += -fPIC -m32 ;
+  CCFLAGS += -fPIC -m32 ;
   DEFINES += ;
   INCLUDES += [ util.make-path $(system.SRCTOP) platform include linux ] ;
   SYSLIBS = crypt dl ;
