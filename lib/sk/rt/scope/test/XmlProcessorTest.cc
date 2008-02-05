@@ -13,7 +13,7 @@
 #include <sk/rt/scope/Aggregator.h>
 #include <sk/rt/logger/Level.h>
 #include <sk/rt/logger/DirectFileDestination.h>
-#include <other/tinyxml/tinyxml.h>
+#include <sk/other/tinyxml/tinyxml.h>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::rt::scope::test::XmlProcessorTest);
 

@@ -3,7 +3,7 @@
 cache.platform = TSC::Platform.current.name
 cache.os = TSC::Platform.current.driver
 
-cache.version = '0.4'
+cache.version = '0.5'
 
 product {
   name 'SK'
@@ -24,7 +24,7 @@ product {
       system-set-permissions
     }
     filesets %w{
-      main util sys io rt cppunit
+      main util sys io other rt cppunit
     }
   }
 }
@@ -121,6 +121,39 @@ fileset {
   install.into('lib').binary {
     list = %w{
       sk.rt.bundle
+    }
+    if ENV['MAKE_DLL'] == 'true'
+      library 'lib' => list
+    else
+      static_library 'lib' => list
+    end
+  }
+}
+
+fileset {
+  name 'other'
+
+  directory %w{
+    include
+    include/sk
+    include/sk/other
+    include/sk/other/tinyxml
+    lib
+  }
+  install.as('include/sk/other').source {
+    tree('include/sk/other') { |_location, _item|
+      case _item
+        when '.svn'
+          nil
+        else
+          true
+      end
+    }
+  }
+
+  install.into('lib').binary {
+    list = %w{
+      sk.other.tinyxml
     }
     if ENV['MAKE_DLL'] == 'true'
       library 'lib' => list

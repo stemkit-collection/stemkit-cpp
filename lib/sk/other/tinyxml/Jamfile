@@ -1,5 +1,5 @@
 
-library = other.tinyxml ;
+library = sk.other.tinyxml ;
 test = xmltest ;
 
 objects =
@@ -10,7 +10,7 @@ objects =
 ;
 
 use-defines $(objects) $(test).cpp : TIXML_USE_STL ;
-use-project-library $(test) $(test).cpp $(objects) : other.tinyxml ;
+use-project-library $(test) $(test).cpp $(objects) : sk.other.tinyxml ;
 
 make-library $(library) : $(objects) ;
 make-program $(test) : $(test).cpp ;

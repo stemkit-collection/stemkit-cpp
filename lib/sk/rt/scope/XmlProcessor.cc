@@ -17,7 +17,7 @@
 #include <sk/rt/logger/ExternalStreamDestination.h>
 #include <sk/rt/logger/DirectFileDestination.h>
 #include <sk/rt/logger/PipedFileDestination.h>
-#include <other/tinyxml/tinyxml.h>
+#include <sk/other/tinyxml/tinyxml.h>
 
 #include <iostream>
 #include <sstream>

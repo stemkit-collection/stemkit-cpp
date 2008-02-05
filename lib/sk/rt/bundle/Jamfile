@@ -1,3 +1,3 @@
 
-components = sk.rt sk.rt.logger sk.rt.config sk.rt.scope other.tinyxml ;
+components = sk.rt sk.rt.logger sk.rt.config sk.rt.scope sk.other.tinyxml ;
 make-merged-library sk.rt.bundle : lib$(jam.SEPARATOR)$(components) ;
