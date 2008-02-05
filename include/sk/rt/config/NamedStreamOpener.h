@@ -9,7 +9,6 @@
 #define _SK_RT_CONFIG_NAMEDSTREAMOPENER_
 
 #include <sk/util/Object.h>
-#include <memory>
 #include <istream>
 
 namespace sk {
@@ -19,7 +18,9 @@ namespace sk {
         : public virtual sk::util::Object 
       {
         public:
-          virtual std::auto_ptr<std::istream> openStream(const sk::util::String& name) const = 0;
+          // Not using std::auto_ptr<std::istream> here as it caused gcc-3.4.3
+          // bug on HP-UX 11.00.PA and HP-UX 11.23.PA (works on HP-UX 11.23.IA64).
+          virtual std::istream* openStream(const sk::util::String& name) const = 0;
       };
     }
   }

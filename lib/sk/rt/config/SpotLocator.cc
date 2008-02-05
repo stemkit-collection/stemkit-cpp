@@ -115,19 +115,19 @@ invoke(const StreamProcessor& processor) const
     _locatorHolder.get().invoke(processor);
   }
   try {
-    std::auto_ptr<std::istream> stream = getStreamOpener().openStream(_location + '/' + _item);
+    std::auto_ptr<std::istream> stream(getStreamOpener().openStream(_location + '/' + _item));
     processor.process(*stream, _location);
   }
   catch(const sk::util::MissingResourceException& exception) {}
 }
 
-std::auto_ptr<std::istream>
+std::istream*
 sk::rt::config::SpotLocator::
 openStream(const sk::util::String& name) const
 {
   std::auto_ptr<std::ifstream> file_ptr(new std::ifstream(name.getChars()));
   if(file_ptr.get()->good()) {
-    return std::auto_ptr<std::istream>(file_ptr.release());
+    return file_ptr.release();
   }
   throw sk::util::MissingResourceException(name);
 }

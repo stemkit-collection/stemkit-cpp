@@ -34,9 +34,9 @@ tearDown()
   SpotLocator::clearStreamOpener();
 }
 
-std::auto_ptr<std::istream>
+std::istream*
 sk::rt::config::test::MockingTestFixture::
 openStream(const sk::util::String& name) const
 {
-  return std::auto_ptr<std::istream>(new std::stringstream(name));
+  return new std::stringstream(name);
 }

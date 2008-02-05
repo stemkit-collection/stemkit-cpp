@@ -34,9 +34,6 @@ namespace sk {
           // sk::rt::config::Locator implementation.
           void invoke(const StreamProcessor& processor) const;
 
-          // sk::rt::config::NamedStreamOpener imlementation.
-          std::auto_ptr<std::istream> openStream(const sk::util::String& name) const;
-          
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
 
@@ -47,6 +44,9 @@ namespace sk {
           SpotLocator();
           SpotLocator& operator = (const SpotLocator& other);
 
+          // sk::rt::config::NamedStreamOpener imlementation.
+          std::istream* openStream(const sk::util::String& name) const;
+          
           void becomeDummy();
           bool isDummy() const;
           const NamedStreamOpener& getStreamOpener() const;
