@@ -259,6 +259,7 @@ rule platform-hpux-ia64
 
 switch $(PRODUCT_PLATFORM) {
   case rh-30-x86 : platform-linux-x86 ;
+  case rh-40-x86 : platform-linux-x86 ;
   case rh-40-amd64 : platform-linux-amd64 ;
   case rh-40-ia64 : platform-linux-x86 ;
   case rh-21-x86 : platform-linux-x86 ;
