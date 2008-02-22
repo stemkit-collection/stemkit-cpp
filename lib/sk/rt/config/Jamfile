@@ -6,6 +6,7 @@ objects =
   UprootLocator.cc
   CwdUprootLocator.cc
   HomeLocator.cc
+  InlineLocator.cc
 ;
 
 make-library $(library) : $(objects) ;
