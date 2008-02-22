@@ -143,6 +143,7 @@ updateLogInfo(const TiXmlHandle& handle, scope::Config& config)
   config.setLogObject(attribute(handle.ToElement(), "show-object", config.isLogObject()));
   config.setLogTime(attribute(handle.ToElement(), "show-time", config.isLogTime()));
   config.setLogPid(attribute(handle.ToElement(), "show-pid", config.isLogPid()));
+  config.setTimeFormat(attribute(handle.ToElement(), "time-format", config.getTimeFormat()));
 
   const sk::util::String destination = attribute(handle.ToElement(), "destination", "");
   if(destination.equals("std::cout")) {

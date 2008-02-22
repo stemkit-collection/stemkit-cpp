@@ -24,8 +24,8 @@ Stream(const sk::util::String& label, const Level& level, const logger::IScope& 
     if(_config.isLogTime() == true) {
       char buffer[64];
       time_t now = time(0);
-      strftime(buffer, sizeof(buffer), "%y/%m/%d %H:%M:%S ", localtime(&now));
-      _stream << buffer;
+      strftime(buffer, sizeof(buffer), _config.getTimeFormat(), localtime(&now));
+      _stream << buffer << ' ';
     }
 
     _stream << level.getName() << ':';

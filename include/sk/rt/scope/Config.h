@@ -24,6 +24,7 @@ namespace sk {
           
           void setLogDestination(const logger::Destination& destination);
           void setLogLevel(const logger::Level& level);
+          void setTimeFormat(const sk::util::String& format);
 
           void setLogPid(bool state);
           void setLogTime(bool state);
@@ -33,6 +34,7 @@ namespace sk {
           // sk::rt::logger::IConfig implementation.
           logger::Destination& getLogDestination() const;
           bool checkLogLevel(const logger::Level& level) const;
+          const char* getTimeFormat() const;
           bool isLogPid() const;
           bool isLogTime() const;
           bool isLogObject() const;
@@ -57,6 +59,7 @@ namespace sk {
           bool _logPid;
           bool _logTime;
           bool _logObject;
+          sk::util::String _timeFormat;
           typedef std::map<sk::util::String, sk::util::String> registry;
           registry _properties;
       };

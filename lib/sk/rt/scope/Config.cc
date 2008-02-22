@@ -21,8 +21,9 @@
 
 sk::rt::scope::Config::
 Config()
-  : _destinationHolder(new logger::ExternalStreamDestination(std::cerr)), _logPid(false), 
-    _logTime(false), _logObject(false), _levelHolder(logger::Level::INFO)
+  : _destinationHolder(new logger::ExternalStreamDestination(std::cerr)), 
+    _levelHolder(logger::Level::INFO), _timeFormat("%y/%m/%d %H:%M:%S"),
+    _logPid(false), _logTime(false), _logObject(false)
 {
 }
 
@@ -52,6 +53,13 @@ setLogLevel(const logger::Level& level)
   _levelHolder.set(level);
 }
 
+void 
+sk::rt::scope::Config::
+setTimeFormat(const sk::util::String& format)
+{
+  _timeFormat = format;
+}
+
 sk::rt::logger::Destination& 
 sk::rt::scope::Config::
 getLogDestination() const
@@ -64,6 +72,13 @@ sk::rt::scope::Config::
 checkLogLevel(const sk::rt::logger::Level& level) const
 {
   return level.toInt() <= _levelHolder.get().toInt();
+}
+
+const char*
+sk::rt::scope::Config::
+getTimeFormat() const
+{
+  return _timeFormat.getChars();
 }
 
 void
