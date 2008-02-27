@@ -235,5 +235,6 @@ updateFileDestination(const TiXmlHandle& handle, scope::Config& config)
   holder.get().setSize(attribute(handle.ToElement(), "size", "10M"));
   holder.get().setBackups(attribute(handle.ToElement(), "backups", "3"));
 
+  holder.get().makeReady();
   config.setLogDestination(holder.get());
 }

@@ -60,11 +60,19 @@ clone() const
 
 void
 sk::rt::logger::PipedFileDestination::
-dispatch(const char* buffer, int size)
+makeReady()
 {
   if(_descriptor < 0) {
     makePipe();
   }
+}
+
+void
+sk::rt::logger::PipedFileDestination::
+dispatch(const char* buffer, int size)
+{
+  makeReady();
+
   if(size > 0) {
     if(::write(_descriptor, buffer, size) < 0) {
       cleanup();
@@ -116,6 +124,7 @@ waitData(int descriptor)
   DirectFileDestination destination(getPathname());
   destination.setSize(getSize());
   destination.setBackups(getBackups());
+  destination.makeReady();
 
   std::vector<char> buffer(264);
   while(true) {

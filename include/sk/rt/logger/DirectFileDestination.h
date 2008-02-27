@@ -26,13 +26,16 @@ namespace sk {
           // sk::rt::logger::Destination implementation.
           void dispatch(const char* buffer, int size);
           
+          // sk::util::Logger::FileDestination implementation.
+          void makeReady();
+          
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
           DirectFileDestination* clone() const;
           
         private:
           DirectFileDestination& operator = (const DirectFileDestination& other);
-          
+
           void openFile();
           void closeFile();
           void backupFile();

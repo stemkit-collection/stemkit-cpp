@@ -43,11 +43,19 @@ clone() const
 
 void
 sk::rt::logger::DirectFileDestination::
-dispatch(const char* buffer, int size)
+makeReady()
 {
   if(_bytesWritten == 0) {
     openFile();
   }
+}
+
+void
+sk::rt::logger::DirectFileDestination::
+dispatch(const char* buffer, int size)
+{
+  makeReady();
+
   _fileHolder.get().write(buffer, size);
   _fileHolder.get().flush();
   

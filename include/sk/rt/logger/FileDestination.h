@@ -35,6 +35,8 @@ namespace sk {
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
           
+          virtual void makeReady() = 0;
+
         private:
           FileDestination& operator = (const FileDestination& other);
           
