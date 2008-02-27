@@ -97,20 +97,16 @@ testValueSubstituion()
 {
   std::map<std::string, std::string> values;
   values["port"] = "2222";
+  values["prefix"] = "my";
 
   XmlProcessor processor(
     "<scope name='app'>\
-        <log destination='file' >\
-          <file location='log-#{port}' name='zzz-#{aaa}-bbb' />\
-        </log>\
-     </scope>\
+      <property name='#{prefix}-location' value='log-#{port}' />\
+      <property name='name' value='zzz-#{aaa}-bbb' />\
     ", "a/b/c", _aggregatorHolder.get(), values
   );
   processor.start("app");
 
-  logger::Destination& destination = _aggregatorHolder.get().getConfig().getLogDestination();
-  logger::DirectFileDestination& file = dynamic_cast<logger::DirectFileDestination&>(destination);
-
-  CPPUNIT_ASSERT_EQUAL(sk::util::String("a/b/c/log-2222"), file.getPathname().dirname());
-  CPPUNIT_ASSERT_EQUAL(sk::util::String("zzz--bbb.log"), file.getPathname().basename());
+  CPPUNIT_ASSERT_EQUAL(sk::util::String("log-2222"), _aggregatorHolder.get().getConfig().getProperty("my-location"));
+  CPPUNIT_ASSERT_EQUAL(sk::util::String("zzz--bbb"), _aggregatorHolder.get().getConfig().getProperty("name"));
 }

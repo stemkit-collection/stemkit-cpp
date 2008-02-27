@@ -190,7 +190,10 @@ sk::rt::scope::XmlProcessor::
 updateProperties(const TiXmlHandle& handle, scope::Config& config) 
 {
   for(TiXmlElement* item=handle.FirstChild("property").ToElement(); item ;item=item->NextSiblingElement(item->Value())) {
-    config.setProperty(item->Attribute("name"), figure_text(item->Attribute("value"), item));
+    const sk::util::String name = attribute(item, "name", "");
+    if(name.isEmpty() == false){
+      config.setProperty(name, expand(figure_text(item->Attribute("value"), item)));
+    }
   }
 }
 
