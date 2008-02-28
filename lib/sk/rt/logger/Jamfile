@@ -9,6 +9,7 @@ objects =
   FileDestination.cc
   DirectFileDestination.cc
   PipedFileDestination.cc
+  TrashDestination.cc
 ;
 
 make-library $(library) : $(objects) ;

@@ -17,6 +17,7 @@
 #include <sk/rt/logger/ExternalStreamDestination.h>
 #include <sk/rt/logger/DirectFileDestination.h>
 #include <sk/rt/logger/PipedFileDestination.h>
+#include <sk/rt/logger/TrashDestination.h>
 #include <sk/other/tinyxml/tinyxml.h>
 
 #include <iostream>
@@ -154,6 +155,9 @@ updateLogInfo(const TiXmlHandle& handle, scope::Config& config)
   }
   else if(destination.equals("std::cerr")) {
     config.setLogDestination(logger::ExternalStreamDestination(std::cerr));
+  }
+  else if(destination.equals("trash")) {
+    config.setLogDestination(logger::TrashDestination());
   }
   else if(destination.equals("file")) {
     for(TiXmlElement* item=handle.FirstChild(destination).ToElement(); item ;item=item->NextSiblingElement(item->Value())) {
