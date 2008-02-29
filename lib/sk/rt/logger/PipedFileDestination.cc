@@ -14,6 +14,7 @@
 #include <unistd.h>
 #include <errno.h>
 #include <sys/wait.h>
+#include <iostream>
 #include <vector>
 
 sk::rt::logger::PipedFileDestination::
@@ -99,12 +100,19 @@ makePipe()
   int pid = fork();
   switch(pid) {
     case 0: {
-      setpgrp();
-      setsid();
-
       if(fork() == 0) {
-        ::close(descriptors[1]);
-        waitData(descriptors[0]);
+        try {
+          ::close(descriptors[1]);
+          waitData(descriptors[0]);
+        }
+        catch(const std::exception& exception) {
+          std::cerr << "PIPE: " << exception.what() << std::endl;
+          ::_exit(5);
+        }
+        catch(...) {
+          std::cerr << "PIPE: Unknown exception" << std::endl;
+          ::_exit(5);
+        }
       }
       ::_exit(0);
     }
