@@ -24,7 +24,7 @@ PipedFileDestination(const sk::util::Pathname& pathname)
 
 sk::rt::logger::PipedFileDestination::
 PipedFileDestination(const PipedFileDestination& other)
-  : FileDestination(other), _descriptor(-1)
+  : FileDestination(other), _descriptor(other.cloneDescriptor())
 {
 }
 
@@ -56,6 +56,13 @@ sk::rt::logger::PipedFileDestination::
 clone() const
 {
   return new PipedFileDestination(*this);
+}
+
+int 
+sk::rt::logger::PipedFileDestination::
+cloneDescriptor() const
+{
+  return _descriptor < 0 ? _descriptor : dup(_descriptor);
 }
 
 void

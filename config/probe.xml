@@ -15,7 +15,7 @@
 </scope>
 
 <scope name="pty">
-  <log destination="file" level="debug" time-format="%d-%H%M%S" show-time="true" show-object="true">
-    <file location="llllll" size="2K" us-pipe="true" />
+  <log destination="file" level="debug" time-format="%d-%H%M%S" show-pid="true" show-time="true" show-object="true">
+    <file location="logs" size="2K" use-pipe="true" />
   </log>
 </scope>

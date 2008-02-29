@@ -38,6 +38,7 @@ namespace sk {
           void cleanup();
           void makePipe();
           void waitData(int descriptor);
+          int cloneDescriptor() const;
 
           int _descriptor;
       };
