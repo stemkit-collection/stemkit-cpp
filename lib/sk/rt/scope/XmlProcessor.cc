@@ -14,9 +14,9 @@
 #include "XmlProcessor.h"
 #include <sk/rt/scope/Aggregator.h>
 #include <sk/rt/logger/Level.h>
-#include <logger/ExternalStreamDestination.h>
+#include <logger/StreamDestination.h>
 #include <logger/DirectFileDestination.h>
-#include <logger/PipedFileDestination.h>
+#include <logger/PipeDestination.h>
 #include <logger/TrashDestination.h>
 #include <sk/other/tinyxml/tinyxml.h>
 
@@ -148,13 +148,13 @@ updateLogInfo(const TiXmlHandle& handle, scope::IConfig& config)
 
   const sk::util::String destination = attribute(handle.ToElement(), "destination", "");
   if(destination.equals("std::cout")) {
-    config.setLogDestination(logger::ExternalStreamDestination(std::cout));
+    config.setLogDestination(logger::StreamDestination(std::cout));
   }
   else if(destination.equals("std::clog")) {
-    config.setLogDestination(logger::ExternalStreamDestination(std::clog));
+    config.setLogDestination(logger::StreamDestination(std::clog));
   }
   else if(destination.equals("std::cerr")) {
-    config.setLogDestination(logger::ExternalStreamDestination(std::cerr));
+    config.setLogDestination(logger::StreamDestination(std::cerr));
   }
   else if(destination.equals("trash")) {
     config.setLogDestination(logger::TrashDestination());
@@ -237,7 +237,7 @@ updateFileDestination(const TiXmlHandle& handle, scope::IConfig& config)
   file.setBackups(attribute(handle.ToElement(), "backups", "3"));
 
   if(attribute(handle.ToElement(), "use-pipe", false) == true) {
-    config.setLogDestination(logger::PipedFileDestination(file));
+    config.setLogDestination(logger::PipeDestination(file));
   }
   else {
     config.setLogDestination(file);

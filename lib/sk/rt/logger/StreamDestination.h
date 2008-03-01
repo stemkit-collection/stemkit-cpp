@@ -5,8 +5,8 @@
  *  You must read and accept the license prior to use.
 */
 
-#ifndef _SK_RT_LOGGER_EXTERNALSTREAMDESTINATION_
-#define _SK_RT_LOGGER_EXTERNALSTREAMDESTINATION_
+#ifndef _SK_RT_LOGGER_STREAMDESTINATION_
+#define _SK_RT_LOGGER_STREAMDESTINATION_
 
 #include <sk/rt/logger/Destination.h>
 #include <ostream>
@@ -14,23 +14,23 @@
 namespace sk {
   namespace rt {
     namespace logger {
-      class ExternalStreamDestination
+      class StreamDestination
         : public virtual Destination
       {
         public:
-          ExternalStreamDestination(std::ostream& destination);
-          virtual ~ExternalStreamDestination();
+          StreamDestination(std::ostream& destination);
+          virtual ~StreamDestination();
 
           // sk::rt::logger::Destinaiton implementation.
           void dispatch(const char* buffer, int size);
           void makeReady();
-          ExternalStreamDestination* clone() const;
+          StreamDestination* clone() const;
           
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
           
         private:
-          ExternalStreamDestination& operator = (const ExternalStreamDestination& other);
+          StreamDestination& operator = (const StreamDestination& other);
 
           std::ostream& _destination;
       };
@@ -38,4 +38,4 @@ namespace sk {
   }
 }
 
-#endif /* _SK_RT_LOGGER_EXTERNALSTREAMDESTINATION_ */
+#endif /* _SK_RT_LOGGER_STREAMDESTINATION_ */

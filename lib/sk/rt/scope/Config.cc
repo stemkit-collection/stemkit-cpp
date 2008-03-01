@@ -15,13 +15,13 @@
 
 #include <sk/rt/logger/Level.h>
 #include <scope/Config.h>
-#include <logger/ExternalStreamDestination.h>
+#include <logger/StreamDestination.h>
 
 #include <iostream>
 
 sk::rt::scope::Config::
 Config()
-  : _destinationHolder(new logger::ExternalStreamDestination(std::cerr)), 
+  : _destinationHolder(new logger::StreamDestination(std::cerr)), 
     _levelHolder(logger::Level::INFO), _timeFormat("%y/%m/%d %H:%M:%S"),
     _logPid(false), _logTime(false), _logObject(false)
 {

@@ -5,8 +5,8 @@
  *  You must read and accept the license prior to use.
 */
 
-#ifndef _SK_RT_LOGGER_PIPEDFILEDESTINATION_
-#define _SK_RT_LOGGER_PIPEDFILEDESTINATION_
+#ifndef _SK_RT_LOGGER_PIPEDESTINATION_
+#define _SK_RT_LOGGER_PIPEDESTINATION_
 
 #include <sk/rt/logger/Destination.h>
 #include <sk/util/Pathname.h>
@@ -15,13 +15,13 @@
 namespace sk {
   namespace rt {
     namespace logger {
-      class PipedFileDestination
+      class PipeDestination
         : public virtual logger::Destination
       {
         public:
-          PipedFileDestination(const logger::Destination& destination);
-          PipedFileDestination(const PipedFileDestination& other);
-          virtual ~PipedFileDestination();
+          PipeDestination(const logger::Destination& destination);
+          PipeDestination(const PipeDestination& other);
+          virtual ~PipeDestination();
           
           // sk::rt::logger::Destination implementation.
           void dispatch(const char* buffer, int size);
@@ -29,10 +29,10 @@ namespace sk {
           
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
-          PipedFileDestination* clone() const;
+          PipeDestination* clone() const;
           
         private:
-          PipedFileDestination& operator = (const PipedFileDestination& other);
+          PipeDestination& operator = (const PipeDestination& other);
 
           void cleanup();
           void makePipe();
@@ -46,4 +46,4 @@ namespace sk {
   }
 }
 
-#endif /* _SK_RT_LOGGER_PIPEDFILEDESTINATION_ */
+#endif /* _SK_RT_LOGGER_PIPEDESTINATION_ */

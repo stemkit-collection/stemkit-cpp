@@ -5,10 +5,10 @@ objects =
   Spot.cc
   Level.cc
   Stream.cc
-  ExternalStreamDestination.cc
+  StreamDestination.cc
   FileDestination.cc
   DirectFileDestination.cc
-  PipedFileDestination.cc
+  PipeDestination.cc
   TrashDestination.cc
 ;
 

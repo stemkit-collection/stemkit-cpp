@@ -10,7 +10,7 @@
 #include <sk/util/Holder.cxx>
 #include <sk/util/SystemException.h>
 
-#include <logger/PipedFileDestination.h>
+#include <logger/PipeDestination.h>
 #include <logger/DirectFileDestination.h>
 #include <unistd.h>
 #include <errno.h>
@@ -18,26 +18,26 @@
 #include <iostream>
 #include <vector>
 
-sk::rt::logger::PipedFileDestination::
-PipedFileDestination(const logger::Destination& destination)
+sk::rt::logger::PipeDestination::
+PipeDestination(const logger::Destination& destination)
   : _destinationHolder(destination.clone()), _descriptor(-1)
 {
 }
 
-sk::rt::logger::PipedFileDestination::
-PipedFileDestination(const PipedFileDestination& other)
+sk::rt::logger::PipeDestination::
+PipeDestination(const PipeDestination& other)
   : _destinationHolder(other._destinationHolder), _descriptor(other.cloneDescriptor())
 {
 }
 
-sk::rt::logger::PipedFileDestination::
-~PipedFileDestination()
+sk::rt::logger::PipeDestination::
+~PipeDestination()
 {
   cleanup();
 }
 
 void 
-sk::rt::logger::PipedFileDestination::
+sk::rt::logger::PipeDestination::
 cleanup()
 {
   if(_descriptor >= 0) {
@@ -47,28 +47,28 @@ cleanup()
 }
 
 const sk::util::Class
-sk::rt::logger::PipedFileDestination::
+sk::rt::logger::PipeDestination::
 getClass() const
 {
-  return sk::util::Class("sk::rt::logger::PipedFileDestination");
+  return sk::util::Class("sk::rt::logger::PipeDestination");
 }
 
-sk::rt::logger::PipedFileDestination*
-sk::rt::logger::PipedFileDestination::
+sk::rt::logger::PipeDestination*
+sk::rt::logger::PipeDestination::
 clone() const
 {
-  return new PipedFileDestination(*this);
+  return new PipeDestination(*this);
 }
 
 int 
-sk::rt::logger::PipedFileDestination::
+sk::rt::logger::PipeDestination::
 cloneDescriptor() const
 {
   return _descriptor < 0 ? _descriptor : dup(_descriptor);
 }
 
 void
-sk::rt::logger::PipedFileDestination::
+sk::rt::logger::PipeDestination::
 makeReady()
 {
   if(_descriptor < 0) {
@@ -77,7 +77,7 @@ makeReady()
 }
 
 void
-sk::rt::logger::PipedFileDestination::
+sk::rt::logger::PipeDestination::
 dispatch(const char* buffer, int size)
 {
   makeReady();
@@ -91,7 +91,7 @@ dispatch(const char* buffer, int size)
 }
 
 void
-sk::rt::logger::PipedFileDestination::
+sk::rt::logger::PipeDestination::
 makePipe()
 {
   int descriptors[2];
@@ -134,7 +134,7 @@ makePipe()
 }
 
 void
-sk::rt::logger::PipedFileDestination::
+sk::rt::logger::PipeDestination::
 waitData(int descriptor)
 {
   Destination& destination = _destinationHolder.get();
