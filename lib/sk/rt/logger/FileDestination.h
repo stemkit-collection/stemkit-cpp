@@ -23,6 +23,9 @@ namespace sk {
           FileDestination(const sk::util::Pathname& pathname);
           virtual ~FileDestination();
 
+          int getSize() const;
+          int getBackups() const;
+
           void setSize(const sk::util::String& specification);
           void setSize(int size);
           void setBackups(const sk::util::String& specification);

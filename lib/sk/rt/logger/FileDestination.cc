@@ -36,6 +36,20 @@ getClass() const
   return sk::util::Class("sk::rt::logger::FileDestination");
 }
 
+int
+sk::rt::logger::FileDestination::
+getSize() const
+{
+  return _size;
+}
+
+int 
+sk::rt::logger::FileDestination::
+getBackups() const
+{
+  return _backups;
+}
+
 void
 sk::rt::logger::FileDestination::
 setSize(const sk::util::String& specification)
