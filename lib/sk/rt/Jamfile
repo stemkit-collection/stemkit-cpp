@@ -5,5 +5,7 @@ objects =
   Scope.cc
 ;
 
+local INCLUDES = $(INCLUDES) $(system.SRCDIR) ;
+
 make-library $(library) : $(objects) ;
 make-subdirs scope logger config bundle tests ;

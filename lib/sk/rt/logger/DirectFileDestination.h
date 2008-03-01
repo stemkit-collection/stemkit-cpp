@@ -8,7 +8,7 @@
 #ifndef _SK_RT_LOGGER_DIRECTFILEDESTINATION_
 #define _SK_RT_LOGGER_DIRECTFILEDESTINATION_
 
-#include <sk/rt/logger/FileDestination.h>
+#include <logger/FileDestination.h>
 #include <sk/util/Pathname.h>
 #include <sk/util/Holder.hxx>
 #include <fstream>

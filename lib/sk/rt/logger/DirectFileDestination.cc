@@ -12,7 +12,7 @@
 #include <sk/util/IllegalStateException.h>
 #include <sk/util/SystemException.h>
 
-#include <sk/rt/logger/DirectFileDestination.h>
+#include <logger/DirectFileDestination.h>
 #include <unistd.h>
 
 sk::rt::logger::DirectFileDestination::

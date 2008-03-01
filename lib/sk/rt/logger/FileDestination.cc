@@ -10,7 +10,7 @@
 #include <sk/util/Integer.h>
 #include <sk/util/NumberFormatException.h>
 
-#include <sk/rt/logger/FileDestination.h>
+#include <logger/FileDestination.h>
 
 sk::rt::logger::FileDestination::
 FileDestination(const sk::util::Pathname& pathname)

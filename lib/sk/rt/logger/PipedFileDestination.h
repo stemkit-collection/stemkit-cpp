@@ -8,7 +8,7 @@
 #ifndef _SK_RT_LOGGER_PIPEDFILEDESTINATION_
 #define _SK_RT_LOGGER_PIPEDFILEDESTINATION_
 
-#include <sk/rt/logger/FileDestination.h>
+#include <logger/FileDestination.h>
 #include <sk/util/Pathname.h>
 
 namespace sk {

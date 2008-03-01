@@ -15,7 +15,7 @@
 
 #include <sk/rt/logger/Level.h>
 #include <sk/rt/scope/Config.h>
-#include <sk/rt/logger/ExternalStreamDestination.h>
+#include <logger/ExternalStreamDestination.h>
 
 #include <iostream>
 

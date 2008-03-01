@@ -9,8 +9,8 @@
 #include <sk/util/String.h>
 #include <sk/util/SystemException.h>
 
-#include <sk/rt/logger/PipedFileDestination.h>
-#include <sk/rt/logger/DirectFileDestination.h>
+#include <logger/PipedFileDestination.h>
+#include <logger/DirectFileDestination.h>
 #include <unistd.h>
 #include <errno.h>
 #include <sys/wait.h>

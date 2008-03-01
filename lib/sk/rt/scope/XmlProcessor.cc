@@ -14,10 +14,10 @@
 #include "XmlProcessor.h"
 #include <sk/rt/scope/Aggregator.h>
 #include <sk/rt/logger/Level.h>
-#include <sk/rt/logger/ExternalStreamDestination.h>
-#include <sk/rt/logger/DirectFileDestination.h>
-#include <sk/rt/logger/PipedFileDestination.h>
-#include <sk/rt/logger/TrashDestination.h>
+#include <logger/ExternalStreamDestination.h>
+#include <logger/DirectFileDestination.h>
+#include <logger/PipedFileDestination.h>
+#include <logger/TrashDestination.h>
 #include <sk/other/tinyxml/tinyxml.h>
 
 #include <iostream>

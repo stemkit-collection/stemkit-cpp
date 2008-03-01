@@ -3,7 +3,7 @@
 cache.platform = TSC::Platform.current.name
 cache.os = TSC::Platform.current.driver
 
-cache.version = '0.5'
+cache.version = '0.6'
 
 product {
   name 'SK'

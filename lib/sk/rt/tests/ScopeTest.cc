@@ -8,7 +8,7 @@
 #include "ScopeTest.h"
 #include <sk/rt/Scope.h>
 #include <sk/rt/logger/Level.h>
-#include <sk/rt/logger/ExternalStreamDestination.h>
+#include <logger/ExternalStreamDestination.h>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::rt::tests::ScopeTest);
 

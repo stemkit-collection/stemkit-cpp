@@ -8,7 +8,7 @@
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
 
-#include <sk/rt/logger/ExternalStreamDestination.h>
+#include <logger/ExternalStreamDestination.h>
 
 sk::rt::logger::ExternalStreamDestination::
 ExternalStreamDestination(std::ostream& destination)

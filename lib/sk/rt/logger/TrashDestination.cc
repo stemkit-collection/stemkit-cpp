@@ -8,7 +8,7 @@
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
 
-#include <sk/rt/logger/TrashDestination.h>
+#include <logger/TrashDestination.h>
 
 sk::rt::logger::TrashDestination::
 TrashDestination()
