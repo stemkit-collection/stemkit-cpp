@@ -21,7 +21,7 @@ namespace sk {
   namespace rt {
     namespace scope {
       class Aggregator;
-      class Config;
+      class IConfig;
 
       class XmlProcessor
         : public virtual sk::util::Object 
@@ -44,10 +44,10 @@ namespace sk {
           XmlProcessor& operator = (const XmlProcessor& other);
 
           void process(const TiXmlHandle& handle, const sk::util::String& scopeBuffer, scope::Aggregator& aggregator);
-          void updateConfig(const TiXmlHandle& handle, scope::Config& config);
-          void updateLogInfo(const TiXmlHandle& handle, scope::Config& config);
-          void updateFileDestination(const TiXmlHandle& handle, scope::Config& config);
-          void updateProperties(const TiXmlHandle& handle, scope::Config& config);
+          void updateConfig(const TiXmlHandle& handle, scope::IConfig& config);
+          void updateLogInfo(const TiXmlHandle& handle, scope::IConfig& config);
+          void updateFileDestination(const TiXmlHandle& handle, scope::IConfig& config);
+          void updateProperties(const TiXmlHandle& handle, scope::IConfig& config);
 
           bool attribute(TiXmlElement* element, const sk::util::String& name, bool fallback);
           const sk::util::String attribute(TiXmlElement* element, const sk::util::String& name, const sk::util::String& fallback);

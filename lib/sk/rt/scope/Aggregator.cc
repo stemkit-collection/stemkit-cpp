@@ -10,6 +10,7 @@
 #include <sk/util/Holder.cxx>
 
 #include <sk/rt/scope/Aggregator.h>
+#include <scope/Config.h>
 
 sk::rt::scope::Aggregator::
 Aggregator()
@@ -65,14 +66,14 @@ ensureOwnConfig()
   }
 }
 
-const sk::rt::scope::Config&
+const sk::rt::scope::IConfig&
 sk::rt::scope::Aggregator::
 getConfig() const
 {
   return _configHolderHolder.get().get();
 }
 
-sk::rt::scope::Config&
+sk::rt::scope::IConfig&
 sk::rt::scope::Aggregator::
 getConfigForUpdate()
 {

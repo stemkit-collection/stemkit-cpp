@@ -9,12 +9,15 @@
 #define _SK_RT_SCOPE_AGGREGATOR_
 
 #include <sk/util/Object.h>
-#include <sk/rt/scope/Config.h>
+#include <sk/util/Holder.hxx>
+#include <sk/rt/scope/IConfig.h>
 #include <map>
 
 namespace sk {
   namespace rt {
     namespace scope {
+      class Config;
+
       class Aggregator
         : public virtual sk::util::Object 
       {
@@ -23,8 +26,8 @@ namespace sk {
           Aggregator(const Aggregator& other);
           virtual ~Aggregator();
           
-          const Config& getConfig() const;
-          Config& getConfigForUpdate();
+          const IConfig& getConfig() const;
+          IConfig& getConfigForUpdate();
           Aggregator& obtain(const sk::util::String& name);
           int size() const;
           

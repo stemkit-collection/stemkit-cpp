@@ -96,7 +96,7 @@ process(const TiXmlHandle& handle, const sk::util::String& scopeBuffer, scope::A
 
 void
 sk::rt::scope::XmlProcessor::
-updateConfig(const TiXmlHandle& handle, scope::Config& config)
+updateConfig(const TiXmlHandle& handle, scope::IConfig& config)
 {
   for(TiXmlElement* item=handle.FirstChild("log").ToElement(); item ;item=item->NextSiblingElement(item->Value())) {
     updateLogInfo(item, config);
@@ -139,7 +139,7 @@ attribute(TiXmlElement* element, const sk::util::String& name, const char* fallb
 
 void 
 sk::rt::scope::XmlProcessor::
-updateLogInfo(const TiXmlHandle& handle, scope::Config& config) 
+updateLogInfo(const TiXmlHandle& handle, scope::IConfig& config) 
 {
   config.setLogObject(attribute(handle.ToElement(), "show-object", config.isLogObject()));
   config.setLogTime(attribute(handle.ToElement(), "show-time", config.isLogTime()));
@@ -191,7 +191,7 @@ namespace {
 
 void
 sk::rt::scope::XmlProcessor::
-updateProperties(const TiXmlHandle& handle, scope::Config& config) 
+updateProperties(const TiXmlHandle& handle, scope::IConfig& config) 
 {
   for(TiXmlElement* item=handle.FirstChild("property").ToElement(); item ;item=item->NextSiblingElement(item->Value())) {
     const sk::util::String name = attribute(item, "name", "");
@@ -227,7 +227,7 @@ expand(const sk::util::String& value)
 
 void
 sk::rt::scope::XmlProcessor::
-updateFileDestination(const TiXmlHandle& handle, scope::Config& config) 
+updateFileDestination(const TiXmlHandle& handle, scope::IConfig& config) 
 {
   sk::util::Pathname pathname(attribute(handle.ToElement(), "name", _scopeBuffer), "log");
   pathname.front(attribute(handle.ToElement(), "location", ".")).front(_location);

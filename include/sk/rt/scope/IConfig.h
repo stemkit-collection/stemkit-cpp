@@ -25,6 +25,8 @@ namespace sk {
           virtual bool getProperty(const sk::util::String& name, const sk::util::Boolean& fallback) const = 0;
           virtual int getProperty(const sk::util::String& name, int fallback) const = 0;
           virtual bool hasProperty(const sk::util::String& name) const = 0;
+
+          virtual void setProperty(const sk::util::String& name, const sk::util::String& value) = 0;
       };
     }
   }

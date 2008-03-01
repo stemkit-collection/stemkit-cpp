@@ -14,7 +14,7 @@
 #include <sk/util/NumberFormatException.h>
 
 #include <sk/rt/logger/Level.h>
-#include <sk/rt/scope/Config.h>
+#include <scope/Config.h>
 #include <logger/ExternalStreamDestination.h>
 
 #include <iostream>
