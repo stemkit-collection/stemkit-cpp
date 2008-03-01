@@ -11,7 +11,6 @@
 #include <sk/util/SystemException.h>
 
 #include <logger/PipeDestination.h>
-#include <logger/DirectFileDestination.h>
 #include <unistd.h>
 #include <errno.h>
 #include <sys/wait.h>

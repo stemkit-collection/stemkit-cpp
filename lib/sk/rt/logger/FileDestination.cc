@@ -13,31 +13,31 @@
 #include <sk/util/NumberFormatException.h>
 #include <sk/util/SystemException.h>
 
-#include <logger/DirectFileDestination.h>
+#include <logger/FileDestination.h>
 #include <unistd.h>
 
-sk::rt::logger::DirectFileDestination::
-DirectFileDestination(const sk::util::Pathname& pathname)
+sk::rt::logger::FileDestination::
+FileDestination(const sk::util::Pathname& pathname)
   : _nextBackup(0), _bytesWritten(0), _fileHolder(new std::fstream),
     _pathname(pathname), _size(0), _backups(0)
 {
   _fileHolder.get().exceptions(std::ios::eofbit | std::ios::failbit | std::ios::badbit);
 }
 
-sk::rt::logger::DirectFileDestination::
-~DirectFileDestination()
+sk::rt::logger::FileDestination::
+~FileDestination()
 {
 }
 
 const sk::util::Class
-sk::rt::logger::DirectFileDestination::
+sk::rt::logger::FileDestination::
 getClass() const
 {
-  return sk::util::Class("sk::rt::logger::DirectFileDestination");
+  return sk::util::Class("sk::rt::logger::FileDestination");
 }
 
 void
-sk::rt::logger::DirectFileDestination::
+sk::rt::logger::FileDestination::
 setSize(const sk::util::String& specification)
 {
   try {
@@ -47,14 +47,14 @@ setSize(const sk::util::String& specification)
 }
 
 void
-sk::rt::logger::DirectFileDestination::
+sk::rt::logger::FileDestination::
 setSize(int size)
 {
   _size = size;
 }
 
 void
-sk::rt::logger::DirectFileDestination::
+sk::rt::logger::FileDestination::
 setBackups(const sk::util::String& specification)
 {
   try {
@@ -64,21 +64,21 @@ setBackups(const sk::util::String& specification)
 }
 
 void
-sk::rt::logger::DirectFileDestination::
+sk::rt::logger::FileDestination::
 setBackups(int backups)
 {
   _backups = backups;
 }
 
-sk::rt::logger::DirectFileDestination*
-sk::rt::logger::DirectFileDestination::
+sk::rt::logger::FileDestination*
+sk::rt::logger::FileDestination::
 clone() const
 {
-  return new DirectFileDestination(*this);
+  return new FileDestination(*this);
 }
 
 void
-sk::rt::logger::DirectFileDestination::
+sk::rt::logger::FileDestination::
 makeReady()
 {
   if(_bytesWritten == 0) {
@@ -87,7 +87,7 @@ makeReady()
 }
 
 void
-sk::rt::logger::DirectFileDestination::
+sk::rt::logger::FileDestination::
 dispatch(const char* buffer, int size)
 {
   makeReady();
@@ -113,7 +113,7 @@ dispatch(const char* buffer, int size)
 }
 
 void
-sk::rt::logger::DirectFileDestination::
+sk::rt::logger::FileDestination::
 openFile()
 {
   closeFile();
@@ -127,7 +127,7 @@ openFile()
 }
 
 void
-sk::rt::logger::DirectFileDestination::
+sk::rt::logger::FileDestination::
 closeFile()
 {
   try {
@@ -139,7 +139,7 @@ closeFile()
 }
 
 void
-sk::rt::logger::DirectFileDestination::
+sk::rt::logger::FileDestination::
 backupFile()
 {
   sk::util::String backup = _pathname.toString() + '-' + sk::util::Integer::toString(_nextBackup);
@@ -157,7 +157,7 @@ backupFile()
 }
 
 void
-sk::rt::logger::DirectFileDestination::
+sk::rt::logger::FileDestination::
 initFile()
 {
   std::ofstream file(_pathname.toString().getChars());
@@ -172,7 +172,7 @@ initFile()
 }
 
 bool
-sk::rt::logger::DirectFileDestination::
+sk::rt::logger::FileDestination::
 scanFile()
 {
   std::ifstream file(_pathname.toString().getChars());

@@ -15,7 +15,7 @@
 #include <sk/rt/scope/Aggregator.h>
 #include <sk/rt/logger/Level.h>
 #include <logger/StreamDestination.h>
-#include <logger/DirectFileDestination.h>
+#include <logger/FileDestination.h>
 #include <logger/PipeDestination.h>
 #include <logger/TrashDestination.h>
 #include <sk/other/tinyxml/tinyxml.h>
@@ -232,7 +232,7 @@ updateFileDestination(const TiXmlHandle& handle, scope::IConfig& config)
   sk::util::Pathname pathname(attribute(handle.ToElement(), "name", _scopeBuffer), "log");
   pathname.front(attribute(handle.ToElement(), "location", ".")).front(_location);
 
-  logger::DirectFileDestination file(pathname);
+  logger::FileDestination file(pathname);
   file.setSize(attribute(handle.ToElement(), "size", "10M"));
   file.setBackups(attribute(handle.ToElement(), "backups", "3"));
 

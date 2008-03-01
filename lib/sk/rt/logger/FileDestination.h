@@ -5,8 +5,8 @@
  *  You must read and accept the license prior to use.
 */
 
-#ifndef _SK_RT_LOGGER_DIRECTFILEDESTINATION_
-#define _SK_RT_LOGGER_DIRECTFILEDESTINATION_
+#ifndef _SK_RT_LOGGER_FILEDESTINATION_
+#define _SK_RT_LOGGER_FILEDESTINATION_
 
 #include <sk/rt/logger/Destination.h>
 #include <sk/util/Pathname.h>
@@ -16,12 +16,12 @@
 namespace sk {
   namespace rt {
     namespace logger {
-      class DirectFileDestination
+      class FileDestination
         : public virtual logger::Destination
       {
         public:
-          DirectFileDestination(const sk::util::Pathname& pathname);
-          virtual ~DirectFileDestination();
+          FileDestination(const sk::util::Pathname& pathname);
+          virtual ~FileDestination();
 
           void setSize(const sk::util::String& specification);
           void setSize(int size);
@@ -34,10 +34,10 @@ namespace sk {
           
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
-          DirectFileDestination* clone() const;
+          FileDestination* clone() const;
           
         private:
-          DirectFileDestination& operator = (const DirectFileDestination& other);
+          FileDestination& operator = (const FileDestination& other);
 
           void openFile();
           void closeFile();
@@ -57,4 +57,4 @@ namespace sk {
   }
 }
 
-#endif /* _SK_RT_LOGGER_DIRECTFILEDESTINATION_ */
+#endif /* _SK_RT_LOGGER_FILEDESTINATION_ */

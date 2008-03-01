@@ -6,7 +6,7 @@ objects =
   Level.cc
   Stream.cc
   StreamDestination.cc
-  DirectFileDestination.cc
+  FileDestination.cc
   PipeDestination.cc
   TrashDestination.cc
 ;
