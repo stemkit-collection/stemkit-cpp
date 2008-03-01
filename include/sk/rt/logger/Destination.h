@@ -19,6 +19,7 @@ namespace sk {
       {
         public:
           virtual void dispatch(const char* buffer, int size) = 0;
+          virtual void makeReady() = 0;
           virtual Destination* clone() const = 0;
       };
     }

@@ -29,6 +29,12 @@ getClass() const
 
 void
 sk::rt::logger::TrashDestination::
+makeReady()
+{
+}
+
+void
+sk::rt::logger::TrashDestination::
 dispatch(const char* buffer, int size) 
 {
 }

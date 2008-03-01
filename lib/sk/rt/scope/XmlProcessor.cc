@@ -232,16 +232,15 @@ updateFileDestination(const TiXmlHandle& handle, scope::IConfig& config)
   sk::util::Pathname pathname(attribute(handle.ToElement(), "name", _scopeBuffer), "log");
   pathname.front(attribute(handle.ToElement(), "location", ".")).front(_location);
 
-  sk::util::Holder<logger::FileDestination> holder;
+  logger::DirectFileDestination file(pathname);
+  file.setSize(attribute(handle.ToElement(), "size", "10M"));
+  file.setBackups(attribute(handle.ToElement(), "backups", "3"));
+
   if(attribute(handle.ToElement(), "use-pipe", false) == true) {
-    holder.set(new logger::PipedFileDestination(pathname));
+    config.setLogDestination(logger::PipedFileDestination(file));
   }
   else {
-    holder.set(new logger::DirectFileDestination(pathname));
+    config.setLogDestination(file);
   }
-  holder.get().setSize(attribute(handle.ToElement(), "size", "10M"));
-  holder.get().setBackups(attribute(handle.ToElement(), "backups", "3"));
-
-  holder.get().makeReady();
-  config.setLogDestination(holder.get());
+  config.getLogDestination().makeReady();
 }

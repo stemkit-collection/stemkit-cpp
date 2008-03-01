@@ -7,6 +7,7 @@
 
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
+#include <sk/util/Holder.cxx>
 #include <sk/util/SystemException.h>
 
 #include <logger/PipedFileDestination.h>
@@ -18,14 +19,14 @@
 #include <vector>
 
 sk::rt::logger::PipedFileDestination::
-PipedFileDestination(const sk::util::Pathname& pathname)
-  : FileDestination(pathname), _descriptor(-1)
+PipedFileDestination(const logger::Destination& destination)
+  : _destinationHolder(destination.clone()), _descriptor(-1)
 {
 }
 
 sk::rt::logger::PipedFileDestination::
 PipedFileDestination(const PipedFileDestination& other)
-  : FileDestination(other), _descriptor(other.cloneDescriptor())
+  : _destinationHolder(other._destinationHolder), _descriptor(other.cloneDescriptor())
 {
 }
 
@@ -136,9 +137,7 @@ void
 sk::rt::logger::PipedFileDestination::
 waitData(int descriptor)
 {
-  DirectFileDestination destination(getPathname());
-  destination.setSize(getSize());
-  destination.setBackups(getBackups());
+  Destination& destination = _destinationHolder.get();
   destination.makeReady();
 
   std::vector<char> buffer(264);

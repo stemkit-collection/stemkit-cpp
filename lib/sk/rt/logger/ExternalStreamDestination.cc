@@ -30,6 +30,12 @@ getClass() const
 
 void
 sk::rt::logger::ExternalStreamDestination::
+makeReady()
+{
+}
+
+void
+sk::rt::logger::ExternalStreamDestination::
 dispatch(const char* buffer, int size) 
 {
   _destination.write(buffer, size);

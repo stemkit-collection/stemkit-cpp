@@ -8,24 +8,23 @@
 #ifndef _SK_RT_LOGGER_PIPEDFILEDESTINATION_
 #define _SK_RT_LOGGER_PIPEDFILEDESTINATION_
 
-#include <logger/FileDestination.h>
+#include <sk/rt/logger/Destination.h>
 #include <sk/util/Pathname.h>
+#include <sk/util/Holder.hxx>
 
 namespace sk {
   namespace rt {
     namespace logger {
       class PipedFileDestination
-        : public FileDestination
+        : public virtual logger::Destination
       {
         public:
-          PipedFileDestination(const sk::util::Pathname& pathname);
+          PipedFileDestination(const logger::Destination& destination);
           PipedFileDestination(const PipedFileDestination& other);
           virtual ~PipedFileDestination();
           
           // sk::rt::logger::Destination implementation.
           void dispatch(const char* buffer, int size);
-          
-          // sk::util::Logger::FileDestination implementation.
           void makeReady();
           
           // sk::util::Object re-implementation.
@@ -41,6 +40,7 @@ namespace sk {
           int cloneDescriptor() const;
 
           int _descriptor;
+          sk::util::Holder<logger::Destination>::Cloning _destinationHolder;
       };
     }
   }
