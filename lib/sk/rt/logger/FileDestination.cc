@@ -19,7 +19,7 @@
 sk::rt::logger::FileDestination::
 FileDestination(const sk::util::Pathname& pathname)
   : _nextBackup(0), _bytesWritten(0), _fileHolder(new std::fstream),
-    _pathname(pathname), _size(0), _backups(0)
+    _pathname(pathname), _size(2048), _backups(3)
 {
   _fileHolder.get().exceptions(std::ios::eofbit | std::ios::failbit | std::ios::badbit);
 }
@@ -164,7 +164,7 @@ initFile()
   if(file.good() == false) {
     throw sk::util::SystemException("Cannot access " + _pathname.toString().inspect());
   }
-  file << '[' << _pathname.basename() << '-' << _nextBackup << " of " << _backups << ']' << std::endl;
+  file << '[' << _pathname.basename() << ' ' << _nextBackup << " of " << _backups << ']' << std::endl;
 
   if(file.good() == false) {
     throw sk::util::IllegalStateException("Cannot initialize " + _pathname.toString().inspect());
@@ -181,7 +181,7 @@ scanFile()
   }
   sk::util::String line;
   if(std::getline(file, line).good() == true) {
-    sk::util::String format = '[' + _pathname.basename() + "-%d of %d" + ']';
+    sk::util::String format = '[' + _pathname.basename() + " %d of %d" + ']';
     int backups;
 
     if(sscanf(line.getChars(), format.getChars(), &_nextBackup, &backups) == 2) {

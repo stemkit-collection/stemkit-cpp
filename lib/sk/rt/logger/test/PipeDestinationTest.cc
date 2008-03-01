@@ -9,6 +9,7 @@
 #include <logger/PipeDestination.h>
 #include <logger/FileDestination.h>
 #include <sk/util/Pathname.h>
+#include <sk/util/Holder.cxx>
 #include <fstream>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::rt::logger::test::PipeDestinationTest);
@@ -27,41 +28,50 @@ void
 sk::rt::logger::test::PipeDestinationTest::
 setUp()
 {
+  unlink("abc");
+
+  _fileHolder.set(new logger::FileDestination(sk::util::Pathname("abc")));
+  _pipeHolder.set(new logger::PipeDestination(_fileHolder.get()));
 }
 
 void
 sk::rt::logger::test::PipeDestinationTest::
 tearDown()
 {
+  unlink("abc");
+  _fileHolder.clear();
+  _pipeHolder.clear();
 }
 
 void
 sk::rt::logger::test::PipeDestinationTest::
-testBasics()
+testEarlyMakeReady()
 {
-  unlink("abc");
-  logger::FileDestination file(sk::util::Pathname("abc"));
-  logger::PipeDestination destination(file);
-
   CPPUNIT_ASSERT_EQUAL(false, std::ifstream("abc").good());
-  destination.makeReady();
+  _pipeHolder.get().makeReady();
 
   std::ifstream stream("abc");
   std::string depot;
 
-  CPPUNIT_ASSERT_EQUAL(true, std::ifstream("abc").good());
+  CPPUNIT_ASSERT_EQUAL(true, stream.good());
   CPPUNIT_ASSERT_EQUAL(true, std::getline(stream, depot).good());
+  CPPUNIT_ASSERT_EQUAL(std::string("[abc 0 of 3]"), depot);
   CPPUNIT_ASSERT_EQUAL(false, std::getline(stream, depot).good());
+}
 
-  destination.dispatch("hello, world!!!\n", 16);
-  {
-    std::ifstream stream("abc");
-    std::string depot;
-    
-    CPPUNIT_ASSERT_EQUAL(true, std::ifstream("abc").good());
-    CPPUNIT_ASSERT_EQUAL(true, std::getline(stream, depot).good());
-    CPPUNIT_ASSERT_EQUAL(true, std::getline(stream, depot).good());
-    CPPUNIT_ASSERT_EQUAL(std::string("hello, world!!!"), depot);
-    CPPUNIT_ASSERT_EQUAL(false, std::getline(stream, depot).good());
-  }
+void
+sk::rt::logger::test::PipeDestinationTest::
+testDelayedDispatch()
+{
+  CPPUNIT_ASSERT_EQUAL(false, std::ifstream("abc").good());
+  _pipeHolder.get().dispatch("hello, world!!!\n", 16);
+
+  std::ifstream stream("abc");
+  std::string depot;
+  
+  CPPUNIT_ASSERT_EQUAL(true, stream.good());
+  CPPUNIT_ASSERT_EQUAL(true, std::getline(stream, depot).good());
+  CPPUNIT_ASSERT_EQUAL(true, std::getline(stream, depot).good());
+  CPPUNIT_ASSERT_EQUAL(std::string("hello, world!!!"), depot);
+  CPPUNIT_ASSERT_EQUAL(false, std::getline(stream, depot).good());
 }

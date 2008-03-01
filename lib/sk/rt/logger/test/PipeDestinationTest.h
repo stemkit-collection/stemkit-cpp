@@ -10,16 +10,21 @@
 
 #include <cppunit/TestFixture.h>
 #include <cppunit/extensions/HelperMacros.h>
+#include <sk/util/Holder.hxx>
 
 namespace sk {
   namespace rt {
     namespace logger {
+      class FileDestination;
+      class PipeDestination;
+
       namespace test {
         class PipeDestinationTest
           : public CppUnit::TestFixture
         {
           CPPUNIT_TEST_SUITE(sk::rt::logger::test::PipeDestinationTest);
-            CPPUNIT_TEST(testBasics);
+            CPPUNIT_TEST(testEarlyMakeReady);
+            CPPUNIT_TEST(testDelayedDispatch);
           CPPUNIT_TEST_SUITE_END();
           
           public:
@@ -28,11 +33,15 @@ namespace sk {
             
             void setUp();
             void tearDown();
-            void testBasics();
+            void testEarlyMakeReady();
+            void testDelayedDispatch();
             
           private:
             PipeDestinationTest(const PipeDestinationTest& other);
             PipeDestinationTest& operator = (const PipeDestinationTest& other);
+
+            sk::util::Holder<logger::FileDestination> _fileHolder;
+            sk::util::Holder<logger::PipeDestination> _pipeHolder;
         };
       }
     }
