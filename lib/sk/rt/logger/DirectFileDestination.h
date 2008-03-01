@@ -8,7 +8,7 @@
 #ifndef _SK_RT_LOGGER_DIRECTFILEDESTINATION_
 #define _SK_RT_LOGGER_DIRECTFILEDESTINATION_
 
-#include <logger/FileDestination.h>
+#include <sk/rt/logger/Destination.h>
 #include <sk/util/Pathname.h>
 #include <sk/util/Holder.hxx>
 #include <fstream>
@@ -17,16 +17,19 @@ namespace sk {
   namespace rt {
     namespace logger {
       class DirectFileDestination
-        : public FileDestination
+        : public virtual logger::Destination
       {
         public:
           DirectFileDestination(const sk::util::Pathname& pathname);
           virtual ~DirectFileDestination();
 
+          void setSize(const sk::util::String& specification);
+          void setSize(int size);
+          void setBackups(const sk::util::String& specification);
+          void setBackups(int backups);
+
           // sk::rt::logger::Destination implementation.
           void dispatch(const char* buffer, int size);
-          
-          // sk::util::Logger::FileDestination implementation.
           void makeReady();
           
           // sk::util::Object re-implementation.
@@ -45,6 +48,10 @@ namespace sk {
           int _nextBackup;
           off_t _bytesWritten;
           sk::util::Holder<std::fstream>::Sharing _fileHolder;
+
+          int _size;
+          int _backups;
+          sk::util::Pathname _pathname;
       };
     }
   }

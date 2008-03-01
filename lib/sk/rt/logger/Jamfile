@@ -6,7 +6,6 @@ objects =
   Level.cc
   Stream.cc
   StreamDestination.cc
-  FileDestination.cc
   DirectFileDestination.cc
   PipeDestination.cc
   TrashDestination.cc
