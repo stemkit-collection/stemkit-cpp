@@ -23,6 +23,7 @@ namespace sk {
           : public CppUnit::TestFixture
         {
           CPPUNIT_TEST_SUITE(sk::rt::logger::test::PipeDestinationTest);
+            CPPUNIT_TEST(testDefaults);
             CPPUNIT_TEST(testEarlyMakeReady);
             CPPUNIT_TEST(testDelayedDispatch);
           CPPUNIT_TEST_SUITE_END();
@@ -33,6 +34,7 @@ namespace sk {
             
             void setUp();
             void tearDown();
+            void testDefaults();
             void testEarlyMakeReady();
             void testDelayedDispatch();
             

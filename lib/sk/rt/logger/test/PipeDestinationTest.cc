@@ -45,6 +45,14 @@ tearDown()
 
 void
 sk::rt::logger::test::PipeDestinationTest::
+testDefaults()
+{
+  CPPUNIT_ASSERT_EQUAL(2048, _fileHolder.get().getSize());
+  CPPUNIT_ASSERT_EQUAL(3, _fileHolder.get().getBackups());
+}
+
+void
+sk::rt::logger::test::PipeDestinationTest::
 testEarlyMakeReady()
 {
   CPPUNIT_ASSERT_EQUAL(false, std::ifstream("abc").good());
