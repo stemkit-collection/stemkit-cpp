@@ -5,20 +5,20 @@
  *  You must read and accept the license prior to use.
 */
 
-#ifndef _SK_RT_SCOPE_TEST_PIPEDESTINATIONTEST_
-#define _SK_RT_SCOPE_TEST_PIPEDESTINATIONTEST_
+#ifndef _SK_RT_LOGGER_TEST_PIPEDESTINATIONTEST_
+#define _SK_RT_LOGGER_TEST_PIPEDESTINATIONTEST_
 
 #include <cppunit/TestFixture.h>
 #include <cppunit/extensions/HelperMacros.h>
 
 namespace sk {
   namespace rt {
-    namespace scope {
+    namespace logger {
       namespace test {
         class PipeDestinationTest
           : public CppUnit::TestFixture
         {
-          CPPUNIT_TEST_SUITE(sk::rt::scope::test::PipeDestinationTest);
+          CPPUNIT_TEST_SUITE(sk::rt::logger::test::PipeDestinationTest);
             CPPUNIT_TEST(testBasics);
           CPPUNIT_TEST_SUITE_END();
           
@@ -39,4 +39,4 @@ namespace sk {
   }
 }
 
-#endif /* _SK_RT_SCOPE_TEST_PIPEDESTINATIONTEST_ */
+#endif /* _SK_RT_LOGGER_TEST_PIPEDESTINATIONTEST_ */
