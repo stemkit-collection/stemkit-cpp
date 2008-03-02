@@ -57,6 +57,7 @@ testEarlyMakeReady()
 {
   CPPUNIT_ASSERT_EQUAL(false, std::ifstream("abc").good());
   _pipeHolder.get().makeReady();
+  sleep(1);
 
   std::ifstream stream("abc");
   std::string depot;
@@ -73,6 +74,7 @@ testDelayedDispatch()
 {
   CPPUNIT_ASSERT_EQUAL(false, std::ifstream("abc").good());
   _pipeHolder.get().dispatch("hello, world!!!\n", 16);
+  sleep(1);
 
   std::ifstream stream("abc");
   std::string depot;

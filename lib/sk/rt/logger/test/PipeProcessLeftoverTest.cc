@@ -84,6 +84,7 @@ testNoLeftovers()
   logger::PipeDestination destination(trash);
   destination.makeReady();
   holder.clear();
+  sleep(1);
 
   CPPUNIT_ASSERT_EQUAL(-1, (int)::write(descriptors[1], "aaa", 3));
 }
