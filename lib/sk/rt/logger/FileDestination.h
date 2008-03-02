@@ -11,7 +11,6 @@
 #include <sk/rt/logger/Destination.h>
 #include <sk/util/Pathname.h>
 #include <sk/util/Holder.hxx>
-#include <fstream>
 
 namespace sk {
   namespace rt {
@@ -21,6 +20,7 @@ namespace sk {
       {
         public:
           FileDestination(const sk::util::Pathname& pathname);
+          FileDestination(const FileDestination& other);
           virtual ~FileDestination();
 
           int getSize() const;
@@ -33,7 +33,7 @@ namespace sk {
 
           // sk::rt::logger::Destination implementation.
           void dispatch(const char* buffer, int size);
-          void makeReady();
+          const std::vector<int> makeReady();
           
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
@@ -48,9 +48,13 @@ namespace sk {
           void initFile();
           bool scanFile();
 
+          int cloneDescriptor() const;
+          void writeData(const char* data, int size);
+          void writeData(const char* data);
+
           int _nextBackup;
           off_t _bytesWritten;
-          sk::util::Holder<std::fstream>::Sharing _fileHolder;
+          int _descriptor;
 
           int _size;
           int _backups;

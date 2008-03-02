@@ -27,10 +27,11 @@ getClass() const
   return sk::util::Class("sk::rt::logger::TrashDestination");
 }
 
-void
+const std::vector<int>
 sk::rt::logger::TrashDestination::
 makeReady()
 {
+  return std::vector<int>();
 }
 
 void

@@ -23,7 +23,7 @@ namespace sk {
 
           // sk::rt::logger::Destinaiton implementation.
           void dispatch(const char* buffer, int size);
-          void makeReady();
+          const std::vector<int> makeReady();
           StreamDestination* clone() const;
           
           // sk::util::Object re-implementation.

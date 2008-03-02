@@ -9,7 +9,7 @@
 #define _SK_RT_LOGGER_DESTINATION_
 
 #include <sk/util/Object.h>
-#include <sstream>
+#include <vector>
 
 namespace sk {
   namespace rt {
@@ -19,7 +19,7 @@ namespace sk {
       {
         public:
           virtual void dispatch(const char* buffer, int size) = 0;
-          virtual void makeReady() = 0;
+          virtual const std::vector<int> makeReady() = 0;
           virtual Destination* clone() const = 0;
       };
     }

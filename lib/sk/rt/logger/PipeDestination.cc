@@ -66,21 +66,27 @@ cloneDescriptor() const
   return _descriptor < 0 ? _descriptor : dup(_descriptor);
 }
 
-void
+const std::vector<int>
 sk::rt::logger::PipeDestination::
 makeReady()
 {
+  static std::vector<int> descriptors;
   if(_descriptor < 0) {
     makePipe();
+
+    descriptors.clear();
+    descriptors.push_back(_descriptor);
   }
+  return descriptors;
 }
 
 void
 sk::rt::logger::PipeDestination::
 dispatch(const char* buffer, int size)
 {
-  makeReady();
-
+  if(_descriptor < 0) {
+    makePipe();
+  }
   if(size > 0) {
     if(::write(_descriptor, buffer, size) < 0) {
       cleanup();
@@ -102,8 +108,16 @@ makePipe()
     case 0: {
       if(fork() == 0) {
         try {
-          ::close(descriptors[1]);
-          waitData(descriptors[0]);
+          ::close(0);
+          ::dup(descriptors[0]);
+
+          std::vector<int> preserve = _destinationHolder.get().makeReady();
+          for(int descriptor=3; descriptor < FD_SETSIZE ;descriptor++) {
+            if(std::find(preserve.begin(), preserve.end(), descriptor) == preserve.end()) {
+              ::close(descriptor);
+            }
+          }
+          waitData(0);
         }
         catch(const std::exception& exception) {
           std::cerr << "PIPE: " << exception.what() << std::endl;
@@ -137,7 +151,6 @@ sk::rt::logger::PipeDestination::
 waitData(int descriptor)
 {
   Destination& destination = _destinationHolder.get();
-  destination.makeReady();
 
   std::vector<char> buffer(264);
   while(true) {

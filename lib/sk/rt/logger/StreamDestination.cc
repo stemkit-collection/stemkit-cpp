@@ -28,10 +28,11 @@ getClass() const
   return sk::util::Class("sk::rt::logger::StreamDestination");
 }
 
-void
+const std::vector<int>
 sk::rt::logger::StreamDestination::
 makeReady()
 {
+  return std::vector<int>();
 }
 
 void

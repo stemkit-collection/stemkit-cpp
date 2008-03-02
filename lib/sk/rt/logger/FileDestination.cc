@@ -14,19 +14,35 @@
 #include <sk/util/SystemException.h>
 
 #include <logger/FileDestination.h>
+#include <fstream>
 #include <unistd.h>
+#include <fcntl.h>
 
 sk::rt::logger::FileDestination::
 FileDestination(const sk::util::Pathname& pathname)
-  : _nextBackup(0), _bytesWritten(0), _fileHolder(new std::fstream),
+  : _nextBackup(0), _bytesWritten(0), _descriptor(-1),
     _pathname(pathname), _size(2048), _backups(3)
 {
-  _fileHolder.get().exceptions(std::ios::eofbit | std::ios::failbit | std::ios::badbit);
+}
+
+sk::rt::logger::FileDestination::
+FileDestination(const FileDestination& other)
+  : _nextBackup(other._nextBackup), _bytesWritten(other._bytesWritten), _descriptor(other.cloneDescriptor()),
+    _pathname(other._pathname), _size(other._size), _backups(other._backups)
+{
 }
 
 sk::rt::logger::FileDestination::
 ~FileDestination()
 {
+  closeFile();
+}
+
+int
+sk::rt::logger::FileDestination::
+cloneDescriptor() const
+{
+  return _descriptor < 0 ? _descriptor : dup(_descriptor);
 }
 
 const sk::util::Class
@@ -91,28 +107,33 @@ clone() const
   return new FileDestination(*this);
 }
 
-void
+const std::vector<int>
 sk::rt::logger::FileDestination::
 makeReady()
 {
+  static std::vector<int> descriptors;
   if(_bytesWritten == 0) {
     openFile();
+
+    descriptors.clear();
+    descriptors.push_back(_descriptor);
   }
+  return descriptors;
 }
 
 void
 sk::rt::logger::FileDestination::
 dispatch(const char* buffer, int size)
 {
-  makeReady();
+  if(_bytesWritten == 0) {
+    openFile();
+  }
+  writeData(buffer, size);
 
-  _fileHolder.get().write(buffer, size);
-  _fileHolder.get().flush();
-  
   if(_size > 0) {
     _bytesWritten += size;
     if(_bytesWritten > _size) {
-      _fileHolder.get() << "[---Switched---]" << std::endl;
+      writeData("[---Switched---]\n");
 
       closeFile();
       backupFile();
@@ -135,21 +156,26 @@ openFile()
   if(scanFile() == false) {
     initFile();
   }
-  _fileHolder.get().open(_pathname.toString().getChars(), std::ios::in | std::ios::out);
-  _fileHolder.get().seekp(0, std::ios::end);
-  _bytesWritten = _fileHolder.get().tellp();
+  _descriptor = ::open(_pathname.toString().getChars(), O_RDWR);
+  if(_descriptor < 0) {
+    throw sk::util::SystemException(sk::util::String("open():") + _pathname.toString());
+  }
+  off_t offset = ::lseek(_descriptor, 0, SEEK_END);
+  if(offset == -1) {
+    throw sk::util::SystemException(sk::util::String("lseek():") + _pathname.toString());
+  }
+  _bytesWritten = offset;
 }
 
 void
 sk::rt::logger::FileDestination::
 closeFile()
 {
-  try {
-    _fileHolder.get().close();
+  if(_descriptor < 0) {
+    return;
   }
-  catch(...) {}
-
-  _fileHolder.get().clear();
+  ::close(_descriptor);
+  _descriptor = -1;
 }
 
 void
@@ -159,10 +185,10 @@ backupFile()
   sk::util::String backup = _pathname.toString() + '-' + sk::util::Integer::toString(_nextBackup);
   unlink(backup.getChars());
   if(link(_pathname.toString().getChars(), backup.getChars()) < 0) {
-    throw sk::util::SystemException("link()");
+    throw sk::util::SystemException(sk::util::String("link():") + _pathname.toString());
   }
   if(unlink(_pathname.toString().getChars()) < 0) {
-    throw sk::util::SystemException("unlink()");
+    throw sk::util::SystemException(sk::util::String("unlink():") + _pathname.toString());
   }
   _nextBackup += 1;
   if(_nextBackup >= _backups) {
@@ -203,4 +229,34 @@ scanFile()
     }
   }
   return false;
+}
+
+void
+sk::rt::logger::FileDestination::
+writeData(const char* data)
+{
+  writeData(data, strlen(data));
+}
+
+void
+sk::rt::logger::FileDestination::
+writeData(const char* data, int size)
+{
+  if(_descriptor < 0) {
+    throw sk::util::IllegalStateException(sk::util::String("File not open:") + _pathname.toString());
+  }
+  int offset = 0;
+  while(offset < size) {
+    int n = ::write(_descriptor, data + offset, size - offset);
+    if(n > 0) {
+      offset += n;
+      continue;
+    }
+    if(n == 0) {
+      throw sk::util::IllegalStateException(sk::util::String("Write 0 bytes:") + _pathname.toString());
+    }
+    if(n < 0) {
+      throw sk::util::SystemException(sk::util::String("write():") + _pathname.toString());
+    }
+  }
 }

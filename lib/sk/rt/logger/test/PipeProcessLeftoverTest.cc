@@ -44,18 +44,15 @@ namespace {
       makeReady();
     }
 
-    void makeReady() {
-      if(_readfd < 0) {
-        return;
+    const std::vector<int> makeReady() {
+      std::vector<int> descriptors;
+      if(_writefd >= 0) {
+        ::close(_writefd);
+        _writefd = -1;
+
+        descriptors.push_back(_readfd);
       }
-      close(1);
-      dup(_readfd);
-
-      ::close(_readfd);
-      ::close(_writefd);
-
-      _readfd = -1;
-      _writefd = -1;
+      return descriptors;
     }
 
     ProbeDestination* clone() const {
