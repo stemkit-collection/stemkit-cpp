@@ -84,6 +84,26 @@ testAssignment()
 
 void
 sk::util::test::SharingHolderTest::
+testReplacementAfterClear()
+{
+  Holder<String>::Sharing h1(new String("abc"));
+  Holder<String>::Sharing h2(h1);
+
+  CPPUNIT_ASSERT_EQUAL(2, h1.getLinks());
+  CPPUNIT_ASSERT_EQUAL(2, h2.getLinks());
+  CPPUNIT_ASSERT_EQUAL(&h1.get(), &h2.get());
+
+  h1.clear();
+  CPPUNIT_ASSERT_EQUAL(1, h2.getLinks());
+  h1.set(new String("cba"));
+
+  CPPUNIT_ASSERT_EQUAL(1, h1.getLinks());
+  CPPUNIT_ASSERT_EQUAL(1, h2.getLinks());
+  CPPUNIT_ASSERT_EQUAL(sk::util::String("cba").inspect(), h1.get().inspect());
+  CPPUNIT_ASSERT_EQUAL(sk::util::String("abc").inspect(), h2.get().inspect());
+}
+void
+sk::util::test::SharingHolderTest::
 testReplacement()
 {
   Holder<String>::Sharing h1(new String("abc"));
