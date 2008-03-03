@@ -38,8 +38,13 @@ namespace sk {
 
           protected:
             void setObject(T* object) {
-              Super::setObject(object);
-              Super::getSlot().link();
+              if(Super::hasSlot() == true) {
+                delete Super::getSlot().replace(object);
+              }
+              else {
+                Super::setObject(object);
+                Super::getSlot().link();
+              }
             }
             
             void clearSlot() {

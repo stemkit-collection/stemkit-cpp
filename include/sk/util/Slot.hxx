@@ -20,6 +20,7 @@ namespace sk {
         virtual bool isOwner() const = 0;
         virtual T& get() const = 0;
         virtual T* deprive() = 0;
+        virtual T* replace(T* object) = 0;
     };
   }
 }

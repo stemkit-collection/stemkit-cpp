@@ -27,6 +27,7 @@ namespace sk {
           bool isOwner() const;
           T& get() const;
           T* deprive();
+          T* replace(T* object);
           
           // sk::util::Object re-implementation.
           const sk::util::String inspect() const;

@@ -63,6 +63,17 @@ deprive()
 }
 
 template<typename T, typename Mixin>
+T*
+sk::util::slot::Pointer<T, Mixin>::
+replace(T* object)
+{
+  T* original = _object;
+  _object = object;
+
+  return original;
+}
+
+template<typename T, typename Mixin>
 const sk::util::String
 sk::util::slot::Pointer<T, Mixin>::
 inspect() const

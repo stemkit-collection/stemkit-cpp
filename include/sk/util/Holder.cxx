@@ -69,8 +69,6 @@ sk::util::Holder<T, Policy>&
 sk::util::Holder<T, Policy>::
 set(T& object)
 {
-  remove();
-
   Policy::setObject(object);
   return *this;
 }
@@ -80,11 +78,7 @@ sk::util::Holder<T, Policy>&
 sk::util::Holder<T, Policy>::
 set(T* object)
 {
-  remove();
-  
-  if(object != 0) {
-    Policy::setObject(object);
-  }
+  Policy::setObject(object);
   return *this;
 }
 

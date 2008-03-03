@@ -49,6 +49,14 @@ deprive()
 }
 
 template<typename T, typename Mixin>
+T*
+sk::util::slot::Reference<T, Mixin>::
+replace(T* object)
+{
+  throw sk::util::UnsupportedOperationException("sk::util::slot::Reference#replace()");
+}
+
+template<typename T, typename Mixin>
 const sk::util::String
 sk::util::slot::Reference<T, Mixin>::
 inspect() const
