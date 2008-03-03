@@ -8,7 +8,6 @@
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
 #include <sk/util/Integer.h>
-#include <sk/util/Holder.cxx>
 #include <sk/util/IllegalStateException.h>
 #include <sk/util/NumberFormatException.h>
 #include <sk/util/SystemException.h>

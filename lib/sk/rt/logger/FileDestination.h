@@ -10,7 +10,6 @@
 
 #include <sk/rt/logger/Destination.h>
 #include <sk/util/Pathname.h>
-#include <sk/util/Holder.hxx>
 
 namespace sk {
   namespace rt {

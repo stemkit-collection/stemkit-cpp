@@ -12,6 +12,7 @@
 
 #include <logger/PipeDestination.h>
 #include <unistd.h>
+#include <signal.h>
 #include <errno.h>
 #include <sys/wait.h>
 #include <iostream>
@@ -107,6 +108,8 @@ makePipe()
   switch(pid) {
     case 0: {
       if(fork() == 0) {
+        signal(SIGPIPE, SIG_IGN);
+
         try {
           ::close(0);
           ::dup(descriptors[0]);
