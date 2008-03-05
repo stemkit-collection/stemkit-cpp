@@ -9,3 +9,11 @@ local INCLUDES = $(INCLUDES) $(system.SRCDIR) ;
 
 make-library $(library) : $(objects) ;
 make-subdirs scope logger config bundle tests ;
+
+programs = probe ;
+
+local _program ;
+for _program in $(programs) {
+  use-project-libraries $(_program) : sk.rt.bundle sk.util ;
+  make-program $(_program) : $(_program).cc ;
+}

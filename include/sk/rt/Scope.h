@@ -36,8 +36,9 @@ namespace sk {
 
         const logger::Stream error(const sk::util::String& label = sk::util::String::EMPTY, const sk::rt::logger::Spot& spot = sk::rt::logger::Spot::NOTSET) const;
         const logger::Stream warning(const sk::util::String& label = sk::util::String::EMPTY, const sk::rt::logger::Spot& spot = sk::rt::logger::Spot::NOTSET) const;
-        const logger::Stream notice(const sk::util::String& label = sk::util::String::EMPTY, const sk::rt::logger::Spot& spot = sk::rt::logger::Spot::NOTSET) const;
+        const logger::Stream stat(const sk::util::String& label = sk::util::String::EMPTY, const sk::rt::logger::Spot& spot = sk::rt::logger::Spot::NOTSET) const;
         const logger::Stream info(const sk::util::String& label = sk::util::String::EMPTY, const sk::rt::logger::Spot& spot = sk::rt::logger::Spot::NOTSET) const;
+        const logger::Stream notice(const sk::util::String& label = sk::util::String::EMPTY, const sk::rt::logger::Spot& spot = sk::rt::logger::Spot::NOTSET) const;
         const logger::Stream debug(const sk::util::String& label = sk::util::String::EMPTY, const sk::rt::logger::Spot& spot = sk::rt::logger::Spot::NOTSET) const;
         const logger::Stream detail(const sk::util::String& label = sk::util::String::EMPTY, const sk::rt::logger::Spot& spot = sk::rt::logger::Spot::NOTSET) const;
 

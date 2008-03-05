@@ -16,6 +16,7 @@ std::vector<sk::rt::logger::Level*> sk::rt::logger::Level::_levels;
 
 DEFINE_LEVEL(NONE);
 DEFINE_LEVEL(ERROR);
+DEFINE_LEVEL(STAT);
 DEFINE_LEVEL(WARNING);
 DEFINE_LEVEL(INFO);
 DEFINE_LEVEL(NOTICE);

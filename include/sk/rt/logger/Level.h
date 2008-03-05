@@ -32,6 +32,7 @@ namespace sk {
 
           static const Level NONE;
           static const Level ERROR;
+          static const Level STAT;
           static const Level WARNING;
           static const Level INFO;
           static const Level NOTICE;
