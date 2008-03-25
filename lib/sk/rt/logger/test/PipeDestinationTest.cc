@@ -11,6 +11,7 @@
 #include <sk/util/Pathname.h>
 #include <sk/util/Holder.cxx>
 #include <fstream>
+#include <unistd.h>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::rt::logger::test::PipeDestinationTest);
 

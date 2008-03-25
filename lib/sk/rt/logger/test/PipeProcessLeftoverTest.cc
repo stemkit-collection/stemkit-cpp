@@ -10,6 +10,7 @@
 #include <logger/TrashDestination.h>
 #include <sk/util/Holder.cxx>
 #include <signal.h>
+#include <fcntl.h>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::rt::logger::test::PipeProcessLeftoverTest);
 
