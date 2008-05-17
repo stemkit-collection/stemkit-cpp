@@ -245,8 +245,8 @@ rule platform-hpux-ia64
 {
   project.MAKE_DLL = true ;
 
-  C++FLAGS += -fPIC ;
-  CCFLAGS += -fPIC ;
+  C++FLAGS += -mlp64 -fPIC ;
+  CCFLAGS += -mlp64 -fPIC ;
   DEFINES += ;
   INCLUDES += [ util.make-path $(system.SRCTOP) platform include hpux ] ;
   SYSLIBS = ;
@@ -292,7 +292,7 @@ INCLUDES += [ util.make-path $(system.SRCTOP) include ] ;
 GCC_ROOT ?= $(HOME)/local/$(PRODUCT_PLATFORM)/gcc-$(GCC_VERSION) ;
 
 GCC_STDLIBS ?= libstdc++.so libgcc_s.so ;
-CONTRIB_ROOT ?= $(GCC_ROOT)/contrib ;
+CONTRIB_ROOT ?= $(GCC_ROOT)/contrib-m64 ;
 
 C++ ?= $(GCC_ROOT)/bin/g++ ;
 CC ?= $(GCC_ROOT)/bin/gcc ;
