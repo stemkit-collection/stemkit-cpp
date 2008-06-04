@@ -21,9 +21,10 @@ namespace sk {
         : public virtual sk::util::Object 
       {
         public:
+          Address();
+          Address(const Address& other);
           Address(const sk::util::String& spec);
           Address(uint32_t number);
-          Address();
           virtual ~Address();
 
           static const Address hostname(const sk::util::String& name);
@@ -39,7 +40,6 @@ namespace sk {
           const sk::util::Class getClass() const;
           
         private:
-          Address(const Address& other);
           Address& operator = (const Address& other);
       };
     }
