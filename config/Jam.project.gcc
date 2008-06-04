@@ -292,7 +292,7 @@ INCLUDES += [ util.make-path $(system.SRCTOP) include ] ;
 GCC_ROOT ?= $(HOME)/local/$(PRODUCT_PLATFORM)/gcc-$(GCC_VERSION) ;
 
 GCC_STDLIBS ?= libstdc++.so libgcc_s.so ;
-CONTRIB_ROOT ?= $(GCC_ROOT)/contrib-m64 ;
+CONTRIB_ROOT ?= $(GCC_ROOT)/contrib ;
 
 C++ ?= $(GCC_ROOT)/bin/g++ ;
 CC ?= $(GCC_ROOT)/bin/gcc ;

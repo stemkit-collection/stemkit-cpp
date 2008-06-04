@@ -1,0 +1,6 @@
+
+local objects =
+  Address.cc
+;
+
+make-library sk.net.ip4 :  $(objects) ;

@@ -1,1 +1,1 @@
-make-subdirs cppunit util sys io rt preload other ;
+make-subdirs cppunit util sys io rt preload other net ;
