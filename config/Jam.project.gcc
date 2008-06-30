@@ -153,6 +153,7 @@ rule platform-macos
   project.MAKE_DLL = false ;
 
   GCC_VERSION = 4.0.1 ;
+  CPPUNIT_VERSION = 1.12 ;
 
   CC = gcc-4.0 ;
   C++ = g++-4.0 ;
