@@ -24,7 +24,7 @@ product {
       system-set-permissions
     }
     filesets %w{
-      main util sys io other rt cppunit
+      main util sys io other rt cppunit preload
     }
   }
 }
@@ -90,6 +90,25 @@ fileset {
   install.into('lib').binary {
     list = %w{
       sk.io
+    }
+    if ENV['MAKE_DLL'] == 'true'
+      library 'lib' => list
+    else
+      static_library 'lib' => list
+    end
+  }
+}
+
+fileset {
+  name 'preload'
+
+  directory %w{
+    lib
+  }
+  install.into('lib').binary {
+    list = %w{
+      sk.preload.control
+      sk.preload.print
     }
     if ENV['MAKE_DLL'] == 'true'
       library 'lib' => list
