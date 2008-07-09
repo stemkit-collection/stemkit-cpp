@@ -1,4 +1,6 @@
-/*  Copyright (c) 2007, Gennady Bystritsky <bystr@mac.com>
+/*  vim: set sw=2:
+ *
+ *  Copyright (c) 2007, Gennady Bystritsky <bystr@mac.com>
  *  
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
@@ -11,6 +13,11 @@
 #include <sk/util/SystemException.h>
 
 #include <logger/PipeDestination.h>
+#include <sk/rt/logger/Level.h>
+#include <sk/rt/logger/IScope.h>
+#include <sk/rt/logger/IConfig.h>
+#include <sk/rt/logger/Stream.h>
+
 #include <unistd.h>
 #include <signal.h>
 #include <errno.h>
@@ -20,13 +27,13 @@
 
 sk::rt::logger::PipeDestination::
 PipeDestination(const logger::Destination& destination)
-  : _destinationHolder(destination.clone()), _descriptor(-1)
+  : _destinationHolder(destination.clone()), _descriptor(-1), _piped(false)
 {
 }
 
 sk::rt::logger::PipeDestination::
 PipeDestination(const PipeDestination& other)
-  : _destinationHolder(other._destinationHolder), _descriptor(other.cloneDescriptor())
+  : _destinationHolder(other._destinationHolder), _descriptor(other.cloneDescriptor()), _piped(other._piped)
 {
 }
 
@@ -72,7 +79,7 @@ sk::rt::logger::PipeDestination::
 makeReady()
 {
   static std::vector<int> descriptors;
-  if(_descriptor < 0) {
+  if(_piped == false) {
     makePipe();
 
     descriptors.clear();
@@ -85,7 +92,7 @@ void
 sk::rt::logger::PipeDestination::
 dispatch(const char* buffer, int size)
 {
-  if(_descriptor < 0) {
+  if(_piped == false) {
     makePipe();
   }
   if(size > 0) {
@@ -94,6 +101,13 @@ dispatch(const char* buffer, int size)
       throw sk::util::SystemException("dispatch()");
     }
   }
+}
+
+void
+sk::rt::logger::PipeDestination::
+close()
+{
+  ::close(_descriptor);
 }
 
 void
@@ -123,13 +137,14 @@ makePipe()
           waitData(0);
         }
         catch(const std::exception& exception) {
-          std::cerr << "PIPE: " << exception.what() << std::endl;
+          output(exception.what());
           ::_exit(5);
         }
         catch(...) {
-          std::cerr << "PIPE: Unknown exception" << std::endl;
+          output("Unknown exception");
           ::_exit(5);
         }
+        output("Exit");
       }
       ::_exit(0);
     }
@@ -145,8 +160,69 @@ makePipe()
       }
       ::close(descriptors[0]);
       _descriptor = descriptors[1];
+      _piped = true;
     }
   }
+}
+
+namespace {
+  struct OutputScope 
+    : public virtual sk::rt::logger::IScope,
+      public virtual sk::rt::logger::IConfig
+  {
+    OutputScope(sk::rt::logger::Destination& destination) 
+      : _destination(destination) {}
+
+    const sk::rt::logger::IConfig& getConfig() const {
+      return *this;
+    }
+    bool checkLogLevel(const sk::rt::logger::Level& level) const {
+      return true;
+    }
+    sk::rt::logger::Destination& getLogDestination() const {
+      return _destination;
+    }
+    const char* getTimeFormat() const {
+      return "%c";
+    }
+    bool isLogPid() const {
+      return false;
+    }
+    bool isLogTime() const {
+      return true;
+    }
+    bool isLogObject() const {
+      return false;
+    }
+    const sk::util::Object& getObject() const {
+      return *this;
+    }
+    void setLogDestination() {}
+    void setLogLevel(const sk::rt::logger::Level& level) {}
+    void setTimeFormat(const sk::util::String& format) {}
+    void setLogDestination(const sk::rt::logger::Destination& destination) {}
+    void setLogPid(bool status) {}
+    void setLogTime(bool status) {}
+    void setLogObject(bool status) {}
+    void agregateScopeName(std::ostream& stream) const {
+      stream << "PIPE";
+    }
+    sk::rt::logger::Destination& _destination;
+  };
+}
+
+void
+sk::rt::logger::PipeDestination::
+output(const sk::util::String& message)
+{
+  try {
+    _destinationHolder.get().dispatch("### ", 4);
+    OutputScope scope(_destinationHolder.get());
+    Stream stream(sk::util::String::EMPTY, logger::Level::NOTICE, scope);
+
+    stream << message;
+  }
+  catch(...) {}
 }
 
 void
@@ -164,7 +240,7 @@ waitData(int descriptor)
     }
     if(n < 0) {
       ::close(descriptor);
-      throw sk::util::SystemException("waitData()");
+      throw sk::util::SystemException("read()");
     }
     destination.dispatch(&buffer.front(), n);
   }

@@ -23,6 +23,8 @@ namespace sk {
           PipeDestination(const PipeDestination& other);
           virtual ~PipeDestination();
           
+          void close();
+
           // sk::rt::logger::Destination implementation.
           void dispatch(const char* buffer, int size);
           const std::vector<int> makeReady();
@@ -38,8 +40,10 @@ namespace sk {
           void makePipe();
           void waitData(int descriptor);
           int cloneDescriptor() const;
+          void output(const sk::util::String& message);
 
           int _descriptor;
+          bool _piped;
           sk::util::Holder<logger::Destination>::Cloning _destinationHolder;
       };
     }

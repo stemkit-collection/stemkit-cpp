@@ -26,6 +26,9 @@ namespace sk {
             CPPUNIT_TEST(testDefaults);
             CPPUNIT_TEST(testEarlyMakeReady);
             CPPUNIT_TEST(testDelayedDispatch);
+            CPPUNIT_TEST(testMessageOnExit);
+            CPPUNIT_TEST(testMessageOnExit);
+            CPPUNIT_TEST(testWriteErrorAfterClose);
           CPPUNIT_TEST_SUITE_END();
           
           public:
@@ -37,6 +40,8 @@ namespace sk {
             void testDefaults();
             void testEarlyMakeReady();
             void testDelayedDispatch();
+            void testMessageOnExit();
+            void testWriteErrorAfterClose();
             
           private:
             PipeDestinationTest(const PipeDestinationTest& other);
