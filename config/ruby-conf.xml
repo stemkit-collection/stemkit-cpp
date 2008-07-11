@@ -1,0 +1,4 @@
+<scope>
+  <log destination="std::cerr" level="debug" show-pid="true" show-time="true" show-object="true" />
+</scope>
+
