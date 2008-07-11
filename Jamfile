@@ -1,2 +1,2 @@
 
-make-subdirs lib ;
+make-subdirs lib extensions ;

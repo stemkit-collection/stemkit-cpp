@@ -1,0 +1,9 @@
+
+local module = rt ;
+
+use-project-libraries $(module) : sk.util sk.rt.bundle ;
+
+make-ruby-extension $(module) ;
+setup-script $(module).sh : $(module) ;
+
+run-ruby-specs $(module) : .. ;
