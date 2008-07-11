@@ -1,2 +1,2 @@
 
-make-subdirs ruby ;
+make-subdirs ruby java ;
