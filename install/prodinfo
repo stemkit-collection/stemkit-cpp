@@ -1,9 +1,9 @@
-# vim: set ft=ruby:
+# vim: set ft=ruby sw=2:
 
 cache.platform = TSC::Platform.current.name
 cache.os = TSC::Platform.current.driver
 
-cache.version = '0.6'
+cache.version = '0.7'
 
 product {
   name 'SK'
@@ -106,14 +106,11 @@ fileset {
     lib
   }
   install.into('lib').binary {
-    list = %w{
-      sk.preload.control
-      sk.preload.print
-    }
     if ENV['MAKE_DLL'] == 'true'
-      library 'lib' => list
-    else
-      static_library 'lib' => list
+      program 'lib/sk/preload' => [
+        "sk.preload.control.#{Module.library_extension}",
+        "sk.preload.print.#{Module.library_extension}"
+      ]
     end
   }
 }

@@ -37,7 +37,7 @@ namespace sk {
           PipeDestination& operator = (const PipeDestination& other);
 
           void cleanup();
-          void makePipe();
+          bool makePipe();
           void waitData(int descriptor);
           int cloneDescriptor() const;
           void output(const sk::util::String& message);

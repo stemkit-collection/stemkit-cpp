@@ -11,6 +11,7 @@
 #include <sk/util/String.h>
 #include <sk/util/Holder.cxx>
 #include <sk/util/SystemException.h>
+#include <sk/util/SystemExit.h>
 
 #include <logger/PipeDestination.h>
 #include <sk/rt/logger/Level.h>
@@ -79,7 +80,7 @@ sk::rt::logger::PipeDestination::
 makeReady()
 {
   static std::vector<int> descriptors;
-  if(_piped == false) {
+  if(makePipe() == true) {
     makePipe();
 
     descriptors.clear();
@@ -92,14 +93,18 @@ void
 sk::rt::logger::PipeDestination::
 dispatch(const char* buffer, int size)
 {
-  if(_piped == false) {
+  try {
     makePipe();
-  }
-  if(size > 0) {
-    if(::write(_descriptor, buffer, size) < 0) {
-      cleanup();
-      throw sk::util::SystemException("dispatch()");
+
+    if(size > 0) {
+      if(::write(_descriptor, buffer, size) < 0) {
+        cleanup();
+        throw sk::util::SystemException("dispatch()");
+      }
     }
+  }
+  catch(const std::exception& exception) {
+    throw sk::util::SystemExit(exception);
   }
 }
 
@@ -110,10 +115,13 @@ close()
   ::close(_descriptor);
 }
 
-void
+bool
 sk::rt::logger::PipeDestination::
 makePipe()
 {
+  if(_piped == true) {
+    return false;
+  }
   int descriptors[2];
   if(::pipe(descriptors) < 0) {
     throw sk::util::SystemException("makePipe()");
@@ -163,6 +171,7 @@ makePipe()
       _piped = true;
     }
   }
+  return true;
 }
 
 namespace {
