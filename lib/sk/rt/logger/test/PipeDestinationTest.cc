@@ -11,7 +11,7 @@
 #include <logger/FileDestination.h>
 #include <sk/util/Pathname.h>
 #include <sk/util/Integer.h>
-#include <sk/util/SystemException.h>
+#include <sk/util/SystemExit.h>
 #include <sk/util/Holder.cxx>
 #include <fstream>
 #include <unistd.h>
@@ -136,6 +136,6 @@ testWriteErrorAfterClose()
       _pipeHolder.get().dispatch("abc", 3);
       CPPUNIT_FAIL("No expected exception, iteration=" + sk::util::Integer::toString(counter));
     }
-    catch(const sk::util::SystemException& exception) {}
+    catch(const sk::util::SystemExit& exception) {}
   }
 }
