@@ -46,6 +46,7 @@ rule platform-nt-x86
   core.load-config Jam.windows ;
   project.MAKE_DLL = false ;
   project.DO_NOT_USE_LIBRARY_MAJOR = true ;
+  project.PLATFORM_SPECIFICS = windows ;
 
   CPPUNIT_VERSION = 1.12 ;
   UNITTEST_LIBS = cppunit ;
@@ -63,7 +64,7 @@ rule platform-nt-x86
   core.ensure-defined JAM_MSVS_ROOT ;
   mswin.setup-visual-studio8 "$(JAM_MSVS_ROOT:J= )" ;
 
-  C++FLAGS += /WX /WL ;
+  C++FLAGS += /WX /WL /wd4355 ;
   CCFLAGS += /WX /W3 ;
   CCOFLAGS = /O2 ;
 

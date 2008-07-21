@@ -13,6 +13,7 @@
 #include <sk/rt/config/SpotLocator.h>
 #include <sk/rt/config/StreamProcessor.h>
 
+#include <memory>
 #include <fstream>
 
 const sk::rt::config::SpotLocator sk::rt::config::SpotLocator::DUMMY;

@@ -36,7 +36,7 @@ figureLocator(const sk::util::String& item, const sk::util::String& location, co
   scope.debug("item") << item.inspect();
   scope.debug("location") << location.inspect();
 
-  std::string::size_type index = location.find_last_of('/');
+  std::string::size_type index = location.find_last_of("/\\");
   if(index != std::string::npos) { 
     if(index == 0) {
       return SpotLocator(item, "/", other);

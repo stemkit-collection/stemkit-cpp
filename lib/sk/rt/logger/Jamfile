@@ -1,15 +1,19 @@
 
 library = sk.rt.logger ;
 
-objects = 
+local objects = 
   Spot.cc
   Level.cc
   Stream.cc
   StreamDestination.cc
   FileDestination.cc
-  PipeDestination.cc
   TrashDestination.cc
 ;
+
+if windows in $(project.PLATFORM_SPECIFICS) {
+  objects += PipeDestination-windows.cc ;
+}
+else objects += PipeDestination.cc ;
 
 make-library $(library) : $(objects) ;
 make-subdirs test ;

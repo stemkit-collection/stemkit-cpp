@@ -12,6 +12,7 @@
 #include <sk/rt/logger/IConfig.h>
 
 #include <unistd.h>
+#include <time.h>
 
 sk::rt::logger::Stream::
 Stream(const sk::util::String& label, const Level& level, const logger::IScope& scope)

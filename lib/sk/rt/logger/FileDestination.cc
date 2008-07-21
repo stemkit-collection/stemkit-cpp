@@ -183,11 +183,8 @@ backupFile()
 {
   sk::util::String backup = _pathname.toString() + '-' + sk::util::Integer::toString(_nextBackup);
   unlink(backup.getChars());
-  if(link(_pathname.toString().getChars(), backup.getChars()) < 0) {
-    throw sk::util::SystemException(sk::util::String("link():") + _pathname.toString());
-  }
-  if(unlink(_pathname.toString().getChars()) < 0) {
-    throw sk::util::SystemException(sk::util::String("unlink():") + _pathname.toString());
+  if(rename(_pathname.toString().getChars(), backup.getChars()) < 0) {
+    throw sk::util::SystemException(sk::util::String("rename():") + _pathname.toString());
   }
   _nextBackup += 1;
   if(_nextBackup >= _backups) {
