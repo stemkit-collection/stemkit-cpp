@@ -86,11 +86,11 @@ testBigPicture()
 
   CPPUNIT_ASSERT_EQUAL(sk::util::String("Hello, World.").inspect(), aggregator().obtain("zzz").getConfig().getProperty("p1").inspect());
 
-  CPPUNIT_ASSERT_EQUAL(true, aggregator().getConfig().checkLogLevel(logger::Level::ERROR));
-  CPPUNIT_ASSERT_EQUAL(true, aggregator().getConfig().checkLogLevel(logger::Level::WARNING));
-  CPPUNIT_ASSERT_EQUAL(false, aggregator().getConfig().checkLogLevel(logger::Level::NOTICE));
+  CPPUNIT_ASSERT_EQUAL(true, aggregator().getConfig().checkLogLevel(logger::Level::SK_L_ERROR));
+  CPPUNIT_ASSERT_EQUAL(true, aggregator().getConfig().checkLogLevel(logger::Level::SK_L_WARNING));
+  CPPUNIT_ASSERT_EQUAL(false, aggregator().getConfig().checkLogLevel(logger::Level::SK_L_NOTICE));
 
-  CPPUNIT_ASSERT_EQUAL(true, aggregator().obtain("zzz").getConfig().checkLogLevel(logger::Level::INFO));
-  CPPUNIT_ASSERT_EQUAL(true, aggregator().obtain("zzz").getConfig().checkLogLevel(logger::Level::INFO));
-  CPPUNIT_ASSERT_EQUAL(false, aggregator().obtain("zzz").getConfig().checkLogLevel(logger::Level::DETAIL));
+  CPPUNIT_ASSERT_EQUAL(true, aggregator().obtain("zzz").getConfig().checkLogLevel(logger::Level::SK_L_INFO));
+  CPPUNIT_ASSERT_EQUAL(true, aggregator().obtain("zzz").getConfig().checkLogLevel(logger::Level::SK_L_INFO));
+  CPPUNIT_ASSERT_EQUAL(false, aggregator().obtain("zzz").getConfig().checkLogLevel(logger::Level::SK_L_DETAIL));
 }

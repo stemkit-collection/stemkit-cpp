@@ -73,10 +73,10 @@ testTopLogInfo()
   CPPUNIT_ASSERT_EQUAL(false, _aggregatorHolder.get().getConfig().isLogObject());
   CPPUNIT_ASSERT_EQUAL(false, _aggregatorHolder.get().obtain("aaa").getConfig().isLogTime());
   CPPUNIT_ASSERT_EQUAL(false, _aggregatorHolder.get().getConfig().isLogPid());
-  CPPUNIT_ASSERT_EQUAL(false, _aggregatorHolder.get().getConfig().checkLogLevel(logger::Level::NOTICE));
-  CPPUNIT_ASSERT_EQUAL(true, _aggregatorHolder.get().getConfig().checkLogLevel(logger::Level::INFO));
-  CPPUNIT_ASSERT_EQUAL(true, _aggregatorHolder.get().getConfig().checkLogLevel(logger::Level::WARNING));
-  CPPUNIT_ASSERT_EQUAL(true, _aggregatorHolder.get().getConfig().checkLogLevel(logger::Level::ERROR));
+  CPPUNIT_ASSERT_EQUAL(false, _aggregatorHolder.get().getConfig().checkLogLevel(logger::Level::SK_L_NOTICE));
+  CPPUNIT_ASSERT_EQUAL(true, _aggregatorHolder.get().getConfig().checkLogLevel(logger::Level::SK_L_INFO));
+  CPPUNIT_ASSERT_EQUAL(true, _aggregatorHolder.get().getConfig().checkLogLevel(logger::Level::SK_L_WARNING));
+  CPPUNIT_ASSERT_EQUAL(true, _aggregatorHolder.get().getConfig().checkLogLevel(logger::Level::SK_L_ERROR));
 
   XmlProcessor processor("<scope name='app'><log show-time='true'><level severity='warning'/></log></scope>", "a/b/c", _aggregatorHolder.get(), std::map<std::string, std::string>());
   processor.start("app");
@@ -84,10 +84,10 @@ testTopLogInfo()
   CPPUNIT_ASSERT_EQUAL(false, _aggregatorHolder.get().getConfig().isLogObject());
   CPPUNIT_ASSERT_EQUAL(true, _aggregatorHolder.get().obtain("aaa").getConfig().isLogTime());
   CPPUNIT_ASSERT_EQUAL(false, _aggregatorHolder.get().getConfig().isLogPid());
-  CPPUNIT_ASSERT_EQUAL(true, _aggregatorHolder.get().obtain("bbb").getConfig().checkLogLevel(logger::Level::WARNING));
-  CPPUNIT_ASSERT_EQUAL(true, _aggregatorHolder.get().obtain("bbb").getConfig().checkLogLevel(logger::Level::ERROR));
-  CPPUNIT_ASSERT_EQUAL(false, _aggregatorHolder.get().getConfig().checkLogLevel(logger::Level::NOTICE));
-  CPPUNIT_ASSERT_EQUAL(false, _aggregatorHolder.get().getConfig().checkLogLevel(logger::Level::INFO));
+  CPPUNIT_ASSERT_EQUAL(true, _aggregatorHolder.get().obtain("bbb").getConfig().checkLogLevel(logger::Level::SK_L_WARNING));
+  CPPUNIT_ASSERT_EQUAL(true, _aggregatorHolder.get().obtain("bbb").getConfig().checkLogLevel(logger::Level::SK_L_ERROR));
+  CPPUNIT_ASSERT_EQUAL(false, _aggregatorHolder.get().getConfig().checkLogLevel(logger::Level::SK_L_NOTICE));
+  CPPUNIT_ASSERT_EQUAL(false, _aggregatorHolder.get().getConfig().checkLogLevel(logger::Level::SK_L_INFO));
 }
 
 void

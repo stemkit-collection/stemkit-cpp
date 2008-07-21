@@ -227,7 +227,7 @@ output(const sk::util::String& message)
   try {
     _destinationHolder.get().dispatch("### ", 4);
     OutputScope scope(_destinationHolder.get());
-    Stream stream(sk::util::String::EMPTY, logger::Level::NOTICE, scope);
+    Stream stream(sk::util::String::EMPTY, logger::Level::SK_L_NOTICE, scope);
 
     stream << message;
   }

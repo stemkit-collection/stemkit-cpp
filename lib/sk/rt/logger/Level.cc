@@ -12,7 +12,7 @@
 
 std::vector<sk::rt::logger::Level*> sk::rt::logger::Level::_levels;
 
-#define DEFINE_LEVEL(level) const sk::rt::logger::Level sk::rt::logger::Level::level(#level)
+#define DEFINE_LEVEL(level) const sk::rt::logger::Level sk::rt::logger::Level::SK_L_##level(#level)
 
 DEFINE_LEVEL(NONE);
 DEFINE_LEVEL(ERROR);
@@ -79,5 +79,5 @@ valueOf(const sk::util::String& name)
       return *(*iterator);
     }
   }
-  return NONE;
+  return SK_L_NONE;
 }

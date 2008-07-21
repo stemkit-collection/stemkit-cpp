@@ -73,7 +73,7 @@ void
 sk::rt::tests::ScopeTest::
 testScope()
 {
-  Scope::controller().getAggregator().getConfigForUpdate().setLogLevel(logger::Level::NOTICE);
+  Scope::controller().getAggregator().getConfigForUpdate().setLogLevel(logger::Level::SK_L_NOTICE);
   {
     const Scope scope("s1");
     scope.info() << "a";

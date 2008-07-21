@@ -30,14 +30,14 @@ namespace sk {
 
           bool operator==(const Level& other) const;
 
-          static const Level NONE;
-          static const Level ERROR;
-          static const Level STAT;
-          static const Level WARNING;
-          static const Level INFO;
-          static const Level NOTICE;
-          static const Level DETAIL;
-          static const Level DEBUG;
+          static const Level SK_L_NONE;
+          static const Level SK_L_ERROR;
+          static const Level SK_L_STAT;
+          static const Level SK_L_WARNING;
+          static const Level SK_L_INFO;
+          static const Level SK_L_NOTICE;
+          static const Level SK_L_DETAIL;
+          static const Level SK_L_DEBUG;
           
         private:
           Level(const sk::util::String& name);

@@ -110,49 +110,49 @@ const sk::rt::logger::Stream
 sk::rt::Scope::
 error(const sk::util::String& label, const sk::rt::logger::Spot& spot) const
 {
-  return sk::rt::logger::Stream(label, logger::Level::ERROR, *this);
+  return sk::rt::logger::Stream(label, logger::Level::SK_L_ERROR, *this);
 }
 
 const sk::rt::logger::Stream
 sk::rt::Scope::
 warning(const sk::util::String& label, const sk::rt::logger::Spot& spot) const
 {
-  return sk::rt::logger::Stream(label, logger::Level::WARNING, *this);
+  return sk::rt::logger::Stream(label, logger::Level::SK_L_WARNING, *this);
 }
 
 const sk::rt::logger::Stream
 sk::rt::Scope::
 stat(const sk::util::String& label, const sk::rt::logger::Spot& spot) const
 {
-  return sk::rt::logger::Stream(label, logger::Level::STAT, *this);
+  return sk::rt::logger::Stream(label, logger::Level::SK_L_STAT, *this);
 }
 
 const sk::rt::logger::Stream
 sk::rt::Scope::
 info(const sk::util::String& label, const sk::rt::logger::Spot& spot) const
 {
-  return sk::rt::logger::Stream(label, logger::Level::INFO, *this);
+  return sk::rt::logger::Stream(label, logger::Level::SK_L_INFO, *this);
 }
 
 const sk::rt::logger::Stream
 sk::rt::Scope::
 notice(const sk::util::String& label, const sk::rt::logger::Spot& spot) const
 {
-  return sk::rt::logger::Stream(label, logger::Level::NOTICE, *this);
+  return sk::rt::logger::Stream(label, logger::Level::SK_L_NOTICE, *this);
 }
 
 const sk::rt::logger::Stream
 sk::rt::Scope::
 debug(const sk::util::String& label, const sk::rt::logger::Spot& spot) const
 {
-  return sk::rt::logger::Stream(label, logger::Level::DEBUG, *this);
+  return sk::rt::logger::Stream(label, logger::Level::SK_L_DEBUG, *this);
 }
 
 const sk::rt::logger::Stream
 sk::rt::Scope::
 detail(const sk::util::String& label, const sk::rt::logger::Spot& spot) const
 {
-  return sk::rt::logger::Stream(label, logger::Level::DETAIL, *this);
+  return sk::rt::logger::Stream(label, logger::Level::SK_L_DETAIL, *this);
 }
 
 const sk::rt::Scope

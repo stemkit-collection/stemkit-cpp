@@ -22,7 +22,7 @@
 sk::rt::scope::Config::
 Config()
   : _destinationHolder(new logger::StreamDestination(std::cerr)), 
-    _levelHolder(logger::Level::INFO), _timeFormat("%y/%m/%d %H:%M:%S"),
+    _levelHolder(logger::Level::SK_L_INFO), _timeFormat("%y/%m/%d %H:%M:%S"),
     _logPid(false), _logTime(false), _logObject(false)
 {
 }
