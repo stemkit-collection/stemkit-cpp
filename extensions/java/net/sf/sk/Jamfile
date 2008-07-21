@@ -1,0 +1,6 @@
+module = rt ;
+
+use-project-libraries $(module) : sk.rt.bundle sk.util ;
+
+make-swig-java $(module) : $(module).conf : net.sf.sk.rt ;
+setup-script $(module).sh : $(module) ;
