@@ -54,7 +54,7 @@ void
 sk::rt::config::test::FileReadTest::
 testReadPasswdFromCwd()
 {
-  CwdUprootLocator locator("etc/passwd");
+  CwdUprootLocator locator("src/config/Jam.project.gcc");
 
   std::vector<sk::util::String> content;
   std::vector<sk::util::String> locations;
@@ -62,7 +62,5 @@ testReadPasswdFromCwd()
   locator.invoke(Processor(content, locations));
 
   CPPUNIT_ASSERT_EQUAL(size_t(1), locations.size());
-  CPPUNIT_ASSERT_EQUAL(sk::util::String("/"), locations.at(0));
-
   CPPUNIT_ASSERT(content.size() > 5);
 }

@@ -1,11 +1,16 @@
 
 test = test-rt-scope ;
 
-test-objects =
+local test-objects =
   TestSuite.cc
-  PipeDestinationTest.cc
-  PipeProcessLeftoverTest.cc
 ;
+
+if ! windows in $(project.PLATFORM_SPECIFICS) {
+  test-objects +=
+    PipeDestinationTest.cc
+    PipeProcessLeftoverTest.cc
+  ;
+}
 
 use-project-libraries $(test) : sk.cppunit sk.rt.bundle sk.util ;
 

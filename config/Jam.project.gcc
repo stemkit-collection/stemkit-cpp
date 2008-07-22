@@ -66,17 +66,17 @@ rule platform-nt-x86
   core.ensure-defined JAM_MSVS_ROOT ;
   mswin.setup-visual-studio8 "$(JAM_MSVS_ROOT:J= )" ;
 
-  C++FLAGS += /WX /WL /wd4355 ;
-  CCFLAGS += /WX /W3 ;
-  CCOFLAGS = /O2 ;
+  C++FLAGS += /MD /WL /FC /Zi /Gy /wd4355 ;
+  CCFLAGS +=  /MD /WL /FC /W3 /Zi /Gy ;
+  CCOFLAGS = /Od ;
 
-  LINKER_FLAGS += /STACK:9000000 /MACHINE:X86 ;
-  DEFINES += WINVER=0x0500 ;
+  LINKER_FLAGS += /STACK:9000000 /MACHINE:X86 /NODEFAULTLIB:LIBCMT.LIB /NODEFAULTLIB:LIBCP.LIB /DEBUG ;
+  DEFINES += NDEBUG WINVER=0x0500 _USE_32BIT_TIME_T _LARGEFILE64_SOURCE ;
 
   project.CURSES_LIBS = ;
 
   CONTRIB_ROOT = [ util.make-path C: qtools build visual-studio-8 ] ;
-  SYSLIBS = shlwapi ;
+  SYSLIBS = shlwapi advapi32 user32 ;
 }
 
 rule platform-linux-x86
