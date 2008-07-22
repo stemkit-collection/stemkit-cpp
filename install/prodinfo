@@ -150,18 +150,9 @@ fileset {
     lib/net/sf/sk
     lib/net/sf/sk/rt
   }
-  install.as('lib/net/sf/sk/rt').source {
-    tree('extensions/java/net/sf/sk/rt') { |_location, _item|
-      case _item
-        when '.svn'
-          nil
-        when %r{^.+-spec.rb$}
-          false
-        else
-          true
-      end
-    }
-  }
+  install.into('lib/net/sf/sk').source.file 'extensions/java/net/sf/sk/rt.rb'
+  install.into('lib/net/sf/sk/rt').source.file 'extensions/java/net/sf/sk/rt/scope.rb'
+
   install.into('lib').binary {
     program 'extensions/java/net/sf/sk/libnet.sf.sk.rt.rt.so'
     file 'extensions/java/net/sf/sk/net.sf.sk.rt.rt.jar'
