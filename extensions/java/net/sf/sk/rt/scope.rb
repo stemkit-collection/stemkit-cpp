@@ -11,6 +11,8 @@ require 'net/sf/sk/rt'
 
 class Java::net::sf::sk::rt::Scope
   private :logger
+  alias_method :property, :getProperty
+  alias_method :property?, :hasProperty
 
   def fatal(*args, &block)
     error(*args, &block)
