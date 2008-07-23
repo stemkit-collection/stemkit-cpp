@@ -7,8 +7,6 @@
   You must read and accept the license prior to use.
 =end
 
-require 'net/sf/sk/rt'
-
 class Java::net::sf::sk::rt::Scope
   private :logger
   alias_method :property, :getProperty
