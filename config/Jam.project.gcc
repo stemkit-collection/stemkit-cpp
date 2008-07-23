@@ -72,11 +72,20 @@ rule platform-nt-x86
 
   LINKER_FLAGS += /STACK:9000000 /MACHINE:X86 /NODEFAULTLIB:LIBCMT.LIB /NODEFAULTLIB:LIBCP.LIB /DEBUG ;
   DEFINES += NDEBUG WINVER=0x0500 _USE_32BIT_TIME_T _LARGEFILE64_SOURCE ;
+  SYSLIBS = shlwapi advapi32 user32 ;
 
   project.CURSES_LIBS = ;
 
-  CONTRIB_ROOT = [ util.make-path C: qtools build visual-studio-8 ] ;
-  SYSLIBS = shlwapi advapi32 user32 ;
+  SWIG = /qtools/swigwin-1.3.35/swig.exe ;
+  TOOLS_HOME = [ util.make-path C: qtools ] ;
+  CONTRIB_ROOT = [ util.make-path $(TOOLS_HOME) build visual-studio-8 ] ;
+
+  project.JAVA_HOME = [ util.make-path "C:" "Program Files (x86)" "Java" "jdk1.5.0_15" ] ;
+  project.JAVA_INCLUDES = [ util.make-path $(project.JAVA_HOME) include ] ;
+  project.JAVA_INCLUDES += [ util.make-path $(project.JAVA_HOME) include win32 ] ;
+
+  JAVAC = [ util.make-path $(project.JAVA_HOME) bin javac.exe ] ;
+  JAR = [ util.make-path $(project.JAVA_HOME) bin jar.exe ] ;
 }
 
 rule platform-linux-x86
