@@ -230,6 +230,7 @@ rule platform-solaris-sparc
   INCLUDES += [ util.make-path $(system.SRCTOP) platform include solaris ] ;
   SYSLIBS = socket nsl gen ;
 
+  project.JAVA_INCLUDES += $(project.JAVA_HOME)/include/solaris ;
   project.PTY_SPECIFICS = streams ;
 }
 
