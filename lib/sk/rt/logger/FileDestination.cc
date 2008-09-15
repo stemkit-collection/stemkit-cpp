@@ -11,23 +11,33 @@
 #include <sk/util/IllegalStateException.h>
 #include <sk/util/NumberFormatException.h>
 #include <sk/util/SystemException.h>
+#include <sk/util/Holder.cxx>
 
 #include <logger/FileDestination.h>
 #include <fstream>
 #include <unistd.h>
 #include <fcntl.h>
 
+#include "StableHeadCycler.h"
+
 sk::rt::logger::FileDestination::
 FileDestination(const sk::util::Pathname& pathname)
   : _nextBackup(0), _bytesWritten(0), _descriptor(-1),
-    _pathname(pathname), _size(2048), _backups(3)
+    _pathname(pathname), _size(2048), _backups(3), _cyclerHolder(new StableHeadCycler)
+{
+}
+
+sk::rt::logger::FileDestination::
+FileDestination(const sk::util::Pathname& pathname, const Cycler& cycler)
+  : _nextBackup(0), _bytesWritten(0), _descriptor(-1),
+    _pathname(pathname), _size(2048), _backups(3), _cyclerHolder(cycler.clone())
 {
 }
 
 sk::rt::logger::FileDestination::
 FileDestination(const FileDestination& other)
   : _nextBackup(other._nextBackup), _bytesWritten(other._bytesWritten), _descriptor(other.cloneDescriptor()),
-    _pathname(other._pathname), _size(other._size), _backups(other._backups)
+    _pathname(other._pathname), _size(other._size), _backups(other._backups), _cyclerHolder(other._cyclerHolder.get().clone())
 {
 }
 

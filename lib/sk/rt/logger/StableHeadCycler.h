@@ -11,12 +11,13 @@
 #define _SK_RT_LOGGER_STABLEHEADCYCLER_H_
 
 #include <sk/util/Object.h>
+#include "Cycler.h"
 
 namespace sk {
   namespace rt {
     namespace logger {
       class StableHeadCycler
-        : public virtual sk::util::Object 
+        : public virtual Cycler
       {
         public:
           StableHeadCycler();
@@ -24,9 +25,11 @@ namespace sk {
           
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
+
+          // Cycler re-implementation.
+          StableHeadCycler* clone() const;
           
         private:
-          StableHeadCycler(const StableHeadCycler& other);
           StableHeadCycler& operator = (const StableHeadCycler& other);
       };
     }

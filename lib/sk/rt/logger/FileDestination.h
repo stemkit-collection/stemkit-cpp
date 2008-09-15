@@ -10,15 +10,20 @@
 
 #include <sk/rt/logger/Destination.h>
 #include <sk/util/Pathname.h>
+#include <sk/util/Holder.hxx>
+#include "DataWriter.h"
+#include "Cycler.h"
 
 namespace sk {
   namespace rt {
     namespace logger {
       class FileDestination
-        : public virtual logger::Destination
+        : public virtual logger::Destination,
+          public virtual DataWriter
       {
         public:
           FileDestination(const sk::util::Pathname& pathname);
+          FileDestination(const sk::util::Pathname& pathname, const Cycler& cycler);
           FileDestination(const FileDestination& other);
           virtual ~FileDestination();
 
@@ -37,6 +42,10 @@ namespace sk {
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
           FileDestination* clone() const;
+
+          // DataWriter implementation.
+          void writeData(const char* data);
+          void writeData(const char* data, int size);
           
         private:
           FileDestination& operator = (const FileDestination& other);
@@ -48,8 +57,6 @@ namespace sk {
           bool scanFile();
 
           int cloneDescriptor() const;
-          void writeData(const char* data, int size);
-          void writeData(const char* data);
 
           int _nextBackup;
           off_t _bytesWritten;
@@ -58,6 +65,7 @@ namespace sk {
           int _size;
           int _backups;
           sk::util::Pathname _pathname;
+          sk::util::Holder<Cycler> _cyclerHolder;
       };
     }
   }

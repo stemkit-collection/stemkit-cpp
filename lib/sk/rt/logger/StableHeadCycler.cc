@@ -1,4 +1,5 @@
-/*  Copyright (c) 2008, Gennady Bystritsky <bystr@mac.com>
+/*  vim: set sw=2:
+ *  Copyright (c) 2008, Gennady Bystritsky <bystr@mac.com>
  *  
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
@@ -27,4 +28,11 @@ sk::rt::logger::StableHeadCycler::
 getClass() const
 {
   return sk::util::Class("sk::rt::logger::StableHeadCycler");
+}
+
+sk::rt::logger::StableHeadCycler*
+sk::rt::logger::StableHeadCycler::
+clone() const
+{
+  return new StableHeadCycler(*this);
 }
