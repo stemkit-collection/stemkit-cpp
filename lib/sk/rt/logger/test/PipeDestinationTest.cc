@@ -9,7 +9,6 @@
 #include "PipeDestinationTest.h"
 #include <logger/PipeDestination.h>
 #include <logger/FileDestination.h>
-#include <logger/StableHeadCycler.h>
 #include <sk/util/Pathname.h>
 #include <sk/util/Integer.h>
 #include <sk/util/SystemExit.h>
@@ -35,7 +34,7 @@ setUp()
 {
   unlink("abc");
 
-  _fileHolder.set(new logger::FileDestination(logger::StableHeadCycler(sk::util::Pathname("abc"))));
+  _fileHolder.set(new logger::FileDestination(sk::util::Pathname("abc")));
   _pipeHolder.set(new logger::PipeDestination(_fileHolder.get()));
 }
 
