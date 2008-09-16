@@ -1,4 +1,5 @@
-/*  Copyright (c) 2008, Gennady Bystritsky <bystr@mac.com>
+/*  vim: set sw=2:
+ *  Copyright (c) 2008, Gennady Bystritsky <bystr@mac.com>
  *  
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
@@ -15,7 +16,7 @@
 
 sk::rt::logger::PointingCycler::
 PointingCycler(const sk::util::Pathname& pathname)
-  : AbstractCycler(pathname)
+  : AbstractCycler(pathname), _chunk(1)
 {
 }
 
@@ -38,30 +39,42 @@ clone() const
   return new PointingCycler(*this);
 }
 
-void 
-sk::rt::logger::PointingCycler::
-init()
-{
-  throw sk::util::UnsupportedOperationException("init()");
-}
-
 const sk::util::String 
 sk::rt::logger::PointingCycler::
 getPath() const
 {
-  throw sk::util::UnsupportedOperationException("getPath()");
+  return makeChunkPath(_chunk);
 }
 
-void 
+bool
 sk::rt::logger::PointingCycler::
-cycleFile() 
+scanFile()
 {
-  throw sk::util::UnsupportedOperationException("cycleFile()");
+  int masterChunk;
+  int chunk;
+
+  if(readMarker(getMasterPathname().toString(), masterChunk) == true) {
+    if(readMarker(makeChunkPath(masterChunk), chunk) == true) {
+      return masterChunk == chunk;
+    }
+  }
+  return false;
 }
 
 void 
 sk::rt::logger::PointingCycler::
 initFile()
 {
-  throw sk::util::UnsupportedOperationException("initFile()");
+  writeMarker(getMasterPathname().toString(), _chunk);
+  writeMarker(getPath(), _chunk);
 }
+
+void 
+sk::rt::logger::PointingCycler::
+cycleFile() 
+{
+  if(++_chunk > getChunks()) {
+    _chunk = 1;
+  }
+}
+

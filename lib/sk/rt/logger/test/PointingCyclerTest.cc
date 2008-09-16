@@ -7,12 +7,9 @@
 */
 
 #include "PointingCyclerTest.h"
-#include <logger/PipeDestination.h>
 #include <logger/FileDestination.h>
 #include <logger/PointingCycler.h>
 #include <sk/util/Pathname.h>
-#include <sk/util/Integer.h>
-#include <sk/util/SystemExit.h>
 #include <sk/util/Holder.cxx>
 #include <fstream>
 #include <unistd.h>
@@ -36,6 +33,7 @@ setUp()
   unlink("abc");
   unlink("abc-1");
   unlink("abc-2");
+  unlink("abc-3");
 
   _fileHolder.set(new logger::FileDestination(logger::PointingCycler(sk::util::Pathname("abc"))));
 }
@@ -47,6 +45,7 @@ tearDown()
   unlink("abc");
   unlink("abc-1");
   unlink("abc-2");
+  unlink("abc-3");
 
   _fileHolder.clear();
 }
@@ -64,15 +63,25 @@ sk::rt::logger::test::PointingCyclerTest::
 testEarlyMakeReady()
 {
   CPPUNIT_ASSERT_EQUAL(false, std::ifstream("abc").good());
-  _fileHolder.get().makeReady();
+  CPPUNIT_ASSERT_EQUAL(false, std::ifstream("abc-1").good());
 
-  std::ifstream stream("abc");
+  _fileHolder.get().makeReady();
+  _fileHolder.get().close();
+
+  std::ifstream master("abc");
+  std::ifstream data("abc-1");
   std::string depot;
 
-  CPPUNIT_ASSERT_EQUAL(true, stream.good());
-  CPPUNIT_ASSERT_EQUAL(true, std::getline(stream, depot).good());
-  CPPUNIT_ASSERT_EQUAL(std::string("[abc 0 of 3]"), depot);
-  CPPUNIT_ASSERT_EQUAL(false, std::getline(stream, depot).good());
+  CPPUNIT_ASSERT_EQUAL(true, master.good());
+  CPPUNIT_ASSERT_EQUAL(true, data.good());
+
+  CPPUNIT_ASSERT_EQUAL(true, std::getline(master, depot).good());
+  CPPUNIT_ASSERT_EQUAL(std::string("[abc 1 of 3]"), depot);
+  CPPUNIT_ASSERT_EQUAL(true, std::getline(data, depot).good());
+  CPPUNIT_ASSERT_EQUAL(std::string("[abc 1 of 3]"), depot);
+
+  CPPUNIT_ASSERT_EQUAL(false, std::getline(master, depot).good());
+  CPPUNIT_ASSERT_EQUAL(false, std::getline(data, depot).good());
 }
 
 void
@@ -80,14 +89,52 @@ sk::rt::logger::test::PointingCyclerTest::
 testDelayedDispatch()
 {
   CPPUNIT_ASSERT_EQUAL(false, std::ifstream("abc").good());
-  _fileHolder.get().dispatch("hello, world!!!\n", 16);
+  CPPUNIT_ASSERT_EQUAL(false, std::ifstream("abc-1").good());
 
-  std::ifstream stream("abc");
+  _fileHolder.get().dispatch("hello, world!!!\n", 16);
+  _fileHolder.get().close();
+
+  std::ifstream master("abc");
+  std::ifstream data("abc-1");
   std::string depot;
   
-  CPPUNIT_ASSERT_EQUAL(true, stream.good());
-  CPPUNIT_ASSERT_EQUAL(true, std::getline(stream, depot).good());
-  CPPUNIT_ASSERT_EQUAL(true, std::getline(stream, depot).good());
+  CPPUNIT_ASSERT_EQUAL(true, master.good());
+  CPPUNIT_ASSERT_EQUAL(true, data.good());
+
+  CPPUNIT_ASSERT_EQUAL(true, std::getline(master, depot).good());
+  CPPUNIT_ASSERT_EQUAL(std::string("[abc 1 of 3]"), depot);
+  CPPUNIT_ASSERT_EQUAL(true, std::getline(data, depot).good());
+  CPPUNIT_ASSERT_EQUAL(std::string("[abc 1 of 3]"), depot);
+
+  CPPUNIT_ASSERT_EQUAL(false, std::getline(master, depot).good());
+
+  CPPUNIT_ASSERT_EQUAL(true, std::getline(data, depot).good());
   CPPUNIT_ASSERT_EQUAL(std::string("hello, world!!!"), depot);
-  CPPUNIT_ASSERT_EQUAL(false, std::getline(stream, depot).good());
+  CPPUNIT_ASSERT_EQUAL(false, std::getline(data, depot).good());
+}
+
+void
+sk::rt::logger::test::PointingCyclerTest::
+testCycling()
+{
+  _fileHolder.get().getCycler().setChunks(2);
+  _fileHolder.get().getCycler().setSize(30);
+
+  CPPUNIT_ASSERT_EQUAL(false, std::ifstream("abc").good());
+  CPPUNIT_ASSERT_EQUAL(false, std::ifstream("abc-1").good());
+  CPPUNIT_ASSERT_EQUAL(false, std::ifstream("abc-2").good());
+
+  _fileHolder.get().dispatch("hello, world!!!\n", 16);
+  _fileHolder.get().close();
+
+  CPPUNIT_ASSERT_EQUAL(true, std::ifstream("abc").good());
+  CPPUNIT_ASSERT_EQUAL(true, std::ifstream("abc-1").good());
+  CPPUNIT_ASSERT_EQUAL(false, std::ifstream("abc-2").good());
+
+  _fileHolder.get().dispatch("hello, world!!!\n", 16);
+  _fileHolder.get().close();
+
+  CPPUNIT_ASSERT_EQUAL(true, std::ifstream("abc").good());
+  CPPUNIT_ASSERT_EQUAL(true, std::ifstream("abc-1").good());
+  CPPUNIT_ASSERT_EQUAL(true, std::ifstream("abc-2").good());
 }

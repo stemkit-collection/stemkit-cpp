@@ -43,6 +43,13 @@ sk::rt::logger::FileDestination::
   closeFile();
 }
 
+void
+sk::rt::logger::FileDestination::
+close()
+{
+  closeFile();
+}
+
 const sk::util::Class
 sk::rt::logger::FileDestination::
 getClass() const

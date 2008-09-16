@@ -10,7 +10,6 @@
 
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
-#include <sk/util/Integer.h>
 #include <sk/util/SystemException.h>
 
 #include "StableHeadCycler.h"
@@ -24,15 +23,6 @@ StableHeadCycler(const sk::util::Pathname& pathname)
 sk::rt::logger::StableHeadCycler::
 ~StableHeadCycler()
 {
-}
-
-void
-sk::rt::logger::StableHeadCycler::
-init() 
-{
-  if(scanFile() == false) {
-    initFile();
-  }
 }
 
 bool

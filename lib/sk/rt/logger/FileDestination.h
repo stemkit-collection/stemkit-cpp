@@ -27,6 +27,7 @@ namespace sk {
           FileDestination(const FileDestination& other);
           virtual ~FileDestination();
 
+          void close();
           const Cycler& getCycler() const;
           Cycler& getCycler();
           

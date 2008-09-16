@@ -28,19 +28,18 @@ namespace sk {
 
           // Cycler re-implementation.
           StableHeadCycler* clone() const;
-          void init();
           const sk::util::String getPath() const;
           
         protected:
           // AbstractCycler implementation.
-          void cycleFile();
+          bool scanFile();
           void initFile();
+          void cycleFile();
           
         private:
           StableHeadCycler& operator = (const StableHeadCycler& other);
 
           const sk::util::Pathname& getPathname() const;
-          bool scanFile();
 
           int _nextChunk;
       };

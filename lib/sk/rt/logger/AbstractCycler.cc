@@ -119,6 +119,15 @@ advance(off_t size)
   return true;
 }
 
+void
+sk::rt::logger::AbstractCycler::
+init() 
+{
+  if(scanFile() == false) {
+    initFile();
+  }
+}
+
 bool
 sk::rt::logger::AbstractCycler::
 readMarker(const sk::util::String& path, int& chunk) const
@@ -158,5 +167,5 @@ const sk::util::String
 sk::rt::logger::AbstractCycler::
 makeChunkPath(int chunk) const
 {
-  return getMasterPathname().toString() + '-' + chunk;
+  return getMasterPathname().toString() + '-' + sk::util::Integer::toString(chunk);
 }

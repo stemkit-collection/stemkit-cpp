@@ -7,12 +7,9 @@
 */
 
 #include "StableHeadCyclerTest.h"
-#include <logger/PipeDestination.h>
 #include <logger/FileDestination.h>
 #include <logger/StableHeadCycler.h>
 #include <sk/util/Pathname.h>
-#include <sk/util/Integer.h>
-#include <sk/util/SystemExit.h>
 #include <sk/util/Holder.cxx>
 #include <fstream>
 #include <unistd.h>
@@ -36,6 +33,7 @@ setUp()
   unlink("abc");
   unlink("abc-1");
   unlink("abc-2");
+  unlink("abc-3");
 
   _fileHolder.set(new logger::FileDestination(logger::StableHeadCycler(sk::util::Pathname("abc"))));
 }
@@ -47,6 +45,7 @@ tearDown()
   unlink("abc");
   unlink("abc-1");
   unlink("abc-2");
+  unlink("abc-3");
 
   _fileHolder.clear();
 }
@@ -65,6 +64,7 @@ testEarlyMakeReady()
 {
   CPPUNIT_ASSERT_EQUAL(false, std::ifstream("abc").good());
   _fileHolder.get().makeReady();
+  _fileHolder.get().close();
 
   std::ifstream stream("abc");
   std::string depot;
@@ -81,6 +81,7 @@ testDelayedDispatch()
 {
   CPPUNIT_ASSERT_EQUAL(false, std::ifstream("abc").good());
   _fileHolder.get().dispatch("hello, world!!!\n", 16);
+  _fileHolder.get().close();
 
   std::ifstream stream("abc");
   std::string depot;

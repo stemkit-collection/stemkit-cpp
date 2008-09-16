@@ -38,6 +38,7 @@ namespace sk {
           void setChunks(int chunks);
           off_t offset() const;
           bool advance(off_t size);
+          void init();
 
         protected:
           const sk::util::Pathname& getMasterPathname() const;
@@ -45,8 +46,9 @@ namespace sk {
           void writeMarker(const sk::util::String& path, int chunk);
           const sk::util::String makeChunkPath(int number) const;
 
-          virtual void cycleFile() = 0;
+          virtual bool scanFile() = 0;
           virtual void initFile() = 0;
+          virtual void cycleFile() = 0;
           
         private:
           AbstractCycler& operator = (const AbstractCycler& other);

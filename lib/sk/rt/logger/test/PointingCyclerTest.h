@@ -24,7 +24,8 @@ namespace sk {
           CPPUNIT_TEST_SUITE(sk::rt::logger::test::PointingCyclerTest);
             CPPUNIT_TEST(testDefaults);
             CPPUNIT_TEST(testEarlyMakeReady);
-            // CPPUNIT_TEST(testDelayedDispatch);
+            CPPUNIT_TEST(testDelayedDispatch);
+            CPPUNIT_TEST(testCycling);
           CPPUNIT_TEST_SUITE_END();
           
           public:
@@ -36,6 +37,7 @@ namespace sk {
             void testDefaults();
             void testEarlyMakeReady();
             void testDelayedDispatch();
+            void testCycling();
             
           private:
             PointingCyclerTest(const PointingCyclerTest& other);

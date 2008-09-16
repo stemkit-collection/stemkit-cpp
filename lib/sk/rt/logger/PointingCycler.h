@@ -28,16 +28,18 @@ namespace sk {
 
           // Cycler implementation.
           PointingCycler* clone() const;
-          void init();
           const sk::util::String getPath() const;
 
         protected:
           // AbstractCycler implementation.
-          void cycleFile();
+          bool scanFile();
           void initFile();
+          void cycleFile();
           
         private:
           PointingCycler& operator = (const PointingCycler& other);
+
+          int _chunk;
       };
     }
   }
