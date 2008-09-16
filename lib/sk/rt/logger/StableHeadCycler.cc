@@ -31,31 +31,10 @@ sk::rt::logger::StableHeadCycler::
 
 void
 sk::rt::logger::StableHeadCycler::
-backupFile()
+initChunk() 
 {
-  sk::util::String backup = getPath() + '-' + sk::util::Integer::toString(_nextBackup);
-  unlink(backup.getChars());
-  if(rename(getPath().getChars(), backup.getChars()) < 0) {
-    throw sk::util::SystemException(sk::util::String("rename():") + getPath());
-  }
-  _nextBackup += 1;
-  if(_nextBackup >= getBackups()) {
-    _nextBackup = 0;
-  }
-}
-
-void
-sk::rt::logger::StableHeadCycler::
-initFile()
-{
-  std::ofstream file(getPath().getChars());
-  if(file.good() == false) {
-    throw sk::util::SystemException("Cannot access " + getPath().inspect());
-  }
-  file << '[' << getPathname().basename() << ' ' << _nextBackup << " of " << getBackups() << ']' << std::endl;
-
-  if(file.good() == false) {
-    throw sk::util::IllegalStateException("Cannot initialize " + getPath().inspect());
+  if(scanFile() == false) {
+    initFile();
   }
 }
 
@@ -81,10 +60,31 @@ scanFile()
 
 void
 sk::rt::logger::StableHeadCycler::
-initChunk() 
+initFile()
 {
-  if(scanFile() == false) {
-    initFile();
+  std::ofstream file(getPath().getChars());
+  if(file.good() == false) {
+    throw sk::util::SystemException("Cannot access " + getPath().inspect());
+  }
+  file << '[' << getPathname().basename() << ' ' << _nextBackup << " of " << getBackups() << ']' << std::endl;
+
+  if(file.good() == false) {
+    throw sk::util::IllegalStateException("Cannot initialize " + getPath().inspect());
+  }
+}
+
+void
+sk::rt::logger::StableHeadCycler::
+backupFile()
+{
+  sk::util::String backup = getPath() + '-' + sk::util::Integer::toString(_nextBackup);
+  unlink(backup.getChars());
+  if(rename(getPath().getChars(), backup.getChars()) < 0) {
+    throw sk::util::SystemException(sk::util::String("rename():") + getPath());
+  }
+  _nextBackup += 1;
+  if(_nextBackup >= getBackups()) {
+    _nextBackup = 0;
   }
 }
 
