@@ -53,7 +53,7 @@ void
 sk::rt::logger::StableHeadCycler::
 cycleFile()
 {
-  sk::util::String backup = getPath() + '-' + sk::util::Integer::toString(_nextChunk);
+  sk::util::String backup = makeChunkPath(_nextChunk);
   unlink(backup.getChars());
   if(rename(getPath().getChars(), backup.getChars()) < 0) {
     throw sk::util::SystemException(sk::util::String("rename():") + getPath());

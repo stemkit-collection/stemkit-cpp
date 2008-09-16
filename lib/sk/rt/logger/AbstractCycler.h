@@ -43,6 +43,7 @@ namespace sk {
           const sk::util::Pathname& getMasterPathname() const;
           bool readMarker(const sk::util::String& path, int& chunk) const;
           void writeMarker(const sk::util::String& path, int chunk);
+          const sk::util::String makeChunkPath(int number) const;
 
           virtual void cycleFile() = 0;
           virtual void initFile() = 0;

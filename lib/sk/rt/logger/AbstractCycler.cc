@@ -153,3 +153,10 @@ writeMarker(const sk::util::String& path, int chunk)
     throw sk::util::IllegalStateException("Cannot initialize " + path.inspect());
   }
 }
+
+const sk::util::String
+sk::rt::logger::AbstractCycler::
+makeChunkPath(int chunk) const
+{
+  return getMasterPathname().toString() + '-' + chunk;
+}
