@@ -11,7 +11,6 @@
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
 #include <sk/util/Integer.h>
-#include <sk/util/NumberFormatException.h>
 #include <sk/util/SystemException.h>
 #include <sk/util/IllegalStateException.h>
 
@@ -21,7 +20,7 @@
 
 sk::rt::logger::StableHeadCycler::
 StableHeadCycler(const sk::util::Pathname& pathname)
-  : AbstractCycler(pathname), _nextBackup(0), _bytesWritten(0), _size(2048), _backups(3)
+  : AbstractCycler(pathname), _nextBackup(0), _bytesWritten(0)
 {
 }
 
@@ -41,9 +40,9 @@ bool
 sk::rt::logger::StableHeadCycler::
 advance(off_t size)
 {
-  if(_size > 0) {
+  if(getSize() > 0) {
     _bytesWritten += size;
-    if(_bytesWritten > _size) {
+    if(_bytesWritten > getSize()) {
       backupFile();
       initFile();
 
@@ -67,7 +66,7 @@ backupFile()
     throw sk::util::SystemException(sk::util::String("rename():") + getPath());
   }
   _nextBackup += 1;
-  if(_nextBackup >= _backups) {
+  if(_nextBackup >= getBackups()) {
     _nextBackup = 0;
   }
 }
@@ -80,7 +79,7 @@ initFile()
   if(file.good() == false) {
     throw sk::util::SystemException("Cannot access " + getPath().inspect());
   }
-  file << '[' << getPathname().basename() << ' ' << _nextBackup << " of " << _backups << ']' << std::endl;
+  file << '[' << getPathname().basename() << ' ' << _nextBackup << " of " << getBackups() << ']' << std::endl;
 
   if(file.good() == false) {
     throw sk::util::IllegalStateException("Cannot initialize " + getPath().inspect());
@@ -142,53 +141,5 @@ sk::rt::logger::StableHeadCycler::
 getClass() const
 {
   return sk::util::Class("sk::rt::logger::StableHeadCycler");
-}
-
-int
-sk::rt::logger::StableHeadCycler::
-getSize() const
-{
-  return _size;
-}
-
-int 
-sk::rt::logger::StableHeadCycler::
-getBackups() const
-{
-  return _backups;
-}
-
-void
-sk::rt::logger::StableHeadCycler::
-setSize(const sk::util::String& specification)
-{
-  try {
-    _size = sk::util::Integer::parseInt(specification);
-  }
-  catch(const sk::util::NumberFormatException& exception) {}
-}
-
-void
-sk::rt::logger::StableHeadCycler::
-setSize(int size)
-{
-  _size = size;
-}
-
-void
-sk::rt::logger::StableHeadCycler::
-setBackups(const sk::util::String& specification)
-{
-  try {
-    _backups = sk::util::Integer::parseInt(specification);
-  }
-  catch(const sk::util::NumberFormatException& exception) {}
-}
-
-void
-sk::rt::logger::StableHeadCycler::
-setBackups(int backups)
-{
-  _backups = backups;
 }
 

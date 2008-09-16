@@ -11,12 +11,14 @@
 
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
+#include <sk/util/Integer.h>
+#include <sk/util/NumberFormatException.h>
 
 #include "AbstractCycler.h"
 
 sk::rt::logger::AbstractCycler::
 AbstractCycler(const sk::util::Pathname& masterPathname)
-  : _masterPathname(masterPathname)
+  : _masterPathname(masterPathname), _size(2048), _backups(3)
 {
 }
 
@@ -38,3 +40,52 @@ getMasterPathname() const
 { 
   return _masterPathname;
 }
+
+int
+sk::rt::logger::AbstractCycler::
+getSize() const
+{
+  return _size;
+}
+
+void
+sk::rt::logger::AbstractCycler::
+setSize(const sk::util::String& specification)
+{
+  try {
+    _size = sk::util::Integer::parseInt(specification);
+  }
+  catch(const sk::util::NumberFormatException& exception) {}
+}
+
+void
+sk::rt::logger::AbstractCycler::
+setSize(int size)
+{
+  _size = size;
+}
+
+int 
+sk::rt::logger::AbstractCycler::
+getBackups() const
+{
+  return _backups;
+}
+
+void
+sk::rt::logger::AbstractCycler::
+setBackups(const sk::util::String& specification)
+{
+  try {
+    _backups = sk::util::Integer::parseInt(specification);
+  }
+  catch(const sk::util::NumberFormatException& exception) {}
+}
+
+void
+sk::rt::logger::AbstractCycler::
+setBackups(int backups)
+{
+  _backups = backups;
+}
+

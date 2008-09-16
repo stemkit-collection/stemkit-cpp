@@ -23,14 +23,6 @@ namespace sk {
           StableHeadCycler(const sk::util::Pathname& pathname);
           virtual ~StableHeadCycler();
 
-          int getSize() const;
-          int getBackups() const;
-
-          void setSize(const sk::util::String& specification);
-          void setSize(int size);
-          void setBackups(const sk::util::String& specification);
-          void setBackups(int backups);
-          
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
 
@@ -51,8 +43,6 @@ namespace sk {
 
           int _nextBackup;
           off_t _bytesWritten;
-          int _size;
-          int _backups;
       };
     }
   }

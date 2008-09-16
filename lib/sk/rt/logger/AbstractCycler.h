@@ -29,6 +29,14 @@ namespace sk {
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
           
+          // Cycler re-implementation.
+          int getSize() const;
+          void setSize(const sk::util::String& specification);
+          void setSize(int size);
+          int getBackups() const;
+          void setBackups(const sk::util::String& specification);
+          void setBackups(int backups);
+
         protected:
           const sk::util::Pathname& getMasterPathname() const;
           
@@ -36,6 +44,8 @@ namespace sk {
           AbstractCycler& operator = (const AbstractCycler& other);
 
           sk::util::Pathname _masterPathname;
+          int _size;
+          int _backups;
       };
     }
   }
