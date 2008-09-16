@@ -28,21 +28,21 @@ namespace sk {
 
           // Cycler re-implementation.
           StableHeadCycler* clone() const;
-          bool isTop() const;
           void initChunk();
-          bool advance(off_t size);
           const sk::util::String getPath() const;
+          
+        protected:
+          // AbstractCycler implementation.
+          void backupFile();
+          void initFile();
           
         private:
           StableHeadCycler& operator = (const StableHeadCycler& other);
 
           const sk::util::Pathname& getPathname() const;
-          void backupFile();
-          void initFile();
           bool scanFile();
 
           int _nextBackup;
-          off_t _bytesWritten;
       };
     }
   }

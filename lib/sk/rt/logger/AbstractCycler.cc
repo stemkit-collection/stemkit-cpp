@@ -18,7 +18,7 @@
 
 sk::rt::logger::AbstractCycler::
 AbstractCycler(const sk::util::Pathname& masterPathname)
-  : _masterPathname(masterPathname), _size(2048), _backups(3)
+  : _masterPathname(masterPathname), _size(2048), _backups(3), _bytesWritten(0)
 {
 }
 
@@ -87,5 +87,32 @@ sk::rt::logger::AbstractCycler::
 setBackups(int backups)
 {
   _backups = backups;
+}
+
+bool
+sk::rt::logger::AbstractCycler::
+isTop() const
+{
+  return _bytesWritten == 0;
+}
+
+bool
+sk::rt::logger::AbstractCycler::
+advance(off_t size)
+{
+  if(getSize() > 0) {
+    _bytesWritten += size;
+    if(_bytesWritten > getSize()) {
+      backupFile();
+      initFile();
+
+      _bytesWritten = 0;
+      return false;
+    }
+  }
+  else {
+    _bytesWritten = 1;
+  }
+  return true;
 }
 

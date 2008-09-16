@@ -36,9 +36,14 @@ namespace sk {
           int getBackups() const;
           void setBackups(const sk::util::String& specification);
           void setBackups(int backups);
+          bool isTop() const;
+          bool advance(off_t size);
 
         protected:
           const sk::util::Pathname& getMasterPathname() const;
+
+          virtual void backupFile() = 0;
+          virtual void initFile() = 0;
           
         private:
           AbstractCycler& operator = (const AbstractCycler& other);
@@ -46,6 +51,7 @@ namespace sk {
           sk::util::Pathname _masterPathname;
           int _size;
           int _backups;
+          off_t _bytesWritten;
       };
     }
   }

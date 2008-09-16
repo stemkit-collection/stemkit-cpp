@@ -7,10 +7,10 @@ local test-objects =
 
 if ! windows in $(project.PLATFORM_SPECIFICS) {
   test-objects +=
-    PipeDestinationTest.cc
+    # PipeDestinationTest.cc
     StableHeadCyclerTest.cc
-    # PointingCyclerTest.cc
-    PipeProcessLeftoverTest.cc
+    PointingCyclerTest.cc
+    # PipeProcessLeftoverTest.cc
   ;
 }
 

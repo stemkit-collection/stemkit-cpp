@@ -28,10 +28,13 @@ namespace sk {
 
           // Cycler implementation.
           PointingCycler* clone() const;
-          bool isTop() const;
           void initChunk();
-          bool advance(off_t);
           const sk::util::String getPath() const;
+
+        protected:
+          // AbstractCycler implementation.
+          void backupFile();
+          void initFile();
           
         private:
           PointingCycler& operator = (const PointingCycler& other);

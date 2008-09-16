@@ -20,40 +20,13 @@
 
 sk::rt::logger::StableHeadCycler::
 StableHeadCycler(const sk::util::Pathname& pathname)
-  : AbstractCycler(pathname), _nextBackup(0), _bytesWritten(0)
+  : AbstractCycler(pathname), _nextBackup(0)
 {
 }
 
 sk::rt::logger::StableHeadCycler::
 ~StableHeadCycler()
 {
-}
-
-bool
-sk::rt::logger::StableHeadCycler::
-isTop() const
-{
-  return _bytesWritten == 0;
-}
-
-bool
-sk::rt::logger::StableHeadCycler::
-advance(off_t size)
-{
-  if(getSize() > 0) {
-    _bytesWritten += size;
-    if(_bytesWritten > getSize()) {
-      backupFile();
-      initFile();
-
-      _bytesWritten = 0;
-      return false;
-    }
-  }
-  else {
-    _bytesWritten = 1;
-  }
-  return true;
 }
 
 void

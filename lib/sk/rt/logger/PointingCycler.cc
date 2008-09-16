@@ -38,13 +38,6 @@ clone() const
   return new PointingCycler(*this);
 }
 
-bool 
-sk::rt::logger::PointingCycler::
-isTop() const
-{
-  throw sk::util::UnsupportedOperationException("isTop()");
-}
-
 void 
 sk::rt::logger::PointingCycler::
 initChunk()
@@ -52,16 +45,23 @@ initChunk()
   throw sk::util::UnsupportedOperationException("initChunk()");
 }
 
-bool 
-sk::rt::logger::PointingCycler::
-advance(off_t)
-{
-  throw sk::util::UnsupportedOperationException("advance()");
-}
-
 const sk::util::String 
 sk::rt::logger::PointingCycler::
 getPath() const
 {
   throw sk::util::UnsupportedOperationException("getPath()");
+}
+
+void 
+sk::rt::logger::PointingCycler::
+backupFile() 
+{
+  throw sk::util::UnsupportedOperationException("backupFile()");
+}
+
+void 
+sk::rt::logger::PointingCycler::
+initFile()
+{
+  throw sk::util::UnsupportedOperationException("initFile()");
 }
