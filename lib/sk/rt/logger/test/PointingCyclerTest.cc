@@ -55,8 +55,8 @@ void
 sk::rt::logger::test::PointingCyclerTest::
 testDefaults()
 {
-  CPPUNIT_ASSERT_EQUAL(2048, _fileHolder.get().getSize());
-  CPPUNIT_ASSERT_EQUAL(3, _fileHolder.get().getBackups());
+  CPPUNIT_ASSERT_EQUAL(2048, _fileHolder.get().getCycler().getSize());
+  CPPUNIT_ASSERT_EQUAL(3, _fileHolder.get().getCycler().getBackups());
 }
 
 void

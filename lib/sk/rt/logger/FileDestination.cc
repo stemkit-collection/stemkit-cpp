@@ -152,44 +152,16 @@ writeData(const char* data, int size)
   }
 }
 
-int 
+const sk::rt::logger::Cycler&
 sk::rt::logger::FileDestination::
-getSize() const
+getCycler() const
 {
-  return _cyclerHolder.get().getSize();
+  return _cyclerHolder.get();
 }
 
-int 
+sk::rt::logger::Cycler&
 sk::rt::logger::FileDestination::
-getBackups() const
+getCycler() 
 {
-  return _cyclerHolder.get().getBackups();
-}
-
-void 
-sk::rt::logger::FileDestination::
-setSize(const sk::util::String& specification)
-{
-  _cyclerHolder.get().setSize(specification);
-}
-
-void 
-sk::rt::logger::FileDestination::
-setSize(int size)
-{
-  _cyclerHolder.get().setSize(size);
-}
-
-void 
-sk::rt::logger::FileDestination::
-setBackups(const sk::util::String& specification)
-{
-  _cyclerHolder.get().setBackups(specification);
-}
-
-void 
-sk::rt::logger::FileDestination::
-setBackups(int backups)
-{
-  _cyclerHolder.get().setBackups(backups);
+  return _cyclerHolder.get();
 }

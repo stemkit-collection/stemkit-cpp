@@ -24,7 +24,7 @@ namespace sk {
           CPPUNIT_TEST_SUITE(sk::rt::logger::test::StableHeadCyclerTest);
             CPPUNIT_TEST(testDefaults);
             CPPUNIT_TEST(testEarlyMakeReady);
-            // CPPUNIT_TEST(testDelayedDispatch);
+            CPPUNIT_TEST(testDelayedDispatch);
           CPPUNIT_TEST_SUITE_END();
           
           public:

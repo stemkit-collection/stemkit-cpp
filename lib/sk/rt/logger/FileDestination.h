@@ -27,13 +27,8 @@ namespace sk {
           FileDestination(const FileDestination& other);
           virtual ~FileDestination();
 
-          int getSize() const;
-          int getBackups() const;
-
-          void setSize(const sk::util::String& specification);
-          void setSize(int size);
-          void setBackups(const sk::util::String& specification);
-          void setBackups(int backups);
+          const Cycler& getCycler() const;
+          Cycler& getCycler();
           
           // sk::rt::logger::Destination implementation.
           void dispatch(const char* buffer, int size);
