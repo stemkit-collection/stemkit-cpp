@@ -21,7 +21,7 @@
 
 sk::rt::logger::StableHeadCycler::
 StableHeadCycler(const sk::util::Pathname& pathname)
-  : _nextBackup(0), _bytesWritten(0), _size(2048), _backups(3), _pathname(pathname)
+  : AbstractCycler(pathname), _nextBackup(0), _bytesWritten(0), _size(2048), _backups(3)
 {
 }
 
@@ -61,10 +61,10 @@ void
 sk::rt::logger::StableHeadCycler::
 backupFile()
 {
-  sk::util::String backup = _pathname.toString() + '-' + sk::util::Integer::toString(_nextBackup);
+  sk::util::String backup = getPath() + '-' + sk::util::Integer::toString(_nextBackup);
   unlink(backup.getChars());
-  if(rename(_pathname.toString().getChars(), backup.getChars()) < 0) {
-    throw sk::util::SystemException(sk::util::String("rename():") + _pathname.toString());
+  if(rename(getPath().getChars(), backup.getChars()) < 0) {
+    throw sk::util::SystemException(sk::util::String("rename():") + getPath());
   }
   _nextBackup += 1;
   if(_nextBackup >= _backups) {
@@ -76,14 +76,14 @@ void
 sk::rt::logger::StableHeadCycler::
 initFile()
 {
-  std::ofstream file(_pathname.toString().getChars());
+  std::ofstream file(getPath().getChars());
   if(file.good() == false) {
-    throw sk::util::SystemException("Cannot access " + _pathname.toString().inspect());
+    throw sk::util::SystemException("Cannot access " + getPath().inspect());
   }
-  file << '[' << _pathname.basename() << ' ' << _nextBackup << " of " << _backups << ']' << std::endl;
+  file << '[' << getPathname().basename() << ' ' << _nextBackup << " of " << _backups << ']' << std::endl;
 
   if(file.good() == false) {
-    throw sk::util::IllegalStateException("Cannot initialize " + _pathname.toString().inspect());
+    throw sk::util::IllegalStateException("Cannot initialize " + getPath().inspect());
   }
 }
 
@@ -91,13 +91,13 @@ bool
 sk::rt::logger::StableHeadCycler::
 scanFile()
 {
-  std::ifstream file(_pathname.toString().getChars());
+  std::ifstream file(getPath().getChars());
   if(file.good() == false)  {
     return false;
   }
   sk::util::String line;
   if(std::getline(file, line).good() == true) {
-    sk::util::String format = '[' + _pathname.basename() + " %d of %d" + ']';
+    sk::util::String format = '[' + getPathname().basename() + " %d of %d" + ']';
     int backups;
 
     if(sscanf(line.getChars(), format.getChars(), &_nextBackup, &backups) == 2) {
@@ -120,7 +120,14 @@ const sk::util::String
 sk::rt::logger::StableHeadCycler::
 getPath() const
 {
-  return _pathname.toString().getChars();
+  return getPathname().toString();
+}
+
+const sk::util::Pathname&
+sk::rt::logger::StableHeadCycler::
+getPathname() const
+{
+  return getMasterPathname();
 }
 
 sk::rt::logger::StableHeadCycler*

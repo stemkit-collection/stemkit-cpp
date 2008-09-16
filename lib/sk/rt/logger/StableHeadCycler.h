@@ -10,7 +10,6 @@
 #ifndef _SK_RT_LOGGER_STABLEHEADCYCLER_H_
 #define _SK_RT_LOGGER_STABLEHEADCYCLER_H_
 
-#include <sk/util/Pathname.h>
 #include <sk/util/Object.h>
 #include "AbstractCycler.h"
 
@@ -45,6 +44,7 @@ namespace sk {
         private:
           StableHeadCycler& operator = (const StableHeadCycler& other);
 
+          const sk::util::Pathname& getPathname() const;
           void backupFile();
           void initFile();
           bool scanFile();
@@ -53,7 +53,6 @@ namespace sk {
           off_t _bytesWritten;
           int _size;
           int _backups;
-          sk::util::Pathname _pathname;
       };
     }
   }
