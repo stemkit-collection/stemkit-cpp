@@ -16,7 +16,6 @@ namespace sk {
   namespace rt {
     namespace logger {
       class FileDestination;
-      class PipeDestination;
 
       namespace test {
         class PointingCyclerTest
@@ -25,10 +24,7 @@ namespace sk {
           CPPUNIT_TEST_SUITE(sk::rt::logger::test::PointingCyclerTest);
             CPPUNIT_TEST(testDefaults);
             CPPUNIT_TEST(testEarlyMakeReady);
-            CPPUNIT_TEST(testDelayedDispatch);
-            CPPUNIT_TEST(testMessageOnExit);
-            CPPUNIT_TEST(testMessageOnExit);
-            CPPUNIT_TEST(testWriteErrorAfterClose);
+            // CPPUNIT_TEST(testDelayedDispatch);
           CPPUNIT_TEST_SUITE_END();
           
           public:
@@ -40,15 +36,12 @@ namespace sk {
             void testDefaults();
             void testEarlyMakeReady();
             void testDelayedDispatch();
-            void testMessageOnExit();
-            void testWriteErrorAfterClose();
             
           private:
             PointingCyclerTest(const PointingCyclerTest& other);
             PointingCyclerTest& operator = (const PointingCyclerTest& other);
 
             sk::util::Holder<logger::FileDestination> _fileHolder;
-            sk::util::Holder<logger::PipeDestination> _pipeHolder;
         };
       }
     }
