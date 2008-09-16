@@ -13,6 +13,7 @@
 #define _SK_RT_LOGGER_CYCLER_H_
 
 #include <sk/util/Object.h>
+#include <sk/util/String.h>
 
 namespace sk {
   namespace rt {
@@ -22,6 +23,18 @@ namespace sk {
       {
         public:
           virtual Cycler* clone() const = 0;
+          virtual bool isTop() const = 0;
+          virtual void initChunk() = 0;
+          virtual bool advance(off_t size) = 0;
+          virtual const sk::util::String getPath() const = 0;
+
+          virtual int getSize() const = 0;
+          virtual void setSize(const sk::util::String& specification) = 0;
+          virtual void setSize(int size) = 0;
+
+          virtual int getBackups() const = 0;
+          virtual void setBackups(const sk::util::String& specification) = 0;
+          virtual void setBackups(int backups) = 0;
       };
     }
   }

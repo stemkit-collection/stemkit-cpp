@@ -9,8 +9,8 @@
 #define _SK_RT_LOGGER_FILEDESTINATION_
 
 #include <sk/rt/logger/Destination.h>
-#include <sk/util/Pathname.h>
 #include <sk/util/Holder.hxx>
+#include <sk/util/Pathname.h>
 #include "DataWriter.h"
 #include "Cycler.h"
 
@@ -23,7 +23,7 @@ namespace sk {
       {
         public:
           FileDestination(const sk::util::Pathname& pathname);
-          FileDestination(const sk::util::Pathname& pathname, const Cycler& cycler);
+          FileDestination(const Cycler& cycler);
           FileDestination(const FileDestination& other);
           virtual ~FileDestination();
 
@@ -34,7 +34,7 @@ namespace sk {
           void setSize(int size);
           void setBackups(const sk::util::String& specification);
           void setBackups(int backups);
-
+          
           // sk::rt::logger::Destination implementation.
           void dispatch(const char* buffer, int size);
           const std::vector<int> makeReady();
@@ -52,19 +52,10 @@ namespace sk {
 
           void openFile();
           void closeFile();
-          void backupFile();
-          void initFile();
-          bool scanFile();
 
           int cloneDescriptor() const;
 
-          int _nextBackup;
-          off_t _bytesWritten;
           int _descriptor;
-
-          int _size;
-          int _backups;
-          sk::util::Pathname _pathname;
           sk::util::Holder<Cycler> _cyclerHolder;
       };
     }
