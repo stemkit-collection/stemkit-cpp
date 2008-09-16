@@ -16,6 +16,6 @@
 
 <scope name="pty">
   <log destination="file" level="debug" time-format="%d-%H%M%S" show-pid="true" show-time="true" show-object="true">
-    <file location="logs" size="10K" backups="2" use-pipe="true" />
+    <file location="logs" size="3K" backups="2" use-pipe="false" />
   </log>
 </scope>
