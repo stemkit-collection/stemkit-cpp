@@ -12,13 +12,13 @@
 
 #include <sk/util/Pathname.h>
 #include <sk/util/Object.h>
-#include "Cycler.h"
+#include "AbstractCycler.h"
 
 namespace sk {
   namespace rt {
     namespace logger {
       class StableHeadCycler
-        : public virtual Cycler
+        : public AbstractCycler
       {
         public:
           StableHeadCycler(const sk::util::Pathname& pathname);
