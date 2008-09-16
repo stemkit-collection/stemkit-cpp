@@ -18,7 +18,7 @@
 
 sk::rt::logger::AbstractCycler::
 AbstractCycler(const sk::util::Pathname& masterPathname)
-  : _masterPathname(masterPathname), _size(2048), _backups(3), _bytesWritten(0)
+  : _masterPathname(masterPathname), _size(2048), _chunks(3), _bytesWritten(0)
 {
 }
 
@@ -67,26 +67,26 @@ setSize(int size)
 
 int 
 sk::rt::logger::AbstractCycler::
-getBackups() const
+getChunks() const
 {
-  return _backups;
+  return _chunks;
 }
 
 void
 sk::rt::logger::AbstractCycler::
-setBackups(const sk::util::String& specification)
+setChunks(const sk::util::String& specification)
 {
   try {
-    _backups = sk::util::Integer::parseInt(specification);
+    _chunks = sk::util::Integer::parseInt(specification);
   }
   catch(const sk::util::NumberFormatException& exception) {}
 }
 
 void
 sk::rt::logger::AbstractCycler::
-setBackups(int backups)
+setChunks(int chunks)
 {
-  _backups = backups;
+  _chunks = chunks;
 }
 
 off_t
@@ -103,7 +103,7 @@ advance(off_t size)
   if(getSize() > 0) {
     _bytesWritten += size;
     if(_bytesWritten > getSize()) {
-      backupFile();
+      cycleFile();
       initFile();
 
       _bytesWritten = 0;

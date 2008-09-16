@@ -234,7 +234,7 @@ updateFileDestination(const TiXmlHandle& handle, scope::IConfig& config)
 
   logger::FileDestination file(pathname);
   file.getCycler().setSize(attribute(handle.ToElement(), "size", "10M"));
-  file.getCycler().setBackups(attribute(handle.ToElement(), "backups", "3"));
+  file.getCycler().setChunks(attribute(handle.ToElement(), "chunks", attribute(handle.ToElement(), "backups", "3")));
 
   if(attribute(handle.ToElement(), "use-pipe", false) == true) {
     config.setLogDestination(logger::PipeDestination(file));

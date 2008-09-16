@@ -32,9 +32,9 @@ namespace sk {
           virtual void setSize(const sk::util::String& specification) = 0;
           virtual void setSize(int size) = 0;
 
-          virtual int getBackups() const = 0;
-          virtual void setBackups(const sk::util::String& specification) = 0;
-          virtual void setBackups(int backups) = 0;
+          virtual int getChunks() const = 0;
+          virtual void setChunks(const sk::util::String& specification) = 0;
+          virtual void setChunks(int chunks) = 0;
       };
     }
   }

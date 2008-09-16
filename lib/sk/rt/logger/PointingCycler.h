@@ -33,7 +33,7 @@ namespace sk {
 
         protected:
           // AbstractCycler implementation.
-          void backupFile();
+          void cycleFile();
           void initFile();
           
         private:

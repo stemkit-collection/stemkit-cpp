@@ -52,7 +52,7 @@ sk::rt::logger::test::PipeDestinationTest::
 testDefaults()
 {
   CPPUNIT_ASSERT_EQUAL(2048, _fileHolder.get().getCycler().getSize());
-  CPPUNIT_ASSERT_EQUAL(3, _fileHolder.get().getCycler().getBackups());
+  CPPUNIT_ASSERT_EQUAL(3, _fileHolder.get().getCycler().getChunks());
 }
 
 void

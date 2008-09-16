@@ -33,16 +33,16 @@ namespace sk {
           int getSize() const;
           void setSize(const sk::util::String& specification);
           void setSize(int size);
-          int getBackups() const;
-          void setBackups(const sk::util::String& specification);
-          void setBackups(int backups);
+          int getChunks() const;
+          void setChunks(const sk::util::String& specification);
+          void setChunks(int chunks);
           off_t offset() const;
           bool advance(off_t size);
 
         protected:
           const sk::util::Pathname& getMasterPathname() const;
 
-          virtual void backupFile() = 0;
+          virtual void cycleFile() = 0;
           virtual void initFile() = 0;
           
         private:
@@ -50,7 +50,7 @@ namespace sk {
 
           sk::util::Pathname _masterPathname;
           int _size;
-          int _backups;
+          int _chunks;
           off_t _bytesWritten;
       };
     }

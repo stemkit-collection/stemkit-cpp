@@ -54,9 +54,9 @@ getPath() const
 
 void 
 sk::rt::logger::PointingCycler::
-backupFile() 
+cycleFile() 
 {
-  throw sk::util::UnsupportedOperationException("backupFile()");
+  throw sk::util::UnsupportedOperationException("cycleFile()");
 }
 
 void 

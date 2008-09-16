@@ -20,7 +20,7 @@
 
 sk::rt::logger::StableHeadCycler::
 StableHeadCycler(const sk::util::Pathname& pathname)
-  : AbstractCycler(pathname), _nextBackup(0)
+  : AbstractCycler(pathname), _nextChunk(0)
 {
 }
 
@@ -49,9 +49,9 @@ scanFile()
   sk::util::String line;
   if(std::getline(file, line).good() == true) {
     sk::util::String format = '[' + getPathname().basename() + " %d of %d" + ']';
-    int backups;
+    int chunks;
 
-    if(sscanf(line.getChars(), format.getChars(), &_nextBackup, &backups) == 2) {
+    if(sscanf(line.getChars(), format.getChars(), &_nextChunk, &chunks) == 2) {
       return true;
     }
   }
@@ -66,7 +66,7 @@ initFile()
   if(file.good() == false) {
     throw sk::util::SystemException("Cannot access " + getPath().inspect());
   }
-  file << '[' << getPathname().basename() << ' ' << _nextBackup << " of " << getBackups() << ']' << std::endl;
+  file << '[' << getPathname().basename() << ' ' << _nextChunk << " of " << getChunks() << ']' << std::endl;
 
   if(file.good() == false) {
     throw sk::util::IllegalStateException("Cannot initialize " + getPath().inspect());
@@ -75,16 +75,16 @@ initFile()
 
 void
 sk::rt::logger::StableHeadCycler::
-backupFile()
+cycleFile()
 {
-  sk::util::String backup = getPath() + '-' + sk::util::Integer::toString(_nextBackup);
+  sk::util::String backup = getPath() + '-' + sk::util::Integer::toString(_nextChunk);
   unlink(backup.getChars());
   if(rename(getPath().getChars(), backup.getChars()) < 0) {
     throw sk::util::SystemException(sk::util::String("rename():") + getPath());
   }
-  _nextBackup += 1;
-  if(_nextBackup >= getBackups()) {
-    _nextBackup = 0;
+  _nextChunk += 1;
+  if(_nextChunk >= getChunks()) {
+    _nextChunk = 0;
   }
 }
 

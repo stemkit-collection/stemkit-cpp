@@ -33,7 +33,7 @@ namespace sk {
           
         protected:
           // AbstractCycler implementation.
-          void backupFile();
+          void cycleFile();
           void initFile();
           
         private:
@@ -42,7 +42,7 @@ namespace sk {
           const sk::util::Pathname& getPathname() const;
           bool scanFile();
 
-          int _nextBackup;
+          int _nextChunk;
       };
     }
   }
