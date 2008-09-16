@@ -6,10 +6,10 @@
  *  You must read and accept the license prior to use.
 */
 
-#include "PipeDestinationTest.h"
+#include "PointingCyclerTest.h"
 #include <logger/PipeDestination.h>
 #include <logger/FileDestination.h>
-#include <logger/StableHeadCycler.h>
+#include <logger/PointingCycler.h>
 #include <sk/util/Pathname.h>
 #include <sk/util/Integer.h>
 #include <sk/util/SystemExit.h>
@@ -17,30 +17,30 @@
 #include <fstream>
 #include <unistd.h>
 
-CPPUNIT_TEST_SUITE_REGISTRATION(sk::rt::logger::test::PipeDestinationTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(sk::rt::logger::test::PointingCyclerTest);
 
-sk::rt::logger::test::PipeDestinationTest::
-PipeDestinationTest()
+sk::rt::logger::test::PointingCyclerTest::
+PointingCyclerTest()
 {
 }
 
-sk::rt::logger::test::PipeDestinationTest::
-~PipeDestinationTest()
+sk::rt::logger::test::PointingCyclerTest::
+~PointingCyclerTest()
 {
 }
 
 void
-sk::rt::logger::test::PipeDestinationTest::
+sk::rt::logger::test::PointingCyclerTest::
 setUp()
 {
   unlink("abc");
 
-  _fileHolder.set(new logger::FileDestination(logger::StableHeadCycler(sk::util::Pathname("abc"))));
+  _fileHolder.set(new logger::FileDestination(logger::PointingCycler(sk::util::Pathname("abc"))));
   _pipeHolder.set(new logger::PipeDestination(_fileHolder.get()));
 }
 
 void
-sk::rt::logger::test::PipeDestinationTest::
+sk::rt::logger::test::PointingCyclerTest::
 tearDown()
 {
   unlink("abc");
@@ -49,7 +49,7 @@ tearDown()
 }
 
 void
-sk::rt::logger::test::PipeDestinationTest::
+sk::rt::logger::test::PointingCyclerTest::
 testDefaults()
 {
   CPPUNIT_ASSERT_EQUAL(2048, _fileHolder.get().getSize());
@@ -57,7 +57,7 @@ testDefaults()
 }
 
 void
-sk::rt::logger::test::PipeDestinationTest::
+sk::rt::logger::test::PointingCyclerTest::
 testEarlyMakeReady()
 {
   CPPUNIT_ASSERT_EQUAL(false, std::ifstream("abc").good());
@@ -74,7 +74,7 @@ testEarlyMakeReady()
 }
 
 void
-sk::rt::logger::test::PipeDestinationTest::
+sk::rt::logger::test::PointingCyclerTest::
 testDelayedDispatch()
 {
   CPPUNIT_ASSERT_EQUAL(false, std::ifstream("abc").good());
@@ -92,7 +92,7 @@ testDelayedDispatch()
 }
 
 void
-sk::rt::logger::test::PipeDestinationTest::
+sk::rt::logger::test::PointingCyclerTest::
 testMessageOnExit()
 {
   CPPUNIT_ASSERT_EQUAL(false, std::ifstream("abc").good());
@@ -126,7 +126,7 @@ testMessageOnExit()
 }
 
 void
-sk::rt::logger::test::PipeDestinationTest::
+sk::rt::logger::test::PointingCyclerTest::
 testWriteErrorAfterClose()
 {
   _pipeHolder.get().makeReady();

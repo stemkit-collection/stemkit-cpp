@@ -8,6 +8,7 @@ local test-objects =
 if ! windows in $(project.PLATFORM_SPECIFICS) {
   test-objects +=
     PipeDestinationTest.cc
+    PointingCyclerTest.cc
     PipeProcessLeftoverTest.cc
   ;
 }

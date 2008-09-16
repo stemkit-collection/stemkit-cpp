@@ -10,6 +10,7 @@ local objects =
   TrashDestination.cc
   AbstractCycler.cc
   StableHeadCycler.cc
+  PointingCycler.cc
 ;
 
 if windows in $(project.PLATFORM_SPECIFICS) {
