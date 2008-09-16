@@ -68,13 +68,12 @@ const std::vector<int>
 sk::rt::logger::FileDestination::
 makeReady()
 {
-  static std::vector<int> descriptors;
   if(_cyclerHolder.get().isTop() == true) {
     openFile();
-
-    descriptors.clear();
-    descriptors.push_back(_descriptor);
   }
+  static std::vector<int> descriptors;
+  descriptors.push_back(_descriptor);
+
   return descriptors;
 }
 
