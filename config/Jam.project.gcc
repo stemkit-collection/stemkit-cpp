@@ -192,6 +192,8 @@ rule platform-macos
   RANLIB = ranlib -s ;
 
   project.PTY_SPECIFICS = posix ;
+  project.RUBY_DIR = ;
+  project.JAVA_HOME = ;
 }
 
 rule platform-macos-tiger
