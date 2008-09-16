@@ -31,7 +31,7 @@ sk::rt::logger::StableHeadCycler::
 
 void
 sk::rt::logger::StableHeadCycler::
-initChunk() 
+init() 
 {
   if(scanFile() == false) {
     initFile();

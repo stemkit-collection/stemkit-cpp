@@ -28,7 +28,7 @@ namespace sk {
 
           // Cycler re-implementation.
           StableHeadCycler* clone() const;
-          void initChunk();
+          void init();
           const sk::util::String getPath() const;
           
         protected:

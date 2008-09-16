@@ -40,9 +40,9 @@ clone() const
 
 void 
 sk::rt::logger::PointingCycler::
-initChunk()
+init()
 {
-  throw sk::util::UnsupportedOperationException("initChunk()");
+  throw sk::util::UnsupportedOperationException("init()");
 }
 
 const sk::util::String 

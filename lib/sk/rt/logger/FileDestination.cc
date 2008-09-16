@@ -68,9 +68,8 @@ const std::vector<int>
 sk::rt::logger::FileDestination::
 makeReady()
 {
-  if(_cyclerHolder.get().isTop() == true) {
-    openFile();
-  }
+  ensureFile();
+
   static std::vector<int> descriptors;
   descriptors.push_back(_descriptor);
 
@@ -81,9 +80,7 @@ void
 sk::rt::logger::FileDestination::
 dispatch(const char* buffer, int size)
 {
-  if(_cyclerHolder.get().isTop() == true) {
-    openFile();
-  }
+  ensureFile();
   writeData(buffer, size);
 
   if(_cyclerHolder.get().advance(size) == false) {
@@ -94,10 +91,13 @@ dispatch(const char* buffer, int size)
 
 void
 sk::rt::logger::FileDestination::
-openFile()
+ensureFile()
 {
+  if(_descriptor >= 0 && _cyclerHolder.get().offset() > 0) {
+    return;
+  }
   closeFile();
-  _cyclerHolder.get().initChunk();
+  _cyclerHolder.get().init();
 
   _descriptor = ::open(_cyclerHolder.get().getPath().getChars(), O_RDWR);
   if(_descriptor < 0) {

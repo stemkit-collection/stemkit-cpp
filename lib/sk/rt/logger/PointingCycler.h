@@ -28,7 +28,7 @@ namespace sk {
 
           // Cycler implementation.
           PointingCycler* clone() const;
-          void initChunk();
+          void init();
           const sk::util::String getPath() const;
 
         protected:

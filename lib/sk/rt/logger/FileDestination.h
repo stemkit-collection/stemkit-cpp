@@ -45,7 +45,7 @@ namespace sk {
         private:
           FileDestination& operator = (const FileDestination& other);
 
-          void openFile();
+          void ensureFile();
           void closeFile();
 
           int cloneDescriptor() const;

@@ -89,11 +89,11 @@ setBackups(int backups)
   _backups = backups;
 }
 
-bool
+off_t
 sk::rt::logger::AbstractCycler::
-isTop() const
+offset() const
 {
-  return _bytesWritten == 0;
+  return _bytesWritten;
 }
 
 bool

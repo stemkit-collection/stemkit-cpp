@@ -36,7 +36,7 @@ namespace sk {
           int getBackups() const;
           void setBackups(const sk::util::String& specification);
           void setBackups(int backups);
-          bool isTop() const;
+          off_t offset() const;
           bool advance(off_t size);
 
         protected:
