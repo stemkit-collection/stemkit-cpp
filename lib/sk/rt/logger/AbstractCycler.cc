@@ -127,6 +127,7 @@ init()
   if(scanFile() == false) {
     initFile();
   }
+  _bytesWritten = 0;
 }
 
 bool

@@ -108,25 +108,46 @@ sk::rt::logger::test::PointingCyclerTest::
 testCycling()
 {
   _fileHolder.get().getCycler().setChunks(2);
-  _fileHolder.get().getCycler().setSize(30);
+  _fileHolder.get().getCycler().setSize(20);
 
   CPPUNIT_ASSERT_EQUAL(false, File::exists("abc"));
   CPPUNIT_ASSERT_EQUAL(false, File::exists("abc-1"));
   CPPUNIT_ASSERT_EQUAL(false, File::exists("abc-2"));
 
-  _fileHolder.get().dispatch("hello, world!!!\n", 16);
+  _fileHolder.get().dispatch("aaaa\n", 5);
   _fileHolder.get().close();
 
-  CPPUNIT_ASSERT_EQUAL(true, File::exists("abc"));
-  CPPUNIT_ASSERT_EQUAL(true, File::exists("abc-1"));
+  CPPUNIT_ASSERT_EQUAL("[abc 1 of 2]", File("abc").getLines());
+  CPPUNIT_ASSERT_EQUAL("[abc 1 of 2]\naaaa", File("abc-1").getLines());
   CPPUNIT_ASSERT_EQUAL(false, File::exists("abc-2"));
 
-  _fileHolder.get().dispatch("hello, world!!!\n", 16);
+  _fileHolder.get().dispatch("bbbb\n", 5);
   _fileHolder.get().close();
 
-  CPPUNIT_ASSERT_EQUAL(true, File::exists("abc"));
-  CPPUNIT_ASSERT_EQUAL(true, File::exists("abc-1"));
-  CPPUNIT_ASSERT_EQUAL(true, File::exists("abc-2"));
+  CPPUNIT_ASSERT_EQUAL("[abc 2 of 2]", File("abc").getLines());
+  CPPUNIT_ASSERT_EQUAL("[abc 1 of 2]\naaaa\nbbbb\n[---Switched---]", File("abc-1").getLines());
+  CPPUNIT_ASSERT_EQUAL("[abc 2 of 2]", File("abc-2").getLines());
+
+  _fileHolder.get().dispatch("cccc\n", 5);
+  _fileHolder.get().close();
+
+  CPPUNIT_ASSERT_EQUAL("[abc 2 of 2]", File("abc").getLines());
+  CPPUNIT_ASSERT_EQUAL("[abc 1 of 2]\naaaa\nbbbb\n[---Switched---]", File("abc-1").getLines());
+  CPPUNIT_ASSERT_EQUAL("[abc 2 of 2]\ncccc", File("abc-2").getLines());
+
+  _fileHolder.get().dispatch("dddd\n", 5);
+  _fileHolder.get().close();
+
+  CPPUNIT_ASSERT_EQUAL("[abc 1 of 2]", File("abc").getLines());
+  CPPUNIT_ASSERT_EQUAL("[abc 1 of 2]", File("abc-1").getLines());
+  CPPUNIT_ASSERT_EQUAL("[abc 2 of 2]\ncccc\ndddd\n[---Switched---]", File("abc-2").getLines());
+
+  _fileHolder.get().dispatch("eeee\n", 5);
+  _fileHolder.get().close();
+
+  CPPUNIT_ASSERT_EQUAL("[abc 1 of 2]", File("abc").getLines());
+  CPPUNIT_ASSERT_EQUAL("[abc 1 of 2]\neeee", File("abc-1").getLines());
+  CPPUNIT_ASSERT_EQUAL("[abc 2 of 2]\ncccc\ndddd\n[---Switched---]", File("abc-2").getLines());
 }
 
 void
