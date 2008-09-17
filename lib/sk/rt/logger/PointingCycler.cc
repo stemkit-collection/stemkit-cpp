@@ -88,7 +88,7 @@ ensureChunks()
 {
   for(int chunk=0; chunk < getChunks() ;++chunk) {
     const sk::util::String path = makeChunkPath(chunk + 1);
-    std::ofstream file(path.getChars());
+    std::ofstream file(path.getChars(), std::ios::app);
     if(file.good() == false) {
       throw sk::util::IllegalStateException("Cannot create " + path.inspect());
     }
