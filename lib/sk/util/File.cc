@@ -7,6 +7,7 @@
  *  Author: Gennady Bystritsky
 */
 
+#include <sk/util/StringArray.h>
 #include <sk/util/File.h>
 #include <unistd.h>
 
@@ -32,6 +33,33 @@ getLine()
     throw sk::util::IllegalStateException("getLine():EOF");
   }
   return depot;
+}
+
+const sk::util::String 
+sk::util::File::
+getLines(int number) 
+{
+  sk::util::StringArray depot;
+  while(number-- > 0) {
+    depot << getLine();
+  }
+  return depot.inspect();
+}
+
+const sk::util::String 
+sk::util::File::
+getLines() 
+{
+  sk::util::StringArray depot;
+
+  try {
+    while(true) {
+      depot << getLine();
+    }
+  }
+  catch(const sk::util::IllegalStateException& exception) {
+    return depot.join('\n');
+  }
 }
 
 bool 

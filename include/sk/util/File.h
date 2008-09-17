@@ -23,6 +23,8 @@ namespace sk {
         static void create(const sk::util::String& name);
 
         const sk::util::String getLine();
+        const sk::util::String getLines(int number);
+        const sk::util::String getLines();
 
       private:
         const sk::util::String _name;

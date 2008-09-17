@@ -60,6 +60,22 @@ inspect() const
   return getClass().getName() + '[' + joined + ']';
 }
 
+const sk::util::String
+sk::util::StringArray::
+join(const sk::util::String& separator) const
+{
+  sk::util::String joined;
+  const_iterator iterator = begin();
+
+  while(iterator != end() ) {
+    joined += (*iterator);
+    if(++iterator != end()) {
+      joined += separator;
+    }
+  }
+  return joined;
+}
+
 int
 sk::util::StringArray::
 size() const

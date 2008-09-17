@@ -34,6 +34,7 @@ namespace sk {
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
         const sk::util::String inspect() const;
+        const sk::util::String join(const sk::util::String& separator) const;
     };
   }
 }
