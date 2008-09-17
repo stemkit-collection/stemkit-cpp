@@ -10,9 +10,10 @@
 
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
-#include <sk/util/UnsupportedOperationException.h>
+#include <sk/util/IllegalStateException.h>
 
 #include "PointingCycler.h"
+#include <fstream>
 
 sk::rt::logger::PointingCycler::
 PointingCycler(const sk::util::Pathname& pathname)
@@ -81,3 +82,15 @@ cycleFile()
   }
 }
 
+void
+sk::rt::logger::PointingCycler::
+ensureChunks()
+{
+  for(int chunk=0; chunk < getChunks() ;++chunk) {
+    const sk::util::String path = makeChunkPath(chunk + 1);
+    std::ofstream file(path.getChars());
+    if(file.good() == false) {
+      throw sk::util::IllegalStateException("Cannot create " + path.inspect());
+    }
+  }
+}

@@ -13,6 +13,7 @@
 #include <sk/util/String.h>
 #include <sk/util/Integer.h>
 #include <sk/util/NumberFormatException.h>
+#include <sk/util/UnsupportedOperationException.h>
 #include <sk/util/IllegalStateException.h>
 #include <sk/util/SystemException.h>
 
@@ -168,4 +169,11 @@ sk::rt::logger::AbstractCycler::
 makeChunkPath(int chunk) const
 {
   return getMasterPathname().toString() + '-' + sk::util::Integer::toString(chunk);
+}
+
+void
+sk::rt::logger::AbstractCycler::
+ensureChunks()
+{
+  throw sk::util::UnsupportedOperationException("ensureChunks");
 }

@@ -1,4 +1,6 @@
-/*  Copyright (c) 2007, Gennady Bystritsky <bystr@mac.com>
+/*  vim: set sw=2:
+ *
+ *  Copyright (c) 2007, Gennady Bystritsky <bystr@mac.com>
  *  
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
@@ -15,6 +17,7 @@
 #include <sk/rt/scope/Aggregator.h>
 #include <sk/rt/logger/Level.h>
 #include <logger/StreamDestination.h>
+#include <logger/CyclerFactory.h>
 #include <logger/FileDestination.h>
 #include <logger/PipeDestination.h>
 #include <logger/TrashDestination.h>
@@ -232,10 +235,14 @@ updateFileDestination(const TiXmlHandle& handle, scope::IConfig& config)
   sk::util::Pathname pathname(attribute(handle.ToElement(), "name", _scopeBuffer), "log");
   pathname.front(attribute(handle.ToElement(), "location", ".")).front(_location);
 
-  logger::FileDestination file(pathname);
+  logger::FileDestination file(logger::CyclerFactory::create(pathname, attribute(handle.ToElement(), "policy", "")).get());
+
   file.getCycler().setSize(attribute(handle.ToElement(), "size", "10M"));
   file.getCycler().setChunks(attribute(handle.ToElement(), "chunks", attribute(handle.ToElement(), "backups", "3")));
 
+  if(attribute(handle.ToElement(), "ensure-chunks", false) == true) {
+    file.getCycler().ensureChunks();
+  }
   if(attribute(handle.ToElement(), "use-pipe", false) == true) {
     config.setLogDestination(logger::PipeDestination(file));
   }

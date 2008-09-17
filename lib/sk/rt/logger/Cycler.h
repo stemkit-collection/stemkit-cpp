@@ -23,6 +23,8 @@ namespace sk {
       {
         public:
           virtual Cycler* clone() const = 0;
+          virtual void ensureChunks() = 0;
+
           virtual off_t offset() const = 0;
           virtual void init() = 0;
           virtual bool advance(off_t size) = 0;

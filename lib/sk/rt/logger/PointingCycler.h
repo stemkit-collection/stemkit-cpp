@@ -32,6 +32,7 @@ namespace sk {
 
         protected:
           // AbstractCycler implementation.
+          void ensureChunks();
           bool scanFile();
           void initFile();
           void cycleFile();

@@ -30,6 +30,7 @@ namespace sk {
           const sk::util::Class getClass() const;
           
           // Cycler re-implementation.
+          void ensureChunks();
           int getSize() const;
           void setSize(const sk::util::String& specification);
           void setSize(int size);
