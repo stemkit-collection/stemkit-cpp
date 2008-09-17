@@ -26,6 +26,7 @@ namespace sk {
             CPPUNIT_TEST(testEarlyMakeReady);
             CPPUNIT_TEST(testDelayedDispatch);
             CPPUNIT_TEST(testCycling);
+            CPPUNIT_TEST(testEnsureChunks);
           CPPUNIT_TEST_SUITE_END();
           
           public:
@@ -38,6 +39,7 @@ namespace sk {
             void testEarlyMakeReady();
             void testDelayedDispatch();
             void testCycling();
+            void testEnsureChunks();
             
           private:
             PointingCyclerTest(const PointingCyclerTest& other);

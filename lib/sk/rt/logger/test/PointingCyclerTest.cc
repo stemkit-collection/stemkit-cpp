@@ -128,3 +128,22 @@ testCycling()
   CPPUNIT_ASSERT_EQUAL(true, File::exists("abc-1"));
   CPPUNIT_ASSERT_EQUAL(true, File::exists("abc-2"));
 }
+
+void
+sk::rt::logger::test::PointingCyclerTest::
+testEnsureChunks()
+{
+  _fileHolder.get().getCycler().setChunks(2);
+
+  CPPUNIT_ASSERT_EQUAL(false, File::exists("abc"));
+  CPPUNIT_ASSERT_EQUAL(false, File::exists("abc-1"));
+  CPPUNIT_ASSERT_EQUAL(false, File::exists("abc-2"));
+  CPPUNIT_ASSERT_EQUAL(false, File::exists("abc-3"));
+
+  _fileHolder.get().getCycler().ensureChunks();
+
+  CPPUNIT_ASSERT_EQUAL(true, File::exists("abc"));
+  CPPUNIT_ASSERT_EQUAL(true, File::exists("abc-1"));
+  CPPUNIT_ASSERT_EQUAL(true, File::exists("abc-2"));
+  CPPUNIT_ASSERT_EQUAL(false, File::exists("abc-3"));
+}
