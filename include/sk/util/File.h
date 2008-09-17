@@ -20,6 +20,7 @@ namespace sk {
       public:
         File(const sk::util::String& name);
         static bool exists(const sk::util::String& name);
+        static void create(const sk::util::String& name);
 
         const sk::util::String getLine();
 

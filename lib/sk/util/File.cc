@@ -29,7 +29,7 @@ getLine()
   sk::util::String depot;
 
   if(std::getline(_file, depot).good() == false) {
-    throw sk::util::IllegalStateException("getLine()");
+    throw sk::util::IllegalStateException("getLine():EOF");
   }
   return depot;
 }
@@ -39,4 +39,14 @@ sk::util::File::
 exists(const sk::util::String& name) 
 {
   return std::ifstream(name.getChars()).good();
+}
+
+void
+sk::util::File::
+create(const sk::util::String& path)
+{
+  std::ofstream file(path.getChars(), std::ios::app);
+  if(file.good() == false) {
+    throw sk::util::MissingResourceException(path);
+  }
 }
