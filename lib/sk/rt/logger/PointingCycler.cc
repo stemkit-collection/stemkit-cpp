@@ -55,7 +55,10 @@ scanFile()
 
   if(readMarker(getMasterPathname().toString(), masterChunk) == true) {
     if(readMarker(makeChunkPath(masterChunk), chunk) == true) {
-      return masterChunk == chunk;
+      if(masterChunk == chunk) {
+        _chunk = chunk;
+        return true;
+      }
     }
   }
   return false;

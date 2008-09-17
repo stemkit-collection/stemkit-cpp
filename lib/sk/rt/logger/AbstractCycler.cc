@@ -152,7 +152,7 @@ void
 sk::rt::logger::AbstractCycler::
 writeMarker(const sk::util::String& path, int chunk)
 {
-  std::ofstream file(path.getChars());
+  std::ofstream file(path.getChars(), std::ios::trunc);
   if(file.good() == false) {
     throw sk::util::SystemException("Cannot access " + getPath().inspect());
   }
