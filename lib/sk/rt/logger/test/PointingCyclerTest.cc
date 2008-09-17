@@ -11,10 +11,14 @@
 #include <logger/PointingCycler.h>
 #include <sk/util/Pathname.h>
 #include <sk/util/Holder.cxx>
-#include <fstream>
-#include <unistd.h>
+#include <sk/util/IllegalStateException.h>
+#include <sk/util/File.h>
+
+#include <sk/cppunit/TestAssert.h>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::rt::logger::test::PointingCyclerTest);
+
+using sk::util::File;
 
 sk::rt::logger::test::PointingCyclerTest::
 PointingCyclerTest()
@@ -62,55 +66,41 @@ void
 sk::rt::logger::test::PointingCyclerTest::
 testEarlyMakeReady()
 {
-  CPPUNIT_ASSERT_EQUAL(false, std::ifstream("abc").good());
-  CPPUNIT_ASSERT_EQUAL(false, std::ifstream("abc-1").good());
+  CPPUNIT_ASSERT_EQUAL(false, File::exists("abc"));
+  CPPUNIT_ASSERT_EQUAL(false, File::exists("abc-1"));
 
   _fileHolder.get().makeReady();
   _fileHolder.get().close();
 
-  std::ifstream master("abc");
-  std::ifstream data("abc-1");
-  std::string depot;
+  File master("abc");
+  File data("abc-1");
 
-  CPPUNIT_ASSERT_EQUAL(true, master.good());
-  CPPUNIT_ASSERT_EQUAL(true, data.good());
-
-  CPPUNIT_ASSERT_EQUAL(true, std::getline(master, depot).good());
-  CPPUNIT_ASSERT_EQUAL(std::string("[abc 1 of 3]"), depot);
-  CPPUNIT_ASSERT_EQUAL(true, std::getline(data, depot).good());
-  CPPUNIT_ASSERT_EQUAL(std::string("[abc 1 of 3]"), depot);
-
-  CPPUNIT_ASSERT_EQUAL(false, std::getline(master, depot).good());
-  CPPUNIT_ASSERT_EQUAL(false, std::getline(data, depot).good());
+  CPPUNIT_ASSERT_EQUAL("[abc 1 of 3]", master.getLine());
+  CPPUNIT_ASSERT_THROW(master.getLine(), sk::util::IllegalStateException);
+  
+  CPPUNIT_ASSERT_EQUAL("[abc 1 of 3]", data.getLine());
+  CPPUNIT_ASSERT_THROW(data.getLine(), sk::util::IllegalStateException);
 }
 
 void
 sk::rt::logger::test::PointingCyclerTest::
 testDelayedDispatch()
 {
-  CPPUNIT_ASSERT_EQUAL(false, std::ifstream("abc").good());
-  CPPUNIT_ASSERT_EQUAL(false, std::ifstream("abc-1").good());
+  CPPUNIT_ASSERT_EQUAL(false, File::exists("abc"));
+  CPPUNIT_ASSERT_EQUAL(false, File::exists("abc-1"));
 
   _fileHolder.get().dispatch("hello, world!!!\n", 16);
   _fileHolder.get().close();
 
-  std::ifstream master("abc");
-  std::ifstream data("abc-1");
-  std::string depot;
+  File master("abc");
+  File data("abc-1");
   
-  CPPUNIT_ASSERT_EQUAL(true, master.good());
-  CPPUNIT_ASSERT_EQUAL(true, data.good());
+  CPPUNIT_ASSERT_EQUAL("[abc 1 of 3]", master.getLine());
+  CPPUNIT_ASSERT_THROW(master.getLine(), sk::util::IllegalStateException);
 
-  CPPUNIT_ASSERT_EQUAL(true, std::getline(master, depot).good());
-  CPPUNIT_ASSERT_EQUAL(std::string("[abc 1 of 3]"), depot);
-  CPPUNIT_ASSERT_EQUAL(true, std::getline(data, depot).good());
-  CPPUNIT_ASSERT_EQUAL(std::string("[abc 1 of 3]"), depot);
-
-  CPPUNIT_ASSERT_EQUAL(false, std::getline(master, depot).good());
-
-  CPPUNIT_ASSERT_EQUAL(true, std::getline(data, depot).good());
-  CPPUNIT_ASSERT_EQUAL(std::string("hello, world!!!"), depot);
-  CPPUNIT_ASSERT_EQUAL(false, std::getline(data, depot).good());
+  CPPUNIT_ASSERT_EQUAL("[abc 1 of 3]", data.getLine());
+  CPPUNIT_ASSERT_EQUAL("hello, world!!!", data.getLine());
+  CPPUNIT_ASSERT_THROW(data.getLine(), sk::util::IllegalStateException);
 }
 
 void
@@ -120,21 +110,21 @@ testCycling()
   _fileHolder.get().getCycler().setChunks(2);
   _fileHolder.get().getCycler().setSize(30);
 
-  CPPUNIT_ASSERT_EQUAL(false, std::ifstream("abc").good());
-  CPPUNIT_ASSERT_EQUAL(false, std::ifstream("abc-1").good());
-  CPPUNIT_ASSERT_EQUAL(false, std::ifstream("abc-2").good());
+  CPPUNIT_ASSERT_EQUAL(false, File::exists("abc"));
+  CPPUNIT_ASSERT_EQUAL(false, File::exists("abc-1"));
+  CPPUNIT_ASSERT_EQUAL(false, File::exists("abc-2"));
 
   _fileHolder.get().dispatch("hello, world!!!\n", 16);
   _fileHolder.get().close();
 
-  CPPUNIT_ASSERT_EQUAL(true, std::ifstream("abc").good());
-  CPPUNIT_ASSERT_EQUAL(true, std::ifstream("abc-1").good());
-  CPPUNIT_ASSERT_EQUAL(false, std::ifstream("abc-2").good());
+  CPPUNIT_ASSERT_EQUAL(true, File::exists("abc"));
+  CPPUNIT_ASSERT_EQUAL(true, File::exists("abc-1"));
+  CPPUNIT_ASSERT_EQUAL(false, File::exists("abc-2"));
 
   _fileHolder.get().dispatch("hello, world!!!\n", 16);
   _fileHolder.get().close();
 
-  CPPUNIT_ASSERT_EQUAL(true, std::ifstream("abc").good());
-  CPPUNIT_ASSERT_EQUAL(true, std::ifstream("abc-1").good());
-  CPPUNIT_ASSERT_EQUAL(true, std::ifstream("abc-2").good());
+  CPPUNIT_ASSERT_EQUAL(true, File::exists("abc"));
+  CPPUNIT_ASSERT_EQUAL(true, File::exists("abc-1"));
+  CPPUNIT_ASSERT_EQUAL(true, File::exists("abc-2"));
 }

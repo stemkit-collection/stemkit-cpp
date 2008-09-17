@@ -23,6 +23,7 @@ objects =
   UnsupportedOperationException.cc
   InsufficientMemoryException.cc
   SystemExit.cc
+  File.cc
 ;
 
 make-library $(library) : $(objects) ;
