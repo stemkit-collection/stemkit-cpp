@@ -19,7 +19,7 @@ TOOLS_HOME = $(HOME)/local/$(JAMCONFIG_PRODUCT_PLATFORM) ;
 GCC_VERSION = 3.4.3 ;
 SWIG_VERSION = 1.3 ;
 project.RUBY_DIR = $(TOOLS_HOME)/ruby-1.8/lib/ruby/1.8/$(RUBY_PLATFORM) ;
-project.JAVA_HOME = $(TOOLS_HOME)/java/jdk-1.5 ;
+project.JAVA_HOME = $(TOOLS_HOME)/java/jdk-1.6 ;
 project.JAVA_INCLUDES = $(project.JAVA_HOME)/include ;
 
 BOOST_VERSION = 1_32 ;
@@ -126,6 +126,7 @@ rule platform-linux-amd64
   INCLUDES += [ util.make-path $(system.SRCTOP) platform include linux ] ;
   SYSLIBS = crypt dl ;
 
+  project.JAVA_INCLUDES += $(project.JAVA_HOME)/include/linux ;
   LDFLAGS += -m elf_i386 ;
 
   project.PTY_SPECIFICS = linux ;
