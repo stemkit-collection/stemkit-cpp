@@ -9,6 +9,7 @@
 #include <sk/util/Container.h>
 #include <sk/util/inspect.h>
 #include <algorithm>
+#include <string.h>
 
 sk::util::Container::
 Container()

@@ -12,6 +12,7 @@
 
 #include "MockOutputStream.h"
 #include <iostream>
+#include <algorithm>
 
 sk::io::test::MockOutputStream::
 MockOutputStream()

@@ -9,6 +9,7 @@
 #include <sk/rt/config/HomeLocator.h>
 #include <sk/rt/config/StreamProcessor.h>
 #include <vector>
+#include <stdlib.h>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::rt::config::test::HomeLocatorTest);
 

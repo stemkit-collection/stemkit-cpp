@@ -9,6 +9,7 @@
 #include <sk/util/String.h>
 #include <sk/util/IndexOutOfBoundsException.h>
 #include <sk/util/Class.h>
+#include <string.h>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::util::test::StringTest);
 

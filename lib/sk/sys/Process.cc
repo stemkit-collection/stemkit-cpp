@@ -23,6 +23,7 @@
 #include <signal.h>
 #include <iostream>
 #include <sys/time.h>
+#include <string.h>
 
 sk::sys::Process::
 Process(sk::io::FileDescriptorInputStream& inputStream, const sk::util::StringArray& cmdline, ProcessListener& listener)

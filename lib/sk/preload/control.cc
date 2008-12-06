@@ -60,7 +60,8 @@ process_recursion_depth()
     putenv(const_cast<char*>((new std::string(stream.str()))->c_str()));
 
     if(value == 0) {
-      putenv("LD_PRELOAD=");
+      static char empty_ld_preload[] = "LD_PRELOAD=";
+      putenv(empty_ld_preload);
     }
   }
 }

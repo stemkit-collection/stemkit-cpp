@@ -10,6 +10,7 @@
 
 #include <sk/util/SystemException.h>
 #include <errno.h>
+#include <string.h>
 
 sk::util::SystemException::
 SystemException(const sk::util::String& message)

@@ -9,6 +9,7 @@
 #include <sk/io/ByteArrayInputStream.h>
 #include <sk/io/EOFException.h>
 #include <sk/util/Container.h>
+#include <string.h>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::io::test::ByteArrayInputStreamTest);
 

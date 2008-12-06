@@ -9,6 +9,7 @@
 #include <sk/util/String.h>
 
 #include <sk/cppunit/SourcePath.h>
+#include <stdlib.h>
 
 sk::util::String sk::cppunit::SourcePath::_base;
 

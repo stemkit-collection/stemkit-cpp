@@ -9,6 +9,7 @@
 #include <sk/util/String.h>
 
 #include <sk/rt/config/HomeLocator.h>
+#include <stdlib.h>
 
 sk::rt::config::HomeLocator::
 HomeLocator(const sk::util::String& item, const SpotLocator& other)

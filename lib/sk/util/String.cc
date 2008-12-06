@@ -10,6 +10,7 @@
 #include <sk/util/inspect.h>
 #include <sk/util/IndexOutOfBoundsException.h>
 #include <algorithm>
+#include <string.h>
 
 const sk::util::String sk::util::String::EMPTY;
 
