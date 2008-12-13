@@ -13,6 +13,7 @@
 #include <sk/util/SystemException.h>
 
 #include "StableHeadCycler.h"
+#include <unistd.h>
 
 sk::rt::logger::StableHeadCycler::
 StableHeadCycler(const sk::util::Pathname& pathname)
