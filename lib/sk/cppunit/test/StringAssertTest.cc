@@ -9,7 +9,6 @@
 */
 
 #include "StringAssertTest.h"
-#include <sk/cppunit/StringAssert.h>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::cppunit::test::StringAssertTest);
 
