@@ -253,11 +253,25 @@ fileset {
   name 'cppunit'
 
   directory %w{
+    include
+    include/sk
     include/sk/cppunit
+    include/hooks/cppunit
     lib
   }
   install.as('include/sk/cppunit').source {
     tree('include/sk/cppunit') { |_location, _item|
+      case _item
+        when '.svn'
+          nil
+        else
+          true
+      end
+    }
+  }
+
+  install.as('include/hooks/cppunit').source {
+    tree('include/hooks/cppunit') { |_location, _item|
       case _item
         when '.svn'
           nil

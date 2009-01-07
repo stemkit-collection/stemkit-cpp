@@ -309,6 +309,7 @@ switch $(PRODUCT_PLATFORM) {
 }
 
 INCLUDES += [ util.make-path $(system.SRCTOP) platform include generic ] ;
+INCLUDES += [ util.make-path $(system.SRCTOP) include hooks ] ;
 INCLUDES += [ util.make-path $(system.GENTOP) include ] ;
 INCLUDES += [ util.make-path $(system.SRCTOP) include ] ;
 
