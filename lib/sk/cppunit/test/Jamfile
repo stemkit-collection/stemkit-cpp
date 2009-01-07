@@ -1,0 +1,13 @@
+
+local test = sk-cppunit-test ;
+
+local objects =
+  TestSuite.cc
+  StringAssertTest.cc
+;
+
+use-unit-test $(test) $(objects) ;
+use-project-libraries $(test) $(objects) : sk.cppunit sk.util ;
+
+make-cpp-test $(test) : $(objects) ;
+

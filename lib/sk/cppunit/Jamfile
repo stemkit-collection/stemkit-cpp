@@ -9,3 +9,5 @@ objects =
 
 use-unit-test $(objects) ;
 make-library $(library) : $(objects) ;
+
+make-subdirs test ;

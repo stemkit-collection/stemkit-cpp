@@ -14,7 +14,7 @@
 #include <sk/util/IllegalStateException.h>
 #include <sk/util/File.h>
 
-#include <sk/cppunit/TestAssert.h>
+#include <sk/cppunit/StringAssert.h>
 #include <unistd.h>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::rt::logger::test::PointingCyclerTest);

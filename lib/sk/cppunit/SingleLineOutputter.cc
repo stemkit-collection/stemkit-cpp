@@ -1,4 +1,5 @@
-/*  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
+/*  vim: set sw=2:
+ *  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
  *  
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
@@ -30,6 +31,18 @@ printFailedTestName(CppUnit::TestFailure* failure)
   _stream  <<  " "  <<  stripNamespace(failure->failedTestName());
 } 
 
+namespace {
+  const std::string trim(const std::string item) {
+    const std::string whitespace = " \t\r\n\b\f";
+    std::string::size_type start = item.find_first_not_of(whitespace);
+    if(start != std::string::npos) {
+      std::string::size_type end = item.find_last_not_of(whitespace);
+      return item.substr(start, end == std::string::npos ? end : end - start + 1);
+    }
+    return "";
+  }
+}
+
 void 
 sk::cppunit::SingleLineOutputter::
 printFailureMessage(CppUnit::TestFailure* failure) 
@@ -38,7 +51,18 @@ printFailureMessage(CppUnit::TestFailure* failure)
 
   CppUnit::Message message = thrownException->message();
   for(int index=0; index < message.detailCount() ;index++) {
-    _stream  <<  (index==0 ? " - " : ", ") << message.detailAt(index);
+    _stream << (index==0 ? " - " : ", ");
+
+    const std::string detail = message.detailAt(index);
+    std::string::size_type colon = detail.find_first_of(':');
+    if(colon != std::string::npos) {
+      std::string intro = trim(detail.substr(0, colon));
+      if(intro == "Actual" || intro == "Expected") {
+        _stream << intro << ": " << trim(detail.substr(colon + 1, std::string::npos));
+        continue;
+      }
+    }
+    _stream << detail;
   }
   _stream << std::endl;
 }
