@@ -21,7 +21,7 @@ void
 sk::cppunit::SingleLineOutputter::
 printFailureType(CppUnit::TestFailure* failure) 
 {
-  _stream  << ": " << (failure->isError() ? "error" : "assertion") << " in";
+  _stream  << ':' << (failure->isError() ? 'E' : 'F') << ':';
 }
 
 void 
@@ -41,6 +41,24 @@ namespace {
     }
     return "";
   }
+
+  std::string transform(const std::string& detail) {
+    std::string::size_type colon = detail.find_first_of(':');
+    if(colon != std::string::npos) {
+      std::string intro = trim(detail.substr(0, colon));
+      if(intro == "Actual") {
+        intro = "got";
+      }
+      else if(intro == "Expected") {
+        intro = "need";
+      }
+      else {
+        return detail;
+      }
+      return intro + ": " + trim(detail.substr(colon + 1, std::string::npos));
+    }
+    return detail;
+  }
 }
 
 void 
@@ -51,18 +69,7 @@ printFailureMessage(CppUnit::TestFailure* failure)
 
   CppUnit::Message message = thrownException->message();
   for(int index=0; index < message.detailCount() ;index++) {
-    _stream << (index==0 ? " - " : ", ");
-
-    const std::string detail = message.detailAt(index);
-    std::string::size_type colon = detail.find_first_of(':');
-    if(colon != std::string::npos) {
-      std::string intro = trim(detail.substr(0, colon));
-      if(intro == "Actual" || intro == "Expected") {
-        _stream << intro << ": " << trim(detail.substr(colon + 1, std::string::npos));
-        continue;
-      }
-    }
-    _stream << detail;
+    _stream << (index==0 ? " - " : ", ") << transform(message.detailAt(index));
   }
   _stream << std::endl;
 }
