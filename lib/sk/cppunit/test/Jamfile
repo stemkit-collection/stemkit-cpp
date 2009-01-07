@@ -6,8 +6,8 @@ local objects =
   StringAssertTest.cc
 ;
 
+use-project-libraries $(test) : sk.cppunit sk.util ;
 use-unit-test $(test) $(objects) ;
-use-project-libraries $(test) $(objects) : sk.cppunit sk.util ;
 
 make-cpp-test $(test) : $(objects) ;
 
