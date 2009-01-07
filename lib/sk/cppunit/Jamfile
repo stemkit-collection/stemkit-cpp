@@ -5,6 +5,7 @@ objects =
   SingleLineOutputter.cc
   TestRunner.cc
   SourcePath.cc
+  StringAssert.cc
 ;
 
 use-unit-test $(objects) ;
