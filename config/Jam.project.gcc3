@@ -14,16 +14,16 @@ PRODUCT_PLATFORM = $(JAMCONFIG_PRODUCT_PLATFORM) ;
 # project.DISTRIB_ENV = $(SRCTOP:J=/)/project/config/environment ;
 project.DISTRIB_PRODINFO = $(SRCTOP:J=/)/install/prodinfo ;
 
-TOOLS_HOME = $(HOME)/local/$(JAMCONFIG_PRODUCT_PLATFORM) ;
+TOOLS_HOME = /opt/quest/platform/$(JAMCONFIG_PRODUCT_PLATFORM) ;
 
-GCC_VERSION = 3.4.3 ;
+GCC_VERSION = 3.4 ;
 SWIG_VERSION = 1.3 ;
 project.RUBY_DIR = $(TOOLS_HOME)/ruby-1.8/lib/ruby/1.8/$(RUBY_PLATFORM) ;
 project.JAVA_HOME = $(TOOLS_HOME)/java/jdk-1.5 ;
 project.JAVA_INCLUDES = $(project.JAVA_HOME)/include ;
 
 BOOST_VERSION = 1_32 ;
-CPPUNIT_VERSION = 1.10 ;
+CPPUNIT_VERSION = 1.12 ;
 
 C++ = ;
 CC = ;
@@ -90,12 +90,6 @@ rule platform-nt-x86
 
 rule platform-linux-x86
 {
-  GCC_VERSION = 3.4 ;
-  TOOLS_HOME = /opt/quest/platform/$(JAMCONFIG_PRODUCT_PLATFORM) ;
-  GCC_ROOT = $(TOOLS_HOME)/gcc-$(GCC_VERSION) ;
-
-  CPPUNIT_VERSION = 1.12 ;
-
   C++FLAGS += -fpic ;
   CCFLAGS += -fpic ;
   DEFINES += ;
@@ -129,9 +123,11 @@ rule platform-linux-amd64
   C++FLAGS += -fPIC -m32 ;
   CCFLAGS += -fPIC -m32 ;
   DEFINES += ;
-  INCLUDES += [ util.make-path $(system.SRCTOP) platform include linux ] ;
-  SYSLIBS = crypt dl ;
 
+  INCLUDES += [ util.make-path $(system.SRCTOP) platform include linux ] ;
+  project.JAVA_INCLUDES += $(project.JAVA_HOME)/include/linux ;
+
+  SYSLIBS = crypt dl ;
   LDFLAGS += -m elf_i386 ;
 
   project.PTY_SPECIFICS = linux ;
