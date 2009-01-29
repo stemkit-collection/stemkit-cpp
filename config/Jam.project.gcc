@@ -1,4 +1,4 @@
-# vim:ft=
+# vim: set ft=jam sw=2:
 
 project.MAKE_DLL = true ;
 
@@ -264,9 +264,18 @@ rule platform-hpux-pa
   project.PTY_SPECIFICS = streams-hp ;
 }
 
+rule platform-hpux-legacy-pa
+{
+  platform-hpux-pa ;
+  INCLUDES += [ util.make-path $(system.SRCTOP) platform include hpux-legacy ] ;
+}
+
 rule platform-hpux-ia64
 {
   project.MAKE_DLL = true ;
+
+  GCC_ROOT = $(TOOLS_HOME)/gcc-$(GCC_VERSION) ;
+  CONTRIB_ROOT = $(GCC_ROOT)/contrib-m64 ;
 
   C++FLAGS += -mlp64 -fPIC ;
   CCFLAGS += -mlp64 -fPIC ;
@@ -288,6 +297,7 @@ switch $(PRODUCT_PLATFORM) {
   case rh-21-x86 : platform-linux-x86 ;
   case aix-51-ppc : platform-aix51-ppc ;
   case aix-52-ppc : platform-aix52-ppc ;
+  case aix-53-ppc : platform-aix52-ppc ;
   case osf-51-alpha : platform-osf-alpha ;
   case osf-40-alpha : platform-osf-alpha ;
   case sun-10-x86 : platform-solaris-x86 ;
@@ -295,8 +305,8 @@ switch $(PRODUCT_PLATFORM) {
   case sun-9-sparc : platform-solaris-sparc ;
   case sun-8-sparc : platform-solaris-sparc ;
   case hp11-23-pa : platform-hpux-pa ;
-  case hp11-00-pa : platform-hpux-pa ;
-  case hp11-11-pa : platform-hpux-pa ;
+  case hp11-00-pa : platform-hpux-legacy-pa ;
+  case hp11-11-pa : platform-hpux-legacy-pa ;
   case hp11-23-ia64 : platform-hpux-ia64 ;
   case mac-10.4-ppc : platform-macos-tiger ;
   case mac-10.4-x86 : platform-macos-tiger ;
