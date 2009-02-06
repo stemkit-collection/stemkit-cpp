@@ -17,12 +17,14 @@
 
 sk::rt::thread::Mutex::
 Mutex()
+  : _locked(false)
 {
 }
 
 sk::rt::thread::Mutex::
 ~Mutex()
 {
+  _locked = false;
 }
 
 const sk::util::Class
@@ -36,14 +38,14 @@ void
 sk::rt::thread::Mutex::
 lock()
 {
-  throw sk::util::UnsupportedOperationException(getClass().getMethod("lock").getName());
+  _locked = true;
 }
 
 void
 sk::rt::thread::Mutex::
 unlock()
 {
-  throw sk::util::UnsupportedOperationException(getClass().getMethod("unlock").getName());
+  _locked = false;
 }
 
 void
@@ -66,12 +68,12 @@ bool
 sk::rt::thread::Mutex::
 isLocked() const
 {
-  return false;
+  return _locked;
 }
 
 bool
 sk::rt::thread::Mutex::
 isOwner() const
 {
-  return false;
+  return isLocked() ? true : false;
 }

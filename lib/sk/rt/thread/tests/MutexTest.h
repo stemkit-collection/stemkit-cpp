@@ -22,7 +22,7 @@ namespace sk {
           : public CppUnit::TestFixture
         {
           CPPUNIT_TEST_SUITE(sk::rt::thread::tests::MutexTest);
-            CPPUNIT_TEST(testCreate);
+            CPPUNIT_TEST(testLocking);
             CPPUNIT_TEST(testSynchronize);
           CPPUNIT_TEST_SUITE_END();
         
@@ -32,7 +32,7 @@ namespace sk {
         
             void setUp();
             void tearDown();
-            void testCreate();
+            void testLocking();
             void testSynchronize();
         
           private:

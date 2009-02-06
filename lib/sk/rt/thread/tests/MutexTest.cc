@@ -38,9 +38,17 @@ tearDown()
 
 void
 sk::rt::thread::tests::MutexTest::
-testCreate()
+testLocking()
 {
   sk::rt::thread::Mutex mutex;
+  CPPUNIT_ASSERT_EQUAL(false, mutex.isLocked());
+  CPPUNIT_ASSERT_EQUAL(false, mutex.isOwner());
+
+  mutex.lock();
+  CPPUNIT_ASSERT_EQUAL(true, mutex.isLocked());
+  CPPUNIT_ASSERT_EQUAL(true, mutex.isOwner());
+
+  mutex.unlock();
   CPPUNIT_ASSERT_EQUAL(false, mutex.isLocked());
   CPPUNIT_ASSERT_EQUAL(false, mutex.isOwner());
 }

@@ -37,6 +37,8 @@ namespace sk {
         private:
           Mutex(const Mutex& other);
           Mutex& operator = (const Mutex& other);
+
+          bool _locked;
       };
     }
   }
