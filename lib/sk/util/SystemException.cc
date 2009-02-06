@@ -18,6 +18,12 @@ SystemException(const sk::util::String& message)
 {
 }
 
+sk::util::SystemException::
+SystemException(const sk::util::String& message, int code)
+  : sk::util::Exception(join(join(join("System", message), code), strerror(code)))
+{
+}
+
 const sk::util::Class
 sk::util::SystemException::
 getClass() const

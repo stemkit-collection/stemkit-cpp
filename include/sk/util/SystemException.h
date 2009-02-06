@@ -9,6 +9,7 @@
 #define _SK_UTIL_SYSTEMEXCEPTION_
 
 #include <sk/util/Exception.h>
+#include <errno.h>
 
 namespace sk {
   namespace util {
@@ -17,6 +18,7 @@ namespace sk {
     {
       public:
         SystemException(const sk::util::String& message);
+        SystemException(const sk::util::String& message, int code);
         
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
