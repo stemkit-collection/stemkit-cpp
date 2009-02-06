@@ -11,26 +11,27 @@
 #ifndef _SK_RT_THREAD_MUTEX_H_
 #define _SK_RT_THREAD_MUTEX_H_
 
-#include <sk/util/Object.h>
 #include <sk/rt/Runnable.h>
+#include <sk/rt/Lockable.h>
 
 namespace sk {
   namespace rt {
     namespace thread {
       class Mutex 
-        : public virtual sk::util::Object
+        : public virtual sk::rt::Lockable
       {
         public:
           Mutex();
           virtual ~Mutex();
 
+          bool isLocked() const;
+          bool isOwner() const;
+      
+          // sk::rt::Locable implementation.
           void lock();
           void unlock();
           void synchronize(const sk::rt::Runnable& block);
 
-          bool isLocked() const;
-          bool isOwner() const;
-      
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
       
