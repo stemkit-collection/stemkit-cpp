@@ -41,7 +41,7 @@ testThrow()
     throw EOFException();
   }
   catch(const sk::util::Exception& exception) {
-    CPPUNIT_ASSERT_EQUAL(sk::util::String("ERROR:Input/output:EOF"), exception.getMessage());
-    CPPUNIT_ASSERT_EQUAL(sk::util::String("sk::io::EOFException"), exception.getClass().getName());
+    CPPUNIT_ASSERT_EQUAL("ERROR: Input/output: EOF", exception.getMessage());
+    CPPUNIT_ASSERT_EQUAL("sk::io::EOFException", exception.getClass().getName());
   }
 }

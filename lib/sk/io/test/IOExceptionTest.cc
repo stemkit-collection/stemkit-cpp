@@ -41,7 +41,7 @@ testThrow()
     throw IOException("zzz");
   }
   catch(const sk::util::Exception& exception) {
-    CPPUNIT_ASSERT_EQUAL(sk::util::String("ERROR:Input/output:zzz"), exception.getMessage());
-    CPPUNIT_ASSERT_EQUAL(sk::util::String("sk::io::IOException"), exception.getClass().getName());
+    CPPUNIT_ASSERT_EQUAL("ERROR: Input/output: zzz", exception.getMessage());
+    CPPUNIT_ASSERT_EQUAL("sk::io::IOException", exception.getClass().getName());
   }
 }
