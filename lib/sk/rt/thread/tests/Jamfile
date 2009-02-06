@@ -1,0 +1,12 @@
+
+local test = sk-rt-thread-test ;
+
+local objects = 
+  TestSuite.cc
+  ThreadTest.cc
+;
+
+use-project-libraries $(test) : sk.util sk.cppunit sk.rt.bundle ;
+use-unit-test $(test) $(objects) ;
+
+make-cpp-test $(test) : $(objects) ;

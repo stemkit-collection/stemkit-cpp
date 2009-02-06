@@ -3,10 +3,10 @@ library = sk.rt ;
 
 objects = 
   Scope.cc
+  Thread.cc
 ;
 
 local INCLUDES = $(INCLUDES) $(system.SRCDIR) ;
 
 make-library $(library) : $(objects) ;
-make-subdirs scope logger config bundle tests ;
-
+make-subdirs scope logger config thread bundle tests ;

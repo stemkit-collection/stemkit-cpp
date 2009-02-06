@@ -6,7 +6,10 @@ license: |
   This is free software. See 'LICENSE' for details.
   You must read and accept the license prior to use.
 
+
 cpp:
+  indent: 2
+
   default:
     like: sk-default
         

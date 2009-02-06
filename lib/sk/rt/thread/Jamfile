@@ -1,0 +1,10 @@
+
+local library = sk.rt.thread ;
+
+local objects = 
+  State.cc
+  Dispatcher.cc
+;
+
+make-library $(library) : $(objects) ;
+make-subdirs tests ;
