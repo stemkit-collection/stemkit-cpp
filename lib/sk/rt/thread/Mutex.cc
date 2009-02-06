@@ -77,9 +77,3 @@ isLocked() const
   return _locked;
 }
 
-bool
-sk::rt::thread::Mutex::
-isOwner() const
-{
-  return isLocked() ? true : false;
-}

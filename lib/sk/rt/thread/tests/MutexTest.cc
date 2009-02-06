@@ -42,15 +42,12 @@ testLocking()
 {
   sk::rt::thread::Mutex mutex;
   CPPUNIT_ASSERT_EQUAL(false, mutex.isLocked());
-  CPPUNIT_ASSERT_EQUAL(false, mutex.isOwner());
 
   mutex.lock();
   CPPUNIT_ASSERT_EQUAL(true, mutex.isLocked());
-  CPPUNIT_ASSERT_EQUAL(true, mutex.isOwner());
 
   mutex.unlock();
   CPPUNIT_ASSERT_EQUAL(false, mutex.isLocked());
-  CPPUNIT_ASSERT_EQUAL(false, mutex.isOwner());
 }
 
 void
@@ -68,7 +65,6 @@ testSynchronize()
       _visited = true;
 
       CPPUNIT_ASSERT_EQUAL(true, _mutex.isLocked());
-      CPPUNIT_ASSERT_EQUAL(true, _mutex.isOwner());
     }
     const Mutex& _mutex;
     bool& _visited;

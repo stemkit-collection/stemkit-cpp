@@ -28,7 +28,6 @@ namespace sk {
           virtual ~Mutex();
 
           bool isLocked() const;
-          bool isOwner() const;
       
           // sk::rt::Locable implementation.
           void lock();
