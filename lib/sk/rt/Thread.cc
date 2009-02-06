@@ -9,7 +9,6 @@
 */
 
 #include <sk/util/Class.h>
-#include <sk/util/Method.h>
 #include <sk/util/String.h>
 #include <sk/util/Holder.cxx>
 #include <sk/util/UnsupportedOperationException.h>
@@ -21,7 +20,7 @@
 #include <exception>
 #include <iostream>
 
-static sk::util::Class klass("sk::rt::Thread");
+static sk::util::Class _class("sk::rt::Thread");
 
 sk::rt::Thread::
 Thread()
@@ -118,7 +117,7 @@ const sk::util::Class
 sk::rt::Thread::
 getClass() const
 {
-  return klass;
+  return _class;
 }
 
 void
@@ -144,21 +143,21 @@ void
 sk::rt::Thread::
 start()
 {
-  throw sk::util::UnsupportedOperationException(getClass().getMethod("start").getName());
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
 }
 
 void 
 sk::rt::Thread::
 join()
 {
-  throw sk::util::UnsupportedOperationException(getClass().getMethod("join").getName());
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
 }
 
 void 
 sk::rt::Thread::
 interrupt()
 {
-  throw sk::util::UnsupportedOperationException(getClass().getMethod("interrupt").getName());
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
 }
 
 bool 
@@ -193,21 +192,21 @@ sk::rt::Thread&
 sk::rt::Thread::
 currentThread()
 {
-  throw sk::util::UnsupportedOperationException(klass.getClassMethod("currentThread").getName());
+  throw sk::util::UnsupportedOperationException(SK_CLASS_METHOD);
 }
 
 int 
 sk::rt::Thread::
 activeCount()
 {
-  throw sk::util::UnsupportedOperationException(klass.getClassMethod("activeCount").getName());
+  throw sk::util::UnsupportedOperationException(SK_CLASS_METHOD);
 }
 
 void 
 sk::rt::Thread::
 yield()
 {
-  throw sk::util::UnsupportedOperationException(klass.getClassMethod("yield").getName());
+  throw sk::util::UnsupportedOperationException(SK_CLASS_METHOD);
 }
 
 void 

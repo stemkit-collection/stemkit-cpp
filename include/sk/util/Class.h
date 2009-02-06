@@ -10,11 +10,10 @@
 
 #include <sk/util/Object.h>
 #include <sk/util/String.h>
+#include <sk/util/Method.h>
 
 namespace sk {
   namespace util {
-    class Method;
-
     class Class
       : public virtual sk::util::Object 
     {
@@ -38,5 +37,8 @@ namespace sk {
     };
   }
 }
+
+#define SK_METHOD (getClass().getMethod(__FUNCTION__).getName())
+#define SK_CLASS_METHOD (_class.getMethod(__FUNCTION__).getName())
 
 #endif /* _SK_UTIL_CLASS_ */
