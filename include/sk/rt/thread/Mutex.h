@@ -26,9 +26,10 @@ namespace sk {
 
           void lock();
           void unlock();
-          void synchronize(sk::rt::Runnable& block);
+          void synchronize(const sk::rt::Runnable& block);
 
           bool isLocked() const;
+          bool isOwner() const;
       
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;

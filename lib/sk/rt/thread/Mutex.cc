@@ -48,7 +48,7 @@ unlock()
 
 void
 sk::rt::thread::Mutex::
-synchronize(sk::rt::Runnable& block)
+synchronize(const sk::rt::Runnable& block)
 {
   lock();
 
@@ -65,6 +65,13 @@ synchronize(sk::rt::Runnable& block)
 bool
 sk::rt::thread::Mutex::
 isLocked() const
+{
+  return false;
+}
+
+bool
+sk::rt::thread::Mutex::
+isOwner() const
 {
   return false;
 }

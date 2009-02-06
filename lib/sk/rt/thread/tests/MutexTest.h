@@ -23,6 +23,7 @@ namespace sk {
         {
           CPPUNIT_TEST_SUITE(sk::rt::thread::tests::MutexTest);
             CPPUNIT_TEST(testCreate);
+            CPPUNIT_TEST(testSynchronize);
           CPPUNIT_TEST_SUITE_END();
         
           public:
@@ -32,6 +33,7 @@ namespace sk {
             void setUp();
             void tearDown();
             void testCreate();
+            void testSynchronize();
         
           private:
             MutexTest(const MutexTest& other);

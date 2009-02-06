@@ -38,28 +38,28 @@ Thread(const sk::util::String& name)
 }
 
 sk::rt::Thread::
-Thread(sk::rt::Runnable& target)
+Thread(const sk::rt::Runnable& target)
   : _targetHolder(target)
 {
   init();
 }
 
 sk::rt::Thread::
-Thread(sk::rt::Runnable& target, const sk::util::String& name)
+Thread(const sk::rt::Runnable& target, const sk::util::String& name)
   : _targetHolder(target), _name(name)
 {
   init();
 }
 
 sk::rt::Thread::
-Thread(sk::rt::Runnable* target)
+Thread(const sk::rt::Runnable* target)
   : _targetHolder(target)
 {
   init();
 }
 
 sk::rt::Thread::
-Thread(sk::rt::Runnable* target, const sk::util::String& name)
+Thread(const sk::rt::Runnable* target, const sk::util::String& name)
   : _targetHolder(target), _name(name)
 {
   init();
@@ -109,7 +109,7 @@ getClass() const
 
 void
 sk::rt::Thread::
-run()
+run() const
 {
 }
 
