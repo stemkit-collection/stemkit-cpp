@@ -50,7 +50,16 @@ void
 sk::rt::thread::Mutex::
 synchronize(sk::rt::Runnable& block)
 {
-  throw sk::util::UnsupportedOperationException(getClass().getMethod("synchronize").getName());
+  lock();
+
+  try {
+    block.run();
+  }
+  catch(...) {
+    unlock();
+    throw;
+  }
+  unlock();
 }
 
 bool
