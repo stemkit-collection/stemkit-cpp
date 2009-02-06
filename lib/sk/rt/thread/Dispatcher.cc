@@ -56,5 +56,9 @@ long long
 sk::rt::thread::Dispatcher::
 makeSequence()
 {
-  return ++_sequence;
+  _mutex.lock();
+  long long sequence = ++_sequence;
+  _mutex.unlock();
+
+  return sequence;
 }

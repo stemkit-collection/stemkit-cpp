@@ -2,10 +2,13 @@
 local library = sk.rt.thread ;
 
 local objects = 
+  ../Thread.cc
   State.cc
   Dispatcher.cc
   Mutex.cc
 ;
 
 make-library $(library) : $(objects) ;
-make-subdirs tests ;
+
+make-subdirs tests abstract mock ;
+make-subdirs pthreads ;

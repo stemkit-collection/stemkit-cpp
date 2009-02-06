@@ -59,7 +59,6 @@ testMainInstance()
 
   Dispatcher::cleanup();
 
-  CPPUNIT_ASSERT(id != Dispatcher::main().getId());
   CPPUNIT_ASSERT_EQUAL(1LL, Dispatcher::main().makeSequence());
 }
 

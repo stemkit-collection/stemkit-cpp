@@ -11,8 +11,11 @@
 #ifndef _SK_RT_THREAD_MUTEX_H_
 #define _SK_RT_THREAD_MUTEX_H_
 
+#include <sk/util/Holder.hxx>
+
 #include <sk/rt/Runnable.h>
 #include <sk/rt/Lockable.h>
+#include <sk/rt/thread/abstract/Mutex.h>
 
 namespace sk {
   namespace rt {
@@ -40,6 +43,7 @@ namespace sk {
           Mutex& operator = (const Mutex& other);
 
           bool _locked;
+          sk::util::Holder<abstract::Mutex> _mutexHolder;
       };
     }
   }

@@ -12,14 +12,16 @@
 #include <sk/util/Method.h>
 #include <sk/util/String.h>
 #include <sk/util/UnsupportedOperationException.h>
+#include <sk/util/Holder.cxx>
 
 #include <sk/rt/thread/Mutex.h>
+#include <sk/rt/thread/abstract/Factory.h>
 
 static const sk::util::Class __class("sk::rt::thread::Mutex");
 
 sk::rt::thread::Mutex::
 Mutex()
-  : _locked(false)
+  : _locked(false), _mutexHolder(abstract::Factory().makeMutex())
 {
 }
 
@@ -40,6 +42,7 @@ void
 sk::rt::thread::Mutex::
 lock()
 {
+  _mutexHolder.get().lock();
   _locked = true;
 }
 
@@ -48,6 +51,7 @@ sk::rt::thread::Mutex::
 unlock()
 {
   _locked = false;
+  _mutexHolder.get().unlock();
 }
 
 void

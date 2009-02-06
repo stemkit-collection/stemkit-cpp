@@ -1,0 +1,8 @@
+
+local library = sk.rt.thread.pthreads ;
+local objects = 
+  Factory.cc
+  Mutex.cc
+;
+
+make-library $(library) : $(objects) ;

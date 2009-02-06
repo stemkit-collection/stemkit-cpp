@@ -1,0 +1,7 @@
+
+local library = sk.rt.thread.abstract ;
+local objects = 
+  Factory.cc
+;
+
+make-static-library $(library) : $(objects) ;

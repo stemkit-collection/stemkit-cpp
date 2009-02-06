@@ -8,7 +8,9 @@ local objects =
   DispatcherTest.cc
 ;
 
-use-project-libraries $(test) : sk.util sk.cppunit sk.rt.bundle ;
+use-project-libraries $(test) : sk.util sk.cppunit sk.rt.thread ;
+use-project-libraries $(test) : sk.rt.thread.mock ;
+
 use-unit-test $(test) $(objects) ;
 
 make-cpp-test $(test) : $(objects) ;

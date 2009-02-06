@@ -13,6 +13,7 @@
 
 #include <sk/util/Object.h>
 #include <sk/util/Holder.hxx>
+#include <sk/rt/thread/Mutex.h>
 
 namespace sk {
   namespace rt {
@@ -38,6 +39,7 @@ namespace sk {
 
           long long _sequence;
           static sk::util::Holder<Dispatcher> _mainHolder;
+          sk::rt::thread::Mutex _mutex;
       };
     }
   }
