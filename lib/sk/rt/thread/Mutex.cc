@@ -66,5 +66,5 @@ bool
 sk::rt::thread::Mutex::
 isLocked() const
 {
-  throw sk::util::UnsupportedOperationException(getClass().getMethod("isLocked").getName());
+  return false;
 }
