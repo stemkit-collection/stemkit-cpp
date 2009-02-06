@@ -37,6 +37,13 @@ main()
   return _mainHolder.get();
 }
 
+void
+sk::rt::thread::Dispatcher::
+cleanup()
+{
+  _mainHolder.clear();
+}
+
 const sk::util::Class
 sk::rt::thread::Dispatcher::
 getClass() const

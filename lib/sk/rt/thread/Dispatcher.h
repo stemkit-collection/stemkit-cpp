@@ -30,6 +30,7 @@ namespace sk {
           const sk::util::Class getClass() const;
 
           static Dispatcher& main();
+          static void cleanup();
       
         private:
           Dispatcher(const Dispatcher& other);

@@ -5,6 +5,7 @@ local objects =
   TestSuite.cc
   ThreadTest.cc
   MutexTest.cc
+  DispatcherTest.cc
 ;
 
 use-project-libraries $(test) : sk.util sk.cppunit sk.rt.bundle ;
