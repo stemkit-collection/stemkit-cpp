@@ -4,6 +4,7 @@ local library = sk.rt.thread ;
 local objects = 
   State.cc
   Dispatcher.cc
+  Mutex.cc
 ;
 
 make-library $(library) : $(objects) ;

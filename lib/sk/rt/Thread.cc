@@ -9,6 +9,7 @@
 */
 
 #include <sk/util/Class.h>
+#include <sk/util/Method.h>
 #include <sk/util/String.h>
 #include <sk/util/Holder.cxx>
 #include <sk/util/UnsupportedOperationException.h>
@@ -19,6 +20,8 @@
 #include <sstream>
 #include <exception>
 #include <iostream>
+
+static sk::util::Class klass("sk::rt::Thread");
 
 sk::rt::Thread::
 Thread()
@@ -101,7 +104,7 @@ const sk::util::Class
 sk::rt::Thread::
 getClass() const
 {
-  return sk::util::Class("sk::rt::Thread");
+  return klass;
 }
 
 void
@@ -120,28 +123,28 @@ stop()
   if(_stateHolder.get() == thread::State::SK_T_TERMINATED) {
     return;
   }
-  throw sk::util::UnsupportedOperationException("sk::rt::Thread#stop()");
+  throw sk::util::UnsupportedOperationException(getClass().getMethod("stop").getName());
 }
 
 void
 sk::rt::Thread::
 start()
 {
-  throw sk::util::UnsupportedOperationException("sk::rt::Thread#start()");
+  throw sk::util::UnsupportedOperationException(getClass().getMethod("start").getName());
 }
 
 void 
 sk::rt::Thread::
 join()
 {
-  throw sk::util::UnsupportedOperationException("sk::rt::Thread#join()");
+  throw sk::util::UnsupportedOperationException(getClass().getMethod("join").getName());
 }
 
 void 
 sk::rt::Thread::
 interrupt()
 {
-  throw sk::util::UnsupportedOperationException("sk::rt::Thread#interrupt()");
+  throw sk::util::UnsupportedOperationException(getClass().getMethod("interrupt").getName());
 }
 
 bool 
@@ -176,21 +179,21 @@ sk::rt::Thread&
 sk::rt::Thread::
 currentThread()
 {
-  throw sk::util::UnsupportedOperationException("sk::rt::Thread.currentThread()");
+  throw sk::util::UnsupportedOperationException(klass.getClassMethod("currentThread").getName());
 }
 
 int 
 sk::rt::Thread::
 activeCount()
 {
-  throw sk::util::UnsupportedOperationException("sk::rt::Thread.activeCount()");
+  throw sk::util::UnsupportedOperationException(klass.getClassMethod("activeCount").getName());
 }
 
 void 
 sk::rt::Thread::
 yield()
 {
-  throw sk::util::UnsupportedOperationException("sk::rt::Thread.yield()");
+  throw sk::util::UnsupportedOperationException(klass.getClassMethod("yield").getName());
 }
 
 void 
