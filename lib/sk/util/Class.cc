@@ -1,4 +1,5 @@
-/*  Copyright (c) 2005, Gennady Bystritsky <bystr@mac.com>
+/*  vim: set sw=2:
+ *  Copyright (c) 2005, Gennady Bystritsky <bystr@mac.com>
  *  
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
@@ -6,6 +7,7 @@
 */
 
 #include <sk/util/Class.h>
+#include <sk/util/Method.h>
 #include <sk/util/String.h>
 #include <sk/util/Integer.h>
 
@@ -32,6 +34,20 @@ sk::util::Class::
 getName() const
 {
   return _name;
+}
+
+const sk::util::Method
+sk::util::Class::
+getMethod(const sk::util::String& name) const
+{
+  return sk::util::Method(name, *this, true);
+}
+
+const sk::util::Method
+sk::util::Class::
+getClassMethod(const sk::util::String& name) const
+{
+  return sk::util::Method(name, *this, false);
 }
 
 const sk::util::String 

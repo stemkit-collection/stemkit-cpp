@@ -43,8 +43,7 @@ testThrow()
     throw SystemException("zzz");
   }
   catch(const Exception& exception) {
-    sk::util::String expected = "ERROR:System:zzz:0:";
-    CPPUNIT_ASSERT_EQUAL(expected, sk::util::String(exception.getMessage(), expected.length()));
-    CPPUNIT_ASSERT_EQUAL(String("sk::util::SystemException"), exception.getClass().getName());
+    CPPUNIT_ASSERT(exception.getMessage().startsWith("ERROR: System: zzz: 0:"));
+    CPPUNIT_ASSERT_EQUAL("sk::util::SystemException", exception.getClass().getName());
   }
 }

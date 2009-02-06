@@ -41,7 +41,7 @@ testThrow()
     throw IllegalStateException("zzz");
   }
   catch(const Exception& exception) {
-    CPPUNIT_ASSERT_EQUAL(String("ERROR:Illegal state:zzz"), exception.getMessage());
-    CPPUNIT_ASSERT_EQUAL(String("sk::util::IllegalStateException"), exception.getClass().getName());
+    CPPUNIT_ASSERT_EQUAL("ERROR: Illegal state: zzz", exception.getMessage());
+    CPPUNIT_ASSERT_EQUAL("sk::util::IllegalStateException", exception.getClass().getName());
   }
 }

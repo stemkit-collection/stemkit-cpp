@@ -47,7 +47,7 @@ const sk::util::String
 sk::util::Exception::
 join(const sk::util::String& s1, const sk::util::String& s2) const
 {
-  return s1 + ':' + s2;
+  return s1 + ": " + s2;
 }
 
 const sk::util::String

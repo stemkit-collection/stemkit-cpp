@@ -41,7 +41,7 @@ testThrow()
     throw IndexOutOfBoundsException("zzz");
   }
   catch(const Exception& exception) {
-    CPPUNIT_ASSERT_EQUAL(String("ERROR:Index out of bounds:zzz"), exception.getMessage());
-    CPPUNIT_ASSERT_EQUAL(String("sk::util::IndexOutOfBoundsException"), exception.getClass().getName());
+    CPPUNIT_ASSERT_EQUAL("ERROR: Index out of bounds: zzz", exception.getMessage());
+    CPPUNIT_ASSERT_EQUAL("sk::util::IndexOutOfBoundsException", exception.getClass().getName());
   }
 }

@@ -4,6 +4,7 @@ library = sk.util ;
 objects = 
   Object.cc
   Class.cc
+  Method.cc
   String.cc
   Container.cc
   Integer.cc

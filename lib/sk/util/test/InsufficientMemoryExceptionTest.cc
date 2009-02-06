@@ -41,8 +41,8 @@ testThrow()
     throw InsufficientMemoryException("something", 279);
   }
   catch(const InsufficientMemoryException& exception) {
-    CPPUNIT_ASSERT_EQUAL(String("ERROR:Memory allocation:something:amount=279"), exception.getMessage());
-    CPPUNIT_ASSERT_EQUAL(String("sk::util::InsufficientMemoryException"), exception.getClass().getName());
+    CPPUNIT_ASSERT_EQUAL("ERROR: Memory allocation: something: amount=279", exception.getMessage());
+    CPPUNIT_ASSERT_EQUAL("sk::util::InsufficientMemoryException", exception.getClass().getName());
     CPPUNIT_ASSERT_EQUAL(279, exception.getRequestedAmount());
   }
 }

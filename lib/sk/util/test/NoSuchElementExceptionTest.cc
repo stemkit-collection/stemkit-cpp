@@ -41,7 +41,7 @@ testThrow()
     throw NoSuchElementException("zzz");
   }
   catch(const Exception& exception) {
-    CPPUNIT_ASSERT_EQUAL(String("ERROR:No such element:zzz"), exception.getMessage());
-    CPPUNIT_ASSERT_EQUAL(String("sk::util::NoSuchElementException"), exception.getClass().getName());
+    CPPUNIT_ASSERT_EQUAL("ERROR: No such element: zzz", exception.getMessage());
+    CPPUNIT_ASSERT_EQUAL("sk::util::NoSuchElementException", exception.getClass().getName());
   }
 }
