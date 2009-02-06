@@ -20,7 +20,7 @@
 #include <exception>
 #include <iostream>
 
-static sk::util::Class _class("sk::rt::Thread");
+static const sk::util::Class __class("sk::rt::Thread");
 
 sk::rt::Thread::
 Thread()
@@ -117,7 +117,7 @@ const sk::util::Class
 sk::rt::Thread::
 getClass() const
 {
-  return _class;
+  return __class;
 }
 
 void
@@ -136,7 +136,7 @@ stop()
   if(_stateHolder.get() == thread::State::SK_T_TERMINATED) {
     return;
   }
-  throw sk::util::UnsupportedOperationException(getClass().getMethod("stop").getName());
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
 }
 
 void

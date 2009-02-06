@@ -7,7 +7,6 @@
 */
 
 #include <sk/util/Class.h>
-#include <sk/util/Method.h>
 #include <sk/util/String.h>
 #include <sk/util/Integer.h>
 

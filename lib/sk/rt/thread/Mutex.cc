@@ -15,6 +15,8 @@
 
 #include <sk/rt/thread/Mutex.h>
 
+static const sk::util::Class __class("sk::rt::thread::Mutex");
+
 sk::rt::thread::Mutex::
 Mutex()
   : _locked(false)
@@ -31,7 +33,7 @@ const sk::util::Class
 sk::rt::thread::Mutex::
 getClass() const
 {
-  return sk::util::Class("sk::rt::thread::Mutex");
+  return __class;
 }
 
 void

@@ -15,6 +15,7 @@
 #include "Dispatcher.h"
 
 sk::util::Holder<sk::rt::thread::Dispatcher> sk::rt::thread::Dispatcher::_mainHolder;
+static const sk::util::Class __class("sk::rt::thread::Dispatcher");
 
 sk::rt::thread::Dispatcher::
 Dispatcher()
@@ -48,7 +49,7 @@ const sk::util::Class
 sk::rt::thread::Dispatcher::
 getClass() const
 {
-  return sk::util::Class("sk::rt::thread::Dispatcher");
+  return __class;
 }
 
 long long

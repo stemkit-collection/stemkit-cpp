@@ -15,6 +15,7 @@
 #include <sk/rt/thread/State.h>
 
 std::vector<sk::rt::thread::State*> sk::rt::thread::State::_states;
+static const sk::util::Class __class("sk::rt::thread::State");
 
 #define DEFINE_STATE(state) const sk::rt::thread::State sk::rt::thread::State::SK_T_##state(#state)
 
@@ -40,7 +41,7 @@ const sk::util::Class
 sk::rt::thread::State::
 getClass() const
 {
-  return sk::util::Class("sk::rt::thread::State");
+  return __class;
 }
 
 const sk::util::String&
