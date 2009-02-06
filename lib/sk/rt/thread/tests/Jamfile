@@ -1,3 +1,4 @@
+# vim: set sw=2:
 
 local test = sk-rt-thread-test ;
 
@@ -8,9 +9,15 @@ local objects =
   DispatcherTest.cc
 ;
 
-use-project-libraries $(test) : sk.util sk.cppunit sk.rt.thread ;
-use-project-libraries $(test) : sk.rt.thread.mock ;
+local test-categories = mock pthreads ;
+local category ;
 
-use-unit-test $(test) $(objects) ;
+for category in $(test-categories) {
+  local test = $(test)-$(category) ;
 
-make-cpp-test $(test) : $(objects) ;
+  use-project-libraries $(test) : sk.util sk.cppunit sk.rt.thread ;
+  use-project-libraries $(test) : sk.rt.thread.$(category) ;
+
+  use-unit-test $(test) $(objects) ;
+  make-cpp-test $(test) : $(objects) ;
+}

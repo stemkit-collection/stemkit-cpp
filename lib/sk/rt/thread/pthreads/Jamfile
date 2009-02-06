@@ -5,4 +5,4 @@ local objects =
   Mutex.cc
 ;
 
-make-library $(library) : $(objects) ;
+make-library $(library) : $(objects) : sk.rt.thread.platform ;

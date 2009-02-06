@@ -4,4 +4,4 @@ local objects =
   Factory.cc
 ;
 
-make-static-library $(library) : $(objects) ;
+make-library $(library) : $(objects) : sk.rt.thread.platform ;
