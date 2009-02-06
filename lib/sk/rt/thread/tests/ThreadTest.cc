@@ -10,7 +10,6 @@
 
 #include "ThreadTest.h"
 #include <sk/rt/Thread.h>
-#include "../Dispatcher.h"
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::rt::thread::tests::ThreadTest);
 
@@ -28,14 +27,14 @@ void
 sk::rt::thread::tests::ThreadTest::
 setUp()
 {
-  sk::rt::thread::Dispatcher::cleanup();
+  sk::rt::Thread::reset();
 }
 
 void
 sk::rt::thread::tests::ThreadTest::
 tearDown()
 {
-  sk::rt::thread::Dispatcher::cleanup();
+  sk::rt::Thread::reset();
 }
 
 void

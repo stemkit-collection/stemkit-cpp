@@ -84,13 +84,27 @@ sk::rt::Thread::
 init()
 {
   _stateHolder.set(thread::State::SK_T_NEW);
-  _id = thread::Dispatcher::main().makeSequence();
+  _id = sk::rt::thread::Dispatcher::main().makeSequence();
 
   if(_name.isEmpty() == true) {
     std::stringstream stream;
     stream << "Thread" << '-' << _id;
     _name = stream.str();
   }
+}
+
+void
+sk::rt::Thread::
+setup()
+{
+  sk::rt::thread::Dispatcher::main();
+}
+
+void
+sk::rt::Thread::
+reset()
+{
+  sk::rt::thread::Dispatcher::cleanup();
 }
 
 long long
