@@ -28,6 +28,7 @@ namespace sk {
 
             void start();
             void stop();
+            void interrupt();
             void join();
         
             // sk::util::Object re-implementation.

@@ -60,6 +60,13 @@ stop()
 
 void 
 sk::rt::thread::pthreads::Thread::
+interrupt()
+{
+  exceptionUnlessSuccess("cancel", pthread_cancel(_thread));
+}
+
+void 
+sk::rt::thread::pthreads::Thread::
 join()
 {
   exceptionUnlessSuccess("join", pthread_join(_thread, 0));
