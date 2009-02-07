@@ -39,7 +39,7 @@ namespace sk {
           Runner& operator = (const Runner& other);
 
           sk::rt::Runnable& _target;
-          sk::util::Holder<const sk::rt::thread::State> _stateHolder;
+          mutable sk::util::Holder<const sk::rt::thread::State> _stateHolder;
       };
     }
   }

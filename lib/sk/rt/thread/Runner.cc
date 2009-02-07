@@ -46,5 +46,11 @@ void
 sk::rt::thread::Runner::
 run() const
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  _stateHolder.set(thread::State::SK_T_RUNNABLE);
+  try {
+    _target.run();
+  }
+  catch(...) {}
+
+  _stateHolder.set(thread::State::SK_T_TERMINATED);
 }
