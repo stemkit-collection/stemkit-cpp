@@ -9,8 +9,14 @@ local objects =
   DispatcherTest.cc
 ;
 
+local operation-objects = 
+  ThreadOperationTest.cc
+;
+
 local test-categories = mock pthreads ;
 local category ;
+
+use-unit-test $(objects) $(operation-objects) ;
 
 for category in $(test-categories) {
   local test = $(test)-$(category) ;
@@ -18,6 +24,8 @@ for category in $(test-categories) {
   use-project-libraries $(test) : sk.util sk.cppunit sk.rt.thread ;
   use-project-libraries $(test) : sk.rt.thread.$(category) ;
 
-  use-unit-test $(test) $(objects) ;
-  make-cpp-test $(test) : $(objects) : -pthread ;
+  use-unit-test $(test) ;
 }
+
+make-cpp-test $(test)-mock : $(objects) ;
+make-cpp-test $(test)-pthreads : $(objects) $(operation-objects) ;

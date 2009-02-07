@@ -147,6 +147,7 @@ sk::rt::Thread::
 start()
 {
   _threadHolder.set(thread::abstract::Factory().makeThread(_runnerHolder.get()));
+  _threadHolder.get().start();
 }
 
 void 
