@@ -6,6 +6,7 @@ local objects =
   State.cc
   Dispatcher.cc
   Mutex.cc
+  Runner.cc
 ;
 
 make-library $(library) : $(objects) ;

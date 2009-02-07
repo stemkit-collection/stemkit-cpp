@@ -20,6 +20,8 @@
 #include <exception>
 #include <iostream>
 
+#include "thread/Runner.h"
+
 static const sk::util::Class __class("sk::rt::Thread");
 
 sk::rt::Thread::
@@ -82,8 +84,8 @@ void
 sk::rt::Thread::
 init()
 {
-  _stateHolder.set(thread::State::SK_T_NEW);
   _id = sk::rt::thread::Dispatcher::main().makeSequence();
+  _runnerHolder.set(new thread::Runner(_targetHolder.get()));
 
   if(_name.isEmpty() == true) {
     std::stringstream stream;
@@ -130,10 +132,10 @@ void
 sk::rt::Thread::
 stop()
 {
-  if(_stateHolder.get() == thread::State::SK_T_NEW) {
+  if(getState() == thread::State::SK_T_NEW) {
     return;
   }
-  if(_stateHolder.get() == thread::State::SK_T_TERMINATED) {
+  if(getState() == thread::State::SK_T_TERMINATED) {
     return;
   }
   throw sk::util::UnsupportedOperationException(SK_METHOD);
@@ -185,7 +187,7 @@ const sk::rt::thread::State&
 sk::rt::Thread::
 getState() const
 {
-  return _stateHolder.get();
+  return _runnerHolder.get().getState();
 }
 
 sk::rt::Thread& 

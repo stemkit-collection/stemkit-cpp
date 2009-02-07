@@ -15,8 +15,13 @@
 #include <sk/rt/thread/State.h>
 #include <sk/util/Holder.hxx>
 
+#include <sk/rt/thread/abstract/Thread.h>
+
 namespace sk {
   namespace rt {
+    namespace thread {
+      class Runner;
+    }
     class Thread 
       : public virtual sk::rt::Runnable
     {
@@ -62,7 +67,9 @@ namespace sk {
         void init();
 
         sk::util::Holder<sk::rt::Runnable> _targetHolder;
-        sk::util::Holder<const sk::rt::thread::State> _stateHolder;
+        sk::util::Holder<thread::Runner> _runnerHolder;
+        sk::util::Holder<thread::abstract::Thread> _threadHolder;
+
         sk::util::String _name;
         long long _id;
     };
