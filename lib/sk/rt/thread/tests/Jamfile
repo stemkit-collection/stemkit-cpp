@@ -19,5 +19,5 @@ for category in $(test-categories) {
   use-project-libraries $(test) : sk.rt.thread.$(category) ;
 
   use-unit-test $(test) $(objects) ;
-  make-cpp-test $(test) : $(objects) ;
+  make-cpp-test $(test) : $(objects) : -pthread ;
 }

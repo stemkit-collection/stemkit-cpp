@@ -37,28 +37,28 @@ Thread(const sk::util::String& name)
 }
 
 sk::rt::Thread::
-Thread(const sk::rt::Runnable& target)
+Thread(sk::rt::Runnable& target)
   : _targetHolder(target)
 {
   init();
 }
 
 sk::rt::Thread::
-Thread(const sk::rt::Runnable& target, const sk::util::String& name)
+Thread(sk::rt::Runnable& target, const sk::util::String& name)
   : _targetHolder(target), _name(name)
 {
   init();
 }
 
 sk::rt::Thread::
-Thread(const sk::rt::Runnable* target)
+Thread(sk::rt::Runnable* target)
   : _targetHolder(target)
 {
   init();
 }
 
 sk::rt::Thread::
-Thread(const sk::rt::Runnable* target, const sk::util::String& name)
+Thread(sk::rt::Runnable* target, const sk::util::String& name)
   : _targetHolder(target), _name(name)
 {
   init();

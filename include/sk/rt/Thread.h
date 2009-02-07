@@ -23,10 +23,10 @@ namespace sk {
       public:
         Thread();
         Thread(const sk::util::String& name);
-        Thread(const sk::rt::Runnable& target);
-        Thread(const sk::rt::Runnable& target, const sk::util::String& name);
-        Thread(const sk::rt::Runnable* target);
-        Thread(const sk::rt::Runnable* target, const sk::util::String& name);
+        Thread(sk::rt::Runnable& target);
+        Thread(sk::rt::Runnable& target, const sk::util::String& name);
+        Thread(sk::rt::Runnable* target);
+        Thread(sk::rt::Runnable* target, const sk::util::String& name);
         virtual ~Thread();
 
         void start();
@@ -61,7 +61,7 @@ namespace sk {
 
         void init();
 
-        sk::util::Holder<const sk::rt::Runnable> _targetHolder;
+        sk::util::Holder<sk::rt::Runnable> _targetHolder;
         sk::util::Holder<const sk::rt::thread::State> _stateHolder;
         sk::util::String _name;
         long long _id;
