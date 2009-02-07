@@ -14,12 +14,13 @@
 #include <sk/util/UnsupportedOperationException.h>
 
 #include <sk/rt/Thread.h>
-#include <thread/Dispatcher.h>
+#include <sk/rt/thread/abstract/Factory.h>
 
 #include <sstream>
 #include <exception>
 #include <iostream>
 
+#include "thread/Dispatcher.h"
 #include "thread/Runner.h"
 
 static const sk::util::Class __class("sk::rt::Thread");
@@ -73,10 +74,10 @@ sk::rt::Thread::
     stop();
   }
   catch(const std::exception& exception) {
-    std::cerr << "sk::rt::Thread::~Thread(): " << exception.what() << std::endl;
+    std::cerr << "[" << SK_METHOD << "] " << exception.what() << std::endl;
   }
   catch(...) {
-    std::cerr << "sk::rt::Thread::~Thread(): UNKNOWN EXCEPTION" << std::endl;
+    std::cerr << "[" << SK_METHOD << "] UNKNOWN EXCEPTION" << std::endl;
   }
 }
 
@@ -138,21 +139,21 @@ stop()
   if(getState() == thread::State::SK_T_TERMINATED) {
     return;
   }
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  _threadHolder.get().stop();
 }
 
 void
 sk::rt::Thread::
 start()
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  _threadHolder.set(thread::abstract::Factory().makeThread(_runnerHolder.get()));
 }
 
 void 
 sk::rt::Thread::
 join()
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  _threadHolder.get().join();
 }
 
 void 

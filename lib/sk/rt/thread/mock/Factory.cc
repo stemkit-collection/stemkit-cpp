@@ -40,3 +40,10 @@ makeMutex() const
 {
   return new mock::Mutex;
 }
+
+sk::rt::thread::abstract::Thread* 
+sk::rt::thread::abstract::Factory::
+makeThread(sk::rt::Runnable& target) const
+{
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
+}
