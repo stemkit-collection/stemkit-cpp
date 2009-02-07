@@ -160,7 +160,7 @@ void
 sk::rt::Thread::
 interrupt()
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  _threadHolder.get().interrupt();
 }
 
 bool 
