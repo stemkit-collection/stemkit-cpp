@@ -13,6 +13,8 @@
 
 #include <sk/util/Object.h>
 #include <sk/rt/thread/abstract/Mutex.h>
+#include <sk/rt/thread/abstract/Thread.h>
+#include <sk/rt/Runnable.h>
 
 namespace sk {
   namespace rt {
@@ -26,6 +28,7 @@ namespace sk {
             virtual ~Factory();
 
             abstract::Mutex* makeMutex() const;
+            abstract::Thread* makeThread(sk::rt::Runnable& target) const;
         
             // sk::util::Object re-implementation.
             const sk::util::Class getClass() const;

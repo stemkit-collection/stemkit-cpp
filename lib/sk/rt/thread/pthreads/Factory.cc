@@ -13,7 +13,9 @@
 #include <sk/util/UnsupportedOperationException.h>
 
 #include <sk/rt/thread/abstract/Factory.h>
+
 #include "Mutex.h"
+#include "Thread.h"
 
 static const sk::util::Class __class("sk::rt::thread::pthreads::Factory");
 
@@ -39,4 +41,11 @@ sk::rt::thread::abstract::Factory::
 makeMutex() const
 {
   return new pthreads::Mutex;
+}
+
+sk::rt::thread::abstract::Thread* 
+sk::rt::thread::abstract::Factory::
+makeThread(sk::rt::Runnable& target) const
+{
+  return new pthreads::Thread(target);
 }

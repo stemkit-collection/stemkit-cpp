@@ -11,7 +11,6 @@
 #ifndef _SK_RT_THREAD_PTHREADS_MUTEX_H_
 #define _SK_RT_THREAD_PTHREADS_MUTEX_H_
 
-#include <sk/util/Object.h>
 #include <sk/rt/thread/abstract/Mutex.h>
 #include <pthread.h>
 
