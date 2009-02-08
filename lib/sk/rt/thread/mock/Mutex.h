@@ -26,6 +26,7 @@ namespace sk {
 
             void lock();
             void unlock();
+            bool tryLock();
 
             // sk::util::Object re-implementation.
             const sk::util::Class getClass() const;

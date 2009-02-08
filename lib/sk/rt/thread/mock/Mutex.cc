@@ -46,3 +46,11 @@ unlock()
 {
   _locked = false;
 }
+
+bool
+sk::rt::thread::mock::Mutex::
+tryLock()
+{
+  _locked = true;
+  return true;
+}

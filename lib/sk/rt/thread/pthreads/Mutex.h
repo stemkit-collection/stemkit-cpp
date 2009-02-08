@@ -27,6 +27,7 @@ namespace sk {
 
             void lock();
             void unlock();
+            bool tryLock();
         
             // sk::util::Object re-implementation.
             const sk::util::Class getClass() const;
@@ -36,6 +37,7 @@ namespace sk {
             Mutex& operator = (const Mutex& other);
 
             pthread_mutex_t _mutex;
+            pthread_mutexattr_t _attributes;
         };
       }
     }
