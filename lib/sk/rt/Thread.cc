@@ -21,6 +21,7 @@
 #include <iostream>
 
 #include "thread/Dispatcher.h"
+#include "thread/Implementation.h"
 #include "thread/Runner.h"
 
 static const sk::util::Class __class("sk::rt::Thread");
@@ -146,7 +147,7 @@ void
 sk::rt::Thread::
 start()
 {
-  _threadHolder.set(thread::abstract::Factory().makeThread(_runnerHolder.get()));
+  _threadHolder.set(thread::Implementation::instance().makeThread(_runnerHolder.get()));
   _threadHolder.get().start();
 }
 

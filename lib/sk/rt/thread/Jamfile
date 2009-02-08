@@ -3,8 +3,9 @@ local library = sk.rt.thread ;
 
 local objects = 
   ../Thread.cc
-  State.cc
   Dispatcher.cc
+  Implementation.cc
+  State.cc
   Mutex.cc
   Runner.cc
 ;

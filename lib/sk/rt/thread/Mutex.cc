@@ -17,11 +17,14 @@
 #include <sk/rt/thread/Mutex.h>
 #include <sk/rt/thread/abstract/Factory.h>
 
+#include "Dispatcher.h"
+#include "Implementation.h"
+
 static const sk::util::Class __class("sk::rt::thread::Mutex");
 
 sk::rt::thread::Mutex::
 Mutex()
-  : _locked(false), _mutexHolder(abstract::Factory().makeMutex())
+  : _locked(false), _mutexHolder(Implementation::instance().makeMutex())
 {
 }
 

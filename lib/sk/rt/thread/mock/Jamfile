@@ -2,7 +2,9 @@
 local library = sk.rt.thread.mock ;
 local objects = 
   Factory.cc
+  Implementation.cc
   Mutex.cc
+  Thread.cc
 ;
 
 make-library $(library) : $(objects) : sk.rt.thread.platform ;

@@ -10,24 +10,11 @@
 
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
-#include <sk/util/UnsupportedOperationException.h>
 
 #include <sk/rt/thread/abstract/Factory.h>
-
-#include "Mutex.h"
-#include "Thread.h"
+#include "Implementation.h"
 
 static const sk::util::Class __class("sk::rt::thread::pthreads::Factory");
-
-sk::rt::thread::abstract::Factory::
-Factory()
-{
-}
-
-sk::rt::thread::abstract::Factory::
-~Factory()
-{
-}
 
 const sk::util::Class
 sk::rt::thread::abstract::Factory::
@@ -36,16 +23,9 @@ getClass() const
   return __class;
 }
 
-sk::rt::thread::abstract::Mutex* 
+sk::rt::thread::abstract::Implementation* 
 sk::rt::thread::abstract::Factory::
-makeMutex() const
+makeImplementation() const
 {
-  return new pthreads::Mutex;
-}
-
-sk::rt::thread::abstract::Thread* 
-sk::rt::thread::abstract::Factory::
-makeThread(sk::rt::Runnable& target) const
-{
-  return new pthreads::Thread(target);
+  return new pthreads::Implementation;
 }

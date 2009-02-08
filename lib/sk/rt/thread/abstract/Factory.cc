@@ -16,16 +16,6 @@
 
 static const sk::util::Class __class("sk::rt::thread::abstract::Factory");
 
-sk::rt::thread::abstract::Factory::
-Factory()
-{
-}
-
-sk::rt::thread::abstract::Factory::
-~Factory()
-{
-}
-
 const sk::util::Class
 sk::rt::thread::abstract::Factory::
 getClass() const
@@ -33,9 +23,9 @@ getClass() const
   return __class;
 }
 
-sk::rt::thread::abstract::Mutex* 
+sk::rt::thread::abstract::Implementation* 
 sk::rt::thread::abstract::Factory::
-makeMutex() const
+makeImplementation() const
 {
   throw sk::util::UnsupportedOperationException(SK_METHOD);
 }
