@@ -1,5 +1,5 @@
 
-local library = sk.rt.thread.pthreads ;
+local library = sk.rt.thread.pthreads. ;
 local objects = 
   Factory.cc
   Implementation.cc
@@ -7,4 +7,5 @@ local objects =
   Thread.cc
 ;
 
+use-pthreads $(library) ;
 make-library $(library) : $(objects) : sk.rt.thread.platform ;
