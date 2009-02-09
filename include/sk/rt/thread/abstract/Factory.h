@@ -12,9 +12,7 @@
 #define _SK_RT_THREAD_ABSTRACT_FACTORY_H_
 
 #include <sk/util/Object.h>
-#include <sk/rt/thread/abstract/Mutex.h>
-#include <sk/rt/thread/abstract/Thread.h>
-#include <sk/rt/Runnable.h>
+#include <sk/rt/thread/abstract/Implementation.h>
 
 namespace sk {
   namespace rt {
@@ -24,18 +22,10 @@ namespace sk {
           : public virtual sk::util::Object
         {
           public:
-            Factory();
-            virtual ~Factory();
-
-            abstract::Mutex* makeMutex() const;
-            abstract::Thread* makeThread(sk::rt::Runnable& target) const;
+            abstract::Implementation* makeImplementation() const;
         
             // sk::util::Object re-implementation.
             const sk::util::Class getClass() const;
-        
-          private:
-            Factory(const Factory& other);
-            Factory& operator = (const Factory& other);
         };
       }
     }
