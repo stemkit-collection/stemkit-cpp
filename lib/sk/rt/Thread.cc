@@ -20,6 +20,7 @@
 #include <iostream>
 
 #include "thread/Dispatcher.h"
+#include "thread/Implementation.h"
 #include "thread/Runner.h"
 
 static const sk::util::Class __class("sk::rt::Thread");
@@ -96,16 +97,10 @@ init()
 
 void
 sk::rt::Thread::
-setup()
-{
-  sk::rt::thread::Dispatcher::main();
-}
-
-void
-sk::rt::Thread::
 reset()
 {
-  sk::rt::thread::Dispatcher::cleanup();
+  sk::rt::thread::Dispatcher::reset();
+  sk::rt::thread::Implementation::reset();
 }
 
 long long

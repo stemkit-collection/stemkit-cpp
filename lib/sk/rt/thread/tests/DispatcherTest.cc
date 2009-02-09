@@ -57,7 +57,7 @@ testMainInstance()
   CPPUNIT_ASSERT_EQUAL(2LL, Dispatcher::main().makeSequence());
   CPPUNIT_ASSERT_EQUAL(3LL, Dispatcher::main().makeSequence());
 
-  Dispatcher::cleanup();
+  Dispatcher::reset();
 
   CPPUNIT_ASSERT_EQUAL(1LL, Dispatcher::main().makeSequence());
 }

@@ -60,7 +60,6 @@ namespace sk {
         static void yield();
         static void pass();
 
-        static void setup();
         static void reset();
 
       protected:

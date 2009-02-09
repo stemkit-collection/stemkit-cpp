@@ -41,7 +41,7 @@ main()
 
 void
 sk::rt::thread::Dispatcher::
-cleanup()
+reset()
 {
   _mainHolder.clear();
 }
