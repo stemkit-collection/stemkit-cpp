@@ -8,7 +8,7 @@ product {
   description 'Stemkit'
 
   top ENV['CONTRIB_ROOT'] || '/usr/local'
-  base "stemkit-0.9"
+  base "stemkit-0.10"
 
   package {
     name 'cpp'
@@ -159,24 +159,18 @@ fileset {
   name 'rt'
 
   directory %w{
-    include/sk/rt
-    include/sk/rt/logger
     lib
+    include
+    include/sk
+    include/sk/rt
   }
-  install.as('include/sk/rt').source {
-    tree('include/sk/rt') { |_location, _item|
-      case _item
-        when '.svn'
-          nil
-        else
-          true
-      end
-    }
-  }
+  install.as('include/sk/rt').source.tree('include/sk/rt')
 
   install.into('lib').binary {
     list = %w{
       sk.rt.bundle
+      sk.rt.thread
+      sk.rt.thread.pthreads
     }
     if ENV['MAKE_DLL'] == 'true'
       library 'lib' => list
