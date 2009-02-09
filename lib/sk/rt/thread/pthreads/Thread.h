@@ -16,6 +16,8 @@
 #include <sk/rt/Runnable.h>
 #include <pthread.h>
 
+#include "Provider.h"
+
 namespace sk {
   namespace rt {
     namespace thread {
@@ -24,8 +26,8 @@ namespace sk {
           : public virtual sk::rt::thread::abstract::Thread
         {
           public:
-            Thread(sk::rt::thread::Generic& handle);
-            Thread(sk::rt::Runnable& target, thread::Generic& handle);
+            Thread(const Provider& provider, sk::rt::thread::Generic& handle);
+            Thread(const Provider& provider, sk::rt::Runnable& target, thread::Generic& handle);
             virtual ~Thread();
 
             void start();
@@ -46,6 +48,8 @@ namespace sk {
             pthread_t _thread;
             sk::rt::Runnable& _target;
             sk::rt::thread::Generic& _handle;
+            const Provider& _provider;
+            bool _wrapper;
         };
       }
     }

@@ -43,9 +43,9 @@ namespace {
       : _message(message) {}
 
     void run() const {
-      for(int counter=5; counter > 0 ;--counter) {
+      for(int counter=3; counter > 0 ;--counter) {
         std::cerr << "TICK: " << _message.inspect() << std::endl;
-        sleep(10);
+        sleep(5);
       }
     }
     const sk::util::String _message;
@@ -63,7 +63,7 @@ testBasics()
   Thread t2(b2);
 
   t1.start();
-  sleep(5);
+  sleep(2);
   t2.start();
 
   t1.join();

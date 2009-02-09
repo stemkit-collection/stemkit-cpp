@@ -35,20 +35,27 @@ namespace {
 }
 
 sk::rt::thread::pthreads::Thread::
-Thread(sk::rt::thread::Generic& handle)
-  : _handle(handle), _target(DUMMY_TARGET), _thread(pthread_self())
+Thread(const Provider& provider, sk::rt::thread::Generic& handle)
+  : _provider(provider), _handle(handle), _target(DUMMY_TARGET), _thread(pthread_self()), _wrapper(true)
 {
+  _provider.installGeneric(_handle);
 }
 
 sk::rt::thread::pthreads::Thread::
-Thread(Runnable& target, sk::rt::thread::Generic& handle)
-  : _target(target), _handle(handle)
+Thread(const Provider& provider, sk::rt::Runnable& target, sk::rt::thread::Generic& handle)
+  : _provider(provider), _target(target), _handle(handle), _wrapper(false)
 {
 }
 
 sk::rt::thread::pthreads::Thread::
 ~Thread()
 {
+  if(_wrapper == true) {
+    try {
+      _provider.clearGeneric();
+    }
+    catch(...) {}
+  }
 }
 
 const sk::util::Class
@@ -62,7 +69,7 @@ void
 sk::rt::thread::pthreads::Thread::
 start()
 {
-  if(&_target == &DUMMY_TARGET) {
+  if(_wrapper == true) {
     throw sk::util::IllegalStateException(SK_METHOD);
   }
   exceptionUnlessSuccess("create", pthread_create(&_thread, 0, runner, this));
@@ -94,13 +101,18 @@ sk::rt::thread::pthreads::Thread::
 run()
 {
   try {
+    _provider.installGeneric(_handle);
     _target.run();
   }
   catch(const sk::util::SystemExit& exception) {
     pthread_exit(reinterpret_cast<void*>(exception.getCode()));
   }
+  catch(const std::exception& exception) {
+    std::cerr << "[THREAD EXCEPTION] " << exception.what() << std::endl;
+    pthread_exit(reinterpret_cast<void*>(-1));
+  }
   catch(...) {
-    std::cerr << "!!! UNKNOWN THREAD EXCEPTION !!!" << std::endl;
+    std::cerr << "[UNKNOWN THREAD EXCEPTION]" << std::endl;
     pthread_exit(reinterpret_cast<void*>(-1));
   }
 }
