@@ -35,6 +35,7 @@ void
 sk::rt::thread::tests::ThreadOperationTest::
 tearDown()
 {
+  Thread::reset();
 }
 
 namespace {
@@ -43,8 +44,14 @@ namespace {
       : _message(message) {}
 
     void run() const {
+      sk::rt::thread::Generic& current = sk::rt::Thread::currentThread();
       for(int counter=3; counter > 0 ;--counter) {
-        std::cerr << "TICK: " << _message.inspect() << " (" << std::boolalpha << sk::rt::Thread::currentThread().isMain() << ")" << std::endl;
+        std::cerr << "TICK: " 
+          << current.getName() << ": "
+          << std::boolalpha << current.isMain() << ": "
+          << _message.inspect() 
+        << std::endl;
+
         sleep(2);
       }
     }
