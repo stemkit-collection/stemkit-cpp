@@ -44,12 +44,21 @@ namespace {
 
     void run() const {
       for(int counter=3; counter > 0 ;--counter) {
-        std::cerr << "TICK: " << _message.inspect() << std::endl;
-        sleep(5);
+        std::cerr << "TICK: " << _message.inspect() << " (" << std::boolalpha << sk::rt::Thread::currentThread().isMain() << ")" << std::endl;
+        sleep(2);
       }
     }
     const sk::util::String _message;
   };
+}
+
+void 
+sk::rt::thread::tests::ThreadOperationTest::
+testMainThread()
+{
+  sk::rt::thread::Generic& current = Thread::currentThread();
+  CPPUNIT_ASSERT_EQUAL(true, current.isMain());
+  CPPUNIT_ASSERT_EQUAL(true, current.isAlive());
 }
 
 void
@@ -63,7 +72,7 @@ testBasics()
   Thread t2(b2);
 
   t1.start();
-  sleep(2);
+  sleep(1);
   t2.start();
 
   t1.join();
