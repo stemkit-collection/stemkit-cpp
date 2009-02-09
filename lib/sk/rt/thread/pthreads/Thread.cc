@@ -35,14 +35,14 @@ namespace {
 }
 
 sk::rt::thread::pthreads::Thread::
-Thread()
-  : _target(DUMMY_TARGET), _thread(pthread_self())
+Thread(sk::rt::thread::Generic& handle)
+  : _handle(handle), _target(DUMMY_TARGET), _thread(pthread_self())
 {
 }
 
 sk::rt::thread::pthreads::Thread::
-Thread(Runnable& target)
-  : _target(target)
+Thread(Runnable& target, sk::rt::thread::Generic& handle)
+  : _target(target), _handle(handle)
 {
 }
 

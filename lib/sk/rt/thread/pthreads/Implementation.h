@@ -27,8 +27,8 @@ namespace sk {
             virtual ~Implementation();
 
             pthreads::Mutex* makeMutex() const;
-            pthreads::Thread* makeThread(sk::rt::Runnable& target) const;
-            pthreads::Thread* wrapCurrentThread() const;
+            pthreads::Thread* makeThread(sk::rt::Runnable& target, sk::rt::thread::Generic& handle) const;
+            pthreads::Thread* wrapCurrentThread(sk::rt::thread::Generic& handle) const;
         
             // sk::util::Object re-implementation.
             const sk::util::Class getClass() const;

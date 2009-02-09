@@ -52,9 +52,9 @@ getThreadImplementation() const
 
 void
 sk::rt::thread::Runner::
-start()
+start(sk::rt::thread::Generic& handle)
 {
-  _threadHolder.set(thread::Implementation::instance().makeThread(*this));
+  _threadHolder.set(thread::Implementation::instance().makeThread(*this, handle));
   _threadHolder.get().start();
 }
 

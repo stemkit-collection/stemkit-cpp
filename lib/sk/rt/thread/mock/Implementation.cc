@@ -39,14 +39,14 @@ makeMutex() const
 
 sk::rt::thread::mock::Thread*
 sk::rt::thread::mock::Implementation::
-makeThread(sk::rt::Runnable& target) const
+makeThread(sk::rt::Runnable& target, sk::rt::thread::Generic& handle) const
 {
   return new mock::Thread(target);
 }
 
 sk::rt::thread::mock::Thread*
 sk::rt::thread::mock::Implementation::
-wrapCurrentThread() const
+wrapCurrentThread(sk::rt::thread::Generic& handle) const
 {
   return new mock::Thread();
 }

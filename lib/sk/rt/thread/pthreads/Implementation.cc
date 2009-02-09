@@ -39,14 +39,14 @@ makeMutex() const
 
 sk::rt::thread::pthreads::Thread*
 sk::rt::thread::pthreads::Implementation::
-makeThread(sk::rt::Runnable& target) const
+makeThread(sk::rt::Runnable& target, sk::rt::thread::Generic& handle) const
 {
-  return new pthreads::Thread(target);
+  return new pthreads::Thread(target, handle);
 }
 
 sk::rt::thread::pthreads::Thread*
 sk::rt::thread::pthreads::Implementation::
-wrapCurrentThread() const
+wrapCurrentThread(sk::rt::thread::Generic& handle) const
 {
-  return new pthreads::Thread();
+  return new pthreads::Thread(handle);
 }

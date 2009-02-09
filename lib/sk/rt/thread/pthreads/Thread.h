@@ -12,6 +12,7 @@
 #define _SK_RT_THREAD_PTHREADS_THREAD_H_
 
 #include <sk/rt/thread/abstract/Thread.h>
+#include <sk/rt/thread/Generic.h>
 #include <sk/rt/Runnable.h>
 #include <pthread.h>
 
@@ -23,8 +24,8 @@ namespace sk {
           : public virtual sk::rt::thread::abstract::Thread
         {
           public:
-            Thread();
-            Thread(sk::rt::Runnable& target);
+            Thread(sk::rt::thread::Generic& handle);
+            Thread(sk::rt::Runnable& target, thread::Generic& handle);
             virtual ~Thread();
 
             void start();
@@ -44,6 +45,7 @@ namespace sk {
 
             pthread_t _thread;
             sk::rt::Runnable& _target;
+            sk::rt::thread::Generic& _handle;
         };
       }
     }

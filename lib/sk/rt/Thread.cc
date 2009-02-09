@@ -145,7 +145,7 @@ void
 sk::rt::Thread::
 start()
 {
-  _runnerHolder.get().start();
+  _runnerHolder.get().start(*this);
 }
 
 void 

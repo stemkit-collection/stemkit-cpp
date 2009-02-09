@@ -27,7 +27,7 @@ namespace sk {
           Runner(sk::rt::Runnable& target);
           virtual ~Runner();
       
-          void start();
+          void start(sk::rt::thread::Generic& handle);
           const sk::rt::thread::State& getState() const;
           thread::abstract::Thread& getThreadImplementation() const;
 

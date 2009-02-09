@@ -20,7 +20,7 @@ static sk::util::Class __class("sk::rt::thread::Main");
 
 sk::rt::thread::Main::
 Main()
-  : _threadHolder(Implementation::instance().wrapCurrentThread())
+  : _threadHolder(Implementation::instance().wrapCurrentThread(*this))
 {
 }
 

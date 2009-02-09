@@ -27,8 +27,8 @@ namespace sk {
             virtual ~Implementation();
 
             mock::Mutex* makeMutex() const;
-            mock::Thread* makeThread(sk::rt::Runnable& target) const;
-            mock::Thread* wrapCurrentThread() const;
+            mock::Thread* makeThread(sk::rt::Runnable& target, sk::rt::thread::Generic& handle) const;
+            mock::Thread* wrapCurrentThread(sk::rt::thread::Generic& handle) const;
         
             // sk::util::Object re-implementation.
             const sk::util::Class getClass() const;

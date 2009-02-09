@@ -15,6 +15,7 @@
 #include <sk/rt/thread/abstract/Mutex.h>
 #include <sk/rt/thread/abstract/Thread.h>
 #include <sk/rt/Runnable.h>
+#include <sk/rt/thread/Generic.h>
 
 namespace sk {
   namespace rt {
@@ -25,8 +26,8 @@ namespace sk {
         {
           public:
             virtual abstract::Mutex* makeMutex() const = 0;
-            virtual abstract::Thread* makeThread(sk::rt::Runnable& target) const = 0;
-            virtual abstract::Thread* wrapCurrentThread() const = 0;
+            virtual abstract::Thread* makeThread(sk::rt::Runnable& target, sk::rt::thread::Generic& handle) const = 0;
+            virtual abstract::Thread* wrapCurrentThread(sk::rt::thread::Generic& handle) const = 0;
         };
       }
     }
