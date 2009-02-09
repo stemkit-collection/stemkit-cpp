@@ -43,3 +43,10 @@ makeThread(sk::rt::Runnable& target) const
 {
   return new pthreads::Thread(target);
 }
+
+sk::rt::thread::pthreads::Thread*
+sk::rt::thread::pthreads::Implementation::
+wrapCurrentThread() const
+{
+  return new pthreads::Thread();
+}

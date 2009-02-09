@@ -11,7 +11,9 @@
 #ifndef _SK_RT_THREAD_MAIN_H_
 #define _SK_RT_THREAD_MAIN_H_
 
+#include <sk/util/Holder.hxx>
 #include <sk/rt/thread/Generic.h>
+#include <sk/rt/thread/abstract/Thread.h>
 
 namespace sk {
   namespace rt {
@@ -39,10 +41,13 @@ namespace sk {
 
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
+          long long getId() const;
       
         private:
           Main(const Main& other);
           Main& operator = (const Main& other);
+
+          sk::util::Holder<abstract::Thread> _threadHolder;
       };
     }
   }

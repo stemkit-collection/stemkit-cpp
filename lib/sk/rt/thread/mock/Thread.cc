@@ -17,6 +17,11 @@
 static const sk::util::Class __class("sk::rt::thread::mock::Thread");
 
 sk::rt::thread::mock::Thread::
+Thread()
+{
+}
+
+sk::rt::thread::mock::Thread::
 Thread(sk::rt::Runnable& target)
 {
 }

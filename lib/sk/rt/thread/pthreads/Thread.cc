@@ -11,6 +11,7 @@
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
 #include <sk/util/SystemException.h>
+#include <sk/util/IllegalStateException.h>
 #include <sk/util/SystemExit.h>
 
 #include "Thread.h"
@@ -24,6 +25,19 @@ namespace {
       throw sk::util::SystemException("pthread_" + sk::util::String(name) + "()", status);
     }
   }
+}
+
+namespace {
+  struct DummyRunnable : public virtual sk::rt::Runnable {
+    void run() const {
+    }
+  } DUMMY_TARGET;
+}
+
+sk::rt::thread::pthreads::Thread::
+Thread()
+  : _target(DUMMY_TARGET), _thread(pthread_self())
+{
 }
 
 sk::rt::thread::pthreads::Thread::
@@ -48,6 +62,9 @@ void
 sk::rt::thread::pthreads::Thread::
 start()
 {
+  if(&_target == &DUMMY_TARGET) {
+    throw sk::util::IllegalStateException(SK_METHOD);
+  }
   exceptionUnlessSuccess("create", pthread_create(&_thread, 0, runner, this));
 }
 

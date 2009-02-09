@@ -26,6 +26,7 @@ namespace sk {
           public:
             virtual abstract::Mutex* makeMutex() const = 0;
             virtual abstract::Thread* makeThread(sk::rt::Runnable& target) const = 0;
+            virtual abstract::Thread* wrapCurrentThread() const = 0;
         };
       }
     }

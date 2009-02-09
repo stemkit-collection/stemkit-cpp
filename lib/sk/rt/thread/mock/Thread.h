@@ -22,6 +22,7 @@ namespace sk {
           : public virtual sk::rt::thread::abstract::Thread
         {
           public:
+            Thread();
             Thread(sk::rt::Runnable& target);
             virtual ~Thread();
         

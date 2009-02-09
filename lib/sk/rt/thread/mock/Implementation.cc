@@ -12,7 +12,6 @@
 #include <sk/util/String.h>
 
 #include "Implementation.h"
-#include "Mutex.h"
 
 sk::rt::thread::mock::Implementation::
 Implementation()
@@ -43,4 +42,11 @@ sk::rt::thread::mock::Implementation::
 makeThread(sk::rt::Runnable& target) const
 {
   return new mock::Thread(target);
+}
+
+sk::rt::thread::mock::Thread*
+sk::rt::thread::mock::Implementation::
+wrapCurrentThread() const
+{
+  return new mock::Thread();
 }
