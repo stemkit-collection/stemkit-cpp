@@ -162,6 +162,13 @@ interrupt()
   _runnerHolder.get().getThreadImplementation().interrupt();
 }
 
+bool
+sk::rt::Thread::
+isMain() const
+{
+  return false;
+}
+
 bool 
 sk::rt::Thread::
 isAlive() const
@@ -194,7 +201,7 @@ sk::rt::thread::Generic&
 sk::rt::Thread::
 currentThread()
 {
-  throw sk::util::UnsupportedOperationException(SK_CLASS_METHOD);
+  return sk::rt::thread::Dispatcher::main().currentThread();
 }
 
 int 

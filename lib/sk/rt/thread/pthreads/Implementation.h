@@ -33,6 +33,7 @@ namespace sk {
             pthreads::Mutex* makeMutex() const;
             pthreads::Thread* makeThread(sk::rt::Runnable& target, sk::rt::thread::Generic& handle) const;
             pthreads::Thread* wrapCurrentThread(sk::rt::thread::Generic& handle) const;
+            sk::rt::thread::Generic& getGeneric() const;
         
             // sk::util::Object re-implementation.
             const sk::util::Class getClass() const;

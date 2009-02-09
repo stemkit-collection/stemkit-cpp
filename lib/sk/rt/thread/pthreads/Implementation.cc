@@ -80,3 +80,14 @@ clearGeneric() const
 {
   exceptionUnlessSuccess("setspecific", pthread_setspecific(_currentThreadKey, 0));
 }
+
+sk::rt::thread::Generic& 
+sk::rt::thread::pthreads::Implementation::
+getGeneric() const
+{
+  void* value = pthread_getspecific(_currentThreadKey);
+  if(value == 0) {
+    throw sk::util::IllegalStateException("Generic not initialized for this thread");
+  }
+  return *static_cast<sk::rt::thread::Generic*>(value);
+}

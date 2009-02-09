@@ -92,6 +92,13 @@ isAlive() const
   return true;
 }
 
+bool
+sk::rt::thread::Main::
+isMain() const
+{
+  return true;
+}
+
 bool 
 sk::rt::thread::Main::
 isInterrupted() const

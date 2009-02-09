@@ -38,6 +38,7 @@ namespace sk {
           // sk::rt::thread::Generic implementation
           bool isAlive() const;
           bool isInterrupted() const;
+          bool isMain() const;
 
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;

@@ -31,6 +31,7 @@ namespace sk {
 
           virtual bool isAlive() const = 0;
           virtual bool isInterrupted() const = 0;
+          virtual bool isMain() const = 0;
       };
     }
   }

@@ -28,6 +28,7 @@ namespace sk {
           virtual ~Dispatcher();
 
           long long makeSequence();
+          sk::rt::thread::Generic& currentThread();
       
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;

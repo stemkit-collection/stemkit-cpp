@@ -13,6 +13,7 @@
 #include <sk/util/Holder.cxx>
 
 #include "Dispatcher.h"
+#include "Implementation.h"
 
 sk::util::Holder<sk::rt::thread::Dispatcher> sk::rt::thread::Dispatcher::_mainHolder;
 static const sk::util::Class __class("sk::rt::thread::Dispatcher");
@@ -61,4 +62,11 @@ makeSequence()
   _mutex.unlock();
 
   return sequence;
+}
+
+sk::rt::thread::Generic&
+sk::rt::thread::Dispatcher::
+currentThread() 
+{
+  return Implementation::instance().getGeneric();
 }
