@@ -13,6 +13,7 @@
 #include <sk/util/UnsupportedOperationException.h>
 #include <sk/util/Holder.cxx>
 
+#include "Implementation.h"
 #include "Runner.h"
 
 static const sk::util::Class __class("sk::rt::thread::Runner");
@@ -40,6 +41,21 @@ sk::rt::thread::Runner::
 getState() const
 {
   return _stateHolder.get();
+}
+
+sk::rt::thread::abstract::Thread&
+sk::rt::thread::Runner::
+getThreadImplementation() const
+{
+  return _threadHolder.get();
+}
+
+void
+sk::rt::thread::Runner::
+start()
+{
+  _threadHolder.set(thread::Implementation::instance().makeThread(*this));
+  _threadHolder.get().start();
 }
 
 void

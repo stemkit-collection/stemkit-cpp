@@ -3,6 +3,7 @@ local library = sk.rt.thread ;
 
 local objects = 
   ../Thread.cc
+  Main.cc
   Dispatcher.cc
   Implementation.cc
   State.cc

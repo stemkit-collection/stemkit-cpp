@@ -14,14 +14,12 @@
 #include <sk/util/UnsupportedOperationException.h>
 
 #include <sk/rt/Thread.h>
-#include <sk/rt/thread/abstract/Factory.h>
 
 #include <sstream>
 #include <exception>
 #include <iostream>
 
 #include "thread/Dispatcher.h"
-#include "thread/Implementation.h"
 #include "thread/Runner.h"
 
 static const sk::util::Class __class("sk::rt::Thread");
@@ -140,29 +138,28 @@ stop()
   if(getState() == thread::State::SK_T_TERMINATED) {
     return;
   }
-  _threadHolder.get().stop();
+  _runnerHolder.get().getThreadImplementation().stop();
 }
 
 void
 sk::rt::Thread::
 start()
 {
-  _threadHolder.set(thread::Implementation::instance().makeThread(_runnerHolder.get()));
-  _threadHolder.get().start();
+  _runnerHolder.get().start();
 }
 
 void 
 sk::rt::Thread::
 join()
 {
-  _threadHolder.get().join();
+  _runnerHolder.get().getThreadImplementation().join();
 }
 
 void 
 sk::rt::Thread::
 interrupt()
 {
-  _threadHolder.get().interrupt();
+  _runnerHolder.get().getThreadImplementation().interrupt();
 }
 
 bool 
@@ -193,7 +190,7 @@ getState() const
   return _runnerHolder.get().getState();
 }
 
-sk::rt::Thread& 
+sk::rt::thread::Generic& 
 sk::rt::Thread::
 currentThread()
 {

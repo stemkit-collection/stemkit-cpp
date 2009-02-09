@@ -15,15 +15,17 @@
 #include <sk/rt/thread/State.h>
 #include <sk/util/Holder.hxx>
 
-#include <sk/rt/thread/abstract/Thread.h>
+#include <sk/rt/thread/Generic.h>
 
 namespace sk {
   namespace rt {
     namespace thread {
       class Runner;
     }
+
     class Thread 
-      : public virtual sk::rt::Runnable
+      : public virtual sk::rt::thread::Generic,
+        public virtual sk::rt::Runnable
     {
       public:
         Thread();
@@ -34,14 +36,17 @@ namespace sk {
         Thread(sk::rt::Runnable* target, const sk::util::String& name);
         virtual ~Thread();
 
+        // sk::rt::thread::Generic implementation
         void start();
         void stop();
         void join();
         void interrupt();
 
+        // sk::rt::thread::Generic implementation
         const sk::util::String getName() const;
         const sk::rt::thread::State& getState() const;
 
+        // sk::rt::thread::Generic implementation
         bool isAlive() const;
         bool isInterrupted() const;
 
@@ -49,7 +54,7 @@ namespace sk {
         const sk::util::Class getClass() const;
         long long getId() const;
 
-        static Thread& currentThread();
+        static thread::Generic& currentThread();
         static int activeCount();
         static void yield();
         static void pass();
@@ -68,7 +73,6 @@ namespace sk {
 
         sk::util::Holder<sk::rt::Runnable> _targetHolder;
         sk::util::Holder<thread::Runner> _runnerHolder;
-        sk::util::Holder<thread::abstract::Thread> _threadHolder;
 
         sk::util::String _name;
         long long _id;

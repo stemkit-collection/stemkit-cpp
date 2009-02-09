@@ -15,6 +15,8 @@
 #include <sk/rt/thread/State.h>
 #include <sk/util/Holder.hxx>
 
+#include <sk/rt/thread/abstract/Thread.h>
+
 namespace sk {
   namespace rt {
     namespace thread {
@@ -25,7 +27,9 @@ namespace sk {
           Runner(sk::rt::Runnable& target);
           virtual ~Runner();
       
+          void start();
           const sk::rt::thread::State& getState() const;
+          thread::abstract::Thread& getThreadImplementation() const;
 
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
@@ -39,6 +43,7 @@ namespace sk {
           Runner& operator = (const Runner& other);
 
           sk::rt::Runnable& _target;
+          sk::util::Holder<thread::abstract::Thread> _threadHolder;
           mutable sk::util::Holder<const sk::rt::thread::State> _stateHolder;
       };
     }
