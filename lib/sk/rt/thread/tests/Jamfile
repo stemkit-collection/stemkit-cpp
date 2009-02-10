@@ -4,28 +4,23 @@ local test = sk-rt-thread-test ;
 
 local objects = 
   TestSuite.cc
-  ThreadTest.cc
+  # ThreadTest.cc
+  # DispatcherTest.cc
+  # ThreadOperationTest.cc
   MutexTest.cc
-  DispatcherTest.cc
 ;
 
-local operation-objects = 
-  ThreadOperationTest.cc
-;
-
-local test-categories = mock pthreads ;
+local test-categories = pthreads ;
 local category ;
 
-use-unit-test $(objects) $(operation-objects) ;
+use-unit-test $(objects) ;
 
 for category in $(test-categories) {
   local test = $(test)-$(category) ;
 
-  use-project-libraries $(test) : sk.util sk.cppunit sk.rt.thread ;
+  use-project-libraries $(test) : sk.rt.bundle sk.util sk.cppunit sk.rt.thread ;
   use-project-libraries $(test) : sk.rt.thread.$(category) ;
 
   use-unit-test $(test) ;
+  make-cpp-test $(test) : $(objects) ;
 }
-
-make-cpp-test $(test)-mock : $(objects) ;
-make-cpp-test $(test)-pthreads : $(objects) $(operation-objects) ;

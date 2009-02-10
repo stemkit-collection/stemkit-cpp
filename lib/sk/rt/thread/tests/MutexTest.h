@@ -22,8 +22,9 @@ namespace sk {
           : public CppUnit::TestFixture
         {
           CPPUNIT_TEST_SUITE(sk::rt::thread::tests::MutexTest);
-            CPPUNIT_TEST(testLocking);
-            CPPUNIT_TEST(testSynchronize);
+             CPPUNIT_TEST(testBasics);
+            // CPPUNIT_TEST(testLocking);
+            // CPPUNIT_TEST(testSynchronize);
           CPPUNIT_TEST_SUITE_END();
         
           public:
@@ -34,6 +35,7 @@ namespace sk {
             void tearDown();
             void testLocking();
             void testSynchronize();
+            void testBasics();
         
           private:
             MutexTest(const MutexTest& other);

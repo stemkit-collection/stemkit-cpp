@@ -79,3 +79,17 @@ testSynchronize()
   CPPUNIT_ASSERT_EQUAL(true, visited);
 }
 
+void 
+sk::rt::thread::tests::MutexTest::
+testBasics()
+{
+  {
+    sk::rt::thread::Mutex mutex;
+    mutex.lock();
+    mutex.lock();
+    mutex.lock();
+    mutex.unlock();
+    mutex.unlock();
+    mutex.unlock();
+  }
+}
