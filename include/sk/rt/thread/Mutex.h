@@ -17,9 +17,13 @@
 #include <sk/rt/Lockable.h>
 #include <sk/rt/thread/abstract/Mutex.h>
 
+#include <sk/rt/Scope.h>
+
 namespace sk {
   namespace rt {
     namespace thread {
+      class Generic;
+
       class Mutex 
         : public virtual sk::rt::Lockable
       {
@@ -28,21 +32,32 @@ namespace sk {
           virtual ~Mutex();
 
           bool isLocked() const;
+          int getHoldCount() const;
       
           // sk::rt::Locable implementation.
           void lock();
+          bool tryLock();
           void unlock();
           void synchronize(const sk::rt::Runnable& block);
 
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
+          const sk::util::String inspect() const;
       
         private:
           Mutex(const Mutex& other);
           Mutex& operator = (const Mutex& other);
 
+          void processLocked();
+          void processUnlocked();
+
           bool _locked;
+          int _holdCount;
+          bool _maintainOwner;
+          bool _maintainState;
           sk::util::Holder<abstract::Mutex> _mutexHolder;
+          sk::util::Holder<sk::rt::thread::Generic> _ownerHolder;
+          sk::rt::Scope _scope;
       };
     }
   }
