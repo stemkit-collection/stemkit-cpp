@@ -9,11 +9,7 @@
 */
 
 #include <sk/util/Class.h>
-#include <sk/util/Method.h>
 #include <sk/util/String.h>
-#include <sk/util/Integer.h>
-#include <sk/util/Boolean.h>
-#include <sk/util/UnsupportedOperationException.h>
 #include <sk/util/Holder.cxx>
 
 #include <sk/rt/thread/Mutex.h>
@@ -25,7 +21,7 @@ static const sk::util::Class __class("sk::rt::thread::Mutex");
 
 sk::rt::thread::Mutex::
 Mutex()
-  : _scope(*this), _mutexHolder(Implementation::instance().makeSimpleMutex())
+  : _mutexHolder(Implementation::instance().makeSimpleMutex())
 {
 }
 

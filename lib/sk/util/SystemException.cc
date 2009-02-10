@@ -14,13 +14,13 @@
 
 sk::util::SystemException::
 SystemException(const sk::util::String& message)
-  : sk::util::Exception(join(join(join("System", message), errno), strerror(errno)))
+  : sk::util::Exception(join(join(join("System", message), errno), strerror(errno))), _code(errno)
 {
 }
 
 sk::util::SystemException::
 SystemException(const sk::util::String& message, int code)
-  : sk::util::Exception(join(join(join("System", message), code), strerror(code)))
+  : sk::util::Exception(join(join(join("System", message), code), strerror(code))), _code(code)
 {
 }
 
@@ -29,4 +29,11 @@ sk::util::SystemException::
 getClass() const
 {
   return sk::util::Class("sk::util::SystemException");
+}
+
+int
+sk::util::SystemException::
+getCode() const
+{
+  return _code;
 }

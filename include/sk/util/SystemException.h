@@ -19,9 +19,14 @@ namespace sk {
       public:
         SystemException(const sk::util::String& message);
         SystemException(const sk::util::String& message, int code);
+
+        int getCode() const;
         
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
+
+      private:
+        int _code;
     };
   }
 }

@@ -26,10 +26,9 @@ int main(int argc, const char* argv[])
   sk::rt::Scope::controller().loadXmlConfig(
     sk::rt::config::InlineLocator("\n\
       <scope name='app'>\n\
-        <scope name='sk::rt::thread::Mutex'>\n\
+        <scope name='sk::rt::thread::ReentrantLock'>\n\
           <log destination='std::cerr' level='fatal' show-object='false' show-time='true' />\n\
           <property name='maintain-owner' value='false' />\n\
-          <property name='maintain-state' value='false' />\n\
         </scope>\n\
       </scope>\n\
     ")

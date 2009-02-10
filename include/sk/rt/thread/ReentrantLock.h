@@ -8,8 +8,8 @@
  *  Author: Gennady Bystritsky
 */
 
-#ifndef _SK_RT_THREAD_MUTEX_H_
-#define _SK_RT_THREAD_MUTEX_H_
+#ifndef _SK_RT_THREAD_REENTRANTLOCK_H_
+#define _SK_RT_THREAD_REENTRANTLOCK_H_
 
 #include <sk/util/Holder.hxx>
 
@@ -20,14 +20,17 @@
 namespace sk {
   namespace rt {
     namespace thread {
-      class Mutex 
+      class Generic;
+
+      class ReentrantLock 
         : public virtual sk::rt::Lockable
       {
         public:
-          Mutex();
-          virtual ~Mutex();
+          ReentrantLock();
+          virtual ~ReentrantLock();
 
           bool isLocked() const;
+          int getHoldCount() const;
       
           // sk::rt::Locable implementation.
           void lock();
@@ -40,13 +43,18 @@ namespace sk {
           const sk::util::String inspect() const;
       
         private:
-          Mutex(const Mutex& other);
-          Mutex& operator = (const Mutex& other);
+          ReentrantLock(const ReentrantLock& other);
+          ReentrantLock& operator = (const ReentrantLock& other);
 
+          void processLocked();
+          void processUnlocked();
+
+          int _holdCount;
           sk::util::Holder<abstract::Mutex> _mutexHolder;
+          sk::util::Holder<sk::rt::thread::Generic> _ownerHolder;
       };
     }
   }
 }
 
-#endif /* _SK_RT_THREAD_MUTEX_H_ */
+#endif /* _SK_RT_THREAD_REENTRANTLOCK_H_ */

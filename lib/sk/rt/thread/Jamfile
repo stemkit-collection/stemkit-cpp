@@ -8,6 +8,7 @@ local objects =
   Implementation.cc
   State.cc
   Mutex.cc
+  ReentrantLock.cc
   Runner.cc
 ;
 

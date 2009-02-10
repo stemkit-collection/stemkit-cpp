@@ -8,6 +8,7 @@ local objects =
   DispatcherTest.cc
   ThreadOperationTest.cc
   MutexTest.cc
+  ReentrantLockTest.cc
 ;
 
 local test-categories = pthreads ;
