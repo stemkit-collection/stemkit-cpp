@@ -86,10 +86,6 @@ testBasics()
   {
     sk::rt::thread::Mutex mutex;
     mutex.lock();
-    mutex.lock();
-    mutex.lock();
-    mutex.unlock();
-    mutex.unlock();
     mutex.unlock();
   }
 }

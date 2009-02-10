@@ -23,8 +23,8 @@ namespace sk {
         {
           CPPUNIT_TEST_SUITE(sk::rt::thread::tests::MutexTest);
              CPPUNIT_TEST(testBasics);
-            // CPPUNIT_TEST(testLocking);
-            // CPPUNIT_TEST(testSynchronize);
+             CPPUNIT_TEST(testLocking);
+             CPPUNIT_TEST(testSynchronize);
           CPPUNIT_TEST_SUITE_END();
         
           public:

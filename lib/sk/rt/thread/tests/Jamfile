@@ -4,9 +4,9 @@ local test = sk-rt-thread-test ;
 
 local objects = 
   TestSuite.cc
-  # ThreadTest.cc
-  # DispatcherTest.cc
-  # ThreadOperationTest.cc
+  ThreadTest.cc
+  DispatcherTest.cc
+  ThreadOperationTest.cc
   MutexTest.cc
 ;
 

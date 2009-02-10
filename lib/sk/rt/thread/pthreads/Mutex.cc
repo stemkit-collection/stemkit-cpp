@@ -87,7 +87,7 @@ tryLock()
   if(status == EBUSY) {
     return false;
   }
-  exceptionUnlessSuccess("mutex_trylock", pthread_mutex_trylock(&_mutex));
+  exceptionUnlessSuccess("mutex_trylock", status);
   return true;
 }
 

@@ -22,8 +22,6 @@
 namespace sk {
   namespace rt {
     namespace thread {
-      class Generic;
-
       class Mutex 
         : public virtual sk::rt::Lockable
       {
@@ -32,7 +30,6 @@ namespace sk {
           virtual ~Mutex();
 
           bool isLocked() const;
-          int getHoldCount() const;
       
           // sk::rt::Locable implementation.
           void lock();
@@ -48,15 +45,7 @@ namespace sk {
           Mutex(const Mutex& other);
           Mutex& operator = (const Mutex& other);
 
-          void processLocked();
-          void processUnlocked();
-
-          bool _locked;
-          int _holdCount;
-          bool _maintainOwner;
-          bool _maintainState;
           sk::util::Holder<abstract::Mutex> _mutexHolder;
-          sk::util::Holder<sk::rt::thread::Generic> _ownerHolder;
           sk::rt::Scope _scope;
       };
     }
