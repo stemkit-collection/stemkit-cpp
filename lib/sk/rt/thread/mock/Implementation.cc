@@ -35,7 +35,14 @@ getClass() const
 
 sk::rt::thread::mock::Mutex*
 sk::rt::thread::mock::Implementation::
-makeMutex() const
+makeSimpleMutex() const
+{
+  return new mock::Mutex();
+}
+
+sk::rt::thread::mock::Mutex*
+sk::rt::thread::mock::Implementation::
+makeRecursiveMutex() const
 {
   return new mock::Mutex();
 }

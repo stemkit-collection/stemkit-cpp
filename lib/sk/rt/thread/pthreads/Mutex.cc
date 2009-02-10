@@ -27,11 +27,11 @@ namespace {
 }
 
 sk::rt::thread::pthreads::Mutex::
-Mutex()
+Mutex(int mutex_type)
 {
   exceptionUnlessSuccess("mutexattr_init", pthread_mutexattr_init(&_attributes));
   try {
-    exceptionUnlessSuccess("mutexattr_settype", pthread_mutexattr_settype(&_attributes, PTHREAD_MUTEX_RECURSIVE));
+    exceptionUnlessSuccess("mutexattr_settype", pthread_mutexattr_settype(&_attributes, mutex_type));
     exceptionUnlessSuccess("mutex_init", pthread_mutex_init(&_mutex, &_attributes));
   }
   catch(...) {

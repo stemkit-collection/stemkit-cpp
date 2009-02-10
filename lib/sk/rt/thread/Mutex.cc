@@ -28,7 +28,7 @@ static const sk::util::Class __class("sk::rt::thread::Mutex");
 
 sk::rt::thread::Mutex::
 Mutex()
-  : _scope(*this), _locked(false), _holdCount(0), _mutexHolder(Implementation::instance().makeMutex())
+  : _scope(*this), _locked(false), _holdCount(0), _mutexHolder(Implementation::instance().makeSimpleMutex())
 {
   _maintainOwner = _scope.getProperty("maintain-owner", sk::util::Boolean::B_FALSE);
   _maintainState = _scope.getProperty("maintain-state", sk::util::Boolean::B_FALSE);

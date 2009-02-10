@@ -30,7 +30,8 @@ namespace sk {
             virtual ~Implementation();
 
             // sk::rt::thread::abstract::Implementation implmentation.
-            pthreads::Mutex* makeMutex() const;
+            pthreads::Mutex* makeSimpleMutex() const;
+            pthreads::Mutex* makeRecursiveMutex() const;
             pthreads::Thread* makeThread(sk::rt::Runnable& target, sk::rt::thread::Generic& handle) const;
             pthreads::Thread* wrapCurrentThread(sk::rt::thread::Generic& handle) const;
             sk::rt::thread::Generic& getGeneric() const;

@@ -22,7 +22,7 @@ namespace sk {
           : public virtual sk::rt::thread::abstract::Mutex
         {
           public:
-            Mutex();
+            Mutex(int mutex_type);
             virtual ~Mutex();
 
             void lock();

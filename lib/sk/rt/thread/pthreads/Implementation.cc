@@ -11,9 +11,12 @@
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
 #include <sk/util/IllegalStateException.h>
+#include <sk/util/UnsupportedOperationException.h>
 #include <sk/util/SystemException.h>
 
 #include "Implementation.h"
+
+static sk::util::Class __class("sk::rt::thread::pthreads::Implementation");
 
 namespace {
   void exceptionUnlessSuccess(const char* name, int status) {
@@ -39,14 +42,21 @@ const sk::util::Class
 sk::rt::thread::pthreads::Implementation::
 getClass() const
 {
-  return sk::util::Class("sk::rt::thread::pthreads::Implementation");
+  return __class;
 }
 
 sk::rt::thread::pthreads::Mutex*
 sk::rt::thread::pthreads::Implementation::
-makeMutex() const
+makeSimpleMutex() const
 {
-  return new pthreads::Mutex();
+  return new pthreads::Mutex(PTHREAD_MUTEX_ERRORCHECK);
+}
+
+sk::rt::thread::pthreads::Mutex*
+sk::rt::thread::pthreads::Implementation::
+makeRecursiveMutex() const
+{
+  return new pthreads::Mutex(PTHREAD_MUTEX_RECURSIVE);
 }
 
 sk::rt::thread::pthreads::Thread*
