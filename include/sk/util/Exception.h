@@ -1,4 +1,5 @@
-/*  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
+/*  vim: set sw=2:
+ *  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
  *  
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
@@ -30,6 +31,12 @@ namespace sk {
         // std::exception implementation.
         const char* what() const throw();
 
+      template<typename S, typename T>
+      static void guard(S& stream, T& target, void (T::*method)(), const std::string& spot);
+
+      template<typename S, typename T>
+      static void guard(S& stream, T& target, void (T::*method)(), const char* spot = 0);
+
       protected:
         const String join(const String& s1, const String& s2) const;
         const String join(const String& s1, int i1) const;
@@ -37,6 +44,32 @@ namespace sk {
       private:
         sk::util::String _message;
     };
+  }
+}
+
+template<typename S, typename T>
+void 
+sk::util::Exception::
+guard(S& stream, T& target, void (T::*method)(), const std::string& spot)
+{
+  guard(stream, target, method, spot.c_str());
+}
+
+template<typename S, typename T>
+void 
+sk::util::Exception::
+guard(S& stream, T& target, void (T::*method)(), const char* spot) 
+{
+  try {
+    (target.*method)();
+  }
+  catch(const std::exception& exception) {
+    if(spot) stream << spot << ": ";
+    stream << exception.what();
+  }
+  catch(...) {
+    if(spot) stream << spot << ": ";
+    stream << "Unknown exception";
   }
 }
 
