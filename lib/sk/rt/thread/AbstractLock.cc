@@ -22,7 +22,7 @@ static const sk::util::Class __class("sk::rt::thread::AbstractLock");
 
 sk::rt::thread::AbstractLock::
 AbstractLock(abstract::Mutex* mutex, bool ownership)
-  : _mutexHolder(mutex), _lastOwner(0), _ownership(false)
+  : _mutexHolder(mutex), _lastOwner(0), _ownership(ownership)
 {
 }
 
