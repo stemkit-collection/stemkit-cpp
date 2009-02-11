@@ -53,7 +53,8 @@ uint64_t
 sk::util::Object::
 getId() const
 {
-  return reinterpret_cast<uint64_t>(this);
+  uint64_t id = (0U + (reinterpret_cast<const char*>(this) - reinterpret_cast<const char*>(0U)));
+  return id;
 }
 
 const sk::util::String
