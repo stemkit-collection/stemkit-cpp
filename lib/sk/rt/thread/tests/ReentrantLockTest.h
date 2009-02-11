@@ -11,8 +11,11 @@
 #ifndef _SK_RT_THREAD_TESTS_REENTRANTLOCKTEST_H_
 #define _SK_RT_THREAD_TESTS_REENTRANTLOCKTEST_H_
 
+#include <sk/util/Holder.hxx>
 #include <cppunit/TestFixture.h>
 #include <cppunit/extensions/HelperMacros.h>
+
+#include <sk/rt/thread/ReentrantLock.h>
 
 namespace sk {
   namespace rt {
@@ -24,7 +27,9 @@ namespace sk {
           CPPUNIT_TEST_SUITE(sk::rt::thread::tests::ReentrantLockTest);
              CPPUNIT_TEST(testBasics);
              CPPUNIT_TEST(testLocking);
-             CPPUNIT_TEST(testSynchronize);
+             CPPUNIT_TEST(testSynchronizeBlock);
+             CPPUNIT_TEST(testSynchronizeMethodWithoutParam);
+             CPPUNIT_TEST(testSynchronizeMethodWithParam);
           CPPUNIT_TEST_SUITE_END();
         
           public:
@@ -34,12 +39,20 @@ namespace sk {
             void setUp();
             void tearDown();
             void testLocking();
-            void testSynchronize();
+            void testSynchronizeBlock();
+            void testSynchronizeMethodWithoutParam();
+            void testSynchronizeMethodWithParam();
             void testBasics();
         
           private:
             ReentrantLockTest(const ReentrantLockTest& other);
             ReentrantLockTest& operator = (const ReentrantLockTest& other);
+
+            void criticalSectionWithoutParam();
+            void criticalSectionWithParam(bool& flag);
+
+            sk::util::Holder<ReentrantLock> _lockHolder;
+            bool _visited;
         };
       }
     }

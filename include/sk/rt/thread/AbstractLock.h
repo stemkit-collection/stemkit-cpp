@@ -39,6 +39,12 @@ namespace sk {
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
           const sk::util::String inspect() const;
+
+          template<typename T>
+          void synchronize(T& target, void (T::*method)());
+
+          template<typename T, typename P>
+          void synchronize(T& target, void (T::*method)(P&), P& param);
       
         protected:
           AbstractLock(abstract::Mutex* mutex, bool ownership);
@@ -58,6 +64,40 @@ namespace sk {
       };
     }
   }
+}
+
+template<typename T>
+void 
+sk::rt::thread::AbstractLock::
+synchronize(T& target, void (T::*method)())
+{
+  lock();
+  
+  try {
+    (target.*method)();
+  }
+  catch(...) {
+    unlock();
+    throw;
+  }
+  unlock();
+}
+
+template<typename T, typename P>
+void 
+sk::rt::thread::AbstractLock::
+synchronize(T& target, void (T::*method)(P&), P& param)
+{
+  lock();
+  
+  try {
+    (target.*method)(param);
+  }
+  catch(...) {
+    unlock();
+    throw;
+  }
+  unlock();
 }
 
 #endif /* _SK_RT_THREAD_ABSTRACTLOCK_H_ */

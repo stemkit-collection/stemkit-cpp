@@ -12,6 +12,7 @@
 #include <sk/util/SystemException.h>
 #include <sk/rt/thread/ReentrantLock.h>
 #include <sk/rt/Runnable.h>
+#include <sk/util/Holder.cxx>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::rt::thread::tests::ReentrantLockTest);
 
@@ -35,6 +36,7 @@ void
 sk::rt::thread::tests::ReentrantLockTest::
 tearDown()
 {
+  _lockHolder.clear();
 }
 
 void
@@ -79,7 +81,7 @@ testLocking()
 
 void
 sk::rt::thread::tests::ReentrantLockTest::
-testSynchronize()
+testSynchronizeBlock()
 {
   sk::rt::thread::ReentrantLock lock;
   bool visited = false;
@@ -107,8 +109,45 @@ testSynchronize()
   CPPUNIT_ASSERT_EQUAL(true, visited);
 }
 
+void 
+sk::rt::thread::tests::ReentrantLockTest::
+criticalSectionWithoutParam()
+{
+  _visited = true;
+  CPPUNIT_ASSERT_EQUAL(true, _lockHolder.get().isLocked());
+  CPPUNIT_ASSERT_EQUAL(1, _lockHolder.get().getCounter());
+}
 
-#include <iostream>
+void
+sk::rt::thread::tests::ReentrantLockTest::
+testSynchronizeMethodWithoutParam()
+{
+  _visited = false;
+  _lockHolder.set(new ReentrantLock);
+  _lockHolder.get().synchronize(*this, &ReentrantLockTest::criticalSectionWithoutParam);
+
+  CPPUNIT_ASSERT_EQUAL(true, _visited);
+}
+
+void 
+sk::rt::thread::tests::ReentrantLockTest::
+criticalSectionWithParam(bool& flag)
+{
+  flag = true;
+  CPPUNIT_ASSERT_EQUAL(true, _lockHolder.get().isLocked());
+  CPPUNIT_ASSERT_EQUAL(1, _lockHolder.get().getCounter());
+}
+
+void
+sk::rt::thread::tests::ReentrantLockTest::
+testSynchronizeMethodWithParam()
+{
+  bool visited = false;
+  _lockHolder.set(new ReentrantLock);
+  _lockHolder.get().synchronize(*this, &ReentrantLockTest::criticalSectionWithParam, visited);
+
+  CPPUNIT_ASSERT_EQUAL(true, visited);
+}
 
 void 
 sk::rt::thread::tests::ReentrantLockTest::
