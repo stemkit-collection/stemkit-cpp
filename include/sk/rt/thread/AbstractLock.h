@@ -17,6 +17,8 @@
 #include <sk/rt/Lockable.h>
 #include <sk/rt/thread/abstract/Mutex.h>
 
+#include <ostream>
+
 namespace sk {
   namespace rt {
     namespace thread {
@@ -42,13 +44,14 @@ namespace sk {
           AbstractLock(abstract::Mutex* mutex);
 
           bool tryLockCheck() const;
-          virtual const sk::util::String collectInspectInfo() const;
+          virtual void collectInspectInfo(std::ostream& stream) const;
 
         private:
           AbstractLock(const AbstractLock& other);
           AbstractLock& operator = (const AbstractLock& other);
 
           sk::util::Holder<abstract::Mutex> _mutexHolder;
+          uint64_t _lastOwner;
       };
     }
   }

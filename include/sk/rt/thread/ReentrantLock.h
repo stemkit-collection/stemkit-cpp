@@ -11,36 +11,31 @@
 #ifndef _SK_RT_THREAD_REENTRANTLOCK_H_
 #define _SK_RT_THREAD_REENTRANTLOCK_H_
 
-#include <sk/util/Holder.hxx>
-
-#include <sk/rt/Runnable.h>
-#include <sk/rt/Lockable.h>
-#include <sk/rt/thread/abstract/Mutex.h>
+#include <sk/rt/thread/AbstractLock.h>
 
 namespace sk {
   namespace rt {
     namespace thread {
-      class Generic;
-
       class ReentrantLock 
-        : public virtual sk::rt::Lockable
+        : public AbstractLock
       {
         public:
           ReentrantLock();
           virtual ~ReentrantLock();
 
           bool isLocked() const;
-          int getHoldCount() const;
+          int getCounter() const;
       
-          // sk::rt::Locable implementation.
+          // sk::rt::thread::AbstractLock re-implementation.
           void lock();
           bool tryLock();
           void unlock();
-          void synchronize(const sk::rt::Runnable& block);
 
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
-          const sk::util::String inspect() const;
+
+        protected:
+          void collectInspectInfo(std::ostream& stream) const;
       
         private:
           ReentrantLock(const ReentrantLock& other);
@@ -49,9 +44,7 @@ namespace sk {
           void processLocked();
           void processUnlocked();
 
-          int _holdCount;
-          sk::util::Holder<abstract::Mutex> _mutexHolder;
-          sk::util::Holder<sk::rt::thread::Generic> _ownerHolder;
+          int _counter;
       };
     }
   }

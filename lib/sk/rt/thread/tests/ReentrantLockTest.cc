@@ -43,31 +43,31 @@ testLocking()
 {
   sk::rt::thread::ReentrantLock lock;
   CPPUNIT_ASSERT_EQUAL(false, lock.isLocked());
-  CPPUNIT_ASSERT_EQUAL(0, lock.getHoldCount());
+  CPPUNIT_ASSERT_EQUAL(0, lock.getCounter());
 
   lock.lock();
   CPPUNIT_ASSERT_EQUAL(true, lock.isLocked());
-  CPPUNIT_ASSERT_EQUAL(1, lock.getHoldCount());
+  CPPUNIT_ASSERT_EQUAL(1, lock.getCounter());
 
   lock.lock();
   CPPUNIT_ASSERT_EQUAL(true, lock.isLocked());
-  CPPUNIT_ASSERT_EQUAL(2, lock.getHoldCount());
+  CPPUNIT_ASSERT_EQUAL(2, lock.getCounter());
 
   lock.lock();
   CPPUNIT_ASSERT_EQUAL(true, lock.isLocked());
-  CPPUNIT_ASSERT_EQUAL(3, lock.getHoldCount());
+  CPPUNIT_ASSERT_EQUAL(3, lock.getCounter());
 
   lock.unlock();
   CPPUNIT_ASSERT_EQUAL(true, lock.isLocked());
-  CPPUNIT_ASSERT_EQUAL(2, lock.getHoldCount());
+  CPPUNIT_ASSERT_EQUAL(2, lock.getCounter());
 
   lock.unlock();
   CPPUNIT_ASSERT_EQUAL(true, lock.isLocked());
-  CPPUNIT_ASSERT_EQUAL(1, lock.getHoldCount());
+  CPPUNIT_ASSERT_EQUAL(1, lock.getCounter());
 
   lock.unlock();
   CPPUNIT_ASSERT_EQUAL(false, lock.isLocked());
-  CPPUNIT_ASSERT_EQUAL(0, lock.getHoldCount());
+  CPPUNIT_ASSERT_EQUAL(0, lock.getCounter());
 
   try {
     lock.unlock();
@@ -92,7 +92,7 @@ testSynchronize()
       _visited = true;
 
       CPPUNIT_ASSERT_EQUAL(true, _lock.isLocked());
-      CPPUNIT_ASSERT_EQUAL(1, _lock.getHoldCount());
+      CPPUNIT_ASSERT_EQUAL(1, _lock.getCounter());
     }
     const ReentrantLock& _lock;
     bool& _visited;
@@ -106,6 +106,9 @@ testSynchronize()
   CPPUNIT_ASSERT_EQUAL(false, lock.isLocked());
   CPPUNIT_ASSERT_EQUAL(true, visited);
 }
+
+
+#include <iostream>
 
 void 
 sk::rt::thread::tests::ReentrantLockTest::

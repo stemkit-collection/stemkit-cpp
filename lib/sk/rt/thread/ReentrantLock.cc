@@ -10,19 +10,16 @@
 
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
-#include <sk/util/Holder.cxx>
 
 #include <sk/rt/thread/ReentrantLock.h>
-#include <sk/rt/Thread.h>
-
 #include "Implementation.h"
-#include <sstream>
 
 static const sk::util::Class __class("sk::rt::thread::ReentrantLock");
 
 sk::rt::thread::ReentrantLock::
 ReentrantLock()
-  : _holdCount(0), _mutexHolder(Implementation::instance().makeRecursiveMutex())
+  : AbstractLock(Implementation::instance().makeRecursiveMutex()),
+    _counter(0)
 {
 }
 
@@ -42,7 +39,7 @@ void
 sk::rt::thread::ReentrantLock::
 lock()
 {
-  _mutexHolder.get().lock();
+  AbstractLock::lock();
   processLocked();
 }
 
@@ -50,7 +47,7 @@ bool
 sk::rt::thread::ReentrantLock::
 tryLock()
 {
-  if(_mutexHolder.get().tryLock() == true) {
+  if(AbstractLock::tryLock() == true) {
     processLocked();
     return true;
   }
@@ -61,21 +58,15 @@ void
 sk::rt::thread::ReentrantLock::
 processLocked()
 {
-  if(_holdCount == 0) {
-    _ownerHolder.set(sk::rt::Thread::currentThread());
-  }
-  ++_holdCount;
+  ++_counter;
 }
 
 void
 sk::rt::thread::ReentrantLock::
 processUnlocked()
 {
-  if(_holdCount > 0) {
-    --_holdCount;
-  }
-  if(_holdCount == 0) {
-    _ownerHolder.clear();
+  if(_counter > 0) {
+    --_counter;
   }
 }
 
@@ -83,57 +74,31 @@ void
 sk::rt::thread::ReentrantLock::
 unlock()
 {
-  if(_mutexHolder.get().tryLock() == true) {
+  if(AbstractLock::tryLock() == true) {
     processUnlocked();
-    _mutexHolder.get().unlock();
+    AbstractLock::unlock();
   }
-  _mutexHolder.get().unlock();
-}
-
-void
-sk::rt::thread::ReentrantLock::
-synchronize(const sk::rt::Runnable& block)
-{
-  _mutexHolder.get().lock();
-  processLocked();
-
-  try {
-    block.run();
-  }
-  catch(...) {
-    processUnlocked();
-    _mutexHolder.get().unlock();
-    throw;
-  }
-  processUnlocked();
-  _mutexHolder.get().unlock();
+  AbstractLock::unlock();
 }
 
 bool
 sk::rt::thread::ReentrantLock::
 isLocked() const
 {
-  return getHoldCount() > 0;
+  return _counter > 0;
 }
 
 int
 sk::rt::thread::ReentrantLock::
-getHoldCount() const
+getCounter() const
 {
-  return _holdCount;
+  return _counter;
 }
 
-const sk::util::String
+void
 sk::rt::thread::ReentrantLock::
-inspect() const
+collectInspectInfo(std::ostream& stream) const
 {
-  std::stringstream stream;
-  stream << "<"
-    << __class.getName() << "#" << std::hex << getId() << ": "
-    << "locked=" << std::boolalpha << isLocked() << ", "
-    << "count=" << _holdCount << ", "
-    << "owner=" << (_ownerHolder.isEmpty() ? "?" : _ownerHolder.get().inspect())
-    << ">"
-  ;
-  return stream.str();
+  AbstractLock::collectInspectInfo(stream);
+  stream << ", " << "count=" << _counter;
 }

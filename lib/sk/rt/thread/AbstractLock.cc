@@ -12,6 +12,7 @@
 #include <sk/util/String.h>
 #include <sk/util/Holder.cxx>
 
+#include <sk/rt/Thread.h>
 #include <sk/rt/thread/AbstractLock.h>
 #include "Implementation.h"
 
@@ -21,7 +22,7 @@ static const sk::util::Class __class("sk::rt::thread::AbstractLock");
 
 sk::rt::thread::AbstractLock::
 AbstractLock(abstract::Mutex* mutex)
-  : _mutexHolder(mutex)
+  : _mutexHolder(mutex), _lastOwner(0)
 {
 }
 
@@ -42,13 +43,18 @@ sk::rt::thread::AbstractLock::
 lock()
 {
   _mutexHolder.get().lock();
+  // _lastOwner = sk::rt::Thread::currentThread().getId();
 }
 
 bool
 sk::rt::thread::AbstractLock::
 tryLock()
 {
-  return _mutexHolder.get().tryLock();
+  if(_mutexHolder.get().tryLock() == true) {
+    // _lastOwner = sk::rt::Thread::currentThread().getId();
+    return true;
+  }
+  return false;
 }
 
 void
@@ -76,7 +82,7 @@ synchronize(const sk::rt::Runnable& block)
 
 bool
 sk::rt::thread::AbstractLock::
-isLocked() const
+tryLockCheck() const
 {
   if(_mutexHolder.get().tryLock() == true) {
     _mutexHolder.get().unlock();
@@ -85,15 +91,24 @@ isLocked() const
   return true;
 }
 
+void
+sk::rt::thread::AbstractLock::
+collectInspectInfo(std::ostream& stream) const
+{
+  stream 
+    << "owner=" << std::hex << _lastOwner << ", "
+    << "locked=" << std::boolalpha << isLocked()
+  ;
+}
+
 const sk::util::String
 sk::rt::thread::AbstractLock::
 inspect() const
 {
   std::stringstream stream;
-  stream << "<"
-    << __class.getName() << ":" << std::hex << getId() << ": "
-    << "locked?=" << std::boolalpha << isLocked() 
-    << ">"
-  ;
+  stream << "<" << getClass().getName() << "#" << std::hex << getId() << ": ";
+  collectInspectInfo(stream);
+  stream << ">";
+
   return stream.str();
 }
