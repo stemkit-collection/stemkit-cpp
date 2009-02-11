@@ -7,6 +7,7 @@ local objects =
   Dispatcher.cc
   Implementation.cc
   State.cc
+  AbstractLock.cc
   Mutex.cc
   ReentrantLock.cc
   Runner.cc
