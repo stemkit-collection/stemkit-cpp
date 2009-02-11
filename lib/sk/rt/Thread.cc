@@ -103,7 +103,7 @@ reset()
   sk::rt::thread::Implementation::reset();
 }
 
-long long
+uint64_t
 sk::rt::Thread::
 getId() const
 {

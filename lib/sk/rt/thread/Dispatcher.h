@@ -27,7 +27,7 @@ namespace sk {
           Dispatcher();
           virtual ~Dispatcher();
 
-          long long makeSequence();
+          uint64_t makeSequence();
           sk::rt::thread::Generic& currentThread();
       
           // sk::util::Object re-implementation.
@@ -40,7 +40,7 @@ namespace sk {
           Dispatcher(const Dispatcher& other);
           Dispatcher& operator = (const Dispatcher& other);
 
-          long long _sequence;
+          uint64_t _sequence;
           static sk::util::Holder<Dispatcher> _mainHolder;
           sk::rt::thread::Mutex _mutex;
           sk::rt::thread::Main _mainThread;

@@ -53,12 +53,12 @@ getClass() const
   return __class;
 }
 
-long long
+uint64_t
 sk::rt::thread::Dispatcher::
 makeSequence()
 {
   _mutex.lock();
-  long long sequence = ++_sequence;
+  uint64_t sequence = ++_sequence;
   _mutex.unlock();
 
   return sequence;

@@ -8,6 +8,8 @@
 #ifndef SK_UTIL_OBJECT
 #define SK_UTIL_OBJECT
 
+#include <inttypes.h>
+
 namespace sk {
   namespace util {
     class Class;
@@ -34,7 +36,7 @@ namespace sk {
         virtual const Class getClass() const;
 
         /// Returns a unique object id.
-        virtual long long getId() const;
+        virtual uint64_t getId() const;
 
         /// Returns a string representation of the object. By default, it
         /// returns the object's class and the objects's id.

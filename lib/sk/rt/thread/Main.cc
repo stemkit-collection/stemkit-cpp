@@ -36,7 +36,7 @@ getClass() const
   return __class;
 }
 
-long long 
+uint64_t
 sk::rt::thread::Main::
 getId() const
 {

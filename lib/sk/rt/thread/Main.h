@@ -44,7 +44,7 @@ namespace sk {
 
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
-          long long getId() const;
+          uint64_t getId() const;
       
         private:
           Main(const Main& other);

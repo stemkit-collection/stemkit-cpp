@@ -40,9 +40,9 @@ sk::rt::thread::tests::DispatcherTest::
 testSequence()
 {
   sk::rt::thread::Dispatcher dispatcher;
-  CPPUNIT_ASSERT_EQUAL(1LL, dispatcher.makeSequence());
-  CPPUNIT_ASSERT_EQUAL(2LL, dispatcher.makeSequence());
-  CPPUNIT_ASSERT_EQUAL(3LL, dispatcher.makeSequence());
+  CPPUNIT_ASSERT_EQUAL(uint64_t(1), dispatcher.makeSequence());
+  CPPUNIT_ASSERT_EQUAL(uint64_t(2), dispatcher.makeSequence());
+  CPPUNIT_ASSERT_EQUAL(uint64_t(3), dispatcher.makeSequence());
 }
 
 void 
@@ -53,13 +53,13 @@ testMainInstance()
   CPPUNIT_ASSERT(id == Dispatcher::main().getId());
   CPPUNIT_ASSERT(Dispatcher::main().getId() == Dispatcher::main().getId());
 
-  CPPUNIT_ASSERT_EQUAL(1LL, Dispatcher::main().makeSequence());
-  CPPUNIT_ASSERT_EQUAL(2LL, Dispatcher::main().makeSequence());
-  CPPUNIT_ASSERT_EQUAL(3LL, Dispatcher::main().makeSequence());
+  CPPUNIT_ASSERT_EQUAL(uint64_t(1), Dispatcher::main().makeSequence());
+  CPPUNIT_ASSERT_EQUAL(uint64_t(2), Dispatcher::main().makeSequence());
+  CPPUNIT_ASSERT_EQUAL(uint64_t(3), Dispatcher::main().makeSequence());
 
   Dispatcher::reset();
 
-  CPPUNIT_ASSERT_EQUAL(1LL, Dispatcher::main().makeSequence());
+  CPPUNIT_ASSERT_EQUAL(uint64_t(1), Dispatcher::main().makeSequence());
 }
 
 

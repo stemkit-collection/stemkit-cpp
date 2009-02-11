@@ -47,7 +47,7 @@ namespace {
     Class() 
       : sk::util::Class("abc") {}
 
-    long long getId() const {
+    uint64_t getId() const {
       return 21;
     }
   } klass;

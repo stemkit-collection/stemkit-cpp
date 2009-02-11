@@ -49,11 +49,11 @@ getClass() const
   return Class("sk::util::Object");
 }
 
-long long
+uint64_t
 sk::util::Object::
 getId() const
 {
-  return reinterpret_cast<long long>(this);
+  return reinterpret_cast<uint64_t>(this);
 }
 
 const sk::util::String
