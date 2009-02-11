@@ -99,6 +99,20 @@ isMain() const
   return true;
 }
 
+bool
+sk::rt::thread::Main::
+isService() const
+{
+  return false;
+}
+
+bool
+sk::rt::thread::Main::
+isRegular() const
+{
+  return false;
+}
+
 bool 
 sk::rt::thread::Main::
 isInterrupted() const

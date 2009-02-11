@@ -39,6 +39,8 @@ namespace sk {
           bool isAlive() const;
           bool isInterrupted() const;
           bool isMain() const;
+          bool isService() const;
+          bool isRegular() const;
 
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;

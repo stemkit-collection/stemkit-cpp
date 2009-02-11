@@ -45,4 +45,7 @@ testCreateDefault()
 
   CPPUNIT_ASSERT_EQUAL("Thread-1", thread.getName());
   CPPUNIT_ASSERT(thread.getState() == sk::rt::thread::State::SK_T_NEW);
+  CPPUNIT_ASSERT_EQUAL(true, thread.isRegular());
+  CPPUNIT_ASSERT_EQUAL(false, thread.isMain());
+  CPPUNIT_ASSERT_EQUAL(false, thread.isService());
 }

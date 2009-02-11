@@ -164,6 +164,20 @@ isMain() const
   return false;
 }
 
+bool
+sk::rt::Thread::
+isService() const
+{
+  return false;
+}
+
+bool
+sk::rt::Thread::
+isRegular() const
+{
+  return true;
+}
+
 bool 
 sk::rt::Thread::
 isAlive() const
