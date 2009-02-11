@@ -11,6 +11,7 @@
 #include "ThreadOperationTest.h"
 #include <sk/rt/Thread.h>
 #include <sk/rt/Runnable.h>
+#include <sk/rt/thread/ReentrantLock.h>
 #include <iostream>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::rt::thread::tests::ThreadOperationTest);
@@ -46,26 +47,22 @@ namespace {
     void run() const {
       sk::rt::thread::Generic& current = sk::rt::Thread::currentThread();
       for(int counter=3; counter > 0 ;--counter) {
+        _lock.lock();
         std::cerr << "TICK: " 
           << current.getName() << ": "
           << std::boolalpha << current.isMain() << ": "
-          << _message.inspect() 
+          << _message.inspect() << ", " << _lock.inspect()
         << std::endl;
 
         sleep(2);
       }
+      _lock.unlock();
+      _lock.unlock();
+      _lock.unlock();
     }
+    mutable sk::rt::thread::ReentrantLock _lock;
     const sk::util::String _message;
   };
-}
-
-void 
-sk::rt::thread::tests::ThreadOperationTest::
-testMainThread()
-{
-  sk::rt::thread::Generic& current = Thread::currentThread();
-  CPPUNIT_ASSERT_EQUAL(true, current.isMain());
-  CPPUNIT_ASSERT_EQUAL(true, current.isAlive());
 }
 
 void
@@ -84,4 +81,16 @@ testBasics()
 
   t1.join();
   t2.join();
+}
+
+void 
+sk::rt::thread::tests::ThreadOperationTest::
+testMainThread()
+{
+  sk::rt::thread::Generic& current = Thread::currentThread();
+
+  CPPUNIT_ASSERT_EQUAL(true, current.isMain());
+  CPPUNIT_ASSERT_EQUAL(false, current.isService());
+  CPPUNIT_ASSERT_EQUAL(false, current.isRegular());
+  CPPUNIT_ASSERT_EQUAL(true, current.isAlive());
 }
