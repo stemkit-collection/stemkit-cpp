@@ -50,7 +50,17 @@ testDefaultNoOutputButError()
   CPPUNIT_ASSERT_EQUAL(true, _stream.str().empty());
 
   scope.error() << "zzz";
-  CPPUNIT_ASSERT_EQUAL(sk::util::String("ERROR:abc: zzz\n").inspect(), sk::util::String(_stream.str()).inspect());
+  CPPUNIT_ASSERT_EQUAL("ERROR:abc: zzz\n", _stream.str());
+}
+
+void
+sk::rt::tests::ScopeTest::
+testDefaultNoOutputUnlessMessages()
+{
+  Scope scope("abc");
+
+  scope.error();
+  CPPUNIT_ASSERT_EQUAL("", _stream.str());
 }
 
 void

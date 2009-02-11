@@ -21,6 +21,7 @@ namespace sk {
       {
         CPPUNIT_TEST_SUITE(sk::rt::tests::ScopeTest);
           CPPUNIT_TEST(testDefaultNoOutputButError);
+          CPPUNIT_TEST(testDefaultNoOutputUnlessMessages);
           CPPUNIT_TEST(testConcatenation);
           CPPUNIT_TEST(testScope);
           CPPUNIT_TEST(testDefaultProperties);
@@ -33,6 +34,7 @@ namespace sk {
           void setUp();
           void tearDown();
           void testDefaultNoOutputButError();
+          void testDefaultNoOutputUnlessMessages();
           void testConcatenation();
           void testScope();
           void testDefaultProperties();
