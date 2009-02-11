@@ -22,7 +22,7 @@ static const sk::util::Class __class("sk::rt::thread::AbstractLock");
 
 sk::rt::thread::AbstractLock::
 AbstractLock(abstract::Mutex* mutex, bool ownership)
-  : _mutexHolder(mutex), _lastOwner(0), _ownership(ownership)
+  : _mutexHolder(mutex), _lastOwner(0), _ownership(false)
 {
 }
 
@@ -104,10 +104,14 @@ void
 sk::rt::thread::AbstractLock::
 collectInspectInfo(std::ostream& stream) const
 {
-  stream 
-    << "owner=" << std::hex << _lastOwner << ", "
-    << "locked=" << std::boolalpha << isLocked()
-  ;
+  stream << "owner=" ;
+  if(_ownership == true) {
+    stream << std::hex << _lastOwner;
+  }
+  else {
+    stream << '?';
+  }
+  stream  << ", " << "locked=" << std::boolalpha << isLocked();
 }
 
 const sk::util::String
