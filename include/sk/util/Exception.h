@@ -32,10 +32,10 @@ namespace sk {
         const char* what() const throw();
 
       template<typename S, typename T>
-      static void guard(S& stream, T& target, void (T::*method)(), const std::string& spot);
+      static void guard(S& stream, T& target, void (T::*method)(), const char* spot = 0);
 
       template<typename S, typename T>
-      static void guard(S& stream, T& target, void (T::*method)(), const char* spot = 0);
+      static void guard(S& stream, T& target, void (T::*method)(), const std::string& spot);
 
       protected:
         const String join(const String& s1, const String& s2) const;
@@ -50,27 +50,31 @@ namespace sk {
 template<typename S, typename T>
 void 
 sk::util::Exception::
-guard(S& stream, T& target, void (T::*method)(), const std::string& spot)
-{
-  guard(stream, target, method, spot.c_str());
-}
-
-template<typename S, typename T>
-void 
-sk::util::Exception::
 guard(S& stream, T& target, void (T::*method)(), const char* spot) 
 {
   try {
     (target.*method)();
   }
   catch(const std::exception& exception) {
-    if(spot) stream << spot << ": ";
+    if(spot != 0) {
+      stream << spot << ": ";
+    }
     stream << exception.what();
   }
   catch(...) {
-    if(spot) stream << spot << ": ";
+    if(spot != 0) {
+      stream << spot << ": ";
+    }
     stream << "Unknown exception";
   }
+}
+
+template<typename S, typename T>
+void 
+sk::util::Exception::
+guard(S& stream, T& target, void (T::*method)(), const std::string& spot)
+{
+  guard(stream, target, method, spot.c_str());
 }
 
 #endif /* _SK_UTIL_EXCEPTION_ */
