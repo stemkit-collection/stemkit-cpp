@@ -35,13 +35,14 @@ namespace sk {
         private:
           Stream& operator = (const Stream& other);
 
-          void makeHeader();
+          void makeHeader(std::ostream& stream) const;
 
           const logger::IConfig& _config;
           const logger::IScope& _scope;
           const sk::util::String& _label;
           const Level& _level;
           mutable std::stringstream _stream;
+          mutable bool _requested;
           bool _enabled;
       };
 

@@ -17,17 +17,14 @@
 
 sk::rt::logger::Stream::
 Stream(const sk::util::String& label, const Level& level, const logger::IScope& scope)
-  : _label(label), _config(scope.getConfig()), _enabled(_config.checkLogLevel(level)), _level(level), _scope(scope)
+  : _requested(false), _label(label), _config(scope.getConfig()), _enabled(_config.checkLogLevel(level)), _level(level), _scope(scope)
 {
-  if(isEnabled() == true) {
-    makeHeader();
-  }
 }
 
 sk::rt::logger::Stream::
 ~Stream()
 {
-  if(isEnabled() == true) {
+  if(_requested == true) {
     _stream << std::endl;
     _config.getLogDestination().dispatch(_stream.str().c_str(), _stream.str().size());
   }
@@ -35,28 +32,28 @@ sk::rt::logger::Stream::
 
 void
 sk::rt::logger::Stream::
-makeHeader()
+makeHeader(std::ostream& stream) const
 {
   if(_config.isLogPid() == true) {
-    _stream << getpid() << ' ';
+    stream << getpid() << ' ';
   }
   if(_config.isLogTime() == true) {
     char buffer[64];
     time_t now = time(0);
     strftime(buffer, sizeof(buffer), _config.getTimeFormat(), localtime(&now));
-    _stream << buffer << ' ';
+    stream << buffer << ' ';
   }
 
-  _stream << _level.getName() << ':';
-  _scope.agregateScopeName(_stream);
+  stream << _level.getName() << ':';
+  _scope.agregateScopeName(stream);
 
   if(_config.isLogObject() == true) {
-    _stream << ':' << &_scope.getObject();
+    stream << ':' << &_scope.getObject();
   }
   if(&_label != &sk::util::String::EMPTY) {
-    _stream << ':' << _label;
+    stream << ':' << _label;
   }
-  _stream << ": ";
+  stream << ": ";
 }
 
 const sk::util::Class
@@ -77,5 +74,9 @@ std::ostream&
 sk::rt::logger::Stream::
 getStream() const
 {
+  if(_requested == false) {
+    _requested = true;
+    makeHeader(_stream);
+  }
   return _stream;
 }
