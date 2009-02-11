@@ -1,4 +1,5 @@
-/*  Copyright (c) 2007, Gennady Bystritsky <bystr@mac.com>
+/*  vim: set sw=2:
+ *  Copyright (c) 2007, Gennady Bystritsky <bystr@mac.com>
  *  
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
@@ -16,29 +17,10 @@
 
 sk::rt::logger::Stream::
 Stream(const sk::util::String& label, const Level& level, const logger::IScope& scope)
-  : _config(scope.getConfig()), _enabled(_config.checkLogLevel(level))
+  : _label(label), _config(scope.getConfig()), _enabled(_config.checkLogLevel(level)), _level(level), _scope(scope)
 {
   if(isEnabled() == true) {
-    if(_config.isLogPid() == true) {
-      _stream << getpid() << ' ';
-    }
-    if(_config.isLogTime() == true) {
-      char buffer[64];
-      time_t now = time(0);
-      strftime(buffer, sizeof(buffer), _config.getTimeFormat(), localtime(&now));
-      _stream << buffer << ' ';
-    }
-
-    _stream << level.getName() << ':';
-    scope.agregateScopeName(_stream);
-
-    if(_config.isLogObject() == true) {
-      _stream << ':' << &scope.getObject();
-    }
-    if(&label != &sk::util::String::EMPTY) {
-      _stream << ':' << label;
-    }
-    _stream << ": ";
+    makeHeader();
   }
 }
 
@@ -49,6 +31,32 @@ sk::rt::logger::Stream::
     _stream << std::endl;
     _config.getLogDestination().dispatch(_stream.str().c_str(), _stream.str().size());
   }
+}
+
+void
+sk::rt::logger::Stream::
+makeHeader()
+{
+  if(_config.isLogPid() == true) {
+    _stream << getpid() << ' ';
+  }
+  if(_config.isLogTime() == true) {
+    char buffer[64];
+    time_t now = time(0);
+    strftime(buffer, sizeof(buffer), _config.getTimeFormat(), localtime(&now));
+    _stream << buffer << ' ';
+  }
+
+  _stream << _level.getName() << ':';
+  _scope.agregateScopeName(_stream);
+
+  if(_config.isLogObject() == true) {
+    _stream << ':' << &_scope.getObject();
+  }
+  if(&_label != &sk::util::String::EMPTY) {
+    _stream << ':' << _label;
+  }
+  _stream << ": ";
 }
 
 const sk::util::Class
