@@ -36,14 +36,14 @@ namespace {
 
 sk::rt::thread::pthreads::Thread::
 Thread(const Provider& provider, sk::rt::thread::Generic& handle)
-  : _provider(provider), _handle(handle), _target(DUMMY_TARGET), _thread(pthread_self()), _wrapper(true)
+  : _scope(__class.getName()), _provider(provider), _handle(handle), _target(DUMMY_TARGET), _thread(pthread_self()), _wrapper(true)
 {
   _provider.installGeneric(_handle);
 }
 
 sk::rt::thread::pthreads::Thread::
 Thread(const Provider& provider, sk::rt::Runnable& target, sk::rt::thread::Generic& handle)
-  : _provider(provider), _target(target), _handle(handle), _wrapper(false)
+  : _scope(__class.getName()), _provider(provider), _target(target), _handle(handle), _wrapper(false)
 {
 }
 
@@ -108,11 +108,11 @@ run()
     pthread_exit(reinterpret_cast<void*>(exception.getCode()));
   }
   catch(const std::exception& exception) {
-    std::cerr << "[THREAD EXCEPTION] " << exception.what() << std::endl;
+    _scope.warning() << exception.what();
     pthread_exit(reinterpret_cast<void*>(-1));
   }
   catch(...) {
-    std::cerr << "[UNKNOWN THREAD EXCEPTION]" << std::endl;
+    _scope.warning() << "Unknown exception";
     pthread_exit(reinterpret_cast<void*>(-1));
   }
 }

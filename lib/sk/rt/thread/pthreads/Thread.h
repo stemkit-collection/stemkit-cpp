@@ -13,6 +13,7 @@
 
 #include <sk/rt/thread/abstract/Thread.h>
 #include <sk/rt/thread/Generic.h>
+#include <sk/rt/Scope.h>
 #include <sk/rt/Runnable.h>
 #include <pthread.h>
 
@@ -50,6 +51,7 @@ namespace sk {
             sk::rt::thread::Generic& _handle;
             const Provider& _provider;
             bool _wrapper;
+            sk::rt::Scope _scope;
         };
       }
     }
