@@ -14,7 +14,6 @@
 #include <sk/util/SystemException.h>
 
 #include "Mutex.h"
-#include <iostream>
 
 static const sk::util::Class __class("sk::rt::thread::pthreads::Mutex");
 
@@ -28,6 +27,7 @@ namespace {
 
 sk::rt::thread::pthreads::Mutex::
 Mutex(int mutex_type)
+  : _scope(__class.getName())
 {
   exceptionUnlessSuccess("mutexattr_init", pthread_mutexattr_init(&_attributes));
   try {
@@ -35,7 +35,7 @@ Mutex(int mutex_type)
     exceptionUnlessSuccess("mutex_init", pthread_mutex_init(&_mutex, &_attributes));
   }
   catch(...) {
-    pthread_mutexattr_destroy(&_attributes);
+    destroyMutexAttributes();
     throw;
   }
 }
@@ -43,19 +43,22 @@ Mutex(int mutex_type)
 sk::rt::thread::pthreads::Mutex::
 ~Mutex()
 {
-  try {
-    exceptionUnlessSuccess("mutex_destroy", pthread_mutex_destroy(&_mutex));
-  }
-  catch(const std::exception& exception) {
-    std::cerr << "[" << SK_METHOD << "] " << exception.what() << std::endl;
-  }
+  sk::util::Exception::guard(_scope.warning(), *this, &Mutex::destroyMutex, __FUNCTION__);
+  sk::util::Exception::guard(_scope.warning(), *this, &Mutex::destroyMutexAttributes, __FUNCTION__);
+}
 
-  try {
-    exceptionUnlessSuccess("mutexattr_destroy", pthread_mutexattr_destroy(&_attributes));
-  }
-  catch(const std::exception& exception) {
-    std::cerr << "[" << SK_METHOD << "] " << exception.what() << std::endl;
-  }
+void 
+sk::rt::thread::pthreads::Mutex::
+destroyMutex() 
+{
+  exceptionUnlessSuccess("mutex_destroy", pthread_mutex_destroy(&_mutex));
+}
+
+void 
+sk::rt::thread::pthreads::Mutex::
+destroyMutexAttributes() 
+{
+  exceptionUnlessSuccess("mutexattr_destroy", pthread_mutexattr_destroy(&_attributes));
 }
 
 const sk::util::Class

@@ -12,6 +12,7 @@
 #define _SK_RT_THREAD_PTHREADS_MUTEX_H_
 
 #include <sk/rt/thread/abstract/Mutex.h>
+#include <sk/rt/Scope.h>
 #include <pthread.h>
 
 namespace sk {
@@ -36,8 +37,12 @@ namespace sk {
             Mutex(const Mutex& other);
             Mutex& operator = (const Mutex& other);
 
+            void destroyMutex();
+            void destroyMutexAttributes();
+
             pthread_mutex_t _mutex;
             pthread_mutexattr_t _attributes;
+            sk::rt::Scope _scope;
         };
       }
     }
