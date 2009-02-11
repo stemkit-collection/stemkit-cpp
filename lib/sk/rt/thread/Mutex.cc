@@ -17,8 +17,8 @@
 static const sk::util::Class __class("sk::rt::thread::Mutex");
 
 sk::rt::thread::Mutex::
-Mutex()
-  : AbstractLock(Implementation::instance().makeSimpleMutex())
+Mutex(bool ownership)
+  : AbstractLock(Implementation::instance().makeSimpleMutex(), ownership)
 {
 }
 

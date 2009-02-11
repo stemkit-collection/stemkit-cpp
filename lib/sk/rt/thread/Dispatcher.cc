@@ -20,7 +20,7 @@ static const sk::util::Class __class("sk::rt::thread::Dispatcher");
 
 sk::rt::thread::Dispatcher::
 Dispatcher()
-  : _sequence(0)
+  : _sequence(0), _mutex(false)
 {
 }
 

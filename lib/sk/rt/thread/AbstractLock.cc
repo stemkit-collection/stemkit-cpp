@@ -21,8 +21,8 @@
 static const sk::util::Class __class("sk::rt::thread::AbstractLock");
 
 sk::rt::thread::AbstractLock::
-AbstractLock(abstract::Mutex* mutex)
-  : _mutexHolder(mutex), _lastOwner(0)
+AbstractLock(abstract::Mutex* mutex, bool ownership)
+  : _mutexHolder(mutex), _lastOwner(0), _ownership(ownership)
 {
 }
 
@@ -43,7 +43,9 @@ sk::rt::thread::AbstractLock::
 lock()
 {
   _mutexHolder.get().lock();
-  // _lastOwner = sk::rt::Thread::currentThread().getId();
+  if(_ownership == true) {
+    _lastOwner = sk::rt::Thread::currentThread().getId();
+  }
 }
 
 bool

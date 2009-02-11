@@ -18,7 +18,7 @@ static const sk::util::Class __class("sk::rt::thread::ReentrantLock");
 
 sk::rt::thread::ReentrantLock::
 ReentrantLock()
-  : AbstractLock(Implementation::instance().makeRecursiveMutex()),
+  : AbstractLock(Implementation::instance().makeRecursiveMutex(), true),
     _counter(0)
 {
 }
