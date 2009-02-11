@@ -41,7 +41,7 @@ namespace sk {
           const sk::util::String inspect() const;
       
         protected:
-          AbstractLock(abstract::Mutex* mutex);
+          AbstractLock(abstract::Mutex* mutex, bool ownership);
 
           bool tryLockCheck() const;
           virtual void collectInspectInfo(std::ostream& stream) const;
@@ -50,8 +50,11 @@ namespace sk {
           AbstractLock(const AbstractLock& other);
           AbstractLock& operator = (const AbstractLock& other);
 
+          void registerOwnership();
+
           sk::util::Holder<abstract::Mutex> _mutexHolder;
           uint64_t _lastOwner;
+          bool _ownership;
       };
     }
   }

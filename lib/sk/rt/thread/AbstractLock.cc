@@ -43,6 +43,13 @@ sk::rt::thread::AbstractLock::
 lock()
 {
   _mutexHolder.get().lock();
+  registerOwnership();
+}
+
+void 
+sk::rt::thread::AbstractLock::
+registerOwnership()
+{
   if(_ownership == true) {
     _lastOwner = sk::rt::Thread::currentThread().getId();
   }
@@ -53,7 +60,7 @@ sk::rt::thread::AbstractLock::
 tryLock()
 {
   if(_mutexHolder.get().tryLock() == true) {
-    // _lastOwner = sk::rt::Thread::currentThread().getId();
+    registerOwnership();
     return true;
   }
   return false;

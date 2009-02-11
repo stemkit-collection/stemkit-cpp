@@ -20,7 +20,7 @@ namespace sk {
         : public AbstractLock
       {
         public:
-          Mutex();
+          Mutex(bool ownership = true);
           virtual ~Mutex();
 
           bool isLocked() const;
