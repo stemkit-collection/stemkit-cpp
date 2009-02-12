@@ -8,21 +8,23 @@
  *  Author: Gennady Bystritsky
 */
 
-#ifndef _SK_RT_LOCKABLE_H_
-#define _SK_RT_LOCKABLE_H_
+#ifndef _SK_RT_LOCK_H_
+#define _SK_RT_LOCK_H_
 
 #include <sk/util/Object.h>
 #include <sk/rt/Runnable.h>
 
 namespace sk {
   namespace rt {
-    class Lockable 
+    class Lock 
       : public virtual sk::util::Object
     {
       public:
         virtual void lock() = 0;
         virtual bool tryLock() = 0;
         virtual void unlock() = 0;
+        virtual bool isLocked() const = 0;
+
         virtual void synchronize(const sk::rt::Runnable& block) = 0;
 
         template<typename T>
@@ -39,7 +41,7 @@ namespace sk {
 
 template<typename T>
 void 
-sk::rt::Lockable::
+sk::rt::Lock::
 synchronize(T& target, void (T::*method)())
 {
   struct Block : public virtual sk::rt::Runnable {
@@ -58,7 +60,7 @@ synchronize(T& target, void (T::*method)())
 
 template<typename T, typename P>
 void 
-sk::rt::Lockable::
+sk::rt::Lock::
 synchronize(T& target, void (T::*method)(P&), P& param)
 {
   struct Block : public virtual sk::rt::Runnable {
@@ -78,7 +80,7 @@ synchronize(T& target, void (T::*method)(P&), P& param)
 
 template<typename F>
 void 
-sk::rt::Lockable::
+sk::rt::Lock::
 synchronize(const F& functor)
 {
   struct Block : public virtual sk::rt::Runnable {
@@ -93,4 +95,4 @@ synchronize(const F& functor)
   synchronize(Block(functor));
 }
 
-#endif /* _SK_RT_LOCKABLE_H_ */
+#endif /* _SK_RT_LOCK_H_ */

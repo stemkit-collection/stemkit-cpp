@@ -14,7 +14,7 @@
 #include <sk/util/Holder.hxx>
 
 #include <sk/rt/Runnable.h>
-#include <sk/rt/Lockable.h>
+#include <sk/rt/Lock.h>
 #include <sk/rt/thread/abstract/Mutex.h>
 
 #include <ostream>
@@ -23,20 +23,19 @@ namespace sk {
   namespace rt {
     namespace thread {
       class AbstractLock 
-        : public virtual sk::rt::Lockable
+        : public virtual sk::rt::Lock
       {
         public:
           virtual ~AbstractLock();
 
-          virtual bool isLocked() const = 0;
-      
           // sk::rt::Locable implementation.
           void lock();
           bool tryLock();
           void unlock();
+          
+          // sk::rt::Locable implementation.
           void synchronize(const sk::rt::Runnable& block);
-
-          using Lockable::synchronize;
+          using Lock::synchronize;
 
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
