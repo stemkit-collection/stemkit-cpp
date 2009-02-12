@@ -11,43 +11,43 @@
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
 
-#include <sk/rt/thread/ReentrantLock.h>
-#include "Implementation.h"
+#include <sk/rt/ReentrantLock.h>
+#include "thread/Implementation.h"
 
-static const sk::util::Class __class("sk::rt::thread::ReentrantLock");
+static const sk::util::Class __class("sk::rt::ReentrantLock");
 
-sk::rt::thread::ReentrantLock::
+sk::rt::ReentrantLock::
 ReentrantLock()
-  : AbstractLock(Implementation::instance().makeRecursiveMutex(), true),
+  : thread::AbstractLock(thread::Implementation::instance().makeRecursiveMutex(), true),
     _counter(0)
 {
 }
 
-sk::rt::thread::ReentrantLock::
+sk::rt::ReentrantLock::
 ~ReentrantLock()
 {
 }
 
 const sk::util::Class
-sk::rt::thread::ReentrantLock::
+sk::rt::ReentrantLock::
 getClass() const
 {
   return __class;
 }
 
 void
-sk::rt::thread::ReentrantLock::
+sk::rt::ReentrantLock::
 lock()
 {
-  AbstractLock::lock();
+  thread::AbstractLock::lock();
   processLocked();
 }
 
 bool
-sk::rt::thread::ReentrantLock::
+sk::rt::ReentrantLock::
 tryLock()
 {
-  if(AbstractLock::tryLock() == true) {
+  if(thread::AbstractLock::tryLock() == true) {
     processLocked();
     return true;
   }
@@ -55,14 +55,14 @@ tryLock()
 }
 
 void
-sk::rt::thread::ReentrantLock::
+sk::rt::ReentrantLock::
 processLocked()
 {
   ++_counter;
 }
 
 void
-sk::rt::thread::ReentrantLock::
+sk::rt::ReentrantLock::
 processUnlocked()
 {
   if(_counter > 0) {
@@ -71,34 +71,34 @@ processUnlocked()
 }
 
 void
-sk::rt::thread::ReentrantLock::
+sk::rt::ReentrantLock::
 unlock()
 {
-  if(AbstractLock::tryLock() == true) {
+  if(thread::AbstractLock::tryLock() == true) {
     processUnlocked();
-    AbstractLock::unlock();
+    thread::AbstractLock::unlock();
   }
-  AbstractLock::unlock();
+  thread::AbstractLock::unlock();
 }
 
 bool
-sk::rt::thread::ReentrantLock::
+sk::rt::ReentrantLock::
 isLocked() const
 {
   return _counter > 0;
 }
 
 int
-sk::rt::thread::ReentrantLock::
+sk::rt::ReentrantLock::
 getCounter() const
 {
   return _counter;
 }
 
 void
-sk::rt::thread::ReentrantLock::
+sk::rt::ReentrantLock::
 collectInspectInfo(std::ostream& stream) const
 {
-  AbstractLock::collectInspectInfo(stream);
+  thread::AbstractLock::collectInspectInfo(stream);
   stream << ", " << "count=" << _counter;
 }

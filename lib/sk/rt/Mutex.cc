@@ -11,31 +11,31 @@
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
 
-#include <sk/rt/thread/Mutex.h>
-#include "Implementation.h"
+#include <sk/rt/Mutex.h>
+#include "thread/Implementation.h"
 
-static const sk::util::Class __class("sk::rt::thread::Mutex");
+static const sk::util::Class __class("sk::rt::Mutex");
 
-sk::rt::thread::Mutex::
+sk::rt::Mutex::
 Mutex(bool ownership)
-  : AbstractLock(Implementation::instance().makeSimpleMutex(), ownership)
+  : thread::AbstractLock(thread::Implementation::instance().makeSimpleMutex(), ownership)
 {
 }
 
-sk::rt::thread::Mutex::
+sk::rt::Mutex::
 ~Mutex()
 {
 }
 
 const sk::util::Class
-sk::rt::thread::Mutex::
+sk::rt::Mutex::
 getClass() const
 {
   return __class;
 }
 
 bool
-sk::rt::thread::Mutex::
+sk::rt::Mutex::
 isLocked() const
 {
   return tryLockCheck();

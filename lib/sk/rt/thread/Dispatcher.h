@@ -13,7 +13,7 @@
 
 #include <sk/util/Object.h>
 #include <sk/util/Holder.hxx>
-#include <sk/rt/thread/Mutex.h>
+#include <sk/rt/Mutex.h>
 
 #include "Main.h"
 
@@ -43,7 +43,7 @@ namespace sk {
           uint64_t _sequence;
           static sk::util::Holder<Dispatcher> _mainHolder;
           sk::rt::thread::Main _mainThread;
-          sk::rt::thread::Mutex _mutex;
+          sk::rt::Mutex _mutex;
       };
     }
   }

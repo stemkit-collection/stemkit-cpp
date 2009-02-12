@@ -15,7 +15,7 @@
 #include <cppunit/TestFixture.h>
 #include <cppunit/extensions/HelperMacros.h>
 
-#include <sk/rt/thread/ReentrantLock.h>
+#include <sk/rt/ReentrantLock.h>
 
 namespace sk {
   namespace rt {

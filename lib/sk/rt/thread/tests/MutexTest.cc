@@ -9,7 +9,7 @@
 */
 
 #include "MutexTest.h"
-#include <sk/rt/thread/Mutex.h>
+#include <sk/rt/Mutex.h>
 #include <sk/rt/Runnable.h>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::rt::thread::tests::MutexTest);
@@ -40,7 +40,7 @@ void
 sk::rt::thread::tests::MutexTest::
 testLocking()
 {
-  sk::rt::thread::Mutex mutex;
+  sk::rt::Mutex mutex;
   CPPUNIT_ASSERT_EQUAL(false, mutex.isLocked());
 
   mutex.lock();
@@ -54,7 +54,7 @@ void
 sk::rt::thread::tests::MutexTest::
 testSynchronize()
 {
-  sk::rt::thread::Mutex mutex;
+  sk::rt::Mutex mutex;
   bool visited = false;
 
   struct Block : public virtual sk::rt::Runnable {
@@ -84,7 +84,7 @@ sk::rt::thread::tests::MutexTest::
 testBasics()
 {
   {
-    sk::rt::thread::Mutex mutex;
+    sk::rt::Mutex mutex;
     mutex.lock();
     mutex.unlock();
   }

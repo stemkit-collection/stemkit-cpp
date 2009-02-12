@@ -11,7 +11,7 @@
 #include "ThreadOperationTest.h"
 #include <sk/rt/Thread.h>
 #include <sk/rt/Runnable.h>
-#include <sk/rt/thread/ReentrantLock.h>
+#include <sk/rt/ReentrantLock.h>
 #include <iostream>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::rt::thread::tests::ThreadOperationTest);
@@ -60,7 +60,7 @@ namespace {
       _lock.unlock();
       _lock.unlock();
     }
-    mutable sk::rt::thread::ReentrantLock _lock;
+    mutable sk::rt::ReentrantLock _lock;
     const sk::util::String _message;
   };
 }

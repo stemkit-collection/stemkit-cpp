@@ -10,7 +10,7 @@
 
 #include "ReentrantLockTest.h"
 #include <sk/util/SystemException.h>
-#include <sk/rt/thread/ReentrantLock.h>
+#include <sk/rt/ReentrantLock.h>
 #include <sk/rt/Runnable.h>
 #include <sk/util/Holder.cxx>
 
@@ -43,7 +43,7 @@ void
 sk::rt::thread::tests::ReentrantLockTest::
 testLocking()
 {
-  sk::rt::thread::ReentrantLock lock;
+  sk::rt::ReentrantLock lock;
   CPPUNIT_ASSERT_EQUAL(false, lock.isLocked());
   CPPUNIT_ASSERT_EQUAL(0, lock.getCounter());
 
@@ -83,7 +83,7 @@ void
 sk::rt::thread::tests::ReentrantLockTest::
 testSynchronizeBlock()
 {
-  sk::rt::thread::ReentrantLock lock;
+  sk::rt::ReentrantLock lock;
   bool visited = false;
 
   struct Block : public virtual sk::rt::Runnable {
@@ -170,7 +170,7 @@ testSynchronizeFunction()
 
 namespace {
   struct Block {
-    Block(const sk::rt::thread::ReentrantLock& lock, bool& visited)
+    Block(const sk::rt::ReentrantLock& lock, bool& visited)
       : _lock(lock), _visited(visited) {}
 
     void operator()() const {
@@ -179,7 +179,7 @@ namespace {
       CPPUNIT_ASSERT_EQUAL(true, _lock.isLocked());
       CPPUNIT_ASSERT_EQUAL(1, _lock.getCounter());
     }
-    const sk::rt::thread::ReentrantLock& _lock;
+    const sk::rt::ReentrantLock& _lock;
     bool& _visited;
   };
 }
@@ -188,7 +188,7 @@ void
 sk::rt::thread::tests::ReentrantLockTest::
 testSynchronizeFunctor()
 {
-  sk::rt::thread::ReentrantLock lock;
+  sk::rt::ReentrantLock lock;
   bool visited = false;
 
   CPPUNIT_ASSERT_EQUAL(false, visited);
@@ -205,7 +205,7 @@ sk::rt::thread::tests::ReentrantLockTest::
 testBasics()
 {
   {
-    sk::rt::thread::ReentrantLock lock;
+    sk::rt::ReentrantLock lock;
     lock.lock();
     lock.unlock();
   }

@@ -2,15 +2,16 @@
 local library = sk.rt.thread ;
 
 local objects = 
-  ../Thread.cc
   Main.cc
   Dispatcher.cc
   Implementation.cc
   State.cc
   AbstractLock.cc
-  Mutex.cc
-  ReentrantLock.cc
   Runner.cc
+
+  ../Thread.cc
+  ../Mutex.cc
+  ../ReentrantLock.cc
 ;
 
 make-library $(library) : $(objects) ;
