@@ -149,6 +149,57 @@ testSynchronizeMethodWithParam()
   CPPUNIT_ASSERT_EQUAL(true, visited);
 }
 
+namespace {
+  bool global_flag = false;
+  void f() {
+    global_flag = true;
+  }
+}
+
+void
+sk::rt::thread::tests::ReentrantLockTest::
+testSynchronizeFunction()
+{
+  global_flag = false;
+
+  ReentrantLock lock;
+  lock.synchronize(f);
+
+  CPPUNIT_ASSERT_EQUAL(true, global_flag);
+}
+
+namespace {
+  struct Block {
+    Block(const sk::rt::thread::ReentrantLock& lock, bool& visited)
+      : _lock(lock), _visited(visited) {}
+
+    void operator()() const {
+      _visited = true;
+
+      CPPUNIT_ASSERT_EQUAL(true, _lock.isLocked());
+      CPPUNIT_ASSERT_EQUAL(1, _lock.getCounter());
+    }
+    const sk::rt::thread::ReentrantLock& _lock;
+    bool& _visited;
+  };
+}
+
+void
+sk::rt::thread::tests::ReentrantLockTest::
+testSynchronizeFunctor()
+{
+  sk::rt::thread::ReentrantLock lock;
+  bool visited = false;
+
+  CPPUNIT_ASSERT_EQUAL(false, visited);
+  CPPUNIT_ASSERT_EQUAL(false, lock.isLocked());
+
+  lock.synchronize(Block(lock, visited));
+
+  CPPUNIT_ASSERT_EQUAL(false, lock.isLocked());
+  CPPUNIT_ASSERT_EQUAL(true, visited);
+}
+
 void 
 sk::rt::thread::tests::ReentrantLockTest::
 testBasics()

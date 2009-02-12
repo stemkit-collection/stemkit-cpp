@@ -30,6 +30,8 @@ namespace sk {
              CPPUNIT_TEST(testSynchronizeBlock);
              CPPUNIT_TEST(testSynchronizeMethodWithoutParam);
              CPPUNIT_TEST(testSynchronizeMethodWithParam);
+             CPPUNIT_TEST(testSynchronizeFunction);
+             CPPUNIT_TEST(testSynchronizeFunctor);
           CPPUNIT_TEST_SUITE_END();
         
           public:
@@ -42,6 +44,8 @@ namespace sk {
             void testSynchronizeBlock();
             void testSynchronizeMethodWithoutParam();
             void testSynchronizeMethodWithParam();
+            void testSynchronizeFunction();
+            void testSynchronizeFunctor();
             void testBasics();
         
           private:

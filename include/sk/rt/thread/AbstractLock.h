@@ -46,6 +46,9 @@ namespace sk {
           template<typename T, typename P>
           void synchronize(T& target, void (T::*method)(P&), P& param);
       
+          template<typename F>
+          void synchronize(F functor);
+      
         protected:
           AbstractLock(abstract::Mutex* mutex, bool ownership);
 
@@ -92,6 +95,23 @@ synchronize(T& target, void (T::*method)(P&), P& param)
   
   try {
     (target.*method)(param);
+  }
+  catch(...) {
+    unlock();
+    throw;
+  }
+  unlock();
+}
+
+template<typename F>
+void 
+sk::rt::thread::AbstractLock::
+synchronize(F functor)
+{
+  lock();
+  
+  try {
+    functor();
   }
   catch(...) {
     unlock();
