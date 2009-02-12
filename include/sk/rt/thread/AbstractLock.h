@@ -47,7 +47,7 @@ namespace sk {
           void synchronize(T& target, void (T::*method)(P&), P& param);
       
           template<typename F>
-          void synchronize(F functor);
+          void synchronize(const F& functor);
       
         protected:
           AbstractLock(abstract::Mutex* mutex, bool ownership);
@@ -74,16 +74,18 @@ void
 sk::rt::thread::AbstractLock::
 synchronize(T& target, void (T::*method)())
 {
-  lock();
-  
-  try {
-    (target.*method)();
-  }
-  catch(...) {
-    unlock();
-    throw;
-  }
-  unlock();
+  struct Block : public virtual sk::rt::Runnable {
+    typedef void (T::*member_function_t)();
+    Block(T& target, member_function_t method)
+      : _target(target), _method(method) {}
+
+    void run() const {
+      (_target.*_method)();
+    }
+    T& _target;
+    member_function_t _method;
+  };
+  synchronize(Block(target, method));
 }
 
 template<typename T, typename P>
@@ -91,33 +93,36 @@ void
 sk::rt::thread::AbstractLock::
 synchronize(T& target, void (T::*method)(P&), P& param)
 {
-  lock();
-  
-  try {
-    (target.*method)(param);
-  }
-  catch(...) {
-    unlock();
-    throw;
-  }
-  unlock();
+  struct Block : public virtual sk::rt::Runnable {
+    typedef void (T::*member_function_t)(P&);
+    Block(T& target, member_function_t method, P& param)
+      : _target(target), _method(method), _param(param) {}
+
+    void run() const {
+      (_target.*_method)(_param);
+    }
+    T& _target;
+    P& _param;
+    member_function_t _method;
+  };
+  synchronize(Block(target, method, param));
 }
 
 template<typename F>
 void 
 sk::rt::thread::AbstractLock::
-synchronize(F functor)
+synchronize(const F& functor)
 {
-  lock();
-  
-  try {
-    functor();
-  }
-  catch(...) {
-    unlock();
-    throw;
-  }
-  unlock();
+  struct Block : public virtual sk::rt::Runnable {
+    Block(const F& functor)
+      : _functor(functor) {}
+
+    void run() const {
+      _functor();
+    }
+    const F& _functor;
+  };
+  synchronize(Block(functor));
 }
 
 #endif /* _SK_RT_THREAD_ABSTRACTLOCK_H_ */
