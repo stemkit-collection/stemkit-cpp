@@ -15,6 +15,7 @@
 #include <sk/util/SystemException.h>
 
 #include "Implementation.h"
+#include <pthread.h>
 
 static sk::util::Class __class("sk::rt::thread::pthreads::Implementation");
 
@@ -49,14 +50,22 @@ sk::rt::thread::pthreads::Mutex*
 sk::rt::thread::pthreads::Implementation::
 makeSimpleMutex() const
 {
+#ifndef PTHREAD_MUTEX_ERRORCHECK
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
+#else
   return new pthreads::Mutex(PTHREAD_MUTEX_ERRORCHECK);
+#endif
 }
 
 sk::rt::thread::pthreads::Mutex*
 sk::rt::thread::pthreads::Implementation::
 makeRecursiveMutex() const
 {
+#ifndef PTHREAD_MUTEX_RECURSIVE
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
+#else
   return new pthreads::Mutex(PTHREAD_MUTEX_RECURSIVE);
+#endif
 }
 
 sk::rt::thread::pthreads::Thread*

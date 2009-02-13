@@ -249,6 +249,12 @@ rule platform-solaris-sparc
   project.PTY_SPECIFICS = streams ;
 }
 
+rule platform-solaris6-sparc
+{
+  INCLUDES += [ util.make-path $(system.SRCTOP) platform include solaris6 ] ;
+  platform-solaris-sparc ;
+}
+
 rule platform-solaris-x86
 {
   C++FLAGS += -fpic ;
@@ -307,6 +313,7 @@ switch $(PRODUCT_PLATFORM) {
   case sun-10-sparc : platform-solaris-sparc ;
   case sun-9-sparc : platform-solaris-sparc ;
   case sun-8-sparc : platform-solaris-sparc ;
+  case sun-6-sparc : platform-solaris6-sparc ;
   case hp11-23-pa : platform-hpux-pa ;
   case hp11-00-pa : platform-hpux-pa ;
   case hp11-11-pa : platform-hpux-pa ;
