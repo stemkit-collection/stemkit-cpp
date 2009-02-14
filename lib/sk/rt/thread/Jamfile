@@ -1,3 +1,4 @@
+# vim:sw=2:
 
 local library = sk.rt.thread ;
 
@@ -15,6 +16,8 @@ local objects =
 ;
 
 make-library $(library) : $(objects) ;
-
 make-subdirs tests abstract mock ;
-make-subdirs pthreads ;
+
+if ! windows in $(project.PLATFORM_SPECIFICS) {
+  make-subdirs pthreads ;
+}

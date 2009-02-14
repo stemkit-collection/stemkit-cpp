@@ -11,7 +11,14 @@ local objects =
   ReentrantLockTest.cc
 ;
 
-local test-categories = pthreads ;
+local test-categories ;
+
+if windows in $(project.PLATFORM_SPECIFICS) {
+  test-categories += mock ;
+}
+else test-categories += pthreads ;
+
+
 local category ;
 
 use-unit-test $(objects) ;
