@@ -15,6 +15,7 @@ local test-categories = pthreads ;
 local category ;
 
 use-unit-test $(objects) ;
+use-pthreads $(test)-pthreads ;
 
 for category in $(test-categories) {
   local test = $(test)-$(category) ;
