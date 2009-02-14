@@ -156,6 +156,7 @@ namespace {
   }
 }
 
+/*
 void
 sk::rt::thread::tests::ReentrantLockTest::
 testSynchronizeFunction()
@@ -199,6 +200,8 @@ testSynchronizeFunctor()
   CPPUNIT_ASSERT_EQUAL(false, lock.isLocked());
   CPPUNIT_ASSERT_EQUAL(true, visited);
 }
+
+*/
 
 void 
 sk::rt::thread::tests::ReentrantLockTest::

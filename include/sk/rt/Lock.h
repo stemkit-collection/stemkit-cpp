@@ -33,8 +33,10 @@ namespace sk {
         template<typename T, typename P>
         void synchronize(T& target, void (T::*method)(P&), P& param);
     
+        /*
         template<typename F>
         void synchronize(const F& functor);
+        */
     };
   }
 }
@@ -78,6 +80,7 @@ synchronize(T& target, void (T::*method)(P&), P& param)
   synchronize(Block(target, method, param));
 }
 
+/*
 template<typename F>
 void 
 sk::rt::Lock::
@@ -94,5 +97,6 @@ synchronize(const F& functor)
   };
   synchronize(Block(functor));
 }
+*/
 
 #endif /* _SK_RT_LOCK_H_ */
