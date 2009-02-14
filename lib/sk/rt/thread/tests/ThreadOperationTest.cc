@@ -9,9 +9,12 @@
 */
 
 #include "ThreadOperationTest.h"
+
 #include <sk/rt/Thread.h>
 #include <sk/rt/Runnable.h>
 #include <sk/rt/ReentrantLock.h>
+
+#include <unistd.h>
 #include <iostream>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::rt::thread::tests::ThreadOperationTest);
