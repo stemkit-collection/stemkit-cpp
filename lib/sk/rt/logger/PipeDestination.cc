@@ -23,7 +23,6 @@
 #include <signal.h>
 #include <errno.h>
 #include <sys/wait.h>
-#include <sys/select.h>
 #include <iostream>
 #include <vector>
 #include <algorithm>
