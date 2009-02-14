@@ -213,6 +213,13 @@ currentThread()
   return sk::rt::thread::Dispatcher::main().currentThread();
 }
 
+void
+sk::rt::Thread::
+sleep(uint64_t milliseconds)
+{
+  sk::rt::thread::Implementation::instance().sleep(milliseconds);
+}
+
 int 
 sk::rt::Thread::
 activeCount()

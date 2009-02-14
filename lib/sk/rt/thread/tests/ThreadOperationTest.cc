@@ -57,7 +57,7 @@ namespace {
           << _message.inspect() << ", " << _lock.inspect()
         << std::endl;
 
-        sleep(2);
+        sk::rt::Thread::sleep(2000);
       }
       _lock.unlock();
       _lock.unlock();
@@ -79,7 +79,7 @@ testBasics()
   Thread t2(b2);
 
   t1.start();
-  sleep(1);
+  Thread::sleep(1);
   t2.start();
 
   t1.join();

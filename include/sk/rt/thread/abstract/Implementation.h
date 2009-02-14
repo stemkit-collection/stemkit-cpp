@@ -30,6 +30,7 @@ namespace sk {
             virtual abstract::Thread* makeThread(sk::rt::Runnable& target, sk::rt::thread::Generic& handle) const = 0;
             virtual abstract::Thread* wrapCurrentThread(sk::rt::thread::Generic& handle) const = 0;
             virtual sk::rt::thread::Generic& getGeneric() const = 0;
+            virtual void sleep(uint64_t milliseconds) const = 0;
         };
       }
     }

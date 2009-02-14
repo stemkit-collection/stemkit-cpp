@@ -61,6 +61,7 @@ namespace sk {
         static int activeCount();
         static void yield();
         static void pass();
+        static void sleep(uint64_t milliseconds);
 
         static void reset();
 

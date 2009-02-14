@@ -67,3 +67,10 @@ getGeneric() const
 {
   throw sk::util::UnsupportedOperationException(SK_CLASS_METHOD);
 }
+
+void
+sk::rt::thread::mock::Implementation::
+sleep(uint64_t milliseconds) const 
+{
+  throw sk::util::UnsupportedOperationException(SK_CLASS_METHOD);
+}
