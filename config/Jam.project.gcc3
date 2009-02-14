@@ -1,4 +1,4 @@
-# vim:ft=
+# vim:ft=jam:sw=2
 
 project.MAKE_DLL = true ;
 
@@ -101,23 +101,6 @@ rule platform-linux-x86
   project.PTY_SPECIFICS = linux ;
 }
 
-rule platform-interix-x86
-{
-  GCC_VERSION = 3.4.6 ;
-  project.MAKE_DLL = false ;
-
-  # CC = gcc ;
-  # C++ = g++ ;
-
-  C++FLAGS += -fpic ;
-  CCFLAGS += -fpic ;
-  DEFINES += ;
-  INCLUDES += [ util.make-path $(system.SRCTOP) platform include interix ] ;
-  SYSLIBS = crypt dl ;
-
-  project.PTY_SPECIFICS = linux ;
-}
-
 rule platform-linux-amd64
 {
   C++FLAGS += -fPIC -m32 ;
@@ -135,7 +118,6 @@ rule platform-linux-amd64
 
 rule platform-osf-alpha
 {
-  GCC_VERSION = 3.4 ;
   TOOLS_HOME = /opt/quest/platform/$(JAMCONFIG_PRODUCT_PLATFORM) ;
   GCC_ROOT = $(TOOLS_HOME)/gcc-$(GCC_VERSION) ;
   CPPUNIT_VERSION = 1.12 ;
@@ -144,7 +126,6 @@ rule platform-osf-alpha
   CCFLAGS += -fPIC ;
   DEFINES += snprintf=trio_snprintf ;
   INCLUDES += [ util.make-path $(system.SRCTOP) platform include osf ] ;
-  LIBDIRS += /opt/quest/platform/$(JAMCONFIG_PRODUCT_PLATFORM)/lib ;
   SYSLIBS = trio ;
 
   CC_SONAME_FLAG = "-Wl,-soname," ;
@@ -153,23 +134,7 @@ rule platform-osf-alpha
   project.PTY_SPECIFICS = streams-hp ;
 }
 
-rule platform-aix51-ppc
-{
-  GCC_VERSION = 4.3 ;
-  TOOLS_HOME = /opt/quest/platform/$(JAMCONFIG_PRODUCT_PLATFORM) ;
-  GCC_ROOT = $(TOOLS_HOME)/gcc-$(GCC_VERSION) ;
-  CPPUNIT_VERSION = 1.12 ;
-
-  project.MAKE_DLL = false ;
-
-  DEFINES += ;
-  INCLUDES += [ util.make-path $(system.SRCTOP) platform include aix ] ;
-  SYSLIBS = crypt dl ;
-
-  project.PTY_SPECIFICS = aix ;
-}
-
-rule platform-aix52-ppc
+rule platform-aix-ppc
 {
   project.MAKE_DLL = false ;
 
@@ -221,22 +186,6 @@ rule platform-macos-leopard
 }
 
 
-rule platform-cygwin-x86
-{
-  project.MAKE_DLL = false ;
-
-  GCC_VERSION = 3.4.4 ;
-
-  CC = gcc ;
-  C++ = g++ ;
-
-  CCLDFLAGS = ;
-  LDFLAGS = ;
-  DEFINES += ;
-  INCLUDES += ;
-  SYSLIBS = ;
-}
-
 rule platform-solaris-sparc
 {
   C++FLAGS += -fPIC ;
@@ -287,8 +236,13 @@ rule platform-hpux-ia64
 {
   project.MAKE_DLL = true ;
 
-  C++FLAGS += -mlp64 -fPIC ;
-  CCFLAGS += -mlp64 -fPIC ;
+  switch $(BUILD_ABI) {
+    case 32 : CC_ABI_FLAGS = ;
+    case 64 : CC_ABI_FLAGS = -mlp64 ; BUILD_ABILIB = lib64 ;
+    case * : exit Please set BUILD_ABI to either 32 or 64 ;
+  }
+  C++FLAGS += $(CC_ABI_FLAGS) -fPIC ;
+  CCFLAGS += $(CC_ABI_FLAGS) -fPIC ;
   DEFINES += ;
   INCLUDES += [ util.make-path $(system.SRCTOP) platform include hpux ] ;
   SYSLIBS = ;
@@ -305,8 +259,9 @@ switch $(PRODUCT_PLATFORM) {
   case rh-40-amd64 : platform-linux-amd64 ;
   case rh-40-ia64 : platform-linux-x86 ;
   case rh-21-x86 : platform-linux-x86 ;
-  case aix-51-ppc : platform-aix51-ppc ;
-  case aix-52-ppc : platform-aix52-ppc ;
+  case aix-51-ppc : platform-aix-ppc ;
+  case aix-52-ppc : platform-aix-ppc ;
+  case aix-53-ppc : platform-aix-ppc ;
   case osf-51-alpha : platform-osf-alpha ;
   case osf-40-alpha : platform-osf-alpha ;
   case sun-10-x86 : platform-solaris-x86 ;
@@ -322,11 +277,11 @@ switch $(PRODUCT_PLATFORM) {
   case mac-10.4-x86 : platform-macos-tiger ;
   case mac-10.5-ppc : platform-macos-leopard ;
   case mac-10.5-x86 : platform-macos-leopard ;
-  case cygwin-xp-x86 : platform-cygwin-x86 ;
-  case win32-sfu-x86 : platform-interix-x86 ;
   case windows-x86 : platform-nt-x86 ;
   case * : exit Unknown platform $(PRODUCT_PLATFORM) ;
 }
+
+BUILD_ABILIB ?= lib ;
 
 INCLUDES += [ util.make-path $(system.SRCTOP) platform include generic ] ;
 INCLUDES += [ util.make-path $(system.SRCTOP) include hooks ] ;
@@ -358,3 +313,4 @@ C++LDALLFLAGS = $(CCFLAGS) $(CCDFLAGS) $(CCOFLAGS) $(C++LDFLAGS) ;
 system.export-to-env GCC_LIB_PATHLIST : $(GCC_ROOT)/lib/$(GCC_STDLIBS) ;
 system.export-to-env CONTRIB_ROOT : $(CONTRIB_ROOT) ;
 system.export-to-env MAKE_DLL : $(project.MAKE_DLL) ;
+system.export-to-env BUILD_ABILIB : $(BUILD_ABILIB) ;
