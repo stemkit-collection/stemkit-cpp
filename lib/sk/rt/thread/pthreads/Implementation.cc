@@ -15,6 +15,7 @@
 #include <sk/util/SystemException.h>
 
 #include "Implementation.h"
+#include <time.h>
 
 static sk::util::Class __class("sk::rt::thread::pthreads::Implementation");
 
@@ -100,4 +101,16 @@ getGeneric() const
     throw sk::util::IllegalStateException("Generic not initialized for this thread");
   }
   return *static_cast<sk::rt::thread::Generic*>(value);
+}
+
+void
+sk::rt::thread::pthreads::Implementation::
+sleep(uint64_t milliseconds) const
+{
+  timespec spec;
+
+  spec.tv_sec = (milliseconds / 1000);
+  spec.tv_nsec = (milliseconds % 1000) * 1000000;
+
+  nanosleep(&spec, 0);
 }

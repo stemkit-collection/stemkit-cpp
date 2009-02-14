@@ -149,11 +149,13 @@ rule platform-macos
 {
   project.MAKE_DLL = false ;
 
-  GCC_VERSION = 4.0.1 ;
+  TOOLS_HOME = /opt/sk/platform/$(JAMCONFIG_PRODUCT_PLATFORM) ;
+
+  GCC_VERSION = 4.2 ;
   CPPUNIT_VERSION = 1.12 ;
 
-  CC = gcc-4.0 ;
-  C++ = g++-4.0 ;
+  CC = gcc-4.2 ;
+  C++ = g++-4.2 ;
 
   CCLDFLAGS = ;
   LDFLAGS = ;

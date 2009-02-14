@@ -35,6 +35,7 @@ namespace sk {
             pthreads::Thread* makeThread(sk::rt::Runnable& target, sk::rt::thread::Generic& handle) const;
             pthreads::Thread* wrapCurrentThread(sk::rt::thread::Generic& handle) const;
             sk::rt::thread::Generic& getGeneric() const;
+            void sleep(uint64_t milliseconds) const;
         
             // sk::util::Object re-implementation.
             const sk::util::Class getClass() const;

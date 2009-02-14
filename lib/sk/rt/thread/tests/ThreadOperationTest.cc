@@ -79,7 +79,7 @@ testBasics()
   Thread t2(b2);
 
   t1.start();
-  Thread::sleep(1);
+  Thread::sleep(1000);
   t2.start();
 
   t1.join();
