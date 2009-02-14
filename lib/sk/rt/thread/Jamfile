@@ -18,6 +18,7 @@ local objects =
 make-library $(library) : $(objects) ;
 make-subdirs tests abstract mock ;
 
-if ! windows in $(project.PLATFORM_SPECIFICS) {
-  make-subdirs pthreads ;
+if windows in $(project.PLATFORM_SPECIFICS) {
+  make-subdirs mswin ;
 }
+else make-subdirs pthreads ;

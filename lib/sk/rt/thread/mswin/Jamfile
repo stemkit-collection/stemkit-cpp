@@ -1,0 +1,8 @@
+
+local library = sk.rt.thread.mswin ;
+local objects = 
+  Factory.cc
+  Implementation.cc
+;
+
+make-library $(library) : $(objects) : sk.rt.thread.platform ;

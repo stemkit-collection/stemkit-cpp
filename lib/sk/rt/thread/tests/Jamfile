@@ -14,7 +14,7 @@ local objects =
 local test-categories ;
 
 if windows in $(project.PLATFORM_SPECIFICS) {
-  test-categories += abstract ;
+  test-categories += mswin ;
 }
 else test-categories += pthreads ;
 
