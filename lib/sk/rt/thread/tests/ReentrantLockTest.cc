@@ -11,7 +11,6 @@
 #include "ReentrantLockTest.h"
 #include <sk/util/SystemException.h>
 #include <sk/rt/ReentrantLock.h>
-#include <sk/rt/Runnable.h>
 #include <sk/util/Holder.cxx>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::rt::thread::tests::ReentrantLockTest);
@@ -206,10 +205,9 @@ namespace {
   }
 }
 
-/*
 void
 sk::rt::thread::tests::ReentrantLockTest::
-testSynchronizeFunction()
+testSynchronizeFunctionNamespace()
 {
   global_flag = false;
 
@@ -219,7 +217,25 @@ testSynchronizeFunction()
   CPPUNIT_ASSERT_EQUAL(true, global_flag);
 }
 
-*/
+extern "C" {
+  static bool global_c_flag = false;
+
+  void cf() {
+    global_c_flag = true;
+  }
+}
+
+void
+sk::rt::thread::tests::ReentrantLockTest::
+testSynchronizeFunctionExternC()
+{
+  global_c_flag = false;
+
+  ReentrantLock lock;
+  lock.synchronize(cf);
+
+  CPPUNIT_ASSERT_EQUAL(true, global_c_flag);
+}
 
 void 
 sk::rt::thread::tests::ReentrantLockTest::

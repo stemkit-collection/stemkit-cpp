@@ -9,6 +9,7 @@ local objects =
   State.cc
   AbstractLock.cc
   Runner.cc
+  LockSpecializations.cc
 
   ../Thread.cc
   ../Mutex.cc

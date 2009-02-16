@@ -29,6 +29,7 @@ namespace sk {
           typedef void (T::*member_function_t)(P& param);
           typedef void (T::*const_member_function_t)(P& param) const;
         };
+        typedef void (function_t)();
 
         template<typename T> void synchronize(T& target, typename ptr<T, void>::member_function_t method);
         template<typename T> void synchronize(const T& target, typename ptr<T, void>::const_member_function_t method);
@@ -48,6 +49,8 @@ namespace sk {
       typedef void (T::*member_function_t)();
       typedef void (T::*const_member_function_t)() const;
     };
+
+    template<> void Lock::synchronize<Lock::function_t>(Lock::function_t& function);
   }
 }
 
