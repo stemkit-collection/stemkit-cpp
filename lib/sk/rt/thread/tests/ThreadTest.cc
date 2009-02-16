@@ -49,3 +49,15 @@ testCreateDefault()
   CPPUNIT_ASSERT_EQUAL(false, thread.isMain());
   CPPUNIT_ASSERT_EQUAL(false, thread.isService());
 }
+
+void 
+sk::rt::thread::tests::ThreadTest::
+testMainThread()
+{
+  sk::rt::thread::Generic& current = Thread::currentThread();
+
+  CPPUNIT_ASSERT_EQUAL(true, current.isMain());
+  CPPUNIT_ASSERT_EQUAL(false, current.isService());
+  CPPUNIT_ASSERT_EQUAL(false, current.isRegular());
+  CPPUNIT_ASSERT_EQUAL(true, current.isAlive());
+}

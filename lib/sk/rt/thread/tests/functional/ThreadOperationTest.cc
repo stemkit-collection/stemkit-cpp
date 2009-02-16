@@ -72,6 +72,8 @@ void
 sk::rt::thread::tests::ThreadOperationTest::
 testBasics()
 {
+  CPPUNIT_ASSERT_EQUAL(true, Thread::currentThread().isMain());
+
   Block b1("aaa");
   Block b2("bbb");
 
@@ -86,14 +88,3 @@ testBasics()
   t2.join();
 }
 
-void 
-sk::rt::thread::tests::ThreadOperationTest::
-testMainThread()
-{
-  sk::rt::thread::Generic& current = Thread::currentThread();
-
-  CPPUNIT_ASSERT_EQUAL(true, current.isMain());
-  CPPUNIT_ASSERT_EQUAL(false, current.isService());
-  CPPUNIT_ASSERT_EQUAL(false, current.isRegular());
-  CPPUNIT_ASSERT_EQUAL(true, current.isAlive());
-}

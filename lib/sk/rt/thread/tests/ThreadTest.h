@@ -23,6 +23,7 @@ namespace sk {
         {
           CPPUNIT_TEST_SUITE(sk::rt::thread::tests::ThreadTest);
             CPPUNIT_TEST(testCreateDefault);
+            CPPUNIT_TEST(testMainThread);
           CPPUNIT_TEST_SUITE_END();
         
           public:
@@ -32,6 +33,7 @@ namespace sk {
             void setUp();
             void tearDown();
             void testCreateDefault();
+            void testMainThread();
         
           private:
             ThreadTest(const ThreadTest& other);

@@ -4,10 +4,7 @@ local test = sk-rt-thread-test ;
 
 local objects = 
   TestSuite.cc
-  ThreadTest.cc
-  DispatcherTest.cc
-  MutexTest.cc
-  ReentrantLockTest.cc
+  ThreadOperationTest.cc
 ;
 
 local test-categories ;
@@ -30,7 +27,5 @@ for category in $(test-categories) {
   use-project-libraries $(test) : sk.rt.thread.$(category) ;
 
   use-unit-test $(test) ;
-  make-cpp-test $(test) : $(objects) ;
+  make-program $(test) : $(objects) ;
 }
-
-make-subdirs functional ;

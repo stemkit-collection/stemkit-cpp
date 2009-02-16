@@ -22,7 +22,6 @@ namespace sk {
           : public CppUnit::TestFixture
         {
           CPPUNIT_TEST_SUITE(sk::rt::thread::tests::ThreadOperationTest);
-            CPPUNIT_TEST(testMainThread);
             CPPUNIT_TEST(testBasics);
           CPPUNIT_TEST_SUITE_END();
         
@@ -32,7 +31,6 @@ namespace sk {
         
             void setUp();
             void tearDown();
-            void testMainThread();
             void testBasics();
         
           private:
