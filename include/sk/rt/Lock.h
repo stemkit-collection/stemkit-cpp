@@ -37,6 +37,24 @@ namespace sk {
         template<typename F>
         void synchronize(const F& functor);
         */
+
+        template<typename T>
+        struct ptr {
+          typedef void (T::*member_function_t)();
+          typedef void (T::*const_member_function_t)() const;
+        };
+
+        template<typename T>
+        void sync(T& target, typename ptr<T>::member_function_t method);
+
+        template<typename T>
+        void sync(const T& target, typename ptr<T>::const_member_function_t method);
+
+        template<typename T>
+        void sync(T& target);
+
+        template<typename T>
+        void sync(const T& target);
     };
   }
 }
@@ -98,5 +116,55 @@ synchronize(const F& functor)
   synchronize(Block(functor));
 }
 */
+
+template<typename T>
+void
+sk::rt::Lock::
+sync(T& target, typename ptr<T>::member_function_t method)
+{
+  lock();
+
+  try {
+    (target.*method)();
+  }
+  catch(...) {
+    unlock();
+    throw;
+  }
+  unlock();
+}
+
+template<typename T>
+void
+sk::rt::Lock::
+sync(const T& target, typename ptr<T>::const_member_function_t method)
+{
+  lock();
+
+  try {
+    (target.*method)();
+  }
+  catch(...) {
+    unlock();
+    throw;
+  }
+  unlock();
+}
+
+template<typename T>
+void 
+sk::rt::Lock::
+sync(T& target)
+{
+  sync(target, &T::operator());
+}
+
+template<typename T>
+void 
+sk::rt::Lock::
+sync(const T& target)
+{
+  sync(target, &T::operator());
+}
 
 #endif /* _SK_RT_LOCK_H_ */
