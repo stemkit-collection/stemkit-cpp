@@ -50,6 +50,10 @@ namespace sk {
       typedef void (T::*const_member_function_t)() const;
     };
 
+    template<>
+    struct Lock::ptr<Lock::function_t, void> {
+    };
+
     template<> void Lock::synchronize<Lock::function_t>(Lock::function_t& function);
   }
 }
