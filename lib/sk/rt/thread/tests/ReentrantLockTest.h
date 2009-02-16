@@ -29,7 +29,9 @@ namespace sk {
              CPPUNIT_TEST(testLocking);
              CPPUNIT_TEST(testSynchronizeFunctionObject);
              CPPUNIT_TEST(testSynchronizeMethodWithoutParam);
+             CPPUNIT_TEST(testSynchronizeConstMethodWithoutParam);
              CPPUNIT_TEST(testSynchronizeMethodWithParam);
+             CPPUNIT_TEST(testSynchronizeConstMethodWithParam);
              // CPPUNIT_TEST(testSynchronizeFunction);
           CPPUNIT_TEST_SUITE_END();
         
@@ -42,7 +44,9 @@ namespace sk {
             void testLocking();
             void testSynchronizeFunctionObject();
             void testSynchronizeMethodWithoutParam();
+            void testSynchronizeConstMethodWithoutParam();
             void testSynchronizeMethodWithParam();
+            void testSynchronizeConstMethodWithParam();
             // void testSynchronizeFunction();
             void testBasics();
         
@@ -51,10 +55,13 @@ namespace sk {
             ReentrantLockTest& operator = (const ReentrantLockTest& other);
 
             void criticalSectionWithoutParam();
+            void constCriticalSectionWithoutParam() const;
+
             void criticalSectionWithParam(bool& flag);
+            void constCriticalSectionWithParam(bool& flag) const;
 
             sk::util::Holder<ReentrantLock> _lockHolder;
-            bool _visited;
+            mutable bool _visited;
         };
       }
     }

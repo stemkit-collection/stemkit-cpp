@@ -141,6 +141,26 @@ testSynchronizeMethodWithoutParam()
 
 void 
 sk::rt::thread::tests::ReentrantLockTest::
+constCriticalSectionWithoutParam() const
+{
+  _visited = true;
+  CPPUNIT_ASSERT_EQUAL(true, _lockHolder.get().isLocked());
+  CPPUNIT_ASSERT_EQUAL(1, _lockHolder.get().getCounter());
+}
+
+void
+sk::rt::thread::tests::ReentrantLockTest::
+testSynchronizeConstMethodWithoutParam()
+{
+  _visited = false;
+  _lockHolder.set(new ReentrantLock);
+  _lockHolder.get().synchronize(*this, &ReentrantLockTest::constCriticalSectionWithoutParam);
+
+  CPPUNIT_ASSERT_EQUAL(true, _visited);
+}
+
+void 
+sk::rt::thread::tests::ReentrantLockTest::
 criticalSectionWithParam(bool& flag)
 {
   flag = true;
@@ -155,6 +175,26 @@ testSynchronizeMethodWithParam()
   bool visited = false;
   _lockHolder.set(new ReentrantLock);
   _lockHolder.get().synchronize(*this, &ReentrantLockTest::criticalSectionWithParam, visited);
+
+  CPPUNIT_ASSERT_EQUAL(true, visited);
+}
+
+void 
+sk::rt::thread::tests::ReentrantLockTest::
+constCriticalSectionWithParam(bool& flag) const
+{
+  flag = true;
+  CPPUNIT_ASSERT_EQUAL(true, _lockHolder.get().isLocked());
+  CPPUNIT_ASSERT_EQUAL(1, _lockHolder.get().getCounter());
+}
+
+void
+sk::rt::thread::tests::ReentrantLockTest::
+testSynchronizeConstMethodWithParam()
+{
+  bool visited = false;
+  _lockHolder.set(new ReentrantLock);
+  _lockHolder.get().synchronize(*this, &ReentrantLockTest::constCriticalSectionWithParam, visited);
 
   CPPUNIT_ASSERT_EQUAL(true, visited);
 }

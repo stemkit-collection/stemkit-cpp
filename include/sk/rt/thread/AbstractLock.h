@@ -13,7 +13,6 @@
 
 #include <sk/util/Holder.hxx>
 
-#include <sk/rt/Runnable.h>
 #include <sk/rt/Lock.h>
 #include <sk/rt/thread/abstract/Mutex.h>
 
