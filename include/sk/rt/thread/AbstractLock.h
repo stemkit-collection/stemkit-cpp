@@ -33,10 +33,6 @@ namespace sk {
           bool tryLock();
           void unlock();
           
-          // sk::rt::Locable implementation.
-          void synchronize(const sk::rt::Runnable& block);
-          using Lock::synchronize;
-
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
           const sk::util::String inspect() const;

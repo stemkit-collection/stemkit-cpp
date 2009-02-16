@@ -50,25 +50,27 @@ testLocking()
   CPPUNIT_ASSERT_EQUAL(false, mutex.isLocked());
 }
 
+namespace {
+  struct Block {
+    Block(const sk::rt::Mutex& mutex, bool& visited)
+      : _mutex(mutex), _visited(visited) {}
+
+    void operator()() const {
+      _visited = true;
+
+      CPPUNIT_ASSERT_EQUAL(true, _mutex.isLocked());
+    }
+    const sk::rt::Mutex& _mutex;
+    bool& _visited;
+  };
+}
+
 void
 sk::rt::thread::tests::MutexTest::
 testSynchronize()
 {
   sk::rt::Mutex mutex;
   bool visited = false;
-
-  struct Block : public virtual sk::rt::Runnable {
-    Block(const Mutex& mutex, bool& visited)
-      : _mutex(mutex), _visited(visited) {}
-
-    void run() const {
-      _visited = true;
-
-      CPPUNIT_ASSERT_EQUAL(true, _mutex.isLocked());
-    }
-    const Mutex& _mutex;
-    bool& _visited;
-  };
 
   CPPUNIT_ASSERT_EQUAL(false, visited);
   CPPUNIT_ASSERT_EQUAL(false, mutex.isLocked());

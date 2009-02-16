@@ -25,146 +25,105 @@ namespace sk {
         virtual void unlock() = 0;
         virtual bool isLocked() const = 0;
 
-        virtual void synchronize(const sk::rt::Runnable& block) = 0;
-
-        template<typename T>
-        void synchronize(T& target, void (T::*method)());
-
-        template<typename T, typename P>
-        void synchronize(T& target, void (T::*method)(P&), P& param);
-    
-        /*
-        template<typename F>
-        void synchronize(const F& functor);
-        */
-
         template<typename T>
         struct ptr {
           typedef void (T::*member_function_t)();
           typedef void (T::*const_member_function_t)() const;
         };
 
-        template<typename T>
-        void sync(T& target, typename ptr<T>::member_function_t method);
+        template<typename T, typename P>
+        struct pptr {
+          typedef void (T::*member_function_t)(P& param);
+          typedef void (T::*const_member_function_t)(P& param) const;
+        };
 
-        template<typename T>
-        void sync(const T& target, typename ptr<T>::const_member_function_t method);
+        template<typename T> void synchronize(T& target, typename ptr<T>::member_function_t method);
+        template<typename T> void synchronize(const T& target, typename ptr<T>::const_member_function_t method);
+        template<typename T> void synchronize(T& target);
+        template<typename T> void synchronize(const T& target);
 
-        template<typename T>
-        void sync(T& target);
+        template<typename T, typename P> void synchronize(T& target, typename pptr<T,P>::member_function_t method, P& param);
 
-        template<typename T>
-        void sync(const T& target);
+        template<typename T> struct ConstMemberFunctionInvocator;
+        template<typename T, typename P> struct MemberFunctionWithParamInvocator;
     };
   }
 }
 
 template<typename T>
-void 
+void
 sk::rt::Lock::
-synchronize(T& target, void (T::*method)())
+synchronize(T& target, typename ptr<T>::member_function_t method)
 {
-  struct Block : public virtual sk::rt::Runnable {
-    typedef void (T::*member_function_t)();
-    Block(T& target, member_function_t method)
-      : _target(target), _method(method) {}
+  lock();
 
-    void run() const {
-      (_target.*_method)();
-    }
-    T& _target;
-    member_function_t _method;
-  };
-  synchronize(Block(target, method));
+  try {
+    (target.*method)();
+  }
+  catch(...) {
+    unlock();
+    throw;
+  }
+  unlock();
+}
+
+template<typename T>
+struct sk::rt::Lock::ConstMemberFunctionInvocator {
+  ConstMemberFunctionInvocator(const T& target, typename ptr<T>::const_member_function_t method)
+    : _target(target), _method(method) {}
+
+  void invoke() {
+    (_target.*_method)();
+  }
+  const T& _target;
+  typename ptr<T>::const_member_function_t _method;
+};
+
+template<typename T>
+void
+sk::rt::Lock::
+synchronize(const T& target, typename ptr<T>::const_member_function_t method)
+{
+  ConstMemberFunctionInvocator<T> invocator(target, method);
+  synchronize(invocator, &ConstMemberFunctionInvocator<T>::invoke);
 }
 
 template<typename T, typename P>
-void 
-sk::rt::Lock::
-synchronize(T& target, void (T::*method)(P&), P& param)
-{
-  struct Block : public virtual sk::rt::Runnable {
-    typedef void (T::*member_function_t)(P&);
-    Block(T& target, member_function_t method, P& param)
-      : _target(target), _method(method), _param(param) {}
+struct sk::rt::Lock::MemberFunctionWithParamInvocator {
+  MemberFunctionWithParamInvocator(T& target, typename pptr<T,P>::member_function_t method, P& param)
+    : _target(target), _method(method), _param(param) {}
 
-    void run() const {
-      (_target.*_method)(_param);
-    }
-    T& _target;
-    P& _param;
-    member_function_t _method;
-  };
-  synchronize(Block(target, method, param));
-}
+  void invoke() {
+    (_target.*_method)(_param);
+  }
+  T& _target;
+  typename Lock::pptr<T,P>::member_function_t _method;
+  P& _param;
+};
 
-/*
-template<typename F>
-void 
-sk::rt::Lock::
-synchronize(const F& functor)
-{
-  struct Block : public virtual sk::rt::Runnable {
-    Block(const F& functor)
-      : _functor(functor) {}
-
-    void run() const {
-      _functor();
-    }
-    const F& _functor;
-  };
-  synchronize(Block(functor));
-}
-*/
-
-template<typename T>
+template<typename T, typename P>
 void
 sk::rt::Lock::
-sync(T& target, typename ptr<T>::member_function_t method)
+synchronize(T& target, typename pptr<T,P>::member_function_t method, P& param)
 {
-  lock();
-
-  try {
-    (target.*method)();
-  }
-  catch(...) {
-    unlock();
-    throw;
-  }
-  unlock();
-}
-
-template<typename T>
-void
-sk::rt::Lock::
-sync(const T& target, typename ptr<T>::const_member_function_t method)
-{
-  lock();
-
-  try {
-    (target.*method)();
-  }
-  catch(...) {
-    unlock();
-    throw;
-  }
-  unlock();
+  MemberFunctionWithParamInvocator<T, P> invocator(target, method, param);
+  synchronize(invocator, &MemberFunctionWithParamInvocator<T, P>::invoke);
 }
 
 template<typename T>
 void 
 sk::rt::Lock::
-sync(T& target)
+synchronize(T& target)
 {
-  sync(target, &T::operator());
+  synchronize(target, &T::operator());
 }
 
 template<typename T>
 void 
 sk::rt::Lock::
-sync(const T& target)
+synchronize(const T& target)
 {
-  sync(target, &T::operator());
+  synchronize(target, &T::operator());
 }
 
 #endif /* _SK_RT_LOCK_H_ */

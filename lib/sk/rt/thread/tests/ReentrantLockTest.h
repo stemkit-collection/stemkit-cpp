@@ -27,11 +27,10 @@ namespace sk {
           CPPUNIT_TEST_SUITE(sk::rt::thread::tests::ReentrantLockTest);
              CPPUNIT_TEST(testBasics);
              CPPUNIT_TEST(testLocking);
-             CPPUNIT_TEST(testSynchronizeBlock);
+             CPPUNIT_TEST(testSynchronizeFunctionObject);
              CPPUNIT_TEST(testSynchronizeMethodWithoutParam);
              CPPUNIT_TEST(testSynchronizeMethodWithParam);
              // CPPUNIT_TEST(testSynchronizeFunction);
-             // CPPUNIT_TEST(testSynchronizeFunctor);
           CPPUNIT_TEST_SUITE_END();
         
           public:
@@ -41,11 +40,10 @@ namespace sk {
             void setUp();
             void tearDown();
             void testLocking();
-            void testSynchronizeBlock();
+            void testSynchronizeFunctionObject();
             void testSynchronizeMethodWithoutParam();
             void testSynchronizeMethodWithParam();
             // void testSynchronizeFunction();
-            // void testSynchronizeFunctor();
             void testBasics();
         
           private:

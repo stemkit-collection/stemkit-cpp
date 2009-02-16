@@ -73,22 +73,6 @@ unlock()
   _mutexHolder.get().unlock();
 }
 
-void
-sk::rt::thread::AbstractLock::
-synchronize(const sk::rt::Runnable& block)
-{
-  lock();
-
-  try {
-    block.run();
-  }
-  catch(...) {
-    unlock();
-    throw;
-  }
-  unlock();
-}
-
 bool
 sk::rt::thread::AbstractLock::
 tryLockCheck() const
