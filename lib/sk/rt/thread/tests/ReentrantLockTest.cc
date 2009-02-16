@@ -79,6 +79,23 @@ testLocking()
   }
 }
 
+namespace {
+  struct Block {
+    Block(const sk::rt::ReentrantLock& lock, bool& visited)
+      : _lock(lock), _visited(visited) {}
+
+    void operator()() const {
+      _visited = true;
+
+      CPPUNIT_ASSERT_EQUAL(true, _lock.isLocked());
+      CPPUNIT_ASSERT_EQUAL(1, _lock.getCounter());
+    }
+
+    const sk::rt::ReentrantLock& _lock;
+    bool& _visited;
+  };
+}
+
 void
 sk::rt::thread::tests::ReentrantLockTest::
 testSynchronizeBlock()
@@ -86,24 +103,17 @@ testSynchronizeBlock()
   sk::rt::ReentrantLock lock;
   bool visited = false;
 
-  struct Block : public virtual sk::rt::Runnable {
-    Block(const ReentrantLock& lock, bool& visited)
-      : _lock(lock), _visited(visited) {}
-
-    void run() const {
-      _visited = true;
-
-      CPPUNIT_ASSERT_EQUAL(true, _lock.isLocked());
-      CPPUNIT_ASSERT_EQUAL(1, _lock.getCounter());
-    }
-    const ReentrantLock& _lock;
-    bool& _visited;
-  };
-
   CPPUNIT_ASSERT_EQUAL(false, visited);
   CPPUNIT_ASSERT_EQUAL(false, lock.isLocked());
 
-  lock.synchronize(Block(lock, visited));
+  Block b(lock, visited);
+
+  lock.sync(b);
+  CPPUNIT_ASSERT_EQUAL(false, lock.isLocked());
+  CPPUNIT_ASSERT_EQUAL(true, visited);
+
+  visited = false;
+  lock.sync(Block(lock, visited));
 
   CPPUNIT_ASSERT_EQUAL(false, lock.isLocked());
   CPPUNIT_ASSERT_EQUAL(true, visited);
@@ -124,7 +134,7 @@ testSynchronizeMethodWithoutParam()
 {
   _visited = false;
   _lockHolder.set(new ReentrantLock);
-  _lockHolder.get().synchronize(*this, &ReentrantLockTest::criticalSectionWithoutParam);
+  _lockHolder.get().sync(*this, &ReentrantLockTest::criticalSectionWithoutParam);
 
   CPPUNIT_ASSERT_EQUAL(true, _visited);
 }
