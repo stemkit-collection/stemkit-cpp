@@ -10,6 +10,10 @@ local objects =
   ReentrantLockTest.cc
 ;
 
+local helper-objects =
+  DataGenerator.cc
+;
+
 local test-categories ;
 
 if windows in $(project.PLATFORM_SPECIFICS) {
@@ -30,7 +34,7 @@ for category in $(test-categories) {
   use-project-libraries $(test) : sk.rt.thread.$(category) ;
 
   use-unit-test $(test) ;
-  make-cpp-test $(test) : $(objects) ;
+  make-cpp-test $(test) : $(objects) $(helper-objects) ;
 }
 
 make-subdirs functional ;

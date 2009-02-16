@@ -9,6 +9,8 @@
 */
 
 #include "ThreadTest.h"
+#include "DataGenerator.h"
+
 #include <sk/rt/Thread.h>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::rt::thread::tests::ThreadTest);
@@ -60,4 +62,16 @@ testMainThread()
   CPPUNIT_ASSERT_EQUAL(false, current.isService());
   CPPUNIT_ASSERT_EQUAL(false, current.isRegular());
   CPPUNIT_ASSERT_EQUAL(true, current.isAlive());
+}
+
+void
+sk::rt::thread::tests::ThreadTest::
+testDataGeneration()
+{
+  std::vector<int> basket;
+  DataGenerator generator(5, basket);
+
+  generator.fill(3, 4);
+
+  CPPUNIT_ASSERT_EQUAL(size_t(5*3*4), basket.size());
 }
