@@ -10,6 +10,7 @@
 
 #include <sk/util/AbstractList.hxx>
 #include <sk/util/Class.h>
+#include <sk/util/Slot.hxx>
 #include <deque>
 
 namespace sk {
@@ -27,6 +28,10 @@ namespace sk {
 
         // sk::util::Collection<T> implementation.
         void clear();
+        int size() const;
+        bool isEmpty() const;
+        bool add(T& object);
+        bool add(T* object);
         
       private:
         ArrayList(const ArrayList<T>& other);
