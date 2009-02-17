@@ -19,7 +19,7 @@
 static const sk::util::Class __class("sk::rt::thread::Runner");
 
 sk::rt::thread::Runner::
-Runner(const sk::rt::Runnable& target)
+Runner(sk::rt::Runnable& target)
   : _scope(__class.getName()), _target(target), _stateHolder(thread::State::SK_T_NEW)
 {
 }
