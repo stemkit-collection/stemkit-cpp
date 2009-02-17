@@ -51,10 +51,7 @@ sk::rt::thread::pthreads::Thread::
 ~Thread()
 {
   if(_wrapper == true) {
-    try {
-      _provider.clearGeneric();
-    }
-    catch(...) {}
+    sk::util::Exception::guard(_scope.warning(), _provider, &Provider::clearGeneric, __FUNCTION__);
   }
 }
 

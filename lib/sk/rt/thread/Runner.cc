@@ -19,8 +19,8 @@
 static const sk::util::Class __class("sk::rt::thread::Runner");
 
 sk::rt::thread::Runner::
-Runner(sk::rt::Runnable& target)
-  : _target(target), _stateHolder(thread::State::SK_T_NEW)
+Runner(const sk::rt::Runnable& target)
+  : _scope(__class.getName()), _target(target), _stateHolder(thread::State::SK_T_NEW)
 {
 }
 
@@ -63,10 +63,6 @@ sk::rt::thread::Runner::
 run() const
 {
   _stateHolder.set(thread::State::SK_T_RUNNABLE);
-  try {
-    _target.run();
-  }
-  catch(...) {}
-
+  sk::util::Exception::guard(_scope.warning(), _target, &Runnable::run, __FUNCTION__);
   _stateHolder.set(thread::State::SK_T_TERMINATED);
 }
