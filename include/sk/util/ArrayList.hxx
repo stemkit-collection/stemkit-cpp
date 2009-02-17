@@ -9,6 +9,7 @@
 #define _SK_UTIL_ARRAYLIST_HXX_
 
 #include <sk/util/AbstractList.hxx>
+#include <sk/util/Processor.h>
 #include <sk/util/Class.h>
 #include <sk/util/Slot.hxx>
 #include <deque>
@@ -32,6 +33,7 @@ namespace sk {
         bool isEmpty() const;
         bool add(T& object);
         bool add(T* object);
+        void forEach(const sk::util::Processor<T>& processor) const;
         
       private:
         ArrayList(const ArrayList<T>& other);

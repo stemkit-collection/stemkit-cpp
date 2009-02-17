@@ -20,6 +20,7 @@ namespace sk {
         CPPUNIT_TEST_SUITE(sk::util::test::ArrayListTest);
           CPPUNIT_TEST(testCreate);
           CPPUNIT_TEST(testAdd);
+          CPPUNIT_TEST(testForEach);
         CPPUNIT_TEST_SUITE_END();
         
         public:
@@ -30,6 +31,7 @@ namespace sk {
           void tearDown();
           void testCreate();
           void testAdd();
+          void testForEach();
           
         private:
           ArrayListTest(const ArrayListTest& other);

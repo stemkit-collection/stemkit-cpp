@@ -83,4 +83,14 @@ add(T* object)
   return true;
 }
 
+template<class T>
+void
+sk::util::ArrayList<T>::
+forEach(const sk::util::Processor<T>& processor) const
+{
+  for(typename container::const_iterator iterator = _container.begin(); iterator != _container.end() ; ++iterator) {
+    processor.process((*iterator)->get());
+  }
+}
+
 #endif /* _SK_UTIL_ARRAYLIST_CXX_ */

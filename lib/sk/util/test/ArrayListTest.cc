@@ -69,3 +69,29 @@ testAdd()
   CPPUNIT_ASSERT_EQUAL(0, list.size());
   CPPUNIT_ASSERT_EQUAL(2, Probe::getCounter());
 }
+
+void
+sk::util::test::ArrayListTest::
+testForEach()
+{
+  ArrayList<String> list;
+  std::vector<String> target;
+
+  CPPUNIT_ASSERT_EQUAL(size_t(0), target.size());
+  list.add(new String("aaa"));
+  list.add(new String("zzz"));
+  list.add(new String("uuu"));
+
+  struct Copier : public virtual sk::util::Processor<String> {
+    Copier(std::vector<String>& target) 
+      : _target(target) {}
+
+    void process(String& item) const {
+      _target.push_back(item);
+    }
+    std::vector<String>& _target;
+  };
+
+  list.forEach(Copier(target));
+  CPPUNIT_ASSERT_EQUAL(size_t(3), target.size());
+}
