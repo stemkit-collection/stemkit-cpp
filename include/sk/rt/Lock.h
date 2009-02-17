@@ -24,44 +24,32 @@ namespace sk {
         virtual void unlock() = 0;
         virtual bool isLocked() const = 0;
 
-        template<typename T, typename P>
-        struct ptr {
-          typedef void (T::*member_function_t)(P& param);
-          typedef void (T::*const_member_function_t)(P& param) const;
-        };
         typedef void (function_t)();
 
-        template<typename T> void synchronize(T& target, typename ptr<T, void>::member_function_t method);
-        template<typename T> void synchronize(const T& target, typename ptr<T, void>::const_member_function_t method);
-        template<typename T> void synchronize(T& target);
-        template<typename T> void synchronize(const T& target);
+        template<typename T, typename TMF> 
+        void synchronize(T& target, TMF method);
 
-        template<typename T, typename P> void synchronize(T& target, typename ptr<T, P>::member_function_t method, P& param);
-        template<typename T, typename P> void synchronize(const T& target, typename ptr<T, P>::const_member_function_t method, P& param);
+        template<typename T, typename TMF, typename P> 
+        void synchronize(T& target, TMF method, P& param);
 
-        template<typename T> struct ConstMemberFunctionInvocator;
-        template<typename T, typename P> struct MemberFunctionWithParamInvocator;
-        template<typename T, typename P> struct ConstMemberFunctionWithParamInvocator;
-    };
+        template<typename T> 
+        void synchronize(T& target);
 
-    template<typename T>
-    struct Lock::ptr<T, void> {
-      typedef void (T::*member_function_t)();
-      typedef void (T::*const_member_function_t)() const;
-    };
+        template<typename T> 
+        void synchronize(const T& target);
 
-    template<>
-    struct Lock::ptr<Lock::function_t, void> {
+        template<typename T, typename TMF, typename P> 
+        struct MemberFunctionWithParamInvocator;
     };
 
     template<> void Lock::synchronize<Lock::function_t>(Lock::function_t& function);
   }
 }
 
-template<typename T>
+template<typename T, typename TMF>
 void
 sk::rt::Lock::
-synchronize(T& target, typename ptr<T, void>::member_function_t method)
+synchronize(T& target, TMF method)
 {
   lock();
 
@@ -75,69 +63,26 @@ synchronize(T& target, typename ptr<T, void>::member_function_t method)
   unlock();
 }
 
-template<typename T>
-struct sk::rt::Lock::ConstMemberFunctionInvocator {
-  ConstMemberFunctionInvocator(const T& target, typename ptr<T, void>::const_member_function_t method)
-    : _target(target), _method(method) {}
-
-  void invoke() {
-    (_target.*_method)();
-  }
-  const T& _target;
-  typename ptr<T, void>::const_member_function_t _method;
-};
-
-template<typename T>
-void
-sk::rt::Lock::
-synchronize(const T& target, typename ptr<T, void>::const_member_function_t method)
-{
-  ConstMemberFunctionInvocator<T> invocator(target, method);
-  synchronize(invocator, &ConstMemberFunctionInvocator<T>::invoke);
-}
-
-template<typename T, typename P>
+template<typename T, typename TMF, typename P>
 struct sk::rt::Lock::MemberFunctionWithParamInvocator {
-  MemberFunctionWithParamInvocator(T& target, typename ptr<T, P>::member_function_t method, P& param)
+  MemberFunctionWithParamInvocator(T& target, TMF method, P& param)
     : _target(target), _method(method), _param(param) {}
 
   void invoke() {
     (_target.*_method)(_param);
   }
   T& _target;
-  typename ptr<T, P>::member_function_t _method;
+  TMF _method;
   P& _param;
 };
 
-template<typename T, typename P>
+template<typename T, typename TMF, typename P>
 void
 sk::rt::Lock::
-synchronize(T& target, typename ptr<T, P>::member_function_t method, P& param)
+synchronize(T& target, TMF method, P& param)
 {
-  MemberFunctionWithParamInvocator<T, P> invocator(target, method, param);
-  synchronize(invocator, &MemberFunctionWithParamInvocator<T, P>::invoke);
-}
-
-template<typename T, typename P>
-struct sk::rt::Lock::ConstMemberFunctionWithParamInvocator {
-  ConstMemberFunctionWithParamInvocator(const T& target, typename ptr<T, P>::const_member_function_t method, P& param)
-    : _target(target), _method(method), _param(param) {}
-
-  void invoke() {
-    (_target.*_method)(_param);
-  }
-  const T& _target;
-  typename ptr<T, P>::const_member_function_t _method;
-  P& _param;
-};
-
-template<typename T, typename P>
-void
-sk::rt::Lock::
-synchronize(const T& target, typename ptr<T, P>::const_member_function_t method, P& param)
-{
-  ConstMemberFunctionWithParamInvocator<T, P> invocator(target, method, param);
-  synchronize(invocator, &ConstMemberFunctionWithParamInvocator<T, P>::invoke);
+  MemberFunctionWithParamInvocator<T, TMF, P> invocator(target, method, param);
+  synchronize(invocator, &MemberFunctionWithParamInvocator<T, TMF, P>::invoke);
 }
 
 template<typename T>
