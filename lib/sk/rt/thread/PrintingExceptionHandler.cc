@@ -14,6 +14,7 @@
 #include <sk/rt/thread/Generic.h>
 
 #include "PrintingExceptionHandler.h"
+#include <unistd.h>
 
 static const sk::util::Class __class("sk::rt::thread::PrintingExceptionHandler");
 
