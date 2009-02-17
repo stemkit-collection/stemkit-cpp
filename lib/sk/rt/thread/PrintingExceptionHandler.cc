@@ -10,14 +10,15 @@
 
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
-#include <sk/util/UnsupportedOperationException.h>
+#include <sk/rt/thread/Generic.h>
 
 #include "PrintingExceptionHandler.h"
 
 static const sk::util::Class __class("sk::rt::thread::PrintingExceptionHandler");
 
 sk::rt::thread::PrintingExceptionHandler::
-PrintingExceptionHandler()
+PrintingExceptionHandler(const sk::util::String& name)
+  : _scope(name)
 {
 }
 
@@ -37,12 +38,12 @@ void
 sk::rt::thread::PrintingExceptionHandler::
 uncaughtException(sk::rt::thread::Generic& thread, const std::exception& exception)
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  _scope.warning() << thread.inspect() << ": " << exception.what();
 }
 
 void 
 sk::rt::thread::PrintingExceptionHandler::
 uncaughtException(sk::rt::thread::Generic& thread)
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  _scope.warning() << thread.inspect() << ": " << "Unknown error";
 }

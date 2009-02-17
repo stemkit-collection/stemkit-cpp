@@ -12,6 +12,7 @@
 #define _SK_RT_THREAD_PRINTINGEXCEPTIONHANDLER_H_
 
 #include <sk/rt/thread/UncaughtExceptionHandler.h>
+#include <sk/rt/Scope.h>
 
 namespace sk {
   namespace rt {
@@ -20,7 +21,7 @@ namespace sk {
         : public virtual sk::rt::thread::UncaughtExceptionHandler
       {
         public:
-          PrintingExceptionHandler();
+          PrintingExceptionHandler(const sk::util::String& name);
           virtual ~PrintingExceptionHandler();
       
           // sk::util::thread::UncaughtExceptionHandler implementation.
@@ -33,6 +34,8 @@ namespace sk {
         private:
           PrintingExceptionHandler(const PrintingExceptionHandler& other);
           PrintingExceptionHandler& operator = (const PrintingExceptionHandler& other);
+
+          sk::rt::Scope _scope;
       };
     }
   }
