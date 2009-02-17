@@ -10,6 +10,7 @@ local objects =
   AbstractLock.cc
   Runner.cc
   LockSpecializations.cc
+  PrintingExceptionHandler.cc
 
   ../Thread.cc
   ../Mutex.cc

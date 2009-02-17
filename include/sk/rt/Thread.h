@@ -16,6 +16,7 @@
 #include <sk/util/Holder.hxx>
 
 #include <sk/rt/thread/Generic.h>
+#include <sk/rt/thread/UncaughtExceptionHandler.h>
 
 namespace sk {
   namespace rt {
@@ -62,6 +63,9 @@ namespace sk {
         static void yield();
         static void pass();
         static void sleep(uint64_t milliseconds);
+
+        static void setDefaultUncaughtExceptionHandler(thread::UncaughtExceptionHandler& handler);
+        static thread::UncaughtExceptionHandler& getDefaultUncaughtExceptionHandler(); 
 
         static void reset();
 

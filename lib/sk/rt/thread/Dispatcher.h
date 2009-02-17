@@ -16,6 +16,7 @@
 #include <sk/rt/Mutex.h>
 
 #include "Main.h"
+#include <sk/rt/thread/UncaughtExceptionHandler.h>
 
 namespace sk {
   namespace rt {
@@ -29,6 +30,10 @@ namespace sk {
 
           uint64_t makeSequence();
           sk::rt::thread::Generic& currentThread();
+
+          void setUncaughtExceptionHandler(thread::UncaughtExceptionHandler& handler);
+          void setUncaughtExceptionHandler(thread::UncaughtExceptionHandler* handler);
+          thread::UncaughtExceptionHandler& getUncaughtExceptionHandler() const;
       
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
@@ -44,6 +49,7 @@ namespace sk {
           static sk::util::Holder<Dispatcher> _mainHolder;
           sk::rt::thread::Main _mainThread;
           sk::rt::Mutex _mutex;
+          sk::util::Holder<sk::rt::thread::UncaughtExceptionHandler> _uncaughtExceptionHandlerHolder;
       };
     }
   }

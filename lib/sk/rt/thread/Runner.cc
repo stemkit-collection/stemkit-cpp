@@ -14,13 +14,14 @@
 #include <sk/util/Holder.cxx>
 
 #include "Implementation.h"
+#include "Dispatcher.h"
 #include "Runner.h"
 
 static const sk::util::Class __class("sk::rt::thread::Runner");
 
 sk::rt::thread::Runner::
-Runner(sk::rt::Runnable& target)
-  : _scope(__class.getName()), _target(target), _stateHolder(thread::State::SK_T_NEW)
+Runner(sk::rt::Runnable& target, sk::rt::thread::Generic& thread)
+  : _scope(__class.getName()), _target(target), _generic(thread), _stateHolder(thread::State::SK_T_NEW)
 {
 }
 
@@ -63,6 +64,14 @@ sk::rt::thread::Runner::
 run() const
 {
   _stateHolder.set(thread::State::SK_T_RUNNABLE);
-  sk::util::Exception::guard(_scope.warning(), _target, &Runnable::run, __FUNCTION__);
+  try {
+    _target.run();
+  }
+  catch(const std::exception& exception) {
+    Dispatcher::main().getUncaughtExceptionHandler().uncaughtException(_generic, exception);
+  }
+  catch(...) {
+    Dispatcher::main().getUncaughtExceptionHandler().uncaughtException(_generic);
+  }
   _stateHolder.set(thread::State::SK_T_TERMINATED);
 }

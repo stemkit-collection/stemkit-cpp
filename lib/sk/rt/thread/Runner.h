@@ -25,7 +25,7 @@ namespace sk {
         : public virtual sk::rt::Runnable
       {
         public:
-          Runner(sk::rt::Runnable& target);
+          Runner(sk::rt::Runnable& target, sk::rt::thread::Generic& thread);
           virtual ~Runner();
       
           void start(sk::rt::thread::Generic& handle);
@@ -44,6 +44,7 @@ namespace sk {
           Runner& operator = (const Runner& other);
 
           sk::rt::Runnable& _target;
+          sk::rt::thread::Generic& _generic;
           sk::util::Holder<thread::abstract::Thread> _threadHolder;
           mutable sk::util::Holder<const sk::rt::thread::State> _stateHolder;
           sk::rt::Scope _scope;

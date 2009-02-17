@@ -86,7 +86,7 @@ sk::rt::Thread::
 init()
 {
   _id = sk::rt::thread::Dispatcher::main().makeSequence();
-  _runnerHolder.set(new thread::Runner(_targetHolder.get()));
+  _runnerHolder.set(new thread::Runner(_targetHolder.get(), *this));
 
   if(_name.isEmpty() == true) {
     std::stringstream stream;
@@ -241,3 +241,16 @@ pass()
   yield();
 }
 
+void
+sk::rt::Thread::
+setDefaultUncaughtExceptionHandler(thread::UncaughtExceptionHandler& handler)
+{
+  sk::rt::thread::Dispatcher::main().setUncaughtExceptionHandler(handler);
+}
+
+sk::rt::thread::UncaughtExceptionHandler&
+sk::rt::Thread::
+getDefaultUncaughtExceptionHandler()
+{
+  return sk::rt::thread::Dispatcher::main().getUncaughtExceptionHandler();
+}

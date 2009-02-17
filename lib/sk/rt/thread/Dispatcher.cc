@@ -14,13 +14,14 @@
 
 #include "Dispatcher.h"
 #include "Implementation.h"
+#include "PrintingExceptionHandler.h"
 
 sk::util::Holder<sk::rt::thread::Dispatcher> sk::rt::thread::Dispatcher::_mainHolder;
 static const sk::util::Class __class("sk::rt::thread::Dispatcher");
 
 sk::rt::thread::Dispatcher::
 Dispatcher()
-  : _sequence(0), _mutex(false)
+  : _sequence(0), _mutex(false), _uncaughtExceptionHandlerHolder(new PrintingExceptionHandler)
 {
 }
 
@@ -70,3 +71,18 @@ currentThread()
 {
   return Implementation::instance().getGeneric();
 }
+
+void
+sk::rt::thread::Dispatcher::
+setUncaughtExceptionHandler(thread::UncaughtExceptionHandler& handler)
+{
+  _uncaughtExceptionHandlerHolder.set(handler);
+}
+
+sk::rt::thread::UncaughtExceptionHandler&
+sk::rt::thread::Dispatcher::
+getUncaughtExceptionHandler() const
+{
+  return _uncaughtExceptionHandlerHolder.get();
+}
+
