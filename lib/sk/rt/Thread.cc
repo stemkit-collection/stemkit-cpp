@@ -231,7 +231,7 @@ void
 sk::rt::Thread::
 yield()
 {
-  throw sk::util::UnsupportedOperationException(SK_CLASS_METHOD);
+  sk::rt::thread::Implementation::instance().yield();
 }
 
 void 

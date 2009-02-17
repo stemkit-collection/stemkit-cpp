@@ -31,6 +31,7 @@ namespace sk {
             virtual abstract::Thread* wrapCurrentThread(sk::rt::thread::Generic& handle) const = 0;
             virtual sk::rt::thread::Generic& getGeneric() const = 0;
             virtual void sleep(uint64_t milliseconds) const = 0;
+            virtual void yield() const = 0;
         };
       }
     }

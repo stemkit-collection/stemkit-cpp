@@ -75,3 +75,10 @@ sleep(uint64_t milliseconds) const
 {
   Sleep(milliseconds);
 }
+
+void
+sk::rt::thread::mswin::Implementation::
+yield() const
+{
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
+}

@@ -16,6 +16,7 @@
 
 #include "Implementation.h"
 #include <time.h>
+#include <pthread.h>
 
 static sk::util::Class __class("sk::rt::thread::pthreads::Implementation");
 
@@ -113,4 +114,11 @@ sleep(uint64_t milliseconds) const
   spec.tv_nsec = (milliseconds % 1000) * 1000000;
 
   nanosleep(&spec, 0);
+}
+
+void
+sk::rt::thread::pthreads::Implementation::
+yield() const
+{
+  exceptionUnlessSuccess("sched_yield", sched_yield());
 }
