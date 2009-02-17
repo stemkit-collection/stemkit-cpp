@@ -31,11 +31,11 @@ namespace sk {
         // std::exception implementation.
         const char* what() const throw();
 
-      template<typename S, typename T>
-      static void guard(const S& stream, T& target, void (T::*method)(), const char* spot = 0);
+        template<typename S, typename T>
+        static void guard(const S& stream, T& target, void (T::*method)(), const char* spot = 0);
 
-      template<typename S, typename T>
-      static void guard(const S& stream, T& target, void (T::*method)(), const std::string& spot);
+        template<typename S, typename T>
+        static void guard(const S& stream, T& target, void (T::*method)(), const std::string& spot);
 
       protected:
         const String join(const String& s1, const String& s2) const;
