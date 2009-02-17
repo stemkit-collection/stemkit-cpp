@@ -78,7 +78,8 @@ testDataGeneration()
 
   CPPUNIT_ASSERT_EQUAL(size_t(threads * amount * runs), basket.size());
 
-  for(int block=0; block < (threads * runs) ;++block) {
+  int blocks = threads * runs;
+  for(int block=0; block < blocks ;++block) {
     int base = block * amount;
     for(int counter=1; counter<amount ;++counter) {
       CPPUNIT_ASSERT_EQUAL(basket.at(base + 0), basket.at(base + counter));
