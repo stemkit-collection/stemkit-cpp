@@ -69,9 +69,19 @@ sk::rt::thread::tests::ThreadTest::
 testDataGeneration()
 {
   std::vector<int> basket;
-  DataGenerator generator(5, basket);
+  int threads = 20;
+  int amount = 1000;
+  int runs = 7;
+  DataGenerator generator(threads, basket);
 
-  generator.fill(3, 4);
+  generator.fill(amount, runs);
 
-  CPPUNIT_ASSERT_EQUAL(size_t(5*3*4), basket.size());
+  CPPUNIT_ASSERT_EQUAL(size_t(threads * amount * runs), basket.size());
+
+  for(int block=0; block < (threads * runs) ;++block) {
+    int base = block * amount;
+    for(int counter=1; counter<amount ;++counter) {
+      CPPUNIT_ASSERT_EQUAL(basket.at(base + 0), basket.at(base + counter));
+    }
+  }
 }

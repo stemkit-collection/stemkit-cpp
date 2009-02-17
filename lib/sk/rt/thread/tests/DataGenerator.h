@@ -15,6 +15,7 @@
 #include <sk/util/ArrayList.hxx>
 #include <sk/rt/Thread.h>
 #include <vector>
+#include <sk/rt/Mutex.h>
 
 namespace sk {
   namespace rt {
@@ -39,6 +40,7 @@ namespace sk {
             int _workforce;
             std::vector<int>& _target;
             sk::util::ArrayList<sk::rt::Thread> _threads;
+            sk::rt::Mutex _mutex;
         };
       }
     }

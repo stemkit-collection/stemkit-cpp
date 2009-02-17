@@ -36,12 +36,12 @@ getClass() const
 
 namespace {
   struct Worker : public virtual sk::rt::Runnable {
-    Worker(int id, int amount, int runs, std::vector<int>& target)
-      : _id(id), _amount(amount), _runs(runs), _target(target) {}
+    Worker(int id, int amount, int runs, std::vector<int>& target, sk::rt::Lock& lock)
+      : _id(id), _amount(amount), _runs(runs), _target(target), _lock(lock) {}
 
     void run() const {
       for(int counter=0; counter < _runs ; ++counter) {
-        fill();
+        _lock.synchronize(*this, &Worker::fill);
         sk::rt::Thread::yield();
       }
     }
@@ -49,6 +49,7 @@ namespace {
     void fill() const {
       for(int counter=0; counter < _amount ; ++counter) {
         _target.push_back(_id);
+        sk::rt::Thread::yield();
       }
     }
 
@@ -56,6 +57,7 @@ namespace {
     int _amount;
     int _runs;
     std::vector<int>& _target;
+    sk::rt::Lock& _lock;
   };
 
   struct Starter : public virtual sk::util::Processor<sk::rt::Thread> {
@@ -76,7 +78,7 @@ sk::rt::thread::tests::DataGenerator::
 fill(int amount, int runs)
 {
   for(int counter=0; counter < _workforce ;++counter) {
-    _threads.add(new Thread(new Worker(counter, amount, runs, _target)));
+    _threads.add(new Thread(new Worker(counter + 10, amount, runs, _target, _mutex)));
   }
   _threads.forEach(Starter());
   _threads.forEach(Joiner());
