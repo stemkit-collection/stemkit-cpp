@@ -26,9 +26,14 @@ int main(int argc, const char* argv[])
   sk::rt::Scope::controller().loadXmlConfig(
     sk::rt::config::InlineLocator("\n\
       <scope name='app'>\n\
+        <scope name='default exception handler'>\n\
+          <property name='abort-on-exception' value='true' />\n\
+        </scope>\n\
+        \n\
         <scope name='sk::rt::thread::pthread::Mutex'>\n\
           <log destination='std::cerr' level='error' show-object='false' show-time='true' />\n\
         </scope>\n\
+        \n\
         <scope name='sk::rt::thread::pthread::Thread'>\n\
           <log destination='std::cerr' level='error' show-object='false' show-time='true' />\n\
         </scope>\n\

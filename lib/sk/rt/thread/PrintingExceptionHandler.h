@@ -35,7 +35,10 @@ namespace sk {
           PrintingExceptionHandler(const PrintingExceptionHandler& other);
           PrintingExceptionHandler& operator = (const PrintingExceptionHandler& other);
 
+          void finalize();
+
           sk::rt::Scope _scope;
+          bool _abortOnException;
       };
     }
   }
