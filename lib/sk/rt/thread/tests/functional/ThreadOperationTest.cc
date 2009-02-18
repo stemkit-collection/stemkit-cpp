@@ -13,6 +13,7 @@
 #include <sk/rt/Thread.h>
 #include <sk/rt/Runnable.h>
 #include <sk/rt/ReentrantLock.h>
+#include <sk/util/ArrayList.cxx>
 
 #include <unistd.h>
 #include <iostream>
@@ -44,27 +45,42 @@ tearDown()
 
 namespace {
   struct Block : public virtual sk::rt::Runnable {
-    Block(const sk::util::String& message)
-      : _message(message) {}
+    Block(const sk::util::String& message, sk::rt::Lock& lock)
+      : _message(message), _lock(lock) {}
 
     void run() const {
-      sk::rt::thread::Generic& current = sk::rt::Thread::currentThread();
-      for(int counter=3; counter > 0 ;--counter) {
-        _lock.lock();
-        std::cerr << "TICK: " 
-          << current.getName() << ": "
-          << std::boolalpha << current.isMain() << ": "
-          << _message.inspect() << ", " << _lock.inspect()
-        << std::endl;
-
-        sk::rt::Thread::sleep(2000);
+      while(true) {
+        _lock.synchronize(*this, &Block::tick);
+        sk::rt::Thread::yield();
       }
-      _lock.unlock();
-      _lock.unlock();
-      _lock.unlock();
     }
-    mutable sk::rt::ReentrantLock _lock;
+
+    void tick() const {
+      sk::rt::thread::Generic& current = sk::rt::Thread::currentThread();
+      std::cerr << "TICK: " 
+        << current.getName() << ": "
+        << std::boolalpha << current.isMain() << ": "
+        << _message.inspect() << ", " << _lock.inspect()
+      << std::endl;
+
+      sk::rt::Thread::sleep(2000);
+    }
+    sk::rt::Lock& _lock;
     const sk::util::String _message;
+  };
+}
+
+namespace {
+  struct Starter : public virtual sk::util::Processor<sk::rt::Thread> {
+    void process(sk::rt::Thread& thread) const {
+      thread.start();
+      sk::rt::Thread::sleep(1000);
+    }
+  };
+  struct Joiner : public virtual sk::util::Processor<sk::rt::Thread> {
+    void process(sk::rt::Thread& thread) const {
+      thread.join();
+    }
   };
 }
 
@@ -74,17 +90,14 @@ testBasics()
 {
   CPPUNIT_ASSERT_EQUAL(true, Thread::currentThread().isMain());
 
-  Block b1("aaa");
-  Block b2("bbb");
+  ReentrantLock lock;
+  util::ArrayList<Thread> threads;
 
-  Thread t1(b1);
-  Thread t2(b2);
+  threads.add(new Thread(new Block("aaa", lock)));
+  threads.add(new Thread(new Block("bbb", lock)));
+  threads.add(new Thread(new Block("ccc", lock)));
 
-  t1.start();
-  Thread::sleep(1000);
-  t2.start();
-
-  t1.join();
-  t2.join();
+  threads.forEach(Starter());
+  threads.forEach(Joiner());
 }
 
