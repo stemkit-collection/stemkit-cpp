@@ -40,6 +40,20 @@ Mutex(int mutex_type)
   }
 }
 
+sk::rt::thread::pthreads::Mutex*
+sk::rt::thread::pthreads::Mutex::
+makeRecursive()
+{
+  return new pthreads::Mutex(PTHREAD_MUTEX_RECURSIVE);
+}
+
+sk::rt::thread::pthreads::Mutex*
+sk::rt::thread::pthreads::Mutex::
+makeSingular()
+{
+  return new Mutex(PTHREAD_MUTEX_ERRORCHECK);
+}
+
 sk::rt::thread::pthreads::Mutex::
 ~Mutex()
 {

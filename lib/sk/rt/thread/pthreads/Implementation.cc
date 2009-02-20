@@ -51,14 +51,14 @@ sk::rt::thread::pthreads::Mutex*
 sk::rt::thread::pthreads::Implementation::
 makeSimpleMutex() const
 {
-  return new pthreads::Mutex(PTHREAD_MUTEX_ERRORCHECK);
+  return pthreads::Mutex::makeSingular();
 }
 
 sk::rt::thread::pthreads::Mutex*
 sk::rt::thread::pthreads::Implementation::
 makeRecursiveMutex() const
 {
-  return new pthreads::Mutex(PTHREAD_MUTEX_RECURSIVE);
+  return pthreads::Mutex::makeRecursive();
 }
 
 sk::rt::thread::pthreads::Thread*

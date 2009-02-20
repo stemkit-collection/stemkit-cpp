@@ -23,7 +23,6 @@ namespace sk {
           : public virtual sk::rt::thread::abstract::Mutex
         {
           public:
-            Mutex(int mutex_type);
             virtual ~Mutex();
 
             void lock();
@@ -32,8 +31,12 @@ namespace sk {
         
             // sk::util::Object re-implementation.
             const sk::util::Class getClass() const;
+
+            static Mutex* makeRecursive();
+            static Mutex* makeSingular();
         
           private:
+            Mutex(int mutex_type);
             Mutex(const Mutex& other);
             Mutex& operator = (const Mutex& other);
 
