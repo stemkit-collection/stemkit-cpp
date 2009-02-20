@@ -14,6 +14,7 @@
 #include <sk/rt/Runnable.h>
 #include <sk/rt/thread/State.h>
 #include <sk/util/Holder.hxx>
+#include <sk/util/String.h>
 
 #include <sk/rt/thread/Generic.h>
 #include <sk/rt/thread/UncaughtExceptionHandler.h>

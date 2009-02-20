@@ -12,6 +12,7 @@
 #define _SK_RT_THREAD_STATE_H_
 
 #include <sk/util/Object.h>
+#include <sk/util/String.h>
 #include <vector>
 
 namespace sk {
