@@ -16,8 +16,13 @@
 static const sk::util::Class __class("sk::rt::thread::pthreads::Exception");
 
 sk::rt::thread::pthreads::Exception::
-Exception(const sk::util::String& name, int code)
-  : SystemException(name, code)
+Exception(const sk::util::String& function, int code)
+  : _function(function), SystemException(function, code)
+{
+}
+
+sk::rt::thread::pthreads::Exception::
+~Exception() throw()
 {
 }
 
@@ -41,3 +46,9 @@ raiseUnlessSuccess(const sk::util::String& name, int status, int other)
   return true;
 }
 
+const sk::util::String
+sk::rt::thread::pthreads::Exception::
+getFunctionName() const
+{
+  return _function;
+}

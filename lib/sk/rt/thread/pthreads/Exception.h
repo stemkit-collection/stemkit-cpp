@@ -21,9 +21,11 @@ namespace sk {
           : public sk::util::SystemException
         {
           public:
-            Exception(const sk::util::String& name, int code);
+            Exception(const sk::util::String& function, int code);
+            virtual ~Exception() throw();
         
             static bool raiseUnlessSuccess(const sk::util::String& name, int status, int other = 0);
+            const sk::util::String getFunctionName() const;
 
             // sk::util::Object re-implementation.
             const sk::util::Class getClass() const;
@@ -31,6 +33,8 @@ namespace sk {
           private:
             Exception(const Exception& other);
             Exception& operator = (const Exception& other);
+
+            sk::util::String _function;
         };
       }
     }

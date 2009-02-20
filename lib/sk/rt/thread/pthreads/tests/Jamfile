@@ -3,6 +3,7 @@ local test = sk-rt-pthreads-test ;
 
 local objects = 
   TestSuite.cc
+  MutexTest.cc
 ;
 
 use-unit-test $(test) $(objects) ;
