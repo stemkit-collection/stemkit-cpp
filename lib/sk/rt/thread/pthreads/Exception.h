@@ -24,7 +24,7 @@ namespace sk {
             Exception(const sk::util::String& function, int code);
             virtual ~Exception() throw();
         
-            static bool raiseUnlessSuccess(const sk::util::String& name, int status, int other = 0);
+            static bool raiseUnlessSuccess(const sk::util::String& statement, int status, int other = 0);
             const sk::util::String getFunctionName() const;
 
             // sk::util::Object re-implementation.
@@ -41,7 +41,7 @@ namespace sk {
   }
 }
 
-#define SK_PTHREAD_RAISE_UNLESS_SUCCESS(function, args) sk::rt::thread::pthreads::Exception::raiseUnlessSuccess(#function, function/**/args)
-#define SK_PTHREAD_RAISE_UNLESS_SUCCESS_OR(other, function, args) sk::rt::thread::pthreads::Exception::raiseUnlessSuccess(#function, function/**/args, other)
+#define SK_PTHREAD_RAISE_UNLESS_SUCCESS(statement) sk::rt::thread::pthreads::Exception::raiseUnlessSuccess(#statement, statement)
+#define SK_PTHREAD_RAISE_UNLESS_SUCCESS_OR(other, statement) sk::rt::thread::pthreads::Exception::raiseUnlessSuccess(#statement, statement, other)
 
 #endif /* _SK_RT_THREAD_PTHREADS_EXCEPTION_H_ */

@@ -25,7 +25,7 @@ sk::rt::thread::pthreads::Implementation::
 Implementation()
   : _scope(__class.getName())
 {
-  SK_PTHREAD_RAISE_UNLESS_SUCCESS(pthread_key_create, (&_currentThreadKey, 0));
+  SK_PTHREAD_RAISE_UNLESS_SUCCESS(pthread_key_create(&_currentThreadKey, 0));
 }
 
 sk::rt::thread::pthreads::Implementation::
@@ -38,7 +38,7 @@ void
 sk::rt::thread::pthreads::Implementation::
 cleanup()
 {
-  SK_PTHREAD_RAISE_UNLESS_SUCCESS(pthread_key_delete, (_currentThreadKey));
+  SK_PTHREAD_RAISE_UNLESS_SUCCESS(pthread_key_delete(_currentThreadKey));
 }
 
 const sk::util::Class
@@ -84,14 +84,14 @@ installGeneric(sk::rt::thread::Generic& handle) const
   if(value != 0) {
     throw sk::util::IllegalStateException("Generic is already initialized for this thread");
   }
-  SK_PTHREAD_RAISE_UNLESS_SUCCESS(pthread_setspecific, (_currentThreadKey, &handle));
+  SK_PTHREAD_RAISE_UNLESS_SUCCESS(pthread_setspecific(_currentThreadKey, &handle));
 }
 
 void
 sk::rt::thread::pthreads::Implementation::
 clearGeneric() const
 {
-  SK_PTHREAD_RAISE_UNLESS_SUCCESS(pthread_setspecific, (_currentThreadKey, 0));
+  SK_PTHREAD_RAISE_UNLESS_SUCCESS(pthread_setspecific(_currentThreadKey, 0));
 }
 
 sk::rt::thread::Generic& 
@@ -121,5 +121,5 @@ void
 sk::rt::thread::pthreads::Implementation::
 yield() const
 {
-  SK_SYSTEM_RAISE_UNLESS_SUCCESS(sched_yield, ());
+  SK_SYSTEM_RAISE_UNLESS_SUCCESS(sched_yield());
 }

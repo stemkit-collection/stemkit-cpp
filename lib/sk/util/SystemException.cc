@@ -40,13 +40,13 @@ getCode() const
 
 bool
 sk::util::SystemException::
-raiseUnlessSuccess(const sk::util::String& name, int status, int other)
+raiseUnlessSuccess(const sk::util::String& statement, int status, int other)
 {
   if(status < 0) {
     if(errno == other) {
       return false;
     }
-    throw SystemException(name);
+    throw SystemException(statement.substring(0, statement.indexOf('(')).trim());
   }
   return true;
 }

@@ -62,28 +62,28 @@ start()
   if(_wrapper == true) {
     throw sk::util::IllegalStateException(SK_METHOD);
   }
-  SK_PTHREAD_RAISE_UNLESS_SUCCESS(pthread_create, (&_thread, 0, runner, this));
+  SK_PTHREAD_RAISE_UNLESS_SUCCESS(pthread_create(&_thread, 0, runner, this));
 }
 
 void 
 sk::rt::thread::pthreads::Thread::
 stop()
 {
-  SK_PTHREAD_RAISE_UNLESS_SUCCESS(pthread_cancel, (_thread));
+  SK_PTHREAD_RAISE_UNLESS_SUCCESS(pthread_cancel(_thread));
 }
 
 void 
 sk::rt::thread::pthreads::Thread::
 interrupt()
 {
-  SK_PTHREAD_RAISE_UNLESS_SUCCESS(pthread_cancel, (_thread));
+  SK_PTHREAD_RAISE_UNLESS_SUCCESS(pthread_cancel(_thread));
 }
 
 void 
 sk::rt::thread::pthreads::Thread::
 join()
 {
-  SK_PTHREAD_RAISE_UNLESS_SUCCESS(pthread_join, (_thread, 0));
+  SK_PTHREAD_RAISE_UNLESS_SUCCESS(pthread_join(_thread, 0));
 }
 
 void 

@@ -35,13 +35,13 @@ getClass() const
 
 bool
 sk::rt::thread::pthreads::Exception::
-raiseUnlessSuccess(const sk::util::String& name, int status, int other)
+raiseUnlessSuccess(const sk::util::String& statement, int status, int other)
 {
   if(status != 0) {
     if(status == other) {
       return false;
     }
-    throw Exception(name, status);
+    throw Exception(statement.substring(0, statement.indexOf('(')).trim(), status);
   }
   return true;
 }

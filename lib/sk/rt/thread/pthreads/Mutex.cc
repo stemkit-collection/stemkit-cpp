@@ -21,10 +21,10 @@ sk::rt::thread::pthreads::Mutex::
 Mutex(int mutex_type, sk::rt::Scope scope)
   : _scope(scope)
 {
-  SK_PTHREAD_RAISE_UNLESS_SUCCESS(pthread_mutexattr_init, (&_attributes));
+  SK_PTHREAD_RAISE_UNLESS_SUCCESS(pthread_mutexattr_init(&_attributes));
   try {
-    SK_PTHREAD_RAISE_UNLESS_SUCCESS(pthread_mutexattr_settype, (&_attributes, mutex_type));
-    SK_PTHREAD_RAISE_UNLESS_SUCCESS(pthread_mutex_init, (&_mutex, &_attributes));
+    SK_PTHREAD_RAISE_UNLESS_SUCCESS(pthread_mutexattr_settype(&_attributes, mutex_type));
+    SK_PTHREAD_RAISE_UNLESS_SUCCESS(pthread_mutex_init(&_mutex, &_attributes));
   }
   catch(...) {
     destroyMutexAttributes();
@@ -61,14 +61,14 @@ void
 sk::rt::thread::pthreads::Mutex::
 destroyMutex() 
 {
-  SK_PTHREAD_RAISE_UNLESS_SUCCESS(pthread_mutex_destroy, (&_mutex));
+  SK_PTHREAD_RAISE_UNLESS_SUCCESS(pthread_mutex_destroy(&_mutex));
 }
 
 void 
 sk::rt::thread::pthreads::Mutex::
 destroyMutexAttributes() 
 {
-  SK_PTHREAD_RAISE_UNLESS_SUCCESS(pthread_mutexattr_destroy, (&_attributes));
+  SK_PTHREAD_RAISE_UNLESS_SUCCESS(pthread_mutexattr_destroy(&_attributes));
 }
 
 const sk::util::Class
@@ -82,20 +82,20 @@ void
 sk::rt::thread::pthreads::Mutex::
 lock()
 {
-  SK_PTHREAD_RAISE_UNLESS_SUCCESS(pthread_mutex_lock, (&_mutex));
+  SK_PTHREAD_RAISE_UNLESS_SUCCESS(pthread_mutex_lock(&_mutex));
 }
 
 void 
 sk::rt::thread::pthreads::Mutex::
 unlock()
 {
-  SK_PTHREAD_RAISE_UNLESS_SUCCESS(pthread_mutex_unlock, (&_mutex));
+  SK_PTHREAD_RAISE_UNLESS_SUCCESS(pthread_mutex_unlock(&_mutex));
 }
 
 bool
 sk::rt::thread::pthreads::Mutex::
 tryLock()
 {
-  return SK_PTHREAD_RAISE_UNLESS_SUCCESS_OR(EBUSY, pthread_mutex_trylock, (&_mutex));
+  return SK_PTHREAD_RAISE_UNLESS_SUCCESS_OR(EBUSY, pthread_mutex_trylock(&_mutex));
 }
 
