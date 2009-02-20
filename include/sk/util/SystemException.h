@@ -20,6 +20,7 @@ namespace sk {
         SystemException(const sk::util::String& message);
         SystemException(const sk::util::String& message, int code);
 
+        static bool raiseUnlessSuccess(const sk::util::String& name, int status, int other = 0);
         int getCode() const;
         
         // sk::util::Object re-implementation.
@@ -30,5 +31,8 @@ namespace sk {
     };
   }
 }
+
+#define SK_SYSTEM_RAISE_UNLESS_SUCCESS(function, args) sk::util::SystemException::raiseUnlessSuccess(#function, function/**/args)
+#define SK_SYSTEM_RAISE_UNLESS_SUCCESS_OR(other, function, args) sk::util::SystemException::raiseUnlessSuccess(#function, function/**/args, other)
 
 #endif /* _SK_UTIL_SYSTEMEXCEPTION_ */

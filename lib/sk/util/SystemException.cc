@@ -37,3 +37,16 @@ getCode() const
 {
   return _code;
 }
+
+bool
+sk::util::SystemException::
+raiseUnlessSuccess(const sk::util::String& name, int status, int other)
+{
+  if(status < 0) {
+    if(errno == other) {
+      return false;
+    }
+    throw SystemException(name);
+  }
+  return true;
+}
