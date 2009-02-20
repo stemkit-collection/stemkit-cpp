@@ -82,7 +82,7 @@ namespace sk {
         sk::util::Holder<thread::Runner> _runnerHolder;
 
         sk::util::String _name;
-        long long _id;
+        uint64_t _id;
     };
   }
 }
