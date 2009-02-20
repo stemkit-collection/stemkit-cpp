@@ -30,11 +30,12 @@ int main(int argc, const char* argv[])
           <property name='abort-on-exception' value='true' />\n\
         </scope>\n\
         \n\
-        <scope name='sk::rt::thread::pthread::Mutex'>\n\
-          <log destination='std::cerr' level='error' show-object='false' show-time='true' />\n\
+        <scope name='sk::rt::thread::pthreads::Mutex'>\n\
+          <log destination='std::cerr' level='info' show-object='false' show-time='true' />\n\
+          <property name='perform-error-check' value='true' />\n\
         </scope>\n\
         \n\
-        <scope name='sk::rt::thread::pthread::Thread'>\n\
+        <scope name='sk::rt::thread::pthreads::Thread'>\n\
           <log destination='std::cerr' level='error' show-object='false' show-time='true' />\n\
         </scope>\n\
       </scope>\n\

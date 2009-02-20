@@ -36,7 +36,7 @@ namespace sk {
             static Mutex* makeSingular();
         
           private:
-            Mutex(int mutex_type);
+            Mutex(int mutex_type, const sk::rt::Scope scope);
             Mutex(const Mutex& other);
             Mutex& operator = (const Mutex& other);
 
