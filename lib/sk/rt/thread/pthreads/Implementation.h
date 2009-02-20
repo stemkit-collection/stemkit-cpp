@@ -12,6 +12,7 @@
 #define _SK_RT_THREAD_PTHREADS_IMPLEMENTATION_H_
 
 #include <sk/rt/thread/abstract/Implementation.h>
+#include <sk/rt/Scope.h>
 
 #include "Mutex.h"
 #include "Thread.h"
@@ -45,10 +46,13 @@ namespace sk {
             Implementation(const Implementation& other);
             Implementation& operator = (const Implementation& other);
 
+            void cleanup();
+
             // sk::rt::thread::pthread::Provider implementation.
             void installGeneric(sk::rt::thread::Generic& handle) const;
             void clearGeneric() const;
 
+            sk::rt::Scope _scope;
             pthread_key_t _currentThreadKey;
         };
       }

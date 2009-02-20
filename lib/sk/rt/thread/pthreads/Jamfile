@@ -2,6 +2,7 @@
 local library = sk.rt.thread.pthreads. ;
 local objects = 
   Factory.cc
+  Exception.cc
   Implementation.cc
   Mutex.cc
   Thread.cc

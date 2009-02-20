@@ -11,28 +11,20 @@
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
 #include <sk/util/UnsupportedOperationException.h>
-#include <sk/util/SystemException.h>
 
 #include "Mutex.h"
+#include "Exception.h"
 
 static const sk::util::Class __class("sk::rt::thread::pthreads::Mutex");
-
-namespace {
-  void exceptionUnlessSuccess(const char* name, int status) {
-    if(status != 0) {
-      throw sk::util::SystemException("pthread_" + sk::util::String(name) + "()", status);
-    }
-  }
-}
 
 sk::rt::thread::pthreads::Mutex::
 Mutex(int mutex_type)
   : _scope(__class.getName())
 {
-  exceptionUnlessSuccess("mutexattr_init", pthread_mutexattr_init(&_attributes));
+  SK_PTHREAD_RAISE_UNLESS_SUCCESS(pthread_mutexattr_init, (&_attributes));
   try {
-    exceptionUnlessSuccess("mutexattr_settype", pthread_mutexattr_settype(&_attributes, mutex_type));
-    exceptionUnlessSuccess("mutex_init", pthread_mutex_init(&_mutex, &_attributes));
+    SK_PTHREAD_RAISE_UNLESS_SUCCESS(pthread_mutexattr_settype, (&_attributes, mutex_type));
+    SK_PTHREAD_RAISE_UNLESS_SUCCESS(pthread_mutex_init, (&_mutex, &_attributes));
   }
   catch(...) {
     destroyMutexAttributes();
@@ -65,14 +57,14 @@ void
 sk::rt::thread::pthreads::Mutex::
 destroyMutex() 
 {
-  exceptionUnlessSuccess("mutex_destroy", pthread_mutex_destroy(&_mutex));
+  SK_PTHREAD_RAISE_UNLESS_SUCCESS(pthread_mutex_destroy, (&_mutex));
 }
 
 void 
 sk::rt::thread::pthreads::Mutex::
 destroyMutexAttributes() 
 {
-  exceptionUnlessSuccess("mutexattr_destroy", pthread_mutexattr_destroy(&_attributes));
+  SK_PTHREAD_RAISE_UNLESS_SUCCESS(pthread_mutexattr_destroy, (&_attributes));
 }
 
 const sk::util::Class
@@ -86,25 +78,20 @@ void
 sk::rt::thread::pthreads::Mutex::
 lock()
 {
-  exceptionUnlessSuccess("mutex_lock", pthread_mutex_lock(&_mutex));
+  SK_PTHREAD_RAISE_UNLESS_SUCCESS(pthread_mutex_lock, (&_mutex));
 }
 
 void 
 sk::rt::thread::pthreads::Mutex::
 unlock()
 {
-  exceptionUnlessSuccess("mutex_unlock", pthread_mutex_unlock(&_mutex));
+  SK_PTHREAD_RAISE_UNLESS_SUCCESS(pthread_mutex_unlock, (&_mutex));
 }
 
 bool
 sk::rt::thread::pthreads::Mutex::
 tryLock()
 {
-  int status = pthread_mutex_trylock(&_mutex);
-  if(status == EBUSY) {
-    return false;
-  }
-  exceptionUnlessSuccess("mutex_trylock", status);
-  return true;
+  return SK_PTHREAD_RAISE_UNLESS_SUCCESS_OR(EBUSY, pthread_mutex_trylock, (&_mutex));
 }
 

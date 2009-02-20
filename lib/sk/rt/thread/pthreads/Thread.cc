@@ -10,22 +10,15 @@
 
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
-#include <sk/util/SystemException.h>
 #include <sk/util/IllegalStateException.h>
 #include <sk/util/SystemExit.h>
 
 #include "Thread.h"
+#include "Exception.h"
+
 #include <iostream>
 
 static const sk::util::Class __class("sk::rt::thread::pthreads::Thread");
-
-namespace {
-  void exceptionUnlessSuccess(const char* name, int status) {
-    if(status != 0) {
-      throw sk::util::SystemException("pthread_" + sk::util::String(name) + "()", status);
-    }
-  }
-}
 
 namespace {
   struct DummyRunnable : public virtual sk::rt::Runnable {
@@ -69,28 +62,28 @@ start()
   if(_wrapper == true) {
     throw sk::util::IllegalStateException(SK_METHOD);
   }
-  exceptionUnlessSuccess("create", pthread_create(&_thread, 0, runner, this));
+  SK_PTHREAD_RAISE_UNLESS_SUCCESS(pthread_create, (&_thread, 0, runner, this));
 }
 
 void 
 sk::rt::thread::pthreads::Thread::
 stop()
 {
-  exceptionUnlessSuccess("cancel", pthread_cancel(_thread));
+  SK_PTHREAD_RAISE_UNLESS_SUCCESS(pthread_cancel, (_thread));
 }
 
 void 
 sk::rt::thread::pthreads::Thread::
 interrupt()
 {
-  exceptionUnlessSuccess("cancel", pthread_cancel(_thread));
+  SK_PTHREAD_RAISE_UNLESS_SUCCESS(pthread_cancel, (_thread));
 }
 
 void 
 sk::rt::thread::pthreads::Thread::
 join()
 {
-  exceptionUnlessSuccess("join", pthread_join(_thread, 0));
+  SK_PTHREAD_RAISE_UNLESS_SUCCESS(pthread_join, (_thread, 0));
 }
 
 void 

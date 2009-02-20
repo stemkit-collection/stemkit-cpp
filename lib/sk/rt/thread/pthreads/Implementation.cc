@@ -12,32 +12,33 @@
 #include <sk/util/String.h>
 #include <sk/util/IllegalStateException.h>
 #include <sk/util/UnsupportedOperationException.h>
-#include <sk/util/SystemException.h>
 
 #include "Implementation.h"
+#include "Exception.h"
+
 #include <time.h>
 #include <pthread.h>
 
 static sk::util::Class __class("sk::rt::thread::pthreads::Implementation");
 
-namespace {
-  void exceptionUnlessSuccess(const char* name, int status) {
-    if(status != 0) {
-      throw sk::util::SystemException("pthread_" + sk::util::String(name) + "()", status);
-    }
-  }
-}
-
 sk::rt::thread::pthreads::Implementation::
 Implementation()
+  : _scope(__class.getName())
 {
-  exceptionUnlessSuccess("key_create", pthread_key_create(&_currentThreadKey, 0));
+  SK_PTHREAD_RAISE_UNLESS_SUCCESS(pthread_key_create, (&_currentThreadKey, 0));
 }
 
 sk::rt::thread::pthreads::Implementation::
 ~Implementation()
 {
-  pthread_key_delete(_currentThreadKey);
+  sk::util::Exception::guard(_scope.warning(__FUNCTION__), *this, &Implementation::cleanup);
+}
+
+void
+sk::rt::thread::pthreads::Implementation::
+cleanup()
+{
+  SK_PTHREAD_RAISE_UNLESS_SUCCESS(pthread_key_delete, (_currentThreadKey));
 }
 
 const sk::util::Class
@@ -83,14 +84,14 @@ installGeneric(sk::rt::thread::Generic& handle) const
   if(value != 0) {
     throw sk::util::IllegalStateException("Generic is already initialized for this thread");
   }
-  exceptionUnlessSuccess("setspecific", pthread_setspecific(_currentThreadKey, &handle));
+  SK_PTHREAD_RAISE_UNLESS_SUCCESS(pthread_setspecific, (_currentThreadKey, &handle));
 }
 
 void
 sk::rt::thread::pthreads::Implementation::
 clearGeneric() const
 {
-  exceptionUnlessSuccess("setspecific", pthread_setspecific(_currentThreadKey, 0));
+  SK_PTHREAD_RAISE_UNLESS_SUCCESS(pthread_setspecific, (_currentThreadKey, 0));
 }
 
 sk::rt::thread::Generic& 
@@ -120,5 +121,5 @@ void
 sk::rt::thread::pthreads::Implementation::
 yield() const
 {
-  exceptionUnlessSuccess("sched_yield", sched_yield());
+  SK_SYSTEM_RAISE_UNLESS_SUCCESS(sched_yield, ());
 }
