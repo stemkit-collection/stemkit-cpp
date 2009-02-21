@@ -3,6 +3,7 @@ local library = sk.rt.thread.win32 ;
 local objects = 
   Factory.cc
   Implementation.cc
+  Thread.cc
 ;
 
 make-library $(library) : $(objects) : sk.rt.thread.platform ;

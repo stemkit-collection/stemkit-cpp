@@ -12,6 +12,8 @@
 #define _SK_RT_THREAD_WIN32_IMPLEMENTATION_H_
 
 #include <sk/rt/thread/abstract/Implementation.h>
+#include <sk/rt/Scope.h>
+#include <windows.h>
 
 namespace sk {
   namespace rt {
@@ -39,6 +41,14 @@ namespace sk {
           private:
             Implementation(const Implementation& other);
             Implementation& operator = (const Implementation& other);
+
+            void installGeneric(sk::rt::thread::Generic& handle) const;
+            void clearGeneric() const;
+
+            void cleanup();
+
+            sk::rt::Scope _scope;
+            DWORD _tlsIndex;
         };
       }
     }
