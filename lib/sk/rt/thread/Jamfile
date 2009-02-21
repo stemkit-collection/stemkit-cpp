@@ -21,6 +21,6 @@ make-library $(library) : $(objects) ;
 make-subdirs tests abstract mock ;
 
 if windows in $(project.PLATFORM_SPECIFICS) {
-  make-subdirs mswin ;
+  make-subdirs win32 ;
 }
 else make-subdirs pthreads ;
