@@ -12,7 +12,7 @@
 #include <sk/util/Processor.h>
 #include <sk/util/Class.h>
 #include <sk/util/Slot.hxx>
-#include <deque>
+#include <vector>
 
 namespace sk {
   namespace util {
@@ -35,13 +35,16 @@ namespace sk {
         bool add(T* object);
         void forEach(const sk::util::Processor<T>& processor) const;
         
+        T& get(int index) const;
+        using AbstractList<T>::get;
+
       private:
         ArrayList(const ArrayList<T>& other);
         ArrayList<T>& operator = (const ArrayList<T>& other);
 
         typedef Slot<T>* item;
         typedef std::allocator<item> allocator;
-        typedef std::deque<item, allocator> container;
+        typedef std::vector<item, allocator> container;
 
         container _container;
     };

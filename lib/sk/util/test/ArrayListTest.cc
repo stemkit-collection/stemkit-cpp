@@ -72,6 +72,23 @@ testAdd()
 
 void
 sk::util::test::ArrayListTest::
+testGet()
+{
+  ArrayList<String> list;
+
+  list.add(new String("aaa"));
+  list.add(new String("bbb"));
+  list.add(new String("ccc"));
+
+  CPPUNIT_ASSERT_EQUAL(3, list.size());
+  CPPUNIT_ASSERT_EQUAL("aaa", list.get(0));
+  CPPUNIT_ASSERT_EQUAL("bbb", list.get(1));
+  CPPUNIT_ASSERT_EQUAL("ccc", list.get(2));
+  CPPUNIT_ASSERT_THROW(list.get(3), sk::util::IndexOutOfBoundsException);
+}
+
+void
+sk::util::test::ArrayListTest::
 testForEach()
 {
   ArrayList<String> list;

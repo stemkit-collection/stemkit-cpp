@@ -15,6 +15,7 @@
 #include <sk/util/slot/Reference.cxx>
 #include <sk/util/slot/Pointer.cxx>
 #include <sk/util/StreamLiner.h>
+#include <sk/util/IndexOutOfBoundsException.h>
 #include <iostream>
 
 template<class T>
@@ -91,6 +92,17 @@ forEach(const sk::util::Processor<T>& processor) const
   for(typename container::const_iterator iterator = _container.begin(); iterator != _container.end() ; ++iterator) {
     processor.process((*iterator)->get());
   }
+}
+
+template<class T>
+T& 
+sk::util::ArrayList<T>::
+get(int index) const 
+{
+  if(index<0 || index>=_container.size()) {
+    throw sk::util::IndexOutOfBoundsException("sk::util::ArrayList<T>#get()");
+  }
+  return _container[index]->get();
 }
 
 #endif /* _SK_UTIL_ARRAYLIST_CXX_ */
