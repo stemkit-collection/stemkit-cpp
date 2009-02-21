@@ -14,6 +14,8 @@
 #include <sk/util/IllegalStateException.h>
 
 #include "Implementation.h"
+#include "Thread.h"
+#include <winbase.h>
 
 static const sk::util::Class __class("sk::rt::thread::win32::Implementation");
 
@@ -63,18 +65,18 @@ makeRecursiveMutex() const
   throw sk::util::UnsupportedOperationException(SK_METHOD);
 }
 
-sk::rt::thread::abstract::Thread* 
+sk::rt::thread::win32::Thread* 
 sk::rt::thread::win32::Implementation::
 makeThread(sk::rt::Runnable& target, sk::rt::thread::Generic& handle) const
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  return new win32::Thread(*this, target, handle);
 }
 
-sk::rt::thread::abstract::Thread* 
+sk::rt::thread::win32::Thread* 
 sk::rt::thread::win32::Implementation::
 wrapCurrentThread(sk::rt::thread::Generic& handle) const
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  return new win32::Thread(*this, handle);
 }
 
 void
@@ -121,5 +123,7 @@ void
 sk::rt::thread::win32::Implementation::
 yield() const
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  // Relies on _WIN32_WINNT=0x0500 being defined. Can be implemented also 
+  // as sleep(0).
+  SwitchToThread();
 }

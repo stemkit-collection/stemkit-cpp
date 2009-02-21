@@ -31,6 +31,7 @@ namespace sk {
             Thread(const Provider& provider, sk::rt::Runnable& target, thread::Generic& handle);
             virtual ~Thread();
 
+            // sk::rt::thread::abstract::Thread implementation.
             void start();
             void stop();
             void interrupt();
@@ -46,12 +47,12 @@ namespace sk {
             void run();
             static void* runner(void* data);
 
+            sk::rt::Scope _scope;
             pthread_t _thread;
             sk::rt::Runnable& _target;
             sk::rt::thread::Generic& _handle;
             const Provider& _provider;
             bool _wrapper;
-            sk::rt::Scope _scope;
         };
       }
     }

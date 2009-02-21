@@ -46,11 +46,11 @@ namespace sk {
             Implementation(const Implementation& other);
             Implementation& operator = (const Implementation& other);
 
-            void cleanup();
-
             // sk::rt::thread::pthread::Provider implementation.
             void installGeneric(sk::rt::thread::Generic& handle) const;
             void clearGeneric() const;
+
+            void cleanup();
 
             sk::rt::Scope _scope;
             pthread_key_t _currentThreadKey;

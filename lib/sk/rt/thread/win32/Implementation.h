@@ -13,6 +13,10 @@
 
 #include <sk/rt/thread/abstract/Implementation.h>
 #include <sk/rt/Scope.h>
+
+#include "Thread.h"
+#include "Provider.h"
+
 #include <windows.h>
 
 namespace sk {
@@ -20,7 +24,8 @@ namespace sk {
     namespace thread {
       namespace win32 {
         class Implementation 
-          : public virtual sk::rt::thread::abstract::Implementation
+          : public virtual sk::rt::thread::abstract::Implementation,
+            public virtual Provider
         {
           public:
             Implementation();
@@ -29,8 +34,8 @@ namespace sk {
             // sk::rt::thread::abstract::Implementation implementation.
             abstract::Mutex* makeSimpleMutex() const;
             abstract::Mutex* makeRecursiveMutex() const;
-            abstract::Thread* makeThread(sk::rt::Runnable& target, sk::rt::thread::Generic& handle) const;
-            abstract::Thread* wrapCurrentThread(sk::rt::thread::Generic& handle) const;
+            win32::Thread* makeThread(sk::rt::Runnable& target, sk::rt::thread::Generic& handle) const;
+            win32::Thread* wrapCurrentThread(sk::rt::thread::Generic& handle) const;
             sk::rt::thread::Generic& getGeneric() const;
             void sleep(uint64_t milliseconds) const;
             void yield() const;
@@ -42,6 +47,7 @@ namespace sk {
             Implementation(const Implementation& other);
             Implementation& operator = (const Implementation& other);
 
+            // sk::rt::thread::win32::Provider implementation.
             void installGeneric(sk::rt::thread::Generic& handle) const;
             void clearGeneric() const;
 

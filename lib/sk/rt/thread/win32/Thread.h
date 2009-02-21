@@ -11,25 +11,50 @@
 #ifndef _SK_RT_THREAD_WIN32_THREAD_H_
 #define _SK_RT_THREAD_WIN32_THREAD_H_
 
-#include <sk/util/Object.h>
+#include <sk/rt/thread/abstract/Thread.h>
+#include <sk/rt/thread/Generic.h>
+#include <sk/rt/Scope.h>
+#include <sk/rt/Runnable.h>
+
+#include "Provider.h"
+#include <windows.h>
 
 namespace sk {
   namespace rt {
     namespace thread {
       namespace win32 {
         class Thread 
-          : public virtual sk::util::Object
+          : public virtual sk::rt::thread::abstract::Thread
         {
           public:
-            Thread();
+            Thread(const Provider& provider, sk::rt::thread::Generic& handle);
+            Thread(const Provider& provider, sk::rt::Runnable& target, thread::Generic& handle);
             virtual ~Thread();
         
+            // sk::rt::thread::abstract::Thread implementation.
+            void start();
+            void stop();
+            void interrupt();
+            void join();
+
             // sk::util::Object re-implementation.
             const sk::util::Class getClass() const;
         
           private:
             Thread(const Thread& other);
             Thread& operator = (const Thread& other);
+
+            void run();
+            static DWORD __stdcall runner(LPVOID data);
+            void cleanup();
+
+            sk::rt::Scope _scope;
+            HANDLE _threadHandle;
+            DWORD _threadId;
+            sk::rt::Runnable& _target;
+            sk::rt::thread::Generic& _handle;
+            const Provider& _provider;
+            bool _wrapper;
         };
       }
     }
