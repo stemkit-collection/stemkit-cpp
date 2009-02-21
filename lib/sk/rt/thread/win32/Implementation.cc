@@ -15,69 +15,69 @@
 #include "Implementation.h"
 #include <windows.h>
 
-static const sk::util::Class __class("sk::rt::thread::mswin::Implementation");
+static const sk::util::Class __class("sk::rt::thread::win32::Implementation");
 
-sk::rt::thread::mswin::Implementation::
+sk::rt::thread::win32::Implementation::
 Implementation()
 {
 }
 
-sk::rt::thread::mswin::Implementation::
+sk::rt::thread::win32::Implementation::
 ~Implementation()
 {
 }
 
 const sk::util::Class
-sk::rt::thread::mswin::Implementation::
+sk::rt::thread::win32::Implementation::
 getClass() const
 {
   return __class;
 }
 
 sk::rt::thread::abstract::Mutex* 
-sk::rt::thread::mswin::Implementation::
+sk::rt::thread::win32::Implementation::
 makeSimpleMutex() const
 {
   throw sk::util::UnsupportedOperationException(SK_METHOD);
 }
 
 sk::rt::thread::abstract::Mutex* 
-sk::rt::thread::mswin::Implementation::
+sk::rt::thread::win32::Implementation::
 makeRecursiveMutex() const
 {
   throw sk::util::UnsupportedOperationException(SK_METHOD);
 }
 
 sk::rt::thread::abstract::Thread* 
-sk::rt::thread::mswin::Implementation::
+sk::rt::thread::win32::Implementation::
 makeThread(sk::rt::Runnable& target, sk::rt::thread::Generic& handle) const
 {
   throw sk::util::UnsupportedOperationException(SK_METHOD);
 }
 
 sk::rt::thread::abstract::Thread* 
-sk::rt::thread::mswin::Implementation::
+sk::rt::thread::win32::Implementation::
 wrapCurrentThread(sk::rt::thread::Generic& handle) const
 {
   throw sk::util::UnsupportedOperationException(SK_METHOD);
 }
 
 sk::rt::thread::Generic& 
-sk::rt::thread::mswin::Implementation::
+sk::rt::thread::win32::Implementation::
 getGeneric() const
 {
   throw sk::util::UnsupportedOperationException(SK_METHOD);
 }
 
 void 
-sk::rt::thread::mswin::Implementation::
+sk::rt::thread::win32::Implementation::
 sleep(uint64_t milliseconds) const
 {
   Sleep(milliseconds);
 }
 
 void
-sk::rt::thread::mswin::Implementation::
+sk::rt::thread::win32::Implementation::
 yield() const
 {
   throw sk::util::UnsupportedOperationException(SK_METHOD);

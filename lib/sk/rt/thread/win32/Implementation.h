@@ -8,15 +8,15 @@
  *  Author: Gennady Bystritsky (gennady.bystritsky@quest.com)
 */
 
-#ifndef _SK_RT_THREAD_MSWIN_IMPLEMENTATION_H_
-#define _SK_RT_THREAD_MSWIN_IMPLEMENTATION_H_
+#ifndef _SK_RT_THREAD_WIN32_IMPLEMENTATION_H_
+#define _SK_RT_THREAD_WIN32_IMPLEMENTATION_H_
 
 #include <sk/rt/thread/abstract/Implementation.h>
 
 namespace sk {
   namespace rt {
     namespace thread {
-      namespace mswin {
+      namespace win32 {
         class Implementation 
           : public virtual sk::rt::thread::abstract::Implementation
         {
@@ -45,4 +45,4 @@ namespace sk {
   }
 }
 
-#endif /* _SK_RT_THREAD_MSWIN_IMPLEMENTATION_H_ */
+#endif /* _SK_RT_THREAD_WIN32_IMPLEMENTATION_H_ */

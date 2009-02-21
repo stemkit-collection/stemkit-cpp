@@ -28,5 +28,5 @@ sk::rt::thread::abstract::Implementation*
 sk::rt::thread::abstract::Factory::
 makeImplementation() const
 {
-  return new mswin::Implementation;
+  return new win32::Implementation;
 }

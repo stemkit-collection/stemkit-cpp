@@ -66,6 +66,7 @@ rule platform-nt-x86
 
   core.ensure-defined JAM_MSVS_ROOT ;
   mswin.setup-visual-studio8 "$(JAM_MSVS_ROOT:J= )" ;
+  USE_GLOBAL_INCLUDES_AFTER = false ;
 
   C++FLAGS += /MD /WL /FC /Zi /Gy /wd4355 ;
   CCFLAGS +=  /MD /WL /FC /W3 /Zi /Gy ;
