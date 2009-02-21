@@ -13,6 +13,7 @@ PRODUCT_PLATFORM = $(JAMCONFIG_PRODUCT_PLATFORM) ;
 
 # project.DISTRIB_ENV = $(SRCTOP:J=/)/project/config/environment ;
 project.DISTRIB_PRODINFO = $(SRCTOP:J=/)/install/prodinfo ;
+project.DO_NOT_BUILD = ruby java ;
 
 TOOLS_HOME = /opt/quest/platform/$(JAMCONFIG_PRODUCT_PLATFORM) ;
 
@@ -90,6 +91,8 @@ rule platform-nt-x86
 
 rule platform-linux-x86
 {
+  util.delete-from project.DO_NOT_BUILD : ruby java ;
+
   C++FLAGS += -fpic ;
   CCFLAGS += -fpic ;
   DEFINES += ;
@@ -190,6 +193,8 @@ rule platform-macos-leopard
 
 rule platform-solaris-sparc
 {
+  util.delete-from project.DO_NOT_BUILD : ruby java ;
+
   C++FLAGS += -fPIC ;
   CCFLAGS += -fPIC ;
   DEFINES += _FILE_OFFSET_BITS=64 ;
@@ -316,3 +321,4 @@ system.export-to-env GCC_LIB_PATHLIST : $(GCC_ROOT)/lib/$(GCC_STDLIBS) ;
 system.export-to-env CONTRIB_ROOT : $(CONTRIB_ROOT) ;
 system.export-to-env MAKE_DLL : $(project.MAKE_DLL) ;
 system.export-to-env BUILD_ABILIB : $(BUILD_ABILIB) ;
+system.export-to-env DO_NOT_BUILD : $(project.DO_NOT_BUILD) ;

@@ -1,9 +1,9 @@
 # vim:set sw=2:
 
-if $(project.RUBY_DIR) {
+if ! ruby in $(project.DO_NOT_BUILD) {
   make-subdirs ruby ;
 }
 
-if $(project.RUBY_DIR) {
+if ! java in $(project.DO_NOT_BUILD) {
   make-subdirs java ;
 }
