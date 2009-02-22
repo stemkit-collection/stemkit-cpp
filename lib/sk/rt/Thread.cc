@@ -119,7 +119,7 @@ getClass() const
 
 void
 sk::rt::Thread::
-run() const
+run()
 {
 }
 

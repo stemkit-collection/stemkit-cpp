@@ -37,7 +37,7 @@ namespace sk {
 
         protected:
           // sk::rt::Runnable implementation.
-          void run() const;
+          void run();
       
         private:
           Runner(const Runner& other);

@@ -48,7 +48,7 @@ namespace {
     Block(const sk::util::String& message, sk::rt::Lock& lock)
       : _message(message), _lock(lock) {}
 
-    void run() const {
+    void run() {
       while(true) {
         _lock.synchronize(*this, &Block::tick);
         sk::rt::Thread::sleep(2000);

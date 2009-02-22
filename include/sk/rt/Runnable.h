@@ -19,7 +19,7 @@ namespace sk {
       : public virtual sk::util::Object
     {
       public:
-        virtual void run() const = 0;
+        virtual void run() = 0;
     };
   }
 }

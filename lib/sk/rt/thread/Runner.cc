@@ -61,7 +61,7 @@ start(sk::rt::thread::Generic& handle)
 
 void
 sk::rt::thread::Runner::
-run() const
+run() 
 {
   _stateHolder.set(thread::State::SK_T_RUNNABLE);
   try {

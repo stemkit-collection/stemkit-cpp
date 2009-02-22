@@ -39,7 +39,7 @@ namespace {
     Worker(int id, int amount, int runs, std::vector<int>& target, sk::rt::Lock& lock)
       : _id(id), _amount(amount), _runs(runs), _target(target), _lock(lock) {}
 
-    void run() const {
+    void run() {
       for(int counter=0; counter < _runs ; ++counter) {
         _lock.synchronize(*this, &Worker::fill);
         sk::rt::Thread::yield();

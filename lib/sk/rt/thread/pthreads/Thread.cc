@@ -22,7 +22,7 @@ static const sk::util::Class __class("sk::rt::thread::pthreads::Thread");
 
 namespace {
   struct DummyRunnable : public virtual sk::rt::Runnable {
-    void run() const {
+    void run() {
     }
   } DUMMY_TARGET;
 }

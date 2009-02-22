@@ -71,7 +71,7 @@ namespace sk {
         static void reset();
 
       protected:
-        virtual void run() const;
+        virtual void run();
     
       private:
         Thread(const Thread& other);
