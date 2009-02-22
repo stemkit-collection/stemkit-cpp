@@ -48,19 +48,23 @@ sk::rt::thread::win32::CriticalSection::
 lock()
 {
   EnterCriticalSection(&_section);
-  ensureDepth();
+  ensureDepth(true);
 }
 
-void
+bool
 sk::rt::thread::win32::CriticalSection::
-ensureDepth()
+ensureDepth(bool raise)
 {
   if(_depth > 0) {
     if(getEnterCount() > _depth) {
       LeaveCriticalSection(&_section);
-      throw sk::util::IllegalStateException("lock: too deep");
+      if(raise == true) {
+        throw sk::util::IllegalStateException("lock: too deep");
+      }
+      return false;
     }
   }
+  return true;
 }
 
 void 
@@ -87,8 +91,7 @@ sk::rt::thread::win32::CriticalSection::
 tryLock()
 {
   if(TryEnterCriticalSection(&_section) == TRUE) {
-    ensureDepth();
-    return true;
+    return ensureDepth(false);
   }
   return false;
 }

@@ -14,6 +14,7 @@
 #include <sk/util/IllegalStateException.h>
 
 #include "Implementation.h"
+#include "CriticalSection.h"
 #include "Thread.h"
 #include <winbase.h>
 
@@ -55,14 +56,17 @@ sk::rt::thread::abstract::Mutex*
 sk::rt::thread::win32::Implementation::
 makeSimpleMutex() const
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  win32::CriticalSection* section = new win32::CriticalSection;
+  section->setDepth(1);
+
+  return section;
 }
 
 sk::rt::thread::abstract::Mutex* 
 sk::rt::thread::win32::Implementation::
 makeRecursiveMutex() const
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  return new win32::CriticalSection;
 }
 
 sk::rt::thread::win32::Thread* 

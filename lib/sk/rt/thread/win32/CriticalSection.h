@@ -44,7 +44,7 @@ namespace sk {
             CriticalSection& operator = (const CriticalSection& other);
 
             void cleanup();
-            void ensureDepth();
+            bool ensureDepth(bool raise);
 
             int _depth;
             bool _errorCheck;
