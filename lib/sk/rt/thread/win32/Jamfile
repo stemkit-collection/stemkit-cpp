@@ -4,6 +4,7 @@ local objects =
   Factory.cc
   Implementation.cc
   Thread.cc
+  CriticalSection.cc
 ;
 
 make-library $(library) : $(objects) : sk.rt.thread.platform ;
