@@ -51,7 +51,7 @@ namespace {
     void run() const {
       while(true) {
         _lock.synchronize(*this, &Block::tick);
-        sk::rt::Thread::yield();
+        sk::rt::Thread::sleep(2000);
       }
     }
 
@@ -62,8 +62,6 @@ namespace {
         << std::boolalpha << current.isMain() << ": "
         << _message.inspect() << ", " << _lock.inspect()
       << std::endl;
-
-      sk::rt::Thread::sleep(2000);
     }
     sk::rt::Lock& _lock;
     const sk::util::String _message;
@@ -95,6 +93,9 @@ testBasics()
 
   threads.add(new Thread(new Block("aaa", lock)));
   threads.add(new Thread(new Block("bbb", lock)));
+  threads.add(new Thread(new Block("ccc", lock)));
+  threads.add(new Thread(new Block("ccc", lock)));
+  threads.add(new Thread(new Block("ccc", lock)));
   threads.add(new Thread(new Block("ccc", lock)));
 
   threads.forEach(Starter());
