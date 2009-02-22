@@ -46,9 +46,9 @@ namespace sk {
             void destroyMutex();
             void destroyMutexAttributes();
 
+            sk::rt::Scope _scope;
             pthread_mutex_t _mutex;
             pthread_mutexattr_t _attributes;
-            sk::rt::Scope _scope;
         };
       }
     }
