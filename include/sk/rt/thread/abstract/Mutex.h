@@ -24,6 +24,9 @@ namespace sk {
             virtual void lock() = 0;
             virtual void unlock() = 0;
             virtual bool tryLock() = 0;
+
+            virtual bool hasEnterCount() const = 0;
+            virtual int getEnterCount() const = 0;
         };
       }
     }

@@ -10,6 +10,7 @@
 
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
+#include <sk/util/UnsupportedOperationException.h>
 
 #include "Mutex.h"
 
@@ -54,3 +55,19 @@ tryLock()
   _locked = true;
   return true;
 }
+
+bool
+sk::rt::thread::mock::Mutex::
+hasEnterCount() const
+{ 
+  return false;
+}
+
+int
+sk::rt::thread::mock::Mutex::
+getEnterCount() const
+{ 
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
+}
+
+

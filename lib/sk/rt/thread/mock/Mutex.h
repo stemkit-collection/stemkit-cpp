@@ -24,9 +24,12 @@ namespace sk {
             Mutex();
             virtual ~Mutex();
 
+            // sk::rt::thread::abstract::Mutex implementation.
             void lock();
             void unlock();
             bool tryLock();
+            bool hasEnterCount() const;
+            int getEnterCount() const;
 
             // sk::util::Object re-implementation.
             const sk::util::Class getClass() const;

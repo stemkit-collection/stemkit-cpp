@@ -12,6 +12,7 @@
 #include <sk/util/String.h>
 #include <sk/util/UnsupportedOperationException.h>
 
+#include "Mutex.h"
 #include "Implementation.h"
 
 static sk::util::Class __class("sk::rt::thread::mock::Implementation");

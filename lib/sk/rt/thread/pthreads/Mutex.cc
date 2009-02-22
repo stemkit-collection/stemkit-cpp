@@ -99,3 +99,16 @@ tryLock()
   return SK_PTHREAD_RAISE_UNLESS_SUCCESS_OR(EBUSY, pthread_mutex_trylock(&_mutex));
 }
 
+bool
+sk::rt::thread::pthreads::Mutex::
+hasEnterCount() const
+{
+  return false;
+}
+
+int 
+sk::rt::thread::pthreads::Mutex::
+getEnterCount() const
+{
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
+}
