@@ -10,7 +10,7 @@ local objects =
 local test-categories ;
 
 if windows in $(project.PLATFORM_SPECIFICS) {
-  test-categories += mswin ;
+  test-categories += win32 ;
 }
 else test-categories += pthreads ;
 
