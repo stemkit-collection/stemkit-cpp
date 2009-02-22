@@ -74,7 +74,7 @@ testLocking()
     lock.unlock();
     CPPUNIT_FAIL("No expected exception");
   }
-  catch(const sk::util::SystemException& exception) {
+  catch(const sk::util::Exception& exception) {
   }
 }
 
