@@ -1,0 +1,13 @@
+
+local test = sk-rt-pthreads-test ;
+
+local objects = 
+  TestSuite.cc
+  CriticalSectionTest.cc
+;
+
+use-project-libraries $(test) : sk.rt.bundle sk.util sk.cppunit ;
+use-project-libraries $(test) : sk.rt.thread.win32 ;
+
+use-unit-test $(test) $(objects) ;
+make-cpp-test $(test) : $(objects) ;
