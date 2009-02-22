@@ -24,6 +24,8 @@ namespace sk {
           {
             CPPUNIT_TEST_SUITE(sk::rt::thread::win32::tests::CriticalSectionTest);
               CPPUNIT_TEST(testBasics);
+              CPPUNIT_TEST(testUnlockingNotLockedFails);
+              CPPUNIT_TEST(testEnterLimit);
             CPPUNIT_TEST_SUITE_END();
           
             public:
@@ -33,6 +35,8 @@ namespace sk {
               void setUp();
               void tearDown();
               void testBasics();
+              void testUnlockingNotLockedFails();
+              void testEnterLimit();
           
             private:
               CriticalSectionTest(const CriticalSectionTest& other);

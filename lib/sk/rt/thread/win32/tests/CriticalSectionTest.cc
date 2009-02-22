@@ -8,6 +8,8 @@
  *  Author: Gennady Bystritsky (gennady.bystritsky@quest.com)
 */
 
+
+#include <sk/util/IllegalStateException.h>
 #include "CriticalSectionTest.h"
 #include "..\CriticalSection.h"
 
@@ -54,4 +56,32 @@ testBasics()
   section.unlock();
 
   CPPUNIT_ASSERT_EQUAL(0, section.getEnterCount());
+}
+
+void
+sk::rt::thread::win32::tests::CriticalSectionTest::
+testUnlockingNotLockedFails()
+{
+  win32::CriticalSection section;
+  CPPUNIT_ASSERT_THROW(section.unlock(), sk::util::IllegalStateException);
+}
+
+void 
+sk::rt::thread::win32::tests::CriticalSectionTest::
+testEnterLimit()
+{
+  win32::CriticalSection section;
+  section.setDepth(1);
+
+  CPPUNIT_ASSERT_EQUAL(0, section.getEnterCount());
+  section.lock();
+  CPPUNIT_ASSERT_EQUAL(1, section.getEnterCount());
+
+  try {
+    section.lock();
+    CPPUNIT_FAIL("No expected exception");
+  }
+  catch(const sk::util::IllegalStateException& exception) {
+    CPPUNIT_ASSERT_EQUAL(1, section.getEnterCount());
+  }
 }

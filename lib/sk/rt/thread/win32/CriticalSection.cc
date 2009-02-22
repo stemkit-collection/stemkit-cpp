@@ -10,6 +10,7 @@
 
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
+#include <sk/util/IllegalStateException.h>
 
 #include "CriticalSection.h"
 
@@ -17,7 +18,7 @@ static const sk::util::Class __class("sk::rt::thread::win32::CriticalSection");
 
 sk::rt::thread::win32::CriticalSection::
 CriticalSection()
-  : _scope(__class.getName())
+  : _scope(__class.getName()), _depth(0), _errorCheck(true)
 {
   InitializeCriticalSection(&_section);
 }
@@ -47,12 +48,37 @@ sk::rt::thread::win32::CriticalSection::
 lock()
 {
   EnterCriticalSection(&_section);
+  ensureDepth();
+}
+
+void
+sk::rt::thread::win32::CriticalSection::
+ensureDepth()
+{
+  if(_depth > 0) {
+    if(getEnterCount() > _depth) {
+      LeaveCriticalSection(&_section);
+      throw sk::util::IllegalStateException("lock: too deep");
+    }
+  }
 }
 
 void 
 sk::rt::thread::win32::CriticalSection::
 unlock()
 {
+  if(_errorCheck == true) {
+    if(TryEnterCriticalSection(&_section) == TRUE) {
+      int count = getEnterCount();
+      LeaveCriticalSection(&_section);
+      if(count == 1) {
+        throw sk::util::IllegalStateException("unlock: not locked");
+      }
+    }
+    else {
+      throw sk::util::IllegalStateException("unlock: not owner");
+    }
+  }
   LeaveCriticalSection(&_section);
 }
 
@@ -60,7 +86,11 @@ bool
 sk::rt::thread::win32::CriticalSection::
 tryLock()
 {
-  return TryEnterCriticalSection(&_section);
+  if(TryEnterCriticalSection(&_section) == TRUE) {
+    ensureDepth();
+    return true;
+  }
+  return false;
 }
 
 bool 
@@ -77,3 +107,16 @@ getEnterCount() const
   return _section.RecursionCount;
 }
 
+void
+sk::rt::thread::win32::CriticalSection::
+setDepth(int depth) 
+{
+  _depth = depth<0 ? 0 : depth;
+}
+
+void
+sk::rt::thread::win32::CriticalSection::
+setErrorCheck(bool state)
+{
+  _errorCheck = state;
+}

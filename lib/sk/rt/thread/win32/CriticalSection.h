@@ -25,6 +25,9 @@ namespace sk {
           public:
             CriticalSection();
             virtual ~CriticalSection();
+
+            void setDepth(int depth);
+            void setErrorCheck(bool state);
         
             // sk::rt::thread::abstract::Mutex implementation
             void lock();
@@ -41,7 +44,10 @@ namespace sk {
             CriticalSection& operator = (const CriticalSection& other);
 
             void cleanup();
+            void ensureDepth();
 
+            int _depth;
+            bool _errorCheck;
             sk::rt::Scope _scope;
             CRITICAL_SECTION _section;
         };
