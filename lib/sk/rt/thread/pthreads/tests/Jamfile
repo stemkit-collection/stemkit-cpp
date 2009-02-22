@@ -8,7 +8,7 @@ local objects =
 
 use-pthreads $(test) ;
 
-use-project-libraries $(test) : sk.rt.bundle sk.util sk.cppunit sk.rt.thread ;
+use-project-libraries $(test) : sk.rt.bundle sk.util sk.cppunit ;
 use-project-libraries $(test) : sk.rt.thread.pthreads ;
 
 use-unit-test $(test) $(objects) ;

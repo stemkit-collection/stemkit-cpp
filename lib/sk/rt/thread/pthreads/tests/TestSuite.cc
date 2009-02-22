@@ -16,7 +16,6 @@
 
 #include <sk/rt/Scope.h>
 #include <sk/rt/config/InlineLocator.h>
-#include <sk/rt/Thread.h>
 
 int main(int argc, const char* argv[])
 {
@@ -42,8 +41,5 @@ int main(int argc, const char* argv[])
     sk::cppunit::SourcePath::setBase(argv[1]);
   }
   runner.addTest(registry.makeTest());
-  int status = !runner.run();
-  sk::rt::Thread::reset();
-
-  return status;
+  return !runner.run();
 }
