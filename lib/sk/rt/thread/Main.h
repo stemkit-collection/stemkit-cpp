@@ -38,6 +38,11 @@ namespace sk {
           // sk::rt::thread::Generic implementation
           bool isAlive() const;
           bool isInterrupted() const;
+          bool isException() const;
+          bool isExited() const;
+          int exitStatus() const;
+
+          // sk::rt::thread::Generic implementation
           bool isMain() const;
           bool isService() const;
           bool isRegular() const;

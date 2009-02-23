@@ -31,6 +31,10 @@ namespace sk {
 
           virtual bool isAlive() const = 0;
           virtual bool isInterrupted() const = 0;
+          virtual bool isException() const = 0;
+          virtual bool isExited() const = 0;
+          virtual int exitStatus() const = 0;
+
           virtual bool isMain() const = 0;
           virtual bool isService() const = 0;
           virtual bool isRegular() const = 0;

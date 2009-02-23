@@ -119,3 +119,24 @@ isInterrupted() const
 {
   return false;
 }
+
+bool 
+sk::rt::thread::Main::
+isException() const
+{
+  return false;
+}
+
+bool 
+sk::rt::thread::Main::
+isExited() const
+{
+  return false;
+}
+
+int 
+sk::rt::thread::Main::
+exitStatus() const
+{
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
+}

@@ -254,3 +254,24 @@ getDefaultUncaughtExceptionHandler()
 {
   return sk::rt::thread::Dispatcher::main().getUncaughtExceptionHandler();
 }
+
+bool 
+sk::rt::Thread::
+isException() const
+{
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
+}
+
+bool 
+sk::rt::Thread::
+isExited() const
+{
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
+}
+
+int 
+sk::rt::Thread::
+exitStatus() const
+{
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
+}
