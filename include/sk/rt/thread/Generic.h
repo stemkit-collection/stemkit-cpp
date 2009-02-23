@@ -24,6 +24,7 @@ namespace sk {
           virtual void start() = 0;
           virtual void stop() = 0;
           virtual void join() = 0;
+          virtual void detach() = 0;
           virtual void interrupt() = 0;
 
           virtual const sk::util::String getName() const = 0;
@@ -38,6 +39,7 @@ namespace sk {
           virtual bool isMain() const = 0;
           virtual bool isService() const = 0;
           virtual bool isRegular() const = 0;
+          virtual bool isDetached() const = 0;
       };
     }
   }

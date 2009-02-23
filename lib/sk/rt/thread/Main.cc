@@ -140,3 +140,17 @@ exitStatus() const
 {
   throw sk::util::UnsupportedOperationException(SK_METHOD);
 }
+
+void
+sk::rt::thread::Main::
+detach()
+{
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
+}
+
+bool
+sk::rt::thread::Main::
+isDetached() const
+{
+  return false;
+}

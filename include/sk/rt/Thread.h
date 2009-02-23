@@ -42,6 +42,7 @@ namespace sk {
         void start();
         void stop();
         void join();
+        void detach();
         void interrupt();
 
         // sk::rt::thread::Generic implementation
@@ -59,6 +60,7 @@ namespace sk {
         bool isMain() const;
         bool isService() const;
         bool isRegular() const;
+        bool isDetached() const;
 
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;

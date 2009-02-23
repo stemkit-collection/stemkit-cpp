@@ -12,6 +12,7 @@
 #include <sk/util/String.h>
 #include <sk/util/Holder.cxx>
 #include <sk/util/UnsupportedOperationException.h>
+#include <sk/util/IllegalStateException.h>
 
 #include <sk/rt/Thread.h>
 
@@ -147,6 +148,9 @@ void
 sk::rt::Thread::
 join()
 {
+  if(isDetached() == true) {
+    throw sk::util::IllegalStateException("join: detached: " + inspect());
+  }
   _runnerHolder.get().getThreadImplementation().join();
 }
 
@@ -274,4 +278,18 @@ sk::rt::Thread::
 exitStatus() const
 {
   throw sk::util::UnsupportedOperationException(SK_METHOD);
+}
+
+void
+sk::rt::Thread::
+detach()
+{
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
+}
+
+bool
+sk::rt::Thread::
+isDetached() const
+{
+  return false;
 }
