@@ -11,6 +11,7 @@ local objects =
   Runner.cc
   LockSpecializations.cc
   PrintingExceptionHandler.cc
+  Exit.cc
 
   ../Thread.cc
   ../Mutex.cc
