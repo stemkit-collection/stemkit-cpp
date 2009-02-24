@@ -12,6 +12,7 @@
 #include "DataGenerator.h"
 
 #include <sk/rt/Thread.h>
+#include <sk/util/IllegalStateException.h>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::rt::thread::tests::ThreadTest);
 
@@ -41,27 +42,38 @@ tearDown()
 
 void
 sk::rt::thread::tests::ThreadTest::
-testCreateDefault()
+testCreateRegular()
 {
   sk::rt::Thread thread;
 
   CPPUNIT_ASSERT_EQUAL("Thread-1", thread.getName());
   CPPUNIT_ASSERT(thread.getState() == sk::rt::thread::State::SK_T_NEW);
+
+  CPPUNIT_ASSERT_EQUAL(false, thread.isAlive());
   CPPUNIT_ASSERT_EQUAL(true, thread.isRegular());
   CPPUNIT_ASSERT_EQUAL(false, thread.isMain());
   CPPUNIT_ASSERT_EQUAL(false, thread.isService());
+  CPPUNIT_ASSERT_EQUAL(false, thread.isDetached());
 }
 
 void 
 sk::rt::thread::tests::ThreadTest::
-testMainThread()
+testMain()
 {
   sk::rt::thread::Generic& current = Thread::currentThread();
+  CPPUNIT_ASSERT_EQUAL("Main", current.getName());
+  CPPUNIT_ASSERT(current.getState() == sk::rt::thread::State::SK_T_RUNNABLE);
 
+  CPPUNIT_ASSERT_EQUAL(true, current.isAlive());
   CPPUNIT_ASSERT_EQUAL(true, current.isMain());
   CPPUNIT_ASSERT_EQUAL(false, current.isService());
   CPPUNIT_ASSERT_EQUAL(false, current.isRegular());
-  CPPUNIT_ASSERT_EQUAL(true, current.isAlive());
+  CPPUNIT_ASSERT_EQUAL(false, current.isDetached());
+  CPPUNIT_ASSERT_EQUAL(false, current.isExited());
+  CPPUNIT_ASSERT_EQUAL(false, current.isInterrupted());
+  CPPUNIT_ASSERT_EQUAL(false, current.isException());
+
+  CPPUNIT_ASSERT_THROW(current.exitStatus(), sk::util::IllegalStateException);
 }
 
 void

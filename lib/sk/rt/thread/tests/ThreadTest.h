@@ -22,8 +22,8 @@ namespace sk {
           : public CppUnit::TestFixture
         {
           CPPUNIT_TEST_SUITE(sk::rt::thread::tests::ThreadTest);
-            CPPUNIT_TEST(testCreateDefault);
-            CPPUNIT_TEST(testMainThread);
+            CPPUNIT_TEST(testCreateRegular);
+            CPPUNIT_TEST(testMain);
             CPPUNIT_TEST(testDataGeneration);
           CPPUNIT_TEST_SUITE_END();
         
@@ -33,8 +33,8 @@ namespace sk {
         
             void setUp();
             void tearDown();
-            void testCreateDefault();
-            void testMainThread();
+            void testCreateRegular();
+            void testMain();
             void testDataGeneration();
         
           private:

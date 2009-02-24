@@ -12,9 +12,12 @@
 #include <sk/util/String.h>
 #include <sk/util/Holder.cxx>
 #include <sk/util/UnsupportedOperationException.h>
+#include <sk/util/IllegalStateException.h>
 
 #include "Main.h"
 #include "Implementation.h"
+
+#include <sstream>
 
 static sk::util::Class __class("sk::rt::thread::Main");
 
@@ -138,7 +141,7 @@ int
 sk::rt::thread::Main::
 exitStatus() const
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  throw sk::util::IllegalStateException("thread still running: " + inspect());
 }
 
 void
@@ -153,4 +156,22 @@ sk::rt::thread::Main::
 isDetached() const
 {
   return false;
+}
+
+const sk::util::String
+sk::rt::thread::Main::
+inspect() const
+{
+  std::stringstream stream;
+
+  stream << '<'
+    << getClass().getName() << ": "
+    << "name=" << getName().inspect() << ", "
+    << "id=" << getId() << ", "
+    << "main?=" << std::boolalpha << isMain() << ", "
+    << "detached?=" << std::boolalpha << isDetached() << ", "
+    << "state=" << getState().inspect()
+  << '>';
+
+  return stream.str();
 }
