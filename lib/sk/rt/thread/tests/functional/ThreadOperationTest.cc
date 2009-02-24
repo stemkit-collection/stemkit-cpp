@@ -58,8 +58,7 @@ namespace {
     void tick() const {
       sk::rt::thread::Generic& current = sk::rt::Thread::currentThread();
       std::cerr << "TICK: " 
-        << current.getName() << ": "
-        << std::boolalpha << current.isMain() << ": "
+        << current.inspect() << ": "
         << _message.inspect() << ", " << _lock.inspect()
       << std::endl;
     }
