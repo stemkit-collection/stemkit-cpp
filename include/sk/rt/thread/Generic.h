@@ -13,6 +13,7 @@
 
 #include <sk/util/Object.h>
 #include <sk/rt/thread/State.h>
+#include <sk/rt/thread/Exit.h>
 
 namespace sk {
   namespace rt {

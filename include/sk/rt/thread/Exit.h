@@ -12,7 +12,6 @@
 #define _SK_RT_THREAD_EXIT_H_
 
 #include <sk/util/Exception.h>
-#include <sk/util/SystemException.h>
 
 namespace sk {
   namespace rt {
@@ -30,9 +29,6 @@ namespace sk {
           const sk::util::Class getClass() const;
       
         private:
-          Exit(const Exit& other);
-          Exit& operator = (const Exit& other);
-
           int _code;
       };
     }
