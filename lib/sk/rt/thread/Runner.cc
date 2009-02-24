@@ -11,6 +11,7 @@
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
 #include <sk/util/UnsupportedOperationException.h>
+#include <sk/util/IllegalStateException.h>
 #include <sk/util/Holder.cxx>
 
 #include "Implementation.h"
@@ -21,7 +22,7 @@ static const sk::util::Class __class("sk::rt::thread::Runner");
 
 sk::rt::thread::Runner::
 Runner(sk::rt::Runnable& target, sk::rt::thread::Generic& thread)
-  : _scope(__class.getName()), _target(target), _generic(thread), _stateHolder(thread::State::SK_T_NEW)
+  : _scope(__class.getName()), _target(target), _generic(thread), _stateHolder(thread::State::SK_T_NEW), _exitStatus(-1)
 {
 }
 
@@ -48,6 +49,9 @@ sk::rt::thread::abstract::Thread&
 sk::rt::thread::Runner::
 getThreadImplementation() const
 {
+  if(_threadHolder.isEmpty() == true) {
+    throw sk::util::IllegalStateException("thread not started");
+  }
   return _threadHolder.get();
 }
 
@@ -61,17 +65,38 @@ start(sk::rt::thread::Generic& handle)
 
 void
 sk::rt::thread::Runner::
+stop()
+{
+  getThreadImplementation().stop();
+  _stateHolder.set(thread::State::SK_T_STOPPED);
+}
+
+void
+sk::rt::thread::Runner::
 run() 
 {
-  _stateHolder.set(thread::State::SK_T_RUNNABLE);
+  _stateHolder.set(thread::State::SK_T_RUNNING);
   try {
     _target.run();
+    throw thread::Exit(0);
+  }
+  catch(const thread::Exit& exception) {
+    _stateHolder.set(thread::State::SK_T_EXITED);
+    _exitStatus = 0;
   }
   catch(const std::exception& exception) {
+    _stateHolder.set(thread::State::SK_T_EXCEPTION);
     Dispatcher::main().getUncaughtExceptionHandler().uncaughtException(_generic, exception);
   }
   catch(...) {
+    _stateHolder.set(thread::State::SK_T_EXCEPTION);
     Dispatcher::main().getUncaughtExceptionHandler().uncaughtException(_generic);
   }
-  _stateHolder.set(thread::State::SK_T_TERMINATED);
+}
+
+int
+sk::rt::thread::Runner::
+getExitStatus() const
+{
+  return _exitStatus;
 }

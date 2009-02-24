@@ -24,6 +24,9 @@ namespace sk {
           CPPUNIT_TEST_SUITE(sk::rt::thread::tests::ThreadTest);
             CPPUNIT_TEST(testCreateRegular);
             CPPUNIT_TEST(testMain);
+            CPPUNIT_TEST(testStartStop);
+            CPPUNIT_TEST(testJoiningNotStartedFails);
+            CPPUNIT_TEST(testDefaultRunSucceeds);
             CPPUNIT_TEST(testDataGeneration);
           CPPUNIT_TEST_SUITE_END();
         
@@ -35,6 +38,9 @@ namespace sk {
             void tearDown();
             void testCreateRegular();
             void testMain();
+            void testStartStop();
+            void testJoiningNotStartedFails();
+            void testDefaultRunSucceeds();
             void testDataGeneration();
         
           private:

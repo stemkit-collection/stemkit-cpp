@@ -47,7 +47,7 @@ testCreateRegular()
   sk::rt::Thread thread;
 
   CPPUNIT_ASSERT_EQUAL("Thread-1", thread.getName());
-  CPPUNIT_ASSERT(thread.getState() == sk::rt::thread::State::SK_T_NEW);
+  CPPUNIT_ASSERT_EQUAL(sk::rt::thread::State::SK_T_NEW, thread.getState());
   CPPUNIT_ASSERT_EQUAL("<sk::rt::Thread: name=\"Thread-1\", id=1, main?=false, detached?=false, state=NEW>", thread.inspect());
 
   CPPUNIT_ASSERT_EQUAL(false, thread.isAlive());
@@ -68,8 +68,8 @@ testMain()
 {
   sk::rt::thread::Generic& current = Thread::currentThread();
   CPPUNIT_ASSERT_EQUAL("Main", current.getName());
-  CPPUNIT_ASSERT(current.getState() == sk::rt::thread::State::SK_T_RUNNABLE);
-  CPPUNIT_ASSERT_EQUAL("<sk::rt::thread::Main: name=\"Main\", id=0, main?=true, detached?=false, state=RUNNABLE>", current.inspect());
+  CPPUNIT_ASSERT_EQUAL(sk::rt::thread::State::SK_T_RUNNING, current.getState());
+  CPPUNIT_ASSERT_EQUAL("<sk::rt::thread::Main: name=\"Main\", id=0, main?=true, detached?=false, state=RUNNING>", current.inspect());
 
   CPPUNIT_ASSERT_EQUAL(true, current.isAlive());
   CPPUNIT_ASSERT_EQUAL(true, current.isMain());
@@ -104,4 +104,55 @@ testDataGeneration()
       CPPUNIT_ASSERT_EQUAL(basket.at(base + 0), basket.at(base + counter));
     }
   }
+}
+
+void
+sk::rt::thread::tests::ThreadTest::
+testJoiningNotStartedFails()
+{
+  Thread thread;
+  CPPUNIT_ASSERT_THROW(thread.join(), sk::util::IllegalStateException);
+}
+
+void
+sk::rt::thread::tests::ThreadTest::
+testDefaultRunSucceeds()
+{
+  Thread thread;
+
+  CPPUNIT_ASSERT_NO_THROW(thread.start());
+  CPPUNIT_ASSERT_NO_THROW(thread.join());
+
+  CPPUNIT_ASSERT_EQUAL(false, thread.isAlive());
+  CPPUNIT_ASSERT_EQUAL(false, thread.isInterrupted());
+  CPPUNIT_ASSERT_EQUAL(false, thread.isException());
+  CPPUNIT_ASSERT_EQUAL(true, thread.isExited());
+  CPPUNIT_ASSERT_EQUAL(0, thread.exitStatus());
+}
+
+namespace {
+  struct Block : public virtual sk::rt::Runnable {
+    void run() {
+      while(true) {
+        sleep(1);
+      }
+    }
+  };
+};
+
+void 
+sk::rt::thread::tests::ThreadTest::
+testStartStop()
+{
+  Block block;
+  Thread thread(block);
+
+  CPPUNIT_ASSERT_EQUAL(false, thread.isAlive());
+  CPPUNIT_ASSERT_EQUAL(sk::rt::thread::State::SK_T_NEW, thread.getState());
+
+  CPPUNIT_ASSERT_NO_THROW(thread.start());
+  Thread::sleep(100);
+  CPPUNIT_ASSERT_EQUAL(true, thread.isAlive());
+  CPPUNIT_ASSERT_NO_THROW(thread.stop());
+  CPPUNIT_ASSERT_EQUAL(sk::rt::thread::State::SK_T_STOPPED, thread.getState());
 }

@@ -34,11 +34,11 @@ namespace sk {
           bool operator==(const State& other) const;
 
           static const State SK_T_NEW;
-          static const State SK_T_RUNNABLE;
-          static const State SK_T_BLOCKED;
-          static const State SK_T_WAITING;
-          static const State SK_T_TIMED_WAITING;
-          static const State SK_T_TERMINATED;
+          static const State SK_T_RUNNING;
+          static const State SK_T_EXITED;
+          static const State SK_T_STOPPED;
+          static const State SK_T_INTERRUPTED;
+          static const State SK_T_EXCEPTION;
       
         private:
           State(const sk::util::String& name);
@@ -50,6 +50,8 @@ namespace sk {
           int _value;
           const sk::util::String _name;
       };
+
+      std::ostream& operator<<(std::ostream& stream, const State& state);
     }
   }
 }

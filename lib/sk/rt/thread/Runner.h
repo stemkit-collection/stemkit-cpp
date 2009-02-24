@@ -29,8 +29,10 @@ namespace sk {
           virtual ~Runner();
       
           void start(sk::rt::thread::Generic& handle);
+          void stop();
           const sk::rt::thread::State& getState() const;
           thread::abstract::Thread& getThreadImplementation() const;
+          int getExitStatus() const;
 
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
@@ -43,11 +45,12 @@ namespace sk {
           Runner(const Runner& other);
           Runner& operator = (const Runner& other);
 
+          sk::rt::Scope _scope;
           sk::rt::Runnable& _target;
           sk::rt::thread::Generic& _generic;
           sk::util::Holder<thread::abstract::Thread> _threadHolder;
-          mutable sk::util::Holder<const sk::rt::thread::State> _stateHolder;
-          sk::rt::Scope _scope;
+          sk::util::Holder<const sk::rt::thread::State> _stateHolder;
+          int _exitStatus;
       };
     }
   }

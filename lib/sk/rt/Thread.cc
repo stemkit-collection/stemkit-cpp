@@ -129,13 +129,9 @@ void
 sk::rt::Thread::
 stop()
 {
-  if(getState() == thread::State::SK_T_NEW) {
-    return;
+  if(getState() == thread::State::SK_T_RUNNING) {
+    _runnerHolder.get().stop();
   }
-  if(getState() == thread::State::SK_T_TERMINATED) {
-    return;
-  }
-  _runnerHolder.get().getThreadImplementation().stop();
 }
 
 void
@@ -187,7 +183,7 @@ bool
 sk::rt::Thread::
 isAlive() const
 {
-  return false;
+  return getState() == thread::State::SK_T_RUNNING;
 }
 
 bool 
@@ -271,14 +267,17 @@ bool
 sk::rt::Thread::
 isExited() const
 {
-  return false;
+  return getState() == thread::State::SK_T_EXITED;
 }
 
 int 
 sk::rt::Thread::
 exitStatus() const
 {
-  throw sk::util::IllegalStateException(SK_METHOD);
+  if(isExited() == false) {
+    throw sk::util::IllegalStateException("thread still running");
+  }
+  return _runnerHolder.get().getExitStatus();
 }
 
 void

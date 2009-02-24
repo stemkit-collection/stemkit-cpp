@@ -20,16 +20,24 @@ static const sk::util::Class __class("sk::rt::thread::State");
 #define DEFINE_STATE(state) const sk::rt::thread::State sk::rt::thread::State::SK_T_##state(#state)
 
 DEFINE_STATE(NEW);
-DEFINE_STATE(RUNNABLE);
-DEFINE_STATE(BLOCKED);
-DEFINE_STATE(WAITING);
-DEFINE_STATE(TIMED_WAITING);
-DEFINE_STATE(TERMINATED);
+DEFINE_STATE(RUNNING);
+DEFINE_STATE(EXITED);
+DEFINE_STATE(STOPPED);
+DEFINE_STATE(INTERRUPTED);
+DEFINE_STATE(EXCEPTION);
+
+std::ostream& 
+sk::rt::thread::operator<<(std::ostream& stream, const State& state) 
+{
+  stream << state.inspect();
+  return stream;
+}
 
 sk::rt::thread::State::
 State(const sk::util::String& name)
   : _name(name), _value(_states.size())
 {
+  _states.push_back(this);
 }
 
 sk::rt::thread::State::

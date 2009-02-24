@@ -84,7 +84,7 @@ const sk::rt::thread::State&
 sk::rt::thread::Main::
 getState() const
 {
-  return State::SK_T_RUNNABLE;
+  return State::SK_T_RUNNING;
 }
 
 bool 
