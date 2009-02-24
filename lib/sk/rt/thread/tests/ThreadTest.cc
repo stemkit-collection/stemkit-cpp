@@ -141,6 +141,9 @@ namespace {
         if(exitCode != -1) {
           throw sk::rt::thread::Exit(exitCode);
         }
+        if(sk::rt::Thread::currentThread().isInterrupted() == true) {
+          throw sk::rt::thread::Exit(-4);
+        }
       }
     }
     volatile int exitCode;
@@ -185,4 +188,24 @@ testExitWithStatus()
   CPPUNIT_ASSERT_EQUAL(false, thread.isAlive());
   CPPUNIT_ASSERT_EQUAL(true, thread.isExited());
   CPPUNIT_ASSERT_EQUAL(12, thread.exitStatus());
+}
+
+void
+sk::rt::thread::tests::ThreadTest::
+testInterrupting()
+{
+  Block block;
+  Thread thread(block);
+
+  CPPUNIT_ASSERT_EQUAL(false, thread.isAlive());
+  thread.start();
+  Thread::sleep(1000);
+  CPPUNIT_ASSERT_EQUAL(true, thread.isAlive());
+
+  thread.interrupt();
+  thread.join();
+
+  CPPUNIT_ASSERT_EQUAL(false, thread.isAlive());
+  CPPUNIT_ASSERT_EQUAL(true, thread.isExited());
+  CPPUNIT_ASSERT_EQUAL(-4, thread.exitStatus());
 }

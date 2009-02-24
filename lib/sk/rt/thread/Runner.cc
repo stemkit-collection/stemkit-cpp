@@ -22,7 +22,8 @@ static const sk::util::Class __class("sk::rt::thread::Runner");
 
 sk::rt::thread::Runner::
 Runner(sk::rt::Runnable& target, sk::rt::thread::Generic& thread)
-  : _scope(__class.getName()), _target(target), _generic(thread), _stateHolder(thread::State::SK_T_NEW), _exitStatus(-1)
+  : _scope(__class.getName()), _target(target), _generic(thread), _stateHolder(thread::State::SK_T_NEW), 
+    _exitStatus(-1), _interrupted(false)
 {
 }
 
@@ -99,4 +100,21 @@ sk::rt::thread::Runner::
 getExitStatus() const
 {
   return _exitStatus;
+}
+
+void
+sk::rt::thread::Runner::
+interrupt()
+{
+  _interrupted = true;
+}
+
+bool
+sk::rt::thread::Runner::
+isInterrupted()
+{
+  bool state = _interrupted;
+  _interrupted = false;
+
+  return state;
 }

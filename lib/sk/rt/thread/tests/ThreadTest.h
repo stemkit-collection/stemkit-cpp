@@ -29,6 +29,7 @@ namespace sk {
             CPPUNIT_TEST(testDefaultRunSucceeds);
             CPPUNIT_TEST(testExitWithStatus);
             CPPUNIT_TEST(testDataGeneration);
+            CPPUNIT_TEST(testInterrupting);
           CPPUNIT_TEST_SUITE_END();
         
           public:
@@ -44,6 +45,7 @@ namespace sk {
             void testDefaultRunSucceeds();
             void testExitWithStatus();
             void testDataGeneration();
+            void testInterrupting();
         
           private:
             ThreadTest(const ThreadTest& other);

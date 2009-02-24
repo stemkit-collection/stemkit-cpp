@@ -155,7 +155,7 @@ void
 sk::rt::Thread::
 interrupt()
 {
-  _runnerHolder.get().getThreadImplementation().interrupt();
+  _runnerHolder.get().interrupt();
 }
 
 bool
@@ -190,7 +190,7 @@ bool
 sk::rt::Thread::
 isInterrupted() const
 {
-  return false;
+  return _runnerHolder.get().isInterrupted();
 }
 
 const sk::util::String
