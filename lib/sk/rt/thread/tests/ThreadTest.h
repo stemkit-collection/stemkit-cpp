@@ -27,6 +27,7 @@ namespace sk {
             CPPUNIT_TEST(testStartStop);
             CPPUNIT_TEST(testJoiningNotStartedFails);
             CPPUNIT_TEST(testDefaultRunSucceeds);
+            CPPUNIT_TEST(testExitWithStatus);
             CPPUNIT_TEST(testDataGeneration);
           CPPUNIT_TEST_SUITE_END();
         
@@ -41,6 +42,7 @@ namespace sk {
             void testStartStop();
             void testJoiningNotStartedFails();
             void testDefaultRunSucceeds();
+            void testExitWithStatus();
             void testDataGeneration();
         
           private:

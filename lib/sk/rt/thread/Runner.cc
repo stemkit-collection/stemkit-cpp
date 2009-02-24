@@ -82,7 +82,7 @@ run()
   }
   catch(const thread::Exit& exception) {
     _stateHolder.set(thread::State::SK_T_EXITED);
-    _exitStatus = 0;
+    _exitStatus = exception.getCode();
   }
   catch(const std::exception& exception) {
     _stateHolder.set(thread::State::SK_T_EXCEPTION);

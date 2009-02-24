@@ -132,11 +132,18 @@ testDefaultRunSucceeds()
 
 namespace {
   struct Block : public virtual sk::rt::Runnable {
+    Block() 
+      : exitCode(-1) {}
+
     void run() {
       while(true) {
-        sleep(1);
+        sk::rt::Thread::sleep(500);
+        if(exitCode != -1) {
+          throw sk::rt::thread::Exit(exitCode);
+        }
       }
     }
+    volatile int exitCode;
   };
 };
 
@@ -154,5 +161,28 @@ testStartStop()
   Thread::sleep(100);
   CPPUNIT_ASSERT_EQUAL(true, thread.isAlive());
   CPPUNIT_ASSERT_NO_THROW(thread.stop());
+
+  thread.join();
+
   CPPUNIT_ASSERT_EQUAL(sk::rt::thread::State::SK_T_STOPPED, thread.getState());
+}
+
+void
+sk::rt::thread::tests::ThreadTest::
+testExitWithStatus()
+{
+  Block block;
+  Thread thread(block);
+
+  CPPUNIT_ASSERT_EQUAL(false, thread.isAlive());
+  thread.start();
+  Thread::sleep(100);
+  CPPUNIT_ASSERT_EQUAL(true, thread.isAlive());
+
+  block.exitCode = 12;
+  thread.join();
+
+  CPPUNIT_ASSERT_EQUAL(false, thread.isAlive());
+  CPPUNIT_ASSERT_EQUAL(true, thread.isExited());
+  CPPUNIT_ASSERT_EQUAL(12, thread.exitStatus());
 }
