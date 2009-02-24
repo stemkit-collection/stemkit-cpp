@@ -48,12 +48,18 @@ testCreateRegular()
 
   CPPUNIT_ASSERT_EQUAL("Thread-1", thread.getName());
   CPPUNIT_ASSERT(thread.getState() == sk::rt::thread::State::SK_T_NEW);
+  CPPUNIT_ASSERT_EQUAL("<sk::rt::Thread: name=\"Thread-1\", id=1, main?=false, detached?=false, state=NEW>", thread.inspect());
 
   CPPUNIT_ASSERT_EQUAL(false, thread.isAlive());
   CPPUNIT_ASSERT_EQUAL(true, thread.isRegular());
   CPPUNIT_ASSERT_EQUAL(false, thread.isMain());
   CPPUNIT_ASSERT_EQUAL(false, thread.isService());
   CPPUNIT_ASSERT_EQUAL(false, thread.isDetached());
+  CPPUNIT_ASSERT_EQUAL(false, thread.isExited());
+  CPPUNIT_ASSERT_EQUAL(false, thread.isInterrupted());
+  CPPUNIT_ASSERT_EQUAL(false, thread.isException());
+
+  CPPUNIT_ASSERT_THROW(thread.exitStatus(), sk::util::IllegalStateException);
 }
 
 void 
@@ -63,6 +69,7 @@ testMain()
   sk::rt::thread::Generic& current = Thread::currentThread();
   CPPUNIT_ASSERT_EQUAL("Main", current.getName());
   CPPUNIT_ASSERT(current.getState() == sk::rt::thread::State::SK_T_RUNNABLE);
+  CPPUNIT_ASSERT_EQUAL("<sk::rt::thread::Main: name=\"Main\", id=0, main?=true, detached?=false, state=RUNNABLE>", current.inspect());
 
   CPPUNIT_ASSERT_EQUAL(true, current.isAlive());
   CPPUNIT_ASSERT_EQUAL(true, current.isMain());

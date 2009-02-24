@@ -23,6 +23,7 @@
 #include "thread/Dispatcher.h"
 #include "thread/Implementation.h"
 #include "thread/Runner.h"
+#include "thread/Inspector.h"
 
 static const sk::util::Class __class("sk::rt::Thread");
 
@@ -263,21 +264,21 @@ bool
 sk::rt::Thread::
 isException() const
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  return false;
 }
 
 bool 
 sk::rt::Thread::
 isExited() const
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  return false;
 }
 
 int 
 sk::rt::Thread::
 exitStatus() const
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  throw sk::util::IllegalStateException(SK_METHOD);
 }
 
 void
@@ -292,4 +293,11 @@ sk::rt::Thread::
 isDetached() const
 {
   return false;
+}
+
+const sk::util::String
+sk::rt::Thread::
+inspect() const
+{
+  return thread::Inspector(*this).inspect();
 }

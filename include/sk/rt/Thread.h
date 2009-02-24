@@ -64,6 +64,7 @@ namespace sk {
 
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
+        const sk::util::String inspect() const;
         uint64_t getId() const;
 
         static thread::Generic& currentThread();

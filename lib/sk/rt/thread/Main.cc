@@ -16,8 +16,7 @@
 
 #include "Main.h"
 #include "Implementation.h"
-
-#include <sstream>
+#include "Inspector.h"
 
 static sk::util::Class __class("sk::rt::thread::Main");
 
@@ -141,7 +140,7 @@ int
 sk::rt::thread::Main::
 exitStatus() const
 {
-  throw sk::util::IllegalStateException("thread still running: " + inspect());
+  throw sk::util::IllegalStateException(SK_METHOD);
 }
 
 void
@@ -162,16 +161,5 @@ const sk::util::String
 sk::rt::thread::Main::
 inspect() const
 {
-  std::stringstream stream;
-
-  stream << '<'
-    << getClass().getName() << ": "
-    << "name=" << getName().inspect() << ", "
-    << "id=" << getId() << ", "
-    << "main?=" << std::boolalpha << isMain() << ", "
-    << "detached?=" << std::boolalpha << isDetached() << ", "
-    << "state=" << getState().inspect()
-  << '>';
-
-  return stream.str();
+  return Inspector(*this).inspect();
 }
