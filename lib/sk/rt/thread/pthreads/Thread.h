@@ -53,6 +53,7 @@ namespace sk {
             sk::rt::thread::Generic& _handle;
             const Provider& _provider;
             bool _wrapper;
+            bool _stopping;
         };
       }
     }

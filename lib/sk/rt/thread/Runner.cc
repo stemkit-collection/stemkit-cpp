@@ -68,8 +68,14 @@ void
 sk::rt::thread::Runner::
 stop()
 {
-  getThreadImplementation().stop();
-  _stateHolder.set(thread::State::SK_T_STOPPED);
+  const thread::State& original = _stateHolder.get();
+  _stateHolder.set(thread::State::SK_T_STOPPING);
+  try {
+    getThreadImplementation().stop();
+  }
+  catch(...) {
+    _stateHolder.set(original);
+  }
 }
 
 void
@@ -90,6 +96,10 @@ run()
     Dispatcher::main().getUncaughtExceptionHandler().uncaughtException(_generic, exception);
   }
   catch(...) {
+    if(_stateHolder.get() == thread::State::SK_T_STOPPING) {
+      _stateHolder.set(thread::State::SK_T_STOPPED);
+      throw;
+    }
     _stateHolder.set(thread::State::SK_T_EXCEPTION);
     Dispatcher::main().getUncaughtExceptionHandler().uncaughtException(_generic);
   }

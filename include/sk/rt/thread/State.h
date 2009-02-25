@@ -36,8 +36,8 @@ namespace sk {
           static const State SK_T_NEW;
           static const State SK_T_RUNNING;
           static const State SK_T_EXITED;
+          static const State SK_T_STOPPING;
           static const State SK_T_STOPPED;
-          static const State SK_T_INTERRUPTED;
           static const State SK_T_EXCEPTION;
       
         private:

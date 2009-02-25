@@ -11,6 +11,7 @@
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
 #include <sk/util/IllegalStateException.h>
+#include <sk/util/UnsupportedOperationException.h>
 #include <sk/util/SystemExit.h>
 
 #include "Thread.h"
@@ -30,7 +31,7 @@ namespace {
 sk::rt::thread::pthreads::Thread::
 Thread(const Provider& provider, sk::rt::thread::Generic& handle)
   : _scope(__class.getName()), _provider(provider), _handle(handle), _target(DUMMY_TARGET), 
-    _thread(pthread_self()), _wrapper(true)
+    _thread(pthread_self()), _wrapper(true), _stopping(false)
 {
   _provider.installGeneric(_handle);
 }
@@ -38,7 +39,7 @@ Thread(const Provider& provider, sk::rt::thread::Generic& handle)
 sk::rt::thread::pthreads::Thread::
 Thread(const Provider& provider, sk::rt::Runnable& target, sk::rt::thread::Generic& handle)
   : _scope(__class.getName()), _provider(provider), _target(target), _handle(handle), 
-  _thread(0), _wrapper(false)
+  _thread(0), _wrapper(false), _stopping(false)
 {
 }
 
@@ -71,14 +72,21 @@ void
 sk::rt::thread::pthreads::Thread::
 stop()
 {
-  SK_PTHREAD_RAISE_UNLESS_SUCCESS(pthread_cancel(_thread));
+  _stopping = true;
+  try {
+    SK_PTHREAD_RAISE_UNLESS_SUCCESS(pthread_cancel(_thread));
+  }
+  catch(...) {
+    _stopping = false;
+    throw;
+  }
 }
 
 void 
 sk::rt::thread::pthreads::Thread::
 interrupt()
 {
-  SK_PTHREAD_RAISE_UNLESS_SUCCESS(pthread_cancel(_thread));
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
 }
 
 void 
@@ -95,6 +103,7 @@ run()
   try {
     _provider.installGeneric(_handle);
     _target.run();
+    _stopping = false;
   }
   catch(const sk::util::SystemExit& exception) {
     pthread_exit(reinterpret_cast<void*>(exception.getCode()));
@@ -104,6 +113,10 @@ run()
     pthread_exit(reinterpret_cast<void*>(-1));
   }
   catch(...) {
+    if(_stopping == true) {
+      _stopping = false;
+      throw;
+    }
     _scope.warning() << "Unknown exception";
     pthread_exit(reinterpret_cast<void*>(-1));
   }
