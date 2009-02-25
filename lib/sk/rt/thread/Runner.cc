@@ -23,7 +23,7 @@ static const sk::util::Class __class("sk::rt::thread::Runner");
 sk::rt::thread::Runner::
 Runner(sk::rt::Runnable& target, sk::rt::thread::Generic& thread)
   : _scope(__class.getName()), _target(target), _generic(thread), _stateHolder(thread::State::SK_T_NEW), 
-    _exitStatus(-1), _interrupted(false)
+    _exitStatus(-1), _interrupted(false), _detached(false)
 {
 }
 
@@ -44,6 +44,13 @@ sk::rt::thread::Runner::
 getState() const
 {
   return _stateHolder.get();
+}
+
+sk::rt::Scope& 
+sk::rt::thread::Runner::
+getScope()
+{
+  return _scope;
 }
 
 sk::rt::thread::abstract::Thread&
@@ -76,6 +83,21 @@ stop()
   catch(...) {
     _stateHolder.set(original);
   }
+}
+
+void 
+sk::rt::thread::Runner::
+detach()
+{
+  getThreadImplementation();
+  _detached = true;
+}
+
+bool
+sk::rt::thread::Runner::
+isDetached()
+{
+  return _detached;
 }
 
 void

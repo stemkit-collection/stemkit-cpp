@@ -27,7 +27,7 @@ int main(int argc, const char* argv[])
     sk::rt::config::InlineLocator("\n\
       <scope name='app'>\n\
         <scope name='default exception handler'>\n\
-          <property name='abort-on-exception' value='true' />\n\
+          <property name='abort-on-exception' value='false' />\n\
         </scope>\n\
         \n\
         <scope name='sk::rt::thread::pthreads::Mutex'>\n\

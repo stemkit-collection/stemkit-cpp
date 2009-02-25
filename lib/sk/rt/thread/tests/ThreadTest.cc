@@ -154,8 +154,7 @@ void
 sk::rt::thread::tests::ThreadTest::
 testStartStop()
 {
-  Block block;
-  Thread thread(block);
+  Thread thread(new Block);
 
   CPPUNIT_ASSERT_EQUAL(false, thread.isAlive());
   CPPUNIT_ASSERT_EQUAL(sk::rt::thread::State::SK_T_NEW, thread.getState());
@@ -194,8 +193,7 @@ void
 sk::rt::thread::tests::ThreadTest::
 testInterrupting()
 {
-  Block block;
-  Thread thread(block);
+  Thread thread(new Block);
 
   CPPUNIT_ASSERT_EQUAL(false, thread.isAlive());
   thread.start();
@@ -208,4 +206,28 @@ testInterrupting()
   CPPUNIT_ASSERT_EQUAL(false, thread.isAlive());
   CPPUNIT_ASSERT_EQUAL(true, thread.isExited());
   CPPUNIT_ASSERT_EQUAL(-4, thread.exitStatus());
+}
+
+void
+sk::rt::thread::tests::ThreadTest::
+testDetaching()
+{
+  Thread thread(new Block());
+
+  CPPUNIT_ASSERT_EQUAL(false, thread.isDetached());
+  CPPUNIT_ASSERT_THROW(thread.detach(), sk::util::IllegalStateException);
+
+  thread.start();
+  Thread::sleep(1000);
+
+  CPPUNIT_ASSERT_EQUAL(true, thread.isAlive());
+  CPPUNIT_ASSERT_EQUAL(false, thread.isDetached());
+
+  thread.detach();
+  CPPUNIT_ASSERT_EQUAL(true, thread.isAlive());
+  CPPUNIT_ASSERT_EQUAL(true, thread.isDetached());
+
+  thread.stop();
+  Thread::sleep(1);
+  CPPUNIT_ASSERT_EQUAL(thread::State::SK_T_STOPPED, thread.getState());
 }

@@ -27,15 +27,19 @@ namespace sk {
         public:
           Runner(sk::rt::Runnable& target, sk::rt::thread::Generic& thread);
           virtual ~Runner();
+
+          sk::rt::Scope& getScope();
       
           void start(sk::rt::thread::Generic& handle);
           void stop();
           void interrupt();
+          void detach();
 
           const sk::rt::thread::State& getState() const;
           thread::abstract::Thread& getThreadImplementation() const;
           int getExitStatus() const;
           bool isInterrupted();
+          bool isDetached();
 
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
@@ -54,7 +58,8 @@ namespace sk {
           sk::util::Holder<thread::abstract::Thread> _threadHolder;
           sk::util::Holder<const sk::rt::thread::State> _stateHolder;
           int _exitStatus;
-          volatile int _interrupted;
+          bool _detached;
+          volatile bool _interrupted;
       };
     }
   }

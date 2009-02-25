@@ -72,14 +72,8 @@ Thread(sk::rt::Runnable* target, const sk::util::String& name)
 sk::rt::Thread::
 ~Thread()
 {
-  try {
-    stop();
-  }
-  catch(const std::exception& exception) {
-    std::cerr << "[" << SK_METHOD << "] " << exception.what() << std::endl;
-  }
-  catch(...) {
-    std::cerr << "[" << SK_METHOD << "] UNKNOWN EXCEPTION" << std::endl;
+  if(isAlive() == true) {
+    _runnerHolder.get().getScope().warning(__FUNCTION__) << "still running: " << inspect();
   }
 }
 
@@ -284,14 +278,14 @@ void
 sk::rt::Thread::
 detach()
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  _runnerHolder.get().detach();
 }
 
 bool
 sk::rt::Thread::
 isDetached() const
 {
-  return false;
+  return _runnerHolder.get().isDetached();
 }
 
 const sk::util::String
