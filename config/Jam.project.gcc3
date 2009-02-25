@@ -200,7 +200,7 @@ rule platform-solaris-sparc
   CCFLAGS += -fPIC ;
   DEFINES += _FILE_OFFSET_BITS=64 ;
   INCLUDES += [ util.make-path $(system.SRCTOP) platform include solaris ] ;
-  SYSLIBS = socket nsl gen ;
+  SYSLIBS = socket nsl gen rt ;
 
   project.JAVA_INCLUDES += $(project.JAVA_HOME)/include/solaris ;
   project.PTY_SPECIFICS = streams ;
