@@ -43,31 +43,17 @@ const sk::rt::thread::State&
 sk::rt::thread::Runner::
 getState()
 {
-  _stateMutex.lock();
-  try {
-    const State& state = _stateHolder.get();
-    _stateMutex.unlock();
-    return state;
-  }
-  catch(...) {
-    _stateMutex.unlock();
-    throw;
-  }
+  return _stateMutex.synchronize<const State&>(_stateHolder, &util::Holder<const State>::get);
 }
 
 void
 sk::rt::thread::Runner::
 setState(const thread::State& state)
 {
-  _stateMutex.lock();
-  try {
-    _stateHolder.set(state);
-    _stateMutex.unlock();
-  }
-  catch(...) {
-    _stateMutex.unlock();
-    throw;
-  }
+  typedef void (util::Holder<const State>::*member_function_t)(const State&);
+  member_function_t set = &util::Holder<const State>::set;
+
+  _stateMutex.synchronize(_stateHolder, set, state);
 }
 
 sk::rt::Scope& 

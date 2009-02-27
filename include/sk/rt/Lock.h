@@ -26,6 +26,9 @@ namespace sk {
 
         typedef void (function_t)();
 
+        template<typename R, typename T, typename TMF> 
+        R synchronize(T& target, TMF method);
+
         template<typename T, typename TMF> 
         void synchronize(T& target, TMF method);
 
@@ -43,6 +46,24 @@ namespace sk {
     };
 
     template<> void Lock::synchronize<Lock::function_t>(Lock::function_t& function);
+  }
+}
+
+template<typename R, typename T, typename TMF>
+R
+sk::rt::Lock::
+synchronize(T& target, TMF method)
+{
+  lock();
+
+  try {
+    R result = (target.*method)();
+    unlock();
+    return result;
+  }
+  catch(...) {
+    unlock();
+    throw;
   }
 }
 
