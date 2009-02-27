@@ -11,7 +11,7 @@
 #ifndef _SK_RT_SYNCHRONIZEDCOLLECTION_HXX_
 #define _SK_RT_SYNCHRONIZEDCOLLECTION_HXX_
 
-#include <sk/util/Collection.h>
+#include <sk/util/Collection.hxx>
 #include <sk/util/Holder.hxx>
 #include <sk/rt/Mutex.h>
 
@@ -50,13 +50,15 @@ namespace sk {
         bool retainAll(const Collection<T>& other);
         bool retainAll(const Selector<T>& selector);
     
+      protected:
+        sk::rt::Mutex _mutex;
+
       private:
         SynchronizedCollection(const SynchronizedCollection<T>& other);
         SynchronizedCollection<T>& operator = (const SynchronizedCollection<T>& other);
 
         sk::util::Holder<sk::uitl::Collection<T> > _collectionHolder;
-        sk::uitl::Collection<T>& _collectionHolder;
-        sk::rt::Mutex _mutex;
+        sk::uitl::Collection<T>& _collection;
     };
   }
 }

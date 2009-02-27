@@ -17,14 +17,14 @@
 template<typename T>
 sk::rt::SynchronizedCollection<T>::
 SynchronizedCollection(sk::util::Collection<T>& collection)
-  : _collectionHolder(collection), _collection(_collectionHolder.get())
+  : _collectionHolder(collection), _collection(collection)
 {
 }
 
 template<typename T>
 sk::rt::SynchronizedCollection<T>::
 SynchronizedCollection(sk::util::Collection<T>* collection)
-  : _collectionHolder(collection), _collection(_collectionHolder.get())
+  : _collectionHolder(collection), _collection(*collection)
 {
 }
 
