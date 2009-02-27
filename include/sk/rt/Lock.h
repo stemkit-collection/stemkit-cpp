@@ -84,6 +84,31 @@ synchronize(T& target, TMF method)
   unlock();
 }
 
+// The following implementation almost duplicates the one above. While 
+// violating DRY principle, it provides the fastest implementation, so
+// until better solution comes up, let's keep it this way (following
+// commented out block demonstrates possible DRY-ing, however for the
+// price of intermediate class instantiation with data copy).
+//
+template<typename T, typename TMF, typename P>
+void
+sk::rt::Lock::
+synchronize(T& target, TMF method, P& param)
+{
+  lock();
+
+  try {
+    (target.*method)(param);
+  }
+  catch(...) {
+    unlock();
+    throw;
+  }
+  unlock();
+}
+
+#if 0 
+
 template<typename T, typename TMF, typename P>
 struct sk::rt::Lock::MemberFunctionWithParamInvocator {
   MemberFunctionWithParamInvocator(T& target, TMF method, P& param)
@@ -105,6 +130,8 @@ synchronize(T& target, TMF method, P& param)
   MemberFunctionWithParamInvocator<T, TMF, P> invocator(target, method, param);
   synchronize(invocator, &MemberFunctionWithParamInvocator<T, TMF, P>::invoke);
 }
+
+#endif
 
 template<typename T>
 void 
