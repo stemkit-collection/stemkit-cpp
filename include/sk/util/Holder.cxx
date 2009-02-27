@@ -65,21 +65,19 @@ operator=(const slot::policy::Storing<T>& other)
 }
 
 template<typename T, typename Policy>
-sk::util::Holder<T, Policy>&
+void
 sk::util::Holder<T, Policy>::
 set(T& object)
 {
   Policy::setObject(object);
-  return *this;
 }
 
 template<typename T, typename Policy>
-sk::util::Holder<T, Policy>&
+void
 sk::util::Holder<T, Policy>::
 set(T* object)
 {
   Policy::setObject(object);
-  return *this;
 }
 
 template<typename T, typename Policy>

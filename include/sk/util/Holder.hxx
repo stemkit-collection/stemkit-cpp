@@ -44,8 +44,8 @@ namespace sk {
         bool isOwner() const;
         T& get() const;
 
-        Holder<T, Policy>& set(T* object);
-        Holder<T, Policy>& set(T& object);
+        void set(T* object);
+        void set(T& object);
 
         bool remove();
         void clear();

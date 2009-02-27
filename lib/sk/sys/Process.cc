@@ -102,7 +102,8 @@ sk::io::FileDescriptorInputStream&
 sk::sys::Process::
 defaultInputStream()
 {
-  return _defaultInputStreamHolder.set(new sk::io::FileInputStream("/dev/null")).get();
+  _defaultInputStreamHolder.set(new sk::io::FileInputStream("/dev/null"));
+  return _defaultInputStreamHolder.get();
 }
 
 void
