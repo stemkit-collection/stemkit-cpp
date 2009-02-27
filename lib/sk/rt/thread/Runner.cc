@@ -23,7 +23,7 @@ static const sk::util::Class __class("sk::rt::thread::Runner");
 sk::rt::thread::Runner::
 Runner(sk::rt::Runnable& target, sk::rt::thread::Generic& thread)
   : _scope(__class.getName()), _target(target), _generic(thread), _stateHolder(thread::State::SK_T_NEW), 
-    _exitStatus(-1), _interrupted(false), _detached(false)
+    _exitStatus(-1), _interrupted(false), _detached(false), _stateMutex(false)
 {
 }
 
@@ -41,9 +41,33 @@ getClass() const
 
 const sk::rt::thread::State&
 sk::rt::thread::Runner::
-getState() const
+getState()
 {
-  return _stateHolder.get();
+  _stateMutex.lock();
+  try {
+    const State& state = _stateHolder.get();
+    _stateMutex.unlock();
+    return state;
+  }
+  catch(...) {
+    _stateMutex.unlock();
+    throw;
+  }
+}
+
+void
+sk::rt::thread::Runner::
+setState(const thread::State& state)
+{
+  _stateMutex.lock();
+  try {
+    _stateHolder.set(state);
+    _stateMutex.unlock();
+  }
+  catch(...) {
+    _stateMutex.unlock();
+    throw;
+  }
 }
 
 sk::rt::Scope& 
@@ -75,13 +99,14 @@ void
 sk::rt::thread::Runner::
 stop()
 {
-  const thread::State& original = _stateHolder.get();
-  _stateHolder.set(thread::State::SK_T_STOPPED);
+  const thread::State& original = getState();
+  setState(thread::State::SK_T_STOPPED);
+
   try {
     getThreadImplementation().stop();
   }
   catch(...) {
-    _stateHolder.set(original);
+    setState(original);
   }
 }
 
@@ -104,24 +129,24 @@ void
 sk::rt::thread::Runner::
 run() 
 {
-  _stateHolder.set(thread::State::SK_T_RUNNING);
+  setState(thread::State::SK_T_RUNNING);
   try {
     _target.run();
     throw thread::Exit(0);
   }
   catch(const thread::Exit& exception) {
-    _stateHolder.set(thread::State::SK_T_EXITED);
+    setState(thread::State::SK_T_EXITED);
     _exitStatus = exception.getCode();
   }
   catch(const std::exception& exception) {
-    _stateHolder.set(thread::State::SK_T_EXCEPTION);
+    setState(thread::State::SK_T_EXCEPTION);
     Dispatcher::main().getUncaughtExceptionHandler().uncaughtException(_generic, exception);
   }
   catch(...) {
     if(_stateHolder.get() == thread::State::SK_T_STOPPED) {
       throw;
     }
-    _stateHolder.set(thread::State::SK_T_EXCEPTION);
+    setState(thread::State::SK_T_EXCEPTION);
     Dispatcher::main().getUncaughtExceptionHandler().uncaughtException(_generic);
   }
 }

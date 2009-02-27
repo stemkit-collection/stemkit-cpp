@@ -17,6 +17,7 @@
 #include <sk/rt/Scope.h>
 
 #include <sk/rt/thread/abstract/Thread.h>
+#include <sk/rt/Mutex.h>
 
 namespace sk {
   namespace rt {
@@ -35,7 +36,8 @@ namespace sk {
           void interrupt();
           void detach();
 
-          const sk::rt::thread::State& getState() const;
+          const sk::rt::thread::State& getState();
+
           thread::abstract::Thread& getThreadImplementation() const;
           int getExitStatus() const;
           bool isInterrupted();
@@ -52,11 +54,14 @@ namespace sk {
           Runner(const Runner& other);
           Runner& operator = (const Runner& other);
 
+          void setState(const thread::State& state);
+
           sk::rt::Scope _scope;
           sk::rt::Runnable& _target;
           sk::rt::thread::Generic& _generic;
           sk::util::Holder<thread::abstract::Thread> _threadHolder;
           sk::util::Holder<const sk::rt::thread::State> _stateHolder;
+          Mutex _stateMutex;
           int _exitStatus;
           bool _detached;
           volatile bool _interrupted;
