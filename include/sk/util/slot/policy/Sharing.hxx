@@ -1,4 +1,5 @@
-/*  Copyright (c) 2007, Gennady Bystritsky <bystr@mac.com>
+/*  vim:sw=2:
+ *  Copyright (c) 2007, Gennady Bystritsky <bystr@mac.com>
  *  
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
@@ -10,6 +11,7 @@
 
 #include <sk/util/slot/mixin/LinkCounter.h>
 #include <sk/util/slot/policy/Storing.hxx>
+#include <sk/util/IllegalStateException.h>
 
 namespace sk {
   namespace util {
@@ -39,7 +41,20 @@ namespace sk {
           protected:
             void setObject(T* object) {
               if(Super::hasSlot() == true) {
+                if(Super::getSlot().isOwner() == false) {
+                  throw sk::util::IllegalStateException("Non-replacable shared content");
+                }
                 delete Super::getSlot().replace(object);
+              }
+              else {
+                Super::setObject(object);
+                Super::getSlot().link();
+              }
+            }
+            
+            void setObject(T& object) {
+              if(Super::hasSlot() == true) {
+                throw sk::util::IllegalStateException("Non-replacable shared content");
               }
               else {
                 Super::setObject(object);
@@ -59,10 +74,6 @@ namespace sk {
             }
 
           private:
-            // Ability to add object by reference is not available for this
-            // type of holder.
-            void setObject(T& object);
-
             void accept(const Sharing<T>& other) {
               if(&other == this) {
                 return;
