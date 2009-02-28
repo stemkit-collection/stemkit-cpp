@@ -17,6 +17,7 @@ local objects =
   ../Thread.cc
   ../Mutex.cc
   ../ReentrantLock.cc
+  ../Locker.cc
 ;
 
 make-library $(library) : $(objects) ;

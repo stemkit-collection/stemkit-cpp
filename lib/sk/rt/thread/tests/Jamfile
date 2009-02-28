@@ -8,24 +8,21 @@ local objects =
   DispatcherTest.cc
   MutexTest.cc
   ReentrantLockTest.cc
+  LockerTest.cc
 ;
 
 local helper-objects =
   DataGenerator.cc
 ;
 
-local test-categories ;
+use-unit-test $(objects) ;
+use-pthreads $(test)-pthreads ;
 
+local test-categories category ;
 if windows in $(project.PLATFORM_SPECIFICS) {
   test-categories += win32 ;
 }
 else test-categories += pthreads ;
-
-
-local category ;
-
-use-unit-test $(objects) ;
-use-pthreads $(test)-pthreads ;
 
 for category in $(test-categories) {
   local test = $(test)-$(category) ;
