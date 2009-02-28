@@ -15,7 +15,7 @@
 #include <cppunit/extensions/HelperMacros.h>
 #include <sk/util/Holder.hxx>
 #include <sk/rt/Locker.h>
-#include <sk/rt/Lock.h>
+#include <sk/rt/Mutex.h>
 
 namespace sk {
   namespace rt {
@@ -48,10 +48,10 @@ namespace sk {
             LockerTest(const LockerTest& other);
             LockerTest& operator = (const LockerTest& other);
 
-            const sk::rt::Locker lock_originator();
-            void lock_pitcher();
+            const sk::rt::Locker locker_originator();
+            void locker_pitcher();
 
-            sk::util::Holder<sk::rt::Lock> _lockHolder;
+            sk::util::Holder<sk::rt::Mutex> _mutexHolder;
         };
       }
     }
