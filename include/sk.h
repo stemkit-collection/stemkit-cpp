@@ -41,8 +41,8 @@ namespace sk {
  *    <dt>sk::rt
  *    <dd>
  *      Provides runtime support. This includes:
- *        - Scope centered loging
- *        - Config files lookup and parsing
+ *        - Scope centered logging and configuration 
+ *        - Config files lookup and XML parsing
  *        - Threading and synchronization
  *  </dl>
 */
