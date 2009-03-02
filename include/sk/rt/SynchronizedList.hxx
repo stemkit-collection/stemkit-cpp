@@ -25,6 +25,8 @@ namespace sk {
         SynchronizedList(sk::util::List<T>& list);
         SynchronizedList(sk::util::List<T>* list);
         ~SynchronizedList();
+
+        void process(T& object);
     
       private:
         SynchronizedList(const SynchronizedList<T>& other);
