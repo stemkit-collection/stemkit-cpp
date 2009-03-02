@@ -82,6 +82,6 @@ namespace sk {
  *    <dd>
  *      Provides useful extensions for @cppunit_link{CppUnit} unit testing 
  *      framework. Like assertions of strings specified in any manner, with 
- *      persentation of "ispected" content in diagnostics.
+ *      persentation of "inspected" content in diagnostics.
  *  </dl>
 */
