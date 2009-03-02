@@ -43,13 +43,13 @@ namespace sk {
  *       etc.)
  *    -# Copy constructors and operator=() private by default, otherwise only
  *       when proven necessary.
+ *    -# Methods and method parameters (references) must be declared const by 
+ *       default, non-const only if really necessary.
  *    -# Passing pointers means passing objects' ownership. Otherwise,
  *       object copies or references must be passed.
  *    -# Getting a pointer is immediatelly followed by placing it in a managing
  *       container (like sk::util::Holder, sk::util::ArrayList, std::auto_ptr, 
  *       boost::shared_ptr, etc.).
- *    -# Methods and method parameters (references) must be declared const by 
- *       default, non-const only if really necessary.
  *  
  *  The functionality is split into the following main namespaces:
  *
