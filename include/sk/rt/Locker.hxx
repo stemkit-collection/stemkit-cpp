@@ -8,29 +8,25 @@
  *  Author: Gennady Bystritsky (gennady.bystritsky@quest.com)
 */
 
-#ifndef _SK_RT_LOCKER_H_
-#define _SK_RT_LOCKER_H_
+#ifndef _SK_RT_LOCKER_HXX_
+#define _SK_RT_LOCKER_HXX_
 
-#include <sk/util/Object.h>
-#include <sk/rt/Lock.h>
 #include <sk/util/Holder.hxx>
+#include <sk/rt/Lock.h>
 
 namespace sk {
   namespace rt {
+    template<typename L>
     class Locker 
-      : public virtual sk::util::Object
     {
       public:
-        Locker(sk::rt::Lock& lock);
-        virtual ~Locker();
-    
-        // sk::util::Object re-implementation.
-        const sk::util::Class getClass() const;
+        Locker(L& lock);
+        ~Locker();
     
       private:
-        sk::util::Holder<sk::rt::Lock>::Sharing _lockHolder;
+        sk::util::Holder<L, sk::util::slot::policy::Sharing<L> > _lockHolder;
     };
   }
 }
 
-#endif /* _SK_RT_LOCKER_H_ */
+#endif /* _SK_RT_LOCKER_HXX_ */

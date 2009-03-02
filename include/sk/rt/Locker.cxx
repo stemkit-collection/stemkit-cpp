@@ -8,22 +8,21 @@
  *  Author: Gennady Bystritsky (gennady.bystritsky@quest.com)
 */
 
-#include <sk/util/Class.h>
-#include <sk/util/String.h>
-#include <sk/util/Holder.cxx>
+#ifndef _SK_RT_LOCKER_CXX_
+#define _SK_RT_LOCKER_CXX_
 
-#include <sk/rt/Locker.h>
+#include <sk/rt/Locker.hxx>
 
-static const sk::util::Class __class("sk::rt::Locker");
-
-sk::rt::Locker::
-Locker(sk::rt::Lock& lock)
+template<typename L>
+sk::rt::Locker<L>::
+Locker(L& lock)
   : _lockHolder(lock)
 {
-  _lockHolder.get().lock();
+  lock.lock();
 }
 
-sk::rt::Locker::
+template<typename L>
+sk::rt::Locker<L>::
 ~Locker()
 {
   if(_lockHolder.getLinks() == 1) {
@@ -31,9 +30,4 @@ sk::rt::Locker::
   }
 }
 
-const sk::util::Class
-sk::rt::Locker::
-getClass() const
-{
-  return __class;
-}
+#endif /* _SK_RT_LOCKER_CXX_ */
