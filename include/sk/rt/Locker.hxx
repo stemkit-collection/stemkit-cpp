@@ -56,8 +56,8 @@ namespace sk {
         /**
          *  Handles the locker instance destruction. When this locker 
          *  goes out of %scope, it will call unlock() on the resource 
-         *  it has been costructred with when it is the last instance 
-         *  in the copy chain.
+         *  it has been costructed with, when it is the last instance 
+         *  in a copy chain.
         */
         ~Locker();
     

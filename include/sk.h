@@ -35,53 +35,85 @@ namespace sk {
  *  easy to debug code. They also help in greatly reducing possibilities 
  *  of memory leaks. Those principles are:
  *    -# Using pure virtual C++ protocol classes as interfaces, implemented by 
- *       "public virtual" inheritance.
+ *       <em>public virtual</em> inheritance. @further_details{interfaces}.
  *    -# Avoiding multiple inheritance by all means other than interface
  *       implementation (no more than one non-virtual inheritance).
- *    -# All classes inherit (public virtual) from sk::util::Object, thus
+ *       @further_details{multiple_inheritance}.
+ *    -# All classes inherit (<em>public virtual</em>) from sk::util::Object, thus
  *       having a set of guaranteed properties (object id, clone, inspect,
- *       etc.)
- *    -# Copy constructors and operator=() private by default, otherwise only
- *       when proven necessary.
+ *       etc.) @further_details{common_base}.
+ *    -# Copy constructors and @c operator=() private by default, otherwise 
+ *       only when proven necessary.
  *    -# Methods and method parameters (references) must be declared const by 
  *       default, non-const only if really necessary.
  *    -# Passing pointers means passing objects' ownership. Otherwise,
- *       object copies or references must be passed.
- *    -# Getting a pointer is immediatelly followed by placing it in a managing
- *       container (like sk::util::Holder, sk::util::ArrayList, std::auto_ptr, 
- *       boost::shared_ptr, etc.).
+ *       object copies or references must be passed. 
+ *       @further_details{pointers_vs_references}.
+ *    -# Getting a pointer is immediatelly followed by placing it in a 
+ *       managing container (like sk::util::Holder, sk::util::ArrayList, 
+ *       @c std::auto_ptr, @c boost::shared_ptr, etc.).
  *  
- *  The functionality is split into the following main namespaces:
- *
  *  <dl>
- *    <dt>sk::util
+ *    <dt>The functionality is split into the following main namespaces:
  *    <dd>
- *      Provides collection framework. Plus utility classes for basic types.
- *
- *    <dt>sk::io
- *    <dd>
- *      Provides stream classes.
- *
- *    <dt>sk::net
- *    <dd>
- *      Provides network communication classes (currently almost empty).
- *
- *    <dt>sk::rt
- *    <dd>
- *      Provides runtime support. This includes:
- *        - Scope centered logging and configuration 
- *        - Configuration files lookup and XML parsing
- *        - Thread management and synchronization
- *        - Synchronized wrappers for sk::util containers
- *
- *    <dt>sk::sys
- *    <dd>
- *      Provides OS integration support.
- *
- *    <dt>sk::cppunit
- *    <dd>
- *      Provides useful extensions for @cppunit_link{CppUnit} unit testing 
- *      framework. Like assertions of strings specified in any manner, with 
- *      persentation of "inspected" content in diagnostics.
+ *      <dl>
+ *        <dt>sk::util
+ *        <dd>
+ *          Provides collection framework. Plus utility classes for basic types.
+ *      
+ *        <dt>sk::io
+ *        <dd>
+ *          Provides stream classes.
+ *      
+ *        <dt>sk::net
+ *        <dd>
+ *          Provides network communication classes.
+ *          @todo 
+ *            Introduce classes Socket, ServerSocket, etc. (as defined in
+ *            @java_api_link{net}).
+ *      
+ *        <dt>sk::rt
+ *        <dd>
+ *          Provides runtime support. This includes:
+ *            - Scope centered logging and configuration 
+ *            - Configuration files lookup and XML parsing
+ *            - Thread management and synchronization
+ *            - Synchronized wrappers for sk::util containers
+ *            - @todo Object disposal with notification 
+ *      
+ *        <dt>sk::sys
+ *        <dd>
+ *          Provides OS integration support.
+ *      
+ *        <dt>sk::cppunit
+ *        <dd>
+ *          Provides useful extensions for @cppunit_link{CppUnit} unit testing 
+ *          framework. Like assertions of strings specified in any manner, with 
+ *          persentation of "inspected" content in diagnostics.
+ *      </dl>
  *  </dl>
+*/
+
+/**
+ *  @page common_base sk::util::Object as a root of the class hierarchy
+ *
+ *  @todo Provide content
+*/
+
+/**
+ *  @page pointers_vs_references References vs. pointers
+ *
+ *  @todo Provide content
+*/
+
+/**
+ *  @page interfaces Denoting interfaces in C++
+ *
+ *  @todo Provide content
+*/
+
+/**
+ *  @page multiple_inheritance Multiple inheritance woes
+ *
+ *  @todo Provide content
 */
