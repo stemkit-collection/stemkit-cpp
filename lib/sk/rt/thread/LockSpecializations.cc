@@ -12,20 +12,20 @@
 
 namespace {
   struct FunctionInvocator {
-    FunctionInvocator(sk::rt::Lock::function_t& function)
+    FunctionInvocator(sk::rt::function_t& function)
       : _function(function) {}
 
     void invoke() {
       (_function)();
     }
-    sk::rt::Lock::function_t& _function;
+    sk::rt::function_t& _function;
   };
 }
 
 template<> 
 void 
 sk::rt::Lock::
-synchronize<sk::rt::Lock::function_t>(sk::rt::Lock::function_t& function)
+synchronize<sk::rt::function_t>(sk::rt::function_t& function)
 {
   FunctionInvocator invocator(function);
   synchronize(invocator, &FunctionInvocator::invoke);

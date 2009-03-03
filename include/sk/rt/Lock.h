@@ -24,8 +24,6 @@ namespace sk {
         virtual void unlock() = 0;
         virtual bool isLocked() const = 0;
 
-        typedef void (function_t)();
-
         template<typename R, typename T, typename TMF> 
         R synchronize(T& target, TMF method);
 
@@ -45,7 +43,8 @@ namespace sk {
         struct MemberFunctionWithParamInvocator;
     };
 
-    template<> void Lock::synchronize<Lock::function_t>(Lock::function_t& function);
+    typedef void (function_t)();
+    template<> void Lock::synchronize<function_t>(function_t& function);
   }
 }
 
