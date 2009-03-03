@@ -29,6 +29,7 @@ namespace sk {
  *  (@java_api_link{io}). Its implementation, on the other hand, uses
  *  available C++ facilities like STL and standard IO libraries, often
  *  complicated, verbose or contrived to be used in their pure forms.
+ *  @further_details{stl_issues}.
  *
  *  The API and implementation of stemkit-cpp is based upon a set of 
  *  principles, following which has been proven to produce high quality, 
@@ -40,8 +41,8 @@ namespace sk {
  *       implementation (no more than one non-virtual inheritance).
  *       @further_details{multiple_inheritance}.
  *    -# All classes inherit (<em>public virtual</em>) from sk::util::Object, thus
- *       having a set of guaranteed properties (object id, clone, inspect,
- *       etc.) @further_details{common_base}.
+ *       having a set of guaranteed properties and capabilities (object id, clone, 
+ *       inspect, etc.) @further_details{common_base}.
  *    -# Copy constructors and @c operator=() private by default, otherwise 
  *       only when proven necessary.
  *    -# Methods and method parameters (references) must be declared const by 
@@ -95,7 +96,7 @@ namespace sk {
 */
 
 /**
- *  @page common_base sk::util::Object as a root of the class hierarchy
+ *  @page common_base sk::util::Object as the root of a class hierarchy
  *
  *  @todo Provide content
 */
@@ -114,6 +115,12 @@ namespace sk {
 
 /**
  *  @page multiple_inheritance Multiple inheritance woes
+ *
+ *  @todo Provide content
+*/
+
+/**
+ *  @page stl_issues Direct STL use issues
  *
  *  @todo Provide content
 */
