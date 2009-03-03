@@ -23,6 +23,16 @@ namespace sk {
 /**
  *  @mainpage stemkit-cpp - All you need to start off a C++ project.
  *
+ *  @par
+ *
+ *  <center>
+ *  <em>
+ *  by Gennady Bystritsky (bystr@mac.com)
+ *  </em>
+ *  </center>
+ *  
+ *  @par
+ *
  *  This package provides various facilities helping to build C++ applications 
  *  from scratch. Its API design was greatly inspired by standard Java class 
  *  library, especialy collection framework (@java_api_link{util}) and streams 
@@ -93,6 +103,7 @@ namespace sk {
  *          persentation of "inspected" content in diagnostics.
  *      </dl>
  *  </dl>
+ *
 */
 
 /**
