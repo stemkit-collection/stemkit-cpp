@@ -20,42 +20,44 @@ namespace sk {
      *  A class to perform %scope locking. This class will call method 
      *  lock() on a specified resource in the constructor and unlock() 
      *  in the destructor of the last instance in a copy chain. 
-     *  Creating stack instances of this class will guarantee unlocking 
-     *  even in presense of exceptions.
+     *  Creating instances of this class on the stack (e.g. automatic
+     *  variables or temporaries) will guarantee unlocking even in 
+     *  presense of exceptions due to C++ stack unwinding feature.
      *
      *  Usage:
      *
      *  - Locking data member @c @b _mutex for the duration of an expression:
-     *  @code
-     *  ...
-     *  ( sk::rt::Locker<sk::rt::Mutex>(_mutex), _a.calc() + _b.calc() );
-     *  ...
-     *  @endcode
-     *
+     *    @code
+     *    ...
+     *    ( sk::rt::Locker<sk::rt::Mutex>(_mutex), _a.calc() + _b.calc() );
+     *    ...
+     *    @endcode
+     *    
      *  - Locking data member @c @b _mutex for the duration of a method:
-     *  @code
-     *  void someMethod() {
-     *    sk::rt::Locker<sk::rt::Mutex> locker(_mutex);
-     *
-     *    if(process() != 0) {
-     *      throw sk::util::IllegalStateException("processing failed");
+     *    @code
+     *    void someMethod() {
+     *      sk::rt::Locker<sk::rt::Mutex> locker(_mutex);
+     *    
+     *      if(process() != 0) {
+     *        throw sk::util::IllegalStateException("processing failed");
+     *      }
      *    }
-     *  }
-     *  @endcode
+     *    @endcode
     */
     template<typename L>
     class Locker 
     {
       public:
         /**
-         *  Constructs a locker class. The constructor will lock a specified 
-         *  resource by calling its lock() method.
+         *  Constructs a locker class. The constructor will lock a 
+         *  specified resource by calling its lock() method.
         */
         Locker(L& lock);
         /**
-         *  Destroys the locker. When this locker goes out of %scope, the 
-         *  destructor will call unlock() on the resource it has been 
-         *  costructred with when it is the last instance in the copy chain.
+         *  Handles the locker instance destruction. When this locker 
+         *  goes out of %scope, it will call unlock() on the resource 
+         *  it has been costructred with when it is the last instance 
+         *  in the copy chain.
         */
         ~Locker();
     
