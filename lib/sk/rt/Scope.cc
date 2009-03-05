@@ -69,10 +69,10 @@ getClass() const
 
 void
 sk::rt::Scope::
-agregateScopeName(std::ostream& stream) const
+aggregateScopeName(std::ostream& stream) const
 {
   if(&_parent != this) {
-    _parent.agregateScopeName(stream);
+    _parent.aggregateScopeName(stream);
     stream << '#';
   }
   stream << _name;

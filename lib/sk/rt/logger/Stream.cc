@@ -45,7 +45,7 @@ makeHeader(std::ostream& stream) const
   }
 
   stream << _level.getName() << ':';
-  _scope.agregateScopeName(stream);
+  _scope.aggregateScopeName(stream);
 
   if(_config.isLogObject() == true) {
     stream << ':' << &_scope.getObject();

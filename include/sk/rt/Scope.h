@@ -55,7 +55,7 @@ namespace sk {
 
       protected:
         // sk::rt::scope::IScope implementation.
-        void agregateScopeName(std::ostream& stream) const;
+        void aggregateScopeName(std::ostream& stream) const;
         const sk::util::Object& getObject() const;
         const scope::IConfig& getConfig() const;
         

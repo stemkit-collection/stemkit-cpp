@@ -21,7 +21,7 @@ namespace sk {
         public:
           virtual const logger::IConfig& getConfig() const = 0;
           virtual const sk::util::Object& getObject() const = 0;
-          virtual void agregateScopeName(std::ostream& stream) const = 0;
+          virtual void aggregateScopeName(std::ostream& stream) const = 0;
       };
     }
   }

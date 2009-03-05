@@ -214,7 +214,7 @@ namespace {
     void setLogPid(bool status) {}
     void setLogTime(bool status) {}
     void setLogObject(bool status) {}
-    void agregateScopeName(std::ostream& stream) const {
+    void aggregateScopeName(std::ostream& stream) const {
       stream << "PIPE";
     }
     sk::rt::logger::Destination& _destination;
