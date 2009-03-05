@@ -17,6 +17,7 @@ namespace sk {
   namespace rt {
     namespace scope {
       class Config;
+      class Arbitrator;
 
       class Aggregator
         : public virtual sk::util::Object 
@@ -29,6 +30,7 @@ namespace sk {
           const IConfig& getConfig() const;
           IConfig& getConfigForUpdate();
           Aggregator& obtain(const sk::util::String& name);
+          void setArbitrator(scope::Arbitrator& arbitrator);
           int size() const;
           
           // sk::util::Object re-implementation.
@@ -41,6 +43,7 @@ namespace sk {
           void ensureOwnConfig();
 
           sk::util::Holder<sk::util::Holder<Config> > _configHolderHolder;
+          sk::util::Holder<scope::Arbitrator>::Aliasing _arbitratorHolder;
           typedef std::map<sk::util::String, Aggregator> registry;
           registry _subordinates;
       };

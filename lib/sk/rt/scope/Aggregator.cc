@@ -1,4 +1,5 @@
-/*  Copyright (c) 2007, Gennady Bystritsky <bystr@mac.com>
+/*  vim:sw=2:
+ *  Copyright (c) 2007, Gennady Bystritsky <bystr@mac.com>
  *  
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
@@ -20,7 +21,8 @@ Aggregator()
 
 sk::rt::scope::Aggregator::
 Aggregator(const sk::rt::scope::Aggregator& other)
-  : _configHolderHolder(other._configHolderHolder.get())
+  : _configHolderHolder(other._configHolderHolder.get()),
+    _arbitratorHolder(other._arbitratorHolder)
 {
 }
 
@@ -34,6 +36,13 @@ sk::rt::scope::Aggregator::
 getClass() const
 {
   return sk::util::Class("sk::rt::scope::Aggregator");
+}
+
+void
+sk::rt::scope::Aggregator::
+setArbitrator(scope::Arbitrator& arbitrator)
+{
+  _arbitratorHolder.set(arbitrator);
 }
 
 sk::rt::scope::Aggregator&

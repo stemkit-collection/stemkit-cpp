@@ -13,6 +13,7 @@ local objects =
   PrintingExceptionHandler.cc
   Inspector.cc
   Exit.cc
+  ScopeArbitrator.cc
 
   ../Thread.cc
   ../Mutex.cc
