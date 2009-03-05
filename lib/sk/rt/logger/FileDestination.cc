@@ -12,6 +12,7 @@
 #include <sk/util/IllegalStateException.h>
 #include <sk/util/SystemException.h>
 #include <sk/util/Holder.cxx>
+#include <sk/rt/Locker.cxx>
 
 #include <logger/FileDestination.h>
 #include <unistd.h>
@@ -21,20 +22,20 @@
 #include "StableHeadCycler.h"
 
 sk::rt::logger::FileDestination::
-FileDestination(const sk::util::Pathname& pathname)
-  : _descriptor(-1), _cyclerHolder(new StableHeadCycler(pathname))
+FileDestination(const sk::util::Pathname& pathname, scope::Arbitrator& arbitrator)
+  : _descriptor(-1), _cyclerHolder(new StableHeadCycler(pathname)), _arbitrator(arbitrator)
 {
 }
 
 sk::rt::logger::FileDestination::
-FileDestination(const Cycler& cycler)
-  : _descriptor(-1), _cyclerHolder(cycler.clone())
+FileDestination(const Cycler& cycler, scope::Arbitrator& arbitrator)
+  : _descriptor(-1), _cyclerHolder(cycler.clone()), _arbitrator(arbitrator)
 {
 }
 
 sk::rt::logger::FileDestination::
 FileDestination(const FileDestination& other)
-  : _descriptor(other.cloneDescriptor()), _cyclerHolder(other._cyclerHolder.get().clone())
+  : _descriptor(other.cloneDescriptor()), _cyclerHolder(other._cyclerHolder.get().clone()), _arbitrator(other._arbitrator)
 {
 }
 
@@ -88,6 +89,8 @@ void
 sk::rt::logger::FileDestination::
 dispatch(const char* buffer, int size)
 {
+  sk::rt::Locker<sk::rt::scope::Arbitrator> locker(_arbitrator);
+
   ensureFile();
   writeData(buffer, size);
 

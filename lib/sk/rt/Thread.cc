@@ -93,6 +93,13 @@ init()
 
 void
 sk::rt::Thread::
+setup()
+{
+  sk::rt::thread::Dispatcher::main();
+}
+
+void
+sk::rt::Thread::
 reset()
 {
   sk::rt::thread::Dispatcher::reset();

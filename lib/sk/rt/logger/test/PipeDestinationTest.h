@@ -11,6 +11,7 @@
 #include <cppunit/TestFixture.h>
 #include <cppunit/extensions/HelperMacros.h>
 #include <sk/util/Holder.hxx>
+#include "scope/NullArbitrator.h"
 
 namespace sk {
   namespace rt {
@@ -49,6 +50,7 @@ namespace sk {
 
             sk::util::Holder<logger::FileDestination> _fileHolder;
             sk::util::Holder<logger::PipeDestination> _pipeHolder;
+            scope::NullArbitrator _arbitrator;
         };
       }
     }

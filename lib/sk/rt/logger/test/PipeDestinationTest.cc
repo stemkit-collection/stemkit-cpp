@@ -34,7 +34,7 @@ setUp()
 {
   unlink("abc");
 
-  _fileHolder.set(new logger::FileDestination(sk::util::Pathname("abc")));
+  _fileHolder.set(new logger::FileDestination(sk::util::Pathname("abc"), _arbitrator));
   _pipeHolder.set(new logger::PipeDestination(_fileHolder.get()));
 }
 

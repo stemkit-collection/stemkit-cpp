@@ -14,11 +14,15 @@
 
 #include <sk/rt/ReentrantLock.h>
 #include <sk/util/ArrayList.cxx>
+#include <sk/rt/thread/ScopeArbitrator.h>
 
 void perform();
 
 int main(int argc, const char* argv[])
 {
+  sk::rt::Thread::setup();
+
+  sk::rt::Scope::controller().getAggregator().setArbitrator(new sk::rt::thread::ScopeArbitrator);
   sk::rt::Scope::controller().loadXmlConfig(
     sk::rt::config::InlineLocator("\n\
       <scope name='app'>\n\
@@ -68,9 +72,22 @@ void perform()
   sk::util::ArrayList<sk::rt::Thread> threads;
 
   threads.add(new sk::rt::Thread(new Block("aaa")));
+  threads.add(new sk::rt::Thread(new Block("aaa")));
+  threads.add(new sk::rt::Thread(new Block("aaa")));
+  threads.add(new sk::rt::Thread(new Block("aaa")));
+  threads.add(new sk::rt::Thread(new Block("aaa")));
+  threads.add(new sk::rt::Thread(new Block("aaa")));
+  threads.add(new sk::rt::Thread(new Block("aaa")));
   threads.add(new sk::rt::Thread(new Block("bbb")));
   threads.add(new sk::rt::Thread(new Block("ccc")));
   threads.add(new sk::rt::Thread(new Block("ddd")));
+  threads.add(new sk::rt::Thread(new Block("eee")));
+  threads.add(new sk::rt::Thread(new Block("eee")));
+  threads.add(new sk::rt::Thread(new Block("eee")));
+  threads.add(new sk::rt::Thread(new Block("eee")));
+  threads.add(new sk::rt::Thread(new Block("eee")));
+  threads.add(new sk::rt::Thread(new Block("eee")));
+  threads.add(new sk::rt::Thread(new Block("eee")));
   threads.add(new sk::rt::Thread(new Block("eee")));
 
   threads.forEach(Starter());

@@ -40,7 +40,7 @@ setUp()
   unlink("abc-2");
   unlink("abc-3");
 
-  _fileHolder.set(new logger::FileDestination(logger::PointingCycler(sk::util::Pathname("abc"))));
+  _fileHolder.set(new logger::FileDestination(logger::PointingCycler(sk::util::Pathname("abc")), _arbitrator));
 }
 
 void

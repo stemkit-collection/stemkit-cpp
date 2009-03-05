@@ -235,7 +235,7 @@ updateFileDestination(const TiXmlHandle& handle, scope::IConfig& config)
   sk::util::Pathname pathname(attribute(handle.ToElement(), "name", _scopeBuffer), "log");
   pathname.front(attribute(handle.ToElement(), "location", ".")).front(_location);
 
-  logger::FileDestination file(logger::CyclerFactory::create(pathname, attribute(handle.ToElement(), "policy", "")).get());
+  logger::FileDestination file(logger::CyclerFactory::create(pathname, attribute(handle.ToElement(), "policy", "")).get(), _aggregator.getArbitrator());
 
   file.getCycler().setSize(attribute(handle.ToElement(), "size", "10M"));
   file.getCycler().setChunks(attribute(handle.ToElement(), "chunks", attribute(handle.ToElement(), "backups", "3")));

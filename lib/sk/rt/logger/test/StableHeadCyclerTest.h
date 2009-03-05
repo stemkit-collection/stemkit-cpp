@@ -11,6 +11,7 @@
 #include <cppunit/TestFixture.h>
 #include <cppunit/extensions/HelperMacros.h>
 #include <sk/util/Holder.hxx>
+#include "scope/NullArbitrator.h"
 
 namespace sk {
   namespace rt {
@@ -42,6 +43,7 @@ namespace sk {
             StableHeadCyclerTest& operator = (const StableHeadCyclerTest& other);
 
             sk::util::Holder<logger::FileDestination> _fileHolder;
+            scope::NullArbitrator _arbitrator;
         };
       }
     }

@@ -12,11 +12,14 @@
 
 #include <sk/rt/scope/Aggregator.h>
 #include <sk/rt/scope/Arbitrator.h>
-#include <scope/Config.h>
+#include <sk/rt/Locker.cxx>
+#include "scope/Config.h"
+#include "scope/NullArbitrator.h"
 
 sk::rt::scope::Aggregator::
 Aggregator()
-  : _configHolderHolder(new sk::util::Holder<Config>(new Config))
+  : _configHolderHolder(new sk::util::Holder<Config>(new Config)),
+    _arbitratorHolder(new scope::NullArbitrator)
 {
 }
 
@@ -46,10 +49,18 @@ setArbitrator(scope::Arbitrator* arbitrator)
   _arbitratorHolder.set(arbitrator);
 }
 
+sk::rt::scope::Arbitrator&
+sk::rt::scope::Aggregator::
+getArbitrator() const
+{
+  return _arbitratorHolder.get();
+}
+
 sk::rt::scope::Aggregator&
 sk::rt::scope::Aggregator::
 obtain(const sk::util::String& name)
 {
+  sk::rt::Locker<sk::rt::scope::Arbitrator> locker(_arbitratorHolder.get());
   registry::iterator iterator = _subordinates.find(name);
   if(iterator != _subordinates.end()) {
     return iterator->second;

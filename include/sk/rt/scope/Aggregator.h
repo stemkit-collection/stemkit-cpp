@@ -30,8 +30,10 @@ namespace sk {
           const IConfig& getConfig() const;
           IConfig& getConfigForUpdate();
           Aggregator& obtain(const sk::util::String& name);
-          void setArbitrator(scope::Arbitrator* arbitrator);
           int size() const;
+
+          void setArbitrator(scope::Arbitrator* arbitrator);
+          scope::Arbitrator& getArbitrator() const;
           
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;

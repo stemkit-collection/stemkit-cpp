@@ -76,6 +76,7 @@ namespace sk {
         static void setDefaultUncaughtExceptionHandler(thread::UncaughtExceptionHandler& handler);
         static thread::UncaughtExceptionHandler& getDefaultUncaughtExceptionHandler(); 
 
+        static void setup();
         static void reset();
 
       protected:

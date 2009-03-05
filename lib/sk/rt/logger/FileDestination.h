@@ -9,6 +9,7 @@
 #define _SK_RT_LOGGER_FILEDESTINATION_
 
 #include <sk/rt/logger/Destination.h>
+#include <sk/rt/scope/Arbitrator.h>
 #include <sk/util/Holder.hxx>
 #include <sk/util/Pathname.h>
 #include "DataWriter.h"
@@ -22,8 +23,8 @@ namespace sk {
           public virtual DataWriter
       {
         public:
-          FileDestination(const sk::util::Pathname& pathname);
-          FileDestination(const Cycler& cycler);
+          FileDestination(const sk::util::Pathname& pathname, scope::Arbitrator& arbitrator);
+          FileDestination(const Cycler& cycler, scope::Arbitrator& arbitrator);
           FileDestination(const FileDestination& other);
           virtual ~FileDestination();
 
@@ -53,6 +54,7 @@ namespace sk {
 
           int _descriptor;
           sk::util::Holder<Cycler> _cyclerHolder;
+          scope::Arbitrator& _arbitrator;
       };
     }
   }
