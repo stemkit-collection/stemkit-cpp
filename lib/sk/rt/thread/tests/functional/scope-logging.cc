@@ -8,21 +8,17 @@
  *  Author: Gennady Bystritsky (gennady.bystritsky@quest.com)
 */
 
-#include <cppunit/extensions/TestFactoryRegistry.h>
-#include <sk/cppunit/TestRunner.h>
-#include <sk/cppunit/SourcePath.h>
-
-#include <iostream>
-
 #include <sk/rt/Scope.h>
 #include <sk/rt/config/InlineLocator.h>
 #include <sk/rt/Thread.h>
 
+#include <sk/rt/ReentrantLock.h>
+#include <sk/util/ArrayList.cxx>
+
+void perform();
+
 int main(int argc, const char* argv[])
 {
-  CppUnit::TestFactoryRegistry &registry = CppUnit::TestFactoryRegistry::getRegistry();
-  sk::cppunit::TestRunner runner;
-
   sk::rt::Scope::controller().loadXmlConfig(
     sk::rt::config::InlineLocator("\n\
       <scope name='app'>\n\
@@ -36,12 +32,11 @@ int main(int argc, const char* argv[])
     ")
   );
 
-  if(argc == 2) {
-    sk::cppunit::SourcePath::setBase(argv[1]);
-  }
-  runner.addTest(registry.makeTest());
-  int status = !runner.run();
-  sk::rt::Thread::reset();
+  perform();
 
-  return status;
+  sk::rt::Thread::reset();
+}
+
+void perform()
+{
 }

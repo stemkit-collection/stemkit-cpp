@@ -5,42 +5,39 @@
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
  *  
- *  Author: Gennady Bystritsky
+ *  Author: Gennady Bystritsky (gennady.bystritsky@quest.com)
 */
 
-#include "ThreadOperationTest.h"
-
+#include <sk/rt/Scope.h>
+#include <sk/rt/config/InlineLocator.h>
 #include <sk/rt/Thread.h>
-#include <sk/rt/Runnable.h>
+
 #include <sk/rt/ReentrantLock.h>
 #include <sk/util/ArrayList.cxx>
 
 #include <unistd.h>
 #include <iostream>
 
-CPPUNIT_TEST_SUITE_REGISTRATION(sk::rt::thread::tests::ThreadOperationTest);
+void perform();
 
-sk::rt::thread::tests::ThreadOperationTest::
-ThreadOperationTest()
+int main(int argc, const char* argv[])
 {
-}
+  sk::rt::Scope::controller().loadXmlConfig(
+    sk::rt::config::InlineLocator("\n\
+      <scope name='app'>\n\
+        <scope name='sk::rt::thread::pthread::Mutex'>\n\
+          <log destination='std::cerr' level='error' show-object='false' show-time='true' />\n\
+        </scope>\n\
+        <scope name='sk::rt::thread::pthread::Thread'>\n\
+          <log destination='std::cerr' level='error' show-object='false' show-time='true' />\n\
+        </scope>\n\
+      </scope>\n\
+    ")
+  );
 
-sk::rt::thread::tests::ThreadOperationTest::
-~ThreadOperationTest()
-{
-}
+  perform();
 
-void
-sk::rt::thread::tests::ThreadOperationTest::
-setUp()
-{
-}
-
-void
-sk::rt::thread::tests::ThreadOperationTest::
-tearDown()
-{
-  Thread::reset();
+  sk::rt::Thread::reset();
 }
 
 namespace {
@@ -81,21 +78,17 @@ namespace {
   };
 }
 
-void
-sk::rt::thread::tests::ThreadOperationTest::
-testBasics()
+void perform() 
 {
-  CPPUNIT_ASSERT_EQUAL(true, Thread::currentThread().isMain());
+  sk::rt::ReentrantLock lock;
+  sk::util::ArrayList<sk::rt::Thread> threads;
 
-  ReentrantLock lock;
-  util::ArrayList<Thread> threads;
-
-  threads.add(new Thread(new Block("aaa", lock)));
-  threads.add(new Thread(new Block("bbb", lock)));
-  threads.add(new Thread(new Block("ccc", lock)));
-  threads.add(new Thread(new Block("ccc", lock)));
-  threads.add(new Thread(new Block("ccc", lock)));
-  threads.add(new Thread(new Block("ccc", lock)));
+  threads.add(new sk::rt::Thread(new Block("aaa", lock)));
+  threads.add(new sk::rt::Thread(new Block("bbb", lock)));
+  threads.add(new sk::rt::Thread(new Block("ccc", lock)));
+  threads.add(new sk::rt::Thread(new Block("ccc", lock)));
+  threads.add(new sk::rt::Thread(new Block("ccc", lock)));
+  threads.add(new sk::rt::Thread(new Block("ccc", lock)));
 
   threads.forEach(Starter());
   threads.forEach(Joiner());

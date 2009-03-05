@@ -1,31 +1,21 @@
 # vim: set sw=2:
 
-local test = sk-rt-thread-test ;
+local tests = ticker scope-logging ;
 
-local objects = 
-  TestSuite.cc
-  ThreadOperationTest.cc
-;
-
-local test-categories ;
-
+local implementation ;
 if windows in $(project.PLATFORM_SPECIFICS) {
-  test-categories += win32 ;
+  implementation = win32 ;
 }
-else test-categories += pthreads ;
+else implementation = pthreads ;
 
+use-pthreads $(tests)-pthreads ;
 
-local category ;
+local test ;
+for test in $(tests) {
+  local program = $(test)-$(implementation) ;
 
-use-unit-test $(objects) ;
-use-pthreads $(test)-pthreads ;
+  use-project-libraries $(program) : sk.rt.bundle sk.util sk.rt.thread ;
+  use-project-libraries $(program) : sk.rt.thread.$(implementation) ;
 
-for category in $(test-categories) {
-  local test = $(test)-$(category) ;
-
-  use-project-libraries $(test) : sk.rt.bundle sk.util sk.cppunit sk.rt.thread ;
-  use-project-libraries $(test) : sk.rt.thread.$(category) ;
-
-  use-unit-test $(test) ;
-  make-program $(test) : $(objects) ;
+  make-program $(program) : $(test).cc ;
 }

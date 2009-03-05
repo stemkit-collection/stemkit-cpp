@@ -11,6 +11,7 @@
 #include <sk/util/Holder.cxx>
 
 #include <sk/rt/scope/Aggregator.h>
+#include <sk/rt/scope/Arbitrator.h>
 #include <scope/Config.h>
 
 sk::rt::scope::Aggregator::
@@ -40,7 +41,7 @@ getClass() const
 
 void
 sk::rt::scope::Aggregator::
-setArbitrator(scope::Arbitrator& arbitrator)
+setArbitrator(scope::Arbitrator* arbitrator)
 {
   _arbitratorHolder.set(arbitrator);
 }
