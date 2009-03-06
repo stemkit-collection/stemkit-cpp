@@ -68,7 +68,7 @@ testEarlyMakeReady()
 
   CPPUNIT_ASSERT_EQUAL(true, stream.good());
   CPPUNIT_ASSERT_EQUAL(true, std::getline(stream, depot).good());
-  CPPUNIT_ASSERT_EQUAL(std::string("[abc 0 of 3]"), depot);
+  CPPUNIT_ASSERT_EQUAL("[abc 0 of 3]", depot);
   CPPUNIT_ASSERT_EQUAL(false, std::getline(stream, depot).good());
 }
 
@@ -86,7 +86,7 @@ testDelayedDispatch()
   CPPUNIT_ASSERT_EQUAL(true, stream.good());
   CPPUNIT_ASSERT_EQUAL(true, std::getline(stream, depot).good());
   CPPUNIT_ASSERT_EQUAL(true, std::getline(stream, depot).good());
-  CPPUNIT_ASSERT_EQUAL(std::string("hello, world!!!"), depot);
+  CPPUNIT_ASSERT_EQUAL("hello, world!!!", depot);
   CPPUNIT_ASSERT_EQUAL(false, std::getline(stream, depot).good());
 }
 
