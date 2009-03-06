@@ -51,6 +51,6 @@ testStandAlone()
   locator.invoke(Processor(locations, content));
 
   CPPUNIT_ASSERT_EQUAL(size_t(1), locations.size());
-  CPPUNIT_ASSERT_EQUAL(sk::util::String("."), locations.at(0));
-  CPPUNIT_ASSERT_EQUAL(sk::util::String(":he-he-he:and:be-be-be:").inspect(), content.inspect());
+  CPPUNIT_ASSERT_EQUAL(".", locations.at(0));
+  CPPUNIT_ASSERT_EQUAL(":he-he-he:and:be-be-be:", content);
 }

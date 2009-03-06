@@ -78,13 +78,13 @@ testBigPicture()
   CPPUNIT_ASSERT_EQUAL(false, aggregator().obtain("uuu").getConfig().isLogTime());
   CPPUNIT_ASSERT_EQUAL(true, aggregator().obtain("uuu").getConfig().isLogPid());
 
-  CPPUNIT_ASSERT_EQUAL(sk::util::String("ub2").inspect(), aggregator().getConfig().getProperty("p1").inspect());
-  CPPUNIT_ASSERT_EQUAL(sk::util::String("219").inspect(), aggregator().getConfig().getProperty("p2").inspect());
+  CPPUNIT_ASSERT_EQUAL("ub2", aggregator().getConfig().getProperty("p1"));
+  CPPUNIT_ASSERT_EQUAL("219", aggregator().getConfig().getProperty("p2"));
   CPPUNIT_ASSERT_EQUAL(219, aggregator().getConfig().getProperty("p2", 0));
   CPPUNIT_ASSERT_EQUAL(17, aggregator().getConfig().getProperty("p1", 17));
   CPPUNIT_ASSERT_EQUAL(19, aggregator().getConfig().getProperty("p3", 19));
 
-  CPPUNIT_ASSERT_EQUAL(sk::util::String("Hello, World.").inspect(), aggregator().obtain("zzz").getConfig().getProperty("p1").inspect());
+  CPPUNIT_ASSERT_EQUAL("Hello, World.", aggregator().obtain("zzz").getConfig().getProperty("p1"));
 
   CPPUNIT_ASSERT_EQUAL(true, aggregator().getConfig().checkLogLevel(logger::Level::SK_L_ERROR));
   CPPUNIT_ASSERT_EQUAL(true, aggregator().getConfig().checkLogLevel(logger::Level::SK_L_WARNING));

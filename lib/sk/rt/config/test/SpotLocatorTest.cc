@@ -44,7 +44,7 @@ testStandAlone()
   locator.invoke(Processor(locations));
 
   CPPUNIT_ASSERT_EQUAL(size_t(1), locations.size());
-  CPPUNIT_ASSERT_EQUAL(sk::util::String("a/b/c"), locations.at(0));
+  CPPUNIT_ASSERT_EQUAL("a/b/c", locations.at(0));
 }
 
 void
@@ -57,7 +57,7 @@ testCascading()
   locator.invoke(Processor(locations));
 
   CPPUNIT_ASSERT_EQUAL(size_t(3), locations.size());
-  CPPUNIT_ASSERT_EQUAL(sk::util::String("e/z"), locations.at(0));
-  CPPUNIT_ASSERT_EQUAL(sk::util::String("c/d"), locations.at(1));
-  CPPUNIT_ASSERT_EQUAL(sk::util::String("a/b"), locations.at(2));
+  CPPUNIT_ASSERT_EQUAL("e/z", locations.at(0));
+  CPPUNIT_ASSERT_EQUAL("c/d", locations.at(1));
+  CPPUNIT_ASSERT_EQUAL("a/b", locations.at(2));
 }

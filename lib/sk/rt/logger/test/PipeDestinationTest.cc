@@ -103,7 +103,7 @@ testMessageOnExit()
 
   CPPUNIT_ASSERT_EQUAL(true, stream.good());
   CPPUNIT_ASSERT_EQUAL(true, std::getline(stream, depot).good());
-  CPPUNIT_ASSERT_EQUAL(sk::util::String("[abc 0 of 3]"), depot);
+  CPPUNIT_ASSERT_EQUAL("[abc 0 of 3]", depot);
   CPPUNIT_ASSERT_EQUAL(false, std::getline(stream, depot).good());
   
   stream.clear();
@@ -111,7 +111,7 @@ testMessageOnExit()
   sleep(1);
 
   CPPUNIT_ASSERT_EQUAL(true, std::getline(stream, depot).good());
-  CPPUNIT_ASSERT_EQUAL(sk::util::String("hello, world!!!"), depot);
+  CPPUNIT_ASSERT_EQUAL("hello, world!!!", depot);
   CPPUNIT_ASSERT_EQUAL(false, std::getline(stream, depot).good());
 
   stream.clear();

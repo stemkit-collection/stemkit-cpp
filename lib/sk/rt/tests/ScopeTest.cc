@@ -69,14 +69,10 @@ testConcatenation()
 {
   Scope scope("zzz");
 
-  // Logger::controller().setShowPid(true);
-  // Logger::controller().setShowTime(true);
-  // Logger::controller().setShowObject(true);
-
   scope.error() << "aaa" << ' ' << "bbb" << ' ' << "ccc";
   scope.error() << "ddd";
 
-  CPPUNIT_ASSERT_EQUAL(sk::util::String("ERROR:zzz: aaa bbb ccc\nERROR:zzz: ddd\n").inspect(), sk::util::String(_stream.str()).inspect());
+  CPPUNIT_ASSERT_EQUAL("ERROR:zzz: aaa bbb ccc\nERROR:zzz: ddd\n", _stream.str());
 }
 
 void
@@ -95,8 +91,8 @@ testScope()
     scope.info() << "c";
   }
   CPPUNIT_ASSERT_EQUAL(
-    sk::util::String("NOTICE:s1: Enter (name)\nINFO:s1: a\nNOTICE:s1#s2: Enter (scope)\nINFO:s1#s2: b\nNOTICE:s1#s2: Leave\nINFO:s1: c\nNOTICE:s1: Leave\n").inspect(),
-    sk::util::String(_stream.str()).inspect()
+    "NOTICE:s1: Enter (name)\nINFO:s1: a\nNOTICE:s1#s2: Enter (scope)\nINFO:s1#s2: b\nNOTICE:s1#s2: Leave\nINFO:s1: c\nNOTICE:s1: Leave\n",
+    _stream.str()
   );
 }
 
@@ -109,5 +105,5 @@ testDefaultProperties()
   CPPUNIT_ASSERT_EQUAL(45, scope.getProperty("abc", 45));
   CPPUNIT_ASSERT_EQUAL(true, scope.getProperty("abc", sk::util::Boolean::B_TRUE));
   CPPUNIT_ASSERT_EQUAL(false, scope.getProperty("abc", sk::util::Boolean::B_FALSE));
-  CPPUNIT_ASSERT_EQUAL(sk::util::String("zzz"), scope.getProperty("abc", "zzz"));
+  CPPUNIT_ASSERT_EQUAL("zzz", scope.getProperty("abc", "zzz"));
 }

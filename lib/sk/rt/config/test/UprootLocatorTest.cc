@@ -43,7 +43,7 @@ testOneLevel()
   locator.invoke(Processor(locations));
 
   CPPUNIT_ASSERT_EQUAL(size_t(1), locations.size());
-  CPPUNIT_ASSERT_EQUAL(sk::util::String("uuu"), locations.at(0));
+  CPPUNIT_ASSERT_EQUAL("uuu", locations.at(0));
 }
 
 void
@@ -55,8 +55,8 @@ testOneLevelCascading()
   locator.invoke(Processor(locations));
 
   CPPUNIT_ASSERT_EQUAL(size_t(2), locations.size());
-  CPPUNIT_ASSERT_EQUAL(sk::util::String("/u"), locations.at(0));
-  CPPUNIT_ASSERT_EQUAL(sk::util::String("a"), locations.at(1));
+  CPPUNIT_ASSERT_EQUAL("/u", locations.at(0));
+  CPPUNIT_ASSERT_EQUAL("a", locations.at(1));
 }
 
 void
@@ -68,9 +68,9 @@ testMultiLevel()
   locator.invoke(Processor(locations));
 
   CPPUNIT_ASSERT_EQUAL(size_t(3), locations.size());
-  CPPUNIT_ASSERT_EQUAL(sk::util::String("a"), locations.at(0));
-  CPPUNIT_ASSERT_EQUAL(sk::util::String("a/b"), locations.at(1));
-  CPPUNIT_ASSERT_EQUAL(sk::util::String("a/b/c"), locations.at(2));
+  CPPUNIT_ASSERT_EQUAL("a", locations.at(0));
+  CPPUNIT_ASSERT_EQUAL("a/b", locations.at(1));
+  CPPUNIT_ASSERT_EQUAL("a/b/c", locations.at(2));
 }
 
 void
@@ -82,10 +82,10 @@ testMultiLevelFromRoot()
   locator.invoke(Processor(locations));
 
   CPPUNIT_ASSERT_EQUAL(size_t(4), locations.size());
-  CPPUNIT_ASSERT_EQUAL(sk::util::String("/"), locations.at(0));
-  CPPUNIT_ASSERT_EQUAL(sk::util::String("/a"), locations.at(1));
-  CPPUNIT_ASSERT_EQUAL(sk::util::String("/a/b"), locations.at(2));
-  CPPUNIT_ASSERT_EQUAL(sk::util::String("/a/b/c"), locations.at(3));
+  CPPUNIT_ASSERT_EQUAL("/", locations.at(0));
+  CPPUNIT_ASSERT_EQUAL("/a", locations.at(1));
+  CPPUNIT_ASSERT_EQUAL("/a/b", locations.at(2));
+  CPPUNIT_ASSERT_EQUAL("/a/b/c", locations.at(3));
 }
 
 void
@@ -97,8 +97,8 @@ testMultiLevelCascading()
   locator.invoke(Processor(locations));
 
   CPPUNIT_ASSERT_EQUAL(size_t(4), locations.size());
-  CPPUNIT_ASSERT_EQUAL(sk::util::String("/u"), locations.at(0));
-  CPPUNIT_ASSERT_EQUAL(sk::util::String("a"), locations.at(1));
-  CPPUNIT_ASSERT_EQUAL(sk::util::String("a/b"), locations.at(2));
-  CPPUNIT_ASSERT_EQUAL(sk::util::String("a/b/c"), locations.at(3));
+  CPPUNIT_ASSERT_EQUAL("/u", locations.at(0));
+  CPPUNIT_ASSERT_EQUAL("a", locations.at(1));
+  CPPUNIT_ASSERT_EQUAL("a/b", locations.at(2));
+  CPPUNIT_ASSERT_EQUAL("a/b/c", locations.at(3));
 }

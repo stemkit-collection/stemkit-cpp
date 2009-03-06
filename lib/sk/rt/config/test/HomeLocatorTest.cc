@@ -52,6 +52,6 @@ testStandAlone()
   CPPUNIT_ASSERT_EQUAL(size_t(1), locations.size());
   CPPUNIT_ASSERT_EQUAL(size_t(1), streams.size());
 
-  CPPUNIT_ASSERT_EQUAL(sk::util::String(getenv("HOME")).inspect(), locations.at(0).inspect());
-  CPPUNIT_ASSERT_EQUAL((sk::util::String(getenv("HOME")) + "/.abcrc").inspect(), streams.at(0).inspect());
+  CPPUNIT_ASSERT_EQUAL(getenv("HOME"), locations.at(0));
+  CPPUNIT_ASSERT_EQUAL(sk::util::String(getenv("HOME")) + "/.abcrc", streams.at(0));
 }
