@@ -64,7 +64,8 @@ void
 sk::rt::scope::XmlProcessor::
 start(const sk::util::String& scope)
 {
-  process(findScopeElement(getHandle(), scope), scope, _aggregator);
+  TiXmlElement* item = findScopeElement(getHandle(), scope);
+  process(item, sk::util::String(item->Attribute("name")).trim(), _aggregator);
 }
 
 TiXmlElement*
@@ -72,7 +73,7 @@ sk::rt::scope::XmlProcessor::
 findScopeElement(const TiXmlHandle& handle, const sk::util::String& name) 
 {
   for(TiXmlElement* item=handle.FirstChild("scope").ToElement(); item ;item=item->NextSiblingElement(item->Value())) {
-    if(name.isEmpty() == true || name.equals(item->Attribute("name")) == true) {
+    if(name.isEmpty() == true || name.equals(sk::util::String(item->Attribute("name")).trim()) == true) {
       return item;
     }
   }
