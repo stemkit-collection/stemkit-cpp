@@ -58,6 +58,7 @@ namespace sk {
         void aggregateScopeName(std::ostream& stream) const;
         const sk::util::Object& getObject() const;
         const scope::IConfig& getConfig() const;
+        uint64_t currentThreadId() const;
         
       private:
         Scope(const Scope& parent, const sk::util::String& name);

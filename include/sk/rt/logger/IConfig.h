@@ -27,6 +27,7 @@ namespace sk {
           virtual bool isLogPid() const = 0;
           virtual bool isLogTime() const = 0;
           virtual bool isLogObject() const = 0;
+          virtual bool isLogThread() const = 0;
 
           virtual void setLogDestination(const logger::Destination& destination) = 0;
           virtual void setLogLevel(const logger::Level& level) = 0;
@@ -34,6 +35,7 @@ namespace sk {
           virtual void setLogPid(bool state) = 0;
           virtual void setLogTime(bool state) = 0;
           virtual void setLogObject(bool state) = 0;
+          virtual void setLogThread(bool state) = 0;
       };
     }
   }

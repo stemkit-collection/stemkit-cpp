@@ -204,6 +204,9 @@ namespace {
     bool isLogObject() const {
       return false;
     }
+    bool isLogThread() const {
+      return false;
+    }
     const sk::util::Object& getObject() const {
       return *this;
     }
@@ -214,8 +217,12 @@ namespace {
     void setLogPid(bool status) {}
     void setLogTime(bool status) {}
     void setLogObject(bool status) {}
+    void setLogThread(bool status) {}
     void aggregateScopeName(std::ostream& stream) const {
       stream << "PIPE";
+    }
+    uint64_t currentThreadId() const {
+      return 0;
     }
     sk::rt::logger::Destination& _destination;
   };

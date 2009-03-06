@@ -50,6 +50,9 @@ makeHeader(std::ostream& stream) const
   if(_config.isLogObject() == true) {
     stream << ':' << &_scope.getObject();
   }
+  if(_config.isLogThread() == true) {
+    stream << ':' << _scope.currentThreadId();
+  }
   if(&_label != &sk::util::String::EMPTY) {
     stream << ':' << _label;
   }

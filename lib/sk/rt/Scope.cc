@@ -1,4 +1,5 @@
-/*  Copyright (c) 2007, Gennady Bystritsky <bystr@mac.com>
+/*  vim: sw=2:
+ *  Copyright (c) 2007, Gennady Bystritsky <bystr@mac.com>
  *  
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
@@ -97,6 +98,13 @@ sk::rt::Scope::
 getAggregator() const
 {
   return _aggregator;
+}
+
+uint64_t
+sk::rt::Scope::
+currentThreadId() const
+{
+  return _aggregator.getArbitrator().currentThreadId();
 }
 
 const sk::rt::scope::IConfig&

@@ -29,6 +29,7 @@ namespace sk {
           void setLogPid(bool state);
           void setLogTime(bool state);
           void setLogObject(bool state);
+          void setLogThread(bool state);
           void setProperty(const sk::util::String& name, const sk::util::String& value);
 
           // sk::rt::logger::IConfig implementation.
@@ -38,6 +39,7 @@ namespace sk {
           bool isLogPid() const;
           bool isLogTime() const;
           bool isLogObject() const;
+          bool isLogThread() const;
           
           // sk::rt::scope::Config implementation.
           const sk::util::String getProperty(const sk::util::String& name) const;
@@ -59,6 +61,7 @@ namespace sk {
           bool _logPid;
           bool _logTime;
           bool _logObject;
+          bool _logThread;
           sk::util::String _timeFormat;
           typedef std::map<sk::util::String, sk::util::String> registry;
           registry _properties;

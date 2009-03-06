@@ -9,6 +9,7 @@
 #define _SK_RT_LOGGER_ISCOPE_
 
 #include <sk/util/Object.h>
+#include <sk/rt/scope/Arbitrator.h>
 
 namespace sk {
   namespace rt {
@@ -22,6 +23,7 @@ namespace sk {
           virtual const logger::IConfig& getConfig() const = 0;
           virtual const sk::util::Object& getObject() const = 0;
           virtual void aggregateScopeName(std::ostream& stream) const = 0;
+          virtual uint64_t currentThreadId() const = 0;
       };
     }
   }
