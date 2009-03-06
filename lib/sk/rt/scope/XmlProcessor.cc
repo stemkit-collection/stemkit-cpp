@@ -146,6 +146,7 @@ sk::rt::scope::XmlProcessor::
 updateLogInfo(const TiXmlHandle& handle, scope::IConfig& config) 
 {
   config.setLogObject(attribute(handle.ToElement(), "show-object", config.isLogObject()));
+  config.setLogThread(attribute(handle.ToElement(), "show-thread", config.isLogThread()));
   config.setLogTime(attribute(handle.ToElement(), "show-time", config.isLogTime()));
   config.setLogPid(attribute(handle.ToElement(), "show-pid", config.isLogPid()));
   config.setTimeFormat(attribute(handle.ToElement(), "time-format", config.getTimeFormat()));
