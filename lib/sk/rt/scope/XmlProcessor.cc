@@ -65,19 +65,28 @@ sk::rt::scope::XmlProcessor::
 start(const sk::util::String& scope)
 {
   TiXmlElement* item = findScopeElement(getHandle(), scope);
-  process(item, sk::util::String(item->Attribute("name")).trim(), _aggregator);
+  if(item != 0) {
+    process(item, _scopeBuffer, _aggregator);
+  }
 }
 
 TiXmlElement*
 sk::rt::scope::XmlProcessor::
 findScopeElement(const TiXmlHandle& handle, const sk::util::String& name) 
 {
+  TiXmlElement* default_item = 0;
   for(TiXmlElement* item=handle.FirstChild("scope").ToElement(); item ;item=item->NextSiblingElement(item->Value())) {
-    if(name.isEmpty() == true || name.equals(sk::util::String(item->Attribute("name")).trim()) == true) {
+    const sk::util::String scope = sk::util::String(item->Attribute("name")).trim();
+    if(name.isEmpty() == true || name.equals(scope) == true) {
+      _scopeBuffer = scope;
       return item;
     }
+    if(scope.isEmpty() == true && default_item == 0) {
+      default_item = item;
+    }
   }
-  return 0;
+  _scopeBuffer = name;
+  return default_item;
 }
 
 void
@@ -235,8 +244,10 @@ sk::rt::scope::XmlProcessor::
 updateFileDestination(const TiXmlHandle& handle, scope::IConfig& config) 
 {
   sk::util::Pathname pathname(attribute(handle.ToElement(), "name", _scopeBuffer), "log");
-  pathname.front(attribute(handle.ToElement(), "location", ".")).front(_location);
-
+  pathname.front(attribute(handle.ToElement(), "location", "."));
+  if(pathname.isExplicit() == false) {
+    pathname.front(_location);
+  }
   logger::FileDestination file(logger::CyclerFactory::create(pathname, attribute(handle.ToElement(), "policy", "")).get(), _aggregator.getArbitrator());
 
   file.getCycler().setSize(attribute(handle.ToElement(), "size", "10M"));

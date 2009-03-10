@@ -9,6 +9,7 @@ test-objects =
   $(test-xml-objects)
   AggregatorTest.cc
   XmlConfigLoaderTest.cc
+  ConfigBlockLookupTest.cc
   TestSuite.cc
 ;
 
