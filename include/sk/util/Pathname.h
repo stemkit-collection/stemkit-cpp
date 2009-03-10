@@ -22,6 +22,8 @@ namespace sk {
         virtual ~Pathname();
 
         bool isAbsolute() const;
+        bool isExplicit() const;
+
         const sk::util::String basename() const;
         const sk::util::String dirname() const;
 

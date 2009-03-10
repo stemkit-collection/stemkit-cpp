@@ -88,3 +88,10 @@ isAbsolute() const
 {
   return _pathname.startsWith('/');
 }
+
+bool
+sk::util::Pathname::
+isExplicit() const
+{
+  return isAbsolute() || _pathname.equals(".") || _pathname.equals("..") || _pathname.startsWith("./") || _pathname.startsWith("../");
+}
