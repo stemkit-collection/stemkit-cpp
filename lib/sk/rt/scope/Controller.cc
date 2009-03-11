@@ -21,6 +21,7 @@ Controller()
 sk::rt::scope::Controller::
 ~Controller()
 {
+    _aggregator.resetArbitrator();
 }
 
 const sk::util::Class

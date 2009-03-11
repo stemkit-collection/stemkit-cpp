@@ -33,6 +33,7 @@ namespace sk {
           int size() const;
 
           void setArbitrator(scope::Arbitrator* arbitrator);
+          void resetArbitrator();
           scope::Arbitrator& getArbitrator() const;
           
           // sk::util::Object re-implementation.
