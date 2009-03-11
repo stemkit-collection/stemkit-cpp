@@ -224,7 +224,7 @@ expand(const sk::util::String& value)
 
   while(true) {
     std::string::size_type start = value.find("#{", index, 2);
-    stream << value.substr(index, start);
+    stream << value.substr(index, start - index);
 
     if(start == std::string::npos) {
       break;

@@ -103,6 +103,7 @@ testValueSubstituion()
       <property name='#{prefix}-location' value='log-#{port}' />\
       <property name='name' value='zzz-#{aaa}-bbb' />\
       <property name='abc' value='uuu-#{scope}-ooo' />\
+      <property name='multi' value='#{prefix}-v-#{port}-end' />\
     ", "a/b/c", _aggregatorHolder.get(), values
   );
   processor.start("");
@@ -110,4 +111,5 @@ testValueSubstituion()
   CPPUNIT_ASSERT_EQUAL("log-2222", _aggregatorHolder.get().getConfig().getProperty("my-location"));
   CPPUNIT_ASSERT_EQUAL("zzz--bbb", _aggregatorHolder.get().getConfig().getProperty("name"));
   CPPUNIT_ASSERT_EQUAL("uuu-top-app-ooo", _aggregatorHolder.get().getConfig().getProperty("abc"));
+  CPPUNIT_ASSERT_EQUAL("my-v-2222-end", _aggregatorHolder.get().getConfig().getProperty("multi"));
 }
