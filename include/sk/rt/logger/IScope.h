@@ -8,7 +8,7 @@
 #ifndef _SK_RT_LOGGER_ISCOPE_
 #define _SK_RT_LOGGER_ISCOPE_
 
-#include <sk/util/Object.h>
+#include <sk/rt/scope/ThreadInfo.h>
 
 namespace sk {
   namespace rt {
@@ -16,13 +16,12 @@ namespace sk {
       class IConfig;
 
       class IScope
-        : public virtual sk::util::Object 
+        : public virtual sk::rt::scope::ThreadInfo
       {
         public:
           virtual const logger::IConfig& getConfig() const = 0;
           virtual const sk::util::Object& getObject() const = 0;
           virtual void aggregateScopeName(std::ostream& stream) const = 0;
-          virtual uint64_t currentThreadId() const = 0;
       };
     }
   }

@@ -21,6 +21,10 @@ Controller()
 sk::rt::scope::Controller::
 ~Controller()
 {
+    // We have to do it here to ensure that a user supplied class gets
+    // destroyed before the whole scoping/logging subsystem is brought
+    // down. Otherwise, that class may try to log something while a 
+    // correspondig scope is already destroyed.
     _aggregator.resetArbitrator();
 }
 

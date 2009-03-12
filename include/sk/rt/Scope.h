@@ -21,7 +21,8 @@
 namespace sk {
   namespace rt {
     class Scope
-      : public virtual logger::IScope
+      : public virtual logger::IScope,
+        public virtual scope::ThreadInfo
     {
       public:
         Scope(const sk::util::Object& object);
@@ -54,10 +55,12 @@ namespace sk {
         const sk::util::Class getClass() const;
 
       protected:
-        // sk::rt::scope::IScope implementation.
+        // sk::rt::logger::IScope implementation.
         void aggregateScopeName(std::ostream& stream) const;
         const sk::util::Object& getObject() const;
         const scope::IConfig& getConfig() const;
+
+        // sk::rt::scope::ThreadInfo implementation.
         uint64_t currentThreadId() const;
         
       private:

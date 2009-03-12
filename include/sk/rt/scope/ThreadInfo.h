@@ -5,26 +5,25 @@
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
  *  
- *  Author: Gennady Bystritsky
+ *  Author: Gennady Bystritsky (gennady.bystritsky@quest.com)
 */
 
-#ifndef _SK_RT_SCOPE_ARBITRATOR_H_
-#define _SK_RT_SCOPE_ARBITRATOR_H_
+#ifndef _SK_RT_SCOPE_THREADINFO_H_
+#define _SK_RT_SCOPE_THREADINFO_H_
 
-#include <sk/rt/scope/ThreadInfo.h>
+#include <sk/util/Object.h>
 
 namespace sk {
   namespace rt {
     namespace scope {
-      class Arbitrator 
-        : public virtual sk::rt::scope::ThreadInfo
+      class ThreadInfo 
+        : public virtual sk::util::Object
       {
         public:
-          virtual void lock() = 0;
-          virtual void unlock() = 0;
+          virtual uint64_t currentThreadId() const = 0;
       };
     }
   }
 }
 
-#endif /* _SK_RT_SCOPE_ARBITRATOR_H_ */
+#endif /* _SK_RT_SCOPE_THREADINFO_H_ */
