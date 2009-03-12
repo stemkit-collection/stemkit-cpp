@@ -47,8 +47,8 @@ void
 sk::rt::thread::Dispatcher::
 reset()
 {
-  _mainHolder.clear();
   _mainAvailable = false;
+  _mainHolder.clear();
 }
 
 bool
