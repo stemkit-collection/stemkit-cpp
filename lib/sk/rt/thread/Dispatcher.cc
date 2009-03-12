@@ -17,6 +17,8 @@
 #include "PrintingExceptionHandler.h"
 
 sk::util::Holder<sk::rt::thread::Dispatcher> sk::rt::thread::Dispatcher::_mainHolder;
+bool sk::rt::thread::Dispatcher::_mainAvailable = false;
+
 static const sk::util::Class __class("sk::rt::thread::Dispatcher");
 
 sk::rt::thread::Dispatcher::
@@ -36,6 +38,7 @@ main()
 {
   if(_mainHolder.isEmpty() == true) {
     _mainHolder.set(new Dispatcher);
+    _mainAvailable = true;
   }
   return _mainHolder.get();
 }
@@ -45,6 +48,14 @@ sk::rt::thread::Dispatcher::
 reset()
 {
   _mainHolder.clear();
+  _mainAvailable = false;
+}
+
+bool
+sk::rt::thread::Dispatcher::
+isMainAvailable()
+{
+  return _mainAvailable;
 }
 
 const sk::util::Class

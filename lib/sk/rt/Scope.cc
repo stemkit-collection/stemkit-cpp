@@ -12,6 +12,7 @@
 #include <sk/util/Boolean.h>
 
 #include <sk/rt/Scope.h>
+#include <sk/rt/scope/Arbitrator.h>
 #include <sk/rt/logger/Level.h>
 #include <sk/util/MissingResourceException.h>
 #include <sk/util/NumberFormatException.h>

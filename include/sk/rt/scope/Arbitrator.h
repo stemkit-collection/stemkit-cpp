@@ -22,6 +22,7 @@ namespace sk {
         public:
           virtual void lock() = 0;
           virtual void unlock() = 0;
+          virtual bool threadInfoAvailable() const = 0;
           virtual uint64_t currentThreadId() const = 0;
       };
     }

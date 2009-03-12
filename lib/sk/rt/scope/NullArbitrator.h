@@ -27,6 +27,10 @@ namespace sk {
           inline void unlock() {
           }
 
+          inline bool threadInfoAvailable() const {
+            return false;
+          }
+
           inline uint64_t currentThreadId() const {
             return 0;
           }

@@ -27,6 +27,7 @@ namespace sk {
           // sk::rt::scope::Arbitrator implementation.
           void lock();
           void unlock();
+          bool threadInfoAvailable() const;
           uint64_t currentThreadId() const;
 
           // sk::util::Object re-implementation.

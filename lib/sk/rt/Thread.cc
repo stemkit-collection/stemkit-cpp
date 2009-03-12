@@ -106,6 +106,14 @@ reset()
   sk::rt::thread::Implementation::reset();
 }
 
+bool
+sk::rt::Thread::
+isReady() 
+{
+  return sk::rt::thread::Dispatcher::isMainAvailable();
+}
+
+
 uint64_t
 sk::rt::Thread::
 getId() const

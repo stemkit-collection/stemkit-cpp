@@ -78,6 +78,7 @@ namespace sk {
 
         static void setup();
         static void reset();
+        static bool isReady();
 
       protected:
         virtual void run();

@@ -9,7 +9,6 @@
 #define _SK_RT_LOGGER_ISCOPE_
 
 #include <sk/util/Object.h>
-#include <sk/rt/scope/Arbitrator.h>
 
 namespace sk {
   namespace rt {

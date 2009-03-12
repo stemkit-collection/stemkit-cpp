@@ -40,6 +40,7 @@ namespace sk {
 
           static Dispatcher& main();
           static void reset();
+          static bool isMainAvailable();
       
         private:
           Dispatcher(const Dispatcher& other);
@@ -47,6 +48,7 @@ namespace sk {
 
           uint64_t _sequence;
           static sk::util::Holder<Dispatcher> _mainHolder;
+          static bool _mainAvailable;
           sk::rt::thread::Main _mainThread;
           sk::rt::Mutex _mutex;
           sk::util::Holder<sk::rt::thread::UncaughtExceptionHandler> _uncaughtExceptionHandlerHolder;
