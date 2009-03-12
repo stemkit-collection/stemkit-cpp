@@ -48,16 +48,12 @@ unlock()
   _mutex.unlock();
 }
 
-bool
-sk::rt::thread::ScopeArbitrator::
-threadInfoAvailable() const
-{
-  return sk::rt::Thread::isReady();
-}
-
 uint64_t
 sk::rt::thread::ScopeArbitrator::
 currentThreadId() const
 {
+  if(sk::rt::Thread::isReady() == false) {
+    return 0;
+  }
   return sk::rt::Thread::currentThread().getId();
 }
