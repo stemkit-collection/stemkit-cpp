@@ -77,7 +77,12 @@ void
 sk::rt::thread::Runner::
 start(sk::rt::thread::Generic& handle)
 {
+  if(_threadHolder.isEmpty() == false) {
+    throw sk::util::IllegalStateException("thread already started");
+  }
   _threadHolder.set(thread::Implementation::instance().makeThread(*this, handle));
+
+  setState(thread::State::SK_T_STARTED);
   _threadHolder.get().start();
 }
 

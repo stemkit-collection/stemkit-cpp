@@ -20,6 +20,7 @@ static const sk::util::Class __class("sk::rt::thread::State");
 #define DEFINE_STATE(state) const sk::rt::thread::State sk::rt::thread::State::SK_T_##state(#state)
 
 DEFINE_STATE(NEW);
+DEFINE_STATE(STARTED);
 DEFINE_STATE(RUNNING);
 DEFINE_STATE(EXITED);
 DEFINE_STATE(STOPPED);

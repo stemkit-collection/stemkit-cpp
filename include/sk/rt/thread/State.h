@@ -34,6 +34,7 @@ namespace sk {
           bool operator==(const State& other) const;
 
           static const State SK_T_NEW;
+          static const State SK_T_STARTED;
           static const State SK_T_RUNNING;
           static const State SK_T_EXITED;
           static const State SK_T_STOPPED;

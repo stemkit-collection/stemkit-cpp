@@ -192,7 +192,8 @@ bool
 sk::rt::Thread::
 isAlive() const
 {
-  return getState() == thread::State::SK_T_RUNNING;
+  const thread::State& state = getState();
+  return state == thread::State::SK_T_RUNNING || state == thread::State::SK_T_STARTED;
 }
 
 bool 
