@@ -39,6 +39,14 @@ namespace sk {
           static const Level SK_L_DETAIL;
           static const Level SK_L_DEBUG;
 
+          /**
+           *  Returns true if the Level facility is in initialized state. 
+           *  This method is a work-around for C++ "static initialization 
+           *  order fiasco" problem. It is used in sk::rt::Scope constructor,
+           *  that in turn may be used as a static class member. As such, it
+           *  will be subject to the static initialization rules, possibly 
+           *  leading to use of uninitialized Level instance.
+          */
           static bool isReady();
           
         private:
