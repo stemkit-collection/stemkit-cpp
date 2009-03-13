@@ -38,6 +38,8 @@ namespace sk {
           static const Level SK_L_NOTICE;
           static const Level SK_L_DETAIL;
           static const Level SK_L_DEBUG;
+
+          static bool isReady();
           
         private:
           Level(const sk::util::String& name);
@@ -45,6 +47,7 @@ namespace sk {
           Level& operator = (const Level& other);
 
           static std::vector<Level*> _levels;
+          static int _counter;
 
           int _value;
           const sk::util::String _name;

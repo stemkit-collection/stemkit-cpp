@@ -69,9 +69,9 @@ getLogDestination() const
 
 bool
 sk::rt::scope::Config::
-checkLogLevel(const sk::rt::logger::Level& level) const
+checkLogLevel(const logger::Level& level) const
 {
-  return level.toInt() <= _levelHolder.get().toInt();
+  return logger::Level::isReady() && level.toInt() <= _levelHolder.get().toInt();
 }
 
 const char*

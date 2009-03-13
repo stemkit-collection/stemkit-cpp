@@ -11,6 +11,7 @@
 #include <sk/rt/logger/Level.h>
 
 std::vector<sk::rt::logger::Level*> sk::rt::logger::Level::_levels;
+int sk::rt::logger::Level::_counter = 0;
 
 #define DEFINE_LEVEL(level) const sk::rt::logger::Level sk::rt::logger::Level::SK_L_##level(#level)
 
@@ -25,7 +26,7 @@ DEFINE_LEVEL(DEBUG);
 
 sk::rt::logger::Level::
 Level(const sk::util::String& name)
-  : _name(name), _value(_levels.size())
+  : _name(name), _value(++_counter)
 {
   _levels.push_back(this);
 }
@@ -33,6 +34,15 @@ Level(const sk::util::String& name)
 sk::rt::logger::Level::
 ~Level()
 {
+  _levels.pop_back();
+  --_counter;
+}
+
+bool
+sk::rt::logger::Level::
+isReady() 
+{
+    return _counter > 0 ? true : false;
 }
 
 const sk::util::Class
