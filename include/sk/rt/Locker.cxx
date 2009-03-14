@@ -12,6 +12,7 @@
 #define _SK_RT_LOCKER_CXX_
 
 #include <sk/rt/Locker.hxx>
+#include <sk/util/Holder.cxx>
 
 template<typename L>
 sk::rt::Locker<L>::
