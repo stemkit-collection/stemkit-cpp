@@ -26,7 +26,7 @@ int main(int argc, const char* argv[])
   sk::rt::Scope::controller().loadXmlConfig(
     sk::rt::config::InlineLocator("\n\
       <scope name='app'>\n\
-        <log destination='file' level='notice' show-object='false' show-time='false' >\n\
+        <log destination='std::cerr' level='notice' show-object='false' show-time='false' >\n\
           <file location='/tmp/gfb' size='50M' chunks='4' ensure-chunks='true' policy='pointing' use-pipe='false' />\n\
         </log>\n\
         \n\

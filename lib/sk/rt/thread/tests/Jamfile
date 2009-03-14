@@ -1,8 +1,11 @@
 # vim: set sw=2:
 
-local test = sk-rt-thread-test ;
+local test-areas = 
+  general 
+  static 
+;
 
-local objects = 
+local general-objects = 
   TestSuite.cc
   ThreadTest.cc
   DispatcherTest.cc
@@ -11,27 +14,33 @@ local objects =
   LockerTest.cc
 ;
 
-local helper-objects =
+local static-objects =
+  TestSuite.cc
+  StaticInitializationTest.cc
+;
+
+local general-helper-objects =
   DataGenerator.cc
 ;
 
-use-unit-test $(objects) ;
-use-pthreads $(test)-pthreads ;
-
-local test-categories category ;
+local implementation ;
 if windows in $(project.PLATFORM_SPECIFICS) {
-  test-categories += win32 ;
+  implementation = win32 ;
 }
-else test-categories += pthreads ;
+else implementation = pthreads ;
 
-for category in $(test-categories) {
-  local test = $(test)-$(category) ;
+local area ;
+for area in $(test-areas) {
+  local test = sk-rt-$(area) ;
+  local program = $(test)-$(implementation) ;
 
-  use-project-libraries $(test) : sk.rt.bundle sk.util sk.cppunit sk.rt.thread ;
-  use-project-libraries $(test) : sk.rt.thread.$(category) ;
+  use-project-libraries $(program) : sk.rt.bundle sk.util sk.cppunit sk.rt.thread ;
+  use-project-libraries $(program) : sk.rt.thread.$(implementation) ;
 
-  use-unit-test $(test) ;
-  make-cpp-test $(test) : $(objects) $(helper-objects) ;
+  use-unit-test $(program) $($(area)-objects) ;
+  use-pthreads $(test)-pthreads ;
+
+  make-cpp-test $(program) : $($(area)-objects) $($(area)-helper-objects) ;
 }
 
 make-subdirs functional ;

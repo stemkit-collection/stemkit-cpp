@@ -1,6 +1,10 @@
 # vim: set sw=2:
 
-local tests = ticker scope-logging ;
+local tests = 
+  ticker 
+  scope-logging 
+  static-init
+;
 
 local implementation ;
 if windows in $(project.PLATFORM_SPECIFICS) {
