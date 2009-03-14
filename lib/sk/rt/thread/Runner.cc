@@ -18,11 +18,11 @@
 #include "Dispatcher.h"
 #include "Runner.h"
 
-static const sk::util::Class __class("sk::rt::thread::Runner");
+static const char* __className("sk::rt::thread::Runner");
 
 sk::rt::thread::Runner::
 Runner(sk::rt::Runnable& target, sk::rt::thread::Generic& thread)
-  : _scope(__class.getName()), _target(target), _generic(thread), _stateHolder(thread::State::SK_T_NEW), 
+  : _scope(__className), _target(target), _generic(thread), _stateHolder(thread::State::SK_T_NEW), 
     _exitStatus(-1), _interrupted(false), _detached(false), _stateMutex(false)
 {
 }
@@ -36,7 +36,7 @@ const sk::util::Class
 sk::rt::thread::Runner::
 getClass() const
 {
-  return __class;
+  return sk::util::Class(__className);
 }
 
 const sk::rt::thread::State&

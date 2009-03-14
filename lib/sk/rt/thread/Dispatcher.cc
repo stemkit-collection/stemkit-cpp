@@ -19,7 +19,7 @@
 sk::util::Holder<sk::rt::thread::Dispatcher> sk::rt::thread::Dispatcher::_mainHolder;
 bool sk::rt::thread::Dispatcher::_mainAvailable = false;
 
-static const sk::util::Class __class("sk::rt::thread::Dispatcher");
+static const char* __className("sk::rt::thread::Dispatcher");
 
 sk::rt::thread::Dispatcher::
 Dispatcher()
@@ -62,7 +62,7 @@ const sk::util::Class
 sk::rt::thread::Dispatcher::
 getClass() const
 {
-  return __class;
+  return sk::util::Class(__className);
 }
 
 uint64_t

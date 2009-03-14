@@ -15,7 +15,7 @@
 #include "Mutex.h"
 #include "Exception.h"
 
-static const sk::util::Class __class("sk::rt::thread::pthreads::Mutex");
+static const char* __className("sk::rt::thread::pthreads::Mutex");
 
 sk::rt::thread::pthreads::Mutex::
 Mutex(int mutex_type, sk::rt::Scope scope)
@@ -36,16 +36,14 @@ sk::rt::thread::pthreads::Mutex*
 sk::rt::thread::pthreads::Mutex::
 makeRecursive()
 {
-  return new pthreads::Mutex(PTHREAD_MUTEX_RECURSIVE, sk::rt::Scope(__class.getName()));
+  return new pthreads::Mutex(PTHREAD_MUTEX_RECURSIVE, sk::rt::Scope(__className));
 }
-
-#include <iostream>
 
 sk::rt::thread::pthreads::Mutex*
 sk::rt::thread::pthreads::Mutex::
 makeSingular()
 {
-  sk::rt::Scope scope(__class.getName());
+  sk::rt::Scope scope(__className);
   bool check = scope.getProperty("perform-error-check", sk::util::Boolean::B_TRUE);
   return new Mutex((check ? PTHREAD_MUTEX_ERRORCHECK : PTHREAD_MUTEX_NORMAL), scope);
 }
@@ -75,7 +73,7 @@ const sk::util::Class
 sk::rt::thread::pthreads::Mutex::
 getClass() const
 {
-  return __class;
+  return sk::util::Class(__className);
 }
 
 void 

@@ -19,7 +19,7 @@
 
 #include <iostream>
 
-static const sk::util::Class __class("sk::rt::thread::pthreads::Thread");
+static const char* __className("sk::rt::thread::pthreads::Thread");
 
 namespace {
   struct DummyRunnable : public virtual sk::rt::Runnable {
@@ -30,7 +30,7 @@ namespace {
 
 sk::rt::thread::pthreads::Thread::
 Thread(const Provider& provider, sk::rt::thread::Generic& handle)
-  : _scope(__class.getName()), _provider(provider), _handle(handle), _target(DUMMY_TARGET), 
+  : _scope(__className), _provider(provider), _handle(handle), _target(DUMMY_TARGET), 
     _thread(pthread_self()), _wrapper(true), _stopping(false)
 {
   _provider.installGeneric(_handle);
@@ -38,7 +38,7 @@ Thread(const Provider& provider, sk::rt::thread::Generic& handle)
 
 sk::rt::thread::pthreads::Thread::
 Thread(const Provider& provider, sk::rt::Runnable& target, sk::rt::thread::Generic& handle)
-  : _scope(__class.getName()), _provider(provider), _target(target), _handle(handle), 
+  : _scope(__className), _provider(provider), _target(target), _handle(handle), 
   _thread(0), _wrapper(false), _stopping(false)
 {
 }
@@ -55,7 +55,7 @@ const sk::util::Class
 sk::rt::thread::pthreads::Thread::
 getClass() const
 {
-  return __class;
+  return sk::util::Class(__className);
 }
 
 void 

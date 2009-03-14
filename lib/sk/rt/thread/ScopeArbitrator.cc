@@ -14,7 +14,7 @@
 #include <sk/rt/thread/ScopeArbitrator.h>
 #include <sk/rt/Thread.h>
 
-static const sk::util::Class __class("sk::rt::thread::ScopeArbitrator");
+static const char* __className("sk::rt::thread::ScopeArbitrator");
 
 sk::rt::thread::ScopeArbitrator::
 ScopeArbitrator()
@@ -31,7 +31,7 @@ const sk::util::Class
 sk::rt::thread::ScopeArbitrator::
 getClass() const
 {
-  return __class;
+  return sk::util::Class(__className);
 }
 
 void

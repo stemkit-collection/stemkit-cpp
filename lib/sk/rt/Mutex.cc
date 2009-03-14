@@ -14,7 +14,7 @@
 #include <sk/rt/Mutex.h>
 #include "thread/Implementation.h"
 
-static const sk::util::Class __class("sk::rt::Mutex");
+static const char* __className("sk::rt::Mutex");
 
 sk::rt::Mutex::
 Mutex(bool ownership)
@@ -31,7 +31,7 @@ const sk::util::Class
 sk::rt::Mutex::
 getClass() const
 {
-  return __class;
+  return sk::util::Class(__className);
 }
 
 bool

@@ -13,7 +13,7 @@
 
 #include "Exception.h"
 
-static const sk::util::Class __class("sk::rt::thread::pthreads::Exception");
+static const char* __className("sk::rt::thread::pthreads::Exception");
 
 sk::rt::thread::pthreads::Exception::
 Exception(const sk::util::String& function, int code)
@@ -30,7 +30,7 @@ const sk::util::Class
 sk::rt::thread::pthreads::Exception::
 getClass() const
 {
-  return __class;
+  return sk::util::Class(__className);
 }
 
 bool

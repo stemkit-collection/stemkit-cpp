@@ -14,7 +14,7 @@
 #include <sk/rt/ReentrantLock.h>
 #include "thread/Implementation.h"
 
-static const sk::util::Class __class("sk::rt::ReentrantLock");
+static const char* __className("sk::rt::ReentrantLock");
 
 sk::rt::ReentrantLock::
 ReentrantLock()
@@ -32,7 +32,7 @@ const sk::util::Class
 sk::rt::ReentrantLock::
 getClass() const
 {
-  return __class;
+  return sk::util::Class(__className);
 }
 
 void

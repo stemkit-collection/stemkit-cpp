@@ -14,7 +14,7 @@
 
 #include "CriticalSection.h"
 
-static const sk::util::Class __class("sk::rt::thread::win32::CriticalSection");
+static const char* __className("sk::rt::thread::win32::CriticalSection");
 
 sk::rt::thread::win32::CriticalSection::
 CriticalSection()

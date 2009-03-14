@@ -15,7 +15,7 @@
 #include <sk/rt/thread/abstract/Factory.h>
 #include "Implementation.h"
 
-static const sk::util::Class __class("sk::rt::thread::abstract::Factory");
+static const char* __className("sk::rt::thread::abstract::Factory");
 
 const sk::util::Class
 sk::rt::thread::abstract::Factory::

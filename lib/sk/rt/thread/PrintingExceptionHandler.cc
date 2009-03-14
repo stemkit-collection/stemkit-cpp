@@ -16,7 +16,7 @@
 #include "PrintingExceptionHandler.h"
 #include <unistd.h>
 
-static const sk::util::Class __class("sk::rt::thread::PrintingExceptionHandler");
+static const char* __className("sk::rt::thread::PrintingExceptionHandler");
 
 sk::rt::thread::PrintingExceptionHandler::
 PrintingExceptionHandler(const sk::util::String& name)
@@ -34,7 +34,7 @@ const sk::util::Class
 sk::rt::thread::PrintingExceptionHandler::
 getClass() const
 {
-  return __class;
+  return sk::util::Class(__className);
 }
 
 void 

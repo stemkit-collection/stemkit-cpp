@@ -18,7 +18,7 @@
 #include "Implementation.h"
 #include "Inspector.h"
 
-static sk::util::Class __class("sk::rt::thread::Main");
+static const char* __className("sk::rt::thread::Main");
 
 sk::rt::thread::Main::
 Main()
@@ -35,7 +35,7 @@ const sk::util::Class
 sk::rt::thread::Main::
 getClass() const
 {
-  return __class;
+  return sk::util::Class(__className);
 }
 
 uint64_t

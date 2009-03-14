@@ -19,11 +19,11 @@
 #include <time.h>
 #include <pthread.h>
 
-static sk::util::Class __class("sk::rt::thread::pthreads::Implementation");
+static const char* __className("sk::rt::thread::pthreads::Implementation");
 
 sk::rt::thread::pthreads::Implementation::
 Implementation()
-  : _scope(__class.getName())
+  : _scope(__className)
 {
   SK_PTHREAD_RAISE_UNLESS_SUCCESS(pthread_key_create(&_currentThreadKey, 0));
 }
@@ -45,7 +45,7 @@ const sk::util::Class
 sk::rt::thread::pthreads::Implementation::
 getClass() const
 {
-  return __class;
+  return sk::util::Class(__className);
 }
 
 sk::rt::thread::pthreads::Mutex*

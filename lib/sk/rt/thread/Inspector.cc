@@ -14,7 +14,7 @@
 #include "Inspector.h"
 #include <sstream>
 
-static const sk::util::Class __class("sk::rt::thread::Inspector");
+static const char* __className("sk::rt::thread::Inspector");
 
 sk::rt::thread::Inspector::
 Inspector(const thread::Generic& thread)
@@ -31,7 +31,7 @@ const sk::util::Class
 sk::rt::thread::Inspector::
 getClass() const
 {
-  return __class;
+  return sk::util::Class(__className);
 }
 
 const sk::util::String

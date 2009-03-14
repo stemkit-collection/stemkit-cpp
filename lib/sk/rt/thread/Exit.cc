@@ -13,7 +13,7 @@
 
 #include <sk/rt/thread/Exit.h>
 
-static const sk::util::Class __class("sk::rt::thread::Exit");
+static const char* __className("sk::rt::thread::Exit");
 
 sk::rt::thread::Exit::
 Exit(int code)
@@ -30,7 +30,7 @@ const sk::util::Class
 sk::rt::thread::Exit::
 getClass() const
 {
-  return __class;
+  return sk::util::Class(__className);
 }
 
 int

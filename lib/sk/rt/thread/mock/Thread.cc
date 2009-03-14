@@ -14,7 +14,7 @@
 
 #include "Thread.h"
 
-static const sk::util::Class __class("sk::rt::thread::mock::Thread");
+static const char* __className("sk::rt::thread::mock::Thread");
 
 sk::rt::thread::mock::Thread::
 Thread()
@@ -35,7 +35,7 @@ const sk::util::Class
 sk::rt::thread::mock::Thread::
 getClass() const
 {
-  return __class;
+  return sk::util::Class(__className);
 }
 
 void 

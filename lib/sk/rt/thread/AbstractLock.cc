@@ -18,7 +18,7 @@
 
 #include <sstream>
 
-static const sk::util::Class __class("sk::rt::thread::AbstractLock");
+static const char* __className("sk::rt::thread::AbstractLock");
 
 sk::rt::thread::AbstractLock::
 AbstractLock(abstract::Mutex* mutex, bool ownership)
@@ -35,7 +35,7 @@ const sk::util::Class
 sk::rt::thread::AbstractLock::
 getClass() const
 {
-  return __class;
+  return sk::util::Class(__className);
 }
 
 void

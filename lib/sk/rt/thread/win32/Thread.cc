@@ -15,7 +15,7 @@
 
 #include "Thread.h"
 
-static const sk::util::Class __class("sk::rt::thread::win32::Thread");
+static const char* __class("sk::rt::thread::win32::Thread");
 
 namespace {
   struct DummyRunnable : public virtual sk::rt::Runnable {

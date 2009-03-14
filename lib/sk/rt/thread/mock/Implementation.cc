@@ -15,7 +15,7 @@
 #include "Mutex.h"
 #include "Implementation.h"
 
-static sk::util::Class __class("sk::rt::thread::mock::Implementation");
+static const char* __className("sk::rt::thread::mock::Implementation");
 
 sk::rt::thread::mock::Implementation::
 Implementation()
@@ -31,7 +31,7 @@ const sk::util::Class
 sk::rt::thread::mock::Implementation::
 getClass() const
 {
-  return __class;
+  return sk::util::Class(__className);
 }
 
 sk::rt::thread::mock::Mutex*

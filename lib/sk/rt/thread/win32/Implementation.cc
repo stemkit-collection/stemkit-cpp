@@ -18,7 +18,7 @@
 #include "Thread.h"
 #include <winbase.h>
 
-static const sk::util::Class __class("sk::rt::thread::win32::Implementation");
+static const char* __className("sk::rt::thread::win32::Implementation");
 
 sk::rt::thread::win32::Implementation::
 Implementation()

@@ -25,7 +25,7 @@
 #include "thread/Runner.h"
 #include "thread/Inspector.h"
 
-static const sk::util::Class __class("sk::rt::Thread");
+static const char* __className("sk::rt::Thread");
 
 sk::rt::Thread::
 Thread()
@@ -125,7 +125,7 @@ const sk::util::Class
 sk::rt::Thread::
 getClass() const
 {
-  return __class;
+  return sk::util::Class(__className);
 }
 
 void

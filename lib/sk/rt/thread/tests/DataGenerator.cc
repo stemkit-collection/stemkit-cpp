@@ -14,7 +14,7 @@
 
 #include "DataGenerator.h"
 
-static const sk::util::Class __class("sk::rt::thread::tests::DataGenerator");
+static const char* __className("sk::rt::thread::tests::DataGenerator");
 
 sk::rt::thread::tests::DataGenerator::
 DataGenerator(int workforce, std::vector<int>& target)
@@ -31,7 +31,7 @@ const sk::util::Class
 sk::rt::thread::tests::DataGenerator::
 getClass() const
 {
-  return __class;
+  return sk::util::Class(__className);
 }
 
 namespace {
