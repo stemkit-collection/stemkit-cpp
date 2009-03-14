@@ -73,7 +73,7 @@ namespace sk {
         const sk::util::Object& _object;
         scope::Aggregator& _aggregator;
 
-        static scope::Controller _controller;
+        static scope::Controller* _controller;
     };
   }
 }

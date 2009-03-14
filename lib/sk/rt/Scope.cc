@@ -17,11 +17,11 @@
 #include <sk/util/MissingResourceException.h>
 #include <sk/util/NumberFormatException.h>
 
-sk::rt::scope::Controller sk::rt::Scope::_controller;
+sk::rt::scope::Controller* sk::rt::Scope::_controller = 0;
 
 sk::rt::Scope::
 Scope(const sk::util::Object& object)
-  : _parent(*this), _object(object), _name(object.getClass().getName()), _aggregator(_controller.getAggregator().obtain(_name))
+  : _parent(*this), _object(object), _name(object.getClass().getName()), _aggregator(controller().getAggregator().obtain(_name))
 {
   notice() << "Enter (object)";
 }
@@ -37,7 +37,7 @@ Scope(const Scope& other)
 
 sk::rt::Scope::
 Scope(const sk::util::String& name)
-  : _parent(*this), _object(*this), _name(name), _aggregator(_controller.getAggregator().obtain(name))
+  : _parent(*this), _object(*this), _name(name), _aggregator(controller().getAggregator().obtain(name))
 {
   notice() << "Enter (name)";
 }
@@ -91,7 +91,10 @@ sk::rt::scope::Controller&
 sk::rt::Scope::
 controller() 
 {
-  return _controller;
+  if(_controller == 0) {
+    _controller = new scope::Controller;
+  }
+  return *_controller;
 }
 
 sk::rt::scope::Aggregator&
