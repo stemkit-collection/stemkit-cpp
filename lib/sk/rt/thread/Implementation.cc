@@ -10,12 +10,11 @@
 
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
-#include <sk/util/Holder.cxx>
 
 #include <sk/rt/thread/abstract/Factory.h>
 #include "Implementation.h"
 
-sk::util::Holder<sk::rt::thread::abstract::Implementation> sk::rt::thread::Implementation::_implementationHolder;
+sk::rt::thread::abstract::Implementation* sk::rt::thread::Implementation::_implementation = 0;
 
 sk::rt::thread::Implementation::
 Implementation()
@@ -38,15 +37,18 @@ sk::rt::thread::abstract::Implementation&
 sk::rt::thread::Implementation::
 instance() 
 {
-  if(_implementationHolder.isEmpty() == true) {
-    _implementationHolder.set(abstract::Factory().makeImplementation());
+  if(_implementation == 0) {
+    _implementation = abstract::Factory().makeImplementation();
   }
-  return _implementationHolder.get();
+  return *_implementation;
 }
 
 void
 sk::rt::thread::Implementation::
 reset()
 {
-  _implementationHolder.clear();
+  if(_implementation != 0) {
+    delete _implementation;
+    _implementation = 0;
+  }
 }

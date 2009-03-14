@@ -12,7 +12,6 @@
 #define _SK_RT_THREAD_IMPLEMENTATION_H_
 
 #include <sk/util/Object.h>
-#include <sk/util/Holder.hxx>
 #include <sk/rt/thread/abstract/Implementation.h>
 
 namespace sk {
@@ -35,7 +34,7 @@ namespace sk {
           Implementation(const Implementation& other);
           Implementation& operator = (const Implementation& other);
 
-          static sk::util::Holder<abstract::Implementation> _implementationHolder;
+          static abstract::Implementation* _implementation;
       };
     }
   }
