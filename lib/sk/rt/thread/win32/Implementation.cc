@@ -22,7 +22,7 @@ static const char* __className("sk::rt::thread::win32::Implementation");
 
 sk::rt::thread::win32::Implementation::
 Implementation()
-  : _scope(__class.getName())
+  : _scope(__className)
 {
   _tlsIndex = TlsAlloc();
   if(_tlsIndex == TLS_OUT_OF_INDEXES) {
@@ -49,7 +49,7 @@ const sk::util::Class
 sk::rt::thread::win32::Implementation::
 getClass() const
 {
-  return __class;
+  return sk::util::Class(__className);
 }
 
 sk::rt::thread::abstract::Mutex* 

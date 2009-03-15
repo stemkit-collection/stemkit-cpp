@@ -21,7 +21,7 @@ const sk::util::Class
 sk::rt::thread::abstract::Factory::
 getClass() const
 {
-  return __class;
+  return sk::util::Class(__className);
 }
 
 sk::rt::thread::abstract::Implementation* 

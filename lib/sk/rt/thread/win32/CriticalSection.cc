@@ -18,7 +18,7 @@ static const char* __className("sk::rt::thread::win32::CriticalSection");
 
 sk::rt::thread::win32::CriticalSection::
 CriticalSection()
-  : _scope(__class.getName()), _depth(0), _errorCheck(true)
+  : _scope(__className), _depth(0), _errorCheck(true)
 {
   InitializeCriticalSection(&_section);
 }
@@ -40,7 +40,7 @@ const sk::util::Class
 sk::rt::thread::win32::CriticalSection::
 getClass() const
 {
-  return __class;
+  return sk::util::Class(__className);
 }
 
 void 
