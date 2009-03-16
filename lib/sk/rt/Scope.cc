@@ -192,42 +192,26 @@ const sk::util::String
 sk::rt::Scope::
 getProperty(const sk::util::String& name, const sk::util::String& fallback) const
 {
-  try {
-    return getConfig().getProperty(name);
-  }
-  catch(const sk::util::MissingResourceException& exception) {}
-
-  return fallback;
+  return getConfig().getProperty(name, fallback);
 }
 
 const sk::util::String 
 sk::rt::Scope::
 getProperty(const sk::util::String& name, const char* fallback) const
 {
-  return getProperty(name, sk::util::String(fallback));
+  return getConfig().getProperty(name, fallback);
 }
 
 int 
 sk::rt::Scope::
 getProperty(const sk::util::String& name, int fallback) const
 {
-  try {
-    return sk::util::Integer::parseInt(getConfig().getProperty(name)); 
-  }
-  catch(const sk::util::MissingResourceException& exception) {}
-  catch(const sk::util::NumberFormatException& exception) {}
-
-  return fallback;
+  return getConfig().getProperty(name, fallback);
 }
 
 bool 
 sk::rt::Scope::
 getProperty(const sk::util::String& name, const sk::util::Boolean& fallback) const
 {
-  try {
-    return sk::util::Boolean::parseBoolean(getConfig().getProperty(name));
-  }
-  catch(const sk::util::MissingResourceException& exception) {}
-
-  return fallback.booleanValue();
+  return getConfig().getProperty(name, fallback);
 }

@@ -13,15 +13,18 @@
 #include <exception>
 #include <string>
 #include <sk/rt/Mutex.h>
+#include <sk/rt/Scope.h>
 
 int sample_f();
 
 int abc = sample_f();
 
+sk::rt::Scope scope("abc");
 sk::rt::Mutex _mutex;
 
 int main(int argc, const char* argv[])
 {
+  scope.warning() << "MAIN";
   try {
     throw std::string("Hello, world!!!");
   }
