@@ -155,8 +155,6 @@ fileset {
       sk.rt.bundle
       sk.rt.thread
       sk.rt.thread.pthreads
-      sk.rt.thread.abstract
-      sk.rt.thread.mock
     }
     if ENV['MAKE_DLL'] == 'true'
       library 'lib' => list
