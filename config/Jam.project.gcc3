@@ -105,6 +105,12 @@ rule platform-linux-x86
   project.PTY_SPECIFICS = linux ;
 }
 
+rule platform-linux-ia64
+{
+  platform-linux-x86 ;
+  project.DO_NOT_BUILD += ruby java ;
+}
+
 rule platform-linux-amd64
 {
   C++FLAGS += -fPIC -m32 ;
@@ -210,6 +216,7 @@ rule platform-solaris6-sparc
 {
   INCLUDES += [ util.make-path $(system.SRCTOP) platform include solaris6 ] ;
   platform-solaris-sparc ;
+  SYSLIBS = socket nsl gen ;
 }
 
 rule platform-solaris-x86
@@ -218,7 +225,7 @@ rule platform-solaris-x86
   CCFLAGS += -fpic ;
   DEFINES += ;
   INCLUDES += [ util.make-path $(system.SRCTOP) platform include solaris ] ;
-  SYSLIBS = socket nsl gen ;
+  SYSLIBS = socket nsl gen rt ;
 
   project.PTY_SPECIFICS = streams ;
 }
@@ -265,7 +272,7 @@ switch $(PRODUCT_PLATFORM) {
   case rh-30-x86 : platform-linux-x86 ;
   case rh-40-x86 : platform-linux-x86 ;
   case rh-40-amd64 : platform-linux-amd64 ;
-  case rh-40-ia64 : platform-linux-x86 ;
+  case rh-40-ia64 : platform-linux-ia64 ;
   case rh-21-x86 : platform-linux-x86 ;
   case aix-51-ppc : platform-aix-ppc ;
   case aix-52-ppc : platform-aix-ppc ;
