@@ -50,8 +50,12 @@ cycleFile()
     throw sk::util::SystemException(sk::util::String("rename():") + getPath());
   }
   _nextChunk += 1;
-  if(_nextChunk >= getChunks()) {
-    _nextChunk = 0;
+  
+  int chunks = getChunks();
+  if(chunks > 0) {
+    if(_nextChunk >= chunks) {
+      _nextChunk = 0;
+    }
   }
 }
 

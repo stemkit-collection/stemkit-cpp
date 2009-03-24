@@ -76,8 +76,13 @@ void
 sk::rt::logger::PointingCycler::
 cycleFile() 
 {
-  if(++_chunk > getChunks()) {
-    _chunk = 1;
+  _chunk += 1;
+
+  int chunks = getChunks();
+  if(chunks > 0) {
+    if(_chunk > chunks) {
+      _chunk = 1;
+    }
   }
 }
 
