@@ -75,6 +75,12 @@ namespace sk {
         /// Returns a representation of this string as a C string.
         const char* getChars() const;
 
+        char charAt(int index) const;
+
+        const sk::util::String toUpperCase() const;
+        const sk::util::String toLowerCase() const;
+        const sk::util::String replace(char oldChar, char newChar) const;
+
         // sk::util::Object re-implementation.
         String& self();
         const String& self() const;
