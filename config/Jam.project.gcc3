@@ -51,6 +51,8 @@ rule platform-nt-x86
   project.DO_NOT_USE_LIBRARY_MAJOR = true ;
   project.PLATFORM_SPECIFICS = windows ;
 
+  util.delete-from project.DO_NOT_BUILD : java ;
+
   CPPUNIT_VERSION = 1.12 ;
   UNITTEST_LIBS = cppunit ;
 
