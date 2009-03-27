@@ -36,13 +36,13 @@ void
 sk::util::test::PathnameTest::
 testBasics()
 {
-  Pathname p("aaa///bbb///ccc");
+  Pathname p("aaa///bbb\\ccc");
   CPPUNIT_ASSERT_EQUAL(String("aaa/bbb/ccc").inspect(), p.toString().inspect());
   CPPUNIT_ASSERT_EQUAL(String("ccc").inspect(), p.basename().inspect());
   CPPUNIT_ASSERT_EQUAL(String("aaa/bbb").inspect(), p.dirname().inspect());
 
   CPPUNIT_ASSERT_EQUAL(false, p.isAbsolute());
-  p.front("////zzz///");
+  p.front("/\\\\/zzz///");
   CPPUNIT_ASSERT_EQUAL(String("/zzz/aaa/bbb/ccc").inspect(), p.toString().inspect());
   CPPUNIT_ASSERT_EQUAL(true, p.isAbsolute());
   p.front("/uuu");

@@ -1,4 +1,5 @@
-/*  Copyright (c) 2007, Gennady Bystritsky <bystr@mac.com>
+/*  vim: sw=2:
+ *  Copyright (c) 2007, Gennady Bystritsky <bystr@mac.com>
  *  
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
@@ -9,17 +10,18 @@
 #include <sk/util/String.h>
 
 #include <sk/util/Pathname.h>
+#include <algorithm>
 
 sk::util::Pathname::
 Pathname(const sk::util::String& component)
 {
-  normalizePrepended(component.trim());
+  normalizePrepended(component);
 }
 
 sk::util::Pathname::
 Pathname(const sk::util::String& component, const sk::util::String& defaultExtension)
 {
-  normalizePrepended(component.trim());
+  normalizePrepended(component);
   int slash = _pathname.lastIndexOf('/');
   int dot = _pathname.lastIndexOf('.');
 
@@ -52,16 +54,24 @@ sk::util::Pathname::
 front(const sk::util::String& component)
 {
   if(isAbsolute() == false) {
-    normalizePrepended(component.trim());
+    normalizePrepended(component);
   }
   return *this;
 }
 
+namespace {
+  char map_backslash_to_slash(char input) {
+    return input == '\\' ? '/' : input;
+  }
+}
+
 void
 sk::util::Pathname::
-normalizePrepended(const sk::util::String& trimmedComponent)
+normalizePrepended(const sk::util::String& component)
 {
+  sk::util::String trimmedComponent(component.trim());
   if(trimmedComponent.isEmpty() == false) {
+    std::transform(trimmedComponent.begin(), trimmedComponent.end(), trimmedComponent.begin(), map_backslash_to_slash);
     _pathname = (_pathname.isEmpty() ? trimmedComponent : trimmedComponent + '/' + _pathname).squeeze('/');
   }
 }
