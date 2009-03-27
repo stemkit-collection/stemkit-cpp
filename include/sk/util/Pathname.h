@@ -40,6 +40,7 @@ namespace sk {
         void normalizePrepended(const sk::util::String& trimmedComponent);
 
         sk::util::String _pathname;
+        sk::util::String _location;
     };
   }
 }

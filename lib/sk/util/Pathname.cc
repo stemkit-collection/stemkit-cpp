@@ -42,16 +42,14 @@ const sk::util::String
 sk::util::Pathname::
 toString() const
 {
-  return _pathname;
+  return _location + _pathname;
 }
 
 sk::util::Pathname&
 sk::util::Pathname::
 front(const sk::util::String& component)
 {
-  if(isAbsolute() == false) {
-    normalizePrepended(component);
-  }
+  normalizePrepended(component);
   return *this;
 }
 
@@ -59,9 +57,27 @@ void
 sk::util::Pathname::
 normalizePrepended(const sk::util::String& component)
 {
-  const sk::util::String trimmedComponent = component.trim().replace('\\', '/');
-  if(trimmedComponent.isEmpty() == false) {
-    _pathname = (_pathname.isEmpty() ? trimmedComponent : trimmedComponent + '/' + _pathname).squeeze('/');
+  if(isAbsolute() == true) {
+    return;
+  }
+  sk::util::String working = component.trim();
+  if(working.isEmpty() == false) {
+    working = working.replace('\\', '/').squeeze('/');
+    std::string::size_type position = working.find_first_of(":/");
+    if(working[position] == ':') {
+      position = working.find_first_not_of(':', position);
+      _location = sk::util::String(working.substr(0, position)).trim().squeeze(':');
+      if(_location.size() == 1) {
+        _location.clear();
+      }
+      working = working.substring(position + 1).trim();
+      position = working.find_first_of("/");
+    }
+    if(position == 0) {
+      working = working.substring(1);
+      _location += "/";
+    }
+    _pathname = (_pathname.isEmpty() ? working : working + '/' + _pathname).squeeze('/');
   }
 }
 
@@ -97,14 +113,17 @@ sk::util::Pathname::
 dirname() const
 {
   int slash = _pathname.lastIndexOf('/');
-  return slash < 0 ? "." : _pathname.substring(0, slash);
+  if(slash > 0) {
+    return _location + _pathname.substring(0, slash);
+  }
+  return _location.isEmpty() ? "." : _location;
 }
 
 bool
 sk::util::Pathname::
 isAbsolute() const
 {
-  return _pathname.startsWith('/') || (_pathname.length()>1 && _pathname.charAt(1) == ':');
+  return _location.isEmpty() == false;
 }
 
 bool
