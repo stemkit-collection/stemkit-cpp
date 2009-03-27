@@ -31,6 +31,8 @@ namespace sk {
           CPPUNIT_TEST(testEquals);
           CPPUNIT_TEST(testEqualsIgnoreCase);
           CPPUNIT_TEST(testSqueeze);
+          CPPUNIT_TEST(testTransformations);
+          CPPUNIT_TEST(testCharAt);
           CPPUNIT_TEST(testIndex);
           CPPUNIT_TEST(testSubstring);
         CPPUNIT_TEST_SUITE_END();
@@ -54,6 +56,8 @@ namespace sk {
           void testEquals();
           void testEqualsIgnoreCase();
           void testSqueeze();
+          void testTransformations();
+          void testCharAt();
           void testIndex();
           void testSubstring();
           

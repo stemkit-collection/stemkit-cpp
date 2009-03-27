@@ -1,4 +1,5 @@
-/*  Copyright (c) 2005, Gennady Bystritsky <bystr@mac.com>
+/*  vim: sw=2:
+ *  Copyright (c) 2005, Gennady Bystritsky <bystr@mac.com>
  *  
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
@@ -11,6 +12,7 @@
 #include <sk/util/IndexOutOfBoundsException.h>
 #include <algorithm>
 #include <string.h>
+#include <algorithm>
 
 const sk::util::String sk::util::String::EMPTY;
 
@@ -311,6 +313,61 @@ substring(int beginIndex, int endIndex) const
     return String::EMPTY;
   }
   return std::string::substr(beginIndex, endIndex - beginIndex);
+}
+
+const sk::util::String
+sk::util::String::
+toUpperCase() const
+{
+  sk::util::String result(*this);
+  std::transform(result.begin(), result.end(), result.begin(), toupper);
+
+  return result;
+}
+
+const sk::util::String
+sk::util::String::
+toLowerCase() const
+{
+  sk::util::String result(*this);
+  std::transform(result.begin(), result.end(), result.begin(), tolower);
+
+  return result;
+}
+
+char
+sk::util::String::
+charAt(int index) const
+{
+  try {
+    return at(index);
+  }
+  catch(...) {
+    throw IndexOutOfBoundsException("charAt()");
+  }
+}
+
+namespace {
+  struct CharReplacer {
+    CharReplacer(char oldChar, char newChar) 
+      : _oldChar(oldChar), _newChar(newChar) {}
+
+    char operator()(char current) {
+      return current == _oldChar ? _newChar : current;
+    }
+    char _oldChar;
+    char _newChar;
+  };
+}
+
+const sk::util::String
+sk::util::String::
+replace(char oldChar, char newChar) const
+{
+  sk::util::String result(*this);
+  std::transform(result.begin(), result.end(), result.begin(), CharReplacer(oldChar, newChar));
+
+  return result;
 }
 
 const sk::util::String operator + (const sk::util::String& s1, const sk::util::String& s2)

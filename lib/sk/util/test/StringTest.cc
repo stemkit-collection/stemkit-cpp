@@ -242,7 +242,29 @@ testSubstring()
   CPPUNIT_ASSERT_EQUAL(String("").inspect(), s.substring(5, 5).inspect());
 
   CPPUNIT_ASSERT_THROW(s.substring(-1, 5), sk::util::IndexOutOfBoundsException);
-  // CPPUNIT_ASSERT_THROW(s.substring(2, 10), sk::util::IndexOutOfBoundsException);
-  // CPPUNIT_ASSERT_THROW(s.substring(10, 10), sk::util::IndexOutOfBoundsException);
-  // CPPUNIT_ASSERT_THROW(s.substring(5, 4), sk::util::IndexOutOfBoundsException);
+  CPPUNIT_ASSERT_THROW(s.substring(2, 10), sk::util::IndexOutOfBoundsException);
+  CPPUNIT_ASSERT_THROW(s.substring(10, 10), sk::util::IndexOutOfBoundsException);
+  CPPUNIT_ASSERT_THROW(s.substring(5, 4), sk::util::IndexOutOfBoundsException);
+}
+
+void
+sk::util::test::StringTest::
+testTransformations()
+{
+    CPPUNIT_ASSERT_EQUAL("a.c.dz", sk::util::String("a:c:dz").replace(':', '.'));
+    CPPUNIT_ASSERT_EQUAL("ABCD", sk::util::String("abcd").toUpperCase());
+    CPPUNIT_ASSERT_EQUAL("abcd", sk::util::String("AbCd").toLowerCase());
+}
+
+void
+sk::util::test::StringTest::
+testCharAt()
+{
+    String s("abc");
+    CPPUNIT_ASSERT_EQUAL('a', s.charAt(0));
+    CPPUNIT_ASSERT_EQUAL('b', s.charAt(1));
+    CPPUNIT_ASSERT_EQUAL('c', s.charAt(2));
+
+    CPPUNIT_ASSERT_THROW(s.charAt(-1), sk::util::IndexOutOfBoundsException);
+    CPPUNIT_ASSERT_THROW(s.charAt(3), sk::util::IndexOutOfBoundsException);
 }

@@ -37,17 +37,17 @@ sk::util::test::PathnameTest::
 testBasics()
 {
   Pathname p("aaa///bbb\\ccc");
-  CPPUNIT_ASSERT_EQUAL(String("aaa/bbb/ccc").inspect(), p.toString().inspect());
-  CPPUNIT_ASSERT_EQUAL(String("ccc").inspect(), p.basename().inspect());
-  CPPUNIT_ASSERT_EQUAL(String("aaa/bbb").inspect(), p.dirname().inspect());
+  CPPUNIT_ASSERT_EQUAL("aaa/bbb/ccc", p.toString());
+  CPPUNIT_ASSERT_EQUAL("ccc", p.basename());
+  CPPUNIT_ASSERT_EQUAL("aaa/bbb", p.dirname());
 
   CPPUNIT_ASSERT_EQUAL(false, p.isAbsolute());
   p.front("/\\\\/zzz///");
-  CPPUNIT_ASSERT_EQUAL(String("/zzz/aaa/bbb/ccc").inspect(), p.toString().inspect());
+  CPPUNIT_ASSERT_EQUAL("/zzz/aaa/bbb/ccc", p.toString());
   CPPUNIT_ASSERT_EQUAL(true, p.isAbsolute());
   p.front("/uuu");
-  CPPUNIT_ASSERT_EQUAL(String("/zzz/aaa/bbb").inspect(), p.dirname().inspect());
-  CPPUNIT_ASSERT_EQUAL(String("ccc").inspect(), p.basename().inspect());
+  CPPUNIT_ASSERT_EQUAL("/zzz/aaa/bbb", p.dirname());
+  CPPUNIT_ASSERT_EQUAL("ccc", p.basename());
   CPPUNIT_ASSERT_EQUAL(true, p.isAbsolute());
 }
 
@@ -55,9 +55,13 @@ void
 sk::util::test::PathnameTest::
 testExtension()
 {
-  CPPUNIT_ASSERT_EQUAL(String("a/b/ccc.i").inspect(), Pathname("a//b/ccc.i", "log").toString().inspect());
-  CPPUNIT_ASSERT_EQUAL(String("a/b/ccc.log").inspect(), Pathname("a//b/ccc", "log").toString().inspect());
-  CPPUNIT_ASSERT_EQUAL(String("a/b.c/ddd.log").inspect(), Pathname("a//b.c///ddd", "log").toString().inspect());
-  CPPUNIT_ASSERT_EQUAL(String("ddd.log").inspect(), Pathname("ddd", "log").toString().inspect());
-  CPPUNIT_ASSERT_EQUAL(String(".log").inspect(), Pathname("", "log").toString().inspect());
+  CPPUNIT_ASSERT_EQUAL("a/b/ccc.i", Pathname("a//b/ccc.i", "log").toString());
+  CPPUNIT_ASSERT_EQUAL("a/b/ccc.log", Pathname("a//b/ccc", "log").toString());
+  CPPUNIT_ASSERT_EQUAL("a/b.c/ddd.log", Pathname("a//b.c///ddd", "log").toString());
+  CPPUNIT_ASSERT_EQUAL("ddd.log", Pathname("ddd", "log").toString());
+  CPPUNIT_ASSERT_EQUAL(".log", Pathname("", "log").toString());
+
+  CPPUNIT_ASSERT_EQUAL("", Pathname("a/b/c").extension());
+  CPPUNIT_ASSERT_EQUAL(".", Pathname("a/b/c.").extension());
+  CPPUNIT_ASSERT_EQUAL(".zip", Pathname("a/b/c.zip").extension());
 }

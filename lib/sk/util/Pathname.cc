@@ -10,7 +10,6 @@
 #include <sk/util/String.h>
 
 #include <sk/util/Pathname.h>
-#include <algorithm>
 
 sk::util::Pathname::
 Pathname(const sk::util::String& component)
@@ -22,10 +21,7 @@ sk::util::Pathname::
 Pathname(const sk::util::String& component, const sk::util::String& defaultExtension)
 {
   normalizePrepended(component);
-  int slash = _pathname.lastIndexOf('/');
-  int dot = _pathname.lastIndexOf('.');
-
-  if(dot <= slash) {
+  if(extension().isEmpty() == true) {
     _pathname = _pathname + '.' + defaultExtension.trim();
   }
 }
@@ -59,21 +55,33 @@ front(const sk::util::String& component)
   return *this;
 }
 
-namespace {
-  char map_backslash_to_slash(char input) {
-    return input == '\\' ? '/' : input;
-  }
-}
-
 void
 sk::util::Pathname::
 normalizePrepended(const sk::util::String& component)
 {
-  sk::util::String trimmedComponent(component.trim());
+  const sk::util::String trimmedComponent = component.trim().replace('\\', '/');
   if(trimmedComponent.isEmpty() == false) {
-    std::transform(trimmedComponent.begin(), trimmedComponent.end(), trimmedComponent.begin(), map_backslash_to_slash);
     _pathname = (_pathname.isEmpty() ? trimmedComponent : trimmedComponent + '/' + _pathname).squeeze('/');
   }
+}
+
+namespace {
+  const sk::util::String figure_extension(const sk::util::String& pathname) {
+    int slash = pathname.lastIndexOf('/');
+    int dot = pathname.lastIndexOf('.');
+
+    if(dot > slash) {
+      return pathname.substring(dot);
+    }
+    return "";
+  }
+}
+
+const sk::util::String
+sk::util::Pathname::
+extension() const
+{
+  return figure_extension(_pathname);
 }
 
 const sk::util::String
@@ -96,7 +104,7 @@ bool
 sk::util::Pathname::
 isAbsolute() const
 {
-  return _pathname.startsWith('/');
+  return _pathname.startsWith('/') || (_pathname.length()>1 && _pathname.charAt(1) == ':');
 }
 
 bool
