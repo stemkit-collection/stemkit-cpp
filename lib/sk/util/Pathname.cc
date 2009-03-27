@@ -64,18 +64,20 @@ normalizePrepended(const sk::util::String& component)
   if(working.isEmpty() == false) {
     working = working.replace('\\', '/').squeeze('/');
     std::string::size_type position = working.find_first_of(":/");
-    if(working[position] == ':') {
-      position = working.find_first_not_of(':', position);
-      _location = sk::util::String(working.substr(0, position)).trim().squeeze(':');
-      if(_location.size() == 1) {
-        _location.clear();
+    if(position != std::string::npos) {
+      if(working[position] == ':') {
+        position = working.find_first_not_of(':', position);
+        _location = sk::util::String(working.substr(0, position)).trim().squeeze(':');
+        if(_location.size() == 1) {
+          _location.clear();
+        }
+        working = working.substring(position + 1).trim();
+        position = working.find_first_of('/');
       }
-      working = working.substring(position + 1).trim();
-      position = working.find_first_of("/");
-    }
-    if(position == 0) {
-      working = working.substring(1);
-      _location += "/";
+      if(position == 0) {
+        working = working.substring(1);
+        _location += '/';
+      }
     }
     _pathname = (_pathname.isEmpty() ? working : working + '/' + _pathname).squeeze('/');
   }
