@@ -14,13 +14,13 @@
 sk::util::Pathname::
 Pathname(const sk::util::String& component)
 {
-  normalizePrepended(component);
+  normalize(component);
 }
 
 sk::util::Pathname::
 Pathname(const sk::util::String& component, const sk::util::String& defaultExtension)
 {
-  normalizePrepended(component);
+  normalize(component);
   if(extension().isEmpty() == true) {
     _pathname = _pathname + '.' + defaultExtension.trim();
   }
@@ -45,21 +45,25 @@ toString() const
   return _location + _pathname;
 }
 
-sk::util::Pathname&
+const sk::util::Pathname
 sk::util::Pathname::
-front(const sk::util::String& component)
+join(const sk::util::Pathname& other) const
 {
-  normalizePrepended(component);
-  return *this;
+  if(other.isAbsolute() == true) {
+    return other;
+  }
+  Pathname result(*this);
+  if(_pathname.endsWith("/") == false) {
+    result._pathname += '/';
+  }
+  result._pathname += other._pathname;
+  return result;
 }
 
 void
 sk::util::Pathname::
-normalizePrepended(const sk::util::String& component)
+normalize(const sk::util::String& component)
 {
-  if(isAbsolute() == true) {
-    return;
-  }
   sk::util::String working = component.trim();
   if(working.isEmpty() == false) {
     working = working.replace('\\', '/').squeeze('/');

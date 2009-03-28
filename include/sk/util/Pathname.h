@@ -29,16 +29,14 @@ namespace sk {
         const sk::util::String extension() const;
         const sk::util::String location() const;
 
-        Pathname& front(const sk::util::String& component);
+        const sk::util::Pathname join(const sk::util::Pathname& other) const;
         
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
         const sk::util::String toString() const;
         
       private:
-        Pathname& operator = (const Pathname& other);
-
-        void normalizePrepended(const sk::util::String& trimmedComponent);
+        void normalize(const sk::util::String& trimmedComponent);
 
         sk::util::String _pathname;
         sk::util::String _location;

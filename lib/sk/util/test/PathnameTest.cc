@@ -35,21 +35,11 @@ tearDown()
 
 void
 sk::util::test::PathnameTest::
-testBasics()
+testJoin()
 {
-  Pathname p("aaa///bbb\\ccc");
-  CPPUNIT_ASSERT_EQUAL("aaa/bbb/ccc", p.toString());
-  CPPUNIT_ASSERT_EQUAL("ccc", p.basename());
-  CPPUNIT_ASSERT_EQUAL("aaa/bbb", p.dirname());
-
-  CPPUNIT_ASSERT_EQUAL(false, p.isAbsolute());
-  p.front("/\\\\/zzz///");
-  CPPUNIT_ASSERT_EQUAL("/zzz/aaa/bbb/ccc", p.toString());
-  CPPUNIT_ASSERT_EQUAL(true, p.isAbsolute());
-  p.front("/uuu");
-  CPPUNIT_ASSERT_EQUAL("/zzz/aaa/bbb", p.dirname());
-  CPPUNIT_ASSERT_EQUAL("ccc", p.basename());
-  CPPUNIT_ASSERT_EQUAL(true, p.isAbsolute());
+  CPPUNIT_ASSERT_EQUAL("a/b", Pathname("a").join(Pathname("b")).toString());
+  CPPUNIT_ASSERT_EQUAL("a/b/c/d", Pathname("a/b/").join(Pathname("c/d")).toString());
+  CPPUNIT_ASSERT_EQUAL("/c/d", Pathname("a/b/").join(Pathname("/c/d")).toString());
 }
 
 void

@@ -243,10 +243,11 @@ void
 sk::rt::scope::XmlProcessor::
 updateFileDestination(const TiXmlHandle& handle, scope::IConfig& config) 
 {
-  sk::util::Pathname pathname(attribute(handle.ToElement(), "name", _scopeBuffer), "log");
-  pathname.front(attribute(handle.ToElement(), "location", "."));
+  sk::util::Pathname name(attribute(handle.ToElement(), "name", _scopeBuffer), "log");
+  sk::util::Pathname location(attribute(handle.ToElement(), "location", "."));
+  sk::util::Pathname pathname = location.join(name);
   if(pathname.isExplicit() == false) {
-    pathname.front(_location);
+    pathname = sk::util::Pathname(_location).join(pathname);
   }
   logger::FileDestination file(logger::CyclerFactory::create(pathname, attribute(handle.ToElement(), "policy", "")).get(), _aggregator.getArbitrator());
 
