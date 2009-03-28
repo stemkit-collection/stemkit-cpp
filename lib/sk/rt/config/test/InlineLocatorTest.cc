@@ -27,13 +27,13 @@ namespace {
     Processor(std::vector<sk::util::String>& locations, sk::util::String& content)
       : _locations(locations), _content(content) {}
 
-    void process(std::istream& stream, const sk::util::String& location) const {
+    void process(std::istream& stream, const sk::util::Pathname& location) const {
       std::string line;
       _content = ':';
       while(std::getline(stream, line)) {
         _content += line + ':';
       }
-      _locations.push_back(location);
+      _locations.push_back(location.toString());
     }
     std::vector<sk::util::String>& _locations;
     sk::util::String& _content;

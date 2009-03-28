@@ -45,7 +45,7 @@ sk::rt::scope::test::XmlProcessorTest::
 testEmpty()
 {
   XmlProcessor processor("", "a/b/c", _aggregatorHolder.get(), std::map<std::string, std::string>());
-  CPPUNIT_ASSERT_EQUAL("a/b/c", processor.getLocation());
+  CPPUNIT_ASSERT_EQUAL("a/b/c", processor.getLocation().toString());
   CPPUNIT_ASSERT(processor.findScopeElement(processor.getHandle()) == 0);
 }
 
@@ -54,7 +54,7 @@ sk::rt::scope::test::XmlProcessorTest::
 testTopOnly()
 {
   XmlProcessor processor("<scope id='a' /><scope name='aaa' id='b' />", "a/b/c", _aggregatorHolder.get(), std::map<std::string, std::string>());
-  CPPUNIT_ASSERT_EQUAL("a/b/c", processor.getLocation());
+  CPPUNIT_ASSERT_EQUAL("a/b/c", processor.getLocation().toString());
 
   TiXmlElement* unnamed_scope = processor.findScopeElement(processor.getHandle());
   TiXmlElement* named_scope = processor.findScopeElement(processor.getHandle(), "aaa");

@@ -9,7 +9,7 @@
 #define _SK_RT_CONFIG_STREAMPROCESSOR_
 
 #include <sk/util/Object.h>
-#include <sk/util/String.h>
+#include <sk/util/Pathname.h>
 #include <istream>
 
 namespace sk {
@@ -19,7 +19,7 @@ namespace sk {
         : public virtual sk::util::Object 
       {
         public:
-          virtual void process(std::istream& stream, const sk::util::String& location) const = 0;
+          virtual void process(std::istream& stream, const sk::util::Pathname& location) const = 0;
       };
     }
   }

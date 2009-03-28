@@ -28,11 +28,11 @@ namespace {
     Processor(std::vector<sk::util::String>& locations, std::vector<sk::util::String>& streams)
       : _locations(locations), _streams(streams) {}
 
-    void process(std::istream& stream, const sk::util::String& location) const {
+    void process(std::istream& stream, const sk::util::Pathname& location) const {
       sk::util::String content;
       stream >> content;
 
-      _locations.push_back(location);
+      _locations.push_back(location.toString());
       _streams.push_back(content);
     }
     std::vector<sk::util::String>& _locations;

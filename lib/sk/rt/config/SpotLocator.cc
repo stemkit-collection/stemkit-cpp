@@ -1,4 +1,5 @@
-/*  Copyright (c) 2007, Gennady Bystritsky <bystr@mac.com>
+/*  vim: sw=2:
+ *  Copyright (c) 2007, Gennady Bystritsky <bystr@mac.com>
  *  
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
@@ -34,7 +35,7 @@ clearStreamOpener()
 }
 
 sk::rt::config::SpotLocator::
-SpotLocator(const sk::util::String& item, const sk::util::String& location, const SpotLocator& other)
+SpotLocator(const sk::util::String& item, const sk::util::Pathname& location, const SpotLocator& other)
   : _item(item), _location(location)
 {
   if(other.isDummy() == false) {
@@ -43,7 +44,7 @@ SpotLocator(const sk::util::String& item, const sk::util::String& location, cons
 }
 
 sk::rt::config::SpotLocator::
-SpotLocator(const sk::util::String& location, const SpotLocator& other)
+SpotLocator(const sk::util::Pathname& location, const SpotLocator& other)
   : _item(other._item), _location(location)
 {
   if(other.isDummy() == false) {
@@ -52,7 +53,7 @@ SpotLocator(const sk::util::String& location, const SpotLocator& other)
 }
 
 sk::rt::config::SpotLocator::
-SpotLocator(const sk::util::String& item, const sk::util::String& location)
+SpotLocator(const sk::util::String& item, const sk::util::Pathname& location)
   : _item(item), _location(location)
 {
 }
@@ -71,6 +72,7 @@ SpotLocator(const SpotLocator& other)
 
 sk::rt::config::SpotLocator::
 SpotLocator()
+  : _location(".")
 {
   becomeDummy();
 }
@@ -116,7 +118,7 @@ invoke(const StreamProcessor& processor) const
     _locatorHolder.get().invoke(processor);
   }
   try {
-    std::auto_ptr<std::istream> stream(getStreamOpener().openStream(_location + '/' + _item));
+    std::auto_ptr<std::istream> stream(getStreamOpener().openStream(_location.join(_item)));
     processor.process(*stream, _location);
   }
   catch(const sk::util::MissingResourceException& exception) {}
@@ -124,11 +126,11 @@ invoke(const StreamProcessor& processor) const
 
 std::istream*
 sk::rt::config::SpotLocator::
-openStream(const sk::util::String& name) const
+openStream(const sk::util::Pathname& name) const
 {
-  std::auto_ptr<std::ifstream> file_ptr(new std::ifstream(name.getChars()));
+  std::auto_ptr<std::ifstream> file_ptr(new std::ifstream(name.toString().getChars()));
   if(file_ptr.get()->good()) {
     return file_ptr.release();
   }
-  throw sk::util::MissingResourceException(name);
+  throw sk::util::MissingResourceException(name.toString());
 }

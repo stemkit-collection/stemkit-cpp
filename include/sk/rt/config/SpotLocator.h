@@ -12,6 +12,7 @@
 #include <sk/rt/config/NamedStreamOpener.h>
 
 #include <sk/util/String.h>
+#include <sk/util/Pathname.h>
 #include <sk/util/Holder.hxx>
 
 namespace sk {
@@ -22,9 +23,9 @@ namespace sk {
           public virtual NamedStreamOpener
       {
         public:
-          SpotLocator(const sk::util::String& item, const sk::util::String& location, const SpotLocator& other);
-          SpotLocator(const sk::util::String& item, const sk::util::String& location);
-          SpotLocator(const sk::util::String& location, const SpotLocator& other);
+          SpotLocator(const sk::util::String& item, const sk::util::Pathname& location, const SpotLocator& other);
+          SpotLocator(const sk::util::String& item, const sk::util::Pathname& location);
+          SpotLocator(const sk::util::Pathname& location, const SpotLocator& other);
           SpotLocator(const SpotLocator& other);
           virtual ~SpotLocator();
 
@@ -45,14 +46,14 @@ namespace sk {
           SpotLocator& operator = (const SpotLocator& other);
 
           // sk::rt::config::NamedStreamOpener imlementation.
-          std::istream* openStream(const sk::util::String& name) const;
+          std::istream* openStream(const sk::util::Pathname& name) const;
           
           void becomeDummy();
           bool isDummy() const;
           const NamedStreamOpener& getStreamOpener() const;
 
           const sk::util::String _item;
-          const sk::util::String _location;
+          const sk::util::Pathname _location;
           sk::util::Holder<SpotLocator> _locatorHolder;
 
           static sk::util::Holder<const NamedStreamOpener> _streamOpenerHolder;

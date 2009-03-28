@@ -72,6 +72,15 @@ testDirname()
   CPPUNIT_ASSERT_EQUAL("C:/", Pathname("C::::\\//\\").dirname());
   CPPUNIT_ASSERT_EQUAL("C:", Pathname("C:aaa").dirname());
   CPPUNIT_ASSERT_EQUAL("C:", Pathname("C:").dirname());
+
+  Pathname location = "/a";
+  Pathname parent = location.dirname();
+  Pathname grandparent = parent.dirname();
+
+  CPPUNIT_ASSERT_EQUAL("/", parent.toString());
+  CPPUNIT_ASSERT_EQUAL("/", grandparent.toString());
+
+  CPPUNIT_ASSERT(parent == grandparent);
 }
 
 void

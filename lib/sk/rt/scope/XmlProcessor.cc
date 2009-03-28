@@ -27,7 +27,7 @@
 #include <sstream>
 
 sk::rt::scope::XmlProcessor::
-XmlProcessor(const std::string& xml, const sk::util::String& location, scope::Aggregator& aggregator, const std::map<std::string, std::string>& values)
+XmlProcessor(const std::string& xml, const sk::util::Pathname& location, scope::Aggregator& aggregator, const std::map<std::string, std::string>& values)
   : _location(location), _aggregator(aggregator), _values(values), _documentHolder(new TiXmlDocument)
 {
   _documentHolder.get().Parse(xml.c_str());
@@ -53,7 +53,7 @@ getHandle() const
   return _handleHolder.get();
 }
 
-const sk::util::String&
+const sk::util::Pathname&
 sk::rt::scope::XmlProcessor::
 getLocation() const
 {

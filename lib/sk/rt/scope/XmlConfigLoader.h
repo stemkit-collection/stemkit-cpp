@@ -23,7 +23,7 @@ namespace sk {
           XmlConfigLoader(const sk::util::String& top, scope::Aggregator& aggregator, const std::map<std::string, std::string>& values);
           virtual ~XmlConfigLoader();
 
-          void process(std::istream& stream, const sk::util::String& location) const;
+          void process(std::istream& stream, const sk::util::Pathname& location) const;
           
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;

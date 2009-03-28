@@ -29,7 +29,7 @@ namespace sk {
             void tearDown();
 
             // sk::rt::config::NamedStreamOpener implementtion.
-            std::istream* openStream(const sk::util::String& name) const;
+            std::istream* openStream(const sk::util::Pathname& name) const;
             
           private:
             MockingTestFixture(const MockingTestFixture& other);

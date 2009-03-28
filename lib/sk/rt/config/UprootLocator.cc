@@ -1,4 +1,5 @@
-/*  Copyright (c) 2007, Gennady Bystritsky <bystr@mac.com>
+/*  vim: sw=2:
+ *  Copyright (c) 2007, Gennady Bystritsky <bystr@mac.com>
  *  
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
@@ -12,13 +13,13 @@
 #include <sk/rt/Scope.h>
 
 sk::rt::config::UprootLocator::
-UprootLocator(const sk::util::String& item, const sk::util::String& location, const SpotLocator& other)
+UprootLocator(const sk::util::String& item, const sk::util::Pathname& location, const SpotLocator& other)
   : SpotLocator(item, location, figureLocator(item, location, other))
 {
 }
 
 sk::rt::config::UprootLocator::
-UprootLocator(const sk::util::String& item, const sk::util::String& location)
+UprootLocator(const sk::util::String& item, const sk::util::Pathname& location)
   : SpotLocator(item, location, figureLocator(item, location, SpotLocator::DUMMY))
 {
 }
@@ -30,20 +31,18 @@ sk::rt::config::UprootLocator::
 
 const sk::rt::config::SpotLocator
 sk::rt::config::UprootLocator::
-figureLocator(const sk::util::String& item, const sk::util::String& location, const SpotLocator& other)
+figureLocator(const sk::util::String& item, const sk::util::Pathname& location, const SpotLocator& other)
 {
-  sk::rt::Scope scope("figureLocator");
-  scope.debug("item") << item.inspect();
-  scope.debug("location") << location.inspect();
+  const sk::util::Pathname parent = location.dirname();
+  const sk::util::Pathname grandparent = parent.dirname();
 
-  std::string::size_type index = location.find_last_of("/\\");
-  if(index != std::string::npos) { 
-    if(index == 0) {
-      return SpotLocator(item, "/", other);
+  if(location == parent || parent == ".") {
+    if(parent == grandparent) {
+      return other;
     }
-    return UprootLocator(item, location.substr(0, index), other);
-  } 
-  return other;
+    return SpotLocator(item, parent, other);
+  }
+  return SpotLocator(item, parent, figureLocator(item, parent, other));
 }
 
 const sk::util::Class

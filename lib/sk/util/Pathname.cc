@@ -12,6 +12,12 @@
 #include <sk/util/Pathname.h>
 
 sk::util::Pathname::
+Pathname(const char* component)
+{
+  normalize(component);
+}
+
+sk::util::Pathname::
 Pathname(const sk::util::String& component)
 {
   normalize(component);
@@ -29,6 +35,13 @@ Pathname(const sk::util::String& component, const sk::util::String& defaultExten
 sk::util::Pathname::
 ~Pathname()
 {
+}
+
+bool
+sk::util::Pathname::
+operator == (const sk::util::Pathname& other) const
+{
+  return _location.equals(other._location) && _pathname.equals(other._pathname);
 }
 
 const sk::util::Class

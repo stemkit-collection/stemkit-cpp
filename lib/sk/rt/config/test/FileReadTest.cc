@@ -38,12 +38,12 @@ namespace {
     Processor(std::vector<sk::util::String>& content, std::vector<sk::util::String>& locations)
       : _content(content), _locations(locations) {}
 
-    void process(std::istream& stream, const sk::util::String& location) const {
+    void process(std::istream& stream, const sk::util::Pathname& location) const {
       std::string line;
       while(getline(stream, line).eof() == false) {
         _content.push_back(line);
       }
-      _locations.push_back(location);
+      _locations.push_back(location.toString());
     }
     std::vector<sk::util::String>& _content;
     std::vector<sk::util::String>& _locations;

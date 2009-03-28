@@ -33,7 +33,7 @@ getClass() const
 
 void
 sk::rt::scope::XmlConfigLoader::
-process(std::istream& stream, const sk::util::String& location) const 
+process(std::istream& stream, const sk::util::Pathname& location) const 
 {
   std::string incoming;
   std::stringstream content;

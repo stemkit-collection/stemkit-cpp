@@ -17,6 +17,7 @@ namespace sk {
       : public virtual sk::util::Object 
     {
       public:
+        Pathname(const char* component);
         Pathname(const sk::util::String& component);
         Pathname(const sk::util::String& component, const sk::util::String& defaultExtension);
         virtual ~Pathname();
@@ -34,6 +35,8 @@ namespace sk {
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
         const sk::util::String toString() const;
+
+        bool operator == (const sk::util::Pathname& other) const;
         
       private:
         void normalize(const sk::util::String& trimmedComponent);

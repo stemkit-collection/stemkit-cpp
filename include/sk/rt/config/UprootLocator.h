@@ -17,8 +17,8 @@ namespace sk {
         : public SpotLocator
       {
         public:
-          UprootLocator(const sk::util::String& item, const sk::util::String& location, const SpotLocator& other);
-          UprootLocator(const sk::util::String& item, const sk::util::String& location);
+          UprootLocator(const sk::util::String& item, const sk::util::Pathname& location, const SpotLocator& other);
+          UprootLocator(const sk::util::String& item, const sk::util::Pathname& location);
           virtual ~UprootLocator();
           
           // sk::util::Object re-implementation.
@@ -27,7 +27,7 @@ namespace sk {
         private:
           UprootLocator& operator = (const UprootLocator& other);
 
-          static const SpotLocator figureLocator(const sk::util::String& item, const sk::util::String& location, const SpotLocator& other);
+          static const SpotLocator figureLocator(const sk::util::String& item, const sk::util::Pathname& location, const SpotLocator& other);
       };
     }
   }

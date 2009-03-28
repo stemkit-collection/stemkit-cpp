@@ -36,7 +36,7 @@ tearDown()
 
 std::istream*
 sk::rt::config::test::MockingTestFixture::
-openStream(const sk::util::String& name) const
+openStream(const sk::util::Pathname& name) const
 {
-  return new std::stringstream(name);
+  return new std::stringstream(name.toString());
 }
