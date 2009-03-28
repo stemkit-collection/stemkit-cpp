@@ -27,6 +27,7 @@ namespace sk {
         const sk::util::String basename() const;
         const sk::util::String dirname() const;
         const sk::util::String extension() const;
+        const sk::util::String location() const;
 
         Pathname& front(const sk::util::String& component);
         

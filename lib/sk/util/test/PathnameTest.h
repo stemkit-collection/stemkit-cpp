@@ -20,6 +20,10 @@ namespace sk {
         CPPUNIT_TEST_SUITE(sk::util::test::PathnameTest);
           CPPUNIT_TEST(testBasics);
           CPPUNIT_TEST(testExtension);
+          CPPUNIT_TEST(testIsAbsolute);
+          CPPUNIT_TEST(testDirname);
+          CPPUNIT_TEST(testBasename);
+          CPPUNIT_TEST(testLocation);
         CPPUNIT_TEST_SUITE_END();
         
         public:
@@ -30,6 +34,10 @@ namespace sk {
           void tearDown();
           void testBasics();
           void testExtension();
+          void testIsAbsolute();
+          void testDirname();
+          void testBasename();
+          void testLocation();
           
         private:
           PathnameTest(const PathnameTest& other);

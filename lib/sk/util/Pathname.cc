@@ -71,7 +71,12 @@ normalizePrepended(const sk::util::String& component)
         if(_location.size() == 1) {
           _location.clear();
         }
-        working = working.substring(position + 1).trim();
+        if(position != std::string::npos) {
+          working = working.substring(position).trim();
+        }
+        else { 
+          working.clear();
+        }
         position = working.find_first_of('/');
       }
       if(position == 0) {
@@ -91,7 +96,7 @@ namespace {
     if(dot > slash) {
       return pathname.substring(dot);
     }
-    return "";
+    return sk::util::String::EMPTY;
   }
 }
 
@@ -118,6 +123,13 @@ dirname() const
   if(slash > 0) {
     return _location + _pathname.substring(0, slash);
   }
+  return location();
+}
+
+const sk::util::String
+sk::util::Pathname::
+location() const
+{
   return _location.isEmpty() ? "." : _location;
 }
 
