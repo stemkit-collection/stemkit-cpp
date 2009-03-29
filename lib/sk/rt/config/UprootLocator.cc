@@ -10,17 +10,17 @@
 #include <sk/util/String.h>
 
 #include <sk/rt/config/UprootLocator.h>
-#include <sk/rt/Scope.h>
+#include <unistd.h>
 
 sk::rt::config::UprootLocator::
 UprootLocator(const sk::util::String& item, const sk::util::Pathname& location, const SpotLocator& other)
-  : SpotLocator(item, location, figureLocator(item, location, other))
+  : SpotLocator(item, location, figureLocator(item, expandCwd(location), other))
 {
 }
 
 sk::rt::config::UprootLocator::
 UprootLocator(const sk::util::String& item, const sk::util::Pathname& location)
-  : SpotLocator(item, location, figureLocator(item, location, SpotLocator::DUMMY))
+  : SpotLocator(item, location, figureLocator(item, expandCwd(location), SpotLocator::DUMMY))
 {
 }
 
@@ -43,6 +43,17 @@ figureLocator(const sk::util::String& item, const sk::util::Pathname& location, 
     return SpotLocator(item, parent, other);
   }
   return SpotLocator(item, parent, figureLocator(item, parent, other));
+}
+
+const sk::util::Pathname
+sk::rt::config::UprootLocator::
+expandCwd(const sk::util::Pathname& pathname)
+{
+  if(pathname.toString() != ".") {
+    return pathname;
+  }
+  char buffer[1024];
+  return getcwd(buffer, sizeof(buffer));
 }
 
 const sk::util::Class

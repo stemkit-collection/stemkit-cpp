@@ -9,17 +9,16 @@
 #include <sk/util/String.h>
 
 #include <sk/rt/config/CwdUprootLocator.h>
-#include <unistd.h>
 
 sk::rt::config::CwdUprootLocator::
 CwdUprootLocator(const sk::util::String& item, const SpotLocator& other)
-  : UprootLocator(item, figureCurrentDirectory(), other)
+  : UprootLocator(item, ".", other)
 {
 }
 
 sk::rt::config::CwdUprootLocator::
 CwdUprootLocator(const sk::util::String& item)
-  : UprootLocator(item, figureCurrentDirectory())
+  : UprootLocator(item, ".")
 {
 }
 
@@ -35,10 +34,3 @@ getClass() const
   return sk::util::Class("sk::rt::config::CwdUprootLocator");
 }
 
-const sk::util::String
-sk::rt::config::CwdUprootLocator::
-figureCurrentDirectory()
-{
-  char buffer[1024];
-  return getcwd(buffer, sizeof(buffer));
-}

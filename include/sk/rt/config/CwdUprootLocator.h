@@ -26,8 +26,6 @@ namespace sk {
           
         private:
           CwdUprootLocator& operator = (const CwdUprootLocator& other);
-
-          static const sk::util::String figureCurrentDirectory();
       };
     }
   }
