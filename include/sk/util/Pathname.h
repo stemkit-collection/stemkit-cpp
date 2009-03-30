@@ -24,6 +24,7 @@ namespace sk {
 
         bool isAbsolute() const;
         bool isExplicit() const;
+        bool isTerminal() const;
 
         const sk::util::Pathname dirname() const;
 

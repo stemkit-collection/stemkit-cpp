@@ -8,6 +8,7 @@
 
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
+#include <sk/util/UnsupportedOperationException.h>
 
 #include <sk/util/Pathname.h>
 
@@ -162,4 +163,11 @@ sk::util::Pathname::
 isExplicit() const
 {
   return isAbsolute() || _path.equals(".") || _path.equals("..") || _path.startsWith("./") || _path.startsWith("../");
+}
+
+bool
+sk::util::Pathname::
+isTerminal() const
+{
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
 }

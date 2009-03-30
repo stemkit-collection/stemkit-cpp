@@ -123,3 +123,26 @@ testExtension()
   CPPUNIT_ASSERT_EQUAL(".", Pathname("a/b/c.").extension());
   CPPUNIT_ASSERT_EQUAL(".zip", Pathname("a/b/c.zip").extension());
 }
+
+void 
+sk::util::test::PathnameTest::
+testIsTerminal()
+{
+  return;
+
+  CPPUNIT_ASSERT_EQUAL(true, Pathname("").isTerminal());
+  CPPUNIT_ASSERT_EQUAL(true, Pathname(".").isTerminal());
+  CPPUNIT_ASSERT_EQUAL(true, Pathname("./").isTerminal());
+
+  CPPUNIT_ASSERT_EQUAL(true, Pathname("aaa").dirname().isTerminal());
+
+  CPPUNIT_ASSERT_EQUAL(true, Pathname("/").isTerminal());
+  CPPUNIT_ASSERT_EQUAL(true, Pathname("C:/").isTerminal());
+  CPPUNIT_ASSERT_EQUAL(true, Pathname("C:").isTerminal());
+
+  CPPUNIT_ASSERT_EQUAL(false, Pathname("aaa").isTerminal());
+  CPPUNIT_ASSERT_EQUAL(false, Pathname("C:/aaa").isTerminal());
+  CPPUNIT_ASSERT_EQUAL(false, Pathname("C:aaa").isTerminal());
+  CPPUNIT_ASSERT_EQUAL(false, Pathname("/aaa").isTerminal());
+}
+

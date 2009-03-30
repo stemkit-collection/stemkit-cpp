@@ -21,6 +21,7 @@ namespace sk {
           CPPUNIT_TEST(testJoin);
           CPPUNIT_TEST(testExtension);
           CPPUNIT_TEST(testIsAbsolute);
+          CPPUNIT_TEST(testIsTerminal);
           CPPUNIT_TEST(testDirname);
           CPPUNIT_TEST(testBasename);
           CPPUNIT_TEST(testLocation);
@@ -35,6 +36,7 @@ namespace sk {
           void testJoin();
           void testExtension();
           void testIsAbsolute();
+          void testIsTerminal();
           void testDirname();
           void testBasename();
           void testLocation();
