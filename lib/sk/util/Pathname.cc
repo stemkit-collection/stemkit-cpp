@@ -28,7 +28,7 @@ Pathname(const sk::util::String& component, const sk::util::String& defaultExten
 {
   normalize(component);
   if(extension().isEmpty() == true) {
-    _pathname = _pathname + '.' + defaultExtension.trim();
+    _path = _path + '.' + defaultExtension.trim();
   }
 }
 
@@ -41,7 +41,7 @@ bool
 sk::util::Pathname::
 operator == (const sk::util::Pathname& other) const
 {
-  return _location.equals(other._location) && _pathname.equals(other._pathname);
+  return _location.equals(other._location) && _path.equals(other._path);
 }
 
 const sk::util::Class
@@ -55,7 +55,7 @@ const sk::util::String
 sk::util::Pathname::
 toString() const
 {
-  return _location + _pathname;
+  return _location + _path;
 }
 
 const sk::util::Pathname
@@ -66,10 +66,10 @@ join(const sk::util::Pathname& other) const
     return other;
   }
   Pathname result(*this);
-  if(_pathname.endsWith("/") == false) {
-    result._pathname += '/';
+  if(_path.endsWith("/") == false) {
+    result._path += '/';
   }
-  result._pathname += other._pathname;
+  result._path += other._path;
   return result;
 }
 
@@ -101,7 +101,7 @@ normalize(const sk::util::String& component)
         _location += '/';
       }
     }
-    _pathname = (_pathname.isEmpty() ? working : working + '/' + _pathname).squeeze('/');
+    _path = (_path.isEmpty() ? working : working + '/' + _path).squeeze('/');
   }
 }
 
@@ -121,24 +121,24 @@ const sk::util::String
 sk::util::Pathname::
 extension() const
 {
-  return figure_extension(_pathname);
+  return figure_extension(_path);
 }
 
 const sk::util::String
 sk::util::Pathname::
 basename() const
 {
-  int slash = _pathname.lastIndexOf('/');
-  return slash < 0 ? _pathname : _pathname.substring(slash + 1);
+  int slash = _path.lastIndexOf('/');
+  return slash < 0 ? _path : _path.substring(slash + 1);
 }
 
 const sk::util::String
 sk::util::Pathname::
 dirname() const
 {
-  int slash = _pathname.lastIndexOf('/');
+  int slash = _path.lastIndexOf('/');
   if(slash > 0) {
-    return _location + _pathname.substring(0, slash);
+    return _location + _path.substring(0, slash);
   }
   return location();
 }
@@ -161,5 +161,5 @@ bool
 sk::util::Pathname::
 isExplicit() const
 {
-  return isAbsolute() || _pathname.equals(".") || _pathname.equals("..") || _pathname.startsWith("./") || _pathname.startsWith("../");
+  return isAbsolute() || _path.equals(".") || _path.equals("..") || _path.startsWith("./") || _path.startsWith("../");
 }

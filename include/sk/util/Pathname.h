@@ -41,7 +41,7 @@ namespace sk {
       private:
         void normalize(const sk::util::String& trimmedComponent);
 
-        sk::util::String _pathname;
+        sk::util::String _path;
         sk::util::String _location;
     };
   }
