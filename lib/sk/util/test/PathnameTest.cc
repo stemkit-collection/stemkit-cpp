@@ -61,17 +61,17 @@ void
 sk::util::test::PathnameTest::
 testDirname()
 {
-  CPPUNIT_ASSERT_EQUAL(".", Pathname("aaa").dirname());
-  CPPUNIT_ASSERT_EQUAL(".", Pathname("").dirname());
-  CPPUNIT_ASSERT_EQUAL("a", Pathname("a/b").dirname());
-  CPPUNIT_ASSERT_EQUAL("a/b", Pathname("a/b/").dirname());
-  CPPUNIT_ASSERT_EQUAL("C:a/b", Pathname("C:a/b/").dirname());
-  CPPUNIT_ASSERT_EQUAL("C:/a", Pathname("C:/a/b").dirname());
-  CPPUNIT_ASSERT_EQUAL("/", Pathname("/a").dirname());
-  CPPUNIT_ASSERT_EQUAL("C:/", Pathname("C:/a").dirname());
-  CPPUNIT_ASSERT_EQUAL("C:/", Pathname("C::::\\//\\").dirname());
-  CPPUNIT_ASSERT_EQUAL("C:", Pathname("C:aaa").dirname());
-  CPPUNIT_ASSERT_EQUAL("C:", Pathname("C:").dirname());
+  CPPUNIT_ASSERT_EQUAL(".", Pathname("aaa").dirname().toString());
+  CPPUNIT_ASSERT_EQUAL(".", Pathname("").dirname().toString());
+  CPPUNIT_ASSERT_EQUAL("a", Pathname("a/b").dirname().toString());
+  CPPUNIT_ASSERT_EQUAL("a/b", Pathname("a/b/").dirname().toString());
+  CPPUNIT_ASSERT_EQUAL("C:a/b", Pathname("C:a/b/").dirname().toString());
+  CPPUNIT_ASSERT_EQUAL("C:/a", Pathname("C:/a/b").dirname().toString());
+  CPPUNIT_ASSERT_EQUAL("/", Pathname("/a").dirname().toString());
+  CPPUNIT_ASSERT_EQUAL("C:/", Pathname("C:/a").dirname().toString());
+  CPPUNIT_ASSERT_EQUAL("C:/", Pathname("C::::\\//\\").dirname().toString());
+  CPPUNIT_ASSERT_EQUAL("C:", Pathname("C:aaa").dirname().toString());
+  CPPUNIT_ASSERT_EQUAL("C:", Pathname("C:").dirname().toString());
 
   Pathname location = "/a";
   Pathname parent = location.dirname();

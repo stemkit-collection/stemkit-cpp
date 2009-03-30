@@ -132,7 +132,7 @@ basename() const
   return slash < 0 ? _path : _path.substring(slash + 1);
 }
 
-const sk::util::String
+const sk::util::Pathname
 sk::util::Pathname::
 dirname() const
 {
