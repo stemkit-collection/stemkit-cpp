@@ -86,3 +86,14 @@ namespace sk
   }
 }
 
+%extend sk::rt::config::SpotLocator {
+  SpotLocator(const sk::util::String& item, const sk::util::String& location) {
+    return new sk::rt::config::SpotLocator(item, location);
+  }
+}
+
+%extend sk::rt::config::UprootLocator {
+  UprootLocator(const sk::util::String& item, const sk::util::String& location) {
+    return new sk::rt::config::UprootLocator(item, location);
+  }
+}
