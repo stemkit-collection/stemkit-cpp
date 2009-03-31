@@ -44,7 +44,7 @@ fileset {
     'include/sk/util',
     cache.lib
   ]
-  install.as('include/sk/util').source.tree('include/sk/util')
+  install.as('include/sk/util').source.tree 'include/sk/util', :follow => true
 
   install.into(cache.lib).binary {
     list = %w{
@@ -65,16 +65,7 @@ fileset {
     'include/sk/io',
     cache.lib
   ]
-  install.as('include/sk/io').source {
-    tree('include/sk/io') { |_location, _item|
-      case _item
-        when '.svn'
-          nil
-        else
-          true
-      end
-    }
-  }
+  install.as('include/sk/io').source.tree 'include/sk/io', :follow => true
 
   install.into(cache.lib).binary {
     list = %w{
@@ -114,7 +105,7 @@ fileset {
     cache.lib.join('sk'),
     cache.lib.join('sk').join('rt')
   ]
-  install.as(cache.lib.join('sk').join('rt')).source.tree 'extensions/ruby/sk/rt'
+  install.as(cache.lib.join('sk').join('rt')).source.tree 'extensions/ruby/sk/rt', :follow => true
   install.into(cache.lib.join('sk')).binary.program 'extensions/ruby/sk/rt.so'
 }
 
@@ -148,7 +139,7 @@ fileset {
     'include/sk',
     'include/sk/rt'
   ]
-  install.as('include/sk/rt').source.tree('include/sk/rt')
+  install.as('include/sk/rt').source.tree 'include/sk/rt', :follow => true
 
   install.into(cache.lib).binary {
     list = %w{
@@ -174,7 +165,7 @@ fileset {
     'include/sk/other/tinyxml',
     cache.lib
   ]
-  install.as('include/sk/other').source.tree 'include/sk/other'
+  install.as('include/sk/other').source.tree 'include/sk/other', :follow => true
 
   install.into(cache.lib).binary {
     list = %w{
@@ -195,7 +186,7 @@ fileset {
     'include/sk/sys',
     cache.lib
   ]
-  install.as('include/sk/sys').source.tree 'include/sk/sys'
+  install.as('include/sk/sys').source.tree 'include/sk/sys', :follow => true
 
   install.into(cache.lib).binary {
     list = %w{
@@ -219,8 +210,8 @@ fileset {
     'include/hooks/cppunit',
     cache.lib
   ]
-  install.as('include/sk/cppunit').source.tree 'include/sk/cppunit'
-  install.as('include/hooks/cppunit').source.tree 'include/hooks/cppunit'
+  install.as('include/sk/cppunit').source.tree 'include/sk/cppunit', :follow => true
+  install.as('include/hooks/cppunit').source.tree 'include/hooks/cppunit', :follow => true
 
   install.into(cache.lib).binary {
     list = %w{
