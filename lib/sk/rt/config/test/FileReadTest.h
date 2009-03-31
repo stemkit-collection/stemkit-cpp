@@ -19,7 +19,7 @@ namespace sk {
           : public CppUnit::TestFixture
         {
           CPPUNIT_TEST_SUITE(sk::rt::config::test::FileReadTest);
-            CPPUNIT_TEST(testReadPasswdFromCwd);
+            CPPUNIT_TEST(testReadFileFromCwd);
           CPPUNIT_TEST_SUITE_END();
           
           public:
@@ -28,7 +28,7 @@ namespace sk {
             
             void setUp();
             void tearDown();
-            void testReadPasswdFromCwd();
+            void testReadFileFromCwd();
             
           private:
             FileReadTest(const FileReadTest& other);

@@ -52,7 +52,7 @@ namespace {
 
 void
 sk::rt::config::test::FileReadTest::
-testReadPasswdFromCwd()
+testReadFileFromCwd()
 {
   CwdUprootLocator locator("src/config/Jam.project.gcc");
 
@@ -61,6 +61,10 @@ testReadPasswdFromCwd()
 
   locator.invoke(Processor(content, locations));
 
-  CPPUNIT_ASSERT_EQUAL(size_t(1), locations.size());
+  // It can find more that one file in case of multi-platfrom build when
+  // folder 'platforms' is created parallel to 'src' and the latter is
+  // symbolically linked to at particular platform 'src' under 'platforms'.
+  //
+  CPPUNIT_ASSERT(locations.size() >= 1);
   CPPUNIT_ASSERT(content.size() > 5);
 }
