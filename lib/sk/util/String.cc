@@ -443,12 +443,9 @@ indexOfIgnoreCase(const sk::util::String& other) const
     return 0;
   }
   int delta = size() - other_size;
-  if(delta >= 0) {
-    std::string::const_iterator iterator = begin();
-    for(int index=0; index <= delta ;++index, ++iterator) {
-      if(std::equal(iterator, iterator + other_size, other.begin(), compareCharsIgnoreCase) == true) {
-        return index;
-      }
+  for(int index=0; index <= delta ;++index) {
+    if(std::equal(begin() + index, begin() + index + other_size, other.begin(), compareCharsIgnoreCase) == true) {
+      return index;
     }
   }
   return -1;
@@ -480,12 +477,9 @@ lastIndexOfIgnoreCase(const sk::util::String& other) const
     return 0;
   }
   int delta = size() - other_size;
-  if(delta >= 0) {
-    std::string::const_iterator iterator = begin() + delta;
-    for(int index=delta; index >= 0 ;--index, --iterator) {
-      if(std::equal(iterator, iterator + other_size, other.begin(), compareCharsIgnoreCase) == true) {
-        return index;
-      }
+  for(int index=delta; index >= 0 ;--index) {
+    if(std::equal(begin() + index, begin() + index + other_size, other.begin(), compareCharsIgnoreCase) == true) {
+      return index;
     }
   }
   return -1;
