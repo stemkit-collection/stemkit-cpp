@@ -255,6 +255,10 @@ testTransformations()
     CPPUNIT_ASSERT_EQUAL("a.c.dz", sk::util::String("a:c:dz").replace(':', '.'));
     CPPUNIT_ASSERT_EQUAL("ABCD", sk::util::String("abcd").toUpperCase());
     CPPUNIT_ASSERT_EQUAL("abcd", sk::util::String("AbCd").toLowerCase());
+    CPPUNIT_ASSERT_EQUAL("ba", sk::util::String("aaa").replace("aa", "b"));
+
+    CPPUNIT_ASSERT_EQUAL("aaaZZbcccZZb", sk::util::String("aaabbbbcccbbbb").replace("bbb", "ZZ"));
+    CPPUNIT_ASSERT_EQUAL("aaaZZZZbcccZZZZb", sk::util::String("aaabbbbcccbbbb").replace("bbb", "ZZZZ"));
 }
 
 void

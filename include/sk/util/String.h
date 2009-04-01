@@ -106,6 +106,10 @@ namespace sk {
         /// oldChar in this string with newChar.
         const sk::util::String replace(char oldChar, char newChar) const;
 
+        /// Replaces each substring of this string that matches the literal
+        /// target sequence with the specified literal replacement sequence.
+        const sk::util::String replace(const sk::util::String& target, const sk::util::String& replacement) const;
+
         /// Returns the string representation of the int argument.
         static const sk::util::String valueOf(int value);
 

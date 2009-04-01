@@ -340,6 +340,23 @@ replace(char oldChar, char newChar) const
   return result;
 }
 
+const sk::util::String
+sk::util::String::
+replace(const sk::util::String& target, const sk::util::String& replacement) const
+{
+  std::string result(*this);
+
+  std::string::size_type index = 0;
+  while(true) {
+    index = result.find(target, index);
+    if(index == std::string::npos) {
+      break;
+    }
+    result.replace(index, target.size(), replacement);
+    index += replacement.size();
+  }
+  return result;
+}
 
 bool 
 sk::util::String::
