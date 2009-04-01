@@ -160,6 +160,10 @@ testStartsWith()
   CPPUNIT_ASSERT_EQUAL(false, String("abc").startsWith("ac"));
   CPPUNIT_ASSERT_EQUAL(true, String("abc").startsWith(""));
   CPPUNIT_ASSERT_EQUAL(false, String("abc").startsWith("abcd"));
+
+  CPPUNIT_ASSERT_EQUAL(false, String("aBczzz").startsWith("abc"));
+  CPPUNIT_ASSERT_EQUAL(true, String("aBczzz").startsWithIgnoreCase("abc"));
+  CPPUNIT_ASSERT_EQUAL(false, String("aBczzz").startsWithIgnoreCase("abz"));
 }
 
 void
@@ -171,6 +175,10 @@ testEndsWith()
   CPPUNIT_ASSERT_EQUAL(false, String("abc").endsWith("ab"));
   CPPUNIT_ASSERT_EQUAL(true, String("abc").endsWith(""));
   CPPUNIT_ASSERT_EQUAL(false, String("abc").endsWith("aabc"));
+
+  CPPUNIT_ASSERT_EQUAL(false, String("zzzaBc").endsWith("abc"));
+  CPPUNIT_ASSERT_EQUAL(true, String("zzzaBc").endsWithIgnoreCase("abc"));
+  CPPUNIT_ASSERT_EQUAL(false, String("zzzaBc").endsWithIgnoreCase("abz"));
 }
 
 void
@@ -217,7 +225,12 @@ testIndex()
   CPPUNIT_ASSERT_EQUAL(2, s.lastIndexOf('a'));
 
   CPPUNIT_ASSERT_EQUAL(3, s.indexOf('b'));
+  CPPUNIT_ASSERT_EQUAL(-1, s.indexOf('B'));
+  CPPUNIT_ASSERT_EQUAL(3, s.indexOfIgnoreCase('B'));
+
   CPPUNIT_ASSERT_EQUAL(5, s.lastIndexOf('b'));
+  CPPUNIT_ASSERT_EQUAL(-1, s.lastIndexOf('B'));
+  CPPUNIT_ASSERT_EQUAL(5, s.lastIndexOfIgnoreCase('B'));
 
   CPPUNIT_ASSERT_EQUAL(6, s.indexOf('c'));
   CPPUNIT_ASSERT_EQUAL(8, s.lastIndexOf('c'));

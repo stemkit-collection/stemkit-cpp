@@ -162,12 +162,27 @@ startsWith(const sk::util::String& prefix) const
   return indexOf(prefix) == 0;
 }
 
+bool 
+sk::util::String::
+startsWithIgnoreCase(const sk::util::String& prefix) const
+{
+  return indexOfIgnoreCase(prefix) == 0;
+}
+
 bool
 sk::util::String::
 endsWith(const sk::util::String& suffix) const
 {
   int offset = length() - suffix.length();
   return offset >= 0 && lastIndexOf(suffix) == offset;
+}
+
+bool 
+sk::util::String::
+endsWithIgnoreCase(const sk::util::String& suffix) const
+{
+  int offset = length() - suffix.length();
+  return offset >= 0 && lastIndexOfIgnoreCase(suffix) == offset;
 }
 
 bool 
@@ -242,11 +257,41 @@ indexOf(char character) const
   return pos - 0;
 }
 
+int 
+sk::util::String::
+indexOfIgnoreCase(char character) const
+{
+  char targets[] = {
+    toupper(character),
+    tolower(character),
+  };
+  size_type pos = std::string::find_first_of(targets);
+  if(pos == std::string::npos) {
+    return -1;
+  }
+  return pos - 0;
+}
+
 int
 sk::util::String::
 lastIndexOf(char character) const
 {
   size_type pos = std::string::find_last_of(character);
+  if(pos == std::string::npos) {
+    return -1;
+  }
+  return pos - 0;
+}
+
+int 
+sk::util::String::
+lastIndexOfIgnoreCase(char character) const
+{
+  char targets[] = {
+    toupper(character),
+    tolower(character),
+  };
+  size_type pos = std::string::find_last_of(targets);
   if(pos == std::string::npos) {
     return -1;
   }
@@ -362,28 +407,14 @@ bool
 sk::util::String::
 contains(const sk::util::String& other) const 
 {
-  return indexOf(other)<0 ? false : true;
+  return indexOf(other) < 0 ? false : true;
 }
 
 bool 
 sk::util::String::
 containsIgnoreCase(const sk::util::String& other) const
 {
-  int other_size = other.size();
-  if(other_size == 0) {
-    return true;
-  }
-  int delta = size() - other_size;
-  if(delta < 0) {
-    return false;
-  }
-  std::string::const_iterator iterator = begin();
-  for(int index=0; index <= delta ;++index, ++iterator) {
-    if(std::equal(iterator, iterator + other_size, other.begin(), compareCharsIgnoreCase) == true) {
-      return true;
-    }
-  }
-  return false;
+  return indexOfIgnoreCase(other) < 0 ? false : true;
 }
 
 int 
@@ -405,6 +436,26 @@ indexOf(const sk::util::String& other) const
 
 int 
 sk::util::String::
+indexOfIgnoreCase(const sk::util::String& other) const
+{
+  int other_size = other.size();
+  if(other_size == 0) {
+    return 0;
+  }
+  int delta = size() - other_size;
+  if(delta >= 0) {
+    std::string::const_iterator iterator = begin();
+    for(int index=0; index <= delta ;++index, ++iterator) {
+      if(std::equal(iterator, iterator + other_size, other.begin(), compareCharsIgnoreCase) == true) {
+        return index;
+      }
+    }
+  }
+  return -1;
+}
+
+int 
+sk::util::String::
 lastIndexOf(const sk::util::String& other) const
 {
   int other_size = other.size();
@@ -415,6 +466,26 @@ lastIndexOf(const sk::util::String& other) const
   for(int index=delta; index >= 0 ;--index) {
     if(compare(index, other_size, other) == 0) {
       return index;
+    }
+  }
+  return -1;
+}
+
+int 
+sk::util::String::
+lastIndexOfIgnoreCase(const sk::util::String& other) const
+{
+  int other_size = other.size();
+  if(other_size == 0) {
+    return 0;
+  }
+  int delta = size() - other_size;
+  if(delta >= 0) {
+    std::string::const_iterator iterator = begin() + delta;
+    for(int index=delta; index >= 0 ;--index, --iterator) {
+      if(std::equal(iterator, iterator + other_size, other.begin(), compareCharsIgnoreCase) == true) {
+        return index;
+      }
     }
   }
   return -1;

@@ -59,8 +59,16 @@ namespace sk {
         /// Tests if this string starts with the specified prefix.
         bool startsWith(const sk::util::String& prefix) const;
 
+        /// Tests if this string starts with the specified prefix with
+        /// ignoring case considerations.
+        bool startsWithIgnoreCase(const sk::util::String& prefix) const;
+
         /// Tests if this string ends with the specified suffix.
         bool endsWith(const sk::util::String& suffix) const;
+        
+        /// Tests if this string ends with the specified suffix with 
+        /// ignoring case considerations.
+        bool endsWithIgnoreCase(const sk::util::String& suffix) const;
 
         //@{
         /// Returns the index within this string of the first occurrence of
@@ -70,10 +78,25 @@ namespace sk {
         //@}
 
         //@{
+        /// Returns the index within this string of the first occurrence of
+        /// the specified character or substring, ignoring case
+        /// considerations.
+        int indexOfIgnoreCase(char character) const;
+        int indexOfIgnoreCase(const sk::util::String& other) const;
+        //@}
+
+        //@{
         /// Returns the index within this string of the last occurrence of the
         /// specified character or substring.
         int lastIndexOf(char character) const;
         int lastIndexOf(const sk::util::String& other) const;
+        //@}
+
+        //@{
+        /// Returns the index within this string of the last occurrence of the
+        /// specified character or substring, ignoring case considerations.
+        int lastIndexOfIgnoreCase(char character) const;
+        int lastIndexOfIgnoreCase(const sk::util::String& other) const;
         //@}
 
         /// Returns a new string that is a substring of this string.
