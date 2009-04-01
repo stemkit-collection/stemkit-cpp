@@ -8,13 +8,17 @@
 
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
+#include <sk/util/Integer.h>
 #include <sk/util/inspect.h>
 #include <sk/util/IndexOutOfBoundsException.h>
+#include <sk/util/UnsupportedOperationException.h>
 #include <algorithm>
 #include <string.h>
 #include <algorithm>
 
 const sk::util::String sk::util::String::EMPTY;
+
+static const char* __className("sk::util::String");
 
 sk::util::String::
 String()
@@ -86,7 +90,7 @@ const sk::util::Class
 sk::util::String::
 getClass() const
 {
-  return sk::util::Class("sk::util::String");
+  return sk::util::Class(__className);
 }
 
 const sk::util::String 
@@ -155,17 +159,7 @@ bool
 sk::util::String::
 startsWith(const sk::util::String& prefix) const
 {
-  if(prefix.length() > length()) {
-    return false;
-  }
-  return std::string::compare(0, prefix.length(), prefix) == 0;
-}
-
-bool
-sk::util::String::
-startsWith(const char* prefix) const
-{
-  return startsWith(sk::util::String(prefix));
+  return indexOf(prefix) == 0;
 }
 
 bool
@@ -173,17 +167,7 @@ sk::util::String::
 endsWith(const sk::util::String& suffix) const
 {
   int offset = length() - suffix.length();
-  if(offset < 0) {
-    return false;
-  }
-  return std::string::compare(offset, suffix.length(), suffix) == 0;
-}
-
-bool
-sk::util::String::
-endsWith(const char* suffix) const
-{
-  return endsWith(sk::util::String(suffix));
+  return offset >= 0 && lastIndexOf(suffix) == offset;
 }
 
 bool 
@@ -368,6 +352,76 @@ replace(char oldChar, char newChar) const
   std::transform(result.begin(), result.end(), result.begin(), CharReplacer(oldChar, newChar));
 
   return result;
+}
+
+
+bool 
+sk::util::String::
+contains(const sk::util::String& other) const 
+{
+  return indexOf(other)<0 ? false : true;
+}
+
+bool 
+sk::util::String::
+containsIgnoreCase(const sk::util::String& other) const
+{
+  int other_size = other.size();
+  if(other_size == 0) {
+    return true;
+  }
+  int delta = size() - other_size;
+  if(delta < 0) {
+    return false;
+  }
+  std::string::const_iterator iterator = begin();
+  for(int index=0; index <= delta ;++index, ++iterator) {
+    if(std::equal(iterator, iterator + other_size, other.begin(), compareCharsIgnoreCase) == true) {
+      return true;
+    }
+  }
+  return false;
+}
+
+int 
+sk::util::String::
+indexOf(const sk::util::String& other) const
+{
+  int other_size = other.size();
+  if(other_size == 0) {
+    return 0;
+  }
+  int delta = size() - other_size;
+  for(int index=0; index <= delta ;++index) {
+    if(compare(index, other_size, other) == 0) {
+      return index;
+    }
+  }
+  return -1;
+}
+
+int 
+sk::util::String::
+lastIndexOf(const sk::util::String& other) const
+{
+  int other_size = other.size();
+  if(other_size == 0) {
+    return size();
+  }
+  int delta = size() - other_size;
+  for(int index=delta; index >= 0 ;--index) {
+    if(compare(index, other_size, other) == 0) {
+      return index;
+    }
+  }
+  return -1;
+}
+
+const sk::util::String 
+sk::util::String::
+valueOf(int value)
+{
+  return Integer::toString(value);
 }
 
 const sk::util::String operator + (const sk::util::String& s1, const sk::util::String& s2)

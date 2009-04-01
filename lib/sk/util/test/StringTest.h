@@ -35,6 +35,10 @@ namespace sk {
           CPPUNIT_TEST(testCharAt);
           CPPUNIT_TEST(testIndex);
           CPPUNIT_TEST(testSubstring);
+          CPPUNIT_TEST(testContains);
+          CPPUNIT_TEST(testContainsIgnoreCase);
+          CPPUNIT_TEST(testStringIndex);
+          CPPUNIT_TEST(testValueOf);
         CPPUNIT_TEST_SUITE_END();
         
         public:
@@ -60,6 +64,10 @@ namespace sk {
           void testCharAt();
           void testIndex();
           void testSubstring();
+          void testContains();
+          void testContainsIgnoreCase();
+          void testStringIndex();
+          void testValueOf();
           
         private:
           StringTest(const StringTest& other);

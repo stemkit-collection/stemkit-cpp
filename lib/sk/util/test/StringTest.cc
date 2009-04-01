@@ -1,4 +1,5 @@
-/*  Copyright (c) 2005, Gennady Bystritsky <bystr@mac.com>
+/*  vim: sw=2:
+ *  Copyright (c) 2005, Gennady Bystritsky <bystr@mac.com>
  *  
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
@@ -267,4 +268,78 @@ testCharAt()
 
     CPPUNIT_ASSERT_THROW(s.charAt(-1), sk::util::IndexOutOfBoundsException);
     CPPUNIT_ASSERT_THROW(s.charAt(3), sk::util::IndexOutOfBoundsException);
+}
+
+void
+sk::util::test::StringTest::
+testContains()
+{
+  String s("aaabbbccc");
+
+  CPPUNIT_ASSERT_EQUAL(true, s.contains("aaa"));
+  CPPUNIT_ASSERT_EQUAL(true, s.contains("bbb"));
+  CPPUNIT_ASSERT_EQUAL(true, s.contains("ccc"));
+
+  CPPUNIT_ASSERT_EQUAL(true, s.contains(""));
+
+  CPPUNIT_ASSERT_EQUAL(false, s.contains("aaaa"));
+  CPPUNIT_ASSERT_EQUAL(false, s.contains("bbbb"));
+  CPPUNIT_ASSERT_EQUAL(false, s.contains("cccc"));
+
+  CPPUNIT_ASSERT_EQUAL(false, s.contains("AAA"));
+  CPPUNIT_ASSERT_EQUAL(false, s.contains("BBB"));
+  CPPUNIT_ASSERT_EQUAL(false, s.contains("CCC"));
+
+  CPPUNIT_ASSERT_EQUAL(false, s.contains("aaaaaaaaaaaaaaaaaaaaaaaaaa"));
+}
+
+void
+sk::util::test::StringTest::
+testContainsIgnoreCase()
+{
+  String s("aAabbBCcc");
+
+  CPPUNIT_ASSERT_EQUAL(true, s.containsIgnoreCase("AaA"));
+  CPPUNIT_ASSERT_EQUAL(true, s.containsIgnoreCase("BBB"));
+  CPPUNIT_ASSERT_EQUAL(true, s.containsIgnoreCase("ccc"));
+
+  CPPUNIT_ASSERT_EQUAL(true, s.containsIgnoreCase(""));
+
+  CPPUNIT_ASSERT_EQUAL(false, s.containsIgnoreCase("aAaa"));
+  CPPUNIT_ASSERT_EQUAL(false, s.containsIgnoreCase("BBBb"));
+  CPPUNIT_ASSERT_EQUAL(false, s.containsIgnoreCase("cccc"));
+
+  CPPUNIT_ASSERT_EQUAL(true, s.containsIgnoreCase("AAA"));
+  CPPUNIT_ASSERT_EQUAL(true, s.containsIgnoreCase("BBB"));
+  CPPUNIT_ASSERT_EQUAL(true, s.containsIgnoreCase("CCC"));
+
+  CPPUNIT_ASSERT_EQUAL(false, s.containsIgnoreCase("aaaaaaaaaaaaaaaaaaAAaaaaaa"));
+}
+
+void
+sk::util::test::StringTest::
+testStringIndex()
+{
+  String s("aaabbbccc");
+
+  CPPUNIT_ASSERT_EQUAL(0, s.indexOf(""));
+  CPPUNIT_ASSERT_EQUAL(9, s.lastIndexOf(""));
+
+  CPPUNIT_ASSERT_EQUAL(0, s.indexOf("aaa"));
+  CPPUNIT_ASSERT_EQUAL(3, s.indexOf("bbb"));
+  CPPUNIT_ASSERT_EQUAL(6, s.indexOf("ccc"));
+
+  CPPUNIT_ASSERT_EQUAL(-1, s.indexOf("accc"));
+
+  CPPUNIT_ASSERT_EQUAL(3, s.indexOf("bb"));
+  CPPUNIT_ASSERT_EQUAL(4, s.lastIndexOf("bb"));
+}
+
+void
+sk::util::test::StringTest::
+testValueOf()
+{
+  CPPUNIT_ASSERT_EQUAL("127", String::valueOf(127));
+  CPPUNIT_ASSERT_EQUAL("-1", String::valueOf(-1));
+  CPPUNIT_ASSERT_EQUAL("0", String::valueOf(0));
 }
