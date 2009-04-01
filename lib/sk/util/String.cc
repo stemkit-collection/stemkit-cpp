@@ -177,13 +177,6 @@ equals(const sk::util::String& other) const
   return std::string::compare(other) == 0;
 }
 
-bool 
-sk::util::String::
-equals(const char* other) const
-{
-  return equals(sk::util::String(other));
-}
-
 namespace {
   inline bool compareCharsIgnoreCase(char c1, char c2) {
     return toupper(c1) == toupper(c2);
@@ -198,13 +191,6 @@ equalsIgnoreCase(const sk::util::String& other) const
     return false;
   }
   return std::equal(begin(), end(), other.begin(), compareCharsIgnoreCase);
-}
-
-bool 
-sk::util::String::
-equalsIgnoreCase(const char* other) const
-{
-  return equalsIgnoreCase(sk::util::String(other));
 }
 
 const sk::util::String

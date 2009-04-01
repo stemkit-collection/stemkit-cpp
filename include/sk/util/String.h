@@ -82,17 +82,11 @@ namespace sk {
         /// Returns a new string that is a substring of this string.
         const String substring(int beginIndex, int endIndex) const;
 
-        //@{
         /// Compares this string to the other specified string.
         bool equals(const sk::util::String& other) const;
-        bool equals(const char* other) const;
-        //@}
 
-        //@{
         /// Compares this String to the other String, ignoring case considerations.
         bool equalsIgnoreCase(const sk::util::String& other) const;
-        bool equalsIgnoreCase(const char* other) const;
-        //@}
 
         /// Returns a representation of this string as a C string.
         const char* getChars() const;
