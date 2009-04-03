@@ -29,7 +29,7 @@ distribution.
 #include <iostream>
 #endif
 
-#include "tinyxml.h"
+#include <sk/other/tinyxml/tinyxml.h>
 
 
 bool TiXmlBase::condenseWhiteSpace = true;
@@ -37,7 +37,7 @@ bool TiXmlBase::condenseWhiteSpace = true;
 // Microsoft compiler security
 FILE* TiXmlFOpen( const char* filename, const char* mode )
 {
-	#if defined(_MSC_VER) && (_MSC_VER >= 1400 )
+	#if !defined(__NUTC__) && defined(_MSC_VER) && (_MSC_VER >= 1400 )
 		FILE* fp = 0;
 		errno_t err = fopen_s( &fp, filename, mode );
 		if ( !err && fp )
