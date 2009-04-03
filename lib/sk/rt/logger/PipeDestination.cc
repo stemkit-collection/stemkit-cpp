@@ -192,6 +192,9 @@ namespace {
     sk::rt::logger::Destination& getLogDestination() const {
       return _destination;
     }
+    const char* getLineTerminator() const {
+      return "\n";
+    }
     const char* getTimeFormat() const {
       return "%c";
     }
@@ -213,6 +216,7 @@ namespace {
     void setLogDestination() {}
     void setLogLevel(const sk::rt::logger::Level& level) {}
     void setTimeFormat(const sk::util::String& format) {}
+    void setLineTerminator(const sk::util::String& terminator) {}
     void setLogDestination(const sk::rt::logger::Destination& destination) {}
     void setLogPid(bool status) {}
     void setLogTime(bool status) {}

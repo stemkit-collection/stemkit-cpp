@@ -24,6 +24,7 @@ namespace sk {
           virtual bool checkLogLevel(const Level& level) const = 0;
           virtual logger::Destination& getLogDestination() const = 0;
           virtual const char* getTimeFormat() const = 0;
+          virtual const char* getLineTerminator() const = 0;
           virtual bool isLogPid() const = 0;
           virtual bool isLogTime() const = 0;
           virtual bool isLogObject() const = 0;
@@ -32,6 +33,7 @@ namespace sk {
           virtual void setLogDestination(const logger::Destination& destination) = 0;
           virtual void setLogLevel(const logger::Level& level) = 0;
           virtual void setTimeFormat(const sk::util::String& format) = 0;
+          virtual void setLineTerminator(const sk::util::String& terminator) = 0;
           virtual void setLogPid(bool state) = 0;
           virtual void setLogTime(bool state) = 0;
           virtual void setLogObject(bool state) = 0;

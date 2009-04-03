@@ -25,6 +25,7 @@ namespace sk {
           void setLogDestination(const logger::Destination& destination);
           void setLogLevel(const logger::Level& level);
           void setTimeFormat(const sk::util::String& format);
+          void setLineTerminator(const sk::util::String& terminator);
 
           void setLogPid(bool state);
           void setLogTime(bool state);
@@ -36,6 +37,7 @@ namespace sk {
           logger::Destination& getLogDestination() const;
           bool checkLogLevel(const logger::Level& level) const;
           const char* getTimeFormat() const;
+          const char* getLineTerminator() const;
           bool isLogPid() const;
           bool isLogTime() const;
           bool isLogObject() const;
@@ -63,6 +65,7 @@ namespace sk {
           bool _logObject;
           bool _logThread;
           sk::util::String _timeFormat;
+          sk::util::String _lineTerminator;
           typedef std::map<sk::util::String, sk::util::String> registry;
           registry _properties;
       };

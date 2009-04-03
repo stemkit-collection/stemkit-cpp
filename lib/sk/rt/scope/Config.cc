@@ -23,7 +23,8 @@ sk::rt::scope::Config::
 Config()
   : _destinationHolder(new logger::StreamDestination(std::cerr)), 
     _levelHolder(logger::Level::SK_L_INFO), _timeFormat("%y/%m/%d %H:%M:%S"),
-    _logPid(false), _logTime(false), _logObject(false), _logThread(false)
+    _logPid(false), _logTime(false), _logObject(false), _logThread(false),
+    _lineTerminator("\n")
 {
 }
 
@@ -60,6 +61,13 @@ setTimeFormat(const sk::util::String& format)
   _timeFormat = format;
 }
 
+void 
+sk::rt::scope::Config::
+setLineTerminator(const sk::util::String& terminator)
+{
+  _lineTerminator = terminator;
+}
+
 sk::rt::logger::Destination& 
 sk::rt::scope::Config::
 getLogDestination() const
@@ -79,6 +87,13 @@ sk::rt::scope::Config::
 getTimeFormat() const
 {
   return _timeFormat.getChars();
+}
+
+const char*
+sk::rt::scope::Config::
+getLineTerminator() const
+{
+  return _lineTerminator.getChars();
 }
 
 void

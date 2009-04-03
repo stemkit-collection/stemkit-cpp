@@ -160,20 +160,34 @@ updateLogInfo(const TiXmlHandle& handle, scope::IConfig& config)
   config.setLogPid(attribute(handle.ToElement(), "show-pid", config.isLogPid()));
   config.setTimeFormat(attribute(handle.ToElement(), "time-format", config.getTimeFormat()));
 
-  const sk::util::String destination = attribute(handle.ToElement(), "destination", "");
-  if(destination.equals("std::cout")) {
+  const sk::util::String eol = attribute(handle.ToElement(), "eol", "").trim().toLowerCase();
+  if(eol.equals("unix") == true || eol.equals("lf") == true) {
+    config.setLineTerminator("\n");
+  }
+  else if(eol.equals("windows") == true || eol.equals("crlf") == true) {
+    config.setLineTerminator("\r\n");
+  }
+  else if(eol.equals("mac") == true || eol.equals("cr") == true) {
+    config.setLineTerminator("\r");
+  }
+  else if(eol.equals("lfcr") == true) {
+    config.setLineTerminator("\n\r");
+  }
+
+  const sk::util::String destination = attribute(handle.ToElement(), "destination", "").trim();
+  if(destination.equals("std::cout") == true) {
     config.setLogDestination(logger::StreamDestination(std::cout));
   }
-  else if(destination.equals("std::clog")) {
+  else if(destination.equals("std::clog") == true) {
     config.setLogDestination(logger::StreamDestination(std::clog));
   }
-  else if(destination.equals("std::cerr")) {
+  else if(destination.equals("std::cerr") == true) {
     config.setLogDestination(logger::StreamDestination(std::cerr));
   }
-  else if(destination.equals("trash")) {
+  else if(destination.equals("trash") == true) {
     config.setLogDestination(logger::TrashDestination());
   }
-  else if(destination.equals("file")) {
+  else if(destination.equals("file") == true) {
     for(TiXmlElement* item=handle.FirstChild(destination).ToElement(); item ;item=item->NextSiblingElement(item->Value())) {
       updateFileDestination(item, config);
     }

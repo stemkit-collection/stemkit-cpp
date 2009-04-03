@@ -25,7 +25,7 @@ sk::rt::logger::Stream::
 ~Stream()
 {
   if(_requested == true) {
-    _stream << std::endl;
+    _stream << _config.getLineTerminator();
     _config.getLogDestination().dispatch(_stream.str().c_str(), _stream.str().size());
   }
 }
