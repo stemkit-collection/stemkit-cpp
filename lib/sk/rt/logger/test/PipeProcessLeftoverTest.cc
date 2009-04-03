@@ -11,6 +11,7 @@
 #include <sk/util/Holder.cxx>
 #include <signal.h>
 #include <fcntl.h>
+#include <unistd.h>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::rt::logger::test::PipeProcessLeftoverTest);
 

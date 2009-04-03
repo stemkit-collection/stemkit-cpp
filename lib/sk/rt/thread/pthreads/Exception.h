@@ -31,7 +31,6 @@ namespace sk {
             const sk::util::Class getClass() const;
         
           private:
-            Exception(const Exception& other);
             Exception& operator = (const Exception& other);
 
             sk::util::String _function;
