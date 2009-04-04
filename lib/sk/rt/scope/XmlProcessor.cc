@@ -164,7 +164,7 @@ updateLogInfo(const TiXmlHandle& handle, scope::IConfig& config)
   if(eol.equals("unix") == true || eol.equals("lf") == true) {
     config.setLineTerminator("\n");
   }
-  else if(eol.equals("windows") == true || eol.equals("crlf") == true) {
+  else if(eol.equals("windows") == true || eol.equals("dos") || eol.equals("crlf") == true) {
     config.setLineTerminator("\r\n");
   }
   else if(eol.equals("mac") == true || eol.equals("cr") == true) {
