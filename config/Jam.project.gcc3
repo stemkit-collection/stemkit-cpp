@@ -44,7 +44,7 @@ if $(JAM_OFFSET_PLATFORM) = true {
   system.setup-artifact-offsets : : $(PRODUCT_PLATFORM) ;
 }
 
-rule platform-nt-x86-native
+rule platform-nt-x86-win32
 {
   project.PLATFORM_SPECIFICS = windows ;
   util.delete-from project.DO_NOT_BUILD : java ;
@@ -60,7 +60,7 @@ rule platform-nt-x86-native
   SWIG = [ util.make-path $(TOOLS_HOME) swigwin-1.3.35 swig.exe ] ;
 }
 
-rule platform-nt-x86-mks
+rule platform-nt-x86-mks32
 {
   core.ensure-defined JAM_MKS_ROOT ;
   mswin.setup-mks-toolkit8 "$(JAM_MKS_ROOT:J= )" ;
@@ -91,9 +91,9 @@ rule platform-nt-x86
   LIBDIRS = ;
 
   switch $(BUILD_ABI) {
-    case native : platform-nt-x86-native ;
-    case mks : platform-nt-x86-mks ;
-    case * : exit Please set BUILD_ABI to either "native" or "mks" ;
+    case win32 : platform-nt-x86-win32 ;
+    case mks32 : platform-nt-x86-mks32 ;
+    case * : exit Please set BUILD_ABI to either "win32" or "mks32" ;
   }
   core.ensure-defined JAM_MSVS_ROOT ;
   mswin.setup-visual-studio8 "$(JAM_MSVS_ROOT:J= )" ;
