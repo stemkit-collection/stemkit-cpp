@@ -10,6 +10,8 @@
 
 #include <sk/io/Pipe.h>
 #include <sk/util/Holder.hxx>
+#include <sk/io/FileDescriptorInputStream.h>
+#include <sk/io/FileDescriptorOutputStream.h>
 
 namespace sk {
   namespace io {

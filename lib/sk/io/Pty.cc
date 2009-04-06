@@ -94,14 +94,14 @@ getTty() const
   return _ttyHolder.get();
 }
 
-sk::io::Pipe& 
+sk::io::FileDescriptorPipe& 
 sk::io::Pty::
 getMasterSlavePipe()
 {
   return _masterSlavePipeHolder.get();
 }
 
-sk::io::Pipe& 
+sk::io::FileDescriptorPipe& 
 sk::io::Pty::
 getSlaveMasterPipe()
 {

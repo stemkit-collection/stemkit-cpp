@@ -11,7 +11,7 @@
 #include <sk/util/Holder.hxx>
 #include <sk/util/String.h>
 #include <sk/io/DelegatingTty.h>
-#include <sk/io/Pipe.h>
+#include <sk/io/FileDescriptorPipe.h>
 #include <sk/io/FileDescriptorInputStream.h>
 #include <sk/io/FileDescriptorOutputStream.h>
 #include <sk/rt/Scope.h>
@@ -32,8 +32,8 @@ namespace sk {
         void close();
         void closeTty();
 
-        sk::io::Pipe& getMasterSlavePipe();
-        sk::io::Pipe& getSlaveMasterPipe();
+        sk::io::FileDescriptorPipe& getMasterSlavePipe();
+        sk::io::FileDescriptorPipe& getSlaveMasterPipe();
         
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
@@ -49,8 +49,8 @@ namespace sk {
         const sk::rt::Scope _scope;
         sk::util::String _name;
         sk::util::Holder<sk::io::TtyFileDescriptor> _ttyHolder;
-        sk::util::Holder<sk::io::Pipe> _slaveMasterPipeHolder;
-        sk::util::Holder<sk::io::Pipe> _masterSlavePipeHolder;
+        sk::util::Holder<sk::io::FileDescriptorPipe> _slaveMasterPipeHolder;
+        sk::util::Holder<sk::io::FileDescriptorPipe> _masterSlavePipeHolder;
     };
   }
 }

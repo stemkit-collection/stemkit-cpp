@@ -9,12 +9,11 @@
 #define _SK_IO_PIPE_
 
 #include <sk/util/Object.h>
+#include <sk/io/InputStream.h>
+#include <sk/io/OutputStream.h>
 
 namespace sk {
   namespace io {
-    class FileDescriptorInputStream;
-    class FileDescriptorOutputStream;
-
     class Pipe
       : public virtual sk::util::Object 
     {
@@ -23,8 +22,8 @@ namespace sk {
         virtual void closeInput() = 0;
         virtual void closeOutput() = 0;
 
-        virtual FileDescriptorInputStream& inputStream() const = 0;
-        virtual FileDescriptorOutputStream& outputStream() const = 0;
+        virtual InputStream& inputStream() const = 0;
+        virtual OutputStream& outputStream() const = 0;
     };
   }
 }
