@@ -9,29 +9,29 @@
 #include <sk/util/String.h>
 #include <sk/util/Holder.cxx>
 
-#include <sk/io/AbstractPipe.h>
+#include <sk/io/AbstractFileDescriptorPipe.h>
 #include <sk/io/FileDescriptorInputStream.h>
 #include <sk/io/FileDescriptorOutputStream.h>
 
-sk::io::AbstractPipe::
-AbstractPipe()
+sk::io::AbstractFileDescriptorPipe::
+AbstractFileDescriptorPipe()
 {
 }
 
-sk::io::AbstractPipe::
-~AbstractPipe()
+sk::io::AbstractFileDescriptorPipe::
+~AbstractFileDescriptorPipe()
 {
 }
 
 const sk::util::Class
-sk::io::AbstractPipe::
+sk::io::AbstractFileDescriptorPipe::
 getClass() const
 {
-  return sk::util::Class("sk::io::AbstractPipe");
+  return sk::util::Class("sk::io::AbstractFileDescriptorPipe");
 }
 
 void
-sk::io::AbstractPipe::
+sk::io::AbstractFileDescriptorPipe::
 close()
 {
   closeInput();
@@ -39,56 +39,56 @@ close()
 }
 
 void 
-sk::io::AbstractPipe::
+sk::io::AbstractFileDescriptorPipe::
 closeInput()
 {
   _inputStreamHolder.get().close();
 }
 
 void 
-sk::io::AbstractPipe::
+sk::io::AbstractFileDescriptorPipe::
 closeOutput()
 {
   _outputStreamHolder.get().close();
 }
 
 sk::io::FileDescriptorInputStream& 
-sk::io::AbstractPipe::
+sk::io::AbstractFileDescriptorPipe::
 inputStream() const
 {
   return _inputStreamHolder.get();
 }
 
 sk::io::FileDescriptorOutputStream& 
-sk::io::AbstractPipe::
+sk::io::AbstractFileDescriptorPipe::
 outputStream() const
 {
   return _outputStreamHolder.get();
 }
 
 void 
-sk::io::AbstractPipe::
+sk::io::AbstractFileDescriptorPipe::
 setInputFileDescriptor(int fd)
 {
   _inputStreamHolder.set(new FileDescriptorInputStream(fd));
 }
 
 void 
-sk::io::AbstractPipe::
+sk::io::AbstractFileDescriptorPipe::
 setOutputFileDescriptor(int fd)
 {
   _outputStreamHolder.set(new FileDescriptorOutputStream(fd));
 }
 
 void 
-sk::io::AbstractPipe::
+sk::io::AbstractFileDescriptorPipe::
 setInputFileDescriptor(const sk::io::FileDescriptor& descriptor)
 {
   _inputStreamHolder.set(new FileDescriptorInputStream(descriptor));
 }
 
 void 
-sk::io::AbstractPipe::
+sk::io::AbstractFileDescriptorPipe::
 setOutputFileDescriptor(const sk::io::FileDescriptor& descriptor)
 {
   _outputStreamHolder.set(new FileDescriptorOutputStream(descriptor));

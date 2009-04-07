@@ -5,8 +5,8 @@
  *  You must read and accept the license prior to use.
 */
 
-#ifndef _SK_IO_ABSTRACTPIPE_
-#define _SK_IO_ABSTRACTPIPE_
+#ifndef _SK_IO_ABSTRACTFILEDESCRIPTORPIPE_
+#define _SK_IO_ABSTRACTFILEDESCRIPTORPIPE_
 
 #include <sk/io/Pipe.h>
 #include <sk/util/Holder.hxx>
@@ -17,7 +17,7 @@ namespace sk {
   namespace io {
     class FileDescriptor;
 
-    class AbstractPipe
+    class AbstractFileDescriptorPipe
       : public virtual sk::io::Pipe
     {
       public:
@@ -32,8 +32,8 @@ namespace sk {
         FileDescriptorOutputStream& outputStream() const;
 
       protected:
-        AbstractPipe();
-        virtual ~AbstractPipe();
+        AbstractFileDescriptorPipe();
+        virtual ~AbstractFileDescriptorPipe();
 
         void setInputFileDescriptor(int fd);
         void setOutputFileDescriptor(int fd);
@@ -47,4 +47,4 @@ namespace sk {
   }
 }
 
-#endif /* _SK_IO_ABSTRACTPIPE_ */
+#endif /* _SK_IO_ABSTRACTFILEDESCRIPTORPIPE_ */

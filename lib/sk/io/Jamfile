@@ -21,7 +21,7 @@ objects =
   IOException.cc
   EOFException.cc
   ClosedChannelException.cc
-  AbstractPipe.cc
+  AbstractFileDescriptorPipe.cc
   FileDescriptorPipe.cc
   AnonymousPipe.cc
   TtyFileDescriptor.cc

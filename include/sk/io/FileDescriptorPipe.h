@@ -12,14 +12,14 @@
 #define _SK_IO_FILEDESCRIPTORPIPE_H_
 
 #include <sk/util/Object.h>
-#include <sk/io/AbstractPipe.h>
+#include <sk/io/AbstractFileDescriptorPipe.h>
 
 namespace sk {
   namespace io {
     class FileDescriptor;
 
     class FileDescriptorPipe 
-      : public sk::io::AbstractPipe
+      : public sk::io::AbstractFileDescriptorPipe
     {
       public:
         FileDescriptorPipe(const sk::io::FileDescriptor& output, const sk::io::FileDescriptor& input);

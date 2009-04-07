@@ -16,10 +16,10 @@
 #include <sk/io/TtyFileDescriptor.h>
 
 #include "PtyImpl.h"
-#include <sk/io/AbstractPipe.h>
+#include <sk/io/AbstractFileDescriptorPipe.h>
 
 namespace {
-  struct FileDescriptorPipe : public sk::io::AbstractPipe {
+  struct FileDescriptorPipe : public sk::io::AbstractFileDescriptorPipe {
     FileDescriptorPipe(const sk::io::FileDescriptor& output, const sk::io::FileDescriptor& input) {
       setOutputFileDescriptor(output);
       setInputFileDescriptor(input);

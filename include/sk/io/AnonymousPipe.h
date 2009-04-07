@@ -8,13 +8,13 @@
 #ifndef _SK_IO_ANONYMOUSPIPE_
 #define _SK_IO_ANONYMOUSPIPE_
 
-#include <sk/io/AbstractPipe.h>
+#include <sk/io/AbstractFileDescriptorPipe.h>
 #include <sk/rt/Scope.h>
 
 namespace sk {
   namespace io {
     class AnonymousPipe
-      : public sk::io::AbstractPipe
+      : public sk::io::AbstractFileDescriptorPipe
     {
       public:
         AnonymousPipe();
