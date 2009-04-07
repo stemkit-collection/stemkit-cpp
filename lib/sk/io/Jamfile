@@ -23,13 +23,13 @@ objects =
   ClosedChannelException.cc
   AbstractFileDescriptorPipe.cc
   FileDescriptorPipe.cc
-  AnonymousPipe.cc
   TtyFileDescriptor.cc
-  TtyDevice.cc
   DelegatingTty.cc
-  PtyImpl.cc
-  PtySpecifics-$(project.PTY_SPECIFICS).cc
-  Pty.cc
+  unix/AnonymousPipe.cc
+  unix/TtyDevice.cc
+  unix/PtyImpl.cc
+  unix/PtySpecifics-$(project.PTY_SPECIFICS).cc
+  unix/Pty.cc
 ;
 
 make-library $(library) : $(objects) ;
