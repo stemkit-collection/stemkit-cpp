@@ -1,3 +1,4 @@
+# vim: sw=2:
 
 library = sk.io ;
 
@@ -25,15 +26,15 @@ objects =
   FileDescriptorPipe.cc
   TtyFileDescriptor.cc
   DelegatingTty.cc
-  unix/AnonymousPipe.cc
-  unix/TtyDevice.cc
-  unix/PtyImpl.cc
-  unix/PtySpecifics-$(project.PTY_SPECIFICS).cc
-  unix/Pty.cc
 ;
 
 make-library $(library) : $(objects) ;
 make-subdir test ;
+
+if ! windows in $(project.PLATFORM_SPECIFICS) {
+  make-subdir unix ;
+  add-project-library $(library) : $(library).unix ;
+}
 
 probes = 
   pty-probe

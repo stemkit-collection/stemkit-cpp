@@ -1,0 +1,12 @@
+
+library = sk.io.unix ;
+
+objects = 
+  AnonymousPipe.cc
+  TtyDevice.cc
+  PtyImpl.cc
+  PtySpecifics-$(project.PTY_SPECIFICS).cc
+  Pty.cc
+;
+
+make-library $(library) : $(objects) ;
