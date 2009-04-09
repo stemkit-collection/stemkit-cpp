@@ -1,5 +1,5 @@
 
-local library = sk.sys.unix ;
+local library = sk.sys.win32 ;
 
 local objects = 
   Process.cc
@@ -8,4 +8,3 @@ local objects =
 ;
 
 make-library $(library) : $(objects) ;
-make-subdirs test ;

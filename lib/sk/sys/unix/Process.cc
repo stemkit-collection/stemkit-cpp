@@ -70,13 +70,7 @@ Process(const sk::util::StringArray& cmdline)
 sk::sys::Process::
 ~Process()
 {
-  try {
-    stop();
-  }
-  catch(const std::exception& exception) {
-    std::cerr << "ERROR:sk::sys::Process::~Process():" << sk::util::Integer::toString(getpid()) << ": " << exception.what() << std::endl;
-    throw;
-  }
+  sk::util::Exception::guard(_scope.warning(SK_METHOD), *this, &sk::sys::Process::stop);
 }
 
 const sk::util::Class

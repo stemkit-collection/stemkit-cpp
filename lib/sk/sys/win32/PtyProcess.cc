@@ -1,4 +1,5 @@
-/*  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
+/*  vi: sw=2:
+ *  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
  *  
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
@@ -10,13 +11,6 @@
 #include <sk/util/Holder.cxx>
 
 #include <sk/sys/PtyProcess.h>
-#include <sk/io/Pty.h>
-#include <sk/io/File.h>
-#include <sk/io/DataInputStream.h>
-#include <sk/io/FileDescriptorOutputStream.h>
-#include <sk/io/EOFException.h>
-
-#include <unistd.h>
 
 struct sk::sys::PtyProcess::Listener 
   : public virtual sk::sys::ProcessListener 
@@ -24,9 +18,6 @@ struct sk::sys::PtyProcess::Listener
     void processStarting();
     int processStopping();
     void processJoining();
-
-    sk::io::Pty pty;
-    sk::util::StringArray errors;
 };
 
 sk::sys::PtyProcess::
@@ -34,8 +25,7 @@ PtyProcess(const sk::util::StringArray& cmdline)
   : _scope(*this),
     _listenerHolder(new Listener), _process(getPty().getMasterSlavePipe().inputStream(), cmdline, _listenerHolder.get())
 {
-  getPty().getSlaveMasterPipe().closeOutput();
-  getPty().closeTty();
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
 }
 
 sk::sys::PtyProcess::
@@ -68,68 +58,52 @@ sk::io::Pty&
 sk::sys::PtyProcess::
 getPty()
 {
-  const sk::rt::Scope scope = _scope.scope(__FUNCTION__);
-  return _listenerHolder.get().pty;
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
 }
 
 sk::io::InputStream& 
 sk::sys::PtyProcess::
 inputStream() const
 {
-  return _listenerHolder.get().pty.getSlaveMasterPipe().inputStream();
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
 }
 
 sk::io::InputStream& 
 sk::sys::PtyProcess::
 inputErrorStream() const
 {
-  return _listenerHolder.get().pty.getSlaveMasterPipe().inputStream();
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
 }
 
 sk::io::OutputStream&
 sk::sys::PtyProcess::
 outputStream() const
 {
-  return _listenerHolder.get().pty.getMasterSlavePipe().outputStream();
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
 }
 
 const sk::util::StringArray& 
 sk::sys::PtyProcess::
 errors() const
 {
-  return _listenerHolder.get().errors;
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
 }
 
 void 
 sk::sys::PtyProcess::Listener::
 processStarting()
 {
-  setsid();
-  
-  sk::io::File ctty(pty.getName(), "r+");
-  ::close(0);
-  ::dup(ctty.getFileDescriptor().getFileNumber());
-
-  ::close(1);
-  ::dup(pty.getSlaveMasterPipe().outputStream().getFileDescriptor().getFileNumber());
-
-  ::close(2);
-  ::dup(pty.getSlaveMasterPipe().outputStream().getFileDescriptor().getFileNumber());
-
-  pty.close();
 }
 
 int 
 sk::sys::PtyProcess::Listener::
 processStopping()
 {
-  pty.getMasterSlavePipe().outputStream().close();
-  return 1;
+  return 0;
 }
 
 void 
 sk::sys::PtyProcess::Listener::
 processJoining()
 {
-  pty.getMasterSlavePipe().outputStream().close();
 }

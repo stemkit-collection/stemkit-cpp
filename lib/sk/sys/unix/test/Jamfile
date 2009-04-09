@@ -2,6 +2,7 @@
 test = sk-sys-test ;
 
 test-objects = 
+  ProcessTest.cc
   PipeProcessTest.cc
   PtyProcessTest.cc
   PipelineTest.cc
