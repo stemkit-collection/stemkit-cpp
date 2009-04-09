@@ -12,16 +12,38 @@
 #include <sk/util/String.h>
 
 #include <sk/rt/SystemException.h>
+#include <windows.h>
+#include <sstream>
 
 static const char* __className("sk::rt::SystemException");
 
+namespace {
+  const sk::util::String getErrorString(uint32_t errorCode) {
+	int flags = FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS;
+    char* s;
+	int n = FormatMessage(flags, 0, errorCode, 0, LPTSTR(&s), 0, 0);
+ 
+    std::stringstream stream;
+	if(n == 0) {
+      stream << "Error " << errorCode << "(no message found)";
+    }
+    else {
+      stream << s;
+      LocalFree(s);
+    }
+    return stream.str();
+  }
+}
+
 sk::rt::SystemException::
-SystemException()
+SystemException(const sk::util::String& message)
+  : sk::util::Exception(join(join(join("Runtime", message), GetLastError()), getErrorString(GetLastError()))), _code(GetLastError())
 {
 }
 
 sk::rt::SystemException::
-~SystemException()
+SystemException(const sk::util::String& message, uint32_t code)
+  : sk::util::Exception(join(join(join("Runtime", message), code), getErrorString(code))), _code(code)
 {
 }
 
@@ -30,4 +52,11 @@ sk::rt::SystemException::
 getClass() const
 {
   return sk::util::Class(__className);
+}
+
+uint32_t
+sk::rt::SystemException::
+getCode() const
+{
+  return _code;
 }
