@@ -3,6 +3,7 @@ local library = sk.sys.unix ;
 
 local objects = 
   Process.cc
+  PtyProcess.cc
 ;
 
 make-library $(library) : $(objects) ;

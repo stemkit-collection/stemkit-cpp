@@ -5,7 +5,6 @@ local objects =
   AbstractProcessListener.cc
   DelegatingExecutable.cc
   PipeProcess.cc
-  PtyProcess.cc
   Pipeline.cc
   Group.cc
   User.cc
