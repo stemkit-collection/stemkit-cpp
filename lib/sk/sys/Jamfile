@@ -7,7 +7,6 @@ local objects =
   PipeProcess.cc
   Pipeline.cc
   Group.cc
-  User.cc
 ;
 
 make-library $(library) : $(objects) ;
