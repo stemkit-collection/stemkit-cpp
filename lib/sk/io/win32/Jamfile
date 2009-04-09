@@ -1,0 +1,10 @@
+
+local library = sk.io.win32 ;
+
+objects = 
+  AnonymousPipe.cc
+  TtyDevice.cc
+  Pty.cc
+;
+
+make-library $(library) : $(objects) ;

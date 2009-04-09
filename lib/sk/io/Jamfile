@@ -31,10 +31,14 @@ objects =
 make-library $(library) : $(objects) ;
 make-subdir test ;
 
-if ! windows in $(project.PLATFORM_SPECIFICS) {
-  make-subdir unix ;
-  add-project-library $(library) : $(library).unix ;
+local implementation ;
+if windows in $(project.PLATFORM_SPECIFICS) {
+  implementation = win32 ;
 }
+else implementation = unix ;
+
+make-subdir $(implementation) ;
+add-project-library $(library) : $(library).$(implementation) ;
 
 probes = 
   pty-probe
