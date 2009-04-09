@@ -1,5 +1,5 @@
 
-library = sk.rt ;
+local library = sk.rt ;
 
 objects = 
   Scope.cc
@@ -8,5 +8,9 @@ objects =
 local INCLUDES = $(INCLUDES) $(system.SRCDIR) ;
 
 make-library $(library) : $(objects) ;
+
+make-subdirs $(PLATFORM_IMPLEMENTATION) ;
+add-project-library $(library) : $(library).$(PLATFORM_IMPLEMENTATION) ;
+
 make-subdirs scope logger config bundle tests ;
 make-subdirs thread ;

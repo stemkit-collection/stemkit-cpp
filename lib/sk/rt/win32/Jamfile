@@ -1,0 +1,8 @@
+
+local library = sk.rt.win32 ;
+
+objects = 
+  SystemException.cc
+;
+
+make-library $(library) : $(objects) ;
