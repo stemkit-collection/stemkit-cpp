@@ -1,8 +1,7 @@
 
-library = sk.sys ;
+local library = sk.sys ;
 
-objects = 
-  Process.cc
+local objects = 
   AbstractProcessListener.cc
   DelegatingExecutable.cc
   PipeProcess.cc
@@ -15,6 +14,9 @@ objects =
 make-library $(library) : $(objects) ;
 make-subdir test ;
 
+make-subdirs $(PLATFORM_IMPLEMENTATION) ;
+add-project-library $(library) : $(library).$(PLATFORM_IMPLEMENTATION) ;
+
 probes = 
   user-probe
 ;
@@ -22,5 +24,5 @@ use-project-library $(probes) : sk.sys sk.rt.bundle sk.io sk.util ;
 
 local _probe ;
 for _probe in $(probes) {
-  make-program $(_probe) : $(_probe).cc $(objects) ;
+  make-program $(_probe) : $(_probe).cc ;
 }

@@ -1,0 +1,8 @@
+
+local library = sk.sys.unix ;
+
+local objects = 
+  Process.cc
+;
+
+make-library $(library) : $(objects) ;
