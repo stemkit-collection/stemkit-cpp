@@ -1,6 +1,6 @@
 # vim: sw=2:
 
-library = sk.io ;
+local library = sk.io ;
 
 objects = 
   AbstractInputStream.cc

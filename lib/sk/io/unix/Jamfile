@@ -1,5 +1,5 @@
 
-library = sk.io.unix ;
+local library = sk.io.unix ;
 
 objects = 
   AnonymousPipe.cc
