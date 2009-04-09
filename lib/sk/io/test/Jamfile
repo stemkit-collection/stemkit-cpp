@@ -8,8 +8,6 @@ test-objects =
   ByteArrayOutputStreamTest.cc
   DataInputStreamTest.cc
   DataOutputStreamTest.cc
-  FileDescriptorTest.cc
-  FileDescriptorStreamsTest.cc
   FileTest.cc
   FileStreamsTest.cc
   BufferedInputStreamTest.cc

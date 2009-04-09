@@ -1,4 +1,5 @@
-/*  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
+/*  vi: sw=2:
+ *  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
  *  
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
@@ -14,8 +15,6 @@
 #include <sk/io/FileDescriptorInputStream.h>
 #include <sk/io/DataInputStream.h>
 #include <sk/io/EOFException.h>
-
-#include <signal.h>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::io::test::AnonymousPipeTest);
 
@@ -39,7 +38,7 @@ void
 sk::io::test::AnonymousPipeTest::
 tearDown()
 {
-  signal(SIGPIPE, SIG_DFL);
+  sk::io::AnonymousPipe::resetSignals();
 }
 
 void
@@ -78,6 +77,6 @@ testCloseInput()
   AnonymousPipe pipe;
 
   pipe.closeInput();
-  signal(SIGPIPE, SIG_IGN);
+  sk::io::AnonymousPipe::ignoreSignals();
   CPPUNIT_ASSERT_THROW(pipe.outputStream().write(0), sk::io::IOException);
 }

@@ -10,3 +10,15 @@ objects =
 ;
 
 make-library $(library) : $(objects) ;
+make-subdirs test ;
+
+probes = 
+  pty-probe
+;
+
+use-project-libraries $(probes) : sk.io sk.rt.bundle sk.util ;
+
+local _probe ;
+for _probe in $(probes) {
+  make-program $(_probe) : $(_probe).cc ;
+}

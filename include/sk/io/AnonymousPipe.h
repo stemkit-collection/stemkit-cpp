@@ -22,6 +22,9 @@ namespace sk {
         
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
+
+        static void ignoreSignals();
+        static void resetSignals();
         
       private:
         AnonymousPipe(const AnonymousPipe& other);

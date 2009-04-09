@@ -1,0 +1,13 @@
+
+test = sk-io-unix-test ;
+
+test-objects = 
+  FileDescriptorTest.cc
+  FileDescriptorStreamsTest.cc
+  TestSuite.cc
+;
+
+use-project-library $(test) : sk.cppunit sk.io sk.rt.bundle sk.util ;
+
+use-unit-test $(test) $(test-objects) ;
+make-cpp-test $(test) : $(test-objects) ;

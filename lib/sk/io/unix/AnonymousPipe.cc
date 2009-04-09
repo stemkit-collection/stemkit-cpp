@@ -12,6 +12,7 @@
 #include <sk/io/AnonymousPipe.h>
 
 #include <unistd.h>
+#include <signal.h>
 
 sk::io::AnonymousPipe::
 AnonymousPipe()
@@ -37,4 +38,18 @@ sk::io::AnonymousPipe::
 getClass() const
 {
   return sk::util::Class("sk::io::AnonymousPipe");
+}
+
+void
+sk::io::AnonymousPipe::
+resetSignals()
+{
+  signal(SIGPIPE, SIG_DFL);
+}
+
+void
+sk::io::AnonymousPipe::
+ignoreSignals()
+{
+  signal(SIGPIPE, SIG_IGN);
 }

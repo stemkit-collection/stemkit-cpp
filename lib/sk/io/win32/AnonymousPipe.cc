@@ -31,3 +31,15 @@ getClass() const
 {
   return sk::util::Class("sk::io::AnonymousPipe");
 }
+
+void
+sk::io::AnonymousPipe::
+resetSignals()
+{
+}
+
+void
+sk::io::AnonymousPipe::
+ignoreSignals()
+{
+}
