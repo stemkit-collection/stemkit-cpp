@@ -20,7 +20,7 @@
 #include <sk/sys/User.h>
 #include <iostream>
 
-const char* __className("sk::sys::User");
+static const char* __className("sk::sys::User");
 
 sk::sys::User::
 User(const struct passwd& entry)

@@ -14,6 +14,7 @@
 
 #include "Mutex.h"
 #include "Exception.h"
+#include <errno.h>
 
 static const char* __className("sk::rt::thread::pthreads::Mutex");
 

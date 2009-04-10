@@ -12,6 +12,7 @@
 #include "../Mutex.h"
 #include "../Exception.h"
 #include <sk/util/Holder.cxx>
+#include <errno.h>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::rt::thread::pthreads::tests::MutexTest);
 
@@ -48,6 +49,6 @@ testUnlockFailsOnNonLocked()
   }
   catch(const pthreads::Exception& exception) {
     CPPUNIT_ASSERT_EQUAL("pthread_mutex_unlock", exception.getFunctionName());
-    CPPUNIT_ASSERT_EQUAL(EPERM, exception.getCode());
+    CPPUNIT_ASSERT_EQUAL(uint32_t(EPERM), exception.getCode());
   }
 }

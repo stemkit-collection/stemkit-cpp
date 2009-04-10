@@ -16,12 +16,13 @@
 namespace sk {
   namespace rt {
     class SystemException 
-      : public virtual sk::util::Exception
+      : public sk::util::Exception
     {
       public:
         SystemException(const sk::util::String& message);
         SystemException(const sk::util::String& message, uint32_t code);
 
+        static bool raiseUnlessSuccess(const sk::util::String& statement, int status, int other = 0);
         uint32_t getCode() const;
     
         // sk::util::Object re-implementation.
@@ -32,5 +33,8 @@ namespace sk {
     };
   }
 }
+
+#define SK_RT_SYSTEM_RAISE_UNLESS_SUCCESS(statement) sk::rt::SystemException::raiseUnlessSuccess(#statement, statement)
+#define SK_RT_SYSTEM_RAISE_UNLESS_SUCCESS_OR(other, statement) sk::rt::SystemException::raiseUnlessSuccess(#statement, statement, other)
 
 #endif /* _SK_RT_SYSTEMEXCEPTION_H_ */

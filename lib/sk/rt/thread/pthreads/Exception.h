@@ -11,14 +11,14 @@
 #ifndef _SK_RT_THREAD_PTHREADS_EXCEPTION_H_
 #define _SK_RT_THREAD_PTHREADS_EXCEPTION_H_
 
-#include <sk/util/SystemException.h>
+#include <sk/rt/SystemException.h>
 
 namespace sk {
   namespace rt {
     namespace thread {
       namespace pthreads {
         class Exception 
-          : public sk::util::SystemException
+          : public sk::rt::SystemException
         {
           public:
             Exception(const sk::util::String& function, int code);

@@ -41,3 +41,16 @@ getCode() const
 {
   return _code;
 }
+
+bool
+sk::rt::SystemException::
+raiseUnlessSuccess(const sk::util::String& statement, int status, int other)
+{
+  if(status < 0) {
+    if(errno == other) {
+      return false;
+    }
+    throw SystemException(statement.substring(0, statement.indexOf('(')).trim());
+  }
+  return true;
+}

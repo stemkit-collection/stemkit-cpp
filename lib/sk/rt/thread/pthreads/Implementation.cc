@@ -121,5 +121,5 @@ void
 sk::rt::thread::pthreads::Implementation::
 yield() const
 {
-  SK_SYSTEM_RAISE_UNLESS_SUCCESS(sched_yield());
+  SK_RT_SYSTEM_RAISE_UNLESS_SUCCESS(sched_yield());
 }

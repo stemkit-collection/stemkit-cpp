@@ -17,7 +17,7 @@ static const char* __className("sk::rt::thread::pthreads::Exception");
 
 sk::rt::thread::pthreads::Exception::
 Exception(const sk::util::String& function, int code)
-  : _function(function), SystemException(function, code)
+  : _function(function), sk::rt::SystemException(function, code)
 {
 }
 
