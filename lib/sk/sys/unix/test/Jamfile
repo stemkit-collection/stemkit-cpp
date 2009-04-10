@@ -3,11 +3,6 @@ test = sk-sys-test ;
 
 test-objects = 
   ProcessTest.cc
-  PipeProcessTest.cc
-  PtyProcessTest.cc
-  PipelineTest.cc
-  UserTest.cc
-  GroupTest.cc
   TestSuite.cc
 ;
 
