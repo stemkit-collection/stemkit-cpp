@@ -31,7 +31,7 @@ namespace {
       stream << s;
       LocalFree(s);
     }
-    return stream.str();
+    return sk::util::String(stream.str()).trim();
   }
 }
 

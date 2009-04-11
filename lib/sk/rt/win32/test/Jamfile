@@ -1,0 +1,11 @@
+
+local test = sk-rt-win32-test ;
+
+local objects = 
+  TestSuite.cc
+  SystemExceptionTest.cc
+;
+
+use-unit-test $(test) $(objects) ;
+use-project-libraries $(test) : sk.rt.bundle sk.cppunit sk.util ;
+make-cpp-test $(test) : $(objects) ;
