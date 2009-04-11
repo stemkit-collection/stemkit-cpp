@@ -1,7 +1,7 @@
 
 local library = sk.rt.win32 ;
 
-objects = 
+local objects = 
   SystemException.cc
 ;
 

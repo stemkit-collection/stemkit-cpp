@@ -12,6 +12,7 @@
 #include <sk/util/String.h>
 #include <sk/util/IllegalStateException.h>
 #include <sk/util/SystemExit.h>
+#include <sk/rt/SystemException.h>
 
 #include "Thread.h"
 
@@ -48,24 +49,6 @@ sk::rt::thread::win32::Thread::
   sk::util::Exception::guard(_scope.warning(__FUNCTION__), *this, &Thread::cleanup);
 }
 
-namespace {
-  const sk::util::String getErrorString(int errorCode) {
-	int flags = FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS;
-    char* s;
-	int n = FormatMessage(flags, 0, errorCode, 0, LPTSTR(&s), 0, 0);
- 
-    std::stringstream stream;
-	if(n == 0) {
-      stream << "Error " << errorCode << "(no message found)";
-    }
-    else {
-      stream << s;
-      LocalFree(s);
-    }
-    return stream.str();
-  }
-}
-
 void 
 sk::rt::thread::win32::Thread::
 cleanup()
@@ -75,7 +58,7 @@ cleanup()
       // No action here as the handle will always be invalid after the actual
       // thread is terminated.
       //
-      // throw sk::util::IllegalStateException("Cannot close thread handle: " + getErrorString(GetLastError()));
+      // throw sk::rt::SystemException("Cannot close thread handle");
     }
   }
 }
