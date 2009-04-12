@@ -1,11 +1,9 @@
+# vim: ft=jam:
 
 test = sk-sys-test ;
 
 test-objects = 
-  PipeProcessTest.cc
-  PtyProcessTest.cc
   PipelineTest.cc
-  UserTest.cc
   GroupTest.cc
   TestSuite.cc
 ;
