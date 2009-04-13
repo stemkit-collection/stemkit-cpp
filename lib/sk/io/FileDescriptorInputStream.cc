@@ -1,4 +1,5 @@
-/*  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
+/*  vim: sw=2:
+ *  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
  *  
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
@@ -23,8 +24,21 @@ FileDescriptorInputStream(const sk::io::FileDescriptor& descriptor)
 }
 
 sk::io::FileDescriptorInputStream::
+FileDescriptorInputStream(const sk::io::FileDescriptorInputStream& other)
+  : _descriptor(other._descriptor)
+{
+}
+
+sk::io::FileDescriptorInputStream::
 ~FileDescriptorInputStream()
 {
+}
+
+sk::io::FileDescriptorInputStream*
+sk::io::FileDescriptorInputStream::
+clone() const
+{
+  return new sk::io::FileDescriptorInputStream(*this);
 }
 
 const sk::util::Class

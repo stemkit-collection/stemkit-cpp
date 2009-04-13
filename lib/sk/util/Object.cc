@@ -39,7 +39,7 @@ sk::util::Object*
 sk::util::Object::
 clone() const
 {
-  throw sk::util::UnsupportedOperationException(getClass().getName() + '#' + "clone()");
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
 }
 
 const sk::util::Class

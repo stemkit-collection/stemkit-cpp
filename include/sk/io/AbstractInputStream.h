@@ -22,6 +22,7 @@ namespace sk {
       public:
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
+        AbstractInputStream* clone() const;
 
         // sk::io::InputStream implementation.
         virtual int read(char* buffer, int offset, int length) = 0;

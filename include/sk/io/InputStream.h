@@ -55,6 +55,10 @@ namespace sk {
         /// Repositions this stream to the position at the time the mark
         /// method was last called on this input stream.
         virtual void reset() = 0;
+
+        /// Instantiates another object of the same class as a copy 
+        /// of itself.
+        virtual InputStream* clone() const = 0;
     };
   }
 }

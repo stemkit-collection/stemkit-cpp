@@ -1,4 +1,5 @@
-/*  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
+/*  vi: sw=2:
+ *  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
  *  
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
@@ -20,6 +21,13 @@ getClass() const
   return sk::util::Class("sk::io::AbstractInputStream");
 }
 
+sk::io::AbstractInputStream*
+sk::io::AbstractInputStream::
+clone() const
+{
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
+}
+
 bool
 sk::io::AbstractInputStream::
 markSupported() const
@@ -31,21 +39,21 @@ void
 sk::io::AbstractInputStream::
 mark(int readlimit) 
 {
-  throw sk::util::UnsupportedOperationException("sk::io::AbstractInputStream::mark()");
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
 }
 
 void 
 sk::io::AbstractInputStream::
 reset()
 {
-  throw sk::util::UnsupportedOperationException("sk::io::AbstractInputStream::reset()");
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
 }
 
 long long
 sk::io::AbstractInputStream::
 available() const
 {
-  throw sk::util::UnsupportedOperationException("sk::io::AbstractInputStream::available()");
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
 }
 
 /* 
