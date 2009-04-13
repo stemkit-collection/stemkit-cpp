@@ -26,21 +26,21 @@
 #include <string.h>
 
 sk::sys::Process::
-Process(sk::io::FileDescriptorInputStream& inputStream, const sk::util::StringArray& cmdline, ProcessListener& listener)
+Process(sk::io::InputStream& inputStream, const sk::util::StringArray& cmdline, ProcessListener& listener)
   : _scope(*this), _listener(listener)
 {
   start(inputStream, cmdline);
 }
 
 sk::sys::Process::
-Process(sk::io::FileDescriptorInputStream& inputStream, ProcessListener& listener)
+Process(sk::io::InputStream& inputStream, ProcessListener& listener)
   : _scope(*this), _listener(listener)
 {
   start(inputStream, sk::util::StringArray());
 }
 
 sk::sys::Process::
-Process(sk::io::FileDescriptorInputStream& inputStream, const sk::util::StringArray& cmdline)
+Process(sk::io::InputStream& inputStream, const sk::util::StringArray& cmdline)
   : _scope(*this), _listener(*this)
 {
   start(inputStream, cmdline);
@@ -92,7 +92,7 @@ namespace {
   };
 }
 
-sk::io::FileDescriptorInputStream&
+sk::io::InputStream&
 sk::sys::Process::
 defaultInputStream()
 {
@@ -102,7 +102,7 @@ defaultInputStream()
 
 void
 sk::sys::Process::
-start(sk::io::FileDescriptorInputStream& inputStream, const sk::util::StringArray& cmdline)
+start(sk::io::InputStream& inputStream, const sk::util::StringArray& cmdline)
 {
   _pid = fork();
 
@@ -112,7 +112,7 @@ start(sk::io::FileDescriptorInputStream& inputStream, const sk::util::StringArra
   if(_pid == 0) {
     try {
       ::close(0);
-      ::dup(inputStream.getFileDescriptor().getFileNumber());
+      sk::util::Holder<sk::io::InputStream> stdinHolder(inputStream.clone());
       inputStream.close();
 
       _listener.processStarting();

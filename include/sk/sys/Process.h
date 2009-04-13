@@ -23,9 +23,9 @@ namespace sk {
         public virtual sk::sys::ProcessListener
     {
       public:
-        Process(sk::io::FileDescriptorInputStream& inputStream, const sk::util::StringArray& cmdline, ProcessListener& listener);
-        Process(sk::io::FileDescriptorInputStream& inputStream, const sk::util::StringArray& cmdline);
-        Process(sk::io::FileDescriptorInputStream& inputStream, ProcessListener& listener);
+        Process(sk::io::InputStream& inputStream, const sk::util::StringArray& cmdline, ProcessListener& listener);
+        Process(sk::io::InputStream& inputStream, const sk::util::StringArray& cmdline);
+        Process(sk::io::InputStream& inputStream, ProcessListener& listener);
         Process(const sk::util::StringArray& cmdline, ProcessListener& listener);
         Process(const sk::util::StringArray& cmdline);
         Process(ProcessListener& listener);
@@ -53,14 +53,14 @@ namespace sk {
         Process(const Process& other);
         Process& operator = (const Process& other);
 
-        void start(sk::io::FileDescriptorInputStream& inputStream, const sk::util::StringArray& cmdline);
+        void start(sk::io::InputStream& inputStream, const sk::util::StringArray& cmdline);
         bool signalUnlessTerminates(int timeout, int signal);
-        sk::io::FileDescriptorInputStream& defaultInputStream();
+        sk::io::InputStream& defaultInputStream();
         void assertNotAlive() const;
 
         const sk::rt::Scope _scope;
         sk::sys::ProcessListener& _listener;
-        sk::util::Holder<sk::io::FileDescriptorInputStream> _defaultInputStreamHolder;
+        sk::util::Holder<sk::io::InputStream> _defaultInputStreamHolder;
         int _pid;
         int _status;
     };
