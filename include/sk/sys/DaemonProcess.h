@@ -15,33 +15,41 @@
 #include <sk/util/Holder.hxx>
 #include <sk/util/StringArray.h>
 #include <sk/sys/DelegatingExecutable.h>
+#include <sk/sys/ProcessListener.h>
 #include <sk/rt/Scope.h>
 
 namespace sk {
   namespace sys {
     class DaemonProcess 
-      : public sk::sys::DelegatingExecutable
+      : public sk::sys::DelegatingExecutable,
+        public virtual sk::sys::ProcessListener
     {
       public:
         DaemonProcess(const sk::util::StringArray& cmdline);
         virtual ~DaemonProcess();
+
+        void start();
     
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
     
       protected:
+        // sk::sys::DelegatingExecutable implementation.
         sk::sys::Executable& getExecutable();
         const sk::sys::Executable& getExecutable() const;
+
+        // sk::sys::ProcessListener implementation.
+        void processStarting();
+        int processStopping();
+        void processJoining();
 
       private:
         DaemonProcess(const DaemonProcess& other);
         DaemonProcess& operator = (const DaemonProcess& other);
 
-        struct Listener;
-
         const sk::rt::Scope _scope;
-        sk::util::Holder<Listener> _listenerHolder;
         sk::util::Holder<sk::sys::Executable>  _executableHolder;
+        const sk::util::StringArray _cmdline;
     };
   }
 }
