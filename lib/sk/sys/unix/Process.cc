@@ -200,7 +200,9 @@ signalUnlessTerminates(int timeout, int signal)
       }
     }
   }
-  ::kill(_pid, signal);
+  if(::kill(_pid, signal) != 0) {
+    throw sk::rt::SystemException("kill:" + sk::util::String::valueOf(_pid) + ":" + sk::util::String::valueOf(signal));
+  }
   return true;
 }
 

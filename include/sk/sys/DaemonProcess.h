@@ -30,10 +30,15 @@ namespace sk {
         virtual ~DaemonProcess();
 
         void start();
+        void startDetached();
     
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
     
+        // sk::sys::DelegatingExecutable re-implementation.
+        bool isAlive() const;
+        void detach();
+
       protected:
         // sk::sys::DelegatingExecutable implementation.
         sk::sys::Executable& getExecutable();
@@ -52,6 +57,7 @@ namespace sk {
         sk::util::Holder<sk::sys::Executable>  _executableHolder;
         const sk::util::StringArray _cmdline;
         sk::io::AnonymousPipe _pipe;
+        bool _detached;
     };
   }
 }

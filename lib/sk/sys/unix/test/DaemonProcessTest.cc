@@ -39,5 +39,9 @@ void
 sk::sys::test::DaemonProcessTest::
 testBasics()
 {
-  sk::sys::DaemonProcess process("true");
+  sk::sys::DaemonProcess process(sk::util::StringArray("sleep") << "3600");
+  CPPUNIT_ASSERT_EQUAL(false, process.isAlive());
+  process.start();
+
+  CPPUNIT_ASSERT_EQUAL(true, process.isAlive());
 }

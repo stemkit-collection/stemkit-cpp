@@ -42,6 +42,8 @@ namespace sk {
         ManagedProcess(const ManagedProcess& other);
         ManagedProcess& operator = (const ManagedProcess& other);
 
+        bool terminate(int signal);
+
         pid_t _pid;
     };
   }

@@ -24,19 +24,50 @@ static const char* __className("sk::sys::DaemonProcess");
 
 sk::sys::DaemonProcess::
 DaemonProcess(const sk::util::StringArray& cmdline)
-  : _scope(__className), _cmdline(cmdline)
+  : _scope(__className), _cmdline(cmdline), _detached(false)
 {
 }
 
 sk::sys::DaemonProcess::
 ~DaemonProcess()
 {
+  if(_detached == false && _executableHolder.isEmpty() == false) {
+    sk::util::Exception::guard(_scope.warning(SK_METHOD), *this, &sk::sys::DaemonProcess::stop);
+  }
+}
+
+bool
+sk::sys::DaemonProcess::
+isAlive() const
+{
+  if(_executableHolder.isEmpty() == true) {
+    return false;
+  }
+  return _executableHolder.get().isAlive();
+}
+
+void
+sk::sys::DaemonProcess::
+detach()
+{
+  _detached = true;
+}
+
+void 
+sk::sys::DaemonProcess::
+startDetached()
+{
+  _detached = true;
+  start();
 }
 
 void 
 sk::sys::DaemonProcess::
 start()
 {
+  if(_executableHolder.isEmpty() == false) {
+    throw sk::util::IllegalStateException("Process already started");
+  }
   sk::sys::Process process(*this);
   _pipe.outputStream().close();
   sk::io::DataInputStream stream(_pipe.inputStream());
@@ -59,30 +90,55 @@ sk::sys::Executable&
 sk::sys::DaemonProcess::
 getExecutable()
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  if(_executableHolder.isEmpty() == true) {
+    throw sk::util::IllegalStateException("Process not started");
+  }
+  return _executableHolder.get();
 }
 
 const sk::sys::Executable& 
 sk::sys::DaemonProcess::
 getExecutable() const
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  if(_executableHolder.isEmpty() == true) {
+    throw sk::util::IllegalStateException("Process not started");
+  }
+  return _executableHolder.get();
+}
+
+namespace {
+  struct FileDescriptorSweeper : public virtual sk::sys::ProcessListener {
+    void processStarting() {
+      {
+        sk::io::File trash("/dev/null", "r+");
+        ::close(0);
+        ::close(1);
+        ::close(2);
+
+        ::dup(trash.getFileDescriptor().getFileNumber());
+        ::dup(trash.getFileDescriptor().getFileNumber());
+        ::dup(trash.getFileDescriptor().getFileNumber());
+      }
+      for(int fd=3; fd<1024 ;++fd) {
+        ::close(fd);
+      }
+    }
+    int processStopping() {
+      return 0;
+    }
+    void processJoining() {
+    }
+  };
 }
 
 void 
 sk::sys::DaemonProcess::
 processStarting() 
 {
-  for(int fd=0; fd<256 ;fd++) {
-    ::close(fd);
-  }
-  sk::io::File trash("/dev/null", "r+");
-  ::dup(trash.getFileDescriptor().getFileNumber());
-  ::dup(trash.getFileDescriptor().getFileNumber());
-
   ::setsid();
 
-  sk::sys::Process process(_cmdline);
+  FileDescriptorSweeper sweeper;
+  sk::sys::Process process(_cmdline, sweeper);
   _pipe.inputStream().close();
   sk::io::DataOutputStream stream(_pipe.outputStream());
   stream.writeInt(process.getPid());
@@ -94,7 +150,7 @@ int
 sk::sys::DaemonProcess::
 processStopping() 
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  return 0;
 }
 
 void 

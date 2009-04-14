@@ -11,8 +11,12 @@
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
 #include <sk/util/UnsupportedOperationException.h>
+#include <sk/util/IllegalStateException.h>
+#include <sk/rt/SystemException.h>
 
 #include "ManagedProcess.h"
+#include <unistd.h>
+#include <signal.h>
 
 static const char* __className("sk::sys::ManagedProcess");
 
@@ -45,21 +49,37 @@ void
 sk::sys::ManagedProcess::
 stop()
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  if(terminate(SIGTERM) == false) {
+    if(terminate(SIGKILL) == false) {
+      throw sk::rt::SystemException("Cannot stop process:" + sk::util::String::valueOf(_pid));
+    }
+  }
+}
+
+bool
+sk::sys::ManagedProcess::
+terminate(int signal)
+{
+  if(::kill(_pid, signal) != 0) {
+    throw sk::rt::SystemException("kill:" + sk::util::String::valueOf(_pid) + ":" + sk::util::String::valueOf(signal));
+  }
+  sleep(1);
+  return isAlive() == false;
 }
 
 void 
 sk::sys::ManagedProcess::
 join()
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  while(isAlive() == true) {
+    sleep(3);
+  }
 }
 
 void 
 sk::sys::ManagedProcess::
 detach()
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
 }
 
 bool 
@@ -87,7 +107,7 @@ bool
 sk::sys::ManagedProcess::
 isAlive() const
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  return ::kill(_pid, 0) == 0;
 }
 
 int 

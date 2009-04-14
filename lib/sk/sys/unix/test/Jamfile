@@ -1,7 +1,8 @@
+# vim: ft=jam:
 
-test = sk-sys-test ;
+local test = sk-sys-test ;
 
-test-objects = 
+local test-objects = 
   ProcessTest.cc
   UserTest.cc
   PtyProcessTest.cc
