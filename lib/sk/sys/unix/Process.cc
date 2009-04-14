@@ -25,6 +25,7 @@
 #include <iostream>
 #include <sys/time.h>
 #include <string.h>
+#include <errno.h>
 
 sk::sys::Process::
 Process(sk::io::InputStream& inputStream, const sk::util::StringArray& cmdline, ProcessListener& listener)
@@ -200,7 +201,7 @@ signalUnlessTerminates(int timeout, int signal)
       }
     }
   }
-  if(::kill(_pid, signal) != 0) {
+  if(::kill(_pid, signal) != 0 && errno != ESRCH) {
     throw sk::rt::SystemException("kill:" + sk::util::String::valueOf(_pid) + ":" + sk::util::String::valueOf(signal));
   }
   return true;

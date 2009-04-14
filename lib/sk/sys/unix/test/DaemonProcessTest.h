@@ -21,7 +21,10 @@ namespace sk {
         : public CppUnit::TestFixture
       {
         CPPUNIT_TEST_SUITE(sk::sys::test::DaemonProcessTest);
-          CPPUNIT_TEST(testBasics);
+          CPPUNIT_TEST(testStartStop);
+          CPPUNIT_TEST(testDestroyKillsProcess);
+          CPPUNIT_TEST(testDestroyLeavesProcessWhenStartedDetached);
+          CPPUNIT_TEST(testDestroyLeavesProcessWhenExplicitlyDetached);
         CPPUNIT_TEST_SUITE_END();
       
         public:
@@ -30,7 +33,10 @@ namespace sk {
       
           void setUp();
           void tearDown();
-          void testBasics();
+          void testStartStop();
+          void testDestroyKillsProcess();
+          void testDestroyLeavesProcessWhenStartedDetached();
+          void testDestroyLeavesProcessWhenExplicitlyDetached();
       
         private:
           DaemonProcessTest(const DaemonProcessTest& other);

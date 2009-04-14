@@ -17,6 +17,7 @@
 #include "ManagedProcess.h"
 #include <unistd.h>
 #include <signal.h>
+#include <errno.h>
 
 static const char* __className("sk::sys::ManagedProcess");
 
@@ -60,7 +61,7 @@ bool
 sk::sys::ManagedProcess::
 terminate(int signal)
 {
-  if(::kill(_pid, signal) != 0) {
+  if(::kill(_pid, signal) != 0 && errno != ESRCH) {
     throw sk::rt::SystemException("kill:" + sk::util::String::valueOf(_pid) + ":" + sk::util::String::valueOf(signal));
   }
   sleep(1);
