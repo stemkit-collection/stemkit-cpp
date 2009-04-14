@@ -108,7 +108,7 @@ sk::sys::Process::
 start(sk::io::InputStream& inputStream, const sk::util::StringArray& cmdline)
 {
   _detached = false;
-  _started = true;
+  _running = false;
 
   _pid = fork();
 
@@ -137,6 +137,7 @@ start(sk::io::InputStream& inputStream, const sk::util::StringArray& cmdline)
     }
     _exit(1);
   }
+  _running = true;
   inputStream.close();
 }
 
@@ -167,7 +168,7 @@ stop()
     }
     catch(const std::exception& exception) {}
   }
-  _pid = -1;
+  _running = false;
 }
 
 bool
@@ -226,7 +227,7 @@ join()
       "waitpid() returned " + sk::util::String::valueOf(result) + ", expected pid " + sk::util::String::valueOf(_pid)
     );
   }
-  _pid = -1;
+  _running = false;
 }
 
 void
@@ -292,6 +293,6 @@ bool
 sk::sys::Process::
 isAlive() const
 {
-  return _pid != -1;
+  return _running == true;
 }
 

@@ -65,7 +65,7 @@ namespace sk {
         int _pid;
         int _status;
         bool _detached;
-        bool _started;
+        bool _running;
     };
   }
 }
