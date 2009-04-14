@@ -4,6 +4,7 @@ local library = sk.sys.win32 ;
 local objects = 
   Process.cc
   PtyProcess.cc
+  DaemonProcess.cc
   User.cc
 ;
 
