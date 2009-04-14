@@ -43,6 +43,13 @@ join()
   getExecutable().join();
 }
 
+void 
+sk::sys::DelegatingExecutable::
+detach()
+{
+  getExecutable().detach();
+}
+
 bool 
 sk::sys::DelegatingExecutable::
 isSuccess() const

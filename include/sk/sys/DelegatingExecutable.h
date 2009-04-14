@@ -25,6 +25,7 @@ namespace sk {
         // sk::sys::Executable implementation.
         void stop();
         void join();
+        void detach();
         bool isSuccess() const;
         bool isExited() const;
         bool isKilled() const;

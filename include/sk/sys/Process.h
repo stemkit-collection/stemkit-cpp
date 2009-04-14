@@ -34,6 +34,7 @@ namespace sk {
         // sk::sys::Executable implementation.
         void stop();
         void join();
+        void detach();
         bool isSuccess() const;
         bool isExited() const;
         bool isKilled() const;
@@ -63,6 +64,8 @@ namespace sk {
         sk::util::Holder<sk::io::InputStream> _defaultInputStreamHolder;
         int _pid;
         int _status;
+        bool _detached;
+        bool _started;
     };
   }
 }

@@ -1,4 +1,5 @@
-/*  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
+/*  vi: sw=2:
+ *  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
  *  
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
@@ -8,6 +9,7 @@
 #include <sk/util/Class.h>
 #include <sk/util/Holder.cxx>
 #include <sk/util/IllegalStateException.h>
+#include <sk/util/UnsupportedOperationException.h>
 #include <sk/rt/SystemException.h>
 
 #include <sk/sys/Process.h>
@@ -69,7 +71,9 @@ Process(const sk::util::StringArray& cmdline)
 sk::sys::Process::
 ~Process()
 {
-  sk::util::Exception::guard(_scope.warning(SK_METHOD), *this, &sk::sys::Process::stop);
+  if(_detached == false) {
+    sk::util::Exception::guard(_scope.warning(SK_METHOD), *this, &sk::sys::Process::stop);
+  }
 }
 
 const sk::util::Class
@@ -103,6 +107,9 @@ void
 sk::sys::Process::
 start(sk::io::InputStream& inputStream, const sk::util::StringArray& cmdline)
 {
+  _detached = false;
+  _started = true;
+
   _pid = fork();
 
   if(_pid < 0) {
@@ -220,6 +227,13 @@ join()
     );
   }
   _pid = -1;
+}
+
+void
+sk::sys::Process::
+detach()
+{
+  _detached = true;
 }
 
 bool
