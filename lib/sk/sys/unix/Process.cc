@@ -158,7 +158,7 @@ void
 sk::sys::Process::
 stop() 
 {
-  if(isAlive() == false) {
+  if(_running == false) {
     return;
   }
   if(signalUnlessTerminates(_listener.processStopping(), SIGTERM)) {
@@ -207,7 +207,7 @@ void
 sk::sys::Process::
 join()
 {
-  if(isAlive() == false) {
+  if(_running == false) {
     return;
   }
   _listener.processJoining();
@@ -248,7 +248,7 @@ bool
 sk::sys::Process::
 isExited() const
 {
-  ensureNotAlive();
+  ensureNotRunning();
   return WIFEXITED(_status) ? true : false;
 }
 
@@ -256,16 +256,16 @@ bool
 sk::sys::Process::
 isKilled() const
 {
-  ensureNotAlive();
+  ensureNotRunning();
   return WIFSIGNALED(_status) ? true : false;
 }
 
 void
 sk::sys::Process::
-ensureNotAlive() const
+ensureNotRunning() const
 {
-  if(isAlive() == true) {
-    throw sk::util::IllegalStateException("Process " + sk::util::String::valueOf(_pid) + " still alive");
+  if(_running == true) {
+    throw sk::util::IllegalStateException("Process " + sk::util::String::valueOf(_pid) + " not stopped or joined yet");
   }
 }
 
@@ -293,6 +293,6 @@ bool
 sk::sys::Process::
 isAlive() const
 {
-  return _running == true;
+  return _running == true && ::kill(_pid, 0) == 0;
 }
 

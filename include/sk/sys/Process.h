@@ -57,7 +57,7 @@ namespace sk {
         void start(sk::io::InputStream& inputStream, const sk::util::StringArray& cmdline);
         bool signalUnlessTerminates(int timeout, int signal);
         sk::io::InputStream& defaultInputStream();
-        void ensureNotAlive() const;
+        void ensureNotRunning() const;
 
         const sk::rt::Scope _scope;
         sk::sys::ProcessListener& _listener;
