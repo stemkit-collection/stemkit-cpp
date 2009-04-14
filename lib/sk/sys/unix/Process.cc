@@ -83,6 +83,13 @@ getClass() const
   return sk::util::Class("sk::sys::Process");
 }
 
+int
+sk::sys::Process::
+getPid() const
+{
+  return _pid;
+}
+
 namespace {
   struct ExecArgumentCollector : public virtual sk::util::Processor<const sk::util::String> {
     ExecArgumentCollector(std::vector<char*>& arguments)

@@ -16,6 +16,7 @@
 #include <sk/util/StringArray.h>
 #include <sk/sys/DelegatingExecutable.h>
 #include <sk/sys/ProcessListener.h>
+#include <sk/io/AnonymousPipe.h>
 #include <sk/rt/Scope.h>
 
 namespace sk {
@@ -50,6 +51,7 @@ namespace sk {
         const sk::rt::Scope _scope;
         sk::util::Holder<sk::sys::Executable>  _executableHolder;
         const sk::util::StringArray _cmdline;
+        sk::io::AnonymousPipe _pipe;
     };
   }
 }

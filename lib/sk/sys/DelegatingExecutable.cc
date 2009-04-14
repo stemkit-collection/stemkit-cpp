@@ -91,3 +91,10 @@ signal() const
 {
   return getExecutable().signal();
 }
+
+int 
+sk::sys::DelegatingExecutable::
+getPid() const
+{
+  return getExecutable().getPid();
+}

@@ -12,8 +12,13 @@
 #include <sk/util/String.h>
 #include <sk/util/Holder.cxx>
 #include <sk/util/UnsupportedOperationException.h>
+#include <sk/io/DataInputStream.h>
+#include <sk/io/DataOutputStream.h>
+#include <sk/io/File.h>
 
 #include <sk/sys/DaemonProcess.h>
+#include <sk/sys/Process.h>
+#include "ManagedProcess.h"
 
 static const char* __className("sk::sys::DaemonProcess");
 
@@ -32,7 +37,15 @@ void
 sk::sys::DaemonProcess::
 start()
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  sk::sys::Process process(*this);
+  _pipe.outputStream().close();
+  sk::io::DataInputStream stream(_pipe.inputStream());
+
+  int pid = stream.readInt();
+  process.join();
+
+  _pipe.inputStream().close();
+  _executableHolder.set(new ManagedProcess(pid));
 }
 
 const sk::util::Class
@@ -60,7 +73,21 @@ void
 sk::sys::DaemonProcess::
 processStarting() 
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  for(int fd=0; fd<256 ;fd++) {
+    ::close(fd);
+  }
+  sk::io::File trash("/dev/null", "r+");
+  ::dup(trash.getFileDescriptor().getFileNumber());
+  ::dup(trash.getFileDescriptor().getFileNumber());
+
+  ::setsid();
+
+  sk::sys::Process process(_cmdline);
+  _pipe.inputStream().close();
+  sk::io::DataOutputStream stream(_pipe.outputStream());
+  stream.writeInt(process.getPid());
+  stream.close();
+  process.detach();
 }
 
 int 
@@ -74,5 +101,4 @@ void
 sk::sys::DaemonProcess::
 processJoining() 
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
 }

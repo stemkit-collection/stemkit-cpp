@@ -30,7 +30,7 @@ namespace sk {
         Process(const sk::util::StringArray& cmdline);
         Process(ProcessListener& listener);
         virtual ~Process();
-        
+
         // sk::sys::Executable implementation.
         void stop();
         void join();
@@ -41,6 +41,7 @@ namespace sk {
         bool isAlive() const;
         int exitStatus() const;
         int signal() const;
+        int getPid() const;
 
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;

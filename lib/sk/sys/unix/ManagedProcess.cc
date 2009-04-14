@@ -34,6 +34,13 @@ getClass() const
   return sk::util::Class(__className);
 }
 
+int
+sk::sys::ManagedProcess::
+getPid() const
+{
+  return _pid;
+}
+
 void 
 sk::sys::ManagedProcess::
 stop()

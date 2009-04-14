@@ -25,6 +25,7 @@ namespace sk {
         virtual bool isAlive() const = 0;
         virtual int exitStatus() const = 0;
         virtual int signal() const = 0;
+        virtual int getPid() const = 0;
     };
   }
 }

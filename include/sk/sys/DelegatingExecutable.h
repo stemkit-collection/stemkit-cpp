@@ -32,6 +32,7 @@ namespace sk {
         bool isAlive() const;
         int exitStatus() const;
         int signal() const;
+        int getPid() const;
 
       protected:
         // This way of obtaining an object to delegate to was chosen here over
