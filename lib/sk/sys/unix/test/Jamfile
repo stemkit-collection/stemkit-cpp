@@ -6,6 +6,7 @@ test-objects =
   UserTest.cc
   PtyProcessTest.cc
   PipeProcessTest.cc
+  DaemonProcessTest.cc
   TestSuite.cc
 ;
 
