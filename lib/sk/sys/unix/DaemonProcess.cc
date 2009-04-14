@@ -14,36 +14,25 @@
 #include <sk/util/UnsupportedOperationException.h>
 
 #include <sk/sys/DaemonProcess.h>
-#include <sk/sys/ProcessListener.h>
 
 static const char* __className("sk::sys::DaemonProcess");
 
-struct sk::sys::DaemonProcess::Listener : public virtual sk::sys::ProcessListener {
-  Listener(const sk::util::StringArray& cmdline) 
-    : _cmdline(cmdline) {}
-
-  void processStarting() {
-    throw sk::util::UnsupportedOperationException(__FUNCTION__);
-  }
-  int processStopping() {
-    throw sk::util::UnsupportedOperationException(__FUNCTION__);
-  }
-  void processJoining() {
-    throw sk::util::UnsupportedOperationException(__FUNCTION__);
-  }
-
-  const sk::util::StringArray _cmdline;
-};
-
 sk::sys::DaemonProcess::
 DaemonProcess(const sk::util::StringArray& cmdline)
-  : _scope(__className), _listenerHolder(new Listener(cmdline))
+  : _scope(__className), _cmdline(cmdline)
 {
 }
 
 sk::sys::DaemonProcess::
 ~DaemonProcess()
 {
+}
+
+void 
+sk::sys::DaemonProcess::
+start()
+{
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
 }
 
 const sk::util::Class
@@ -63,6 +52,27 @@ getExecutable()
 const sk::sys::Executable& 
 sk::sys::DaemonProcess::
 getExecutable() const
+{
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
+}
+
+void 
+sk::sys::DaemonProcess::
+processStarting() 
+{
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
+}
+
+int 
+sk::sys::DaemonProcess::
+processStopping() 
+{
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
+}
+
+void 
+sk::sys::DaemonProcess::
+processJoining() 
 {
   throw sk::util::UnsupportedOperationException(SK_METHOD);
 }

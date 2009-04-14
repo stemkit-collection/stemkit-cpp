@@ -9,6 +9,7 @@
 */
 
 #include "DaemonProcessTest.h"
+#include <sk/sys/DaemonProcess.h>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::sys::test::DaemonProcessTest);
 
@@ -38,4 +39,5 @@ void
 sk::sys::test::DaemonProcessTest::
 testBasics()
 {
+  sk::sys::DaemonProcess process("true");
 }
