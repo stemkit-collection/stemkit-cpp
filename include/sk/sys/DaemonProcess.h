@@ -12,6 +12,8 @@
 #define _SK_SYS_DAEMONPROCESS_H_
 
 #include <sk/util/Object.h>
+#include <sk/util/StringArray.h>
+#include <sk/sys/Process.h>
 
 namespace sk {
   namespace sys {
@@ -19,7 +21,7 @@ namespace sk {
       : public virtual sk::util::Object
     {
       public:
-        DaemonProcess();
+        DaemonProcess(const sk::util::StringArray& cmdline);
         virtual ~DaemonProcess();
     
         // sk::util::Object re-implementation.
@@ -28,6 +30,12 @@ namespace sk {
       private:
         DaemonProcess(const DaemonProcess& other);
         DaemonProcess& operator = (const DaemonProcess& other);
+
+        struct Listener;
+
+        const sk::rt::Scope _scope;
+        sk::util::Holder<Listener> _listenerHolder;
+        sk::sys::Process _process;
     };
   }
 }

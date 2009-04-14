@@ -10,13 +10,33 @@
 
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
+#include <sk/util/Holder.cxx>
+#include <sk/util/UnsupportedOperationException.h>
 
 #include <sk/sys/DaemonProcess.h>
 
 static const char* __className("sk::sys::DaemonProcess");
 
+struct sk::sys::DaemonProcess::Listener : public virtual sk::sys::ProcessListener {
+  Listener(const sk::util::StringArray& cmdline) 
+    : _cmdline(cmdline) {}
+
+  void processStarting() {
+    throw sk::util::UnsupportedOperationException(__FUNCTION__);
+  }
+  int processStopping() {
+    throw sk::util::UnsupportedOperationException(__FUNCTION__);
+  }
+  void processJoining() {
+    throw sk::util::UnsupportedOperationException(__FUNCTION__);
+  }
+
+  const sk::util::StringArray _cmdline;
+};
+
 sk::sys::DaemonProcess::
-DaemonProcess()
+DaemonProcess(const sk::util::StringArray& cmdline)
+  : _scope(__className), _listenerHolder(new Listener(cmdline)), _process(_listenerHolder.get())
 {
 }
 
