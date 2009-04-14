@@ -5,6 +5,7 @@ local objects =
   Process.cc
   PtyProcess.cc
   DaemonProcess.cc
+  ManagedProcess.cc
   User.cc
 ;
 

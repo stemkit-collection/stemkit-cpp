@@ -14,6 +14,7 @@
 #include <sk/util/UnsupportedOperationException.h>
 
 #include <sk/sys/DaemonProcess.h>
+#include <sk/sys/ProcessListener.h>
 
 static const char* __className("sk::sys::DaemonProcess");
 
@@ -36,7 +37,7 @@ struct sk::sys::DaemonProcess::Listener : public virtual sk::sys::ProcessListene
 
 sk::sys::DaemonProcess::
 DaemonProcess(const sk::util::StringArray& cmdline)
-  : _scope(__className), _listenerHolder(new Listener(cmdline)), _process(_listenerHolder.get())
+  : _scope(__className), _listenerHolder(new Listener(cmdline))
 {
 }
 
@@ -50,4 +51,18 @@ sk::sys::DaemonProcess::
 getClass() const
 {
   return sk::util::Class(__className);
+}
+
+sk::sys::Executable& 
+sk::sys::DaemonProcess::
+getExecutable()
+{
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
+}
+
+const sk::sys::Executable& 
+sk::sys::DaemonProcess::
+getExecutable() const
+{
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
 }

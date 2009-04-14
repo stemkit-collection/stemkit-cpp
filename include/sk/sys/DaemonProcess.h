@@ -12,13 +12,15 @@
 #define _SK_SYS_DAEMONPROCESS_H_
 
 #include <sk/util/Object.h>
+#include <sk/util/Holder.hxx>
 #include <sk/util/StringArray.h>
-#include <sk/sys/Process.h>
+#include <sk/sys/DelegatingExecutable.h>
+#include <sk/rt/Scope.h>
 
 namespace sk {
   namespace sys {
     class DaemonProcess 
-      : public virtual sk::util::Object
+      : public sk::sys::DelegatingExecutable
     {
       public:
         DaemonProcess(const sk::util::StringArray& cmdline);
@@ -27,6 +29,10 @@ namespace sk {
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
     
+      protected:
+        sk::sys::Executable& getExecutable();
+        const sk::sys::Executable& getExecutable() const;
+
       private:
         DaemonProcess(const DaemonProcess& other);
         DaemonProcess& operator = (const DaemonProcess& other);
@@ -35,7 +41,7 @@ namespace sk {
 
         const sk::rt::Scope _scope;
         sk::util::Holder<Listener> _listenerHolder;
-        sk::sys::Process _process;
+        sk::util::Holder<sk::sys::Executable>  _executableHolder;
     };
   }
 }
