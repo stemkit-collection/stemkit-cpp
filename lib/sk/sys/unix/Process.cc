@@ -6,10 +6,9 @@
 */
 
 #include <sk/util/Class.h>
-#include <sk/util/Integer.h>
 #include <sk/util/Holder.cxx>
-#include <sk/util/SystemException.h>
 #include <sk/util/IllegalStateException.h>
+#include <sk/rt/SystemException.h>
 
 #include <sk/sys/Process.h>
 #include <sk/io/Pipe.h>
@@ -107,7 +106,7 @@ start(sk::io::InputStream& inputStream, const sk::util::StringArray& cmdline)
   _pid = fork();
 
   if(_pid < 0) {
-    throw sk::util::SystemException("fork()");
+    throw sk::rt::SystemException("fork");
   }
   if(_pid == 0) {
     try {
@@ -123,13 +122,12 @@ start(sk::io::InputStream& inputStream, const sk::util::StringArray& cmdline)
         arguments.push_back(0);
 
         ::execvp(arguments[0], &arguments[0]);
-        std::cerr << "ERROR:exec:" << sk::util::Integer::toString(errno) << ":" << strerror(errno) << ":" << cmdline.inspect() << std::endl;
+        throw sk::rt::SystemException("exec");
       }
     }
     catch(const std::exception& exception) {
-      std::cerr << "ERROR:fork:" << exception.what() << ":" << cmdline.inspect() << std::endl;
+      _scope.error("fork") << exception.what() << ":" << cmdline.inspect();
     }
-
     _exit(1);
   }
   inputStream.close();
@@ -180,7 +178,7 @@ signalUnlessTerminates(int timeout, int signal)
         if(errno == EINTR) {
           continue;
         }
-        throw sk::util::SystemException("waitpid()");
+        throw sk::rt::SystemException("waitpid");
       }
       if(time(0) > (start_time + timeout)) {
         break;
@@ -212,13 +210,13 @@ join()
       if(errno == EINTR) {
         continue;
       }
-      throw sk::util::SystemException("waitpid()");
+      throw sk::rt::SystemException("waitpid");
     }
     if(result == _pid) {
       break;
     }
     throw sk::util::IllegalStateException(
-      "waitpid() returned " + sk::util::Integer::toString(result) + ", expected pid " + sk::util::Integer::toString(_pid)
+      "waitpid() returned " + sk::util::String::valueOf(result) + ", expected pid " + sk::util::String::valueOf(_pid)
     );
   }
   _pid = -1;
@@ -235,8 +233,7 @@ bool
 sk::sys::Process::
 isExited() const
 {
-  assertNotAlive();
-
+  ensureNotAlive();
   return WIFEXITED(_status) ? true : false;
 }
 
@@ -244,17 +241,16 @@ bool
 sk::sys::Process::
 isKilled() const
 {
-  assertNotAlive();
-
+  ensureNotAlive();
   return WIFSIGNALED(_status) ? true : false;
 }
 
 void
 sk::sys::Process::
-assertNotAlive() const
+ensureNotAlive() const
 {
   if(isAlive() == true) {
-    throw sk::util::IllegalStateException("Process " + sk::util::Integer::toString(_pid) + " still alive");
+    throw sk::util::IllegalStateException("Process " + sk::util::String::valueOf(_pid) + " still alive");
   }
 }
 
