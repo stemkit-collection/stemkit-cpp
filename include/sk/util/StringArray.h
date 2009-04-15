@@ -21,13 +21,14 @@ namespace sk {
     {
       public:
         StringArray();
-        StringArray(const sk::util::String& item);
-        StringArray(const char* item);
+        explicit StringArray(const sk::util::String& item);
+        explicit StringArray(const char* item);
         virtual ~StringArray();
 
         const sk::util::String& get(int index) const;
         int size() const;
         sk::util::StringArray operator + (const sk::util::String& item) const;
+        sk::util::StringArray operator + (const sk::util::StringArray& other) const;
         void forEach(const sk::util::Processor<const sk::util::String>& processor) const;
         sk::util::StringArray& operator << (const sk::util::String& item);
         

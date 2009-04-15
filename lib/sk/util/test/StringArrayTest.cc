@@ -56,6 +56,25 @@ void
 sk::util::test::StringArrayTest::
 testPlusString()
 {
+  sk::util::StringArray strings("aaa");
+  CPPUNIT_ASSERT_EQUAL(1, strings.size());
+
+  strings = strings + strings;
+  CPPUNIT_ASSERT_EQUAL(2, strings.size());
+
+  strings = strings + strings;
+  CPPUNIT_ASSERT_EQUAL(4, strings.size());
+
+  CPPUNIT_ASSERT_EQUAL(sk::util::String("aaa"), strings.get(0));
+  CPPUNIT_ASSERT_EQUAL(sk::util::String("aaa"), strings.get(1));
+  CPPUNIT_ASSERT_EQUAL(sk::util::String("aaa"), strings.get(2));
+  CPPUNIT_ASSERT_EQUAL(sk::util::String("aaa"), strings.get(3));
+}
+
+void
+sk::util::test::StringArrayTest::
+testPlusOther()
+{
   const sk::util::StringArray strings("aaa");
   const sk::util::StringArray result = (strings + "bbb");
 

@@ -21,6 +21,7 @@ namespace sk {
           CPPUNIT_TEST(testEmpty);
           CPPUNIT_TEST(testOne);
           CPPUNIT_TEST(testPlusString);
+          CPPUNIT_TEST(testPlusOther);
           CPPUNIT_TEST(testAddString);
           CPPUNIT_TEST(testInspect);
         CPPUNIT_TEST_SUITE_END();
@@ -34,6 +35,7 @@ namespace sk {
           void testEmpty();
           void testOne();
           void testPlusString();
+          void testPlusOther();
           void testAddString();
           void testInspect();
           

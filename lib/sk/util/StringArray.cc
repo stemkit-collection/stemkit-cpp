@@ -1,4 +1,5 @@
-/*  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
+/*  vi: sw=2: 
+ *  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
  *  
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
@@ -98,8 +99,27 @@ sk::util::StringArray::
 operator + (const sk::util::String& item) const
 {
   StringArray array(*this);
+  return array << item;
+}
 
-  array.push_back(item);
+namespace {
+  struct Propagator : public virtual sk::util::Processor<const sk::util::String> {
+    Propagator(sk::util::StringArray& destination)
+      : _destination(destination) {}
+
+    void process(const sk::util::String& item) const {
+      _destination << item;
+    }
+    sk::util::StringArray& _destination;
+  };
+}
+
+sk::util::StringArray
+sk::util::StringArray::
+operator + (const sk::util::StringArray& other) const
+{
+  StringArray array(*this);
+  other.forEach(Propagator(array));
   return array;
 }
 
