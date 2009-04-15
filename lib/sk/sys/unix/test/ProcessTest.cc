@@ -44,7 +44,7 @@ void
 sk::sys::test::ProcessTest::
 testTrueCommand()
 {
-  sk::sys::Process process("true");
+  sk::sys::Process process(sk::util::StringArray("true"));
   CPPUNIT_ASSERT_EQUAL(true, process.isAlive());
 
   process.join();
@@ -60,7 +60,7 @@ void
 sk::sys::test::ProcessTest::
 testFalseCommand()
 {
-  sk::sys::Process process("false");
+  sk::sys::Process process(sk::util::StringArray("false"));
   CPPUNIT_ASSERT_EQUAL(true, process.isAlive());
 
   process.join();
