@@ -45,3 +45,9 @@ sk::sys::AbstractProcessListener::
 processJoining()
 {
 }
+
+void 
+sk::sys::AbstractProcessListener::
+processConfiguring(sk::sys::ProcessConfigurator& configurator)
+{
+}

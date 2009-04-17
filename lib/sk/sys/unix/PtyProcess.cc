@@ -10,6 +10,7 @@
 #include <sk/util/Holder.cxx>
 
 #include <sk/sys/PtyProcess.h>
+#include <sk/sys/AbstractProcessListener.h>
 #include <sk/io/Pty.h>
 #include <sk/io/File.h>
 #include <sk/io/DataInputStream.h>
@@ -19,7 +20,7 @@
 #include <unistd.h>
 
 struct sk::sys::PtyProcess::Listener 
-  : public virtual sk::sys::ProcessListener 
+  : public sk::sys::AbstractProcessListener 
 {
     void processStarting();
     int processStopping();

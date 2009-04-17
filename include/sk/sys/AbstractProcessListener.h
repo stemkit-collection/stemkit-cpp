@@ -21,6 +21,7 @@ namespace sk {
         void processStarting();
         int processStopping();
         void processJoining();
+        void processConfiguring(sk::sys::ProcessConfigurator& configurator);
 
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;

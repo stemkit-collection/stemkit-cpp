@@ -13,6 +13,7 @@
 #include <sk/rt/SystemException.h>
 
 #include <sk/sys/Process.h>
+#include <sk/sys/ProcessConfigurator.h>
 #include <sk/io/Pipe.h>
 #include <sk/io/FileInputStream.h>
 #include <sk/io/DataInputStream.h>
@@ -111,6 +112,17 @@ defaultInputStream()
   return _defaultInputStreamHolder.get();
 }
 
+namespace {
+  struct Configurator : public virtual sk::sys::ProcessConfigurator {
+    void setEnvironment(const sk::util::String& name, const sk::util::String& value) {
+      sk::util::String entry = name.trim() + "=" + value;
+      char* s = new char[entry.length() + 1];
+      ::strcpy(s, entry.getChars());
+      ::putenv(s);
+    }
+  };
+}
+
 void
 sk::sys::Process::
 start(sk::io::InputStream& inputStream, const sk::util::StringArray& cmdline)
@@ -130,6 +142,9 @@ start(sk::io::InputStream& inputStream, const sk::util::StringArray& cmdline)
       inputStream.close();
 
       _listener.processStarting();
+
+      Configurator configurator;
+      _listener.processConfiguring(configurator);
       
       if(cmdline.empty() == false) {
         std::vector<char*> arguments;

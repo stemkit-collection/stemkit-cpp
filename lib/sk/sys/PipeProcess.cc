@@ -10,6 +10,7 @@
 #include <sk/util/Holder.cxx>
 
 #include <sk/sys/PipeProcess.h>
+#include <sk/sys/AbstractProcessListener.h>
 #include <sk/io/AnonymousPipe.h>
 #include <sk/io/DataInputStream.h>
 #include <sk/io/FileDescriptorOutputStream.h>
@@ -18,7 +19,7 @@
 #include <unistd.h>
 
 struct sk::sys::PipeProcess::Listener 
-  : public virtual sk::sys::ProcessListener 
+  : public sk::sys::AbstractProcessListener 
 {
     void processStarting();
     int processStopping();

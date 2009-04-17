@@ -48,6 +48,7 @@ namespace sk {
         void processStarting();
         int processStopping();
         void processJoining();
+        void processConfiguring(sk::sys::ProcessConfigurator& configurator);
 
       private:
         DaemonProcess(const DaemonProcess& other);

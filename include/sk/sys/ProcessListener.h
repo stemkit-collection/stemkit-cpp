@@ -1,4 +1,5 @@
-/*  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
+/*  vi: sw=2:
+ *  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
  *  
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
@@ -12,6 +13,8 @@
 
 namespace sk {
   namespace sys {
+    class ProcessConfigurator;
+
     class ProcessListener
       : public virtual sk::util::Object 
     {
@@ -19,6 +22,7 @@ namespace sk {
         virtual void processStarting() = 0;
         virtual int processStopping() = 0;
         virtual void processJoining() = 0;
+        virtual void processConfiguring(sk::sys::ProcessConfigurator& configurator) = 0;
     };
   }
 }

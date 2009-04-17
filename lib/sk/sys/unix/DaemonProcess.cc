@@ -18,6 +18,7 @@
 
 #include <sk/sys/DaemonProcess.h>
 #include <sk/sys/Process.h>
+#include <sk/sys/AbstractProcessListener.h>
 #include "ManagedProcess.h"
 
 static const char* __className("sk::sys::DaemonProcess");
@@ -107,7 +108,7 @@ getExecutable() const
 }
 
 namespace {
-  struct FileDescriptorSweeper : public virtual sk::sys::ProcessListener {
+  struct FileDescriptorSweeper : public sk::sys::AbstractProcessListener {
     void processStarting() {
       {
         sk::io::File trash("/dev/null", "r+");
@@ -122,11 +123,6 @@ namespace {
       for(int fd=3; fd<1024 ;++fd) {
         ::close(fd);
       }
-    }
-    int processStopping() {
-      return 0;
-    }
-    void processJoining() {
     }
   };
 }
@@ -156,5 +152,11 @@ processStopping()
 void 
 sk::sys::DaemonProcess::
 processJoining() 
+{
+}
+
+void 
+sk::sys::DaemonProcess::
+processConfiguring(sk::sys::ProcessConfigurator& configurator)
 {
 }

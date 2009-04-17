@@ -13,14 +13,14 @@
 #include <sk/util/Holder.hxx>
 #include <sk/io/FileDescriptorInputStream.h>
 #include <sk/sys/Executable.h>
-#include <sk/sys/ProcessListener.h>
+#include <sk/sys/AbstractProcessListener.h>
 #include <sk/rt/Scope.h>
 
 namespace sk {
   namespace sys {
     class Process
       : public virtual sk::sys::Executable,
-        public virtual sk::sys::ProcessListener
+        public sk::sys::AbstractProcessListener
     {
       public:
         Process(sk::io::InputStream& inputStream, const sk::util::StringArray& cmdline, ProcessListener& listener);
