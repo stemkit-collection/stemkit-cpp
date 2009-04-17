@@ -8,13 +8,13 @@
 #ifndef _SK_IO_OUTPUTSTREAM_
 #define _SK_IO_OUTPUTSTREAM_
 
-#include <sk/util/Object.h>
+#include <sk/io/Stream.h>
 #include <vector>
 
 namespace sk {
   namespace io {
     class OutputStream
-      : public virtual sk::util::Object 
+      : public virtual sk::io::Stream
     {
       public:
         /// Closes this output stream and releases any system resources
@@ -41,6 +41,10 @@ namespace sk {
 
         /// Writes the specified byte to this output stream.
         virtual int write(char byte) = 0;
+
+        /// Instantiates another object of the same class as a copy 
+        /// of itself.
+        virtual OutputStream* clone() const = 0;
     };
   }
 }

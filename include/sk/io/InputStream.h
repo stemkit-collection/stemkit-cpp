@@ -8,13 +8,13 @@
 #ifndef _SK_IO_INPUTSTREAM_
 #define _SK_IO_INPUTSTREAM_
 
-#include <sk/util/Object.h>
+#include <sk/io/Stream.h>
 #include <vector>
 
 namespace sk {
   namespace io {
     class InputStream
-      : public virtual sk::util::Object 
+      : public virtual sk::io::Stream
     {
       public:
         /// Reads the next byte of data from the input stream.

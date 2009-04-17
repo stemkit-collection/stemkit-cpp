@@ -7,6 +7,7 @@
 
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
+#include <sk/util/UnsupportedOperationException.h>
 
 #include <sk/io/AbstractOutputStream.h>
 #include <sk/io/IOException.h>
@@ -16,6 +17,13 @@ sk::io::AbstractOutputStream::
 getClass() const
 {
   return sk::util::Class("sk::io::AbstractOutputStream");
+}
+
+sk::io::AbstractOutputStream*
+sk::io::AbstractOutputStream::
+clone() const
+{
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
 }
 
 void 

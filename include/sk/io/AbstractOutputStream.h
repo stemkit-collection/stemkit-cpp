@@ -18,6 +18,7 @@ namespace sk {
       public:
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
+        AbstractOutputStream* clone() const;
 
         // sk::io::OutputStream implementation.
         virtual int write(const char* buffer, int offset, int length) = 0;
