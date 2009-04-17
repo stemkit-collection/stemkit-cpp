@@ -120,6 +120,12 @@ namespace {
       ::strcpy(s, entry.getChars());
       ::putenv(s);
     }
+    void setInput(sk::io::InputStream& stream) {
+    }
+    void setOutput(sk::io::OutputStream& stream) {
+    }
+    void setErrorOutput(sk::io::OutputStream& stream) {
+    }
   };
 }
 

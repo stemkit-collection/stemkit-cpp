@@ -12,6 +12,8 @@
 #define _SK_SYS_PROCESSCONFIGURATOR_H_
 
 #include <sk/util/Object.h>
+#include <sk/io/InputStream.h>
+#include <sk/io/OutputStream.h>
 
 namespace sk {
   namespace sys {
@@ -20,6 +22,9 @@ namespace sk {
     {
       public:
         virtual void setEnvironment(const sk::util::String& name, const sk::util::String& value) = 0;
+        virtual void setInput(sk::io::InputStream& stream) = 0;
+        virtual void setOutput(sk::io::OutputStream& stream) = 0;
+        virtual void setErrorOutput(sk::io::OutputStream& stream) = 0;
     };
   }
 }
