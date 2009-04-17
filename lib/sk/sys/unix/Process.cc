@@ -120,11 +120,28 @@ namespace {
       ::strcpy(s, entry.getChars());
       ::putenv(s);
     }
+
     void setInput(sk::io::InputStream& stream) {
+      setStream(0, stream);
     }
+
     void setOutput(sk::io::OutputStream& stream) {
+      setStream(1, stream);
     }
+
     void setErrorOutput(sk::io::OutputStream& stream) {
+      setStream(2, stream);
+    }
+
+    void setStream(int target, sk::io::Stream& stream) {
+      ::close(target);
+      sk::util::Holder<sk::io::Stream> streamHolder(stream.clone());
+      stream.close();
+
+      int fd = ::dup(target);
+      ::close(target);
+      ::dup(fd);
+      ::close(fd);
     }
   };
 }
@@ -147,11 +164,10 @@ start(sk::io::InputStream& inputStream, const sk::util::StringArray& cmdline)
       sk::util::Holder<sk::io::InputStream> stdinHolder(inputStream.clone());
       inputStream.close();
 
-      _listener.processStarting();
-
       Configurator configurator;
       _listener.processConfiguring(configurator);
-      
+      _listener.processStarting();
+
       if(cmdline.empty() == false) {
         std::vector<char*> arguments;
         cmdline.forEach(ExecArgumentCollector(arguments));
