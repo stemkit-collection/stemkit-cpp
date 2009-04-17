@@ -31,8 +31,14 @@ namespace sk {
           CPPUNIT_TEST(testEquals);
           CPPUNIT_TEST(testEqualsIgnoreCase);
           CPPUNIT_TEST(testSqueeze);
+          CPPUNIT_TEST(testTransformations);
+          CPPUNIT_TEST(testCharAt);
           CPPUNIT_TEST(testIndex);
           CPPUNIT_TEST(testSubstring);
+          CPPUNIT_TEST(testContains);
+          CPPUNIT_TEST(testContainsIgnoreCase);
+          CPPUNIT_TEST(testStringIndex);
+          CPPUNIT_TEST(testValueOf);
         CPPUNIT_TEST_SUITE_END();
         
         public:
@@ -54,8 +60,14 @@ namespace sk {
           void testEquals();
           void testEqualsIgnoreCase();
           void testSqueeze();
+          void testTransformations();
+          void testCharAt();
           void testIndex();
           void testSubstring();
+          void testContains();
+          void testContainsIgnoreCase();
+          void testStringIndex();
+          void testValueOf();
           
         private:
           StringTest(const StringTest& other);

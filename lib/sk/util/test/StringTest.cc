@@ -1,4 +1,5 @@
-/*  Copyright (c) 2005, Gennady Bystritsky <bystr@mac.com>
+/*  vim: sw=2:
+ *  Copyright (c) 2005, Gennady Bystritsky <bystr@mac.com>
  *  
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
@@ -159,6 +160,10 @@ testStartsWith()
   CPPUNIT_ASSERT_EQUAL(false, String("abc").startsWith("ac"));
   CPPUNIT_ASSERT_EQUAL(true, String("abc").startsWith(""));
   CPPUNIT_ASSERT_EQUAL(false, String("abc").startsWith("abcd"));
+
+  CPPUNIT_ASSERT_EQUAL(false, String("aBczzz").startsWith("abc"));
+  CPPUNIT_ASSERT_EQUAL(true, String("aBczzz").startsWithIgnoreCase("abc"));
+  CPPUNIT_ASSERT_EQUAL(false, String("aBczzz").startsWithIgnoreCase("abz"));
 }
 
 void
@@ -170,6 +175,10 @@ testEndsWith()
   CPPUNIT_ASSERT_EQUAL(false, String("abc").endsWith("ab"));
   CPPUNIT_ASSERT_EQUAL(true, String("abc").endsWith(""));
   CPPUNIT_ASSERT_EQUAL(false, String("abc").endsWith("aabc"));
+
+  CPPUNIT_ASSERT_EQUAL(false, String("zzzaBc").endsWith("abc"));
+  CPPUNIT_ASSERT_EQUAL(true, String("zzzaBc").endsWithIgnoreCase("abc"));
+  CPPUNIT_ASSERT_EQUAL(false, String("zzzaBc").endsWithIgnoreCase("abz"));
 }
 
 void
@@ -216,7 +225,12 @@ testIndex()
   CPPUNIT_ASSERT_EQUAL(2, s.lastIndexOf('a'));
 
   CPPUNIT_ASSERT_EQUAL(3, s.indexOf('b'));
+  CPPUNIT_ASSERT_EQUAL(-1, s.indexOf('B'));
+  CPPUNIT_ASSERT_EQUAL(3, s.indexOfIgnoreCase('B'));
+
   CPPUNIT_ASSERT_EQUAL(5, s.lastIndexOf('b'));
+  CPPUNIT_ASSERT_EQUAL(-1, s.lastIndexOf('B'));
+  CPPUNIT_ASSERT_EQUAL(5, s.lastIndexOfIgnoreCase('B'));
 
   CPPUNIT_ASSERT_EQUAL(6, s.indexOf('c'));
   CPPUNIT_ASSERT_EQUAL(8, s.lastIndexOf('c'));
@@ -242,7 +256,107 @@ testSubstring()
   CPPUNIT_ASSERT_EQUAL(String("").inspect(), s.substring(5, 5).inspect());
 
   CPPUNIT_ASSERT_THROW(s.substring(-1, 5), sk::util::IndexOutOfBoundsException);
-  // CPPUNIT_ASSERT_THROW(s.substring(2, 10), sk::util::IndexOutOfBoundsException);
-  // CPPUNIT_ASSERT_THROW(s.substring(10, 10), sk::util::IndexOutOfBoundsException);
-  // CPPUNIT_ASSERT_THROW(s.substring(5, 4), sk::util::IndexOutOfBoundsException);
+  CPPUNIT_ASSERT_THROW(s.substring(2, 10), sk::util::IndexOutOfBoundsException);
+  CPPUNIT_ASSERT_THROW(s.substring(10, 10), sk::util::IndexOutOfBoundsException);
+  CPPUNIT_ASSERT_THROW(s.substring(5, 4), sk::util::IndexOutOfBoundsException);
+}
+
+void
+sk::util::test::StringTest::
+testTransformations()
+{
+    CPPUNIT_ASSERT_EQUAL("a.c.dz", sk::util::String("a:c:dz").replace(':', '.'));
+    CPPUNIT_ASSERT_EQUAL("ABCD", sk::util::String("abcd").toUpperCase());
+    CPPUNIT_ASSERT_EQUAL("abcd", sk::util::String("AbCd").toLowerCase());
+    CPPUNIT_ASSERT_EQUAL("ba", sk::util::String("aaa").replace("aa", "b"));
+
+    CPPUNIT_ASSERT_EQUAL("aaaZZbcccZZb", sk::util::String("aaabbbbcccbbbb").replace("bbb", "ZZ"));
+    CPPUNIT_ASSERT_EQUAL("aaaZZZZbcccZZZZb", sk::util::String("aaabbbbcccbbbb").replace("bbb", "ZZZZ"));
+}
+
+void
+sk::util::test::StringTest::
+testCharAt()
+{
+    String s("abc");
+    CPPUNIT_ASSERT_EQUAL('a', s.charAt(0));
+    CPPUNIT_ASSERT_EQUAL('b', s.charAt(1));
+    CPPUNIT_ASSERT_EQUAL('c', s.charAt(2));
+
+    CPPUNIT_ASSERT_THROW(s.charAt(-1), sk::util::IndexOutOfBoundsException);
+    CPPUNIT_ASSERT_THROW(s.charAt(3), sk::util::IndexOutOfBoundsException);
+}
+
+void
+sk::util::test::StringTest::
+testContains()
+{
+  String s("aaabbbccc");
+
+  CPPUNIT_ASSERT_EQUAL(true, s.contains("aaa"));
+  CPPUNIT_ASSERT_EQUAL(true, s.contains("bbb"));
+  CPPUNIT_ASSERT_EQUAL(true, s.contains("ccc"));
+
+  CPPUNIT_ASSERT_EQUAL(true, s.contains(""));
+
+  CPPUNIT_ASSERT_EQUAL(false, s.contains("aaaa"));
+  CPPUNIT_ASSERT_EQUAL(false, s.contains("bbbb"));
+  CPPUNIT_ASSERT_EQUAL(false, s.contains("cccc"));
+
+  CPPUNIT_ASSERT_EQUAL(false, s.contains("AAA"));
+  CPPUNIT_ASSERT_EQUAL(false, s.contains("BBB"));
+  CPPUNIT_ASSERT_EQUAL(false, s.contains("CCC"));
+
+  CPPUNIT_ASSERT_EQUAL(false, s.contains("aaaaaaaaaaaaaaaaaaaaaaaaaa"));
+}
+
+void
+sk::util::test::StringTest::
+testContainsIgnoreCase()
+{
+  String s("aAabbBCcc");
+
+  CPPUNIT_ASSERT_EQUAL(true, s.containsIgnoreCase("AaA"));
+  CPPUNIT_ASSERT_EQUAL(true, s.containsIgnoreCase("BBB"));
+  CPPUNIT_ASSERT_EQUAL(true, s.containsIgnoreCase("ccc"));
+
+  CPPUNIT_ASSERT_EQUAL(true, s.containsIgnoreCase(""));
+
+  CPPUNIT_ASSERT_EQUAL(false, s.containsIgnoreCase("aAaa"));
+  CPPUNIT_ASSERT_EQUAL(false, s.containsIgnoreCase("BBBb"));
+  CPPUNIT_ASSERT_EQUAL(false, s.containsIgnoreCase("cccc"));
+
+  CPPUNIT_ASSERT_EQUAL(true, s.containsIgnoreCase("AAA"));
+  CPPUNIT_ASSERT_EQUAL(true, s.containsIgnoreCase("BBB"));
+  CPPUNIT_ASSERT_EQUAL(true, s.containsIgnoreCase("CCC"));
+
+  CPPUNIT_ASSERT_EQUAL(false, s.containsIgnoreCase("aaaaaaaaaaaaaaaaaaAAaaaaaa"));
+}
+
+void
+sk::util::test::StringTest::
+testStringIndex()
+{
+  String s("aaabbbccc");
+
+  CPPUNIT_ASSERT_EQUAL(0, s.indexOf(""));
+  CPPUNIT_ASSERT_EQUAL(9, s.lastIndexOf(""));
+
+  CPPUNIT_ASSERT_EQUAL(0, s.indexOf("aaa"));
+  CPPUNIT_ASSERT_EQUAL(3, s.indexOf("bbb"));
+  CPPUNIT_ASSERT_EQUAL(6, s.indexOf("ccc"));
+
+  CPPUNIT_ASSERT_EQUAL(-1, s.indexOf("accc"));
+
+  CPPUNIT_ASSERT_EQUAL(3, s.indexOf("bb"));
+  CPPUNIT_ASSERT_EQUAL(4, s.lastIndexOf("bb"));
+}
+
+void
+sk::util::test::StringTest::
+testValueOf()
+{
+  CPPUNIT_ASSERT_EQUAL("127", String::valueOf(127));
+  CPPUNIT_ASSERT_EQUAL("-1", String::valueOf(-1));
+  CPPUNIT_ASSERT_EQUAL("0", String::valueOf(0));
 }
