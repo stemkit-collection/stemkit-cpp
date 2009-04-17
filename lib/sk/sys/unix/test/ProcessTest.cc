@@ -1,4 +1,5 @@
-/*  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
+/*  vi: sw=2:
+ *  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
  *  
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
@@ -8,8 +9,10 @@
 #include "ProcessTest.h"
 #include <sk/sys/Process.h>
 #include <sk/sys/AbstractProcessListener.h>
+#include <sk/sys/ProcessConfigurator.h>
 #include <sk/io/AnonymousPipe.h>
 #include <sk/io/FileDescriptorOutputStream.h>
+#include <sk/io/DataInputStream.h>
 #include <sk/util/Container.h>
 #include <iostream>
 
@@ -183,7 +186,7 @@ testNoHangOnInputRead()
 }
 
 namespace {
-  struct Worker : public virtual sk::sys::AbstractProcessListener {
+  struct Worker : public sk::sys::AbstractProcessListener {
     Worker(sk::io::OutputStream& stream)
       : _stream(stream) {}
 
@@ -220,3 +223,36 @@ testSpawn()
   CPPUNIT_ASSERT_EQUAL(84, process.exitStatus());
 }
 
+namespace {
+  struct ConfiguringListener : public sk::sys::AbstractProcessListener {
+    ConfiguringListener(sk::io::AnonymousPipe& pipe)
+      : _pipe(pipe) {}
+
+    void processConfiguring(sk::sys::ProcessConfigurator& configurator) {
+      configurator.setEnvironment("testConfiguring", "set from a process");
+      _pipe.outputStream().write("Hello\n", 0, 6);
+      configurator.setOutput(_pipe.outputStream());
+      _pipe.close();
+    }
+    void processStarting() {
+      ::write(1, "E: ", 3);
+    }
+    sk::io::AnonymousPipe& _pipe;
+  };
+}
+
+void
+sk::sys::test::ProcessTest::
+testConfiguring()
+{
+  CPPUNIT_ASSERT_EQUAL("", sk::util::String(getenv("testConfiguring")));
+
+  sk::io::AnonymousPipe pipe;
+  ConfiguringListener listener(pipe);
+  sk::sys::Process process(sk::util::StringArray("sh") + "-c" + "echo ${testConfiguring}", listener);
+
+  pipe.outputStream().close();
+  sk::io::DataInputStream stream(pipe.inputStream());
+  CPPUNIT_ASSERT_EQUAL("Hello", stream.readLine().trim());
+  CPPUNIT_ASSERT_EQUAL("E: set from a process", stream.readLine().trim());
+}

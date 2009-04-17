@@ -23,8 +23,21 @@ FileDescriptorOutputStream(const sk::io::FileDescriptor& descriptor)
 }
 
 sk::io::FileDescriptorOutputStream::
+FileDescriptorOutputStream(const sk::io::FileDescriptorOutputStream& other)
+  : _descriptor(other._descriptor)
+{
+}
+
+sk::io::FileDescriptorOutputStream::
 ~FileDescriptorOutputStream()
 {
+}
+
+sk::io::FileDescriptorOutputStream*
+sk::io::FileDescriptorOutputStream::
+clone() const
+{
+  return new sk::io::FileDescriptorOutputStream(*this);
 }
 
 const sk::util::Class

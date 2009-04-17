@@ -133,13 +133,14 @@ namespace {
       setStream(2, stream);
     }
 
-    void setStream(int target, sk::io::Stream& stream) {
+    void setStream(int target, const sk::io::Stream& stream) {
       ::close(target);
-      sk::util::Holder<sk::io::Stream> streamHolder(stream.clone());
-      stream.close();
-
-      int fd = ::dup(target);
-      ::close(target);
+      int fd;
+      {
+        sk::util::Holder<sk::io::Stream> streamHolder(stream.clone());
+        fd = ::dup(target);
+        // Holder will delete a cloned stream, closing "target".
+      }
       ::dup(fd);
       ::close(fd);
     }
