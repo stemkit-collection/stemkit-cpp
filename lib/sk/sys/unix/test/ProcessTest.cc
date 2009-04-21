@@ -249,7 +249,7 @@ testConfiguring()
 
   sk::io::AnonymousPipe pipe;
   ConfiguringListener listener(pipe);
-  sk::sys::Process process(sk::util::StringArray("sh") + "-c" + "echo ${testConfiguring}", listener);
+  sk::sys::Process process(sk::util::StringArray("sh") + "-c" + "echo ${testConfiguring}; sleep 60", listener);
 
   pipe.outputStream().close();
   sk::io::DataInputStream stream(pipe.inputStream());

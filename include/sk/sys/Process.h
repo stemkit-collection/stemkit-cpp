@@ -63,10 +63,10 @@ namespace sk {
         const sk::rt::Scope _scope;
         sk::sys::ProcessListener& _listener;
         sk::util::Holder<sk::io::InputStream> _defaultInputStreamHolder;
-        int _pid;
-        int _status;
-        bool _detached;
-        bool _running;
+        volatile int _pid;
+        volatile int _status;
+        volatile bool _detached;
+        volatile bool _running;
     };
   }
 }

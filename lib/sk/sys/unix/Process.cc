@@ -224,15 +224,18 @@ signalUnlessTerminates(int timeout, int signal)
   if(timeout > 0) {
     time_t start_time = time(0);
     while(true) {
-      int status = ::waitpid(_pid, &_status, WNOHANG);
-      if(status > 0) {
+      int status = 0;
+      int result = ::waitpid(_pid, &status, WNOHANG);
+
+      if(result > 0) {
+        _status = status;
         return false;
       }
-      if(status < 0) {
+      if(result < 0) {
         if(errno == EINTR) {
           continue;
         }
-        throw sk::rt::SystemException("waitpid");
+        throw sk::rt::SystemException("signal:waitpid:" + sk::util::String::valueOf(_pid));
       }
       if(time(0) > (start_time + timeout)) {
         break;
@@ -261,18 +264,21 @@ join()
   _listener.processJoining();
 
   while(true) {
-    int result = ::waitpid(_pid, &_status, 0);
+    int status = 0;
+    int result = ::waitpid(_pid, &status, 0);
+
     if(result < 0) {
       if(errno == EINTR) {
         continue;
       }
-      throw sk::rt::SystemException("waitpid");
+      throw sk::rt::SystemException("join:waitpid:" + sk::util::String::valueOf(_pid));
     }
     if(result == _pid) {
+      _status = status;
       break;
     }
     throw sk::util::IllegalStateException(
-      "waitpid() returned " + sk::util::String::valueOf(result) + ", expected pid " + sk::util::String::valueOf(_pid)
+      "join:waitpid:mismatch:" + sk::util::String::valueOf(result) + ":" + sk::util::String::valueOf(_pid)
     );
   }
   _running = false;
