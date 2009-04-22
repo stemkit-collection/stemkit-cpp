@@ -23,13 +23,3 @@ use-project-library $(test) :
 
 use-unit-test $(test) $(test-objects) ;
 make-cpp-test $(test) : $(test-objects) ;
-
-use-project-library aaa : 
-  sk.sys 
-  sk.io 
-  sk.rt.thread
-  sk.rt.thread.pthreads
-  sk.rt.bundle 
-  sk.util 
-;
-make-program aaa : aaa.cc ;
