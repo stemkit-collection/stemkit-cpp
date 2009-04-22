@@ -15,6 +15,7 @@
 #include <sk/sys/Executable.h>
 #include <sk/sys/AbstractProcessListener.h>
 #include <sk/rt/Scope.h>
+#include <sk/rt/Mutex.h>
 
 namespace sk {
   namespace sys {
@@ -56,13 +57,14 @@ namespace sk {
         Process& operator = (const Process& other);
 
         void start(sk::io::InputStream& inputStream, const sk::util::StringArray& cmdline);
-        bool signalUnlessTerminates(int timeout, int signal);
         sk::io::InputStream& defaultInputStream();
         void ensureNotRunning() const;
 
         const sk::rt::Scope _scope;
         sk::sys::ProcessListener& _listener;
         sk::util::Holder<sk::io::InputStream> _defaultInputStreamHolder;
+        sk::rt::Mutex _mutex;
+
         volatile int _pid;
         volatile int _status;
         volatile bool _detached;

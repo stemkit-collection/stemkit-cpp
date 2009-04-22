@@ -18,7 +18,14 @@ add-project-library $(library) : $(library).$(PLATFORM_IMPLEMENTATION) ;
 probes = 
   user-probe
 ;
-use-project-library $(probes) : sk.sys sk.rt.bundle sk.io sk.util ;
+use-project-library $(probes) : 
+  sk.sys 
+  sk.rt.thread
+  sk.rt.thread.pthreads
+  sk.rt.bundle 
+  sk.io 
+  sk.util 
+;
 
 local _probe ;
 for _probe in $(probes) {

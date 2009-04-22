@@ -11,7 +11,25 @@ local test-objects =
   TestSuite.cc
 ;
 
-use-project-library $(test) : sk.cppunit sk.sys sk.rt.bundle sk.io sk.util ;
+use-project-library $(test) : 
+  sk.cppunit 
+  sk.sys 
+  sk.io 
+  sk.rt.thread
+  sk.rt.thread.pthreads
+  sk.rt.bundle 
+  sk.util 
+;
 
 use-unit-test $(test) $(test-objects) ;
 make-cpp-test $(test) : $(test-objects) ;
+
+use-project-library aaa : 
+  sk.sys 
+  sk.io 
+  sk.rt.thread
+  sk.rt.thread.pthreads
+  sk.rt.bundle 
+  sk.util 
+;
+make-program aaa : aaa.cc ;

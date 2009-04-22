@@ -14,19 +14,17 @@
 
 #include <sk/sys/Process.h>
 #include <sk/sys/ProcessConfigurator.h>
-#include <sk/io/Pipe.h>
 #include <sk/io/FileInputStream.h>
 #include <sk/io/DataInputStream.h>
-#include <sk/io/EOFException.h>
+#include <sk/rt/Thread.h>
+#include <sk/rt/Runnable.h>
+#include <sk/rt/Locker.cxx>
 
 #include <errno.h>
 #include <unistd.h>
 #include <sys/wait.h>
 #include <signal.h>
 #include <iostream>
-#include <sys/time.h>
-#include <string.h>
-#include <errno.h>
 
 sk::sys::Process::
 Process(sk::io::InputStream& inputStream, const sk::util::StringArray& cmdline, ProcessListener& listener)
@@ -200,6 +198,36 @@ processStopping()
   return 0;
 }
 
+namespace {
+  struct Cleaner : public virtual sk::rt::Runnable {
+    Cleaner(int pid, int signal, int tolerance) : _pid(pid), _tolerance(tolerance), _canceled(false) {
+      terminate(signal);
+    }
+    void run() {
+      for(int counter = _tolerance*10; counter ;--counter) {
+        if(_canceled == true) {
+          return;
+        }
+        sk::rt::Thread::sleep(100);
+      }
+      terminate(SIGKILL);
+    }
+    void terminate(int signal) {
+      if(::kill(_pid, signal) < 0) {
+        if(errno != ESRCH) {
+          throw sk::rt::SystemException("kill:" + sk::util::String::valueOf(_pid) + ":" + sk::util::String::valueOf(signal));
+        }
+      }
+    }
+    void cancel() {
+      _canceled = true;
+    }
+    volatile bool _canceled;
+    int _pid;
+    int _tolerance;
+  };
+}
+
 void
 sk::sys::Process::
 stop() 
@@ -207,45 +235,16 @@ stop()
   if(_running == false) {
     return;
   }
-  if(signalUnlessTerminates(_listener.processStopping(), SIGTERM)) {
-    signalUnlessTerminates(1, SIGKILL);
-    try {
-      join();
-    }
-    catch(const std::exception& exception) {}
-  }
-  _running = false;
-}
+  _listener.processStopping();
 
-bool
-sk::sys::Process::
-signalUnlessTerminates(int timeout, int signal)
-{
-  if(timeout > 0) {
-    time_t start_time = time(0);
-    while(true) {
-      int status = 0;
-      int result = ::waitpid(_pid, &status, WNOHANG);
+  Cleaner cleaner(_pid, SIGTERM, 3);
+  sk::rt::Thread terminator(cleaner);
 
-      if(result > 0) {
-        _status = status;
-        return false;
-      }
-      if(result < 0) {
-        if(errno == EINTR) {
-          continue;
-        }
-        throw sk::rt::SystemException("signal:waitpid:" + sk::util::String::valueOf(_pid));
-      }
-      if(time(0) > (start_time + timeout)) {
-        break;
-      }
-    }
-  }
-  if(::kill(_pid, signal) != 0 && errno != ESRCH) {
-    throw sk::rt::SystemException("kill:" + sk::util::String::valueOf(_pid) + ":" + sk::util::String::valueOf(signal));
-  }
-  return true;
+  terminator.start();
+  join();
+  
+  cleaner.cancel();
+  terminator.join();
 }
 
 void
@@ -258,6 +257,7 @@ void
 sk::sys::Process::
 join()
 {
+  sk::rt::Locker<sk::rt::Mutex> locker(_mutex);
   if(_running == false) {
     return;
   }
@@ -271,15 +271,13 @@ join()
       if(errno == EINTR) {
         continue;
       }
-      throw sk::rt::SystemException("join:waitpid:" + sk::util::String::valueOf(_pid));
+      throw sk::rt::SystemException("waitpid:" + sk::util::String::valueOf(_pid));
     }
     if(result == _pid) {
       _status = status;
       break;
     }
-    throw sk::util::IllegalStateException(
-      "join:waitpid:mismatch:" + sk::util::String::valueOf(result) + ":" + sk::util::String::valueOf(_pid)
-    );
+    throw sk::util::IllegalStateException("waitpid:mismatch:" + sk::util::String::valueOf(result) + ":" + sk::util::String::valueOf(_pid));
   }
   _running = false;
 }

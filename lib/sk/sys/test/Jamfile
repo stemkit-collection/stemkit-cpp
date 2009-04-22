@@ -8,7 +8,14 @@ test-objects =
   TestSuite.cc
 ;
 
-use-project-library $(test) : sk.cppunit sk.sys sk.rt.bundle sk.io sk.util ;
+use-project-library $(test) : 
+  sk.cppunit sk.sys 
+  sk.rt.thread
+  sk.rt.thread.pthreads 
+  sk.rt.bundle 
+  sk.io 
+  sk.util 
+;
 
 use-unit-test $(test) $(test-objects) ;
 make-cpp-test $(test) : $(test-objects) ;

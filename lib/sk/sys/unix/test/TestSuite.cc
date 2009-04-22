@@ -8,6 +8,7 @@
 #include <cppunit/extensions/TestFactoryRegistry.h>
 #include <sk/cppunit/TestRunner.h>
 #include <sk/cppunit/SourcePath.h>
+#include <sk/rt/Thread.h>
 
 #include <iostream>
  
@@ -20,5 +21,9 @@ int main(int argc, char **argv)
     sk::cppunit::SourcePath::setBase(argv[1]);
   }
   runner.addTest(registry.makeTest());
-  return !runner.run();
+  sk::rt::Thread::setup();
+
+  int status = !runner.run();
+  sk::rt::Thread::reset();
+  return status;
 }
