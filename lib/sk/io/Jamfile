@@ -18,6 +18,7 @@ objects =
   FileInputStream.cc
   FileOutputStream.cc
   NullDeviceOutputStream.cc
+  ConsoleOutputStream.cc
   BufferedInputStream.cc
   BufferedOutputStream.cc
   IOException.cc
