@@ -52,7 +52,7 @@ stop()
 {
   if(terminate(SIGTERM) == false) {
     if(terminate(SIGKILL) == false) {
-      throw sk::rt::SystemException("Cannot stop process:" + sk::util::String::valueOf(_pid));
+      throw sk::util::IllegalStateException("Cannot stop process:" + sk::util::String::valueOf(_pid));
     }
   }
 }
