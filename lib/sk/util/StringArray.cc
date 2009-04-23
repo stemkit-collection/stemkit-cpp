@@ -94,6 +94,13 @@ get(int index) const
   return std::vector<sk::util::String>::at(index);
 }
 
+bool
+sk::util::StringArray::
+isEmpty() const
+{
+  return empty();
+}
+
 sk::util::StringArray
 sk::util::StringArray::
 operator + (const sk::util::String& item) const

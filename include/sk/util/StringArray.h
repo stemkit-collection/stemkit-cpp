@@ -27,6 +27,7 @@ namespace sk {
 
         const sk::util::String& get(int index) const;
         int size() const;
+        bool isEmpty() const;
         sk::util::StringArray operator + (const sk::util::String& item) const;
         sk::util::StringArray operator + (const sk::util::StringArray& other) const;
         void forEach(const sk::util::Processor<const sk::util::String>& processor) const;

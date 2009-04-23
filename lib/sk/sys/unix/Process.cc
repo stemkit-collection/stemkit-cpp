@@ -7,6 +7,7 @@
 */
 
 #include <sk/util/Class.h>
+#include <sk/util/StringArray.h>
 #include <sk/util/Holder.cxx>
 #include <sk/util/IllegalStateException.h>
 #include <sk/util/UnsupportedOperationException.h>
@@ -132,6 +133,10 @@ namespace {
     }
 
     void addStream(const sk::io::Stream& stream) {
+      int target = _descriptors.size() + 3;
+      setStream(target, stream);
+
+      _descriptors << sk::util::String::valueOf(target);
     }
 
     void setStream(int target, const sk::io::Stream& stream) {
@@ -145,6 +150,13 @@ namespace {
       ::dup(fd);
       ::close(fd);
     }
+
+    void finalize() {
+      if(_descriptors.isEmpty() == false) {
+        setEnvironment("SK_STREAMS", _descriptors.join("|"));
+      }
+    }
+    sk::util::StringArray _descriptors;
   };
 }
 
@@ -168,6 +180,8 @@ start(sk::io::InputStream& inputStream, const sk::util::StringArray& cmdline)
 
       Configurator configurator;
       _listener.processConfiguring(configurator);
+      configurator.finalize();
+
       _listener.processStarting();
 
       if(cmdline.empty() == false) {
