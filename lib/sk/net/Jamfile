@@ -1,2 +1,20 @@
+# vim: sw=2: ft=jam:
 
-make-subdirs ip4 ;
+local library = sk.net ;
+
+local objects = 
+  DatagramSocket.cc
+  InetAddress.cc
+  InetSocketAddress.cc
+  ServerSocket.cc
+  Socket.cc
+  SocketAddress.cc
+  URL.cc
+  URI.cc
+;
+
+make-library $(library) : $(objects) ;
+add-project-library $(library) : $(library).ip4 ;
+add-project-library $(library) : $(library).ip6 ;
+
+make-subdirs ip4 ip6 ;
