@@ -19,6 +19,7 @@ namespace sk {
       public:
         FileDescriptorInputStream(int fd);
         FileDescriptorInputStream(const sk::io::FileDescriptor& descriptor);
+        FileDescriptorInputStream(const FileDescriptorInputStream& other);
         virtual ~FileDescriptorInputStream();
 
         const sk::io::FileDescriptor& getFileDescriptor() const;
@@ -33,7 +34,6 @@ namespace sk {
         void close();
         
       private:
-        FileDescriptorInputStream(const FileDescriptorInputStream& other);
         FileDescriptorInputStream& operator = (const FileDescriptorInputStream& other);
 
         sk::io::FileDescriptor _descriptor;

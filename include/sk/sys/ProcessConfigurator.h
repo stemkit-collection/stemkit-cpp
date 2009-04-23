@@ -22,10 +22,10 @@ namespace sk {
     {
       public:
         virtual void setEnvironment(const sk::util::String& name, const sk::util::String& value) = 0;
-        virtual void setInputStream(sk::io::InputStream& stream) = 0;
-        virtual void setOutputStream(sk::io::OutputStream& stream) = 0;
-        virtual void setErrorOutputStream(sk::io::OutputStream& stream) = 0;
-        virtual void addStream(sk::io::Stream& stream) = 0;
+        virtual void setInputStream(const sk::io::InputStream& stream) = 0;
+        virtual void setOutputStream(const sk::io::OutputStream& stream) = 0;
+        virtual void setErrorOutputStream(const sk::io::OutputStream& stream) = 0;
+        virtual void addStream(const sk::io::Stream& stream) = 0;
     };
   }
 }
