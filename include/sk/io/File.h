@@ -1,4 +1,5 @@
-/*  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
+/*  vi: sw=2:
+ *  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
  *  
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
@@ -17,6 +18,9 @@ struct stat;
 
 namespace sk {
   namespace io {
+    class InputStream;
+    class OutputStream;
+
     class File
       : public virtual sk::util::Object 
     {
@@ -28,6 +32,9 @@ namespace sk {
         File(const sk::util::String& name, int mode, int permissions);
         File(const File& other);
         virtual ~File();
+
+        sk::io::InputStream& inputStream() const;
+        sk::io::OutputStream& outputStream() const;
 
         const sk::util::String getName() const;
         virtual sk::io::FileDescriptor& getFileDescriptor() const;
@@ -48,6 +55,8 @@ namespace sk {
 
         sk::util::String _name;
         sk::util::Holder<sk::io::FileDescriptor> _descriptorHolder;
+        sk::util::Holder<sk::io::InputStream> _inputStreamHolder;
+        sk::util::Holder<sk::io::OutputStream> _outputStreamHolder;
         mutable sk::util::Holder<struct ::stat> _statHolder;
     };
   }

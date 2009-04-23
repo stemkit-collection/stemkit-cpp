@@ -14,10 +14,11 @@
 #include <sk/util/UnsupportedOperationException.h>
 #include <sk/io/DataInputStream.h>
 #include <sk/io/DataOutputStream.h>
-#include <sk/io/File.h>
+#include <sk/io/NullDevice.h>
 
 #include <sk/sys/DaemonProcess.h>
 #include <sk/sys/Process.h>
+#include <sk/sys/ProcessConfigurator.h>
 #include <sk/sys/AbstractProcessListener.h>
 #include "ManagedProcess.h"
 
@@ -109,20 +110,12 @@ getExecutable() const
 
 namespace {
   struct FileDescriptorSweeper : public sk::sys::AbstractProcessListener {
-    void processStarting() {
-      {
-        sk::io::File trash("/dev/null", "r+");
-        ::close(0);
-        ::close(1);
-        ::close(2);
+    void processConfiguring(sk::sys::ProcessConfigurator& configurator) {
+      sk::io::NullDevice trash;
 
-        ::dup(trash.getFileDescriptor().getFileNumber());
-        ::dup(trash.getFileDescriptor().getFileNumber());
-        ::dup(trash.getFileDescriptor().getFileNumber());
-      }
-      for(int fd=3; fd<1024 ;++fd) {
-        ::close(fd);
-      }
+      configurator.setInputStream(trash.inputStream());
+      configurator.setOutputStream(trash.outputStream());
+      configurator.setErrorOutputStream(trash.outputStream());
     }
   };
 }

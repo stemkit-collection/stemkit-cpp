@@ -12,6 +12,8 @@
 #include <sk/io/File.h>
 #include <sk/io/IOException.h>
 #include <sk/io/ClosedChannelException.h>
+#include <sk/io/FileDescriptorInputStream.h>
+#include <sk/io/FileDescriptorOutputStream.h>
 #include <fcntl.h>
 #include <unistd.h>
 #include <sys/stat.h>
@@ -76,11 +78,27 @@ getName() const
   return _name;
 }
 
+sk::io::InputStream&
+sk::io::File::
+inputStream() const
+{
+    return _inputStreamHolder.get();
+}
+
+sk::io::OutputStream&
+sk::io::File::
+outputStream() const
+{
+    return _outputStreamHolder.get();
+}
+
 void
 sk::io::File::
 close()
 {
   _descriptorHolder.clear();
+  _inputStreamHolder.clear();
+  _outputStreamHolder.clear();
 }
 
 sk::io::FileDescriptor&
@@ -109,6 +127,8 @@ open(int mode, int permissions)
     throw sk::io::IOException("open() failed");
   }
   _descriptorHolder.set(new sk::io::FileDescriptor(fd));
+  _inputStreamHolder.set(new sk::io::FileDescriptorInputStream(fd));
+  _outputStreamHolder.set(new sk::io::FileDescriptorOutputStream(fd));
 }
 
 int
