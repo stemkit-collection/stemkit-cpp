@@ -119,16 +119,19 @@ namespace {
       ::putenv(s);
     }
 
-    void setInput(sk::io::InputStream& stream) {
+    void setInputStream(sk::io::InputStream& stream) {
       setStream(0, stream);
     }
 
-    void setOutput(sk::io::OutputStream& stream) {
+    void setOutputStream(sk::io::OutputStream& stream) {
       setStream(1, stream);
     }
 
-    void setErrorOutput(sk::io::OutputStream& stream) {
+    void setErrorOutputStream(sk::io::OutputStream& stream) {
       setStream(2, stream);
+    }
+
+    void addStream(sk::io::Stream& stream) {
     }
 
     void setStream(int target, const sk::io::Stream& stream) {

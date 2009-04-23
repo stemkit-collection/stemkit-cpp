@@ -231,7 +231,7 @@ namespace {
     void processConfiguring(sk::sys::ProcessConfigurator& configurator) {
       configurator.setEnvironment("testConfiguring", "set from a process");
       _pipe.outputStream().write("Hello\n", 0, 6);
-      configurator.setOutput(_pipe.outputStream());
+      configurator.setOutputStream(_pipe.outputStream());
       _pipe.close();
     }
     void processStarting() {
