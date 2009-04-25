@@ -10,6 +10,7 @@
 
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
+#include <sk/util/Boolean.h>
 #include <sk/util/Holder.cxx>
 #include <sk/util/UnsupportedOperationException.h>
 #include <sk/io/DataInputStream.h>
@@ -110,13 +111,19 @@ getExecutable() const
 
 namespace {
   struct FileDescriptorSweeper : public sk::sys::AbstractProcessListener {
+    FileDescriptorSweeper(const sk::rt::Scope& scope) 
+      : _scope(scope) {}
+
     void processConfiguring(sk::sys::ProcessConfigurator& configurator) {
       sk::io::NullDevice trash;
 
       configurator.setInputStream(trash.inputStream());
-      configurator.setOutputStream(trash.outputStream());
-      configurator.setErrorOutputStream(trash.outputStream());
+      if(_scope.getProperty("trash-output", sk::util::Boolean::B_TRUE) == true) {
+        configurator.setOutputStream(trash.outputStream());
+        configurator.setErrorOutputStream(trash.outputStream());
+      }
     }
+    const sk::rt::Scope& _scope;
   };
 }
 
@@ -126,7 +133,7 @@ processStarting()
 {
   ::setsid();
 
-  FileDescriptorSweeper sweeper;
+  FileDescriptorSweeper sweeper(_scope);
   sk::sys::Process process(_cmdline, sweeper);
   _pipe.inputStream().close();
   sk::io::DataOutputStream stream(_pipe.outputStream());
