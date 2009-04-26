@@ -114,6 +114,9 @@ defaultInputStream()
 
 namespace {
   struct Configurator : public virtual sk::sys::ProcessConfigurator {
+    Configurator(const sk::rt::Scope& scope)
+      : _scope(scope) {}
+
     void setEnvironment(const sk::util::String& name, const sk::util::String& value) {
       sk::util::String entry = name.trim() + "=" + value;
       char* s = new char[entry.length() + 1];
@@ -143,7 +146,8 @@ namespace {
     void setStream(int target, const sk::io::Stream& stream) {
       int fd;
       {
-        fd = ::dup(sk::io::FileDescriptorStream(stream).getFileDescriptor().getFileNumber());
+        sk::io::FileDescriptorStream fds(stream);
+        fd = ::dup(fds.getFileDescriptor().getFileNumber());
       }
       if(fd != target) {
         ::dup2(fd, target);
@@ -157,6 +161,7 @@ namespace {
       }
     }
     sk::util::StringArray _descriptors;
+    const sk::rt::Scope& _scope;
   };
 }
 
@@ -178,7 +183,7 @@ start(sk::io::InputStream& inputStream, const sk::util::StringArray& cmdline)
       sk::util::Holder<sk::io::InputStream> stdinHolder(inputStream.clone());
       inputStream.close();
 
-      Configurator configurator;
+      Configurator configurator(_scope);
       _listener.processConfiguring(configurator);
       configurator.finalize();
 
