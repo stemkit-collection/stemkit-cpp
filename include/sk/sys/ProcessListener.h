@@ -22,6 +22,7 @@ namespace sk {
         virtual void processStarting() = 0;
         virtual int processStopping() = 0;
         virtual void processJoining() = 0;
+        virtual void processFailing() = 0;
         virtual void processConfiguring(sk::sys::ProcessConfigurator& configurator) = 0;
     };
   }

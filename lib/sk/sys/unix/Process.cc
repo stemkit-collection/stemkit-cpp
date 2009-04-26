@@ -196,6 +196,8 @@ start(sk::io::InputStream& inputStream, const sk::util::StringArray& cmdline)
         arguments.push_back(0);
 
         ::execvp(arguments[0], &arguments[0]);
+
+        _listener.processFailing();
         throw sk::rt::SystemException("exec");
       }
     }

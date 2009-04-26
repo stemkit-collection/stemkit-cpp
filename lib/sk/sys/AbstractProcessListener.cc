@@ -48,6 +48,12 @@ processJoining()
 
 void 
 sk::sys::AbstractProcessListener::
+processFailing()
+{
+}
+
+void 
+sk::sys::AbstractProcessListener::
 processConfiguring(sk::sys::ProcessConfigurator& configurator)
 {
 }

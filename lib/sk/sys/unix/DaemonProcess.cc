@@ -163,6 +163,12 @@ processJoining()
 
 void 
 sk::sys::DaemonProcess::
+processFailing() 
+{
+}
+
+void 
+sk::sys::DaemonProcess::
 processConfiguring(sk::sys::ProcessConfigurator& configurator)
 {
 }
