@@ -10,11 +10,13 @@
 
 #include <sk/io/AbstractInputStream.h>
 #include <sk/io/FileDescriptor.h>
+#include <sk/io/FileDescriptorProvider.h>
 
 namespace sk {
   namespace io {
     class FileDescriptorInputStream
-      : public sk::io::AbstractInputStream
+      : public sk::io::AbstractInputStream, 
+        public virtual sk::io::FileDescriptorProvider
     {
       public:
         FileDescriptorInputStream(int fd);
@@ -22,6 +24,7 @@ namespace sk {
         FileDescriptorInputStream(const FileDescriptorInputStream& other);
         virtual ~FileDescriptorInputStream();
 
+        // sk::io::FileDescriptorProvider implementation.
         const sk::io::FileDescriptor& getFileDescriptor() const;
         
         // sk::util::Object re-implementation.

@@ -12,6 +12,7 @@ objects =
   DataInputStream.cc
   DataOutputStream.cc
   FileDescriptor.cc
+  FileDescriptorStream.cc
   FileDescriptorInputStream.cc
   FileDescriptorOutputStream.cc
   File.cc
