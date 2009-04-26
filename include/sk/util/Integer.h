@@ -28,7 +28,6 @@ namespace sk {
         const sk::util::Class getClass() const;
       
       private:
-        Integer(const Integer& other);
         Integer& operator = (const Integer& other);
 
         int _value;

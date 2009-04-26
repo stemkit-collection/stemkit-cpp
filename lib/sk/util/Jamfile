@@ -23,6 +23,7 @@ objects =
   SystemException.cc
   UnsupportedOperationException.cc
   InsufficientMemoryException.cc
+  ClassCastException.cc
   SystemExit.cc
   File.cc
 ;

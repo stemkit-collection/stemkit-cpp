@@ -35,6 +35,7 @@ test-objects =
   SystemExceptionTest.cc
   UnsupportedOperationExceptionTest.cc
   InsufficientMemoryExceptionTest.cc
+  UpcastTest.cc
 ;
 
 use-project-library $(test) : sk.util sk.cppunit ;
