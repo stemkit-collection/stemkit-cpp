@@ -48,7 +48,7 @@ processJoining()
 
 void 
 sk::sys::AbstractProcessListener::
-processFailing()
+processFailing(const sk::util::String& message)
 {
 }
 

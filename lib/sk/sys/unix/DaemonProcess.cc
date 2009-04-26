@@ -126,7 +126,10 @@ namespace {
 
     void processStarting() {
       _stream.writeInt(::getpid());
-      _stream.close();
+    }
+
+    void processFailing(const sk::util::String& message) {
+      _stream.writeChars(message + "\n");
     }
 
     const sk::rt::Scope& _scope;
@@ -163,7 +166,7 @@ processJoining()
 
 void 
 sk::sys::DaemonProcess::
-processFailing() 
+processFailing(const sk::util::String& message) 
 {
 }
 

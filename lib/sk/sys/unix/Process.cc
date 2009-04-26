@@ -188,20 +188,19 @@ start(sk::io::InputStream& inputStream, const sk::util::StringArray& cmdline)
       configurator.finalize();
 
       _listener.processStarting();
-
       _scope.notice("start") << cmdline.inspect();
+
       if(cmdline.empty() == false) {
         std::vector<char*> arguments;
         cmdline.forEach(ExecArgumentCollector(arguments));
         arguments.push_back(0);
 
         ::execvp(arguments[0], &arguments[0]);
-
-        _listener.processFailing();
         throw sk::rt::SystemException("exec");
       }
     }
     catch(const std::exception& exception) {
+      _listener.processFailing(exception.what());
       _scope.error("fork") << exception.what() << ":" << cmdline.inspect();
     }
     _exit(1);

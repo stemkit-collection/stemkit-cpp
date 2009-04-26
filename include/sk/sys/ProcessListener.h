@@ -10,6 +10,7 @@
 #define _SK_SYS_PROCESSLISTENER_
 
 #include <sk/util/Object.h>
+#include <sk/util/String.h>
 
 namespace sk {
   namespace sys {
@@ -22,7 +23,7 @@ namespace sk {
         virtual void processStarting() = 0;
         virtual int processStopping() = 0;
         virtual void processJoining() = 0;
-        virtual void processFailing() = 0;
+        virtual void processFailing(const sk::util::String& message) = 0;
         virtual void processConfiguring(sk::sys::ProcessConfigurator& configurator) = 0;
     };
   }

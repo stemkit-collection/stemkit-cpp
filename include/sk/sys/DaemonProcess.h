@@ -48,7 +48,7 @@ namespace sk {
         void processStarting();
         int processStopping();
         void processJoining();
-        void processFailing();
+        void processFailing(const sk::util::String& message);
         void processConfiguring(sk::sys::ProcessConfigurator& configurator);
 
       private:
