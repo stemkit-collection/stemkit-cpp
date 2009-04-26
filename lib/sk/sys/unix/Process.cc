@@ -15,6 +15,7 @@
 
 #include <sk/sys/Process.h>
 #include <sk/sys/ProcessConfigurator.h>
+#include <sk/io/FileDescriptorStream.h>
 #include <sk/io/FileInputStream.h>
 #include <sk/io/DataInputStream.h>
 #include <sk/rt/Thread.h>
@@ -140,15 +141,14 @@ namespace {
     }
 
     void setStream(int target, const sk::io::Stream& stream) {
-      ::close(target);
       int fd;
       {
-        sk::util::Holder<sk::io::Stream> streamHolder(stream.clone());
-        fd = ::dup(target);
-        // Holder will delete a cloned stream, closing "target".
+        fd = ::dup(sk::io::FileDescriptorStream(stream).getFileDescriptor().getFileNumber());
       }
-      ::dup(fd);
-      ::close(fd);
+      if(fd != target) {
+        ::dup2(fd, target);
+        ::close(fd);
+      }
     }
 
     void finalize() {
