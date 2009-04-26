@@ -78,7 +78,7 @@ start()
   int pid = stream.readInt();
   process.join();
 
-  _pipe.inputStream().close();
+  _pipe.close();
   _executableHolder.set(new ManagedProcess(pid));
 }
 
@@ -110,9 +110,9 @@ getExecutable() const
 }
 
 namespace {
-  struct FileDescriptorSweeper : public sk::sys::AbstractProcessListener {
-    FileDescriptorSweeper(const sk::rt::Scope& scope) 
-      : _scope(scope) {}
+  struct DaemonConfigurator : public sk::sys::AbstractProcessListener {
+    DaemonConfigurator(const sk::rt::Scope& scope, sk::io::OutputStream& stream) 
+      : _scope(scope), _stream(stream) {}
 
     void processConfiguring(sk::sys::ProcessConfigurator& configurator) {
       sk::io::NullDevice trash;
@@ -123,7 +123,14 @@ namespace {
         configurator.setErrorOutputStream(trash.outputStream());
       }
     }
+
+    void processStarting() {
+      _stream.writeInt(::getpid());
+      _stream.close();
+    }
+
     const sk::rt::Scope& _scope;
+    sk::io::DataOutputStream _stream;
   };
 }
 
@@ -133,12 +140,11 @@ processStarting()
 {
   ::setsid();
 
-  FileDescriptorSweeper sweeper(_scope);
-  sk::sys::Process process(_cmdline, sweeper);
   _pipe.inputStream().close();
-  sk::io::DataOutputStream stream(_pipe.outputStream());
-  stream.writeInt(process.getPid());
-  stream.close();
+  DaemonConfigurator configurator(_scope, _pipe.outputStream());
+  sk::sys::Process process(_cmdline, configurator);
+
+  _pipe.close();
   process.detach();
 }
 

@@ -65,6 +65,7 @@ testDestroyKillsProcess()
 
     CPPUNIT_ASSERT_EQUAL(true, process.isAlive());
     pid = process.getPid();
+    CPPUNIT_ASSERT(::kill(pid, 0) == 0);
   }
   CPPUNIT_ASSERT(::kill(pid, 0) != 0);
   CPPUNIT_ASSERT_EQUAL(ESRCH, errno);
