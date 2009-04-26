@@ -44,7 +44,7 @@ const U&
 sk::util::
 upcast(const sk::util::Object& object)
 {
-  return upcast<U>(object, object.getClass().getName());
+  return upcast<U, sk::util::Object>(static_cast<const sk::util::Object&>(object), object.getClass().getName());
 }
 
 template<typename U>
