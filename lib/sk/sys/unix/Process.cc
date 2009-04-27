@@ -15,6 +15,7 @@
 
 #include <sk/sys/Process.h>
 #include <sk/sys/ProcessConfigurator.h>
+#include <sk/sys/ProcessLaunchException.h>
 #include <sk/io/FileDescriptorStream.h>
 #include <sk/io/FileInputStream.h>
 #include <sk/io/DataInputStream.h>
@@ -201,7 +202,7 @@ start(sk::io::InputStream& inputStream, const sk::util::StringArray& cmdline)
     }
     catch(const std::exception& exception) {
       _listener.processFailing(exception.what());
-      _scope.error("fork") << exception.what() << ":" << cmdline.inspect();
+      _scope.notice("fork") << sk::sys::ProcessLaunchException(exception.what(), cmdline).what();
     }
     _exit(1);
   }
