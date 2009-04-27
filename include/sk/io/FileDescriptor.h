@@ -25,6 +25,7 @@ namespace sk {
         void close();
         int read(char* buffer, int offset, int length);
         int write(const char* buffer, int offset, int length);
+        void inheritable(bool state);
 
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;

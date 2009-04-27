@@ -10,6 +10,7 @@
 
 #include "DaemonProcessTest.h"
 #include <sk/sys/DaemonProcess.h>
+#include <sk/sys/ProcessLaunchException.h>
 #include "../ManagedProcess.h"
 
 #include <signal.h>
@@ -124,4 +125,12 @@ testDestroyLeavesProcessWhenExplicitlyDetached()
     throw;
   }
   process.stop();
+}
+
+void
+sk::sys::test::DaemonProcessTest::
+testFailedCommand()
+{
+  sk::sys::DaemonProcess process(sk::util::StringArray("/zzz/bbb"));
+  CPPUNIT_ASSERT_THROW(process.start(), sk::sys::ProcessLaunchException);
 }

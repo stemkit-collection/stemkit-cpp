@@ -28,8 +28,9 @@ namespace sk {
         virtual ~FileDescriptorStream();
     
         // sk::io::Stream implementation.
-        virtual void close();
-        virtual FileDescriptorStream* clone() const;
+        void close();
+        FileDescriptorStream* clone() const;
+        void inheritable(bool state);
 
         // sk::io::FileDescriptorProvider
         const sk::io::FileDescriptor& getFileDescriptor() const;

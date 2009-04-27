@@ -1,4 +1,5 @@
-/*  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
+/*  vi: sw=2:
+ *  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
  *  
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
@@ -59,6 +60,13 @@ sk::io::FileDescriptorOutputStream::
 write(const char* buffer, int offset, int length)
 {
   return _descriptor.write(buffer, offset, length);
+}
+
+void
+sk::io::FileDescriptorOutputStream::
+inheritable(bool state)
+{
+  _descriptor.inheritable(state);
 }
 
 const sk::io::FileDescriptor&

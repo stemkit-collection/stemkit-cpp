@@ -33,6 +33,7 @@ namespace sk {
         void reset();
         int read(char* buffer, int offset, int length);
         using AbstractInputStream::read;
+        void inheritable(bool state);
         
       private:
         DelegatingInputStream(const DelegatingInputStream& other);

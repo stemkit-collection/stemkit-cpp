@@ -1,4 +1,4 @@
-/*  vim: set sw=2:
+/*  vi: sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
  *  
  *  Distributed under the MIT Licence.
@@ -16,11 +16,13 @@
 #include <sk/io/DataInputStream.h>
 #include <sk/io/DataOutputStream.h>
 #include <sk/io/NullDevice.h>
+#include <sk/io/EOFException.h>
 
 #include <sk/sys/DaemonProcess.h>
 #include <sk/sys/Process.h>
 #include <sk/sys/ProcessConfigurator.h>
 #include <sk/sys/AbstractProcessListener.h>
+#include <sk/sys/ProcessLaunchException.h>
 #include "ManagedProcess.h"
 
 static const char* __className("sk::sys::DaemonProcess");
@@ -76,10 +78,18 @@ start()
   sk::io::DataInputStream stream(_pipe.inputStream());
 
   int pid = stream.readInt();
+  _executableHolder.set(new ManagedProcess(pid));
+
   process.join();
 
+  try {
+    sk::util::String error = stream.readLine();
+    _pipe.close();
+
+    throw sk::sys::ProcessLaunchException(error, _cmdline);
+  }
+  catch(const sk::io::EOFException& exception) {}
   _pipe.close();
-  _executableHolder.set(new ManagedProcess(pid));
 }
 
 const sk::util::Class
@@ -126,6 +136,7 @@ namespace {
 
     void processStarting() {
       _stream.writeInt(::getpid());
+      _stream.inheritable(false);
     }
 
     void processFailing(const sk::util::String& message) {

@@ -83,3 +83,10 @@ reset()
 {
   _stream.reset();
 }
+
+void 
+sk::io::DelegatingInputStream::
+inheritable(bool state)
+{
+  _stream.inheritable(state);
+}

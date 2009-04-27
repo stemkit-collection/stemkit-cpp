@@ -35,6 +35,7 @@ namespace sk {
         int write(const char* buffer, int offset, int length);
         using AbstractOutputStream::write;
         void close();
+        void inheritable(bool state);
         
       private:
         FileDescriptorOutputStream& operator = (const FileDescriptorOutputStream& other);

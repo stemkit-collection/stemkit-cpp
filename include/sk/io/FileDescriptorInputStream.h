@@ -35,6 +35,7 @@ namespace sk {
         int read(char* buffer, int offset, int length);
         using sk::io::AbstractInputStream::read;
         void close();
+        void inheritable(bool state);
         
       private:
         FileDescriptorInputStream& operator = (const FileDescriptorInputStream& other);

@@ -1,4 +1,5 @@
-/*  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
+/*  vi: sw=2:
+ *  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
  *  
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
@@ -56,3 +57,9 @@ write(const char* buffer, int offset, int length)
   return _stream.write(buffer, offset, length);
 }
 
+void
+sk::io::DelegatingOutputStream::
+inheritable(bool state)
+{
+  _stream.inheritable(state);
+}

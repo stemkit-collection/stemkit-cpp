@@ -60,3 +60,10 @@ getFileDescriptor() const
 {
   return _descriptor;
 }
+
+void
+sk::io::FileDescriptorStream::
+inheritable(bool state)
+{
+  _descriptor.inheritable(state);
+}

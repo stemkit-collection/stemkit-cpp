@@ -1,4 +1,5 @@
-/*  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
+/*  vi: sw=2:
+ *  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
  *  
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
@@ -11,6 +12,7 @@
 #include <sk/io/FileDescriptor.h>
 #include <sk/io/EOFException.h>
 #include <sk/io/ClosedChannelException.h>
+#include <sk/rt/SystemException.h>
 #include <errno.h>
 #include <unistd.h>
 #include <fcntl.h>
@@ -111,4 +113,23 @@ sk::io::FileDescriptor::
 getFileNumber() const
 {
   return _fd;
+}
+
+void 
+sk::io::FileDescriptor::
+inheritable(bool state)
+{
+  int flags = fcntl(_fd, F_GETFD);
+  if(flags == -1) {
+    throw sk::rt::SystemException("fcntl:F_GETFD");
+  }
+  if(state == false) {
+    flags |= FD_CLOEXEC;
+  }
+  else {
+    flags &= ~(FD_CLOEXEC);
+  }
+  if(fcntl(_fd, F_SETFD, flags) == -1) {
+    throw sk::rt::SystemException("fcntl:F_SETFD");
+  }
 }
