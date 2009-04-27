@@ -38,6 +38,7 @@ namespace sk {
           void flush();
           int write(const char* buffer, int offset, int size);
           using AbstractOutputStream::write;
+          void inheritable(bool state);
           
         private:
           MockOutputStream(const MockOutputStream& other);

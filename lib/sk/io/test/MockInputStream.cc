@@ -82,3 +82,9 @@ chunk(int index) const
   }
   return _chunks[index];
 }
+
+void
+sk::io::test::MockInputStream::
+inheritable(bool state)
+{
+}

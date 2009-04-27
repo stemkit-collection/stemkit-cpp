@@ -34,6 +34,7 @@ namespace sk {
         int skip(int number);
         void mark(int readlimit);
         void reset();
+        void inheritable(bool state);
         
       private:
         ByteArrayInputStream(const ByteArrayInputStream& other);

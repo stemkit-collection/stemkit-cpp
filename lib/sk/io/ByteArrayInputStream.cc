@@ -123,3 +123,9 @@ reset()
   }
   _cursor = _mark;
 }
+
+void
+sk::io::ByteArrayInputStream::
+inheritable(bool state)
+{
+}

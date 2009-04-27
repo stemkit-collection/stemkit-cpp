@@ -36,6 +36,7 @@ namespace sk {
           void close();
           int read(char* buffer, int offset, int size);
           using AbstractInputStream::read;
+          void inheritable(bool state);
           
         private:
           MockInputStream(const MockInputStream& other);

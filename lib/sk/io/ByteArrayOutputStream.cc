@@ -50,3 +50,9 @@ close()
 {
   _closed = true;
 }
+
+void
+sk::io::ByteArrayOutputStream::
+inheritable(bool state)
+{
+}

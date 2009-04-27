@@ -136,3 +136,9 @@ chunk(int index) const
   }
   return _dataChunks[index];
 }
+
+void 
+sk::io::test::MockOutputStream::
+inheritable(bool state)
+{
+}
