@@ -1,4 +1,5 @@
-/*  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
+/*  vi: sw=2:
+ *  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
  *  
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
@@ -69,6 +70,22 @@ testPlusString()
   CPPUNIT_ASSERT_EQUAL(sk::util::String("aaa"), strings.get(1));
   CPPUNIT_ASSERT_EQUAL(sk::util::String("aaa"), strings.get(2));
   CPPUNIT_ASSERT_EQUAL(sk::util::String("aaa"), strings.get(3));
+}
+
+void
+sk::util::test::StringArrayTest::
+testPopulate()
+{
+  sk::util::StringArray depot;
+  CPPUNIT_ASSERT_EQUAL(0, depot.size());
+  CPPUNIT_ASSERT_EQUAL(true, depot.isEmpty());
+
+  depot << "aaa";
+  depot << "bbb";
+
+  CPPUNIT_ASSERT_EQUAL(false, depot.isEmpty());
+  CPPUNIT_ASSERT_EQUAL(2, depot.size());
+  CPPUNIT_ASSERT_EQUAL("", depot.inspect());
 }
 
 void
