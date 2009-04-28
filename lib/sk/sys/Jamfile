@@ -28,6 +28,8 @@ use-project-library $(probes) :
   sk.util 
 ;
 
+use-pthreads $(probes) ;
+
 local _probe ;
 for _probe in $(probes) {
   make-program $(_probe) : $(_probe).cc ;

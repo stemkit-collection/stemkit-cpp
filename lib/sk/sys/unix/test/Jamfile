@@ -21,5 +21,6 @@ use-project-library $(test) :
   sk.util 
 ;
 
+use-pthreads $(test) ;
 use-unit-test $(test) $(test-objects) ;
 make-cpp-test $(test) : $(test-objects) ;

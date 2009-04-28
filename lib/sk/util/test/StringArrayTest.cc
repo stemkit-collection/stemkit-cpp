@@ -85,7 +85,7 @@ testPopulate()
 
   CPPUNIT_ASSERT_EQUAL(false, depot.isEmpty());
   CPPUNIT_ASSERT_EQUAL(2, depot.size());
-  CPPUNIT_ASSERT_EQUAL("", depot.inspect());
+  CPPUNIT_ASSERT_EQUAL("sk::util::StringArray[ \"aaa\", \"bbb\" ]", depot.inspect());
 }
 
 void
