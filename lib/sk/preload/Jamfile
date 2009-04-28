@@ -1,3 +1,8 @@
+# vim: sw=2: ft=jam:
 
-make-shared-module sk.preload.control : control.cc ;
-make-shared-module sk.preload.print : print.cc ;
+if ! win32 in $(project.PLATFORM_SPECIFICS) {
+  if ! mks32 in $(project.PLATFORM_SPECIFICS) {
+    make-shared-module sk.preload.control : control.cc ;
+    make-shared-module sk.preload.print : print.cc ;
+  }
+}

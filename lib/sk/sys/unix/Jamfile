@@ -3,11 +3,17 @@ local library = sk.sys.unix ;
 
 local objects = 
   Process.cc
-  PtyProcess.cc
   DaemonProcess.cc
   ManagedProcess.cc
-  User.cc
 ;
+
+if mks32 in $(project.PLATFORM_SPECIFICS) {
+  objects += 
+    [ util.make-path .. win32 User.cc ] 
+    [ util.make-path .. win32 PtyProcess.cc ] 
+  ;
+}
+else objects += User.cc PtyProcess.cc ;
 
 make-library $(library) : $(objects) ;
 make-subdirs test ;

@@ -11,16 +11,16 @@
 #include <sk/io/FileStreamCoupler.hxx>
 #include <sk/util/Holder.cxx>
 
-template<class Stream>
-sk::io::FileStreamCoupler<Stream>::
+template<typename S>
+sk::io::FileStreamCoupler<S>::
 FileStreamCoupler(std::auto_ptr<sk::io::File> file_auto_ptr)
-  : Stream(file_auto_ptr.get()->getFileDescriptor().getFileNumber()), _fileHolder(file_auto_ptr.release())
+  : S(file_auto_ptr.get()->getFileDescriptor().getFileNumber()), _fileHolder(file_auto_ptr.release())
 {
 }
 
-template<class Stream>
+template<typename S>
 sk::io::File&
-sk::io::FileStreamCoupler<Stream>::
+sk::io::FileStreamCoupler<S>::
 getFile() const
 {
   return _fileHolder.get();

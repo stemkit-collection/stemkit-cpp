@@ -11,13 +11,11 @@
 #include <sk/util/Holder.cxx>
 
 #include <sk/sys/PtyProcess.h>
+#include <sk/sys/AbstractProcessListener.h>
 
 struct sk::sys::PtyProcess::Listener 
-  : public virtual sk::sys::ProcessListener 
+  : public sk::sys::AbstractProcessListener 
 {
-    void processStarting();
-    int processStopping();
-    void processJoining();
 };
 
 sk::sys::PtyProcess::
@@ -89,21 +87,3 @@ errors() const
   throw sk::util::UnsupportedOperationException(SK_METHOD);
 }
 
-void 
-sk::sys::PtyProcess::Listener::
-processStarting()
-{
-}
-
-int 
-sk::sys::PtyProcess::Listener::
-processStopping()
-{
-  return 0;
-}
-
-void 
-sk::sys::PtyProcess::Listener::
-processJoining()
-{
-}

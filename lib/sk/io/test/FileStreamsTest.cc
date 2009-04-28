@@ -45,8 +45,7 @@ testRead()
   sk::io::FileInputStream stream(datafile);
   sk::io::DataInputStream data(stream);
 
-  sk::util::String expected = "# This comment is needed for tests.\n";
-  CPPUNIT_ASSERT_EQUAL(expected.inspect(), data.readLine().inspect());
+  CPPUNIT_ASSERT_EQUAL("# This comment is needed for tests.", data.readLine().trim());
   CPPUNIT_ASSERT_EQUAL(sk::util::String(datafile), stream.getFile().getName());
 }
 
@@ -73,7 +72,9 @@ testAvailable()
 {
   sk::io::FileInputStream stream(sk::cppunit::SourcePath::make("testdata"));
 
-  CPPUNIT_ASSERT_EQUAL(81, int(stream.available()));
+  int available = stream.available();
+
+  CPPUNIT_ASSERT(available == 81 || available==85);
   CPPUNIT_ASSERT_EQUAL(20, stream.skip(20));
-  CPPUNIT_ASSERT_EQUAL(61, int(stream.available()));
+  CPPUNIT_ASSERT_EQUAL(available-20, int(stream.available()));
 }

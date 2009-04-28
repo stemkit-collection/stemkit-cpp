@@ -48,6 +48,8 @@ PLATFORM_IMPLEMENTATION = unix ;
 
 rule platform-nt-x86-win32
 {
+  PLATFORM_IMPLEMENTATION = win32 ;
+
   project.PLATFORM_SPECIFICS = windows ;
   util.delete-from project.DO_NOT_BUILD : java ;
 
@@ -64,6 +66,8 @@ rule platform-nt-x86-win32
 
 rule platform-nt-x86-mks32
 {
+  project.PLATFORM_SPECIFICS = mks32 ;
+
   core.ensure-defined JAM_MKS_ROOT ;
   mswin.setup-mks-toolkit8 "$(JAM_MKS_ROOT:J= )" ;
 
@@ -72,7 +76,6 @@ rule platform-nt-x86-mks32
 
 rule platform-nt-x86
 {
-  PLATFORM_IMPLEMENTATION = win32 ;
   core.load-config Jam.windows ;
 
   project.MAKE_DLL = false ;

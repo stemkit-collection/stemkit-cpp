@@ -1,7 +1,7 @@
 
-test = sk-io-test ;
+local test = sk-io-test ;
 
-test-objects = 
+local objects = 
   MockOutputStream.cc
   MockInputStream.cc
   ByteArrayInputStreamTest.cc
@@ -16,11 +16,14 @@ test-objects =
   EOFExceptionTest.cc
   ClosedChannelExceptionTest.cc
   AnonymousPipeTest.cc
-  PtyTest.cc
   TestSuite.cc
 ;
 
+if ! mks32 in $(project.PLATFORM_SPECIFICS) {
+  objects += PtyTest.cc ;
+}
+
 use-project-library $(test) : sk.cppunit sk.io sk.rt.bundle sk.util ;
 
-use-unit-test $(test) $(test-objects) ;
-make-cpp-test $(test) : $(test-objects) ;
+use-unit-test $(test) $(objects) ;
+make-cpp-test $(test) : $(objects) ;

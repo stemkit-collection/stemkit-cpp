@@ -14,9 +14,9 @@
 
 namespace sk {
   namespace io {
-    template<class Stream>
+    template<typename S>
     class FileStreamCoupler
-      : public Stream
+      : public S
     {
       public:
         FileStreamCoupler(std::auto_ptr<sk::io::File> file_auto_ptr);

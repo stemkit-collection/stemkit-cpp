@@ -1,15 +1,20 @@
-# vim: ft=jam:
+# vim: ft=jam: sw=2:
 
 local test = sk-sys-test ;
 
-local test-objects = 
+local objects = 
   ProcessTest.cc
-  UserTest.cc
-  PtyProcessTest.cc
   PipeProcessTest.cc
   DaemonProcessTest.cc
   TestSuite.cc
 ;
+
+if ! mks32 in $(project.PLATFORM_SPECIFICS) {
+  objects += 
+    PtyProcessTest.cc
+    UserTest.cc
+  ;
+}
 
 use-project-library $(test) : 
   sk.cppunit 
@@ -22,5 +27,5 @@ use-project-library $(test) :
 ;
 
 use-pthreads $(test) ;
-use-unit-test $(test) $(test-objects) ;
-make-cpp-test $(test) : $(test-objects) ;
+use-unit-test $(test) $(objects) ;
+make-cpp-test $(test) : $(objects) ;

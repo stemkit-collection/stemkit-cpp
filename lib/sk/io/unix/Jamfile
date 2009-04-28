@@ -3,6 +3,16 @@ local library = sk.io.unix ;
 
 objects = 
   AnonymousPipe.cc
+;
+
+if mks32 in $(project.PLATFORM_SPECIFICS) {
+  objects += 
+    [ util.make-path .. win32 TtyDevice.cc ] 
+    [ util.make-path .. win32 Pty.cc ] 
+  ;
+}
+
+else objects += 
   TtyDevice.cc
   PtyImpl.cc
   PtySpecifics-$(project.PTY_SPECIFICS).cc
