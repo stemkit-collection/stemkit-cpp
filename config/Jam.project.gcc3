@@ -1,4 +1,4 @@
-# vim:ft=jam:sw=2
+# vim: ft=jam: sw=2:
 
 project.MAKE_DLL = true ;
 
@@ -290,12 +290,24 @@ rule platform-hpux-ia64
   project.PTY_SPECIFICS = streams-hp ;
 }
 
+rule platform-rh21-unsupported
+{
+  exit 
+    Platform $(1) unsupported because of faulty thread implementation -- when
+    combined with process handling, the background manager thread often dies
+    without any chance to be recovered from the application itself. This is 
+    one of "expected" side effects of old LixuxThreads implementation. The 
+    newer one based on NPTL is free from this problem (no extra manager thread
+    there).
+  ;
+}
+
 switch $(PRODUCT_PLATFORM) {
   case rh-30-x86 : platform-linux-x86 ;
   case rh-40-x86 : platform-linux-x86 ;
   case rh-40-amd64 : platform-linux-amd64 ;
   case rh-40-ia64 : platform-linux-ia64 ;
-  case rh-21-x86 : platform-linux-x86 ;
+  case rh-21-x86 : platform-rh21-unsupported $(PRODUCT_PLATFORM) ;
   case aix-51-ppc : platform-aix-ppc ;
   case aix-52-ppc : platform-aix-ppc ;
   case aix-53-ppc : platform-aix-ppc ;
