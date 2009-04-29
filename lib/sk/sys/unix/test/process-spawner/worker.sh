@@ -7,5 +7,5 @@ sleep 1
 
 while [ "${counter}" -le "${ceiling}" ]; do
   echo P${1}-$$: ${counter}
-  (( ++counter ))
+  (( counter += 1 ))
 done
