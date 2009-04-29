@@ -29,3 +29,5 @@ use-project-library $(test) :
 use-pthreads $(test) ;
 use-unit-test $(test) $(objects) ;
 make-cpp-test $(test) : $(objects) ;
+
+make-subdirs process-spawner ;

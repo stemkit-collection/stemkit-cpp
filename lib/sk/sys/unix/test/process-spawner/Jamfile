@@ -1,0 +1,10 @@
+
+local program = spawner ;
+
+local objects = 
+  Spawner.cc
+  app.cc
+;
+
+use-project-libraries $(program) : sk.sys sk.io sk.rt.thread sk.rt.thread.pthreads sk.rt.bundle sk.util ;
+make-program $(program) : $(objects) ;
