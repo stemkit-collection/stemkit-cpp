@@ -23,7 +23,7 @@ static const char* __className("sk::rt::thread::Dispatcher");
 
 sk::rt::thread::Dispatcher::
 Dispatcher()
-  : _sequence(0), _mutex(false), _uncaughtExceptionHandlerHolder(new PrintingExceptionHandler("default exception handler"))
+  : _sequence(0), _mutex(false), _uncaughtExceptionHandlerHolder(new PrintingExceptionHandler("thread-exception-handler"))
 {
 }
 

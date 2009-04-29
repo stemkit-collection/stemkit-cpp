@@ -30,7 +30,7 @@ int main(int argc, const char* argv[])
           <file name='test.log' />\n\
         </log>\n\
         \n\
-        <scope name='default exception handler'>\n\
+        <scope name='thread-exception-handler'>\n\
           <property name='abort-on-exception' value='false' />\n\
         </scope>\n\
         \n\
