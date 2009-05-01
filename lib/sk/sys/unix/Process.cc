@@ -204,7 +204,7 @@ start(sk::io::InputStream& inputStream, const sk::util::StringArray& cmdline)
       _listener.processFailing(exception.what());
       _scope.notice("fork") << sk::sys::ProcessLaunchException(exception.what(), cmdline).what();
     }
-    _exit(1);
+    _exit(99);
   }
   _running = true;
   inputStream.close();
