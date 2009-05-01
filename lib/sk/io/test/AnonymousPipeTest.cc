@@ -15,6 +15,7 @@
 #include <sk/io/FileDescriptorInputStream.h>
 #include <sk/io/DataInputStream.h>
 #include <sk/io/EOFException.h>
+#include <sk/rt/SystemException.h>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::io::test::AnonymousPipeTest);
 
@@ -78,5 +79,5 @@ testCloseInput()
 
   pipe.closeInput();
   sk::io::AnonymousPipe::ignoreSignals();
-  CPPUNIT_ASSERT_THROW(pipe.outputStream().write(0), sk::io::IOException);
+  CPPUNIT_ASSERT_THROW(pipe.outputStream().write(0), sk::rt::SystemException);
 }
