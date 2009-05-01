@@ -9,8 +9,6 @@
 */
 
 #include <iostream>
-#include <iomanip>
-#include <exception>
 #include <string>
 #include <memory>
 
@@ -32,14 +30,14 @@ struct S : public virtual O {
 };
 
 struct FDIS : public virtual S {
-  FDIS() {
-    std::cerr << "FDIS::FDIS(), " << this << std::endl;
+  FDIS() : _data(123456) {
+    std::cerr << "FDIS::FDIS(), " << this << ", data=" << _data << std::endl;
   }
   ~FDIS() {
-    std::cerr << "FDIS::~FDIS(), " << this << std::endl;
+    std::cerr << "FDIS::~FDIS(), " << this << ", data=" << _data << std::endl;
   }
   FDIS* clone() const {
-    std::cerr << "FDIS::clone(), " << this << std::endl;
+    std::cerr << "FDIS::clone(), " << this << ", data=" << _data << std::endl;
     return new FDIS();
   }
 
@@ -48,13 +46,9 @@ struct FDIS : public virtual S {
 
 int main(int argc, const char* argv[])
 {
-  try {
-    FDIS fdis;
-    S& s = fdis;
-    std::auto_ptr<O> o(s.clone());
-  }
-  catch(const std::string& exception) {
-    std::cerr << "ERROR: " << exception << std::endl;
-  }
+  FDIS fdis;
+  S& s = fdis;
+  std::auto_ptr<O> o(s.clone());
+
   return 0;
 }
