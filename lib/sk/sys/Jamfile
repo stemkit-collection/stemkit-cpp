@@ -13,6 +13,11 @@ local objects =
 make-library $(library) : $(objects) ;
 make-subdir test ;
 
+local PLATFORM_IMPLEMENTATION = $(PLATFORM_IMPLEMENTATION) ;
+if $(PLATFORM_IMPLEMENTATION) = "unix" && mks32 in $(project.PLATFORM_SPECIFICS) {
+  PLATFORM_IMPLEMENTATION = mks32 ;
+}
+
 make-subdirs $(PLATFORM_IMPLEMENTATION) ;
 add-project-library $(library) : $(library).$(PLATFORM_IMPLEMENTATION) ;
 

@@ -1,0 +1,33 @@
+# vim: ft=jam: sw=2:
+
+local test = sk-sys-test ;
+
+local objects = 
+  ProcessTest.cc
+  PipeProcessTest.cc
+  DaemonProcessTest.cc
+  TestSuite.cc
+;
+
+if ! mks32 in $(project.PLATFORM_SPECIFICS) {
+  objects += 
+    PtyProcessTest.cc
+    UserTest.cc
+  ;
+}
+
+use-project-library $(test) : 
+  sk.cppunit 
+  sk.sys 
+  sk.io 
+  sk.rt.thread
+  sk.rt.thread.pthreads
+  sk.rt.bundle 
+  sk.util 
+;
+
+use-pthreads $(test) ;
+use-unit-test $(test) $(objects) ;
+make-cpp-test $(test) : $(objects) ;
+
+make-subdirs process-spawner ;
