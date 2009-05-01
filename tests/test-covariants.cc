@@ -46,20 +46,15 @@ struct FDIS : public virtual S {
   int _data;
 };
 
-O* f(S& s);
-
 int main(int argc, const char* argv[])
 {
   try {
-    FDIS stream;
-    std::auto_ptr<O> s(f(stream));
+    FDIS fdis;
+    S& s = fdis;
+    std::auto_ptr<O> o(s.clone());
   }
   catch(const std::string& exception) {
     std::cerr << "ERROR: " << exception << std::endl;
   }
   return 0;
-}
-
-O* f(S& s) {
-  return s.clone();
 }
