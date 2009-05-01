@@ -29,7 +29,7 @@
 
 sk::rt::logger::PipeDestination::
 PipeDestination(const logger::Destination& destination)
-  : _destinationHolder(dynamic_cast<sk::rt::logger::Destination*>(destination.clone())), _descriptor(-1), _piped(false)
+  : _destinationHolder(sk::util::covariant<sk::rt::logger::Destination>(destination.clone())), _descriptor(-1), _piped(false)
 {
 }
 

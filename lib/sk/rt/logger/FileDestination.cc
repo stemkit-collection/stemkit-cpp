@@ -29,13 +29,13 @@ FileDestination(const sk::util::Pathname& pathname, scope::Arbitrator& arbitrato
 
 sk::rt::logger::FileDestination::
 FileDestination(const Cycler& cycler, scope::Arbitrator& arbitrator)
-  : _descriptor(-1), _cyclerHolder(dynamic_cast<sk::rt::logger::Cycler*>(cycler.clone())), _arbitrator(arbitrator)
+  : _descriptor(-1), _cyclerHolder(sk::util::covariant<sk::rt::logger::Cycler>(cycler.clone())), _arbitrator(arbitrator)
 {
 }
 
 sk::rt::logger::FileDestination::
 FileDestination(const FileDestination& other)
-  : _descriptor(other.cloneDescriptor()), _cyclerHolder(dynamic_cast<sk::rt::logger::Cycler*>(other._cyclerHolder.get().clone())), _arbitrator(other._arbitrator)
+  : _descriptor(other.cloneDescriptor()), _cyclerHolder(sk::util::covariant<sk::rt::logger::Cycler>(other._cyclerHolder.get().clone())), _arbitrator(other._arbitrator)
 {
 }
 

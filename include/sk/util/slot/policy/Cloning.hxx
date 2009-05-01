@@ -9,6 +9,7 @@
 #define _SK_UTIL_SLOT_POLICY_CLONING_HXX_
 
 #include <sk/util/slot/policy/Storing.hxx>
+#include <sk/util/covariant.h>
 
 namespace sk {
   namespace util {
@@ -39,7 +40,7 @@ namespace sk {
             
           protected:
             void setObject(T& object) {
-              Storing<T>::setObject(dynamic_cast<T*>(object.clone()));
+              Storing<T>::setObject(sk::util::covariant<T>(object.clone()));
             }
 
             void setObject(T* object) {

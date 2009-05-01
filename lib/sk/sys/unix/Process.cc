@@ -181,7 +181,7 @@ start(sk::io::InputStream& inputStream, const sk::util::StringArray& cmdline)
   if(_pid == 0) {
     try {
       ::close(0);
-      sk::util::Holder<sk::io::InputStream> stdinHolder(dynamic_cast<sk::io::InputStream*>(inputStream.clone()));
+      sk::util::Holder<sk::io::InputStream> stdinHolder(sk::util::covariant<sk::io::InputStream>(inputStream.clone()));
       inputStream.close();
 
       Configurator configurator(_scope);
