@@ -34,7 +34,7 @@ sk::io::FileDescriptorOutputStream::
 {
 }
 
-sk::io::FileDescriptorOutputStream*
+sk::util::Object*
 sk::io::FileDescriptorOutputStream::
 clone() const
 {

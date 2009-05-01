@@ -42,7 +42,7 @@ dispatch(const char* buffer, int size)
   _destination.write(buffer, size);
 }
 
-sk::rt::logger::StreamDestination*
+sk::util::Object*
 sk::rt::logger::StreamDestination::
 clone() const
 {

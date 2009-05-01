@@ -142,7 +142,7 @@ namespace sk {
         const sk::util::Class getClass() const;
         const String toString() const;
         const String inspect() const;
-        String* clone() const;
+        sk::util::Object* clone() const;
 
         static const String EMPTY;
     };

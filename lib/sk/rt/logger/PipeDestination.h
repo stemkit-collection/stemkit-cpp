@@ -31,7 +31,7 @@ namespace sk {
           
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
-          PipeDestination* clone() const;
+          sk::util::Object* clone() const;
           
         private:
           PipeDestination& operator = (const PipeDestination& other);

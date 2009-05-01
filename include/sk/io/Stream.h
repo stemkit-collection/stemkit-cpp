@@ -25,7 +25,7 @@ namespace sk {
         
         /// Instantiates another object of the same class as a copy 
         /// of itself.
-        virtual Stream* clone() const = 0;
+        virtual sk::util::Object* clone() const = 0;
         
         /// Specified whether a stream should be inheritable by child 
         /// processes.

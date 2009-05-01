@@ -23,7 +23,7 @@ namespace sk {
           // sk::rt::logger::Destinaiton implementation.
           void dispatch(const char* buffer, int size);
           const std::vector<int> makeReady();
-          TrashDestination* clone() const;
+          sk::util::Object* clone() const;
           
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;

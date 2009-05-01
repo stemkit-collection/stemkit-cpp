@@ -38,7 +38,7 @@ namespace sk {
           
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
-          FileDestination* clone() const;
+          sk::util::Object* clone() const;
 
           // DataWriter implementation.
           void writeData(const char* data);

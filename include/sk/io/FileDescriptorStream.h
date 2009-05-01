@@ -29,7 +29,7 @@ namespace sk {
     
         // sk::io::Stream implementation.
         void close();
-        FileDescriptorStream* clone() const;
+        sk::util::Object* clone() const;
         void inheritable(bool state);
 
         // sk::io::FileDescriptorProvider

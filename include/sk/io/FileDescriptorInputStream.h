@@ -29,7 +29,7 @@ namespace sk {
         
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
-        FileDescriptorInputStream* clone() const;
+        sk::util::Object* clone() const;
 
         // sk::io::InputStream implementation.
         int read(char* buffer, int offset, int length);

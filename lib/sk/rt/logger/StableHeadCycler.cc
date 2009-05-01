@@ -73,7 +73,7 @@ getPathname() const
   return getMasterPathname();
 }
 
-sk::rt::logger::StableHeadCycler*
+sk::util::Object*
 sk::rt::logger::StableHeadCycler::
 clone() const
 {

@@ -20,7 +20,7 @@ namespace sk {
         public:
           virtual void dispatch(const char* buffer, int size) = 0;
           virtual const std::vector<int> makeReady() = 0;
-          virtual Destination* clone() const = 0;
+          virtual sk::util::Object* clone() const = 0;
       };
     }
   }

@@ -22,7 +22,7 @@ namespace sk {
         : public virtual sk::util::Object 
       {
         public:
-          virtual Cycler* clone() const = 0;
+          virtual sk::util::Object* clone() const = 0;
           virtual void ensureChunks() = 0;
 
           virtual off_t offset() const = 0;

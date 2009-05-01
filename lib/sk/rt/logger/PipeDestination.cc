@@ -29,7 +29,7 @@
 
 sk::rt::logger::PipeDestination::
 PipeDestination(const logger::Destination& destination)
-  : _destinationHolder(destination.clone()), _descriptor(-1), _piped(false)
+  : _destinationHolder(dynamic_cast<sk::rt::logger::Destination*>(destination.clone())), _descriptor(-1), _piped(false)
 {
 }
 
@@ -62,7 +62,7 @@ getClass() const
   return sk::util::Class("sk::rt::logger::PipeDestination");
 }
 
-sk::rt::logger::PipeDestination*
+sk::util::Object*
 sk::rt::logger::PipeDestination::
 clone() const
 {

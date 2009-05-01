@@ -40,7 +40,7 @@ dispatch(const char* buffer, int size)
 {
 }
 
-sk::rt::logger::TrashDestination*
+sk::util::Object*
 sk::rt::logger::TrashDestination::
 clone() const
 {

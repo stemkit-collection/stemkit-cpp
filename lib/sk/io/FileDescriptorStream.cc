@@ -40,7 +40,7 @@ getClass() const
   return sk::util::Class(__className);
 }
 
-sk::io::FileDescriptorStream*
+sk::util::Object*
 sk::io::FileDescriptorStream::
 clone() const
 {

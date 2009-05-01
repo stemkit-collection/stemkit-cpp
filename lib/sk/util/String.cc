@@ -69,7 +69,7 @@ sk::util::String::
 {
 }
 
-sk::util::String*
+sk::util::Object*
 sk::util::String::
 clone() const
 {

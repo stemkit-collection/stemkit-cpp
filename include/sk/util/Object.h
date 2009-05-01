@@ -30,7 +30,7 @@ namespace sk {
 
         /// Instantiates another object of the same class as a copy 
         /// of itself.
-        Object* clone() const;
+        virtual Object* clone() const;
 
         /// Returns the object's class.
         virtual const Class getClass() const;

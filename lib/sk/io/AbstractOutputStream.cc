@@ -19,7 +19,7 @@ getClass() const
   return sk::util::Class("sk::io::AbstractOutputStream");
 }
 
-sk::io::AbstractOutputStream*
+sk::util::Object*
 sk::io::AbstractOutputStream::
 clone() const
 {

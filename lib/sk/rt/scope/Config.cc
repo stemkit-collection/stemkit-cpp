@@ -44,7 +44,7 @@ void
 sk::rt::scope::Config::
 setLogDestination(const logger::Destination& destination)
 {
-  _destinationHolder.set(destination.clone());
+  _destinationHolder.set(dynamic_cast<sk::rt::logger::Destination*>(destination.clone()));
 }
 
 void 

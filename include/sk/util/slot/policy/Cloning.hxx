@@ -39,7 +39,7 @@ namespace sk {
             
           protected:
             void setObject(T& object) {
-              Storing<T>::setObject(object.clone());
+              Storing<T>::setObject(dynamic_cast<T*>(object.clone()));
             }
 
             void setObject(T* object) {

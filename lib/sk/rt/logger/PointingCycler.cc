@@ -32,7 +32,7 @@ getClass() const
   return sk::util::Class("sk::rt::logger::PointingCycler");
 }
 
-sk::rt::logger::PointingCycler*
+sk::util::Object*
 sk::rt::logger::PointingCycler::
 clone() const 
 {

@@ -21,7 +21,7 @@ getClass() const
   return sk::util::Class("sk::io::AbstractInputStream");
 }
 
-sk::io::AbstractInputStream*
+sk::util::Object*
 sk::io::AbstractInputStream::
 clone() const
 {

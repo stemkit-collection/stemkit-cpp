@@ -58,7 +58,7 @@ namespace sk {
 
         /// Instantiates another object of the same class as a copy 
         /// of itself.
-        virtual InputStream* clone() const = 0;
+        virtual sk::util::Object* clone() const = 0;
     };
   }
 }
