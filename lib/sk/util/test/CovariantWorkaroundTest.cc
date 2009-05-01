@@ -75,7 +75,7 @@ void
 sk::util::test::CovariantWorkaroundTest::
 testCastSucceeds()
 {
-  int counter;
+  int counter = 0;
   sk::util::Holder<sk::util::Object> holder(new Probe(counter));
   CPPUNIT_ASSERT_EQUAL(1, counter);
 
@@ -87,7 +87,7 @@ void
 sk::util::test::CovariantWorkaroundTest::
 testFailedCastDeletesProbe()
 {
-  int counter;
+  int counter = 0;
   Probe* probe = new Probe(counter);
   CPPUNIT_ASSERT_EQUAL(1, counter);
 
