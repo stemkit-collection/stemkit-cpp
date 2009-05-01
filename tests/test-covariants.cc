@@ -14,75 +14,39 @@
 #include <string>
 #include <memory>
 
-class O {
-  public:
-    O() {
-      std::cerr << "O::O(), " << this << std::endl;
-    }
-
-    virtual ~O() {
-      std::cerr << "O::~O(), " << this << std::endl;
-    }
-
-    virtual O* clone() const {
-      std::cerr << "O::clone(), " << this << std::endl;
-      throw std::string("O:clone: Unsupported");
-    }
+struct O {
+  O() {
+    std::cerr << "O::O(), " << this << std::endl;
+  }
+  virtual ~O() {
+    std::cerr << "O::~O(), " << this << std::endl;
+  }
+  virtual O* clone() const {
+    std::cerr << "O::clone(), " << this << std::endl;
+    throw std::string("O:clone: Unsupported");
+  }
 };
 
-class S : public virtual O {
-  public:
-    virtual S* clone() const = 0;
+struct S : public virtual O {
+  virtual S* clone() const = 0;
 };
 
-class IS : public virtual S {
-  public:
-    virtual IS* clone() const = 0;
+struct FDIS : public virtual S {
+  FDIS() {
+    std::cerr << "FDIS::FDIS(), " << this << std::endl;
+  }
+  ~FDIS() {
+    std::cerr << "FDIS::~FDIS(), " << this << std::endl;
+  }
+  FDIS* clone() const {
+    std::cerr << "FDIS::clone(), " << this << std::endl;
+    return new FDIS();
+  }
+
+  int _data;
 };
 
-class AS : public virtual IS {
-  public:
-    AS() {
-      std::cerr << "AS::AS(), " << this << std::endl;
-    }
-
-    ~AS() {
-      std::cerr << "AS::~AS(), " << this << std::endl;
-    }
-
-    AS* clone() const {
-      std::cerr << "AS::clone(), " << this << std::endl;
-      throw std::string("AS:clone: Unsupported");
-    }
-};
-
-class FDP : public virtual O {
-  public:
-    virtual void fdp() = 0;
-};
-
-
-class FDIS : public AS, public virtual FDP {
-  public:
-    FDIS() {
-      std::cerr << "FDIS::FDIS(), " << this << std::endl;
-    }
-
-    ~FDIS() {
-      std::cerr << "FDIS::~FDIS(), " << this << std::endl;
-    }
-
-    FDIS* clone() const {
-      std::cerr << "FDIS::clone(), " << this << std::endl;
-      return new FDIS();
-    }
-
-    void fdp() {}
-
-    int _data;
-};
-
-O* f(IS& s);
+O* f(S& s);
 
 int main(int argc, const char* argv[])
 {
@@ -96,6 +60,6 @@ int main(int argc, const char* argv[])
   return 0;
 }
 
-O* f(IS& s) {
+O* f(S& s) {
   return s.clone();
 }
