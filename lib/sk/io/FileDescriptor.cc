@@ -28,7 +28,7 @@ FileDescriptor(const sk::io::FileDescriptor& other)
   : _fd(::dup(other._fd))
 {
   if(_fd < 0) {
-    throw sk::io::IOException("Dup failed");
+    throw sk::rt::SystemException("dup");
   }
 }
 
@@ -76,7 +76,7 @@ read(char* buffer, int offset, int length)
     }
     if(n < 0) {
       if(errno != EAGAIN) {
-        throw sk::io::IOException("Error reading file descriptor");
+        throw sk::rt::SystemException("read");
       }
     }
     return n;
@@ -102,7 +102,7 @@ write(const char* buffer, int offset, int length)
       if(errno == EAGAIN) {
         continue;
       }
-      throw sk::io::IOException("Error writing file descriptor");
+      throw sk::rt::SystemException("write");
     }
     return n;
   }
