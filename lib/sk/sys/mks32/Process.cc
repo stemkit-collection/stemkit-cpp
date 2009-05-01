@@ -8,6 +8,7 @@
 
 #include <sk/util/Class.h>
 #include <sk/util/StringArray.h>
+#include <sk/util/Pathname.h>
 #include <sk/util/Holder.cxx>
 #include <sk/util/IllegalStateException.h>
 #include <sk/util/UnsupportedOperationException.h>
@@ -168,8 +169,11 @@ namespace {
 
 void
 sk::sys::Process::
-start(sk::io::InputStream& inputStream, const sk::util::StringArray& cmdline)
+start(sk::io::InputStream& inputStream, const sk::util::StringArray& args)
 {
+  sk::util::StringArray cmdline(args);
+  cmdline.at(0) = sk::util::Pathname(cmdline.get(0), "exe").toString();
+
   _detached = false;
   _running = false;
 
