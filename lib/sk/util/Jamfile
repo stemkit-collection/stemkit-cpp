@@ -24,8 +24,10 @@ objects =
   UnsupportedOperationException.cc
   InsufficientMemoryException.cc
   ClassCastException.cc
+  IllegalArgumentException.cc
   SystemExit.cc
   File.cc
+  Properties.cc
 ;
 
 make-library $(library) : $(objects) ;
