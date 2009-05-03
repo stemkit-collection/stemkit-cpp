@@ -12,6 +12,7 @@
 #define _SK_UTIL_PROPERTIES_H_
 
 #include <sk/util/PropertyRegistry.h>
+#include <map>
 
 namespace sk {
   namespace util {
@@ -54,6 +55,8 @@ namespace sk {
     
       private:
         Properties& operator = (const Properties& other);
+        typedef std::map<sk::util::String, sk::util::String> container;
+        container _depot;
     };
   }
 }

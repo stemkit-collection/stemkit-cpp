@@ -12,6 +12,7 @@
 #include <sk/util/String.h>
 #include <sk/util/UnsupportedOperationException.h>
 #include <sk/util/IllegalArgumentException.h>
+#include <sk/util/NoSuchElementException.h>
 
 #include <sk/util/Properties.h>
 
@@ -38,7 +39,11 @@ const sk::util::String
 sk::util::Properties::
 getProperty(const sk::util::String& name) const
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  container::const_iterator iterator = _depot.find(name);
+  if(iterator == _depot.end()) {
+    throw sk::util::NoSuchElementException(name);
+  }
+  return (*iterator).second;
 }
 
 const sk::util::String 
@@ -73,14 +78,14 @@ int
 sk::util::Properties::
 size() const
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  return _depot.size();
 }
 
 bool 
 sk::util::Properties::
 hasProperty(const sk::util::String& name) const
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  return _depot.find(name) != _depot.end();
 }
 
 const sk::util::String 
@@ -94,14 +99,14 @@ void
 sk::util::Properties::
 setProperty(const sk::util::String& name, const sk::util::String& value)
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  _depot[name] = value;
 }
 
 void 
 sk::util::Properties::
 setProperty(const sk::util::String& name, const char* value)
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  setProperty(name, sk::util::String(value));
 }
 
 void 
@@ -136,7 +141,7 @@ void
 sk::util::Properties::
 clear()
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  _depot.clear();
 }
 
 void 
