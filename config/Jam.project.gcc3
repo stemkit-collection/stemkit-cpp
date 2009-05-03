@@ -220,6 +220,7 @@ rule platform-macos-tiger
 rule platform-macos-leopard
 {
   platform-macos ;
+  INCLUDES += [ util.make-path $(system.SRCTOP) platform include macos-leopard ] ;
 }
 
 
