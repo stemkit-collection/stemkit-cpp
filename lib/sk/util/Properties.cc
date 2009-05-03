@@ -151,7 +151,15 @@ void
 sk::util::Properties::
 parseProperty(const sk::util::String& specification)
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  int separator = specification.indexOf('=');
+  if(separator > 0) {
+    sk::util::String name = specification.substring(0, separator).trim();
+    if(name.isEmpty() == false) {
+      setProperty(name, specification.substring(separator + 1));
+      return;
+    }
+  }
+  throw sk::util::IllegalArgumentException(specification.inspect());
 }
 
 void 

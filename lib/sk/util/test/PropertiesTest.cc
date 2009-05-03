@@ -11,6 +11,7 @@
 #include "PropertiesTest.h"
 #include <sk/util/Properties.h>
 #include <sk/util/NoSuchElementException.h>
+#include <sk/util/IllegalArgumentException.h>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::util::test::PropertiesTest);
 
@@ -184,4 +185,26 @@ testForEach()
   CPPUNIT_ASSERT_EQUAL("17", result.getProperty("bbb"));
   CPPUNIT_ASSERT_EQUAL("true", result.getProperty("ccc"));
   CPPUNIT_ASSERT_EQUAL("false", result.getProperty("ddd"));
+}
+
+void
+sk::util::test::PropertiesTest::
+testParse()
+{
+  sk::util::Properties registry;
+
+  CPPUNIT_ASSERT_EQUAL(0, registry.size());
+  registry.parseProperty("aaa=abcd");
+  CPPUNIT_ASSERT_EQUAL(1, registry.size());
+  CPPUNIT_ASSERT_EQUAL("abcd", registry.getProperty("aaa"));
+
+  registry.parseProperty("  aaa   = zzz ");
+  CPPUNIT_ASSERT_EQUAL(1, registry.size());
+  CPPUNIT_ASSERT_EQUAL(" zzz ", registry.getProperty("aaa"));
+
+  registry.parseProperty(" bbb    =124");
+  CPPUNIT_ASSERT_EQUAL(2, registry.size());
+  CPPUNIT_ASSERT_EQUAL("124", registry.getProperty("bbb"));
+
+  CPPUNIT_ASSERT_THROW(registry.parseProperty("zzzzzzzzz"), sk::util::IllegalArgumentException);
 }
