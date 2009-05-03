@@ -25,6 +25,7 @@ namespace sk {
         virtual ~Environment();
     
         const std::vector<char*> serialize(std::vector<char>& block) const;
+        void install();
 
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;

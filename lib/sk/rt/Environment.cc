@@ -92,3 +92,25 @@ serialize(std::vector<char>& block) const
 
   return references;
 }
+
+namespace {
+  struct Installer : public virtual sk::util::BinaryProcessor<const sk::util::String, const sk::util::String> {
+    Installer(sk::util::PropertyRegistry& registry) 
+      : _registry(registry) {}
+
+    void process(const sk::util::String& key, const sk::util::String& value) const {
+      const sk::util::String entry = _registry.dumpProperty(key);
+      char* s = new char[entry.length() + 1];
+      ::strcpy(s, entry.getChars());
+      ::putenv(s);
+    }
+    sk::util::PropertyRegistry& _registry;
+  };
+}
+
+void
+sk::rt::Environment::
+install()
+{
+  forEach(Installer(*this));
+}
