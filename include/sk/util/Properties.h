@@ -22,6 +22,7 @@ namespace sk {
       public:
         Properties();
         Properties(const Properties& other);
+        Properties(const PropertyRegistry& registry);
         virtual ~Properties();
     
         // sk::util::PropertyRegistry implementation.
@@ -57,6 +58,9 @@ namespace sk {
       private:
         Properties& operator = (const Properties& other);
         typedef std::map<sk::util::String, sk::util::String> container;
+
+        void copyFrom(const sk::util::PropertyRegistry& registry);
+
         container _depot;
     };
   }

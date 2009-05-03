@@ -212,3 +212,31 @@ testParseAndInspect()
   CPPUNIT_ASSERT_EQUAL("{ aaa => \" zzz \", bbb => \"124\" }", registry.inspect());
 }
 
+void 
+sk::util::test::PropertiesTest::
+testCopyConstructor()
+{
+  sk::util::Properties registry;
+  registry.setProperty("aaa", "zzz");
+  registry.setProperty("bbb", "u1");
+
+  sk::util::Properties other(registry);
+  CPPUNIT_ASSERT_EQUAL(2, other.size());
+  CPPUNIT_ASSERT_EQUAL("zzz", other.getProperty("aaa"));
+  CPPUNIT_ASSERT_EQUAL("u1", other.getProperty("bbb"));
+}
+
+void 
+sk::util::test::PropertiesTest::
+testCopyRegistry()
+{
+  sk::util::Properties source;
+  source.setProperty("aaa", "zzz");
+  source.setProperty("bbb", "u1");
+
+  sk::util::PropertyRegistry& registry = source;
+  sk::util::Properties other(registry);
+  CPPUNIT_ASSERT_EQUAL(2, other.size());
+  CPPUNIT_ASSERT_EQUAL("zzz", other.getProperty("aaa"));
+  CPPUNIT_ASSERT_EQUAL("u1", other.getProperty("bbb"));
+}

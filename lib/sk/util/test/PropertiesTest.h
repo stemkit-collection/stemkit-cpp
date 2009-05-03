@@ -28,6 +28,8 @@ namespace sk {
           CPPUNIT_TEST(testDelete);
           CPPUNIT_TEST(testForEach);
           CPPUNIT_TEST(testParseAndInspect);
+          CPPUNIT_TEST(testCopyConstructor);
+          CPPUNIT_TEST(testCopyRegistry);
         CPPUNIT_TEST_SUITE_END();
       
         public:
@@ -43,6 +45,8 @@ namespace sk {
           void testDelete();
           void testForEach();
           void testParseAndInspect();
+          void testCopyConstructor();
+          void testCopyRegistry();
       
         private:
           PropertiesTest(const PropertiesTest& other);

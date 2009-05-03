@@ -14,6 +14,7 @@
 
 #include <sk/rt/Environment.h>
 #include <unistd.h>
+#include <algorithm>
 
 static const char* __className("sk::rt::Environment");
 
@@ -30,6 +31,7 @@ Environment()
 
 sk::rt::Environment::
 Environment(const sk::util::PropertyRegistry& registry)
+  : sk::util::Properties(registry)
 {
 }
 
@@ -47,33 +49,45 @@ getClass() const
 
 namespace {
   struct Serializer : public virtual sk::util::BinaryProcessor<const sk::util::String, const sk::util::String> {
-    Serializer(const sk::util::PropertyRegistry& registry, std::vector<char> block, std::vector<char*> references)
-      : _registry(registry), _block(block), _references(references) {}
+    Serializer(const sk::util::PropertyRegistry& registry, std::vector<char>& block, std::vector<int>& indices)
+      : _registry(registry), _block(block), _indices(indices) {}
 
     void process(const sk::util::String& key, const sk::util::String& value) const {
-      const sk::util::String data = _registry.dumpProperty(key);
-      int index = _block.size();
+      _indices.push_back(_block.size());
 
+      const sk::util::String data = _registry.dumpProperty(key);
       _block.insert(_block.end(), data.begin(), data.end());
       _block.push_back(0);
-
-      _references.push_back(&_block[index]);
     }
 
     const sk::util::PropertyRegistry& _registry;
     std::vector<char>& _block;
+    std::vector<int>& _indices;
+  };
+
+  struct ReferenceMaker {
+    ReferenceMaker(std::vector<char*>& references, std::vector<char>& block)
+      : _references(references), _block(block) {}
+
+    void operator()(int index) const {
+      _references.push_back(&_block[index]);
+    }
+
     std::vector<char*>& _references;
+    std::vector<char>& _block;
   };
 }
 
 const std::vector<char*>
 sk::rt::Environment::
-serialize(std::vector<char> block) const
+serialize(std::vector<char>& block) const
 {
-  std::vector<char*> references;
-  forEach(Serializer(*this, block, references));
-
+  std::vector<int> indices;
+  forEach(Serializer(*this, block, indices));
   block.push_back(0);
+
+  std::vector<char*> references;
+  std::for_each(indices.begin(), indices.end(), ReferenceMaker(references, block));
   references.push_back(0);
 
   return references;

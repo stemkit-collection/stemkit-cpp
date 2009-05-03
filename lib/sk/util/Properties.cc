@@ -27,6 +27,18 @@ Properties()
 }
 
 sk::util::Properties::
+Properties(const sk::util::Properties& other)
+  : _depot(other._depot)
+{
+}
+
+sk::util::Properties::
+Properties(const sk::util::PropertyRegistry& registry)
+{
+  copyFrom(registry);
+}
+
+sk::util::Properties::
 ~Properties()
 {
 }
@@ -191,4 +203,24 @@ inspect() const
     return "{}";
   }
   return "{ " + result.join(", ") + " }";
+}
+
+namespace {
+  struct Propagator : public virtual sk::util::BinaryProcessor<const sk::util::String, const sk::util::String> {
+    Propagator(sk::util::PropertyRegistry& registry)
+      : _registry(registry) {}
+
+    void process(const sk::util::String& key, const sk::util::String& value) const {
+      _registry.setProperty(key, value);
+    }
+
+    sk::util::PropertyRegistry& _registry;
+  };
+}
+
+void
+sk::util::Properties::
+copyFrom(const sk::util::PropertyRegistry& registry) 
+{
+  registry.forEach(Propagator(*this));
 }
