@@ -43,8 +43,8 @@ namespace sk {
         void setProperty(const sk::util::String& name, int value);
 
         // sk::util::PropertyRegistry implementation.
-        void deleteProperty(const sk::util::String& name);
-        void parseProperty(const sk::util::String& name);
+        bool deleteProperty(const sk::util::String& name);
+        void parseProperty(const sk::util::String& specification);
         void clear();
 
         // sk::util::PropertyRegistry implementation.

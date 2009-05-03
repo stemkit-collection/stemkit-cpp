@@ -22,6 +22,10 @@ namespace sk {
       {
         CPPUNIT_TEST_SUITE(sk::util::test::PropertiesTest);
           CPPUNIT_TEST(testBasics);
+          CPPUNIT_TEST(testGetWithDefaults);
+          CPPUNIT_TEST(testSetKinds);
+          CPPUNIT_TEST(testDump);
+          CPPUNIT_TEST(testDelete);
         CPPUNIT_TEST_SUITE_END();
       
         public:
@@ -31,6 +35,10 @@ namespace sk {
           void setUp();
           void tearDown();
           void testBasics();
+          void testGetWithDefaults();
+          void testSetKinds();
+          void testDump();
+          void testDelete();
       
         private:
           PropertiesTest(const PropertiesTest& other);

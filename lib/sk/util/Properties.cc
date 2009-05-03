@@ -13,6 +13,8 @@
 #include <sk/util/UnsupportedOperationException.h>
 #include <sk/util/IllegalArgumentException.h>
 #include <sk/util/NoSuchElementException.h>
+#include <sk/util/NumberFormatException.h>
+#include <sk/util/Integer.h>
 
 #include <sk/util/Properties.h>
 
@@ -40,38 +42,53 @@ sk::util::Properties::
 getProperty(const sk::util::String& name) const
 {
   container::const_iterator iterator = _depot.find(name);
-  if(iterator == _depot.end()) {
-    throw sk::util::NoSuchElementException(name);
+  if(iterator != _depot.end()) {
+    return (*iterator).second;
   }
-  return (*iterator).second;
+  throw sk::util::NoSuchElementException(name);
 }
 
 const sk::util::String 
 sk::util::Properties::
 getProperty(const sk::util::String& name, const sk::util::String& fallback) const
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  container::const_iterator iterator = _depot.find(name);
+  if(iterator != _depot.end()) {
+    return (*iterator).second;
+  }
+  return fallback;
 }
 
 const sk::util::String 
 sk::util::Properties::
 getProperty(const sk::util::String& name, const char* fallback) const
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  return getProperty(name, sk::util::String(fallback));
 }
 
 bool 
 sk::util::Properties::
 getProperty(const sk::util::String& name, const sk::util::Boolean& fallback) const
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  container::const_iterator iterator = _depot.find(name);
+  if(iterator != _depot.end()) {
+    return sk::util::Boolean::parseBoolean(iterator->second);
+  }
+  return fallback.booleanValue();
 }
 
 int 
 sk::util::Properties::
 getProperty(const sk::util::String& name, int fallback) const
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  container::const_iterator iterator = _depot.find(name);
+  if(iterator != _depot.end()) {
+    try {
+      return sk::util::Integer::parseInt((*iterator).second);
+    }
+    catch(const sk::util::NumberFormatException& exception) {}
+  }
+  return fallback;
 }
 
 int 
@@ -92,7 +109,7 @@ const sk::util::String
 sk::util::Properties::
 dumpProperty(const sk::util::String& name) const
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  return name + "=" + getProperty(name);
 }
 
 void 
@@ -113,26 +130,26 @@ void
 sk::util::Properties::
 setProperty(const sk::util::String& name, const sk::util::Boolean& value)
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  setProperty(name, value.toString());
 }
 
 void 
 sk::util::Properties::
 setProperty(const sk::util::String& name, int value)
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  setProperty(name, sk::util::String::valueOf(value));
 }
 
-void 
+bool 
 sk::util::Properties::
 deleteProperty(const sk::util::String& name)
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  return _depot.erase(name) == 0 ? false : true;
 }
   
 void 
 sk::util::Properties::
-parseProperty(const sk::util::String& name)
+parseProperty(const sk::util::String& specification)
 {
   throw sk::util::UnsupportedOperationException(SK_METHOD);
 }

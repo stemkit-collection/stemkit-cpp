@@ -37,8 +37,8 @@ namespace sk {
         virtual void setProperty(const sk::util::String& name, const sk::util::Boolean& value) = 0;
         virtual void setProperty(const sk::util::String& name, int value) = 0;
 
-        virtual void deleteProperty(const sk::util::String& name) = 0;
-        virtual void parseProperty(const sk::util::String& name) = 0;
+        virtual bool deleteProperty(const sk::util::String& name) = 0;
+        virtual void parseProperty(const sk::util::String& specification) = 0;
         virtual void clear() = 0;
 
         virtual void forEach(const sk::util::BinaryProcessor<const sk::util::String, const sk::util::String>& processor) const = 0;
