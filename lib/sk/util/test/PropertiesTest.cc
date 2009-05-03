@@ -189,9 +189,10 @@ testForEach()
 
 void
 sk::util::test::PropertiesTest::
-testParse()
+testParseAndInspect()
 {
   sk::util::Properties registry;
+  CPPUNIT_ASSERT_EQUAL("{}", registry.inspect());
 
   CPPUNIT_ASSERT_EQUAL(0, registry.size());
   registry.parseProperty("aaa=abcd");
@@ -207,4 +208,7 @@ testParse()
   CPPUNIT_ASSERT_EQUAL("124", registry.getProperty("bbb"));
 
   CPPUNIT_ASSERT_THROW(registry.parseProperty("zzzzzzzzz"), sk::util::IllegalArgumentException);
+
+  CPPUNIT_ASSERT_EQUAL("{ aaa => \" zzz \", bbb => \"124\" }", registry.inspect());
 }
+

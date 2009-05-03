@@ -15,6 +15,7 @@
 #include <sk/util/NoSuchElementException.h>
 #include <sk/util/NumberFormatException.h>
 #include <sk/util/Integer.h>
+#include <sk/util/StringArray.h>
 
 #include <sk/util/Properties.h>
 
@@ -176,4 +177,18 @@ forEach(const sk::util::BinaryProcessor<const sk::util::String, const sk::util::
   for(container::const_iterator iterator=_depot.begin(); iterator != _depot.end() ;++iterator) {
     processor.process(iterator->first, iterator->second);
   }
+}
+
+const sk::util::String
+sk::util::Properties::
+inspect() const
+{
+  sk::util::StringArray result;
+  for(container::const_iterator iterator=_depot.begin(); iterator != _depot.end() ;++iterator) {
+    result << (iterator->first + " => " + iterator->second.inspect());
+  }
+  if(result.isEmpty() == true) {
+    return "{}";
+  }
+  return "{ " + result.join(", ") + " }";
 }

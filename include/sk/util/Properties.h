@@ -52,6 +52,7 @@ namespace sk {
 
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
+        const sk::util::String inspect() const;
     
       private:
         Properties& operator = (const Properties& other);
