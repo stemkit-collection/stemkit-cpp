@@ -54,7 +54,7 @@ void
 sk::rt::config::test::FileReadTest::
 testReadFileFromCwd()
 {
-  CwdUprootLocator locator("src/config/Jam.project.gcc");
+  CwdUprootLocator locator("src/config/Jam.project");
 
   std::vector<sk::util::String> content;
   std::vector<sk::util::String> locations;
@@ -66,5 +66,5 @@ testReadFileFromCwd()
   // symbolically linked to at particular platform 'src' under 'platforms'.
   //
   CPPUNIT_ASSERT(locations.size() >= 1);
-  CPPUNIT_ASSERT(content.size() > 5);
+  CPPUNIT_ASSERT_EQUAL(3 * locations.size(), content.size());
 }
