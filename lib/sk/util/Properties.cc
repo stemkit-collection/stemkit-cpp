@@ -43,7 +43,7 @@ getProperty(const sk::util::String& name) const
 {
   container::const_iterator iterator = _depot.find(name);
   if(iterator != _depot.end()) {
-    return (*iterator).second;
+    return iterator->second;
   }
   throw sk::util::NoSuchElementException(name);
 }
@@ -84,7 +84,7 @@ getProperty(const sk::util::String& name, int fallback) const
   container::const_iterator iterator = _depot.find(name);
   if(iterator != _depot.end()) {
     try {
-      return sk::util::Integer::parseInt((*iterator).second);
+      return sk::util::Integer::parseInt(iterator->second);
     }
     catch(const sk::util::NumberFormatException& exception) {}
   }
@@ -165,5 +165,7 @@ void
 sk::util::Properties::
 forEach(const sk::util::BinaryProcessor<const sk::util::String, const sk::util::String>& processor) const
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  for(container::const_iterator iterator=_depot.begin(); iterator != _depot.end() ;++iterator) {
+    processor.process(iterator->first, iterator->second);
+  }
 }

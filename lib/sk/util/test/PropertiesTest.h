@@ -26,6 +26,7 @@ namespace sk {
           CPPUNIT_TEST(testSetKinds);
           CPPUNIT_TEST(testDump);
           CPPUNIT_TEST(testDelete);
+          CPPUNIT_TEST(testForEach);
         CPPUNIT_TEST_SUITE_END();
       
         public:
@@ -39,6 +40,7 @@ namespace sk {
           void testSetKinds();
           void testDump();
           void testDelete();
+          void testForEach();
       
         private:
           PropertiesTest(const PropertiesTest& other);

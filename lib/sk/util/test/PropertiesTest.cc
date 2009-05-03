@@ -150,3 +150,38 @@ testDelete()
   CPPUNIT_ASSERT(registry.deleteProperty("bbb") == false);
   CPPUNIT_ASSERT(registry.deleteProperty("ccc") == false);
 }
+
+namespace {
+  struct Propagator : public virtual sk::util::BinaryProcessor<const sk::util::String, const sk::util::String> {
+    Propagator(sk::util::PropertyRegistry& registry)
+      : _registry(registry) {}
+
+    void process(const sk::util::String& key, const sk::util::String& value) const {
+      _registry.setProperty(key, value);
+    }
+
+    sk::util::PropertyRegistry& _registry;
+  };
+}
+
+void
+sk::util::test::PropertiesTest::
+testForEach()
+{
+  sk::util::Properties registry;
+
+  registry.setProperty("aaa", "zzz");
+  registry.setProperty("bbb", 17);
+  registry.setProperty("ccc", sk::util::Boolean::B_TRUE);
+  registry.setProperty("ddd", sk::util::Boolean::B_FALSE);
+
+  sk::util::Properties result;
+  CPPUNIT_ASSERT_EQUAL(0, result.size());
+  registry.forEach(Propagator(result));
+
+  CPPUNIT_ASSERT_EQUAL(4, result.size());
+  CPPUNIT_ASSERT_EQUAL("zzz", result.getProperty("aaa"));
+  CPPUNIT_ASSERT_EQUAL("17", result.getProperty("bbb"));
+  CPPUNIT_ASSERT_EQUAL("true", result.getProperty("ccc"));
+  CPPUNIT_ASSERT_EQUAL("false", result.getProperty("ddd"));
+}
