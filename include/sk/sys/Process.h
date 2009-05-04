@@ -56,6 +56,9 @@ namespace sk {
         Process(const Process& other);
         Process& operator = (const Process& other);
 
+        struct Implementation;
+        Implementation& process() const;
+
         void start(sk::io::InputStream& inputStream, const sk::util::StringArray& cmdline);
         sk::io::InputStream& defaultInputStream();
         void ensureNotRunning() const;
@@ -66,9 +69,10 @@ namespace sk {
         sk::rt::Mutex _mutex;
 
         volatile int _pid;
-        volatile int _status;
         volatile bool _detached;
         volatile bool _running;
+
+        sk::util::Holder<Implementation> _impelementationHolder;
     };
   }
 }
