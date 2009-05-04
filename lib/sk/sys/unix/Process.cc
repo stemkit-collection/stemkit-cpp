@@ -8,10 +8,12 @@
 
 #include <sk/util/Class.h>
 #include <sk/util/StringArray.h>
+#include <sk/util/PropertyRegistry.h>
 #include <sk/util/Holder.cxx>
 #include <sk/util/IllegalStateException.h>
 #include <sk/util/UnsupportedOperationException.h>
 #include <sk/rt/SystemException.h>
+#include <sk/rt/Environment.h>
 
 #include <sk/sys/Process.h>
 #include <sk/sys/ProcessConfigurator.h>
@@ -115,14 +117,11 @@ defaultInputStream()
 
 namespace {
   struct Configurator : public virtual sk::sys::ProcessConfigurator {
-    Configurator(const sk::rt::Scope& scope)
-      : _scope(scope) {}
+    Configurator(const sk::rt::Scope& scope, sk::util::PropertyRegistry& environment)
+      : _scope(scope), _environment(environment) {}
 
     void setEnvironment(const sk::util::String& name, const sk::util::String& value) {
-      sk::util::String entry = name.trim() + "=" + value;
-      char* s = new char[entry.length() + 1];
-      ::strcpy(s, entry.getChars());
-      ::putenv(s);
+      _environment.setProperty(name, value);
     }
 
     void setInputStream(const sk::io::InputStream& stream) {
@@ -163,6 +162,7 @@ namespace {
     }
     sk::util::StringArray _descriptors;
     const sk::rt::Scope& _scope;
+    sk::util::PropertyRegistry& _environment;
   };
 }
 
@@ -184,9 +184,11 @@ start(sk::io::InputStream& inputStream, const sk::util::StringArray& cmdline)
       sk::util::Holder<sk::io::InputStream> stdinHolder(sk::util::covariant<sk::io::InputStream>(inputStream.clone()));
       inputStream.close();
 
-      Configurator configurator(_scope);
+      sk::rt::Environment environment;
+      Configurator configurator(_scope, environment);
       _listener.processConfiguring(configurator);
       configurator.finalize();
+      environment.install();
 
       _listener.processStarting();
       _scope.notice("start") << cmdline.inspect();
@@ -195,6 +197,14 @@ start(sk::io::InputStream& inputStream, const sk::util::StringArray& cmdline)
         std::vector<char*> arguments;
         cmdline.forEach(ExecArgumentCollector(arguments));
         arguments.push_back(0);
+
+        // TODO: When ability to expand executable path via PATH environment
+        // variable is implemented, this block should be uncommented and used
+        // instead of ::execvp() invocation.
+        //
+        // std::vector<char> environment_block;
+        // std::vector<char*> environment_references = environment.serialize(environment_block);
+        // ::execve(sk::util::Pathname(arguments[0]).expand(environment.getPath()), &arguments[0], &environment_references[0]);
 
         ::execvp(arguments[0], &arguments[0]);
         throw sk::rt::SystemException("exec");
