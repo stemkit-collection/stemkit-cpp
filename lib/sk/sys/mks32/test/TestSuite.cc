@@ -23,7 +23,7 @@ int main(int argc, char **argv)
   sk::rt::Scope::controller().loadXmlConfig(
     sk::rt::config::InlineLocator("\n\
       <scope name='app'>\n\
-        <log destination='std::cerr' eol='windows' level='info' show-object='true' show-time='true'>\n\
+        <log destination='std::cerr' eol='windows' level='debug' show-object='true' show-time='true'>\n\
           <file name='test.log' />\n\
         </log>\n\
         \n\

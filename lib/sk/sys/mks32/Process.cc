@@ -8,7 +8,7 @@
 
 #include <sk/util/Class.h>
 #include <sk/util/StringArray.h>
-#include <sk/util/Pathname.h>
+#include <sk/util/Container.h>
 #include <sk/util/PropertyRegistry.h>
 #include <sk/util/Holder.cxx>
 #include <sk/util/IllegalStateException.h>
@@ -21,7 +21,7 @@
 #include <sk/sys/ProcessLaunchException.h>
 #include <sk/io/FileDescriptorStream.h>
 #include <sk/io/FileInputStream.h>
-#include <sk/io/DataInputStream.h>
+#include <sk/io/FileDescriptorProvider.h>
 #include <sk/rt/Thread.h>
 #include <sk/rt/Runnable.h>
 #include <sk/rt/Locker.cxx>
@@ -31,6 +31,8 @@
 #include <sys/wait.h>
 #include <signal.h>
 #include <iostream>
+
+#include "windows.h"
 
 sk::sys::Process::
 Process(sk::io::InputStream& inputStream, const sk::util::StringArray& cmdline, ProcessListener& listener)
@@ -96,18 +98,6 @@ getPid() const
   return _pid;
 }
 
-namespace {
-  struct ExecArgumentCollector : public virtual sk::util::Processor<const sk::util::String> {
-    ExecArgumentCollector(std::vector<char*>& arguments)
-      : _arguments(arguments) {}
-
-    void process(const sk::util::String& item) const {
-      _arguments.push_back(const_cast<char*>(item.getChars()));
-    }
-    std::vector<char*>& _arguments;
-  };
-}
-
 sk::io::InputStream&
 sk::sys::Process::
 defaultInputStream()
@@ -165,63 +155,64 @@ namespace {
     const sk::rt::Scope& _scope;
     sk::util::PropertyRegistry& _environment;
   };
+
+  struct CommandLineBuilder : public virtual sk::util::Processor<const sk::util::String> {
+    CommandLineBuilder(sk::util::StringArray& cmdline)
+      : _cmdline(cmdline) {}
+
+    void process(const sk::util::String& item) const {
+      _cmdline << item.inspect();
+    }
+    sk::util::StringArray& _cmdline;
+  };
 }
 
 void
 sk::sys::Process::
 start(sk::io::InputStream& inputStream, const sk::util::StringArray& args)
 {
-  sk::util::StringArray cmdline(args);
-  cmdline.at(0) = sk::util::Pathname(cmdline.get(0), "exe").toString();
+  if(args.isEmpty() == true) {
+    throw sk::util::UnsupportedOperationException("Non-exec processes not supported on Windowns");
+  }
+  sk::util::StringArray cmdline;
+  args.forEach(CommandLineBuilder(cmdline));
+
+  _scope.notice("start") << cmdline.join(", ");
 
   _detached = false;
   _running = false;
 
-  _pid = fork();
+  try {
+    sk::io::FileDescriptorProvider& stdin_stream = sk::util::upcast<sk::io::FileDescriptorProvider>(inputStream);
 
-  if(_pid < 0) {
-    throw sk::rt::SystemException("fork");
-  }
-  if(_pid == 0) {
-    try {
-      ::close(0);
-      sk::util::Holder<sk::io::InputStream> stdinHolder(sk::util::covariant<sk::io::InputStream>(inputStream.clone()));
-      inputStream.close();
+    sk::rt::Environment environment;
+    Configurator configurator(_scope, environment);
+    _listener.processConfiguring(configurator);
+    configurator.finalize();
 
-      sk::rt::Environment environment;
-      Configurator configurator(_scope, environment);
-      _listener.processConfiguring(configurator);
-      configurator.finalize();
-      environment.install();
+    std::vector<char> environment_block;
+    environment.serialize(environment_block);
 
-      _listener.processStarting();
-      _scope.notice("start") << cmdline.inspect();
+    sk::util::Container command = cmdline.join(" ");
+    PROCESS_INFORMATION process_info = { 0 };
+    STARTUPINFO startup_info = { 0 };
+    startup_info.cb = sizeof(STARTUPINFO);
 
-      if(cmdline.empty() == false) {
-        std::vector<char*> arguments;
-        cmdline.forEach(ExecArgumentCollector(arguments));
-        arguments.push_back(0);
+    _scope.detail("command") << command.inspect();
+    BOOL status = CreateProcess(0, &command.at(0), 0, 0, TRUE, CREATE_NO_WINDOW , &environment_block[0], 0, &startup_info, &process_info);
+    _scope.detail("CreateProcess") << status;
 
-        // TODO: When ability to expand executable path via PATH environment
-        // variable is implemented, this block should be uncommented and used
-        // instead of ::execvp() invocation.
-        //
-        // std::vector<char> environment_block;
-        // std::vector<char*> environment_references = environment.serialize(environment_block);
-        // ::execve(sk::util::Pathname(arguments[0]).expand(environment.getPath()), &arguments[0], &environment_references[0]);
-
-        ::execvp(arguments[0], &arguments[0]);
-        throw sk::rt::SystemException("exec");
-      }
+    if(status == FALSE) {
+      throw sk::rt::SystemException("CreateProces");
     }
-    catch(const std::exception& exception) {
-      _listener.processFailing(exception.what());
-      _scope.notice("fork") << sk::sys::ProcessLaunchException(exception.what(), cmdline).what();
-    }
-    _exit(99);
+    _pid = process_info.dwProcessId;
+    _running = true;
+    inputStream.close();
   }
-  _running = true;
-  inputStream.close();
+  catch(const std::exception& exception) {
+    throw sk::sys::ProcessLaunchException(exception.what(), cmdline).what();
+  }
+  _scope.detail("SUCCESS") << args.inspect();
 }
 
 void
