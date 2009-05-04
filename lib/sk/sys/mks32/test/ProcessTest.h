@@ -19,11 +19,11 @@ namespace sk {
       {
         CPPUNIT_TEST_SUITE(sk::sys::test::ProcessTest);
           CPPUNIT_TEST(testTrueCommand);
-          // CPPUNIT_TEST(testFalseCommand);
-          // CPPUNIT_TEST(testExitCode);
+          CPPUNIT_TEST(testFalseCommand);
+          CPPUNIT_TEST(testExitCode);
           // *FAILS* CPPUNIT_TEST(testKilled);
           // *FAILS* CPPUNIT_TEST(testNormalStop);
-          // CPPUNIT_TEST(testForcedStop);
+          CPPUNIT_TEST(testForcedStop);
           // CPPUNIT_TEST(testRedirectInput);
           // CPPUNIT_TEST(testNoHangOnInputRead);
           // *FAILS*/ CPPUNIT_TEST(testSpawn);

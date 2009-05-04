@@ -306,7 +306,9 @@ join()
   if(GetExitCodeProcess(process().handle, &status) == FALSE) {
     throw sk::rt::SystemException("GetExitCodeProcess");
   }
-  process().isTerminated = (status == 43195 ? true : false);
+  _scope.detail("STATUS") << status;
+
+  process().isTerminated = (status==43195 || status==126 ? true : false);
   process().exitCode = status;
 
   CloseHandle(process().handle);
