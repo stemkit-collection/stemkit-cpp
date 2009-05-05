@@ -38,6 +38,13 @@ stop()
 
 void 
 sk::sys::DelegatingExecutable::
+kill()
+{
+  getExecutable().kill();
+}
+
+void 
+sk::sys::DelegatingExecutable::
 join()
 {
   getExecutable().join();

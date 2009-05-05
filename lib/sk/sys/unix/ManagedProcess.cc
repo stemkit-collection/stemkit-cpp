@@ -51,9 +51,16 @@ sk::sys::ManagedProcess::
 stop()
 {
   if(terminate(SIGTERM) == false) {
-    if(terminate(SIGKILL) == false) {
-      throw sk::util::IllegalStateException("Cannot stop process:" + sk::util::String::valueOf(_pid));
-    }
+    kill();
+  }
+}
+
+void 
+sk::sys::ManagedProcess::
+kill()
+{
+  if(terminate(SIGKILL) == false) {
+    throw sk::util::IllegalStateException("Cannot stop process:" + sk::util::String::valueOf(_pid));
   }
 }
 

@@ -94,9 +94,11 @@ void
 sk::sys::test::ProcessTest::
 testKilled()
 {
-  sk::sys::Process process(sk::util::StringArray("sh") + "-c" + "kill -9 ${$}; exec sleep 2");
+  sk::sys::Process process(sk::util::StringArray("sh") + "-c" + "exec sleep 60");
   CPPUNIT_ASSERT_EQUAL(true, process.isAlive());
 
+  sleep(2);
+  process.kill();
   process.join();
 
   CPPUNIT_ASSERT_EQUAL(false, process.isAlive());

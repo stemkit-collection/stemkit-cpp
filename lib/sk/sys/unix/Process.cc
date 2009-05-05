@@ -293,6 +293,16 @@ stop()
 
 void
 sk::sys::Process::
+kill()
+{
+  if(isAlive() == false) {
+    return;
+  }
+  Cleaner cleaner(_pid, SIGKILL, 0);
+}
+
+void
+sk::sys::Process::
 processJoining() 
 {
 }

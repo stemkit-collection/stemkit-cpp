@@ -17,6 +17,7 @@ namespace sk {
     {
       public:
         virtual void stop() = 0;
+        virtual void kill() = 0;
         virtual void join() = 0;
         virtual void detach() = 0;
         virtual bool isSuccess() const = 0;
