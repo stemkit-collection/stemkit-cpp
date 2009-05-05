@@ -13,20 +13,32 @@
 #include <sk/util/IllegalArgumentException.h>
 
 #include <sk/rt/Environment.h>
-#include <unistd.h>
 #include <algorithm>
 
+#include "foreach_environment_item.h"
+
 static const char* __className("sk::rt::Environment");
+
+namespace {
+  struct Populator : public virtual sk::util::Processor<const sk::util::String> {
+    Populator(sk::util::PropertyRegistry& registry) 
+      : _registry(registry) {}
+
+    void process(const sk::util::String& item) const {
+      try {
+        _registry.parseProperty(item);
+      }
+      catch(const sk::util::IllegalArgumentException& exception) {}
+    }
+
+    sk::util::PropertyRegistry& _registry;
+  };
+}
 
 sk::rt::Environment::
 Environment()
 {
-  for(char** iterator = environ; *iterator ;++iterator) {
-    try {
-      parseProperty(*iterator);
-    }
-    catch(const sk::util::IllegalArgumentException& exception) {}
-  }
+  foreach_environment_item(Populator(*this));
 }
 
 sk::rt::Environment::

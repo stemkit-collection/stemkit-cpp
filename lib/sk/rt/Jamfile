@@ -6,6 +6,11 @@ local objects =
   Environment.cc
 ;
 
+if $(PLATFORM_IMPLEMENTATION) = win32 || mks32 in $(project.PLATFORM_SPECIFICS) {
+  objects += [ util.make-path win32 foreach_environment_item.cc ] ;
+}
+else objects += [ util.make-path unix foreach_environment_item.cc ] ;
+
 local INCLUDES = $(INCLUDES) $(system.SRCDIR) ;
 
 make-library $(library) : $(objects) ;
