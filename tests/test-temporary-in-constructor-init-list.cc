@@ -13,48 +13,52 @@
 #include <exception>
 #include <string>
 
-struct C {
-  C() {
-    std::cerr << "C::C(), this=" << this << std::endl;
-  }
-  C(const C& other) {
-    std::cerr << "C::C(const C&), this=" << this << std::endl;
-  }
-  ~C() {
-    std::cerr << "C::~C(), this=" << this << std::endl;
-  }
-};
-
 struct A {
-  A(const C& c) {
-    std::cerr << "A::A(const C&), this=" << this << ", c=" << &c << std::endl;
+  A(int value) : _value(value) {
+    std::cerr << "A::A(int), this=" << this << ", value=" << value << std::endl;
   }
-  A(const A& other) {
-    std::cerr << "A::A(const A&), this=" << this << std::endl;
+
+  A(const A& other) : _value(other.getValue()) {
+    std::cerr << "A::A(const A&), this=" << this << ", other=" << &other << std::endl;
   }
+
   virtual ~A() {
     std::cerr << "A::~A(), this=" << this << std::endl;
   }
+
+  A duplicateA() const {
+    std::cerr << "A::duplicate()" << std::endl;
+    return A(10);
+  }
+
+  int getValue() const {
+    return _value;
+  }
+
+  int _value;
 };
 
-C maketemp() {
-  std::cerr << "maketemp()" << std::endl;
-  return C();
-}
 
 struct B : public A {
-  B() : A(maketemp()) {
-    std::cerr << "B::B(), this=" << this << std::endl;
+  B(int value) : A(value) {
+    std::cerr << "B::B(int), this=" << this << ", value=" << value << std::endl;
   }
-  B(const B& other) : A(other) {
-    std::cerr << "B::B(const B&), this=" << this << std::endl;
+
+  B(const B& other) : A(other.duplicateA()) {
+    std::cerr << "B::B(const B&), this=" << this << ", other=" << &other << std::endl;
   }
   virtual ~B() {
     std::cerr << "B::~B(), this=" << this << std::endl;
   }
 };
 
+B& makeB(B& b) {
+  std::cerr << "makeB()" << std::endl;
+  return b;
+}
+
 int main(int argc, const char* argv[])
 {
-  B b;
+  B s = B(1);
+  B b = makeB(s);
 }
