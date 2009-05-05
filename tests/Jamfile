@@ -1,2 +1,11 @@
+# vim: ft=jam: sw=2:
 
-make-program test-covariants : test-covariants.cc ;
+local programs =
+  test-covariants
+  test-temporary-in-constructor-init-list
+;
+
+local _program ;
+for _program in $(programs) {
+  make-program $(_program) : $(_program).cc ;
+}
