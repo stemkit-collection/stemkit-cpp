@@ -19,7 +19,7 @@
 #include <sk/sys/ProcessConfigurator.h>
 #include <sk/sys/ProcessLaunchException.h>
 #include <sk/io/FileDescriptorStream.h>
-#include <sk/io/FileInputStream.h>
+#include <sk/io/NullDevice.h>
 #include <sk/io/DataInputStream.h>
 #include <sk/rt/Thread.h>
 #include <sk/rt/Runnable.h>
@@ -60,21 +60,21 @@ sk::sys::Process::
 Process(const sk::util::StringArray& cmdline, ProcessListener& listener)
   : _scope(*this), _listener(listener)
 {
-  start(defaultInputStream(), cmdline);
+  start(cmdline);
 }
 
 sk::sys::Process::
 Process(ProcessListener& listener)
   : _scope(*this), _listener(listener)
 {
-  start(defaultInputStream(), sk::util::StringArray());
+  start(sk::util::StringArray());
 }
 
 sk::sys::Process::
 Process(const sk::util::StringArray& cmdline)
   : _scope(*this), _listener(*this)
 {
-  start(defaultInputStream(), cmdline);
+  start(cmdline);
 }
 
 sk::sys::Process::
@@ -116,14 +116,6 @@ namespace {
     }
     std::vector<char*>& _arguments;
   };
-}
-
-sk::io::InputStream&
-sk::sys::Process::
-defaultInputStream()
-{
-  _defaultInputStreamHolder.set(new sk::io::FileInputStream("/dev/null"));
-  return _defaultInputStreamHolder.get();
 }
 
 namespace {
@@ -172,6 +164,14 @@ namespace {
     const sk::rt::Scope& _scope;
     sk::util::PropertyRegistry& _environment;
   };
+}
+
+void
+sk::sys::Process::
+start(const sk::util::StringArray& cmdline)
+{
+  sk::io::NullDevice null;
+  start(null.inputStream(), cmdline);
 }
 
 void

@@ -60,12 +60,11 @@ namespace sk {
         Implementation& process() const;
 
         void start(sk::io::InputStream& inputStream, const sk::util::StringArray& cmdline);
-        sk::io::InputStream& defaultInputStream();
+        void start(const sk::util::StringArray& cmdline);
         void ensureNotRunning() const;
 
         const sk::rt::Scope _scope;
         sk::sys::ProcessListener& _listener;
-        sk::util::Holder<sk::io::InputStream> _defaultInputStreamHolder;
         sk::rt::Mutex _mutex;
 
         volatile int _pid;
