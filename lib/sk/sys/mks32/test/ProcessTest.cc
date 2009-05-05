@@ -79,7 +79,7 @@ void
 sk::sys::test::ProcessTest::
 testExitCode()
 {
-  sk::sys::Process process(sk::util::StringArray("sh") + "-c" + "exit 5;");
+  sk::sys::Process process(sk::util::StringArray("sh") + "-c" + "exit 5");
   CPPUNIT_ASSERT_EQUAL(true, process.isAlive());
 
   process.join();
@@ -95,7 +95,7 @@ void
 sk::sys::test::ProcessTest::
 testKilled()
 {
-  sk::sys::Process process(sk::util::StringArray("sh") + "-c" + "exec sleep 60;");
+  sk::sys::Process process(sk::util::StringArray("sh") + "-c" + "exec sleep 60");
   CPPUNIT_ASSERT_EQUAL(true, process.isAlive());
 
   sleep(2);
@@ -113,7 +113,7 @@ void
 sk::sys::test::ProcessTest::
 testNormalStop()
 {
-  sk::sys::Process process(sk::util::StringArray("sh") + "-c" + "exec sleep 10;");
+  sk::sys::Process process(sk::util::StringArray("sh") + "-c" + "exec sleep 10");
   CPPUNIT_ASSERT_EQUAL(true, process.isAlive());
 
   sleep(1);
@@ -160,7 +160,7 @@ sk::sys::test::ProcessTest::
 testRedirectInput()
 {
   sk::io::AnonymousPipe pipe;
-  sk::util::StringArray cmdline = sk::util::StringArray("sh") + "-c" + "read status; exit \"${status}\";";
+  sk::util::StringArray cmdline = sk::util::StringArray("sh") + "-c" + "read status; exit \"${status}\"";
   Cleaner cleaner(pipe.outputStream());
 
   sk::sys::Process process(pipe.inputStream(), cmdline, cleaner);
@@ -181,7 +181,7 @@ void
 sk::sys::test::ProcessTest::
 testNoHangOnInputRead()
 {
-  sk::sys::Process process(sk::util::StringArray("sh") + "-c" + "read line;");
+  sk::sys::Process process(sk::util::StringArray("sh") + "-c" + "read line");
   CPPUNIT_ASSERT_EQUAL(true, process.isAlive());
 
   process.join();
@@ -236,7 +236,7 @@ testConfiguring()
 
   sk::io::AnonymousPipe pipe;
   ConfiguringListener listener(pipe);
-  sk::sys::Process process(sk::util::StringArray("sh") + "-c" + "echo E: ${TESTCONFIGURING}; sleep 60;", listener);
+  sk::sys::Process process(sk::util::StringArray("sh") + "-c" + "echo E: ${TESTCONFIGURING}; sleep 60", listener);
   pipe.outputStream().close();
 
   sk::io::DataInputStream stream(pipe.inputStream());

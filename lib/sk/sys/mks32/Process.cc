@@ -207,7 +207,6 @@ start(sk::io::InputStream& inputStream, const sk::util::StringArray& args)
     std::vector<char> environment_block;
     environment.serialize(environment_block);
 
-    sk::util::Container command = cmdline.join(" ");
     PROCESS_INFORMATION process_info = { 0 };
     STARTUPINFO startup_info = { 0 };
     startup_info.cb = sizeof(STARTUPINFO);
@@ -235,7 +234,9 @@ start(sk::io::InputStream& inputStream, const sk::util::StringArray& args)
 
     startup_info.dwFlags |= STARTF_USESTDHANDLES;
 
-    BOOL status = CreateProcess(0, &command.at(0), 0, 0, TRUE, 0, &environment_block.at(0), 0, &startup_info, &process_info);
+    sk::util::String cs = cmdline.join(" ");
+    sk::util::Container cv(cs.getChars(), cs.size() + 1);
+    BOOL status = CreateProcess(0, &cv.at(0), 0, 0, TRUE, 0, &environment_block.at(0), 0, &startup_info, &process_info);
     if(status == FALSE) {
       throw sk::rt::SystemException("CreateProces");
     }
