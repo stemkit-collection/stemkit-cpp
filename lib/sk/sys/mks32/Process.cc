@@ -168,7 +168,7 @@ sk::sys::Process::Implementation&
 sk::sys::Process::
 process() const
 {
-  return _impelementationHolder.get();
+  return _implementationHolder.get();
 }
 
 void
@@ -186,7 +186,7 @@ start(sk::io::InputStream& inputStream, const sk::util::StringArray& args)
   if(args.isEmpty() == true) {
     throw sk::util::UnsupportedOperationException("Non-exec processes not supported on Windowns");
   }
-  _impelementationHolder.set(new Implementation);
+  _implementationHolder.set(new Implementation);
 
   sk::util::StringArray cmdline;
   args.forEach(CommandLineBuilder(cmdline));
