@@ -31,6 +31,10 @@
 #include <signal.h>
 #include <iostream>
 
+struct sk::sys::Process::Implementation {
+  int status;
+};
+
 sk::sys::Process::
 Process(sk::io::InputStream& inputStream, const sk::util::StringArray& cmdline, ProcessListener& listener)
   : _scope(*this), _listener(listener)
@@ -79,6 +83,13 @@ sk::sys::Process::
   if(_detached == false) {
     sk::util::Exception::guard(_scope.warning(SK_METHOD), *this, &sk::sys::Process::stop);
   }
+}
+
+sk::sys::Process::Implementation&
+sk::sys::Process::
+process() const
+{
+  return _implementationHolder.get();
 }
 
 const sk::util::Class
@@ -170,6 +181,8 @@ void
 sk::sys::Process::
 start(sk::io::InputStream& inputStream, const sk::util::StringArray& cmdline)
 {
+  _implementationHolder.set(new Implementation);
+
   _detached = false;
   _running = false;
 
@@ -309,7 +322,7 @@ join()
       throw sk::rt::SystemException("waitpid:" + sk::util::String::valueOf(_pid));
     }
     if(result == _pid) {
-      _status = status;
+      process().status = status;
       break;
     }
     throw sk::util::IllegalStateException("waitpid:mismatch:" + sk::util::String::valueOf(result) + ":" + sk::util::String::valueOf(_pid));
@@ -336,7 +349,7 @@ sk::sys::Process::
 isExited() const
 {
   ensureNotRunning();
-  return WIFEXITED(_status) ? true : false;
+  return WIFEXITED(process().status) ? true : false;
 }
 
 bool
@@ -344,7 +357,7 @@ sk::sys::Process::
 isKilled() const
 {
   ensureNotRunning();
-  return WIFSIGNALED(_status) ? true : false;
+  return WIFSIGNALED(process().status) ? true : false;
 }
 
 void
@@ -363,7 +376,7 @@ exitStatus() const
   if(isExited() == false) {
     throw sk::util::IllegalStateException("Process killed, not exited");
   }
-  return WEXITSTATUS(_status);
+  return WEXITSTATUS(process().status);
 }
 
 int
@@ -373,7 +386,7 @@ signal() const
   if(isKilled() == false) {
     throw sk::util::IllegalStateException("Process exited, not killed");
   }
-  return WTERMSIG(_status);
+  return WTERMSIG(process().status);
 }
 
 bool

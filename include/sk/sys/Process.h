@@ -72,7 +72,7 @@ namespace sk {
         volatile bool _detached;
         volatile bool _running;
 
-        sk::util::Holder<Implementation> _impelementationHolder;
+        sk::util::Holder<Implementation> _implementationHolder;
     };
   }
 }
