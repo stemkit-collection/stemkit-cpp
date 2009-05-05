@@ -95,9 +95,10 @@ void
 sk::sys::test::ProcessTest::
 testKilled()
 {
-  sk::sys::Process process(sk::util::StringArray("sh") + "-c" + "exec sleep 60");
+  sk::sys::Process process(sk::util::StringArray("sh") + "-c" + "exec sleep 60;");
   CPPUNIT_ASSERT_EQUAL(true, process.isAlive());
 
+  sleep(2);
   process.kill();
   process.join();
 
@@ -105,14 +106,14 @@ testKilled()
   CPPUNIT_ASSERT_EQUAL(false, process.isExited());
   CPPUNIT_ASSERT_EQUAL(true, process.isKilled());
 
-  CPPUNIT_ASSERT_EQUAL(0, process.signal());
+  CPPUNIT_ASSERT_EQUAL(9, process.signal());
 }
 
 void
 sk::sys::test::ProcessTest::
 testNormalStop()
 {
-  sk::sys::Process process(sk::util::StringArray("sh") + "-c" + "exec sleep 10");
+  sk::sys::Process process(sk::util::StringArray("sh") + "-c" + "exec sleep 10;");
   CPPUNIT_ASSERT_EQUAL(true, process.isAlive());
 
   sleep(1);
@@ -180,7 +181,7 @@ void
 sk::sys::test::ProcessTest::
 testNoHangOnInputRead()
 {
-  sk::sys::Process process(sk::util::StringArray("sh") + "-c" + "read line");
+  sk::sys::Process process(sk::util::StringArray("sh") + "-c" + "read line;");
   CPPUNIT_ASSERT_EQUAL(true, process.isAlive());
 
   process.join();
@@ -235,7 +236,7 @@ testConfiguring()
 
   sk::io::AnonymousPipe pipe;
   ConfiguringListener listener(pipe);
-  sk::sys::Process process(sk::util::StringArray("sh") + "-c" + "echo E: ${TESTCONFIGURING}; sleep 60", listener);
+  sk::sys::Process process(sk::util::StringArray("sh") + "-c" + "echo E: ${TESTCONFIGURING}; sleep 60;", listener);
   pipe.outputStream().close();
 
   sk::io::DataInputStream stream(pipe.inputStream());

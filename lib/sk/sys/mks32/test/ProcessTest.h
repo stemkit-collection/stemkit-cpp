@@ -18,16 +18,16 @@ namespace sk {
         : public CppUnit::TestFixture
       {
         CPPUNIT_TEST_SUITE(sk::sys::test::ProcessTest);
-          // *GOOD* CPPUNIT_TEST(testTrueCommand);
-          // *GOOD* CPPUNIT_TEST(testFalseCommand);
-          // *GOOD* CPPUNIT_TEST(testExitCode);
+          CPPUNIT_TEST(testTrueCommand);
+          CPPUNIT_TEST(testFalseCommand);
+          CPPUNIT_TEST(testExitCode);
           CPPUNIT_TEST(testKilled);
           // *FAILS* CPPUNIT_TEST(testNormalStop);
-          // *GOOD* CPPUNIT_TEST(testForcedStop);
-          // *GOOD* CPPUNIT_TEST(testRedirectInput);
-          // *GOOD* CPPUNIT_TEST(testNoHangOnInputRead);
-          // *GOOD* CPPUNIT_TEST(testSpawn);
-          // *GOOD* CPPUNIT_TEST(testConfiguring);
+          CPPUNIT_TEST(testForcedStop);
+          CPPUNIT_TEST(testRedirectInput);
+          CPPUNIT_TEST(testNoHangOnInputRead);
+          CPPUNIT_TEST(testSpawn);
+          CPPUNIT_TEST(testConfiguring);
         CPPUNIT_TEST_SUITE_END();
         
         public:
