@@ -5,7 +5,7 @@ local test = sk-sys-test ;
 local objects = 
   ProcessTest.cc
   PipeProcessTest.cc
-  # DaemonProcessTest.cc
+  DaemonProcessTest.cc
   TestSuite.cc
 ;
 

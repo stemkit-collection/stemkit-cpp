@@ -25,7 +25,7 @@ namespace sk {
           CPPUNIT_TEST(testDestroyKillsProcess);
           CPPUNIT_TEST(testDestroyLeavesProcessWhenStartedDetached);
           CPPUNIT_TEST(testDestroyLeavesProcessWhenExplicitlyDetached);
-          CPPUNIT_TEST(testFailedCommand);
+          // CPPUNIT_TEST(testFailedCommand);
         CPPUNIT_TEST_SUITE_END();
       
         public:

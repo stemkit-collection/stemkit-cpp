@@ -13,6 +13,7 @@
 
 #include <sk/util/Object.h>
 #include <sk/sys/Executable.h>
+#include <winnutc.h>
 
 namespace sk {
   namespace sys {
@@ -20,7 +21,7 @@ namespace sk {
       : public virtual sk::sys::Executable
     {
       public:
-        ManagedProcess(pid_t pid);
+        ManagedProcess(int pid);
         virtual ~ManagedProcess();
     
         // sk::sys::Executable implementation.
@@ -43,9 +44,10 @@ namespace sk {
         ManagedProcess(const ManagedProcess& other);
         ManagedProcess& operator = (const ManagedProcess& other);
 
-        bool terminate(int signal);
+        bool terminate(int tolerance);
 
-        pid_t _pid;
+        int _pid;
+        HANDLE _handle;
     };
   }
 }

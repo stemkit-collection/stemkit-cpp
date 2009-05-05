@@ -75,22 +75,8 @@ start()
   if(_executableHolder.isEmpty() == false) {
     throw sk::util::IllegalStateException("Process already started");
   }
-  sk::sys::Process process(*this);
-  _pipe.outputStream().close();
-  sk::io::DataInputStream stream(_pipe.inputStream());
-
-  int pid = stream.readInt();
-  _executableHolder.set(new ManagedProcess(pid));
-
-  process.join();
-
-  try {
-    sk::util::String error = stream.readLine();
-    _pipe.close();
-
-    throw sk::sys::ProcessLaunchException(error, _cmdline);
-  }
-  catch(const sk::io::EOFException& exception) {}
+  _executableHolder.set(new sk::sys::Process(_cmdline, *this));
+  _executableHolder.get().detach();
   _pipe.close();
 }
 
@@ -121,47 +107,10 @@ getExecutable() const
   return _executableHolder.get();
 }
 
-namespace {
-  struct DaemonConfigurator : public sk::sys::AbstractProcessListener {
-    DaemonConfigurator(const sk::rt::Scope& scope, sk::io::OutputStream& stream) 
-      : _scope(scope), _stream(stream) {}
-
-    void processConfiguring(sk::sys::ProcessConfigurator& configurator) {
-      sk::io::NullDevice trash;
-
-      configurator.setInputStream(trash.inputStream());
-      if(_scope.getProperty("trash-output", sk::util::Boolean::B_TRUE) == true) {
-        configurator.setOutputStream(trash.outputStream());
-        configurator.setErrorOutputStream(trash.outputStream());
-      }
-    }
-
-    void processStarting() {
-      _stream.writeInt(::getpid());
-      _stream.inheritable(false);
-    }
-
-    void processFailing(const sk::util::String& message) {
-      _stream.writeChars(message + "\n");
-    }
-
-    const sk::rt::Scope& _scope;
-    sk::io::DataOutputStream _stream;
-  };
-}
-
 void 
 sk::sys::DaemonProcess::
 processStarting() 
 {
-  ::setsid();
-
-  _pipe.inputStream().close();
-  DaemonConfigurator configurator(_scope, _pipe.outputStream());
-  sk::sys::Process process(_cmdline, configurator);
-
-  _pipe.close();
-  process.detach();
 }
 
 int 
@@ -187,4 +136,11 @@ void
 sk::sys::DaemonProcess::
 processConfiguring(sk::sys::ProcessConfigurator& configurator)
 {
+  sk::io::NullDevice trash;
+
+  configurator.setInputStream(trash.inputStream());
+  if(_scope.getProperty("trash-output", sk::util::Boolean::B_TRUE) == true) {
+    configurator.setOutputStream(trash.outputStream());
+    configurator.setErrorOutputStream(trash.outputStream());
+  }
 }

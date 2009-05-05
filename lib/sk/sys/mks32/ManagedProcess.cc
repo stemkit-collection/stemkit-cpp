@@ -15,21 +15,24 @@
 #include <sk/rt/SystemException.h>
 
 #include "ManagedProcess.h"
-#include <unistd.h>
-#include <signal.h>
-#include <errno.h>
+#include <winnutc.h>
 
 static const char* __className("sk::sys::ManagedProcess");
 
 sk::sys::ManagedProcess::
-ManagedProcess(pid_t pid)
+ManagedProcess(int pid)
   : _pid(pid)
 {
+  _handle = OpenProcess(PROCESS_ALL_ACCESS, FALSE, pid);
+  if(_handle == 0) {
+    throw sk::rt::SystemException("OpenProcess");
+  }
 }
 
 sk::sys::ManagedProcess::
 ~ManagedProcess()
 {
+  CloseHandle(_handle);
 }
 
 const sk::util::Class
@@ -50,7 +53,7 @@ void
 sk::sys::ManagedProcess::
 stop()
 {
-  if(terminate(SIGTERM) == false) {
+  if(terminate(3) == false) {
     kill();
   }
 }
@@ -59,19 +62,21 @@ void
 sk::sys::ManagedProcess::
 kill()
 {
-  if(terminate(SIGKILL) == false) {
-    throw sk::util::IllegalStateException("Cannot stop process:" + sk::util::String::valueOf(_pid));
+  if(terminate(0) == false) {
+    // throw sk::util::IllegalStateException("Cannot stop process:" + sk::util::String::valueOf(_pid));
   }
 }
 
 bool
 sk::sys::ManagedProcess::
-terminate(int signal)
+terminate(int tolerance)
 {
-  if(::kill(_pid, signal) != 0 && errno != ESRCH) {
-    throw sk::rt::SystemException("kill:" + sk::util::String::valueOf(_pid) + ":" + sk::util::String::valueOf(signal));
+  if(tolerance == 0) {
+    if(TerminateProcess(_handle, 43195) == FALSE) {
+      throw sk::rt::SystemException("TerminateProcess");
+    }
+    Sleep(1000);
   }
-  sleep(1);
   return isAlive() == false;
 }
 
@@ -79,8 +84,8 @@ void
 sk::sys::ManagedProcess::
 join()
 {
-  while(isAlive() == true) {
-    sleep(3);
+  if(WaitForSingleObject(_handle, INFINITE) == WAIT_FAILED) {
+    throw sk::rt::SystemException("WaitForSingleObject");
   }
 }
 
@@ -115,7 +120,12 @@ bool
 sk::sys::ManagedProcess::
 isAlive() const
 {
-  return ::kill(_pid, 0) == 0;
+  HANDLE handle = OpenProcess(PROCESS_ALL_ACCESS, FALSE, _pid);
+  if(handle == 0) {
+    return false;
+  }
+  CloseHandle(handle);
+  return true;
 }
 
 int 
