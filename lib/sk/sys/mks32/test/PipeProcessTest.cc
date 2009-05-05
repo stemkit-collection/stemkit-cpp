@@ -67,7 +67,7 @@ testDataNoErrors()
   CPPUNIT_ASSERT_EQUAL(true, process.isAlive());
 
   CPPUNIT_ASSERT_THROW(process.inputErrorStream().read(), sk::io::EOFException);
-  CPPUNIT_ASSERT_EQUAL(sk::util::String("it's a world\n").inspect(), data.readLine().inspect());
+  CPPUNIT_ASSERT_EQUAL("it's a world", data.readLine().trim());
 
   process.join();
 
@@ -85,7 +85,7 @@ testErrorsNoData()
   CPPUNIT_ASSERT_EQUAL(true, process.isAlive());
 
   CPPUNIT_ASSERT_THROW(process.inputStream().read(), sk::io::EOFException);
-  CPPUNIT_ASSERT_EQUAL(sk::util::String("some error\n").inspect(), errors.readLine().inspect());
+  CPPUNIT_ASSERT_EQUAL("some error", errors.readLine().trim());
 
   process.join();
 
@@ -116,8 +116,8 @@ testErrorsAfterJoin()
   process.join();
 
   CPPUNIT_ASSERT_EQUAL(2, process.errors().size());
-  CPPUNIT_ASSERT_EQUAL(sk::util::String("Error1\n").inspect(), process.errors().get(0).inspect());
-  CPPUNIT_ASSERT_EQUAL(sk::util::String("Error2\n").inspect(), process.errors().get(1).inspect());
+  CPPUNIT_ASSERT_EQUAL("Error1", process.errors().get(0).trim());
+  CPPUNIT_ASSERT_EQUAL("Error2", process.errors().get(1).trim());
 }
 
 void
@@ -134,17 +134,17 @@ testAlltogether()
   process.outputStream().write(sk::util::Container("second\n"));
   process.outputStream().close();
 
-  CPPUNIT_ASSERT_EQUAL(sk::util::String("GOOD: first\n").inspect(), data.readLine().inspect());
-  CPPUNIT_ASSERT_EQUAL(sk::util::String("GOOD: second\n").inspect(), data.readLine().inspect());
+  CPPUNIT_ASSERT_EQUAL("GOOD: first", data.readLine().trim());
+  CPPUNIT_ASSERT_EQUAL("GOOD: second", data.readLine().trim());
   CPPUNIT_ASSERT_THROW(data.readLine(), sk::io::EOFException);
 
-  CPPUNIT_ASSERT_EQUAL(sk::util::String("BAD: first\n").inspect(), errors.readLine().inspect());
+  CPPUNIT_ASSERT_EQUAL("BAD: first", errors.readLine().trim());
       
   process.join();
   CPPUNIT_ASSERT_EQUAL(true, process.isSuccess());
 
   CPPUNIT_ASSERT_EQUAL(1, process.errors().size());
-  CPPUNIT_ASSERT_EQUAL(sk::util::String("BAD: second\n").inspect(), process.errors().get(0).inspect());
+  CPPUNIT_ASSERT_EQUAL("BAD: second", process.errors().get(0).trim());
 }
 
 void
@@ -156,9 +156,9 @@ testInputRedirect()
   sk::io::DataInputStream data(process.inputStream());
 
   CPPUNIT_ASSERT_THROW(process.outputStream().write('a'), sk::io::ClosedChannelException);
-  CPPUNIT_ASSERT_EQUAL(sk::util::String("Line1: AAA\n").inspect(), data.readLine().inspect());
-  CPPUNIT_ASSERT_EQUAL(sk::util::String("Line2: bbb\n").inspect(), data.readLine().inspect());
-  CPPUNIT_ASSERT_EQUAL(sk::util::String("Line3: ccc\n").inspect(), data.readLine().inspect());
+  CPPUNIT_ASSERT_EQUAL("Line1: AAA", data.readLine().trim());
+  CPPUNIT_ASSERT_EQUAL("Line2: bbb", data.readLine().trim());
+  CPPUNIT_ASSERT_EQUAL("Line3: ccc", data.readLine().trim());
   CPPUNIT_ASSERT_THROW(data.readLine(), sk::io::EOFException);
 
   process.join();
