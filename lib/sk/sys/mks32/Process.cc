@@ -21,13 +21,14 @@
 #include <sk/sys/ProcessLaunchException.h>
 #include <sk/io/FileDescriptorStream.h>
 #include <sk/io/FileInputStream.h>
-#include <sk/io/FileDescriptorProvider.h>
 #include <sk/rt/Thread.h>
 #include <sk/rt/Runnable.h>
 #include <sk/rt/Locker.cxx>
 
+#include <sk/util/inspect.h>
+
 #include <map>
-#include "windows.h"
+#include <winnutc.h>
 
 struct sk::sys::Process::Implementation {
   HANDLE handle;
@@ -144,7 +145,17 @@ namespace {
         setEnvironment("SK_STREAMS", _descriptors.join("|"));
       }
     }
-    std::map<int, const sk::io::FileDescriptorStream> _streams;
+
+    const sk::io::FileDescriptorStream& stream(int descriptor) const {
+      stream_container_type::const_iterator iterator = _streams.find(descriptor);
+      if(iterator == _streams.end()) {
+        throw sk::util::IllegalStateException(sk::util::String::valueOf(descriptor) + ":stream not found");
+      }
+      return iterator->second;
+    }
+
+    typedef std::map<int, const sk::io::FileDescriptorStream> stream_container_type;
+    stream_container_type _streams;
     sk::util::StringArray _descriptors;
     const sk::rt::Scope& _scope;
     sk::util::PropertyRegistry& _environment;
@@ -186,10 +197,10 @@ start(sk::io::InputStream& inputStream, const sk::util::StringArray& args)
   _running = false;
 
   try {
-    sk::io::FileDescriptorProvider& stdin_stream = sk::util::upcast<sk::io::FileDescriptorProvider>(inputStream);
-
     sk::rt::Environment environment;
     Configurator configurator(_scope, environment);
+    configurator.setInputStream(inputStream);
+
     _listener.processConfiguring(configurator);
     configurator.finalize();
 
@@ -201,7 +212,17 @@ start(sk::io::InputStream& inputStream, const sk::util::StringArray& args)
     STARTUPINFO startup_info = { 0 };
     startup_info.cb = sizeof(STARTUPINFO);
 
-    BOOL status = CreateProcess(0, &command.at(0), 0, 0, TRUE, CREATE_NO_WINDOW , &environment_block[0], 0, &startup_info, &process_info);
+    startup_info.hStdInput = ::_NutFdToHandle(configurator.stream(0).getFileDescriptor().getFileNumber());
+    startup_info.hStdOutput = GetStdHandle(STD_OUTPUT_HANDLE);
+    startup_info.hStdError = GetStdHandle(STD_ERROR_HANDLE);
+
+    SetHandleInformation(startup_info.hStdInput, HANDLE_FLAG_INHERIT, HANDLE_FLAG_INHERIT);
+    SetHandleInformation(startup_info.hStdOutput, HANDLE_FLAG_INHERIT, HANDLE_FLAG_INHERIT);
+    SetHandleInformation(startup_info.hStdError, HANDLE_FLAG_INHERIT, HANDLE_FLAG_INHERIT);
+
+    startup_info.dwFlags |= STARTF_USESTDHANDLES;
+
+    BOOL status = CreateProcess(0, &command.at(0), 0, 0, TRUE, 0, &environment_block.at(0), 0, &startup_info, &process_info);
     if(status == FALSE) {
       throw sk::rt::SystemException("CreateProces");
     }
