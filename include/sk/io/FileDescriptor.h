@@ -8,32 +8,20 @@
 #ifndef _SK_IO_FILEDESCRIPTOR_
 #define _SK_IO_FILEDESCRIPTOR_
 
-#include <sk/util/Object.h>
+#include <sk/io/LooseFileDescriptor.h>
 
 namespace sk {
   namespace io {
     class FileDescriptor
-      : public virtual sk::util::Object 
+      : public sk::io::LooseFileDescriptor
     {
       public:
         FileDescriptor(int fd);
         FileDescriptor(const FileDescriptor& other);
         virtual ~FileDescriptor();
 
-        int getFileNumber() const;
-        
-        void close();
-        int read(char* buffer, int offset, int length);
-        int write(const char* buffer, int offset, int length);
-        void inheritable(bool state);
-
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
-        
-      private:
-        FileDescriptor& operator = (const FileDescriptor& other);
-
-        int _fd;
     };
   }
 }

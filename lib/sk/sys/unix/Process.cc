@@ -164,6 +164,8 @@ namespace {
         ::dup2(fd, target);
         ::close(fd);
       }
+      sk::io::LooseFileDescriptor descriptor(target);
+      descriptor.inheritable(true);
     }
 
     void finalize() {
@@ -193,12 +195,11 @@ start(sk::io::InputStream& inputStream, const sk::util::StringArray& cmdline)
   }
   if(_pid == 0) {
     try {
-      ::close(0);
-      sk::util::Holder<sk::io::InputStream> stdinHolder(sk::util::covariant<sk::io::InputStream>(inputStream.clone()));
-      inputStream.close();
-
       sk::rt::Environment environment;
       Configurator configurator(_scope, environment);
+      configurator.setInputStream(inputStream);
+      inputStream.close();
+
       _listener.processConfiguring(configurator);
       configurator.finalize();
       environment.install();

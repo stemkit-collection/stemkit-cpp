@@ -11,6 +11,7 @@ objects =
   DelegatingOutputStream.cc
   DataInputStream.cc
   DataOutputStream.cc
+  LooseFileDescriptor.cc
   FileDescriptor.cc
   FileDescriptorStream.cc
   FileDescriptorInputStream.cc
