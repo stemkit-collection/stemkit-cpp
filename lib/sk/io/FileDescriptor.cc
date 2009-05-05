@@ -23,9 +23,6 @@ sk::io::FileDescriptor::
 FileDescriptor(const sk::io::FileDescriptor& other)
   : sk::io::LooseFileDescriptor(::dup(other.getFileNumber()))
 {
-  if(getFileNumber() < 0) {
-    throw sk::rt::SystemException("dup");
-  }
 }
 
 sk::io::FileDescriptor::

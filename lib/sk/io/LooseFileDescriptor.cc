@@ -21,6 +21,9 @@ sk::io::LooseFileDescriptor::
 LooseFileDescriptor(int fd)
   : _fd(fd)
 {
+  if(getFileNumber() < 0) {
+    throw sk::rt::SystemException(SK_METHOD);
+  }
   inheritable(false);
 }
 
@@ -58,17 +61,16 @@ int
 sk::io::LooseFileDescriptor::
 read(char* buffer, int offset, int length)
 {
-  if(_fd < 0) {
-    throw sk::io::ClosedChannelException();
-  }
   if(offset < 0) {
     offset = 0;
   }
   if(length < 0) {
     length = 0;
   }
+
+  int fd = getFileNumber();
   while(true) {
-    int n = ::read(_fd, buffer + offset, length);
+    int n = ::read(fd, buffer + offset, length);
     if(n == 0) {
       throw sk::io::EOFException();
     }
@@ -85,17 +87,15 @@ int
 sk::io::LooseFileDescriptor::
 write(const char* buffer, int offset, int length)
 {
-  if(_fd < 0) {
-    throw sk::io::ClosedChannelException();
-  }
   if(offset < 0) {
     offset = 0;
   }
   if(length < 0) {
     length = 0;
   }
+  int fd = getFileNumber();
   while(true) {
-    int n = ::write(_fd, buffer + offset, length);
+    int n = ::write(fd, buffer + offset, length);
     if(n < 0) {
       if(errno == EAGAIN) {
         continue;
@@ -110,6 +110,9 @@ int
 sk::io::LooseFileDescriptor::
 getFileNumber() const
 {
+  if(_fd < 0) {
+    throw sk::io::ClosedChannelException();
+  }
   return _fd;
 }
 
@@ -117,7 +120,8 @@ void
 sk::io::LooseFileDescriptor::
 inheritable(bool state)
 {
-  int flags = fcntl(_fd, F_GETFD);
+  int fd = getFileNumber();
+  int flags = fcntl(fd, F_GETFD);
   if(flags == -1) {
     throw sk::rt::SystemException("fcntl:F_GETFD");
   }
@@ -127,7 +131,7 @@ inheritable(bool state)
   else {
     flags &= ~(FD_CLOEXEC);
   }
-  if(fcntl(_fd, F_SETFD, flags) == -1) {
+  if(fcntl(fd, F_SETFD, flags) == -1) {
     throw sk::rt::SystemException("fcntl:F_SETFD");
   }
 }
