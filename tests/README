@@ -1,0 +1,8 @@
+test-covariants.cc
+  Demonstrates a problem in Visual Studio 2005 with return type covariants in
+  virtual inheritance chain.
+
+test-temporary-in-constructor-init-list.cc
+  Demonstrates a problem in Visual Studio 2005 with using temporaries in
+  constructor initialization list in case the temporary object inherits
+  virtually from a base class.
