@@ -14,6 +14,7 @@
 #include <sk/io/FileDescriptorOutputStream.h>
 #include <sk/io/DataInputStream.h>
 #include <sk/util/Container.h>
+#include <sk/util/UnsupportedOperationException.h>
 #include <iostream>
 
 #include <signal.h>
@@ -94,16 +95,17 @@ void
 sk::sys::test::ProcessTest::
 testKilled()
 {
-  sk::sys::Process process(sk::util::StringArray("sh") + "-c" + "kill -9 ${$}; exec sleep 2");
+  sk::sys::Process process(sk::util::StringArray("sh") + "-c" + "exec sleep 60");
   CPPUNIT_ASSERT_EQUAL(true, process.isAlive());
 
+  process.kill();
   process.join();
 
   CPPUNIT_ASSERT_EQUAL(false, process.isAlive());
   CPPUNIT_ASSERT_EQUAL(false, process.isExited());
   CPPUNIT_ASSERT_EQUAL(true, process.isKilled());
 
-  CPPUNIT_ASSERT_EQUAL(SIGKILL, process.signal());
+  CPPUNIT_ASSERT_EQUAL(0, process.signal());
 }
 
 void
@@ -209,18 +211,7 @@ testSpawn()
   sk::io::AnonymousPipe pipe;
   Worker worker(pipe.outputStream());
 
-  sk::sys::Process process(pipe.inputStream(), worker);
-  CPPUNIT_ASSERT_EQUAL(true, process.isAlive());
-
-  pipe.outputStream().write(sk::util::Container("84"));
-  pipe.outputStream().close();
-
-  process.join();
-
-  CPPUNIT_ASSERT_EQUAL(false, process.isAlive());
-  CPPUNIT_ASSERT_EQUAL(true, process.isExited());
-  CPPUNIT_ASSERT_EQUAL(false, process.isKilled());
-  CPPUNIT_ASSERT_EQUAL(84, process.exitStatus());
+  CPPUNIT_ASSERT_THROW(sk::sys::Process(pipe.inputStream(), worker), sk::util::UnsupportedOperationException);
 }
 
 namespace {
@@ -229,13 +220,8 @@ namespace {
       : _pipe(pipe) {}
 
     void processConfiguring(sk::sys::ProcessConfigurator& configurator) {
-      configurator.setEnvironment("testConfiguring", "set from a process");
-      _pipe.outputStream().write("Hello\n", 0, 6);
+      configurator.setEnvironment("TESTCONFIGURING", "set from a process");
       configurator.setOutputStream(_pipe.outputStream());
-      _pipe.close();
-    }
-    void processStarting() {
-      ::write(1, "E: ", 3);
     }
     sk::io::AnonymousPipe& _pipe;
   };
@@ -245,14 +231,13 @@ void
 sk::sys::test::ProcessTest::
 testConfiguring()
 {
-  CPPUNIT_ASSERT_EQUAL("", sk::util::String(getenv("testConfiguring")));
+  CPPUNIT_ASSERT_EQUAL("", sk::util::String(getenv("TESTCONFIGURING")));
 
   sk::io::AnonymousPipe pipe;
   ConfiguringListener listener(pipe);
-  sk::sys::Process process(sk::util::StringArray("sh") + "-c" + "echo ${testConfiguring}; sleep 60", listener);
-
+  sk::sys::Process process(sk::util::StringArray("sh") + "-c" + "echo E: ${TESTCONFIGURING}; sleep 60", listener);
   pipe.outputStream().close();
+
   sk::io::DataInputStream stream(pipe.inputStream());
-  CPPUNIT_ASSERT_EQUAL("Hello", stream.readLine().trim());
   CPPUNIT_ASSERT_EQUAL("E: set from a process", stream.readLine().trim());
 }

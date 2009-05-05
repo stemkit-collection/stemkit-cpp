@@ -213,8 +213,21 @@ start(sk::io::InputStream& inputStream, const sk::util::StringArray& args)
     startup_info.cb = sizeof(STARTUPINFO);
 
     startup_info.hStdInput = ::_NutFdToHandle(configurator.stream(0).getFileDescriptor().getFileNumber());
-    startup_info.hStdOutput = GetStdHandle(STD_OUTPUT_HANDLE);
-    startup_info.hStdError = GetStdHandle(STD_ERROR_HANDLE);
+    try {
+      startup_info.hStdOutput = _NutFdToHandle(configurator.stream(1).getFileDescriptor().getFileNumber());
+    }
+    catch(const sk::util::IllegalStateException& exception) {
+      _scope.notice("STDOUT") << "Oops, not set -- using default";
+      startup_info.hStdOutput = GetStdHandle(STD_OUTPUT_HANDLE);
+    }
+
+    try {
+      startup_info.hStdError = _NutFdToHandle(configurator.stream(2).getFileDescriptor().getFileNumber());
+    }
+    catch(const sk::util::IllegalStateException& exception) {
+      _scope.notice("STDERR") << "Oops, not set -- using default";
+      startup_info.hStdError = GetStdHandle(STD_ERROR_HANDLE);
+    }
 
     SetHandleInformation(startup_info.hStdInput, HANDLE_FLAG_INHERIT, HANDLE_FLAG_INHERIT);
     SetHandleInformation(startup_info.hStdOutput, HANDLE_FLAG_INHERIT, HANDLE_FLAG_INHERIT);
