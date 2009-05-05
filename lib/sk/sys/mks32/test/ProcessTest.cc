@@ -79,7 +79,7 @@ void
 sk::sys::test::ProcessTest::
 testExitCode()
 {
-  sk::sys::Process process(sk::util::StringArray("sh") + "-c" + "exit 5");
+  sk::sys::Process process(sk::util::StringArray("sh") + "-c" + "exit 5;");
   CPPUNIT_ASSERT_EQUAL(true, process.isAlive());
 
   process.join();
@@ -160,7 +160,7 @@ sk::sys::test::ProcessTest::
 testRedirectInput()
 {
   sk::io::AnonymousPipe pipe;
-  sk::util::StringArray cmdline = sk::util::StringArray("sh") + "-c" + "read status; exit \"${status}\"";
+  sk::util::StringArray cmdline = sk::util::StringArray("sh") + "-c" + "read status; exit \"${status}\";";
   Cleaner cleaner(pipe.outputStream());
 
   sk::sys::Process process(pipe.inputStream(), cmdline, cleaner);
