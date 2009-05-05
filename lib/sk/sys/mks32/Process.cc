@@ -228,6 +228,10 @@ start(sk::io::InputStream& inputStream, const sk::util::StringArray& args)
       startup_info.hStdError = GetStdHandle(STD_ERROR_HANDLE);
     }
 
+    for(int fd=0; fd<1024 ;++fd) {
+      HANDLE handle = _NutFdToHandle(fd);
+      SetHandleInformation(handle, HANDLE_FLAG_INHERIT, 0);
+    }
     SetHandleInformation(startup_info.hStdInput, HANDLE_FLAG_INHERIT, HANDLE_FLAG_INHERIT);
     SetHandleInformation(startup_info.hStdOutput, HANDLE_FLAG_INHERIT, HANDLE_FLAG_INHERIT);
     SetHandleInformation(startup_info.hStdError, HANDLE_FLAG_INHERIT, HANDLE_FLAG_INHERIT);

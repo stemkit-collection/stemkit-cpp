@@ -154,7 +154,7 @@ testRedirectInput()
 
   CPPUNIT_ASSERT_EQUAL(true, process.isAlive());
 
-  pipe.outputStream().write(sk::util::Container("71\n"));
+  pipe.outputStream().write(sk::util::Container("71"));
   pipe.outputStream().close();
 
   process.join();
