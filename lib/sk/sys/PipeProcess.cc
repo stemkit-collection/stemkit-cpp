@@ -1,4 +1,5 @@
-/*  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
+/*  vi: sw=2:
+ *  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
  *  
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
@@ -11,6 +12,7 @@
 
 #include <sk/sys/PipeProcess.h>
 #include <sk/sys/AbstractProcessListener.h>
+#include <sk/sys/ProcessConfigurator.h>
 #include <sk/io/AnonymousPipe.h>
 #include <sk/io/DataInputStream.h>
 #include <sk/io/FileDescriptorOutputStream.h>
@@ -21,7 +23,7 @@
 struct sk::sys::PipeProcess::Listener 
   : public sk::sys::AbstractProcessListener 
 {
-    void processStarting();
+    void processConfiguring(sk::sys::ProcessConfigurator& configurator);
     int processStopping();
     void processJoining();
 
@@ -105,17 +107,10 @@ errors() const
 
 void 
 sk::sys::PipeProcess::Listener::
-processStarting()
+processConfiguring(sk::sys::ProcessConfigurator& configurator)
 {
-  ::close(1);
-  ::dup(stdoutPipe.outputStream().getFileDescriptor().getFileNumber());
-
-  ::close(2);
-  ::dup(stderrPipe.outputStream().getFileDescriptor().getFileNumber());
-
-  stdinPipe.close();
-  stdoutPipe.close();
-  stderrPipe.close();
+  configurator.setOutputStream(stdoutPipe.outputStream());
+  configurator.setErrorOutputStream(stderrPipe.outputStream());
 }
 
 int 
