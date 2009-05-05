@@ -163,7 +163,7 @@ testRedirectInput()
   sk::sys::Process process(pipe.inputStream(), cmdline, cleaner);
   CPPUNIT_ASSERT_EQUAL(true, process.isAlive());
 
-  pipe.outputStream().write(sk::util::Container("71"));
+  pipe.outputStream().write(sk::util::Container("71\n"));
   pipe.outputStream().close();
 
   process.join();
