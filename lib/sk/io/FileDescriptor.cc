@@ -21,6 +21,7 @@ sk::io::FileDescriptor::
 FileDescriptor(int fd)
   : _fd(fd)
 {
+  inheritable(false);
 }
 
 sk::io::FileDescriptor::
@@ -30,6 +31,7 @@ FileDescriptor(const sk::io::FileDescriptor& other)
   if(_fd < 0) {
     throw sk::rt::SystemException("dup");
   }
+  inheritable(false);
 }
 
 sk::io::FileDescriptor::
