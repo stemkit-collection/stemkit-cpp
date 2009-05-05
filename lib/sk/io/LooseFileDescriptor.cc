@@ -13,6 +13,7 @@
 #include <sk/io/EOFException.h>
 #include <sk/io/ClosedChannelException.h>
 #include <sk/rt/SystemException.h>
+#include <sk/util/IllegalArgumentException.h>
 #include <errno.h>
 #include <unistd.h>
 #include <fcntl.h>
@@ -21,8 +22,8 @@ sk::io::LooseFileDescriptor::
 LooseFileDescriptor(int fd)
   : _fd(fd)
 {
-  if(getFileNumber() < 0) {
-    throw sk::rt::SystemException(SK_METHOD);
+  if(_fd < 0) {
+    throw sk::util::IllegalArgumentException(SK_METHOD);
   }
   inheritable(false);
 }
@@ -133,5 +134,31 @@ inheritable(bool state)
   }
   if(fcntl(fd, F_SETFD, flags) == -1) {
     throw sk::rt::SystemException("fcntl:F_SETFD");
+  }
+}
+
+sk::io::LooseFileDescriptor
+sk::io::LooseFileDescriptor::
+duplicateLoose() const
+{
+  int fd = ::dup(getFileNumber());
+  if(fd < 0) {
+    throw sk::rt::SystemException("dup");
+  }
+  return LooseFileDescriptor(fd);
+}
+
+void
+sk::io::LooseFileDescriptor::
+reopen(const sk::io::LooseFileDescriptor& other)
+{
+  int fd = getFileNumber();
+  int other_fd = other.getFileNumber();
+
+  close();
+
+  _fd = ::dup2(other_fd, fd);
+  if(_fd != fd) {
+    throw sk::rt::SystemException("dup2");
   }
 }

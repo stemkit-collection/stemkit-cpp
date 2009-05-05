@@ -27,6 +27,9 @@ namespace sk {
         int write(const char* buffer, int offset, int length);
         void inheritable(bool state);
 
+        sk::io::LooseFileDescriptor duplicateLoose() const;
+        void reopen(const sk::io::LooseFileDescriptor& other);
+
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
         

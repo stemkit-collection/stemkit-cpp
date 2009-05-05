@@ -10,8 +10,6 @@
 #include <sk/util/String.h>
 
 #include <sk/io/FileDescriptor.h>
-#include <sk/rt/SystemException.h>
-#include <unistd.h>
 
 sk::io::FileDescriptor::
 FileDescriptor(int fd)
@@ -21,7 +19,7 @@ FileDescriptor(int fd)
 
 sk::io::FileDescriptor::
 FileDescriptor(const sk::io::FileDescriptor& other)
-  : sk::io::LooseFileDescriptor(::dup(other.getFileNumber()))
+  : sk::io::LooseFileDescriptor(other.duplicateLoose())
 {
 }
 
@@ -37,4 +35,3 @@ getClass() const
 {
   return sk::util::Class("sk::io::FileDescriptor");
 }
-

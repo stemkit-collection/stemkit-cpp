@@ -155,17 +155,12 @@ namespace {
     }
 
     void setStream(int target, const sk::io::Stream& stream) {
-      int fd;
-      {
-        sk::io::FileDescriptorStream fds(stream);
-        fd = ::dup(fds.getFileDescriptor().getFileNumber());
+      sk::io::LooseFileDescriptor target_descriptor(target);
+      sk::io::LooseFileDescriptor source_descriptor(sk::util::upcast<sk::io::FileDescriptorProvider>(stream).getFileDescriptor());
+      if(source_descriptor.getFileNumber() != target) {
+        target_descriptor.reopen(source_descriptor);
       }
-      if(fd != target) {
-        ::dup2(fd, target);
-        ::close(fd);
-      }
-      sk::io::LooseFileDescriptor descriptor(target);
-      descriptor.inheritable(true);
+      target_descriptor.inheritable(true);
     }
 
     void finalize() {
