@@ -11,6 +11,7 @@
 
 #include <sk/sys/PtyProcess.h>
 #include <sk/sys/AbstractProcessListener.h>
+#include <sk/sys/ProcessConfigurator.h>
 #include <sk/io/Pty.h>
 #include <sk/io/File.h>
 #include <sk/io/DataInputStream.h>
@@ -22,7 +23,7 @@
 struct sk::sys::PtyProcess::Listener 
   : public sk::sys::AbstractProcessListener 
 {
-    void processStarting();
+    void processConfiguring(sk::sys::ProcessConfigurator& configurator);
     int processStopping();
     void processJoining();
 
@@ -103,19 +104,14 @@ errors() const
 
 void 
 sk::sys::PtyProcess::Listener::
-processStarting()
+processConfiguring(sk::sys::ProcessConfigurator& configurator)
 {
   setsid();
   
   sk::io::File ctty(pty.getName(), "r+");
-  ::close(0);
-  ::dup(ctty.getFileDescriptor().getFileNumber());
-
-  ::close(1);
-  ::dup(pty.getSlaveMasterPipe().outputStream().getFileDescriptor().getFileNumber());
-
-  ::close(2);
-  ::dup(pty.getSlaveMasterPipe().outputStream().getFileDescriptor().getFileNumber());
+  configurator.setInputStream(ctty.inputStream());
+  configurator.setOutputStream(ctty.outputStream());
+  configurator.setErrorOutputStream(ctty.outputStream());
 
   pty.close();
 }

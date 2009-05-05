@@ -11,23 +11,23 @@
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
 
-#include <sk/io/NullDeviceOutputStream.h>
+#include <sk/io/Console.h>
 
-static const char* __className("sk::io::NullDeviceOutputStream");
+static const char* __className("sk::io::Console");
 
-sk::io::NullDeviceOutputStream::
-NullDeviceOutputStream()
-  : FileOutputStream("/dev/null")
+sk::io::Console::
+Console()
+  : sk::io::File("/dev/tty", "r+")
 {
 }
 
-sk::io::NullDeviceOutputStream::
-~NullDeviceOutputStream()
+sk::io::Console::
+~Console()
 {
 }
 
 const sk::util::Class
-sk::io::NullDeviceOutputStream::
+sk::io::Console::
 getClass() const
 {
   return sk::util::Class(__className);

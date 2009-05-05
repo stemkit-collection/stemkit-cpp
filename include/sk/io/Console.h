@@ -8,28 +8,28 @@
  *  Author: Gennady Bystritsky (gennady.bystritsky@quest.com)
 */
 
-#ifndef _SK_IO_NULLDEVICEOUTPUTSTREAM_H_
-#define _SK_IO_NULLDEVICEOUTPUTSTREAM_H_
+#ifndef _SK_IO_CONSOLE_H_
+#define _SK_IO_CONSOLE_H_
 
-#include <sk/io/FileOutputStream.h>
+#include <sk/io/File.h>
 
 namespace sk {
   namespace io {
-    class NullDeviceOutputStream 
-      : public sk::io::FileOutputStream
+    class Console 
+      : public sk::io::File
     {
       public:
-        NullDeviceOutputStream();
-        virtual ~NullDeviceOutputStream();
+        Console();
+        virtual ~Console();
     
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
     
       private:
-        NullDeviceOutputStream(const NullDeviceOutputStream& other);
-        NullDeviceOutputStream& operator = (const NullDeviceOutputStream& other);
+        Console(const Console& other);
+        Console& operator = (const Console& other);
     };
   }
 }
 
-#endif /* _SK_IO_NULLDEVICEOUTPUTSTREAM_H_ */
+#endif /* _SK_IO_CONSOLE_H_ */
