@@ -5,6 +5,7 @@ test = sk-sys-test ;
 test-objects = 
   PipelineTest.cc
   GroupTest.cc
+  StreamPortalTest.cc
   TestSuite.cc
 ;
 

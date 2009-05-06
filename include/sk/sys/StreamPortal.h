@@ -12,6 +12,8 @@
 #define _SK_SYS_STREAMPORTAL_H_
 
 #include <sk/util/Object.h>
+#include <sk/util/ArrayList.hxx>
+#include <sk/util/StringArray.h>
 #include <sk/util/Processor.h>
 #include <sk/io/Stream.h>
 
@@ -25,8 +27,8 @@ namespace sk {
         virtual ~StreamPortal();
 
         int size() const;
-        sk::io::Stream& get(int index) const;
-        void forEach(const sk::util::Processor<sk::io::Stream>& stream) const;
+        sk::io::Stream& getStream(int index) const;
+        void forEachStream(const sk::util::Processor<sk::io::Stream>& processor) const;
     
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
@@ -34,6 +36,10 @@ namespace sk {
       private:
         StreamPortal(const StreamPortal& other);
         StreamPortal& operator = (const StreamPortal& other);
+
+        void populate(const sk::util::StringArray& ids);
+
+        sk::util::ArrayList<sk::io::Stream> _streams;
     };
   }
 }

@@ -10,15 +10,19 @@
 
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
-#include <sk/util/UnsupportedOperationException.h>
+#include <sk/util/Integer.h>
+#include <sk/util/ArrayList.cxx>
 
 #include <sk/sys/StreamPortal.h>
+#include <sk/rt/Environment.h>
+#include <sk/io/FileDescriptorInputStream.h>
 
 static const char* __className("sk::sys::StreamPortal");
 
 sk::sys::StreamPortal::
 StreamPortal()
 {
+  populate(sk::util::StringArray::parse(sk::rt::Environment().getProperty("SK_STREAMS", ""), "|"));
 }
 
 sk::sys::StreamPortal::
@@ -37,20 +41,40 @@ int
 sk::sys::StreamPortal::
 size() const
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  return _streams.size();
 }
 
 sk::io::Stream& 
 sk::sys::StreamPortal::
-get(int index) const
+getStream(int index) const
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  return _streams.get(index);
 }
 
 void 
 sk::sys::StreamPortal::
-forEach(const sk::util::Processor<sk::io::Stream>& stream) const
+forEachStream(const sk::util::Processor<sk::io::Stream>& processor) const
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  _streams.forEach(processor);
+}
+
+namespace {
+  struct FileDescriptorStreamMaker : public virtual sk::util::Processor<const sk::util::String> {
+    FileDescriptorStreamMaker(sk::util::ArrayList<sk::io::Stream>& depot)
+      : _depot(depot) {}
+
+    void process(const sk::util::String& item) const {
+      int fd = sk::util::Integer::parseInt(item);
+      _depot.add(new sk::io::FileDescriptorInputStream(fd));
+    }
+
+    sk::util::ArrayList<sk::io::Stream>& _depot;
+  };
 }
     
+void 
+sk::sys::StreamPortal::
+populate(const sk::util::StringArray& ids)
+{
+  ids.forEach(FileDescriptorStreamMaker(_streams));
+}
