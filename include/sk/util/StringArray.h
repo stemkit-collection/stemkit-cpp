@@ -25,6 +25,9 @@ namespace sk {
         explicit StringArray(const char* item);
         virtual ~StringArray();
 
+        static const sk::util::StringArray parse(const sk::util::String& specification);
+        static const sk::util::StringArray parse(const sk::util::String& specification, const sk::util::String& separator);
+
         const sk::util::String& get(int index) const;
         int size() const;
         bool isEmpty() const;

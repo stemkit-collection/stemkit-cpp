@@ -12,6 +12,8 @@
 
 #include <sk/util/StringArray.h>
 
+static const char* __className = "sk::util::StringArray";
+
 sk::util::StringArray::
 StringArray()
 {
@@ -38,7 +40,7 @@ const sk::util::Class
 sk::util::StringArray::
 getClass() const
 {
-  return sk::util::Class("sk::util::StringArray");
+  return sk::util::Class(__className);
 }
 
 const sk::util::String
@@ -145,4 +147,29 @@ operator << (const sk::util::String& item)
 {
   push_back(item);
   return *this;
+}
+
+const sk::util::StringArray 
+sk::util::StringArray::
+parse(const sk::util::String& specification)
+{
+  return parse(specification, " ");
+}
+
+const sk::util::StringArray 
+sk::util::StringArray::
+parse(const sk::util::String& specification, const sk::util::String& separator)
+{
+  sk::util::StringArray result;
+  std::string::size_type head_index = 0;
+  while(true) {
+    std::string::size_type tail_index = specification.find_first_of(separator, head_index);
+    if(tail_index == std::string::npos) {
+      result << specification.substr(head_index);
+      break;
+    } 
+    result << specification.substr(head_index, tail_index - head_index);
+    head_index = tail_index + 1;
+  }
+  return result;
 }

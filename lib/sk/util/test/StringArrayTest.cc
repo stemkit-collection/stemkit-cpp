@@ -130,3 +130,28 @@ testInspect()
   CPPUNIT_ASSERT_EQUAL(strings.getClass().getName() + "[ \"aaa\", \"bbb\" ]", strings.inspect());
 }
 
+void
+sk::util::test::StringArrayTest::
+testParseDefault()
+{
+  sk::util::StringArray strings = sk::util::StringArray::parse("aaa bbb ccc");
+  CPPUNIT_ASSERT_EQUAL(3, strings.size());
+
+  CPPUNIT_ASSERT_EQUAL("aaa", strings.get(0));
+  CPPUNIT_ASSERT_EQUAL("bbb", strings.get(1));
+  CPPUNIT_ASSERT_EQUAL("ccc", strings.get(2));
+}
+
+void
+sk::util::test::StringArrayTest::
+testParseWithSeparator()
+{
+  sk::util::StringArray strings = sk::util::StringArray::parse("AAA:BBB:CCC::DDD", ":");
+  CPPUNIT_ASSERT_EQUAL(5, strings.size());
+
+  CPPUNIT_ASSERT_EQUAL("AAA", strings.get(0));
+  CPPUNIT_ASSERT_EQUAL("BBB", strings.get(1));
+  CPPUNIT_ASSERT_EQUAL("CCC", strings.get(2));
+  CPPUNIT_ASSERT_EQUAL("", strings.get(3));
+  CPPUNIT_ASSERT_EQUAL("DDD", strings.get(4));
+}

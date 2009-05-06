@@ -25,6 +25,8 @@ namespace sk {
           CPPUNIT_TEST(testPopulate);
           CPPUNIT_TEST(testAddString);
           CPPUNIT_TEST(testInspect);
+          CPPUNIT_TEST(testParseDefault);
+          CPPUNIT_TEST(testParseWithSeparator);
         CPPUNIT_TEST_SUITE_END();
         
         public:
@@ -40,6 +42,8 @@ namespace sk {
           void testPopulate();
           void testAddString();
           void testInspect();
+          void testParseDefault();
+          void testParseWithSeparator();
           
         private:
           StringArrayTest(const StringArrayTest& other);
