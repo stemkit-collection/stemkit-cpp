@@ -132,6 +132,5 @@ sk::sys::test::DaemonProcessTest::
 testFailedCommand()
 {
   sk::sys::DaemonProcess process(sk::util::StringArray("/zzz/bbb"));
-  process.start();
-  // CPPUNIT_ASSERT_THROW(process.start(), sk::sys::ProcessLaunchException);
+  CPPUNIT_ASSERT_THROW(process.start(), sk::sys::ProcessLaunchException);
 }

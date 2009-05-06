@@ -242,7 +242,7 @@ start(sk::io::InputStream& inputStream, const sk::util::StringArray& args)
     sk::util::Container cv(cs.getChars(), cs.size() + 1);
     BOOL status = CreateProcess(0, &cv.at(0), 0, 0, TRUE, 0, &environment_block.at(0), 0, &startup_info, &process_info);
     if(status == FALSE) {
-      throw sk::rt::SystemException("CreateProces");
+      throw sk::rt::SystemException("CreateProcess");
     }
     _pid = process_info.dwProcessId;
     process().handle = process_info.hProcess;
@@ -252,7 +252,7 @@ start(sk::io::InputStream& inputStream, const sk::util::StringArray& args)
     inputStream.close();
   }
   catch(const std::exception& exception) {
-    throw sk::sys::ProcessLaunchException(exception.what(), cmdline).what();
+    throw sk::sys::ProcessLaunchException(exception.what(), cmdline);
   }
   _scope.detail("SUCCESS") << args.inspect();
 }
