@@ -16,7 +16,7 @@
 
 sk::rt::logger::PipeDestination::
 PipeDestination(const logger::Destination& destination)
-  : _destinationHolder(destination.clone()), _descriptor(-1), _piped(false)
+  : _destinationHolder(sk::util::covariant<logger::Destination>(destination.clone())), _descriptor(-1), _piped(false)
 {
   throw sk::util::UnsupportedOperationException("sk::rt::logger::PipeDestination");
 }
@@ -46,7 +46,7 @@ getClass() const
   return sk::util::Class("sk::rt::logger::PipeDestination");
 }
 
-sk::rt::logger::PipeDestination*
+sk::util::Object*
 sk::rt::logger::PipeDestination::
 clone() const
 {

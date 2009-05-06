@@ -2,6 +2,7 @@
 local library = sk.io.win32 ;
 
 objects = 
+  LooseFileDescriptor.cc
   AnonymousPipe.cc
   TtyDevice.cc
   Pty.cc

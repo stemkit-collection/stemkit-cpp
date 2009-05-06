@@ -3,6 +3,7 @@ local library = sk.io.unix ;
 
 objects = 
   AnonymousPipe.cc
+  LooseFileDescriptor.cc
 ;
 
 if mks32 in $(project.PLATFORM_SPECIFICS) {

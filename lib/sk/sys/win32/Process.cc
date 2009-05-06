@@ -23,21 +23,21 @@
 #include <string.h>
 
 sk::sys::Process::
-Process(sk::io::FileDescriptorInputStream& inputStream, const sk::util::StringArray& cmdline, ProcessListener& listener)
+Process(sk::io::InputStream& inputStream, const sk::util::StringArray& cmdline, ProcessListener& listener)
   : _scope(*this), _listener(listener)
 {
   start(inputStream, cmdline);
 }
 
 sk::sys::Process::
-Process(sk::io::FileDescriptorInputStream& inputStream, ProcessListener& listener)
+Process(sk::io::InputStream& inputStream, ProcessListener& listener)
   : _scope(*this), _listener(listener)
 {
   start(inputStream, sk::util::StringArray());
 }
 
 sk::sys::Process::
-Process(sk::io::FileDescriptorInputStream& inputStream, const sk::util::StringArray& cmdline)
+Process(sk::io::InputStream& inputStream, const sk::util::StringArray& cmdline)
   : _scope(*this), _listener(*this)
 {
   start(inputStream, cmdline);
@@ -47,21 +47,21 @@ sk::sys::Process::
 Process(const sk::util::StringArray& cmdline, ProcessListener& listener)
   : _scope(*this), _listener(listener)
 {
-  start(defaultInputStream(), cmdline);
+  start(cmdline);
 }
 
 sk::sys::Process::
 Process(ProcessListener& listener)
   : _scope(*this), _listener(listener)
 {
-  start(defaultInputStream(), sk::util::StringArray());
+  start(sk::util::StringArray());
 }
 
 sk::sys::Process::
 Process(const sk::util::StringArray& cmdline)
   : _scope(*this), _listener(*this)
 {
-  start(defaultInputStream(), cmdline);
+  start(cmdline);
 }
 
 sk::sys::Process::
@@ -89,17 +89,16 @@ namespace {
   };
 }
 
-sk::io::FileDescriptorInputStream&
+void
 sk::sys::Process::
-defaultInputStream()
+start(const sk::util::StringArray& cmdline)
 {
-  _defaultInputStreamHolder.set(new sk::io::FileInputStream("NUL:"));
-  return _defaultInputStreamHolder.get();
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
 }
 
 void
 sk::sys::Process::
-start(sk::io::FileDescriptorInputStream& inputStream, const sk::util::StringArray& cmdline)
+start(sk::io::InputStream& inputStream, const sk::util::StringArray& cmdline)
 {
   throw sk::util::UnsupportedOperationException(SK_METHOD);
 }
@@ -120,13 +119,6 @@ processStopping()
 void
 sk::sys::Process::
 stop() 
-{
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
-}
-
-bool
-sk::sys::Process::
-signalUnlessTerminates(int timeout, int signal)
 {
   throw sk::util::UnsupportedOperationException(SK_METHOD);
 }
@@ -168,31 +160,29 @@ isKilled() const
 
 void
 sk::sys::Process::
-assertNotAlive() const
+ensureNotRunning() const
 {
-  if(isAlive() == true) {
-    throw sk::util::IllegalStateException("Process " + sk::util::Integer::toString(_pid) + " still alive");
-  }
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
 }
 
 int
 sk::sys::Process::
 exitStatus() const
 {
-  throw sk::util::IllegalStateException("Process " + sk::util::Integer::toString(_pid) + " still alive");
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
 }
 
 int
 sk::sys::Process::
 signal() const
 {
-  throw sk::util::IllegalStateException("Process " + sk::util::Integer::toString(_pid) + " still alive");
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
 }
 
 bool
 sk::sys::Process::
 isAlive() const
 {
-  return _pid != -1;
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
 }
 
