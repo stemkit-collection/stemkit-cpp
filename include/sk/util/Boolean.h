@@ -44,7 +44,7 @@ namespace sk {
         bool _value;
     };
 
-    std::ostream& operator << (std::ostream& stream, const sk::util::Boolean& boolean);
+    std::ostream& operator << (std::ostream& stream, const sk::util::Boolean& value);
   }
 }
 
