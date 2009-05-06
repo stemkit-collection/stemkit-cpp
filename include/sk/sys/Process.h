@@ -1,4 +1,5 @@
-/*  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
+/*  vi: sw=2:
+ *  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
  *  
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
@@ -19,6 +20,8 @@
 
 namespace sk {
   namespace sys {
+    class StreamPortal;
+
     class Process
       : public virtual sk::sys::Executable,
         public sk::sys::AbstractProcessListener
@@ -31,6 +34,8 @@ namespace sk {
         Process(const sk::util::StringArray& cmdline);
         Process(ProcessListener& listener);
         virtual ~Process();
+
+        static sk::sys::StreamPortal& streamPortal();
 
         // sk::sys::Executable implementation.
         void stop();

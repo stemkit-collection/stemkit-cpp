@@ -8,6 +8,8 @@ local objects =
   PipeProcess.cc
   Pipeline.cc
   Group.cc
+  Process.cc
+  StreamPortal.cc
 ;
 
 make-library $(library) : $(objects) ;
