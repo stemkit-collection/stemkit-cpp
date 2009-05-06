@@ -97,8 +97,8 @@ toString(bool value)
   return valueOf(value).toString();
 }
 
-std::ostream& sk::util::operator << (std::ostream& stream, const sk::util::Boolean& boolean) 
+std::ostream& sk::util::operator << (std::ostream& stream, const sk::util::Boolean& value) 
 {
-  stream << boolean.toString();
+  stream << value.toString();
   return stream;
 }
