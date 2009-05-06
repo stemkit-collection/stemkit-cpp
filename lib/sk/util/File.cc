@@ -58,7 +58,7 @@ getLines()
     }
   }
   catch(const sk::util::IllegalStateException& exception) {
-    return depot.join('\n');
+    return depot.join("\n");
   }
 }
 

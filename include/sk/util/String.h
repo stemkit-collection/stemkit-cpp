@@ -19,7 +19,7 @@ namespace sk {
     {
       public:
         String();
-        String(char character);
+        explicit String(char character);
         String(const char* buffer);
         String(const char* buffer, int size);
         String(const std::string& string);

@@ -78,7 +78,7 @@ const sk::util::String
 sk::util::slot::Pointer<T, Mixin>::
 inspect() const
 {
-  return '*';
+  return "*";
 }
 
 #endif /* _SK_UTIL_SLOT_POINTER_CXX_ */

@@ -61,7 +61,7 @@ const sk::util::String
 sk::util::slot::Reference<T, Mixin>::
 inspect() const
 {
-  return '&';
+  return "&";
 }
 
 #endif /* _SK_UTIL_SLOT_REFERENCE_CXX_ */

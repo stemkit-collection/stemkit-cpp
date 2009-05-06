@@ -29,7 +29,7 @@ namespace {
 
     void process(std::istream& stream, const sk::util::Pathname& location) const {
       std::string line;
-      _content = ':';
+      _content = ":";
       while(std::getline(stream, line)) {
         _content += line + ':';
       }
