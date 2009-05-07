@@ -14,8 +14,6 @@
 #include <cppunit/TestFixture.h>
 #include <cppunit/extensions/HelperMacros.h>
 
-#include <sk/rt/Environment.h>
-
 namespace sk {
   namespace sys {
     namespace test {
@@ -37,8 +35,6 @@ namespace sk {
         private:
           StreamPortalTest(const StreamPortalTest& other);
           StreamPortalTest& operator = (const StreamPortalTest& other);
-
-          sk::rt::Environment _environment;
       };
     }
   }

@@ -13,11 +13,14 @@
 
 #include <sk/sys/Process.h>
 #include <sk/sys/StreamPortal.h>
+#include <sk/rt/Environment.h>
 
 sk::sys::StreamPortal&
 sk::sys::Process::
 streamPortal()
 {
-  static sk::sys::StreamPortal portal;
+  static sk::rt::Environment environment;
+  static sk::sys::StreamPortal portal(environment);
+
   return portal;
 }

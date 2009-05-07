@@ -10,6 +10,7 @@
 #include <sk/util/StringArray.h>
 #include <sk/util/PropertyRegistry.h>
 #include <sk/util/Holder.cxx>
+#include <sk/util/ArrayList.cxx>
 #include <sk/util/IllegalStateException.h>
 #include <sk/util/UnsupportedOperationException.h>
 #include <sk/rt/SystemException.h>
@@ -18,6 +19,7 @@
 #include <sk/sys/Process.h>
 #include <sk/sys/ProcessConfigurator.h>
 #include <sk/sys/ProcessLaunchException.h>
+#include <sk/sys/StreamPortal.h>
 #include <sk/io/FileDescriptorStream.h>
 #include <sk/io/NullDevice.h>
 #include <sk/io/DataInputStream.h>
@@ -140,10 +142,7 @@ namespace {
     }
 
     void addStream(const sk::io::Stream& stream) {
-      int target = _descriptors.size() + 3;
-      setStream(target, stream);
-
-      _descriptors << sk::util::String::valueOf(target);
+      _streams.add(stream);
     }
 
     void setStream(int target, const sk::io::Stream& stream) {
@@ -156,13 +155,11 @@ namespace {
     }
 
     void finalize() {
-      if(_descriptors.isEmpty() == false) {
-        setEnvironment("SK_STREAMS", _descriptors.join("|"));
-      }
+      sk::sys::StreamPortal::exportStreams(_streams, _environment);
     }
-    sk::util::StringArray _descriptors;
     const sk::rt::Scope& _scope;
     sk::util::PropertyRegistry& _environment;
+    sk::util::ArrayList<const sk::io::Stream> _streams;
   };
 }
 

@@ -12,6 +12,7 @@
 #include <sk/sys/StreamPortal.h>
 #include <sk/io/FileDescriptorProvider.h>
 #include <sk/io/FileDescriptor.h>
+#include <sk/util/Properties.h>
 #include <unistd.h>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::sys::test::StreamPortalTest);
@@ -30,30 +31,26 @@ void
 sk::sys::test::StreamPortalTest::
 setUp()
 {
-  _environment.deleteProperty("SK_STREAMS");
-  _environment.install();
 }
 
 void
 sk::sys::test::StreamPortalTest::
 tearDown()
 {
-  _environment.deleteProperty("SK_STREAMS");
-  _environment.install();
 }
 
 void
 sk::sys::test::StreamPortalTest::
 testStreams()
 {
-  _environment.setProperty("SK_STREAMS", "45|55|65");
-  _environment.install();
-
   CPPUNIT_ASSERT_EQUAL(45, ::dup2(1, 45));
   CPPUNIT_ASSERT_EQUAL(55, ::dup2(1, 55));
   CPPUNIT_ASSERT_EQUAL(65, ::dup2(1, 65));
   {
-    sk::sys::StreamPortal portal;
+    sk::util::Properties registry;
+    registry.setProperty("SK_STREAMS", "45|55|65");
+
+    sk::sys::StreamPortal portal(registry);
     CPPUNIT_ASSERT_EQUAL(3, portal.size());
 
     CPPUNIT_ASSERT_EQUAL(45, sk::util::upcast<sk::io::FileDescriptorProvider>(portal.getStream(0)).getFileDescriptor().getFileNumber());
