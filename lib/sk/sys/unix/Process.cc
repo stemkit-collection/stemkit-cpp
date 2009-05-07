@@ -142,7 +142,7 @@ namespace {
     }
 
     void addStream(const sk::io::Stream& stream) {
-      _streams.add(stream);
+      _streams.add(sk::util::covariant<sk::io::Stream>(stream.clone()));
     }
 
     void setStream(int target, const sk::io::Stream& stream) {
