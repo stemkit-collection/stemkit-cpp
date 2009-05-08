@@ -13,6 +13,7 @@
 #include <sk/util/Integer.h>
 #include <sk/util/ArrayList.cxx>
 #include <sk/util/StringArray.h>
+#include <sk/rt/SystemException.h>
 
 #include <sk/sys/StreamPortal.h>
 #include <sk/io/FileDescriptorInputStream.h>
@@ -102,5 +103,18 @@ exportStreams(const sk::util::List<const sk::io::Stream>& streams, sk::util::Pro
 
   if(items.isEmpty() == false) {
     registry.setProperty("SK_STREAMS", items.join("|"));
+  }
+}
+
+void 
+sk::sys::StreamPortal::
+clear()
+{
+  for(int fd=3; fd < 1024; ++fd) {
+    sk::io::LooseFileDescriptor descriptor(fd);
+    try {
+      descriptor.inheritable(false);
+    }
+    catch(const sk::rt::SystemException& exception) {}
   }
 }

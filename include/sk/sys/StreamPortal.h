@@ -27,6 +27,7 @@ namespace sk {
         virtual ~StreamPortal();
 
         static void exportStreams(const sk::util::List<const sk::io::Stream>& streams, sk::util::PropertyRegistry& registry);
+        static void clear();
 
         int size() const;
         sk::io::Stream& getStream(int index) const;
