@@ -10,6 +10,9 @@ local objects =
   Group.cc
   Process.cc
   StreamPortal.cc
+  StreamPortalImporter.cc
+  StreamPortalExporter.cc
+  StreamPortalPropagator.cc
 ;
 
 make-library $(library) : $(objects) ;

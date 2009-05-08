@@ -13,9 +13,13 @@
 #include <sk/util/Integer.h>
 #include <sk/util/ArrayList.cxx>
 #include <sk/rt/SystemException.h>
+#include <sk/io/LooseFileDescriptor.h>
 
 #include <sk/sys/StreamPortal.h>
-#include <sk/io/FileDescriptorInputStream.h>
+
+#include "StreamPortalImporter.h"
+#include "StreamPortalExporter.h"
+#include "StreamPortalPropagator.h"
 
 static const char* __className("sk::sys::StreamPortal");
 
@@ -58,51 +62,11 @@ forEachStream(const sk::util::Processor<sk::io::Stream>& processor) const
   _streams.forEach(processor);
 }
 
-namespace {
-  struct StreamImporter : public virtual sk::util::Processor<const sk::util::String> {
-    StreamImporter(sk::util::ArrayList<sk::io::Stream>& streams)
-      : _streams(streams) {}
-
-    void process(const sk::util::String& descriptor) const {
-      int fd = sk::util::Integer::parseInt(descriptor);
-      _streams.add(new sk::io::FileDescriptorInputStream(fd));
-    }
-
-    sk::util::ArrayList<sk::io::Stream>& _streams;
-  };
-
-  struct DescriptorPropagator : public virtual sk::util::Processor<const sk::util::String> {
-    void process(const sk::util::String& descriptor) const {
-      propagate(sk::util::Integer::parseInt(descriptor));
-    }
-
-    int propagate(int fd) const {
-      sk::io::LooseFileDescriptor descriptor(fd);
-      descriptor.inheritable(true);
-
-      return fd;
-    }
-  };
-
-  struct StreamExporter : public virtual sk::util::Processor<const sk::io::Stream> {
-    StreamExporter(sk::util::StringArray& descriptors)
-      : _descriptors(descriptors) {}
-
-    void process(const sk::io::Stream& stream) const {
-      int fd = _propagator.propagate(sk::util::upcast<sk::io::FileDescriptorProvider>(stream).getFileDescriptor().getFileNumber());
-      _descriptors << sk::util::String::valueOf(fd);
-    }
-
-    sk::util::StringArray& _descriptors;
-    DescriptorPropagator _propagator;
-  };
-}
-    
 void 
 sk::sys::StreamPortal::
 importStreams(const sk::util::PropertyRegistry& registry)
 {
-  descriptors(registry).forEach(StreamImporter(_streams));
+  descriptors(registry).forEach(StreamPortalImporter(_streams));
 }
 
 const sk::util::StringArray 
@@ -118,11 +82,11 @@ exportStreams(const sk::util::List<const sk::io::Stream>& streams, sk::util::Pro
 {
   if(streams.isEmpty() == false) {
     sk::util::StringArray descriptors;
-    streams.forEach(StreamExporter(descriptors));
+    streams.forEach(StreamPortalExporter(descriptors));
     registry.setProperty("SK_STREAMS", descriptors.join("|"));
   }
   else {
-    descriptors(registry).forEach(DescriptorPropagator());
+    descriptors(registry).forEach(StreamPortalPropagator());
   }
 }
 
