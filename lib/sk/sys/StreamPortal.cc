@@ -59,8 +59,8 @@ forEachStream(const sk::util::Processor<sk::io::Stream>& processor) const
 }
 
 namespace {
-  struct FileDescriptorStreamMaker : public virtual sk::util::Processor<const sk::util::String> {
-    FileDescriptorStreamMaker(sk::util::ArrayList<sk::io::Stream>& streams)
+  struct StreamMaker : public virtual sk::util::Processor<const sk::util::String> {
+    StreamMaker(sk::util::ArrayList<sk::io::Stream>& streams)
       : _streams(streams) {}
 
     void process(const sk::util::String& item) const {
@@ -102,7 +102,7 @@ void
 sk::sys::StreamPortal::
 populateFrom(const sk::util::PropertyRegistry& registry)
 {
-  descriptors(registry).forEach(FileDescriptorStreamMaker(_streams));
+  descriptors(registry).forEach(StreamMaker(_streams));
 }
 
 const sk::util::StringArray 
