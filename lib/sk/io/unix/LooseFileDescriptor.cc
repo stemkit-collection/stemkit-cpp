@@ -25,14 +25,12 @@ LooseFileDescriptor(int fd)
   if(_fd < 0) {
     throw sk::util::IllegalArgumentException(SK_METHOD);
   }
-  inheritable(false);
 }
 
 sk::io::LooseFileDescriptor::
 LooseFileDescriptor(const sk::io::LooseFileDescriptor& other)
   : _fd(other.getFileNumber())
 {
-  inheritable(false);
 }
 
 sk::io::LooseFileDescriptor::
