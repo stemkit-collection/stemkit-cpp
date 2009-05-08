@@ -35,6 +35,10 @@ int main(int argc, char **argv)
           <property name='perform-error-check' value='true' />\n\
         </scope>\n\
         \n\
+        <scope name='sk::sys::DaemonProcess'>\n\
+          <property name='trash-output' value='true' />\n\
+        </scope>\n\
+        \n\
       </scope>\n\
     ")
   );

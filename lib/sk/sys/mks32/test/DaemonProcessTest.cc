@@ -11,6 +11,8 @@
 #include "DaemonProcessTest.h"
 #include <sk/sys/DaemonProcess.h>
 #include <sk/sys/ProcessLaunchException.h>
+#include <sk/sys/ProcessConfigurator.h>
+#include <sk/io/DataInputStream.h>
 #include "../ManagedProcess.h"
 
 #include <signal.h>
@@ -133,4 +135,30 @@ testFailedCommand()
 {
   sk::sys::DaemonProcess process(sk::util::StringArray("/zzz/bbb"));
   CPPUNIT_ASSERT_THROW(process.start(), sk::sys::ProcessLaunchException);
+}
+
+namespace {
+  struct TalkingDaemonProcess : public sk::sys::DaemonProcess {
+    TalkingDaemonProcess(const sk::util::StringArray& cmdline)
+      : sk::sys::DaemonProcess(cmdline) {}
+
+    void processConfiguring(sk::sys::ProcessConfigurator& configurator) {
+      sk::sys::DaemonProcess::processConfiguring(configurator);
+      configurator.addStream(pipe.outputStream());
+    }
+    sk::io::AnonymousPipe pipe;
+  };
+}
+
+void
+sk::sys::test::DaemonProcessTest::
+testStreamCommunication()
+{
+  TalkingDaemonProcess process(sk::util::StringArray("ruby") + "-e" + "system 'write-to-handle', ENV['SK_STREAMS'], 'he-he-he'");
+  process.start();
+
+  process.pipe.outputStream().close();
+  sk::io::DataInputStream stream(process.pipe.inputStream());
+
+  CPPUNIT_ASSERT_EQUAL("he-he-he", stream.readLine().trim());
 }

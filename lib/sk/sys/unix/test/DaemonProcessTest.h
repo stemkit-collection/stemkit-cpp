@@ -21,11 +21,11 @@ namespace sk {
         : public CppUnit::TestFixture
       {
         CPPUNIT_TEST_SUITE(sk::sys::test::DaemonProcessTest);
-          // CPPUNIT_TEST(testStartStop);
-          // CPPUNIT_TEST(testDestroyKillsProcess);
-          // CPPUNIT_TEST(testDestroyLeavesProcessWhenStartedDetached);
-          // CPPUNIT_TEST(testDestroyLeavesProcessWhenExplicitlyDetached);
-          // CPPUNIT_TEST(testFailedCommand);
+          CPPUNIT_TEST(testStartStop);
+          CPPUNIT_TEST(testDestroyKillsProcess);
+          CPPUNIT_TEST(testDestroyLeavesProcessWhenStartedDetached);
+          CPPUNIT_TEST(testDestroyLeavesProcessWhenExplicitlyDetached);
+          CPPUNIT_TEST(testFailedCommand);
           CPPUNIT_TEST(testStreamCommunication);
         CPPUNIT_TEST_SUITE_END();
       

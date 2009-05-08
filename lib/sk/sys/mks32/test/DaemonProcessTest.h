@@ -26,6 +26,7 @@ namespace sk {
           CPPUNIT_TEST(testDestroyLeavesProcessWhenStartedDetached);
           CPPUNIT_TEST(testDestroyLeavesProcessWhenExplicitlyDetached);
           CPPUNIT_TEST(testFailedCommand);
+          CPPUNIT_TEST(testStreamCommunication);
         CPPUNIT_TEST_SUITE_END();
       
         public:
@@ -39,6 +40,7 @@ namespace sk {
           void testDestroyLeavesProcessWhenStartedDetached();
           void testDestroyLeavesProcessWhenExplicitlyDetached();
           void testFailedCommand();
+          void testStreamCommunication();
       
         private:
           DaemonProcessTest(const DaemonProcessTest& other);
