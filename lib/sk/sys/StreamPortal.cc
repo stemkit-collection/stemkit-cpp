@@ -13,7 +13,6 @@
 #include <sk/util/Integer.h>
 #include <sk/util/ArrayList.cxx>
 #include <sk/rt/SystemException.h>
-#include <sk/io/LooseFileDescriptor.h>
 
 #include <sk/sys/StreamPortal.h>
 
@@ -87,18 +86,5 @@ exportStreams(const sk::util::List<const sk::io::Stream>& streams, sk::util::Pro
   }
   else {
     descriptors(registry).forEach(StreamPortalPropagator());
-  }
-}
-
-void 
-sk::sys::StreamPortal::
-clear()
-{
-  for(int fd=3; fd < 1024; ++fd) {
-    sk::io::LooseFileDescriptor descriptor(fd);
-    try {
-      descriptor.inheritable(false);
-    }
-    catch(const sk::rt::SystemException& exception) {}
   }
 }

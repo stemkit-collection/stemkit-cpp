@@ -11,7 +11,7 @@
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
 
-#include "StreamPortalExporter.h"
+#include "../StreamPortalExporter.h"
 #include <sk/io/FileDescriptor.h>
 #include <sk/io/FileDescriptorProvider.h>
 

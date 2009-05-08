@@ -5,6 +5,10 @@ local objects =
   Process.cc
   DaemonProcess.cc
   ManagedProcess.cc
+  StreamPortal.cc
+  StreamPortalImporter.cc
+  StreamPortalExporter.cc
+  StreamPortalPropagator.cc
 ;
 
 if mks32 in $(project.PLATFORM_SPECIFICS) {
