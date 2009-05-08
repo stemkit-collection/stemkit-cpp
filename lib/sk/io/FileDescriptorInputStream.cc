@@ -75,3 +75,10 @@ inheritable(bool state)
 {
   return _descriptor.inheritable(state);
 }
+
+const sk::util::String
+sk::io::FileDescriptorInputStream::
+inspect() const
+{
+  return "<" + getClass().getName() + ": " + _descriptor.inspect() + ">";
+}

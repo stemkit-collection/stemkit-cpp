@@ -75,3 +75,10 @@ getFileDescriptor() const
 {
   return _descriptor;
 }
+
+const sk::util::String
+sk::io::FileDescriptorOutputStream::
+inspect() const
+{
+  return "<" + getClass().getName() + ": " + _descriptor.inspect() + ">";
+}

@@ -30,6 +30,7 @@ namespace sk {
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
         sk::util::Object* clone() const;
+        const sk::util::String inspect() const;
 
         // sk::io::OutputStream implementation.
         int write(const char* buffer, int offset, int length);
