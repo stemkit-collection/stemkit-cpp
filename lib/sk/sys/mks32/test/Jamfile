@@ -6,15 +6,9 @@ local objects =
   ProcessTest.cc
   PipeProcessTest.cc
   DaemonProcessTest.cc
+  StreamPortalTest.cc
   TestSuite.cc
 ;
-
-if ! mks32 in $(project.PLATFORM_SPECIFICS) {
-  objects += 
-    PtyProcessTest.cc
-    UserTest.cc
-  ;
-}
 
 use-project-library $(test) : 
   sk.cppunit 

@@ -8,6 +8,7 @@ local objects =
   DaemonProcessTest.cc
   PtyProcessTest.cc
   UserTest.cc
+  StreamPortalTest.cc
   TestSuite.cc
 ;
 
