@@ -13,7 +13,7 @@
 namespace sk {
   namespace util {
     template<class T>
-    class UnaryProcessor
+    class Processor
       : public virtual sk::util::Object 
     {
       public:
@@ -28,10 +28,16 @@ namespace sk {
         virtual void process(T1& o1, T2& o2) const = 0;
     };
 
-    template<class T>
-    class Processor
-      : public virtual sk::util::UnaryProcessor<T>
-    {
+    template<typename T>
+    struct ConstAdaptingProcessor : public virtual sk::util::Processor<T> {
+      ConstAdaptingProcessor(const sk::util::Processor<const T>& processor)
+        : _processor(processor) {}
+
+      void process(T& object) const {
+        _processor.process(object);
+      }
+
+      const sk::util::Processor<const T>& _processor;
     };
   }
 }
