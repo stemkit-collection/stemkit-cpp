@@ -11,6 +11,7 @@
 #include <sk/util/Container.h>
 #include <sk/util/PropertyRegistry.h>
 #include <sk/util/Holder.cxx>
+#include <sk/util/ArrayList.cxx>
 #include <sk/util/IllegalStateException.h>
 #include <sk/util/UnsupportedOperationException.h>
 #include <sk/rt/SystemException.h>
@@ -19,7 +20,7 @@
 #include <sk/sys/Process.h>
 #include <sk/sys/ProcessConfigurator.h>
 #include <sk/sys/ProcessLaunchException.h>
-#include <sk/io/FileDescriptorStream.h>
+#include <sk/sys/StreamPortal.h>
 #include <sk/io/NullDevice.h>
 #include <sk/rt/Thread.h>
 #include <sk/rt/Runnable.h>
@@ -102,55 +103,54 @@ getPid() const
 
 namespace {
   struct Configurator : public virtual sk::sys::ProcessConfigurator {
-    Configurator(const sk::rt::Scope& scope, sk::util::PropertyRegistry& environment)
-      : _scope(scope), _environment(environment) {}
+    Configurator(const sk::rt::Scope& scope, sk::util::PropertyRegistry& environment) : _scope(scope), _environment(environment) {
+      inputHandle = ::GetStdHandle(STD_INPUT_HANDLE);
+      outputHandle = ::GetStdHandle(STD_OUTPUT_HANDLE);
+      errorOutputHandle = ::GetStdHandle(STD_ERROR_HANDLE);
+    }
 
     void setEnvironment(const sk::util::String& name, const sk::util::String& value) {
       _environment.setProperty(name, value);
     }
 
     void setInputStream(const sk::io::InputStream& stream) {
-      setStream(0, stream);
+      inputHandle = toHandle(stream);
     }
 
     void setOutputStream(const sk::io::OutputStream& stream) {
-      setStream(1, stream);
+      outputHandle = toHandle(stream);
     }
 
     void setErrorOutputStream(const sk::io::OutputStream& stream) {
-      setStream(2, stream);
+      errorOutputHandle = toHandle(stream);
     }
 
     void addStream(const sk::io::Stream& stream) {
-      int target = _descriptors.size() + 3;
-      setStream(target, stream);
-
-      _descriptors << sk::util::String::valueOf(target);
+      _streams.add(sk::util::covariant<sk::io::Stream>(stream.clone()));
     }
 
-    void setStream(int target, const sk::io::Stream& stream) {
-      _streams.insert(std::make_pair(target, sk::io::FileDescriptorStream(stream)));
+    HANDLE toHandle(const sk::io::Stream& stream) {
+      sk::io::LooseFileDescriptor descriptor = sk::util::upcast<sk::io::FileDescriptorProvider>(stream).getFileDescriptor().duplicateLoose();
+      HANDLE handle = ::_NutFdToHandle(descriptor.getFileNumber());
+      if(SetHandleInformation(handle, HANDLE_FLAG_INHERIT, HANDLE_FLAG_INHERIT) == 0) {
+        throw sk::rt::SystemException("SetHandleInformation");
+      }
+      return handle;
     }
 
     void finalize() {
-      if(_descriptors.isEmpty() == false) {
-        setEnvironment("SK_STREAMS", _descriptors.join("|"));
-      }
+      sk::sys::StreamPortal::clear();
+      sk::sys::StreamPortal::exportStreams(_streams, _environment);
     }
 
-    const sk::io::FileDescriptorStream& stream(int descriptor) const {
-      stream_container_type::const_iterator iterator = _streams.find(descriptor);
-      if(iterator == _streams.end()) {
-        throw sk::util::IllegalStateException(sk::util::String::valueOf(descriptor) + ":stream not found");
-      }
-      return iterator->second;
-    }
+    HANDLE inputHandle;
+    HANDLE outputHandle;
+    HANDLE errorOutputHandle;
 
-    typedef std::map<int, const sk::io::FileDescriptorStream> stream_container_type;
-    stream_container_type _streams;
-    sk::util::StringArray _descriptors;
-    const sk::rt::Scope& _scope;
-    sk::util::PropertyRegistry& _environment;
+    private:
+      const sk::rt::Scope& _scope;
+      sk::util::PropertyRegistry& _environment;
+      sk::util::ArrayList<const sk::io::Stream> _streams;
   };
 
   struct CommandLineBuilder : public virtual sk::util::Processor<const sk::util::String> {
@@ -211,31 +211,9 @@ start(sk::io::InputStream& inputStream, const sk::util::StringArray& args)
     STARTUPINFO startup_info = { 0 };
     startup_info.cb = sizeof(STARTUPINFO);
 
-    startup_info.hStdInput = ::_NutFdToHandle(configurator.stream(0).getFileDescriptor().getFileNumber());
-    try {
-      startup_info.hStdOutput = _NutFdToHandle(configurator.stream(1).getFileDescriptor().getFileNumber());
-    }
-    catch(const sk::util::IllegalStateException& exception) {
-      _scope.notice("STDOUT") << "Oops, not set -- using default";
-      startup_info.hStdOutput = GetStdHandle(STD_OUTPUT_HANDLE);
-    }
-
-    try {
-      startup_info.hStdError = _NutFdToHandle(configurator.stream(2).getFileDescriptor().getFileNumber());
-    }
-    catch(const sk::util::IllegalStateException& exception) {
-      _scope.notice("STDERR") << "Oops, not set -- using default";
-      startup_info.hStdError = GetStdHandle(STD_ERROR_HANDLE);
-    }
-
-    for(int fd=0; fd<1024 ;++fd) {
-      HANDLE handle = _NutFdToHandle(fd);
-      SetHandleInformation(handle, HANDLE_FLAG_INHERIT, 0);
-    }
-    SetHandleInformation(startup_info.hStdInput, HANDLE_FLAG_INHERIT, HANDLE_FLAG_INHERIT);
-    SetHandleInformation(startup_info.hStdOutput, HANDLE_FLAG_INHERIT, HANDLE_FLAG_INHERIT);
-    SetHandleInformation(startup_info.hStdError, HANDLE_FLAG_INHERIT, HANDLE_FLAG_INHERIT);
-
+    startup_info.hStdInput = configurator.inputHandle;
+    startup_info.hStdOutput = configurator.outputHandle;
+    startup_info.hStdError = configurator.errorOutputHandle;
     startup_info.dwFlags |= STARTF_USESTDHANDLES;
 
     sk::util::String cs = cmdline.join(" ");

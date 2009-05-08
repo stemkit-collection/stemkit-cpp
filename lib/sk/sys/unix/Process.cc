@@ -155,11 +155,14 @@ namespace {
     }
 
     void finalize() {
+      sk::sys::StreamPortal::clear();
       sk::sys::StreamPortal::exportStreams(_streams, _environment);
     }
-    const sk::rt::Scope& _scope;
-    sk::util::PropertyRegistry& _environment;
-    sk::util::ArrayList<const sk::io::Stream> _streams;
+
+    private:
+      const sk::rt::Scope& _scope;
+      sk::util::PropertyRegistry& _environment;
+      sk::util::ArrayList<const sk::io::Stream> _streams;
   };
 }
 
