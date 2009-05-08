@@ -12,7 +12,6 @@
 #include <sk/util/String.h>
 #include <sk/util/Integer.h>
 #include <sk/util/ArrayList.cxx>
-#include <sk/util/StringArray.h>
 #include <sk/rt/SystemException.h>
 
 #include <sk/sys/StreamPortal.h>
@@ -72,17 +71,30 @@ namespace {
     sk::util::ArrayList<sk::io::Stream>& _streams;
   };
 
+  struct DescriptorPropagator : public virtual sk::util::Processor<const sk::util::String> {
+    void process(const sk::util::String& descriptor) const {
+      propagate(sk::util::Integer::parseInt(descriptor));
+    }
+
+    int propagate(int fd) const {
+      sk::io::LooseFileDescriptor descriptor(fd);
+      descriptor.inheritable(true);
+
+      return fd;
+    }
+  };
+
   struct StreamPropagator : public virtual sk::util::Processor<const sk::io::Stream> {
     StreamPropagator(sk::util::StringArray& items)
       : _items(items) {}
 
     void process(const sk::io::Stream& stream) const {
-      sk::io::LooseFileDescriptor descriptor = sk::util::upcast<sk::io::FileDescriptorProvider>(stream).getFileDescriptor();
-      descriptor.inheritable(true);
-      _items << sk::util::String::valueOf(descriptor.getFileNumber());
+      int fd = _propagator.propagate(sk::util::upcast<sk::io::FileDescriptorProvider>(stream).getFileDescriptor().getFileNumber());
+      _items << sk::util::String::valueOf(fd);
     }
 
     sk::util::StringArray& _items;
+    DescriptorPropagator _propagator;
   };
 }
     
@@ -90,19 +102,27 @@ void
 sk::sys::StreamPortal::
 populateFrom(const sk::util::PropertyRegistry& registry)
 {
-  sk::util::StringArray items = sk::util::StringArray::parse(registry.getProperty("SK_STREAMS", ""), "|");
-  items.forEach(FileDescriptorStreamMaker(_streams));
+  descriptors(registry).forEach(FileDescriptorStreamMaker(_streams));
+}
+
+const sk::util::StringArray 
+sk::sys::StreamPortal::
+descriptors(const sk::util::PropertyRegistry& registry)
+{
+  return sk::util::StringArray::parse(registry.getProperty("SK_STREAMS", ""), "|");
 }
 
 void 
 sk::sys::StreamPortal::
 exportStreams(const sk::util::List<const sk::io::Stream>& streams, sk::util::PropertyRegistry& registry)
 {
-  sk::util::StringArray items;
-  streams.forEach(StreamPropagator(items));
-
-  if(items.isEmpty() == false) {
+  if(streams.isEmpty() == false) {
+    sk::util::StringArray items;
+    streams.forEach(StreamPropagator(items));
     registry.setProperty("SK_STREAMS", items.join("|"));
+  }
+  else {
+    descriptors(registry).forEach(DescriptorPropagator());
   }
 }
 

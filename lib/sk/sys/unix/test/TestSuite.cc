@@ -34,6 +34,9 @@ int main(int argc, char **argv)
         <scope name='sk::rt::thread::pthreads::Mutex'>\n\
           <property name='perform-error-check' value='true' />\n\
         </scope>\n\
+        <scope name='sk::sys::DaemonProcess'>\n\
+          <property name='trash-output' value='false' />\n\
+        </scope>\n\
         \n\
       </scope>\n\
     ")

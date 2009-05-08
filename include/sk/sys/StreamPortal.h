@@ -13,6 +13,7 @@
 
 #include <sk/util/Object.h>
 #include <sk/util/ArrayList.hxx>
+#include <sk/util/StringArray.h>
 #include <sk/util/PropertyRegistry.h>
 #include <sk/util/Processor.h>
 #include <sk/io/Stream.h>
@@ -41,6 +42,7 @@ namespace sk {
         StreamPortal& operator = (const StreamPortal& other);
 
         void populateFrom(const sk::util::PropertyRegistry& registry);
+        static const sk::util::StringArray descriptors(const sk::util::PropertyRegistry& registry);
 
         sk::util::ArrayList<sk::io::Stream> _streams;
     };
