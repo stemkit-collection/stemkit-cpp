@@ -130,8 +130,10 @@ namespace {
     }
 
     HANDLE toHandle(const sk::io::Stream& stream) {
-      sk::io::LooseFileDescriptor descriptor = sk::util::upcast<sk::io::FileDescriptorProvider>(stream).getFileDescriptor().duplicateLoose();
-      return ::_NutFdToHandle(descriptor.getFileNumber());
+      sk::io::LooseFileDescriptor descriptor = sk::util::upcast<sk::io::FileDescriptorProvider>(stream).getFileDescriptor();
+      HANDLE handle = ::_NutFdToHandle(descriptor.getFileNumber());
+
+      return handle;
     }
 
     void makeInheritable(HANDLE handle) {

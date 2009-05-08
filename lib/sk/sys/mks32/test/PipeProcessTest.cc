@@ -14,6 +14,7 @@
 #include <sk/io/FileInputStream.h>
 
 #include <sk/cppunit/SourcePath.h>
+#include <unistd.h>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::sys::test::PipeProcessTest);
 
@@ -43,15 +44,14 @@ void
 sk::sys::test::PipeProcessTest::
 testTranslate()
 {
-  PipeProcess process(sk::util::StringArray("tr") + "a" + "A");
-  sk::io::DataInputStream data(process.inputStream());
-
+  PipeProcess process(sk::util::StringArray("ruby") + "-e" + "puts readline.tr('a', 'A')");
   CPPUNIT_ASSERT_EQUAL(true, process.isAlive());
 
   process.outputStream().write(sk::util::Container("abcdaaa\n"));
   process.outputStream().close();
 
-  CPPUNIT_ASSERT_EQUAL(sk::util::String("AbcdAAA\n").inspect(), data.readLine().inspect());
+  sk::io::DataInputStream data(process.inputStream());
+  CPPUNIT_ASSERT_EQUAL("AbcdAAA", data.readLine().trim());
 
   process.join();
   CPPUNIT_ASSERT_EQUAL(false, process.isAlive());
@@ -62,12 +62,12 @@ void
 sk::sys::test::PipeProcessTest::
 testDataNoErrors()
 {
-  PipeProcess process(sk::util::StringArray("echo") + "it's" + "a" + "world");
-  sk::io::DataInputStream data(process.inputStream());
+  PipeProcess process(sk::util::StringArray("ruby") + "-e" + "puts 'Hello, world'");
   CPPUNIT_ASSERT_EQUAL(true, process.isAlive());
 
+  sk::io::DataInputStream data(process.inputStream());
   CPPUNIT_ASSERT_THROW(process.inputErrorStream().read(), sk::io::EOFException);
-  CPPUNIT_ASSERT_EQUAL("it's a world", data.readLine().trim());
+  CPPUNIT_ASSERT_EQUAL("Hello, world", data.readLine().trim());
 
   process.join();
 
@@ -80,10 +80,10 @@ void
 sk::sys::test::PipeProcessTest::
 testErrorsNoData()
 {
-  PipeProcess process(sk::util::StringArray("sh") + "-c" + "echo 'some error' 1>&2");
-  sk::io::DataInputStream errors(process.inputErrorStream());
+  PipeProcess process(sk::util::StringArray("ruby") + "-e" + "$stderr.puts 'some error'");
   CPPUNIT_ASSERT_EQUAL(true, process.isAlive());
 
+  sk::io::DataInputStream errors(process.inputErrorStream());
   CPPUNIT_ASSERT_THROW(process.inputStream().read(), sk::io::EOFException);
   CPPUNIT_ASSERT_EQUAL("some error", errors.readLine().trim());
 
@@ -98,11 +98,11 @@ void
 sk::sys::test::PipeProcessTest::
 testArguments()
 {
-  PipeProcess process(sk::util::StringArray("printf") + "1: '%s', 2: '%s'" + "aaa" + "bbb ccc");
+  PipeProcess process(sk::util::StringArray("ruby") + "-e" + "puts ARGV.inspect" + "aaa" + "bbb ccc");
   sk::io::DataInputStream data(process.inputStream());
   CPPUNIT_ASSERT_EQUAL(true, process.isAlive());
 
-  CPPUNIT_ASSERT_EQUAL(sk::util::String("1: 'aaa', 2: 'bbb ccc'").inspect(), data.readLine().inspect());
+  CPPUNIT_ASSERT_EQUAL("[\"aaa\", \"bbb ccc\"]", data.readLine().trim());
 
   process.join();
   CPPUNIT_ASSERT_EQUAL(true, process.isSuccess());
@@ -112,7 +112,7 @@ void
 sk::sys::test::PipeProcessTest::
 testErrorsAfterJoin()
 {
-  PipeProcess process(sk::util::StringArray("sh") + "-c" + "exec 1>&2; echo Error1; echo Error2");
+  PipeProcess process(sk::util::StringArray("ruby") + "-e" + "$stderr.puts :Error1, :Error2");
   process.join();
 
   CPPUNIT_ASSERT_EQUAL(2, process.errors().size());
@@ -124,9 +124,8 @@ void
 sk::sys::test::PipeProcessTest::
 testAlltogether()
 {
-  PipeProcess process(
-    sk::util::StringArray("sh") + "-c" + "while read line; do echo GOOD: ${line}; echo BAD: ${line} 1>&2; done"
-  );
+  PipeProcess process(sk::util::StringArray("ruby") + "-ne" + "$stdout.puts 'GOOD: ' + $_; $stderr.puts 'BAD: ' + $_");
+
   sk::io::DataInputStream data(process.inputStream());
   sk::io::DataInputStream errors(process.inputErrorStream());
 
@@ -152,7 +151,7 @@ sk::sys::test::PipeProcessTest::
 testInputRedirect()
 {
   sk::io::FileInputStream input(sk::cppunit::SourcePath::make("test-data"));
-  PipeProcess process(input, sk::util::StringArray("tr") + "a" + "A");
+  PipeProcess process(input, sk::util::StringArray("ruby") + "-ne" + "puts $_.tr('a', 'A')");
   sk::io::DataInputStream data(process.inputStream());
 
   CPPUNIT_ASSERT_THROW(process.outputStream().write('a'), sk::io::ClosedChannelException);
