@@ -131,16 +131,22 @@ namespace {
 
     HANDLE toHandle(const sk::io::Stream& stream) {
       sk::io::LooseFileDescriptor descriptor = sk::util::upcast<sk::io::FileDescriptorProvider>(stream).getFileDescriptor().duplicateLoose();
-      HANDLE handle = ::_NutFdToHandle(descriptor.getFileNumber());
+      return ::_NutFdToHandle(descriptor.getFileNumber());
+    }
+
+    void makeInheritable(HANDLE handle) {
       if(SetHandleInformation(handle, HANDLE_FLAG_INHERIT, HANDLE_FLAG_INHERIT) == 0) {
         throw sk::rt::SystemException("SetHandleInformation");
       }
-      return handle;
     }
 
     void finalize() {
       sk::sys::StreamPortal::clear();
       sk::sys::StreamPortal::exportStreams(_streams, _environment);
+
+      makeInheritable(inputHandle);
+      makeInheritable(outputHandle);
+      makeInheritable(errorOutputHandle);
     }
 
     HANDLE inputHandle;

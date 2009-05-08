@@ -15,7 +15,7 @@ void
 sk::sys::StreamPortal::
 clear()
 {
-  for(int fd=3; fd < 1024; ++fd) {
+  for(int fd=0; fd < 1024; ++fd) {
     ::SetHandleInformation(::_NutFdToHandle(fd), HANDLE_FLAG_INHERIT, 0);
   }
 }
