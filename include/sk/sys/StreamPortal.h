@@ -41,7 +41,7 @@ namespace sk {
         StreamPortal(const StreamPortal& other);
         StreamPortal& operator = (const StreamPortal& other);
 
-        void populateFrom(const sk::util::PropertyRegistry& registry);
+        void importStreams(const sk::util::PropertyRegistry& registry);
         static const sk::util::StringArray descriptors(const sk::util::PropertyRegistry& registry);
 
         sk::util::ArrayList<sk::io::Stream> _streams;
