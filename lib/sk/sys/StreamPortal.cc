@@ -23,9 +23,10 @@
 static const char* __className("sk::sys::StreamPortal");
 
 sk::sys::StreamPortal::
-StreamPortal(const sk::util::PropertyRegistry& registry)
+StreamPortal(sk::util::PropertyRegistry& registry)
 {
   importStreams(registry);
+  registry.setProperty("SK_STREAMS", "");
 }
 
 sk::sys::StreamPortal::

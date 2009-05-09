@@ -24,7 +24,7 @@ namespace sk {
       : public virtual sk::util::Object
     {
       public:
-        StreamPortal(const sk::util::PropertyRegistry& registry);
+        StreamPortal(sk::util::PropertyRegistry& registry);
         virtual ~StreamPortal();
 
         static void exportStreams(const sk::util::List<const sk::io::Stream>& streams, sk::util::PropertyRegistry& registry);

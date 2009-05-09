@@ -52,6 +52,7 @@ testStreams()
 
     sk::sys::StreamPortal portal(registry);
     CPPUNIT_ASSERT_EQUAL(3, portal.size());
+    CPPUNIT_ASSERT_EQUAL("", portal.getProperty("SK_STREAMS"));
 
     CPPUNIT_ASSERT_EQUAL(45, sk::util::upcast<sk::io::FileDescriptorProvider>(portal.getStream(0)).getFileDescriptor().getFileNumber());
     CPPUNIT_ASSERT_EQUAL(55, sk::util::upcast<sk::io::FileDescriptorProvider>(portal.getStream(1)).getFileDescriptor().getFileNumber());

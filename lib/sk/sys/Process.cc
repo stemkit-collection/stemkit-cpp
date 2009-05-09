@@ -21,6 +21,11 @@ streamPortal()
 {
   static sk::rt::Environment environment;
   static sk::sys::StreamPortal portal(environment);
+  static bool installed = false;
 
+  if(installed == false) {
+    environment.install();
+    installed = true;
+  }
   return portal;
 }
