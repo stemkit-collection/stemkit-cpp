@@ -142,5 +142,8 @@ processConfiguring(sk::sys::ProcessConfigurator& configurator)
   if(_scope.getProperty("trash-output", sk::util::Boolean::B_TRUE) == true) {
     configurator.setOutputStream(trash.outputStream());
     configurator.setErrorOutputStream(trash.outputStream());
+
+    configurator.keepConsole(false);
   }
+  configurator.startProcessGroup(true);
 }

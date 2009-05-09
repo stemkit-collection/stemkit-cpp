@@ -107,6 +107,9 @@ namespace {
       inputHandle = ::GetStdHandle(STD_INPUT_HANDLE);
       outputHandle = ::GetStdHandle(STD_OUTPUT_HANDLE);
       errorOutputHandle = ::GetStdHandle(STD_ERROR_HANDLE);
+
+      isProcessGroup = false;
+      isConsole = true;
     }
 
     void setEnvironment(const sk::util::String& name, const sk::util::String& value) {
@@ -142,6 +145,14 @@ namespace {
       }
     }
 
+    void startProcessGroup(bool state) {
+      isProcessGroup = true;
+    }
+
+    void keepConsole(bool state) {
+      isConsole = true;
+    }
+
     void finalize() {
       sk::sys::StreamPortal::clear();
       sk::sys::StreamPortal::exportStreams(_streams, _environment);
@@ -154,6 +165,8 @@ namespace {
     HANDLE inputHandle;
     HANDLE outputHandle;
     HANDLE errorOutputHandle;
+    bool isConsole;
+    bool isProcessGroup;
 
     private:
       const sk::rt::Scope& _scope;
@@ -215,6 +228,13 @@ start(sk::io::InputStream& inputStream, const sk::util::StringArray& args)
     std::vector<char> environment_block;
     environment.serialize(environment_block);
 
+    DWORD process_creation_flags = 0;
+    if(configurator.isProcessGroup == true) {
+      process_creation_flags |= CREATE_NEW_PROCESS_GROUP;
+    }
+    if(configurator.isConsole == false) {
+      process_creation_flags |= DETACHED_PROCESS;
+    }
     PROCESS_INFORMATION process_info = { 0 };
     STARTUPINFO startup_info = { 0 };
     startup_info.cb = sizeof(STARTUPINFO);
@@ -226,7 +246,8 @@ start(sk::io::InputStream& inputStream, const sk::util::StringArray& args)
 
     sk::util::String cs = cmdline.join(" ");
     sk::util::Container cv(cs.getChars(), cs.size() + 1);
-    BOOL status = CreateProcess(0, &cv.at(0), 0, 0, TRUE, 0, &environment_block.at(0), 0, &startup_info, &process_info);
+
+    BOOL status = CreateProcess(0, &cv.at(0), 0, 0, TRUE, process_creation_flags, &environment_block.at(0), 0, &startup_info, &process_info);
     if(status == FALSE) {
       throw sk::rt::SystemException("CreateProcess");
     }
