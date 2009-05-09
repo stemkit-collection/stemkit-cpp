@@ -134,6 +134,8 @@ void
 sk::util::test::StringArrayTest::
 testParseDefault()
 {
+  CPPUNIT_ASSERT_EQUAL(0, sk::util::StringArray::parse("").size());
+
   sk::util::StringArray strings = sk::util::StringArray::parse("aaa bbb ccc");
   CPPUNIT_ASSERT_EQUAL(3, strings.size());
 
@@ -146,6 +148,8 @@ void
 sk::util::test::StringArrayTest::
 testParseWithSeparator()
 {
+  CPPUNIT_ASSERT_EQUAL(0, sk::util::StringArray::parse("", ":").size());
+
   sk::util::StringArray strings = sk::util::StringArray::parse("AAA:BBB:CCC::DDD", ":");
   CPPUNIT_ASSERT_EQUAL(5, strings.size());
 

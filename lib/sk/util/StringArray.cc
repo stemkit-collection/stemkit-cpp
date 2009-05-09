@@ -161,6 +161,9 @@ sk::util::StringArray::
 parse(const sk::util::String& specification, const sk::util::String& separator)
 {
   sk::util::StringArray result;
+  if(specification.isEmpty() == true) {
+    return result;
+  }
   std::string::size_type head_index = 0;
   while(true) {
     std::string::size_type tail_index = specification.find_first_of(separator, head_index);
