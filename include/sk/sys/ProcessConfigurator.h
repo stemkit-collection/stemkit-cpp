@@ -26,6 +26,8 @@ namespace sk {
         virtual void setOutputStream(const sk::io::OutputStream& stream) = 0;
         virtual void setErrorOutputStream(const sk::io::OutputStream& stream) = 0;
         virtual void addStream(const sk::io::Stream& stream) = 0;
+        virtual void startProcessGroup(bool state) = 0;
+        virtual void keepConsole(bool state) = 0;
     };
   }
 }

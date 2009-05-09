@@ -25,8 +25,6 @@
 #include <sk/sys/ProcessLaunchException.h>
 #include "ManagedProcess.h"
 
-#include <unistd.h>
-
 static const char* __className("sk::sys::DaemonProcess");
 
 sk::sys::DaemonProcess::
@@ -154,8 +152,6 @@ void
 sk::sys::DaemonProcess::
 processStarting() 
 {
-  ::setsid();
-
   _pipe.inputStream().close();
   DaemonConfigurator configurator(_scope, _pipe.outputStream());
   sk::sys::Process process(_cmdline, configurator);
@@ -187,4 +183,6 @@ void
 sk::sys::DaemonProcess::
 processConfiguring(sk::sys::ProcessConfigurator& configurator)
 {
+  configurator.startProcessGroup(true);
+  configurator.keepConsole(false);
 }

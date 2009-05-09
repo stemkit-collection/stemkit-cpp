@@ -123,7 +123,7 @@ namespace {
 namespace {
   struct Configurator : public virtual sk::sys::ProcessConfigurator {
     Configurator(const sk::rt::Scope& scope, sk::util::PropertyRegistry& environment)
-      : _scope(scope), _environment(environment) {}
+      : _scope(scope), _environment(environment), isProcessGroup(false), isConsole(true) {}
 
     void setEnvironment(const sk::util::String& name, const sk::util::String& value) {
       _environment.setProperty(name, value);
@@ -154,10 +154,21 @@ namespace {
       target_descriptor.inheritable(true);
     }
 
+    void startProcessGroup(bool state) {
+      isProcessGroup = state;
+    }
+
+    void keepConsole(bool state) {
+      isConsole = state;
+    }
+
     void finalize() {
       sk::sys::StreamPortal::clear();
       sk::sys::StreamPortal::exportStreams(_streams, _environment);
     }
+
+    bool isProcessGroup;
+    bool isConsole;
 
     private:
       const sk::rt::Scope& _scope;
@@ -199,6 +210,9 @@ start(sk::io::InputStream& inputStream, const sk::util::StringArray& cmdline)
       configurator.finalize();
       environment.install();
 
+      if(configurator.isProcessGroup == true || configurator.isConsole == false) {
+        ::setsid();
+      }
       _listener.processStarting();
       _scope.notice("start") << cmdline.inspect();
 
