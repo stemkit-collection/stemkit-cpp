@@ -79,7 +79,7 @@ void
 sk::rt::tests::ScopeTest::
 testScope()
 {
-  Scope::controller().getAggregator().getConfigForUpdate().setLogLevel(logger::Level::SK_L_NOTICE);
+  Scope::controller().getAggregator().getConfigForUpdate().setLogLevel(logger::Level::SK_L_DETAIL);
   {
     const Scope scope("s1");
     scope.info() << "a";
@@ -91,7 +91,7 @@ testScope()
     scope.info() << "c";
   }
   CPPUNIT_ASSERT_EQUAL(
-    "NOTICE:s1: Enter (name)\nINFO:s1: a\nNOTICE:s1#s2: Enter (scope)\nINFO:s1#s2: b\nNOTICE:s1#s2: Leave\nINFO:s1: c\nNOTICE:s1: Leave\n",
+    "DETAIL:s1: Enter (name)\nINFO:s1: a\nDETAIL:s1#s2: Enter (scope)\nINFO:s1#s2: b\nDETAIL:s1#s2: Leave\nINFO:s1: c\nDETAIL:s1: Leave\n",
     _stream.str()
   );
 }
