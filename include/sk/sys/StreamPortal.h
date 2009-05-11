@@ -17,6 +17,7 @@
 #include <sk/util/PropertyRegistry.h>
 #include <sk/util/Processor.h>
 #include <sk/io/Stream.h>
+#include <sk/rt/Scope.h>
 
 namespace sk {
   namespace sys {
@@ -29,6 +30,7 @@ namespace sk {
 
         static void exportStreams(const sk::util::List<const sk::io::Stream>& streams, sk::util::PropertyRegistry& registry);
         static void clear();
+        static sk::rt::Scope& scope();
 
         int size() const;
         sk::io::Stream& getStream(int index) const;

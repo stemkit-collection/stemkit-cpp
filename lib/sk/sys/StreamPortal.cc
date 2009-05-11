@@ -22,6 +22,14 @@
 
 static const char* __className("sk::sys::StreamPortal");
 
+sk::rt::Scope& 
+sk::sys::StreamPortal::
+scope() 
+{
+  static sk::rt::Scope scope(__className);
+  return scope;
+}
+
 sk::sys::StreamPortal::
 StreamPortal(sk::util::PropertyRegistry& registry)
 {
@@ -66,6 +74,7 @@ void
 sk::sys::StreamPortal::
 importStreams(const sk::util::PropertyRegistry& registry)
 {
+  scope().detail(__FUNCTION__) << "SK_STREAMS: " << registry.getProperty("SK_STREAMS", "").inspect();
   descriptors(registry).forEach(StreamPortalImporter(_streams));
 }
 
@@ -84,8 +93,10 @@ exportStreams(const sk::util::List<const sk::io::Stream>& streams, sk::util::Pro
     sk::util::StringArray descriptors;
     streams.forEach(StreamPortalExporter(descriptors));
     registry.setProperty("SK_STREAMS", descriptors.join("|"));
+    scope().detail(__FUNCTION__) << "Setting SK_STREAMS: " << registry.getProperty("SK_STREAMS", "").inspect();
   }
   else {
+    scope().detail(__FUNCTION__) << "Propagating SK_STREAMS: " << registry.getProperty("SK_STREAMS", "").inspect();
     descriptors(registry).forEach(StreamPortalPropagator());
   }
 }
