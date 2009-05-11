@@ -25,6 +25,7 @@
 
 #include <sys/socket.h>
 #include <netdb.h>
+#include <netinet/in.h>
 
 int start_listener(int port);
 int accept_connection(int sock);
