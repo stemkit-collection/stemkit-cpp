@@ -21,8 +21,40 @@
 #include <sk/io/DataOutputStream.h>
 #include <sk/io/FileDescriptorOutputStream.h>
 
+#include <sk/rt/Scope.h>
+#include <sk/rt/config/InlineLocator.h>
+
+void start(int argc, const char* argv[]);
+
 int main(int argc, const char* argv[])
 {
+  try {
+    sk::rt::Scope::controller().loadXmlConfig(
+      sk::rt::config::InlineLocator("\n\
+        <scope name='app'>\n\
+          <log destination='file' eol='windows' level='debug' show-object='true' show-pid='true' show-time='true'>\n\
+            <file name='tcp-echo.log' />\n\
+          </log>\n\
+          \n\
+          <scope name='thread-exception-handler'>\n\
+            <property name='abort-on-exception' value='true' />\n\
+          </scope>\n\
+          \n\
+          <scope name='sk::rt::thread::pthreads::Mutex'>\n\
+            <property name='perform-error-check' value='true' />\n\
+          </scope>\n\
+          \n\
+        </scope>\n\
+      ")
+    );
+    start(argc, argv);
+  }
+  catch(const std::exception& exception) {
+    std::cerr << "ERROR: " << exception.what() << std::endl;
+  }
+}
+
+void start(int argc, const char* argv[]) {
   sk::sys::StreamPortal& portal = sk::sys::Process::streamPortal();
   sk::io::FileDescriptorStream stream = portal.getStream(0);
 
