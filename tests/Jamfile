@@ -9,3 +9,5 @@ local _program ;
 for _program in $(programs) {
   make-program $(_program) : $(_program).cc ;
 }
+
+make-subdirs tcp-echo ;
