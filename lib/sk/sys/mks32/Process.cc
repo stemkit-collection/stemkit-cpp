@@ -146,11 +146,11 @@ namespace {
     }
 
     void startProcessGroup(bool state) {
-      isProcessGroup = true;
+      isProcessGroup = state;
     }
 
     void keepConsole(bool state) {
-      isConsole = true;
+      isConsole = state;
     }
 
     void finalize() {
@@ -231,9 +231,11 @@ start(sk::io::InputStream& inputStream, const sk::util::StringArray& args)
     DWORD process_creation_flags = 0;
     if(configurator.isProcessGroup == true) {
       process_creation_flags |= CREATE_NEW_PROCESS_GROUP;
+      _scope.notice() << "New process group will be created";
     }
     if(configurator.isConsole == false) {
       process_creation_flags |= DETACHED_PROCESS;
+      _scope.notice() << "Console will be detached";
     }
     PROCESS_INFORMATION process_info = { 0 };
     STARTUPINFO startup_info = { 0 };
