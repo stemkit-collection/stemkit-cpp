@@ -12,6 +12,7 @@
 #include <sk/util/String.h>
 
 #include "../StreamPortalExporter.h"
+#include <sk/sys/StreamPortal.h>
 #include <sk/io/FileDescriptor.h>
 #include <sk/io/FileDescriptorProvider.h>
 #include <winnutc.h>
@@ -36,5 +37,6 @@ sk::sys::StreamPortalExporter::
 process(const sk::io::Stream& stream) const 
 {
   int fd = _propagator.propagate(sk::util::upcast<sk::io::FileDescriptorProvider>(stream).getFileDescriptor().getFileNumber());
+  sk::sys::StreamPortal::scope().detail(__className) << "F: " << fd << ", H: " << ::_NutFdToHandle(fd);
   _descriptors << sk::util::String::valueOf(reinterpret_cast<int>(::_NutFdToHandle(fd)));
 }

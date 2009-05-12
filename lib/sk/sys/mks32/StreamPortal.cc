@@ -8,14 +8,22 @@
  *  Author: Gennady Bystritsky (gennady.bystritsky@quest.com)
 */
 
+#include <sk/rt/SystemException.h>
+#include <sk/io/LooseFileDescriptor.h>
 #include <sk/sys/StreamPortal.h>
+
 #include <winnutc.h>
 
 void 
 sk::sys::StreamPortal::
 clear()
 {
-  for(int fd=0; fd < 1024; ++fd) {
+  for(int fd=3; fd < 1024; ++fd) {
+    sk::io::LooseFileDescriptor descriptor(fd);
+    try {
+      descriptor.inheritable(false);
+    }
+    catch(const sk::rt::SystemException& exception) {}
     ::SetHandleInformation(::_NutFdToHandle(fd), HANDLE_FLAG_INHERIT, 0);
   }
 }
