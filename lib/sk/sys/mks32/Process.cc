@@ -9,6 +9,7 @@
 #include <sk/util/Class.h>
 #include <sk/util/StringArray.h>
 #include <sk/util/Container.h>
+#include <sk/util/Pathname.h>
 #include <sk/util/PropertyRegistry.h>
 #include <sk/util/Holder.cxx>
 #include <sk/util/ArrayList.cxx>
@@ -22,19 +23,19 @@
 #include <sk/sys/ProcessLaunchException.h>
 #include <sk/sys/StreamPortal.h>
 #include <sk/io/NullDevice.h>
+#include <sk/io/FileDescriptorStream.h>
 #include <sk/rt/Thread.h>
 #include <sk/rt/Runnable.h>
 #include <sk/rt/Locker.cxx>
 
 #include <sk/util/inspect.h>
-
-#include <map>
-#include <winnutc.h>
+#include <nutc.h>
+#include <signal.h>
+#include <sys/wait.h>
+#include <errno.h>
 
 struct sk::sys::Process::Implementation {
-  HANDLE handle;
-  bool isTerminated;
-  int exitCode;
+  int status;
 };
 
 sk::sys::Process::
@@ -103,46 +104,27 @@ getPid() const
 
 namespace {
   struct Configurator : public virtual sk::sys::ProcessConfigurator {
-    Configurator(const sk::rt::Scope& scope, sk::util::PropertyRegistry& environment) : _scope(scope), _environment(environment) {
-      inputHandle = ::GetStdHandle(STD_INPUT_HANDLE);
-      outputHandle = ::GetStdHandle(STD_OUTPUT_HANDLE);
-      errorOutputHandle = ::GetStdHandle(STD_ERROR_HANDLE);
-
-      isProcessGroup = false;
-      isConsole = true;
-    }
+    Configurator(const sk::rt::Scope& scope, sk::util::PropertyRegistry& environment) 
+      : _scope(scope), _environment(environment), isProcessGroup(false), isConsole(true) {}
 
     void setEnvironment(const sk::util::String& name, const sk::util::String& value) {
       _environment.setProperty(name, value);
     }
 
     void setInputStream(const sk::io::InputStream& stream) {
-      inputHandle = toHandle(stream);
+      inputStreamHolder.set(new sk::io::FileDescriptorStream(stream));
     }
 
     void setOutputStream(const sk::io::OutputStream& stream) {
-      outputHandle = toHandle(stream);
+      outputStreamHolder.set(new sk::io::FileDescriptorStream(stream));
     }
 
     void setErrorOutputStream(const sk::io::OutputStream& stream) {
-      errorOutputHandle = toHandle(stream);
+      errorStreamHolder.set(sk::io::FileDescriptorStream(stream));
     }
 
     void addStream(const sk::io::Stream& stream) {
       _streams.add(sk::util::covariant<sk::io::Stream>(stream.clone()));
-    }
-
-    HANDLE toHandle(const sk::io::Stream& stream) {
-      sk::io::LooseFileDescriptor descriptor = sk::util::upcast<sk::io::FileDescriptorProvider>(stream).getFileDescriptor();
-      HANDLE handle = ::_NutFdToHandle(descriptor.getFileNumber());
-
-      return handle;
-    }
-
-    void makeInheritable(HANDLE handle) {
-      if(SetHandleInformation(handle, HANDLE_FLAG_INHERIT, HANDLE_FLAG_INHERIT) == 0) {
-        throw sk::rt::SystemException("SetHandleInformation");
-      }
     }
 
     void startProcessGroup(bool state) {
@@ -156,17 +138,13 @@ namespace {
     void finalize() {
       sk::sys::StreamPortal::clear();
       sk::sys::StreamPortal::exportStreams(_streams, _environment);
-
-      makeInheritable(inputHandle);
-      makeInheritable(outputHandle);
-      makeInheritable(errorOutputHandle);
     }
 
-    HANDLE inputHandle;
-    HANDLE outputHandle;
-    HANDLE errorOutputHandle;
     bool isConsole;
     bool isProcessGroup;
+    sk::util::Holder<sk::io::FileDescriptorStream> inputStreamHolder;
+    sk::util::Holder<sk::io::FileDescriptorStream> outputStreamHolder;
+    sk::util::Holder<sk::io::FileDescriptorStream> errorStreamHolder;
 
     private:
       const sk::rt::Scope& _scope;
@@ -174,14 +152,14 @@ namespace {
       sk::util::ArrayList<const sk::io::Stream> _streams;
   };
 
-  struct CommandLineBuilder : public virtual sk::util::Processor<const sk::util::String> {
-    CommandLineBuilder(sk::util::StringArray& cmdline)
-      : _cmdline(cmdline) {}
+  struct ExecArgumentCollector : public virtual sk::util::Processor<const sk::util::String> {
+    ExecArgumentCollector(std::vector<char*>& arguments)
+      : _arguments(arguments) {}
 
     void process(const sk::util::String& item) const {
-      _cmdline << item.inspect();
+      _arguments.push_back(const_cast<char*>(item.getChars()));
     }
-    sk::util::StringArray& _cmdline;
+    std::vector<char*>& _arguments;
   };
 }
 
@@ -207,12 +185,10 @@ start(sk::io::InputStream& inputStream, const sk::util::StringArray& args)
   if(args.isEmpty() == true) {
     throw sk::util::UnsupportedOperationException("Non-exec processes not supported on Windowns");
   }
+  sk::util::StringArray cmdline = args;
+  cmdline.at(0) = sk::util::Pathname(cmdline.at(0), "exe").toString();
   _implementationHolder.set(new Implementation);
-
-  sk::util::StringArray cmdline;
-  args.forEach(CommandLineBuilder(cmdline));
-
-  _scope.notice("start") << cmdline.join(", ");
+  _scope.notice("start") << cmdline.inspect();
 
   _detached = false;
   _running = false;
@@ -225,45 +201,33 @@ start(sk::io::InputStream& inputStream, const sk::util::StringArray& args)
     _listener.processConfiguring(configurator);
     configurator.finalize();
 
-    std::vector<char> environment_block;
-    environment.serialize(environment_block);
-
-    DWORD process_creation_flags = 0;
     if(configurator.isProcessGroup == true) {
-      process_creation_flags |= CREATE_NEW_PROCESS_GROUP;
-      _scope.notice() << "New process group will be created";
+      _scope.warning() << "Process groups not supported";
     }
+
     if(configurator.isConsole == false) {
-      process_creation_flags |= DETACHED_PROCESS;
-      _scope.notice() << "Console will be detached";
+      _scope.notice() << "Detach from console not supported";
     }
-    PROCESS_INFORMATION process_info = { 0 };
-    STARTUPINFO startup_info = { 0 };
-    startup_info.cb = sizeof(STARTUPINFO);
 
-    startup_info.hStdInput = configurator.inputHandle;
-    startup_info.hStdOutput = configurator.outputHandle;
-    startup_info.hStdError = configurator.errorOutputHandle;
-    startup_info.dwFlags |= STARTF_USESTDHANDLES;
+    std::vector<char*> arguments;
+    cmdline.forEach(ExecArgumentCollector(arguments));
+    arguments.push_back(0);
 
-    sk::util::String cs = cmdline.join(" ");
-    sk::util::Container cv(cs.getChars(), cs.size() + 1);
+    std::vector<char> environment_block;
+    std::vector<char*> environment_references = environment.serialize(environment_block);
 
-    BOOL status = CreateProcess(0, &cv.at(0), 0, 0, TRUE, process_creation_flags, &environment_block.at(0), 0, &startup_info, &process_info);
-    if(status == FALSE) {
-      throw sk::rt::SystemException("CreateProcess");
+    _scope.notice() << "P: " << arguments[0];
+    _pid = ::_NutForkExecvpe(arguments[0], &arguments[0], &environment_references[0]);
+
+    if(_pid < 0) {
+      throw sk::rt::SystemException("_NutForkExec");
     }
-    _pid = process_info.dwProcessId;
-    process().handle = process_info.hProcess;
-    CloseHandle(process_info.hThread);
-
     _running = true;
     inputStream.close();
   }
   catch(const std::exception& exception) {
     throw sk::sys::ProcessLaunchException(exception.what(), cmdline);
   }
-  _scope.detail("SUCCESS") << args.inspect();
 }
 
 void
@@ -281,8 +245,8 @@ processStopping()
 
 namespace {
   struct Cleaner : public virtual sk::rt::Runnable {
-    Cleaner(HANDLE process, int tolerance) : _process(process), _tolerance(tolerance), _canceled(false) {
-      terminate(tolerance>0 ? true : false);
+    Cleaner(int pid, int signal, int tolerance) : _pid(pid), _tolerance(tolerance), _canceled(false) {
+      terminate(signal);
     }
     void run() {
       for(int counter = _tolerance*10; counter ;--counter) {
@@ -291,23 +255,20 @@ namespace {
         }
         sk::rt::Thread::sleep(100);
       }
-      terminate(false);
+      terminate(SIGKILL);
     }
-
-    void terminate(bool graceful) {
-      if(graceful == false) {
-        if(TerminateProcess(_process, 43195) == FALSE) {
-          throw sk::rt::SystemException("TerminateProcess");
+    void terminate(int signal) {
+      if(::kill(_pid, signal) < 0) {
+        if(errno != ESRCH) {
+          throw sk::rt::SystemException("kill:" + sk::util::String::valueOf(_pid) + ":" + sk::util::String::valueOf(signal));
         }
       }
     }
-
     void cancel() {
       _canceled = true;
     }
-
     volatile bool _canceled;
-    HANDLE _process;
+    int _pid;
     int _tolerance;
   };
 }
@@ -321,7 +282,7 @@ stop()
   }
   _listener.processStopping();
 
-  Cleaner cleaner(process().handle, 3);
+  Cleaner cleaner(_pid, SIGKILL, 3);
   sk::rt::Thread terminator(cleaner);
 
   terminator.start();
@@ -338,7 +299,7 @@ kill()
   if(isAlive() == false) {
     return;
   }
-  Cleaner cleaner(process().handle, 0);
+  Cleaner cleaner(_pid, SIGKILL, 0);
 }
 
 
@@ -358,19 +319,22 @@ join()
   }
   _listener.processJoining();
 
-  if(WaitForSingleObject(process().handle, INFINITE) == WAIT_FAILED) {
-    throw sk::rt::SystemException("WaitForSingleObject");
-  }
-  DWORD status;
-  if(GetExitCodeProcess(process().handle, &status) == FALSE) {
-    throw sk::rt::SystemException("GetExitCodeProcess");
-  }
-  _scope.detail("STATUS") << status;
+  while(true) {
+    int status = 0;
+    int result = ::waitpid(_pid, &status, 0);
 
-  process().isTerminated = (status==43195 || status==126 ? true : false);
-  process().exitCode = status;
-
-  CloseHandle(process().handle);
+    if(result < 0) {
+      if(errno == EINTR) {
+        continue;
+      }
+      throw sk::rt::SystemException("waitpid:" + sk::util::String::valueOf(_pid));
+    }
+    if(result == _pid) {
+      process().status = status;
+      break;
+    }
+    throw sk::util::IllegalStateException("waitpid:mismatch:" + sk::util::String::valueOf(result) + ":" + sk::util::String::valueOf(_pid));
+  }
   _running = false;
 }
 
@@ -400,7 +364,7 @@ sk::sys::Process::
 isKilled() const
 {
   ensureNotRunning();
-  return process().isTerminated ? true : false;
+  return WIFSIGNALED(process().status) ? true : false;
 }
 
 void
@@ -419,7 +383,7 @@ exitStatus() const
   if(isExited() == false) {
     throw sk::util::IllegalStateException("Process killed, not exited");
   }
-  return process().exitCode;
+  return WEXITSTATUS(process().status);
 }
 
 int
@@ -429,7 +393,7 @@ signal() const
   if(isKilled() == false) {
     throw sk::util::IllegalStateException("Process exited, not killed");
   }
-  return 9;
+  return WTERMSIG(process().status);
 }
 
 bool

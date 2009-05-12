@@ -1,3 +1,4 @@
+# vim: ft=jam: sw=2:
 
 local library = sk.rt ;
 
@@ -6,7 +7,8 @@ local objects =
   Environment.cc
 ;
 
-if $(PLATFORM_IMPLEMENTATION) = win32 || mks32 in $(project.PLATFORM_SPECIFICS) {
+# if $(PLATFORM_IMPLEMENTATION) = win32 || mks32 in $(project.PLATFORM_SPECIFICS) {
+if $(PLATFORM_IMPLEMENTATION) = win32 {
   objects += [ util.make-path win32 foreach_environment_item.cc ] ;
 }
 else objects += [ util.make-path unix foreach_environment_item.cc ] ;
