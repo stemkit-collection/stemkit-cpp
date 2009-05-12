@@ -18,6 +18,8 @@
 #include <sk/util/Integer.h>
 #include <sk/util/Container.h>
 #include <sk/io/FileDescriptorOutputStream.h>
+#include <sk/io/DataInputStream.h>
+#include <sk/io/AnonymousPipe.h>
 #include <sk/sys/Process.h>
 #include <sk/sys/ProcessConfigurator.h>
 #include <sk/sys/AbstractProcessListener.h>
@@ -25,9 +27,13 @@
 #include <sys/socket.h>
 #include <netdb.h>
 #include <netinet/in.h>
+#include <unistd.h>
 
+#include <sk/rt/Thread.h>
 #include <sk/rt/Scope.h>
 #include <sk/rt/config/InlineLocator.h>
+
+#include <winnutc.h>
 
 int start_listener(int port);
 int accept_connection(int sock);
@@ -46,7 +52,7 @@ int main(int argc, const char* argv[])
           </log>\n\
           \n\
           <scope name='thread-exception-handler'>\n\
-            <property name='abort-on-exception' value='true' />\n\
+            <property name='abort-on-exception' value='false' />\n\
           </scope>\n\
           \n\
           <scope name='sk::rt::thread::pthreads::Mutex'>\n\
@@ -117,21 +123,70 @@ int accept_connection(int sock) {
 
 namespace {
   struct Configurator : public sk::sys::AbstractProcessListener {
-    Configurator(const sk::io::Stream& stream)
-      : _stream(stream) {}
-
-    void processConfiguring(sk::sys::ProcessConfigurator& configurator) {
-      configurator.addStream(_stream);
+    Configurator(sk::rt::Scope& scope, const sk::io::InputStream& inputStream, const sk::io::OutputStream& outputStream)
+      : _scope(scope), _inputStream(inputStream), _outputStream(outputStream) 
+    {
+      _scope.notice() << "Input:  D: " << sk::util::upcast<sk::io::FileDescriptorProvider>(inputStream).getFileDescriptor().getFileNumber() << ", H: " << ::_NutFdToHandle(sk::util::upcast<sk::io::FileDescriptorProvider>(inputStream).getFileDescriptor().getFileNumber());
+      _scope.notice() << "Output: D: " << sk::util::upcast<sk::io::FileDescriptorProvider>(outputStream).getFileDescriptor().getFileNumber() << ", H: " << ::_NutFdToHandle(sk::util::upcast<sk::io::FileDescriptorProvider>(outputStream).getFileDescriptor().getFileNumber());
     }
-    const sk::io::Stream& _stream;
+    void processConfiguring(sk::sys::ProcessConfigurator& configurator) {
+      configurator.addStream(_inputStream);
+      configurator.addStream(_outputStream);
+    }
+    sk::rt::Scope& _scope;
+    const sk::io::InputStream& _inputStream;
+    const sk::io::OutputStream& _outputStream;
+  };
+
+  struct PipeReader : public virtual sk::rt::Runnable {
+    PipeReader(sk::io::InputStream& stream)
+      : _scope("PipeReader"), _stream(stream) {}
+
+    void run() {
+      while(true) {
+        _scope.info("GOT") << _stream.readLine().trim();
+      }
+    }
+    sk::rt::Scope _scope;
+    sk::io::DataInputStream _stream;
   };
 }
 
 void process_request(int fd) {
-  sk::io::FileDescriptorOutputStream stream(fd);
-  Configurator configurator(stream);
-  sk::sys::Process process(sk::util::StringArray("tcp-echo-client"), configurator);
+  sk::rt::Scope scope(__FUNCTION__);
 
-  // stream.close();
+  sk::io::FileDescriptorInputStream inputStream(fd);
+  sk::io::FileDescriptorOutputStream outputStream(inputStream.getFileDescriptor());
+  Configurator configurator(scope, inputStream, outputStream);
+  
+  /*
+  sk::io::AnonymousPipe inPipe;
+  sk::io::AnonymousPipe outPipe;
+  Configurator configurator(scope, outPipe.inputStream(), inPipe.outputStream());
+  */
+  
+  sk::sys::Process process(sk::util::StringArray("tcp-echo-client"), configurator);
+  
+  inputStream.close();
+  outputStream.close();
+
+  /*
+  outPipe.closeInput();
+  inPipe.closeOutput();
+
+  PipeReader reader(inPipe.inputStream());
+  sk::rt::Thread thread(reader);
+  thread.start();
+
+  int counter = 0;
+  sk::io::DataInputStream stream(inputStream);
+  while(true) {
+    sk::util::String line = stream.readLine();
+    scope.notice("TCP") << line.inspect();
+
+    outPipe.outputStream().write(sk::util::Container("R#" + sk::util::String::valueOf(++counter) + ": " + line.inspect() + "\r\n"));
+  }
+  */
+
   process.join();
 }
