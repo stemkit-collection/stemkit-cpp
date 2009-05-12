@@ -161,6 +161,41 @@ namespace {
     }
     std::vector<char*>& _arguments;
   };
+
+  int start_process_with_redirect(const Configurator& configurator, const sk::rt::Environment& environment, const sk::util::StringArray& cmdline) {
+    std::vector<char*> arguments;
+    cmdline.forEach(ExecArgumentCollector(arguments));
+    arguments.push_back(0);
+
+    std::vector<char> environment_block;
+    std::vector<char*> environment_references = environment.serialize(environment_block);
+
+    sk::io::LooseFileDescriptor stdinDescriptor(0);
+    sk::io::LooseFileDescriptor stdoutDescriptor(1);
+    sk::io::LooseFileDescriptor stderrDescriptor(2);
+
+    sk::io::FileDescriptor savedStdinDescriptor(stdinDescriptor.duplicateLoose().getFileNumber());
+    sk::io::FileDescriptor savedStdoutDescriptor(stdoutDescriptor.duplicateLoose().getFileNumber());
+    sk::io::FileDescriptor savedStderrDescriptor(stderrDescriptor.duplicateLoose().getFileNumber());
+
+    if(configurator.inputStreamHolder.isEmpty() == false) {
+      stdinDescriptor.reopen(configurator.inputStreamHolder.get().getFileDescriptor());
+    }
+    if(configurator.outputStreamHolder.isEmpty() == false) {
+      stdoutDescriptor.reopen(configurator.outputStreamHolder.get().getFileDescriptor());
+    }
+    if(configurator.errorStreamHolder.isEmpty() == false) {
+      stderrDescriptor.reopen(configurator.errorStreamHolder.get().getFileDescriptor());
+    }
+
+    int pid = ::_NutForkExecvpe(arguments[0], &arguments[0], &environment_references[0]);
+
+    stdinDescriptor.reopen(savedStdinDescriptor);
+    stdoutDescriptor.reopen(savedStdoutDescriptor);
+    stderrDescriptor.reopen(savedStderrDescriptor);
+
+    return pid;
+  }
 }
 
 sk::sys::Process::Implementation&
@@ -209,15 +244,7 @@ start(sk::io::InputStream& inputStream, const sk::util::StringArray& args)
       _scope.notice() << "Detach from console not supported";
     }
 
-    std::vector<char*> arguments;
-    cmdline.forEach(ExecArgumentCollector(arguments));
-    arguments.push_back(0);
-
-    std::vector<char> environment_block;
-    std::vector<char*> environment_references = environment.serialize(environment_block);
-
-    _scope.notice() << "P: " << arguments[0];
-    _pid = ::_NutForkExecvpe(arguments[0], &arguments[0], &environment_references[0]);
+    _pid = start_process_with_redirect(configurator, environment, cmdline);
 
     if(_pid < 0) {
       throw sk::rt::SystemException("_NutForkExec");
