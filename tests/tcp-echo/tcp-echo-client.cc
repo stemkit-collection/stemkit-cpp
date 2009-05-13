@@ -27,7 +27,7 @@
 
 #include <sys/socket.h>
 #include <unistd.h>
-#include <winnutc.h>
+#include <errno.h>
 
 void start(int argc, const char* argv[]);
 void set_so_rcvbuf(int fd, int size);
@@ -95,7 +95,7 @@ void start(int argc, const char* argv[]) {
   strcpy(buffer, line.getChars());
 
   while(true) {
-    scope.notice() << "Writing:" << ofd << ":" << _NutFdToHandle(ofd);
+    scope.notice() << "Writing:" << ofd;
 
     errno = 0;
     int status = ::send(ofd, buffer, n, 0);
@@ -105,7 +105,7 @@ void start(int argc, const char* argv[]) {
     }
 
     for(int c=5; c != 0 ;--c) {
-      scope.notice() << "Reading:" << ifd << ":" << _NutFdToHandle(ifd);
+      scope.notice() << "Reading:" << ifd;
       // n = ::read(ifd, buffer, sizeof(buffer));
       errno = 0;
       n = ::recv(ifd, buffer, sizeof(buffer), 0);
@@ -116,7 +116,7 @@ void start(int argc, const char* argv[]) {
     }
 
     if(n < 0) {
-      throw sk::rt::SystemException("recv:n=" + sk::util::String::valueOf(n) + ":error=" + sk::util::String::valueOf(GetLastError()));
+      throw sk::rt::SystemException("recv:n=" + sk::util::String::valueOf(n));
     }
     if(n == 0) {
       scope.notice() << "Done.";
@@ -129,7 +129,7 @@ void print_so_type(int fd) {
   sk::rt::Scope scope(__FUNCTION__);
 
   int value = -77;
-  int value_size = sizeof(value);
+  socklen_t value_size = sizeof(value);
   int status = getsockopt(fd, SOL_SOCKET, SO_TYPE, &value, &value_size);
 
   if(status < 0) {
@@ -142,7 +142,7 @@ void print_so_rcvbuf(int fd) {
   sk::rt::Scope scope(__FUNCTION__);
 
   int value = -77;
-  int value_size = sizeof(value);
+  socklen_t value_size = sizeof(value);
   int status = getsockopt(fd, SOL_SOCKET, SO_RCVBUF, &value, &value_size);
   if(status < 0) {
       throw sk::rt::SystemException("getsockopt");

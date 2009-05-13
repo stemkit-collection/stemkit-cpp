@@ -33,8 +33,6 @@
 #include <sk/rt/Scope.h>
 #include <sk/rt/config/InlineLocator.h>
 
-#include <winnutc.h>
-
 int start_listener(int port);
 int accept_connection(int sock);
 void process_request(int sock);
@@ -126,8 +124,8 @@ namespace {
     Configurator(sk::rt::Scope& scope, const sk::io::InputStream& inputStream, const sk::io::OutputStream& outputStream)
       : _scope(scope), _inputStream(inputStream), _outputStream(outputStream) 
     {
-      _scope.notice() << "Input:  D: " << sk::util::upcast<sk::io::FileDescriptorProvider>(inputStream).getFileDescriptor().getFileNumber() << ", H: " << ::_NutFdToHandle(sk::util::upcast<sk::io::FileDescriptorProvider>(inputStream).getFileDescriptor().getFileNumber());
-      _scope.notice() << "Output: D: " << sk::util::upcast<sk::io::FileDescriptorProvider>(outputStream).getFileDescriptor().getFileNumber() << ", H: " << ::_NutFdToHandle(sk::util::upcast<sk::io::FileDescriptorProvider>(outputStream).getFileDescriptor().getFileNumber());
+      _scope.notice() << "Input:  " << sk::util::upcast<sk::io::FileDescriptorProvider>(inputStream).getFileDescriptor().getFileNumber();
+      _scope.notice() << "Output: " << sk::util::upcast<sk::io::FileDescriptorProvider>(outputStream).getFileDescriptor().getFileNumber();
     }
     void processConfiguring(sk::sys::ProcessConfigurator& configurator) {
       configurator.addStream(_inputStream);
