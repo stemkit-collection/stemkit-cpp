@@ -154,7 +154,7 @@ void
 sk::sys::test::DaemonProcessTest::
 testStreamCommunication()
 {
-  TalkingDaemonProcess process(sk::util::StringArray("ruby") + "-e" + "system 'write-to-handle', ENV['SK_STREAMS'], 'he-he-he'");
+  TalkingDaemonProcess process(sk::util::StringArray("write-to-stream") + "he-he-he");
   process.start();
 
   process.pipe.outputStream().close();

@@ -11,10 +11,9 @@
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
 #include <sk/util/Integer.h>
-#include <sk/rt/SystemException.h>
+#include <sk/io/LooseFileDescriptor.h>
 
 #include "../StreamPortalPropagator.h"
-#include <winnutc.h>
 
 static const char* __className("sk::sys::StreamPortalPropagator");
 
@@ -36,9 +35,9 @@ int
 sk::sys::StreamPortalPropagator::
 propagate(int fd) const 
 {
-  if(::SetHandleInformation(::_NutFdToHandle(fd), HANDLE_FLAG_INHERIT, HANDLE_FLAG_INHERIT) == 0) {
-    throw sk::rt::SystemException("SetHandleInformation");
-  }
+  sk::io::LooseFileDescriptor descriptor(fd);
+  descriptor.inheritable(true);
+
   return fd;
 }
 

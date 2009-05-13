@@ -120,7 +120,7 @@ namespace {
     }
 
     void setErrorOutputStream(const sk::io::OutputStream& stream) {
-      errorStreamHolder.set(sk::io::FileDescriptorStream(stream));
+      errorStreamHolder.set(new sk::io::FileDescriptorStream(stream));
     }
 
     void addStream(const sk::io::Stream& stream) {
@@ -241,7 +241,7 @@ start(sk::io::InputStream& inputStream, const sk::util::StringArray& args)
     }
 
     if(configurator.isConsole == false) {
-      _scope.notice() << "Detach from console not supported";
+      _scope.warning() << "Detach from console not supported";
     }
 
     _pid = start_process_with_redirect(configurator, environment, cmdline);

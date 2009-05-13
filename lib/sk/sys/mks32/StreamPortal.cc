@@ -10,9 +10,8 @@
 
 #include <sk/rt/SystemException.h>
 #include <sk/io/LooseFileDescriptor.h>
-#include <sk/sys/StreamPortal.h>
 
-#include <winnutc.h>
+#include <sk/sys/StreamPortal.h>
 
 void 
 sk::sys::StreamPortal::
@@ -24,6 +23,5 @@ clear()
       descriptor.inheritable(false);
     }
     catch(const sk::rt::SystemException& exception) {}
-    ::SetHandleInformation(::_NutFdToHandle(fd), HANDLE_FLAG_INHERIT, 0);
   }
 }

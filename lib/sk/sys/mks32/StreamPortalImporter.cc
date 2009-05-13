@@ -15,9 +15,6 @@
 #include <sk/io/FileDescriptorInputStream.h>
 
 #include "../StreamPortalImporter.h"
-#include <sk/sys/StreamPortal.h>
-#include <winnutc.h>
-#include <fcntl.h>
 
 static const char* __className("sk::sys::StreamPortalImporter");
 
@@ -38,10 +35,7 @@ void
 sk::sys::StreamPortalImporter::
 process(const sk::util::String& descriptor) const 
 {
-  HANDLE handle = reinterpret_cast<HANDLE>(sk::util::Integer::parseInt(descriptor));
-  int fd = ::_NutHandleToFd(handle, O_RDWR, "");
-
-  sk::sys::StreamPortal::scope().detail(__className) << "D: " << descriptor.inspect() << ", H:" << handle << ", F: " << fd;
+  int fd = sk::util::Integer::parseInt(descriptor);
   _streams.add(new sk::io::FileDescriptorInputStream(fd));
 }
 

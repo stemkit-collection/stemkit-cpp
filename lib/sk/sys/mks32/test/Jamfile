@@ -10,7 +10,7 @@ local objects =
   TestSuite.cc
 ;
 
-use-project-library $(test) : 
+use-project-library $(test) write-to-stream : 
   sk.cppunit 
   sk.sys 
   sk.io 
@@ -20,7 +20,7 @@ use-project-library $(test) :
   sk.util 
 ;
 
-make-program write-to-handle : write-to-handle.cc ;
+make-program write-to-stream : write-to-stream.cc ;
 
 use-pthreads $(test) ;
 use-unit-test $(test) $(objects) ;
