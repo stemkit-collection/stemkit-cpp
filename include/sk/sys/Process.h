@@ -35,6 +35,7 @@ namespace sk {
         Process(ProcessListener& listener);
         virtual ~Process();
 
+        static void setup();
         static sk::sys::StreamPortal& streamPortal();
 
         // sk::sys::Executable implementation.

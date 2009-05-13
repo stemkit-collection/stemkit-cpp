@@ -34,6 +34,10 @@
 #include <sys/wait.h>
 #include <errno.h>
 
+namespace {
+  sk::util::Holder<sk::rt::Mutex> __mutexHolder;
+}
+
 struct sk::sys::Process::Implementation {
   int status;
 };
@@ -86,6 +90,13 @@ sk::sys::Process::
   if(_detached == false) {
     sk::util::Exception::guard(_scope.warning(SK_METHOD), *this, &sk::sys::Process::stop);
   }
+}
+
+void 
+sk::sys::Process::
+setup()
+{
+  __mutexHolder.set(new sk::rt::Mutex);
 }
 
 const sk::util::Class
@@ -163,6 +174,8 @@ namespace {
   };
 
   int start_process_with_redirect(const Configurator& configurator, const sk::rt::Environment& environment, const sk::util::StringArray& cmdline) {
+    sk::rt::Locker<sk::rt::Mutex> locker(__mutexHolder.get());
+
     std::vector<char*> arguments;
     cmdline.forEach(ExecArgumentCollector(arguments));
     arguments.push_back(0);

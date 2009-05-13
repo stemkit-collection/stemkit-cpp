@@ -12,6 +12,7 @@
 #include <sk/rt/Scope.h>
 #include <sk/rt/config/InlineLocator.h>
 #include <sk/rt/Thread.h>
+#include <sk/sys/Process.h>
 
 #include <iostream>
  
@@ -48,6 +49,7 @@ int main(int argc, char **argv)
   }
   runner.addTest(registry.makeTest());
   sk::rt::Thread::setup();
+  sk::sys::Process::setup();
 
   int status = !runner.run();
   sk::rt::Thread::reset();

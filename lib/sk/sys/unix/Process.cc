@@ -87,6 +87,12 @@ sk::sys::Process::
   }
 }
 
+void 
+sk::sys::Process::
+setup()
+{
+}
+
 sk::sys::Process::Implementation&
 sk::sys::Process::
 process() const
