@@ -96,7 +96,16 @@ void
 sk::sys::Process::
 setup()
 {
-  __mutexHolder.set(new sk::rt::Mutex);
+  if(__mutexHolder.isEmpty() == true) {
+    __mutexHolder.set(new sk::rt::Mutex);
+  }
+}
+
+void 
+sk::sys::Process::
+reset()
+{
+  __mutexHolder.clear();
 }
 
 const sk::util::Class

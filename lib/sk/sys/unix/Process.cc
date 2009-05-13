@@ -93,6 +93,12 @@ setup()
 {
 }
 
+void 
+sk::sys::Process::
+reset()
+{
+}
+
 sk::sys::Process::Implementation&
 sk::sys::Process::
 process() const
