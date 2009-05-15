@@ -22,12 +22,12 @@ namespace sk {
         Pathname(const sk::util::String& component, const sk::util::String& defaultExtension);
         virtual ~Pathname();
 
+        bool isEmpty() const;
         bool isAbsolute() const;
         bool isExplicit() const;
         bool isTerminal() const;
 
         const sk::util::Pathname dirname() const;
-
         const sk::util::String basename() const;
         const sk::util::String extension() const;
         const sk::util::String location() const;
@@ -48,5 +48,7 @@ namespace sk {
     };
   }
 }
+
+const sk::util::Pathname operator+(const sk::util::Pathname& first, const sk::util::Pathname& second);
 
 #endif /* _SK_UTIL_PATHNAME_ */

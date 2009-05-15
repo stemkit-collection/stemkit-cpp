@@ -18,7 +18,10 @@ namespace sk {
         : public CppUnit::TestFixture
       {
         CPPUNIT_TEST_SUITE(sk::util::test::PathnameTest);
-          CPPUNIT_TEST(testJoin);
+          CPPUNIT_TEST(testEmpty);
+          CPPUNIT_TEST(testJoinOther);
+          CPPUNIT_TEST(testJoinString);
+          CPPUNIT_TEST(testPlus);
           CPPUNIT_TEST(testExtension);
           CPPUNIT_TEST(testIsAbsolute);
           CPPUNIT_TEST(testIsTerminal);
@@ -33,7 +36,10 @@ namespace sk {
           
           void setUp();
           void tearDown();
-          void testJoin();
+          void testEmpty();
+          void testJoinOther();
+          void testJoinString();
+          void testPlus();
           void testExtension();
           void testIsAbsolute();
           void testIsTerminal();

@@ -63,6 +63,12 @@ const sk::util::Pathname
 sk::util::Pathname::
 join(const sk::util::Pathname& other) const
 {
+  if(isEmpty() == true) {
+    return other;
+  }
+  if(other.isEmpty() == true) {
+    return *this;
+  }
   if(other.isAbsolute() == true) {
     return other;
   }
@@ -170,4 +176,16 @@ sk::util::Pathname::
 isTerminal() const
 {
   throw sk::util::UnsupportedOperationException(SK_METHOD);
+}
+
+bool
+sk::util::Pathname::
+isEmpty() const
+{
+  return _location.isEmpty() && _path.isEmpty();
+}
+
+const sk::util::Pathname operator + (const sk::util::Pathname& first, const sk::util::Pathname& second)
+{
+  return first.join(second);
 }

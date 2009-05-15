@@ -35,11 +35,49 @@ tearDown()
 
 void
 sk::util::test::PathnameTest::
-testJoin()
+testEmpty()
+{
+  sk::util::Pathname pathname("  ");
+
+  CPPUNIT_ASSERT(pathname.isEmpty() == true);
+  CPPUNIT_ASSERT(pathname.isAbsolute() == false);
+  CPPUNIT_ASSERT(pathname.isExplicit() == false);
+  //TODO: CPPUNIT_ASSERT(pathname.isTerminal() == false);
+
+  CPPUNIT_ASSERT_EQUAL(".", pathname.dirname().toString());
+  CPPUNIT_ASSERT_EQUAL(".", pathname.location());
+  CPPUNIT_ASSERT_EQUAL("", pathname.extension());
+  CPPUNIT_ASSERT_EQUAL("", pathname.basename());
+
+  CPPUNIT_ASSERT_EQUAL("bbb", ("bbb" + pathname).toString());
+  CPPUNIT_ASSERT_EQUAL("aaa", (pathname + "aaa").toString());
+}
+
+void
+sk::util::test::PathnameTest::
+testPlus()
+{
+  CPPUNIT_ASSERT_EQUAL("a/b", (Pathname("a") + Pathname("b")).toString());
+  CPPUNIT_ASSERT_EQUAL("a/b/c/d", ("a/b/" + Pathname("c/d")).toString());
+  CPPUNIT_ASSERT_EQUAL("/c/d", (Pathname("a/b/") + "/c/d").toString());
+}
+
+void
+sk::util::test::PathnameTest::
+testJoinOther()
 {
   CPPUNIT_ASSERT_EQUAL("a/b", Pathname("a").join(Pathname("b")).toString());
   CPPUNIT_ASSERT_EQUAL("a/b/c/d", Pathname("a/b/").join(Pathname("c/d")).toString());
   CPPUNIT_ASSERT_EQUAL("/c/d", Pathname("a/b/").join(Pathname("/c/d")).toString());
+}
+
+void
+sk::util::test::PathnameTest::
+testJoinString()
+{
+  CPPUNIT_ASSERT_EQUAL("a/b", Pathname("a").join("b").toString());
+  CPPUNIT_ASSERT_EQUAL("a/b/c/d", Pathname("a/b/").join("c/d").toString());
+  CPPUNIT_ASSERT_EQUAL("/c/d", Pathname("a/b/").join("/c/d").toString());
 }
 
 void
