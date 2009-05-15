@@ -9,6 +9,7 @@
 #include "StringTest.h"
 #include <sk/util/String.h>
 #include <sk/util/IndexOutOfBoundsException.h>
+#include <sk/util/IllegalArgumentException.h>
 #include <sk/util/Class.h>
 #include <string.h>
 
@@ -359,4 +360,16 @@ testValueOf()
   CPPUNIT_ASSERT_EQUAL("127", String::valueOf(127));
   CPPUNIT_ASSERT_EQUAL("-1", String::valueOf(-1));
   CPPUNIT_ASSERT_EQUAL("0", String::valueOf(0));
+}
+
+void 
+sk::util::test::StringTest::
+testMultiply()
+{
+  CPPUNIT_ASSERT_EQUAL("aaaaaaaaaa", sk::util::String("a") * 10);
+  CPPUNIT_ASSERT_EQUAL("ababab", sk::util::String("ab") * 3);
+  CPPUNIT_ASSERT_EQUAL("", sk::util::String() * 10);
+  CPPUNIT_ASSERT_EQUAL("", sk::util::String("zzzzzzz") * 0);
+
+  CPPUNIT_ASSERT_THROW(sk::util::String("zzzzzzz") * -2, sk::util::IllegalArgumentException);
 }

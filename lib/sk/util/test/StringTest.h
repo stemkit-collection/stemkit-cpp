@@ -39,6 +39,7 @@ namespace sk {
           CPPUNIT_TEST(testContainsIgnoreCase);
           CPPUNIT_TEST(testStringIndex);
           CPPUNIT_TEST(testValueOf);
+          CPPUNIT_TEST(testMultiply);
         CPPUNIT_TEST_SUITE_END();
         
         public:
@@ -68,6 +69,7 @@ namespace sk {
           void testContainsIgnoreCase();
           void testStringIndex();
           void testValueOf();
+          void testMultiply();
           
         private:
           StringTest(const StringTest& other);

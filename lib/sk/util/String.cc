@@ -12,6 +12,7 @@
 #include <sk/util/inspect.h>
 #include <sk/util/IndexOutOfBoundsException.h>
 #include <sk/util/UnsupportedOperationException.h>
+#include <sk/util/IllegalArgumentException.h>
 #include <algorithm>
 #include <string.h>
 #include <algorithm>
@@ -492,6 +493,24 @@ valueOf(int value)
   return Integer::toString(value);
 }
 
+const sk::util::String 
+sk::util::String::
+times(int multiplier) const
+{
+  if(multiplier < 0) {
+    throw sk::util::IllegalArgumentException(sk::util::String::valueOf(multiplier));
+  }
+  if(isEmpty() || multiplier == 0) {
+    return sk::util::String::EMPTY;
+  }
+  std::string result;
+  result.reserve(length() * multiplier);
+  for(int counter=multiplier; counter ;--counter) {
+    result.insert(result.end(), begin(), end());
+  }
+  return result;
+}
+
 const sk::util::String operator + (const sk::util::String& s1, const sk::util::String& s2)
 {
   const std::string& string1 = s1;
@@ -530,4 +549,9 @@ const sk::util::String operator + (const sk::util::String& s1, const std::string
 {
   const std::string& s = s1;
   return s + s2;
+}
+
+const sk::util::String operator * (const sk::util::String& string, int multiplier) 
+{
+  return string.times(multiplier);
 }

@@ -49,6 +49,10 @@ namespace sk {
         /// replaced by a single character. 
         const String squeeze(char character) const;
 
+        /// Returns a new string concatenated from specified number of copies
+        /// of itself.
+        const String times(int multiplier) const;
+
         /// Returns true if this string contains the specified substring.
         bool contains(const sk::util::String& other) const;
         
@@ -159,5 +163,7 @@ const sk::util::String operator + (char character, const sk::util::String& strin
 
 const sk::util::String operator + ( const sk::util::String& s1, const std::string& s2);
 const sk::util::String operator + (const std::string& s1, const sk::util::String& s2);
+
+const sk::util::String operator * (const sk::util::String& string, int multiplier);
 
 #endif /* _SK_UTIL_STRING_ */
