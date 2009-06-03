@@ -19,6 +19,13 @@ namespace sk {
         Integer(int value);
         virtual ~Integer();
 
+        char byteValue() const;
+        int intValue() const;
+        short shortValue() const;
+        int64_t longValue() const;
+        float floatValue() const;
+        double doubleValue() const;
+
         static const String toString(int value);
         static const String toString(int value, int radix);
         static int parseInt(const sk::util::String& value);

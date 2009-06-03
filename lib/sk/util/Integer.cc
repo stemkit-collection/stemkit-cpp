@@ -1,4 +1,5 @@
-/*  Copyright (c) 2005, Gennady Bystritsky <bystr@mac.com>
+/*  vi: sw=2:
+ *  Copyright (c) 2005, Gennady Bystritsky <bystr@mac.com>
  *  
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
@@ -30,6 +31,48 @@ sk::util::Integer::
 getClass() const
 {
   return sk::util::Class("sk::util::Integer");
+}
+
+char 
+sk::util::Integer::
+byteValue() const
+{
+  return _value;
+}
+
+int 
+sk::util::Integer::
+intValue() const
+{
+  return _value;
+}
+
+short 
+sk::util::Integer::
+shortValue() const
+{
+  return _value;
+}
+
+int64_t 
+sk::util::Integer::
+longValue() const
+{
+  return _value;
+}
+
+float 
+sk::util::Integer::
+floatValue() const
+{
+  return _value;
+}
+
+double 
+sk::util::Integer::
+doubleValue() const
+{
+  return _value;
 }
 
 const sk::util::String
