@@ -33,6 +33,20 @@ getClass() const
   return sk::util::Class("sk::util::Integer");
 }
 
+const sk::util::String
+sk::util::Integer::
+toString() const 
+{
+  return sk::util::Integer::toString(_value);
+}
+
+const sk::util::String
+sk::util::Integer::
+inspect() const 
+{
+  return toString();
+}
+
 char 
 sk::util::Integer::
 byteValue() const
