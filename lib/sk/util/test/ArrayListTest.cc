@@ -8,6 +8,7 @@
 
 #include "ArrayListTest.h"
 #include <sk/util/ArrayList.cxx>
+#include <sk/util/Holder.cxx>
 #include "Probe.h"
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::util::test::ArrayListTest);
@@ -111,4 +112,38 @@ testForEach()
 
   list.forEach(Copier(target));
   CPPUNIT_ASSERT_EQUAL(size_t(3), target.size());
+}
+
+namespace {
+  struct ExactStringSelector : public virtual sk::util::Selector<sk::util::String> {
+    ExactStringSelector(const sk::util::String& item)
+      : _item(item) {}
+
+    bool assess(const sk::util::String& item) const {
+      return _item.equals(item);
+    }
+    const sk::util::String& _item;
+  };
+};
+
+void
+sk::util::test::ArrayListTest::
+testFind()
+{
+  ArrayList<String> list;
+
+  list.add(new String("aaa"));
+  list.add(new String("bbb"));
+  list.add(new String("ccc"));
+  Holder<String> holder;
+
+  CPPUNIT_ASSERT(list.find(holder, ExactStringSelector("zzz")) == false);
+  CPPUNIT_ASSERT(list.find(holder, ExactStringSelector("aaa")) == true);
+  CPPUNIT_ASSERT(&holder.get() == &list.get(0));
+
+  CPPUNIT_ASSERT(list.find(holder, ExactStringSelector("ccc")) == true);
+  CPPUNIT_ASSERT(&holder.get() == &list.get(2));
+
+  CPPUNIT_ASSERT(list.find(holder, ExactStringSelector("zzz")) == false);
+  CPPUNIT_ASSERT(holder.isEmpty() == true);
 }

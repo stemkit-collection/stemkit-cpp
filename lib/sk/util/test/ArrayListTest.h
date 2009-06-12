@@ -22,6 +22,7 @@ namespace sk {
           CPPUNIT_TEST(testAdd);
           CPPUNIT_TEST(testGet);
           CPPUNIT_TEST(testForEach);
+          CPPUNIT_TEST(testFind);
         CPPUNIT_TEST_SUITE_END();
         
         public:
@@ -34,6 +35,7 @@ namespace sk {
           void testAdd();
           void testGet();
           void testForEach();
+          void testFind();
           
         private:
           ArrayListTest(const ArrayListTest& other);

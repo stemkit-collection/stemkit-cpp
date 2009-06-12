@@ -95,6 +95,21 @@ forEach(const sk::util::Processor<T>& processor) const
 }
 
 template<class T>
+bool
+sk::util::ArrayList<T>::
+find(sk::util::Holder<T>& holder, const sk::util::Selector<T>& selector) const
+{
+  for(typename container::const_iterator iterator = _container.begin(); iterator != _container.end() ; ++iterator) {
+    if(selector.assess((*iterator)->get()) == true) {
+      holder.set((*iterator)->get());
+      return true;
+    }
+  }
+  holder.clear();
+  return false;
+}
+
+template<class T>
 T& 
 sk::util::ArrayList<T>::
 get(int index) const 
