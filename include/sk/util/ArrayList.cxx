@@ -11,6 +11,7 @@
 
 #include <sk/util/ArrayList.hxx>
 #include <sk/util/AbstractList.cxx>
+#include <sk/util/Holder.cxx>
 #include <sk/util/Slot.hxx>
 #include <sk/util/slot/Reference.cxx>
 #include <sk/util/slot/Pointer.cxx>
