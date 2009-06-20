@@ -6,33 +6,33 @@
 #include <string>
 #include <memory>
 
-struct O {
-  O() {
-    std::cerr << "O::O(), this=" << this << std::endl;
+struct Object {
+  Object() {
+    std::cerr << "Object::Object(), this=" << this << std::endl;
   }
-  virtual ~O() {
-    std::cerr << "O::~O(), this=" << this << std::endl;
+  virtual ~Object() {
+    std::cerr << "Object::~Object(), this=" << this << std::endl;
   }
-  virtual O* clone() const {
-    std::cerr << "O::clone(), this=" << this << std::endl;
-    throw std::string("O:clone: Unsupported");
+  virtual Object* clone() const {
+    std::cerr << "Object::clone(), this=" << this << std::endl;
+    throw std::string("Object:clone: Unsupported");
   }
 };
 
-struct S : public virtual O {
-  virtual S* clone() const = 0;
+struct Base : public virtual Object {
+  virtual Base* clone() const = 0;
 };
 
-struct FS : public virtual S {
-  FS() : _data(123456) {
-    std::cerr << "FS::FS(), this=" << this << ", data=" << _data << std::endl;
+struct Derrived : public virtual Base {
+  Derrived() : _data(123456) {
+    std::cerr << "Derrived::Derrived(), this=" << this << ", data=" << _data << std::endl;
   }
-  ~FS() {
-    std::cerr << "FS::~FS(), this=" << this << ", data=" << _data << std::endl;
+  ~Derrived() {
+    std::cerr << "Derrived::~Derrived(), this=" << this << ", data=" << _data << std::endl;
   }
-  FS* clone() const {
-    std::cerr << "FS::clone(), this=" << this << ", data=" << _data << std::endl;
-    return new FS();
+  Derrived* clone() const {
+    std::cerr << "Derrived::clone(), this=" << this << ", data=" << _data << std::endl;
+    return new Derrived();
   }
 
   int _data;
@@ -40,9 +40,9 @@ struct FS : public virtual S {
 
 int main(int argc, const char* argv[])
 {
-  FS fdis;
-  S& s = fdis;
-  std::auto_ptr<O> o(s.clone());
+  Derrived fdis;
+  Base& s = fdis;
+  std::auto_ptr<Object> o(s.clone());
 
   return 0;
 }

@@ -24,6 +24,7 @@
 #include <sk/sys/AbstractProcessListener.h>
 #include <sk/sys/ProcessLaunchException.h>
 #include "ManagedProcess.h"
+#include <unistd.h>
 
 static const char* __className("sk::sys::DaemonProcess");
 
