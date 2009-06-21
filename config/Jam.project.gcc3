@@ -262,7 +262,8 @@ rule platform-hpux-pa
 
   C++FLAGS += -fPIC ;
   CCFLAGS += -fPIC ;
-  DEFINES += ;
+  DEFINES += _FILE_OFFSET_BITS=64 _LARGEFILE64_SOURCE _REENTRANT ;
+  DEFINES += _XOPEN_SOURCE _XOPEN_SOURCE_EXTENDED=1 ;
   INCLUDES += [ util.make-path $(system.SRCTOP) platform include hpux ] ;
   SYSLIBS = ;
 
@@ -284,7 +285,8 @@ rule platform-hpux-ia64
   }
   C++FLAGS += $(CC_ABI_FLAGS) -fPIC ;
   CCFLAGS += $(CC_ABI_FLAGS) -fPIC ;
-  DEFINES += ;
+  DEFINES += _FILE_OFFSET_BITS=64 _LARGEFILE64_SOURCE _REENTRANT ;
+  DEFINES += _XOPEN_SOURCE _XOPEN_SOURCE_EXTENDED=1 ;
   INCLUDES += [ util.make-path $(system.SRCTOP) platform include hpux ] ;
   SYSLIBS = ;
 
