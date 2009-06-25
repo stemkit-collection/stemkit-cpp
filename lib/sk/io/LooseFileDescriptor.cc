@@ -11,6 +11,7 @@
 
 #include <sk/io/LooseFileDescriptor.h>
 #include <sk/io/EOFException.h>
+#include <sk/io/IOException.h>
 #include <sk/io/ClosedChannelException.h>
 #include <sk/rt/SystemException.h>
 #include <sk/util/IllegalArgumentException.h>
@@ -74,7 +75,7 @@ read(char* buffer, int offset, int length)
     }
     if(n < 0) {
       if(errno != EAGAIN) {
-        throw sk::rt::SystemException("read");
+        throw sk::io::IOException("read");
       }
     }
     return n;
@@ -98,7 +99,7 @@ write(const char* buffer, int offset, int length)
       if(errno == EAGAIN) {
         continue;
       }
-      throw sk::rt::SystemException("write");
+      throw sk::io::IOException("write");
     }
     return n;
   }

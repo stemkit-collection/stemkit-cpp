@@ -79,5 +79,5 @@ testCloseInput()
 
   pipe.closeInput();
   sk::io::AnonymousPipe::ignoreSignals();
-  CPPUNIT_ASSERT_THROW(pipe.outputStream().write(0), sk::rt::SystemException);
+  CPPUNIT_ASSERT_THROW(pipe.outputStream().write(0), sk::io::IOException);
 }
