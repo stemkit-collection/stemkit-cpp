@@ -1,4 +1,5 @@
-/*  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
+/*  vi: sw=2:
+ *  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
  *  
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
@@ -34,6 +35,13 @@ sk::util::Exception::
 getClass() const
 {
   return sk::util::Class("sk::util::Exception");
+}
+
+const sk::util::String
+sk::util::Exception::
+inspect() const
+{
+  return getClass().getName() + "[" + getMessage() + "]";
 }
 
 const char*

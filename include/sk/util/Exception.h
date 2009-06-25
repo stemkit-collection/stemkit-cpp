@@ -27,6 +27,7 @@ namespace sk {
         
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
+        const sk::util::String inspect() const;
 
         // std::exception implementation.
         const char* what() const throw();
