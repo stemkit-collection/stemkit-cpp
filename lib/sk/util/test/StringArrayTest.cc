@@ -208,3 +208,29 @@ testPopShift()
   CPPUNIT_ASSERT_THROW(array.pop(), sk::util::NoSuchElementException);
   CPPUNIT_ASSERT_THROW(array.shift(), sk::util::NoSuchElementException);
 }
+
+void
+sk::util::test::StringArrayTest::
+testSlice()
+{
+  sk::util::StringArray data = sk::util::StringArray::parse("aaa bbb ccc");
+  CPPUNIT_ASSERT_EQUAL(0, data.slice(0).size());
+
+  sk::util::StringArray s1 = data.slice(1);
+  CPPUNIT_ASSERT_EQUAL(1, s1.size());
+  CPPUNIT_ASSERT_EQUAL("aaa", s1.get(0));
+
+  sk::util::StringArray s2 = data.slice(2);
+  CPPUNIT_ASSERT_EQUAL(2, s2.size());
+  CPPUNIT_ASSERT_EQUAL("aaa", s2.get(0));
+  CPPUNIT_ASSERT_EQUAL("bbb", s2.get(1));
+
+  sk::util::StringArray s3 = data.slice(3);
+  CPPUNIT_ASSERT_EQUAL(3, s3.size());
+  CPPUNIT_ASSERT_EQUAL("aaa", s3.get(0));
+  CPPUNIT_ASSERT_EQUAL("bbb", s3.get(1));
+  CPPUNIT_ASSERT_EQUAL("ccc", s3.get(2));
+
+  CPPUNIT_ASSERT_THROW(data.slice(-1), sk::util::NoSuchElementException);
+  CPPUNIT_ASSERT_THROW(data.slice(4), sk::util::NoSuchElementException);
+}

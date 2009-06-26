@@ -119,7 +119,8 @@ get(int index) const
   if(index<0 || index>=size()) {
     throw sk::util::IndexOutOfBoundsException("get()");
   }
-  return std::deque<sk::util::String>::at(index);
+  const std::deque<sk::util::String>& self = *this;
+  return self[index];
 }
 
 bool
@@ -247,4 +248,19 @@ pop()
   pop_back();
 
   return item;
+}
+
+const sk::util::StringArray
+sk::util::StringArray::
+slice(int number) const
+{
+  sk::util::StringArray result;
+  if(number<0 || number>size()) {
+    throw sk::util::NoSuchElementException("slice");
+  }
+  const std::deque<sk::util::String>& self = *this;
+  for(int index=0; index<number ;++index) {
+    result << self[index];
+  }
+  return result;
 }
