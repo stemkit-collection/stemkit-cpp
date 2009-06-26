@@ -10,6 +10,7 @@
 #include <sk/util/StringArray.h>
 #include <sk/util/Class.h>
 #include <sk/util/IndexOutOfBoundsException.h>
+#include <sk/util/NoSuchElementException.h>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::util::test::StringArrayTest);
 
@@ -173,4 +174,18 @@ testJoin()
   CPPUNIT_ASSERT_EQUAL("aaa:bbb:ccc", data.join(":"));
   CPPUNIT_ASSERT_EQUAL("> aaa:bbb:ccc", data.join("> ", ":"));
   CPPUNIT_ASSERT_EQUAL("(aaa:bbb:ccc)", data.join("(", ":", ")"));
+}
+
+void
+sk::util::test::StringArrayTest::
+testLastFirst()
+{
+  CPPUNIT_ASSERT_EQUAL("aaa", sk::util::StringArray::parse("aaa bbb ccc").first());
+  CPPUNIT_ASSERT_EQUAL("ccc", sk::util::StringArray::parse("aaa bbb ccc").last());
+
+  CPPUNIT_ASSERT_EQUAL("aaa", sk::util::StringArray::parse("aaa").first());
+  CPPUNIT_ASSERT_EQUAL("aaa", sk::util::StringArray::parse("aaa").last());
+
+  CPPUNIT_ASSERT_THROW(sk::util::StringArray().first(), sk::util::NoSuchElementException);
+  CPPUNIT_ASSERT_THROW(sk::util::StringArray().last(), sk::util::NoSuchElementException);
 }

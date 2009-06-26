@@ -28,6 +28,7 @@ namespace sk {
           CPPUNIT_TEST(testParseDefault);
           CPPUNIT_TEST(testParseWithSeparator);
           CPPUNIT_TEST(testJoin);
+          CPPUNIT_TEST(testLastFirst);
         CPPUNIT_TEST_SUITE_END();
         
         public:
@@ -46,6 +47,7 @@ namespace sk {
           void testParseDefault();
           void testParseWithSeparator();
           void testJoin();
+          void testLastFirst();
           
         private:
           StringArrayTest(const StringArrayTest& other);

@@ -9,6 +9,7 @@
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
 #include <sk/util/IndexOutOfBoundsException.h>
+#include <sk/util/NoSuchElementException.h>
 
 #include <sk/util/StringArray.h>
 #include <sk/util/InspectingConverter.cxx>
@@ -200,4 +201,24 @@ parse(const sk::util::String& specification, const sk::util::String& separator)
     head_index = tail_index + 1;
   }
   return result;
+}
+
+const sk::util::String&
+sk::util::StringArray::
+first() const
+{
+  if(isEmpty() == true) {
+    throw sk::util::NoSuchElementException("first");
+  }
+  return std::vector<sk::util::String>::front();
+}
+
+const sk::util::String&
+sk::util::StringArray::
+last() const
+{
+  if(isEmpty() == true) {
+    throw sk::util::NoSuchElementException("last");
+  }
+  return std::vector<sk::util::String>::back();
 }
