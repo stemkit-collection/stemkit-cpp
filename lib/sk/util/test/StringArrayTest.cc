@@ -180,12 +180,31 @@ void
 sk::util::test::StringArrayTest::
 testLastFirst()
 {
+  CPPUNIT_ASSERT_THROW(sk::util::StringArray().first(), sk::util::NoSuchElementException);
+  CPPUNIT_ASSERT_THROW(sk::util::StringArray().last(), sk::util::NoSuchElementException);
+
   CPPUNIT_ASSERT_EQUAL("aaa", sk::util::StringArray::parse("aaa bbb ccc").first());
   CPPUNIT_ASSERT_EQUAL("ccc", sk::util::StringArray::parse("aaa bbb ccc").last());
 
   CPPUNIT_ASSERT_EQUAL("aaa", sk::util::StringArray::parse("aaa").first());
   CPPUNIT_ASSERT_EQUAL("aaa", sk::util::StringArray::parse("aaa").last());
+}
 
-  CPPUNIT_ASSERT_THROW(sk::util::StringArray().first(), sk::util::NoSuchElementException);
-  CPPUNIT_ASSERT_THROW(sk::util::StringArray().last(), sk::util::NoSuchElementException);
+void 
+sk::util::test::StringArrayTest::
+testPopShift()
+{
+  sk::util::StringArray array = sk::util::StringArray::parse("aaa bbb ccc");
+
+  CPPUNIT_ASSERT_EQUAL("aaa", array.shift());
+  CPPUNIT_ASSERT_EQUAL(2, array.size());
+
+  CPPUNIT_ASSERT_EQUAL("ccc", array.pop());
+  CPPUNIT_ASSERT_EQUAL(1, array.size());
+
+  CPPUNIT_ASSERT_EQUAL("bbb", array.shift());
+  CPPUNIT_ASSERT_EQUAL(0, array.size());
+
+  CPPUNIT_ASSERT_THROW(array.pop(), sk::util::NoSuchElementException);
+  CPPUNIT_ASSERT_THROW(array.shift(), sk::util::NoSuchElementException);
 }

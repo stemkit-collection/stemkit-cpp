@@ -29,6 +29,7 @@ namespace sk {
           CPPUNIT_TEST(testParseWithSeparator);
           CPPUNIT_TEST(testJoin);
           CPPUNIT_TEST(testLastFirst);
+          CPPUNIT_TEST(testPopShift);
         CPPUNIT_TEST_SUITE_END();
         
         public:
@@ -48,6 +49,7 @@ namespace sk {
           void testParseWithSeparator();
           void testJoin();
           void testLastFirst();
+          void testPopShift();
           
         private:
           StringArrayTest(const StringArrayTest& other);

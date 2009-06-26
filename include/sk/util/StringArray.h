@@ -12,12 +12,12 @@
 #include <sk/util/String.h>
 #include <sk/util/Processor.h>
 #include <sk/util/Converter.h>
-#include <vector>
+#include <deque>
 
 namespace sk {
   namespace util {
     class StringArray
-      : public std::vector<sk::util::String>,
+      : public std::deque<sk::util::String>,
         public virtual sk::util::Object 
     {
       public:

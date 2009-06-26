@@ -23,13 +23,13 @@ StringArray()
 
 sk::util::StringArray::
 StringArray(const sk::util::String& item)
-  : std::vector<sk::util::String>(1, item)
+  : std::deque<sk::util::String>(1, item)
 {
 }
 
 sk::util::StringArray::
 StringArray(const char* item)
-  : std::vector<sk::util::String>(1, item)
+  : std::deque<sk::util::String>(1, item)
 {
 }
 
@@ -109,7 +109,7 @@ int
 sk::util::StringArray::
 size() const
 {
-  return std::vector<sk::util::String>::size();
+  return std::deque<sk::util::String>::size();
 }
 
 const sk::util::String&
@@ -119,7 +119,7 @@ get(int index) const
   if(index<0 || index>=size()) {
     throw sk::util::IndexOutOfBoundsException("get()");
   }
-  return std::vector<sk::util::String>::at(index);
+  return std::deque<sk::util::String>::at(index);
 }
 
 bool
@@ -210,7 +210,7 @@ first() const
   if(isEmpty() == true) {
     throw sk::util::NoSuchElementException("first");
   }
-  return std::vector<sk::util::String>::front();
+  return std::deque<sk::util::String>::front();
 }
 
 const sk::util::String&
@@ -220,5 +220,31 @@ last() const
   if(isEmpty() == true) {
     throw sk::util::NoSuchElementException("last");
   }
-  return std::vector<sk::util::String>::back();
+  return std::deque<sk::util::String>::back();
+}
+
+const sk::util::String
+sk::util::StringArray::
+shift()
+{
+  if(isEmpty() == true) {
+    throw sk::util::NoSuchElementException("shift");
+  }
+  const sk::util::String item = std::deque<sk::util::String>::front();
+  pop_front();
+
+  return item;
+}
+
+const sk::util::String
+sk::util::StringArray::
+pop()
+{
+  if(isEmpty() == true) {
+    throw sk::util::NoSuchElementException("pop");
+  }
+  const sk::util::String item = std::deque<sk::util::String>::back();
+  pop_back();
+
+  return item;
 }
