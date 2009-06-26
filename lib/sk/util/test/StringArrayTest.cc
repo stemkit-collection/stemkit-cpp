@@ -159,3 +159,18 @@ testParseWithSeparator()
   CPPUNIT_ASSERT_EQUAL("", strings.get(3));
   CPPUNIT_ASSERT_EQUAL("DDD", strings.get(4));
 }
+
+void 
+sk::util::test::StringArrayTest::
+testJoin()
+{
+  CPPUNIT_ASSERT_EQUAL("", sk::util::StringArray().join(":"));
+  CPPUNIT_ASSERT_EQUAL("", sk::util::StringArray().join("> ", ":"));
+  CPPUNIT_ASSERT_EQUAL("", sk::util::StringArray().join(" [", ":", "]"));
+
+  sk::util::StringArray data = sk::util::StringArray::parse("aaa bbb ccc");
+
+  CPPUNIT_ASSERT_EQUAL("aaa:bbb:ccc", data.join(":"));
+  CPPUNIT_ASSERT_EQUAL("> aaa:bbb:ccc", data.join("> ", ":"));
+  CPPUNIT_ASSERT_EQUAL("(aaa:bbb:ccc)", data.join("(", ":", ")"));
+}

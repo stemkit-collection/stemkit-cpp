@@ -11,6 +11,7 @@
 #include <sk/util/IndexOutOfBoundsException.h>
 
 #include <sk/util/StringArray.h>
+#include <sk/util/InspectingConverter.cxx>
 
 static const char* __className = "sk::util::StringArray";
 
@@ -47,26 +48,30 @@ const sk::util::String
 sk::util::StringArray::
 inspect() const
 {
-  sk::util::String joined;
-  const_iterator iterator = begin();
-
-  while(iterator != end() ) {
-    joined += (*iterator).inspect();
-    if(++iterator != end()) {
-      joined += ',';
-    }
-    joined += ' ';
-  }
-  if(joined.size() > 0) {
-    joined = " " + joined;
-  }
-  return getClass().getName() + '[' + joined + ']';
+  return getClass().getName() + '[' + map(sk::util::InspectingConverter<sk::util::String>()).join(" ", ", ", " ") + ']';
 }
 
 const sk::util::String
 sk::util::StringArray::
 join(const sk::util::String& separator) const
 {
+  return join(sk::util::String::EMPTY, separator, sk::util::String::EMPTY);
+}
+
+const sk::util::String
+sk::util::StringArray::
+join(const sk::util::String& prologue, const sk::util::String& separator) const
+{
+  return join(prologue, separator, sk::util::String::EMPTY);
+}
+
+const sk::util::String
+sk::util::StringArray::
+join(const sk::util::String& prologue, const sk::util::String& separator, const sk::util::String& epilogue) const
+{
+  if(isEmpty() == true) {
+    return sk::util::String::EMPTY;
+  }
   sk::util::String joined;
   const_iterator iterator = begin();
 
@@ -76,7 +81,27 @@ join(const sk::util::String& separator) const
       joined += separator;
     }
   }
-  return joined;
+  return prologue + joined + epilogue;
+}
+
+const sk::util::StringArray
+sk::util::StringArray::
+map(const sk::util::Converter<sk::util::String, sk::util::String>& converter) const
+{
+  sk::util::StringArray result;
+  struct Mapper : public virtual sk::util::Processor<const sk::util::String> {
+    Mapper(sk::util::StringArray& array, const sk::util::Converter<sk::util::String, sk::util::String>& converter)
+      : _array(array), _converter(converter) {}
+
+    void process(const sk::util::String& item) const {
+      _array << _converter.convert(item);
+    }
+    sk::util::StringArray& _array; 
+    const sk::util::Converter<sk::util::String, sk::util::String>& _converter;
+  };
+  forEach(Mapper(result, converter));
+
+  return result;
 }
 
 int

@@ -12,7 +12,7 @@
 
 namespace sk {
   namespace util {
-    template<class T>
+    template<typename T>
     class Processor
       : public virtual sk::util::Object 
     {
@@ -20,7 +20,7 @@ namespace sk {
         virtual void process(T& o) const = 0;
     };
 
-    template<class T1, class T2>
+    template<typename T1, typename T2>
     class BinaryProcessor
       : public virtual sk::util::Object 
     {

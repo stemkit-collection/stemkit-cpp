@@ -12,7 +12,7 @@
 
 namespace sk {
   namespace util {
-    template<class T>
+    template<typename T>
     class Selector
       : public virtual sk::util::Object 
     {
