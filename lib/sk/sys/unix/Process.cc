@@ -351,6 +351,9 @@ join()
       if(errno == EINTR) {
         continue;
       }
+      if(errno == ECHILD) {
+        break;
+      }
       throw sk::rt::SystemException("waitpid:" + sk::util::String::valueOf(_pid));
     }
     if(result == _pid) {

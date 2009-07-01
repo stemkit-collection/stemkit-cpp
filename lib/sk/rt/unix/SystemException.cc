@@ -16,15 +16,25 @@
 
 static const char* __className("sk::rt::SystemException");
 
+namespace {
+  const sk::util::String get_errno_message(int code) {
+    char buffer[1024];
+    if(strerror_r(code, buffer, sizeof(buffer)) == 0) {
+      return buffer;
+    }
+    return "Error " + sk::util::String::valueOf(code);
+  }
+}
+
 sk::rt::SystemException::
 SystemException(const sk::util::String& message)
-  : sk::util::Exception(join(join(join("Runtime", message), errno), strerror(errno))), _code(errno)
+  : sk::util::Exception(join(join(join("Runtime", message), errno), get_errno_message(errno))), _code(errno)
 {
 }
 
 sk::rt::SystemException::
 SystemException(const sk::util::String& message, uint32_t code)
-  : sk::util::Exception(join(join(join("Runtime", message), code), strerror(code))), _code(code)
+  : sk::util::Exception(join(join(join("Runtime", message), code), get_errno_message(code))), _code(code)
 {
 }
 

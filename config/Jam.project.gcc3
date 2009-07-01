@@ -38,7 +38,7 @@ LD_EXPORT_DYNAMIC = -Wl,-E ;
 C++FLAGS = -Werror -Wreturn-type -Wno-ctor-dtor-privacy ;
 CCFLAGS = -Werror -Wreturn-type ;
 
-DEFINES  = _REENTRANT ;
+DEFINES  = _REENTRANT _THREAD_SAFE ;
 
 if $(JAM_OFFSET_PLATFORM) = true {
   system.setup-artifact-offsets : : $(PRODUCT_PLATFORM) ;
