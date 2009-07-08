@@ -1,4 +1,5 @@
-/*  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
+/*  vi: sw=2:
+ *  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
  *  
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
@@ -14,9 +15,9 @@
 
 namespace {
   const sk::util::String get_errno_message(int code) {
-    char buffer[1024];
-    if(strerror_r(code, buffer, sizeof(buffer)) == 0) {
-      return buffer;
+    const char* message = strerror(code);
+    if(message != 0) {
+      return message;
     }
     return "Error " + sk::util::String::valueOf(code);
   }

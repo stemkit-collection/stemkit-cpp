@@ -18,9 +18,9 @@ static const char* __className("sk::rt::SystemException");
 
 namespace {
   const sk::util::String get_errno_message(int code) {
-    char buffer[1024];
-    if(strerror_r(code, buffer, sizeof(buffer)) == 0) {
-      return buffer;
+    const char* message = strerror(code);
+    if(message != 0) {
+      return message;
     }
     return "Error " + sk::util::String::valueOf(code);
   }
