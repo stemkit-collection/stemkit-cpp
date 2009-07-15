@@ -36,6 +36,7 @@ namespace sk {
             void stop();
             void interrupt();
             void join();
+            void detach();
         
             // sk::util::Object re-implementation.
             const sk::util::Class getClass() const;

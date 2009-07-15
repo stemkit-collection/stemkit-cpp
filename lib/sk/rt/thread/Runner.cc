@@ -105,7 +105,9 @@ void
 sk::rt::thread::Runner::
 detach()
 {
-  getThreadImplementation();
+  if(_detached == false) {
+    getThreadImplementation().detach();
+  }
   _detached = true;
 }
 

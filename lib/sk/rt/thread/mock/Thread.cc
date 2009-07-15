@@ -66,3 +66,10 @@ join()
   throw sk::util::UnsupportedOperationException(SK_METHOD);
 }
 
+void 
+sk::rt::thread::mock::Thread::
+detach()
+{
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
+}
+

@@ -53,9 +53,10 @@ void perform()
   Printer printer;
   sk::rt::Thread thread(printer);
 
-  thread.detach();
   thread.start();
+  thread.detach();
 
-  sk::rt::Thread::sleep(1000);
+  sk::rt::Thread::sleep(10);
+
   // thread.join();
 }

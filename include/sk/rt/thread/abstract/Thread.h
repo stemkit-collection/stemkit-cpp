@@ -25,6 +25,7 @@ namespace sk {
             virtual void stop() = 0;
             virtual void interrupt() = 0;
             virtual void join() = 0;
+            virtual void detach() = 0;
         };
       }
     }

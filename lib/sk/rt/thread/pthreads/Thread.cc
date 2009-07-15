@@ -98,6 +98,13 @@ join()
 
 void 
 sk::rt::thread::pthreads::Thread::
+detach()
+{
+  SK_PTHREAD_RAISE_UNLESS_SUCCESS(pthread_detach(_thread));
+}
+
+void 
+sk::rt::thread::pthreads::Thread::
 run()
 {
   try {
