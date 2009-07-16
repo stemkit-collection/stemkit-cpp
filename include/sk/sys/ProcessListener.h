@@ -11,6 +11,7 @@
 
 #include <sk/util/Object.h>
 #include <sk/util/String.h>
+#include <sk/io/Stream.h>
 
 namespace sk {
   namespace sys {
@@ -20,7 +21,7 @@ namespace sk {
       : public virtual sk::util::Object 
     {
       public:
-        virtual void processStarting() = 0;
+        virtual void processStarting(sk::io::Stream& umbilical) = 0;
         virtual int processStopping() = 0;
         virtual void processJoining() = 0;
         virtual void processFailing(const sk::util::String& message) = 0;

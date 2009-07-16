@@ -89,10 +89,11 @@ namespace {
     Authenticator(const sk::sys::User& user, const sk::util::String& password)
       : _user(user), _password(password) {}
 
-    void processStarting() {
+    void processStarting(sk::io::Stream& umbilical) {
       // This is needed to be able to open a pty when EUID != UID. Without it 
       // opening of a pty slave device fails on AIX.
       //
+      umbilical.close();
       seteuid(getuid());
       
       // The following "trick" of keeping at least 3 file descriptors open before

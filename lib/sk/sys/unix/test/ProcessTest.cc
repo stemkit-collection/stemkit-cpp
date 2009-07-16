@@ -181,7 +181,8 @@ namespace {
     Worker(sk::io::OutputStream& stream)
       : _stream(stream) {}
 
-    void processStarting() {
+    void processStarting(sk::io::Stream& umbilical) {
+      umbilical.close();
       _stream.close();
 
       int number;
@@ -225,7 +226,8 @@ namespace {
       configurator.setOutputStream(_pipe.outputStream());
       _pipe.close();
     }
-    void processStarting() {
+    void processStarting(sk::io::Stream& umbilical) {
+      umbilical.close();
       ::write(1, "E: ", 3);
     }
     sk::io::AnonymousPipe& _pipe;

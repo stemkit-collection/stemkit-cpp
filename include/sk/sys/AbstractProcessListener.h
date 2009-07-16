@@ -18,7 +18,7 @@ namespace sk {
       public:
         virtual ~AbstractProcessListener();
         
-        void processStarting();
+        void processStarting(sk::io::Stream& umbilical);
         int processStopping();
         void processJoining();
         void processFailing(const sk::util::String& message);

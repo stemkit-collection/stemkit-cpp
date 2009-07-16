@@ -181,7 +181,8 @@ namespace {
     Worker(sk::io::OutputStream& stream)
       : _stream(stream) {}
 
-    void processStarting() {
+    void processStarting(sk::io::Stream& umbilical) {
+      umbilical.close();
       _stream.close();
 
       int number;

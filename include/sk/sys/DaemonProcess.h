@@ -45,7 +45,7 @@ namespace sk {
         const sk::sys::Executable& getExecutable() const;
 
         // sk::sys::ProcessListener implementation.
-        void processStarting();
+        void processStarting(sk::io::Stream& umbilical);
         int processStopping();
         void processJoining();
         void processFailing(const sk::util::String& message);

@@ -57,7 +57,7 @@ namespace sk {
         const sk::util::Class getClass() const;
 
         // sk::sys::ProcessListener implementation.
-        void processStarting();
+        void processStarting(sk::io::Stream& umbilical);
         int processStopping();
         void processJoining();
 

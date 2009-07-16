@@ -135,7 +135,8 @@ namespace {
       }
     }
 
-    void processStarting() {
+    void processStarting(sk::io::Stream& umbilical) {
+      umbilical.close();
       _stream.writeInt(::getpid());
       _stream.inheritable(false);
     }
@@ -151,7 +152,7 @@ namespace {
 
 void 
 sk::sys::DaemonProcess::
-processStarting() 
+processStarting(sk::io::Stream& umbilical) 
 {
   _pipe.inputStream().close();
   DaemonConfigurator configurator(_scope, _pipe.outputStream());

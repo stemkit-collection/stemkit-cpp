@@ -106,7 +106,7 @@ getExecutable() const
 
 void 
 sk::sys::DaemonProcess::
-processStarting() 
+processStarting(sk::io::Stream& umbilical) 
 {
 }
 

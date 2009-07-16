@@ -281,7 +281,7 @@ start(sk::io::InputStream& inputStream, const sk::util::StringArray& args)
 
 void
 sk::sys::Process::
-processStarting()
+processStarting(sk::io::Stream& umbilical)
 {
 }
 

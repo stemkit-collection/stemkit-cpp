@@ -29,7 +29,7 @@ getClass() const
 
 void 
 sk::sys::AbstractProcessListener::
-processStarting()
+processStarting(sk::io::Stream& umbilical)
 {
 }
 

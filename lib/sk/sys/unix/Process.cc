@@ -233,8 +233,7 @@ start(sk::io::InputStream& inputStream, const sk::util::StringArray& cmdline)
       if(configurator.isProcessGroup == true || configurator.isConsole == false) {
         ::setsid();
       }
-      pipe.closeOutput();
-      _listener.processStarting();
+      _listener.processStarting(pipe.outputStream());
       _scope.notice("start") << cmdline.inspect();
 
       if(cmdline.empty() == false) {
@@ -272,7 +271,7 @@ start(sk::io::InputStream& inputStream, const sk::util::StringArray& cmdline)
 
 void
 sk::sys::Process::
-processStarting()
+processStarting(sk::io::Stream& umbilical)
 {
 }
 
