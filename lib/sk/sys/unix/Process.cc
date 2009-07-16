@@ -213,11 +213,6 @@ start(sk::io::InputStream& inputStream, const sk::util::StringArray& cmdline)
   }
   if(_pid == 0) {
     try {
-      sk::rt::Scope::controller().getAggregator().resetArbitrator();
-    }
-    catch(...) {}
-
-    try {
       sk::rt::Environment environment;
       Configurator configurator(_scope, environment);
       configurator.setInputStream(inputStream);
