@@ -60,9 +60,12 @@ namespace sk {
          *  in a copy chain.
         */
         ~Locker();
+
+        void unlock();
     
       private:
         sk::util::Holder<L, sk::util::slot::policy::Sharing<L> > _lockHolder;
+        bool _locked;
     };
   }
 }

@@ -17,7 +17,7 @@
 template<typename L>
 sk::rt::Locker<L>::
 Locker(L& lock)
-  : _lockHolder(lock)
+  : _lockHolder(lock), _locked(true)
 {
   lock.lock();
 }
@@ -27,7 +27,18 @@ sk::rt::Locker<L>::
 ~Locker()
 {
   if(_lockHolder.getLinks() == 1) {
+    unlock();
+  }
+}
+
+template<typename L>
+void
+sk::rt::Locker<L>::
+unlock()
+{
+  if(_locked == true) {
     _lockHolder.get().unlock();
+    _locked = false;
   }
 }
 

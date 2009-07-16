@@ -20,12 +20,15 @@
 #include <sk/sys/ProcessConfigurator.h>
 #include <sk/sys/ProcessLaunchException.h>
 #include <sk/sys/StreamPortal.h>
+#include <sk/io/EOFException.h>
 #include <sk/io/FileDescriptorStream.h>
 #include <sk/io/NullDevice.h>
 #include <sk/io/DataInputStream.h>
+#include <sk/io/AnonymousPipe.h>
 #include <sk/rt/Thread.h>
 #include <sk/rt/Runnable.h>
 #include <sk/rt/Locker.cxx>
+#include <sk/rt/scope/Arbitrator.h>
 
 #include <errno.h>
 #include <unistd.h>
@@ -206,12 +209,17 @@ start(sk::io::InputStream& inputStream, const sk::util::StringArray& cmdline)
   _detached = false;
   _running = false;
 
+  sk::io::AnonymousPipe pipe;
+  sk::rt::Locker<sk::rt::scope::Arbitrator> locker(sk::rt::Scope::controller().getAggregator().getArbitrator());
   _pid = fork();
 
   if(_pid < 0) {
     throw sk::rt::SystemException("fork");
   }
   if(_pid == 0) {
+    locker.unlock();
+    pipe.closeInput();
+
     try {
       sk::rt::Environment environment;
       Configurator configurator(_scope, environment);
@@ -225,6 +233,7 @@ start(sk::io::InputStream& inputStream, const sk::util::StringArray& cmdline)
       if(configurator.isProcessGroup == true || configurator.isConsole == false) {
         ::setsid();
       }
+      pipe.closeOutput();
       _listener.processStarting();
       _scope.notice("start") << cmdline.inspect();
 
@@ -251,6 +260,12 @@ start(sk::io::InputStream& inputStream, const sk::util::StringArray& cmdline)
     }
     _exit(99);
   }
+  pipe.closeOutput();
+  try {
+    pipe.inputStream().read();
+  }
+  catch(const sk::io::EOFException& exception) {}
+
   _running = true;
   inputStream.close();
 }
