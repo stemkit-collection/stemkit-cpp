@@ -12,7 +12,7 @@
 #define _SK_RT_THREAD_SCOPEARBITRATOR_H_
 
 #include <sk/rt/scope/Arbitrator.h>
-#include <sk/rt/Mutex.h>
+#include <sk/rt/ReentrantLock.h>
 
 namespace sk {
   namespace rt {
@@ -36,7 +36,7 @@ namespace sk {
           ScopeArbitrator(const ScopeArbitrator& other);
           ScopeArbitrator& operator = (const ScopeArbitrator& other);
 
-          sk::rt::Mutex _mutex;
+          sk::rt::ReentrantLock _mutex;
       };
     }
   }

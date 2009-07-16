@@ -18,7 +18,6 @@ static const char* __className("sk::rt::thread::ScopeArbitrator");
 
 sk::rt::thread::ScopeArbitrator::
 ScopeArbitrator()
-  : _mutex(false)
 {
 }
 
