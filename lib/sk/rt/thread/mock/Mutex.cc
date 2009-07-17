@@ -48,6 +48,13 @@ unlock()
   _locked = false;
 }
 
+void
+sk::rt::thread::mock::Mutex::
+reset()
+{
+  _locked = false;
+}
+
 bool
 sk::rt::thread::mock::Mutex::
 tryLock()

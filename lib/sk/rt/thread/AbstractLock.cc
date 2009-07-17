@@ -73,6 +73,13 @@ unlock()
   _mutexHolder.get().unlock();
 }
 
+void
+sk::rt::thread::AbstractLock::
+reset()
+{
+  _mutexHolder.get().reset();
+}
+
 bool
 sk::rt::thread::AbstractLock::
 tryLockCheck() const

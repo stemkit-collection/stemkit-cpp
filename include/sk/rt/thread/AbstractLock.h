@@ -31,6 +31,7 @@ namespace sk {
           void lock();
           bool tryLock();
           void unlock();
+          void reset();
           
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;

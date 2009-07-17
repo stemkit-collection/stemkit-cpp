@@ -27,6 +27,7 @@ namespace sk {
             // sk::rt::thread::abstract::Mutex implementation.
             void lock();
             void unlock();
+            void reset();
             bool tryLock();
             bool hasEnterCount() const;
             int getEnterCount() const;

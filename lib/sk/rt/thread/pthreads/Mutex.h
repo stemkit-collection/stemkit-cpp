@@ -29,6 +29,7 @@ namespace sk {
             void lock();
             void unlock();
             bool tryLock();
+            void reset();
             bool hasEnterCount() const;
             int getEnterCount() const;
         

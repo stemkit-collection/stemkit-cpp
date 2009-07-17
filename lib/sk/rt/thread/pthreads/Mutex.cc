@@ -91,6 +91,13 @@ unlock()
   SK_PTHREAD_RAISE_UNLESS_SUCCESS(pthread_mutex_unlock(&_mutex));
 }
 
+void 
+sk::rt::thread::pthreads::Mutex::
+reset()
+{
+  SK_PTHREAD_RAISE_UNLESS_SUCCESS(pthread_mutex_init(&_mutex, &_attributes));
+}
+
 bool
 sk::rt::thread::pthreads::Mutex::
 tryLock()
