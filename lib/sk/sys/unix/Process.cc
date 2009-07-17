@@ -217,10 +217,15 @@ start(sk::io::InputStream& inputStream, const sk::util::StringArray& cmdline)
     throw sk::rt::SystemException("fork");
   }
   if(_pid == 0) {
+    sk::rt::scope::Arbitrator& arbitrator = sk::rt::Scope::controller().getAggregator().getArbitrator();
+
+    arbitrator.reset();
+    arbitrator.lock();
     locker.unlock();
-    pipe.closeInput();
 
     try {
+      pipe.closeInput();
+
       sk::rt::Environment environment;
       Configurator configurator(_scope, environment);
       configurator.setInputStream(inputStream);

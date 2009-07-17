@@ -18,9 +18,9 @@
 
 sk::rt::scope::Aggregator::
 Aggregator()
-  : _configHolderHolder(new sk::util::Holder<Config>(new Config))
+  : _configHolderHolder(new sk::util::Holder<Config>(new Config)),
+    _arbitratorHolder(new scope::NullArbitrator)
 {
-  resetArbitrator();
 }
 
 sk::rt::scope::Aggregator::
@@ -39,7 +39,7 @@ void
 sk::rt::scope::Aggregator::
 resetArbitrator()
 {
-  _arbitratorHolder.set(new scope::NullArbitrator);
+  setArbitrator(new scope::NullArbitrator);
 }
 
 const sk::util::Class
@@ -53,6 +53,13 @@ void
 sk::rt::scope::Aggregator::
 setArbitrator(scope::Arbitrator* arbitrator)
 {
+  try {
+    _arbitratorHolder.get().reset();
+  }
+  catch(...) {
+    _arbitratorHolder.set(arbitrator);
+    throw;
+  }
   _arbitratorHolder.set(arbitrator);
 }
 
