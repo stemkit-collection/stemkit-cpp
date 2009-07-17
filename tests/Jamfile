@@ -3,11 +3,14 @@
 local programs =
   test-covariants
   test-temporary-in-constructor-init-list
+  checked-mutex-child-unlock-linux-failure
 ;
 
 local _program ;
 for _program in $(programs) {
   make-program $(_program) : $(_program).cc ;
 }
+
+use-pthreads checked-mutex-child-unlock-linux-failure ;
 
 make-subdirs tcp-echo ;
