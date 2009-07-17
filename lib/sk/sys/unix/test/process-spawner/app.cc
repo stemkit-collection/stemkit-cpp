@@ -16,6 +16,7 @@
 #include "Spawner.h"
 #include <sk/rt/Scope.h>
 #include <sk/rt/config/InlineLocator.h>
+#include <sk/rt/thread/ScopeArbitrator.h>
 
 int main(int argc, const char* argv[])
 {
@@ -30,6 +31,7 @@ int main(int argc, const char* argv[])
         </scope>\n\
       ")
     );
+    sk::rt::Scope::controller().getAggregator().setArbitrator(new sk::rt::thread::ScopeArbitrator);
     test::Spawner app(argc, argv);
     app.start();
   }

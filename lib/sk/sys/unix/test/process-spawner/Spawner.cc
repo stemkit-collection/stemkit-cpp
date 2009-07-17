@@ -59,11 +59,6 @@ namespace {
       configurator.setOutputStream(_pipe.outputStream());
     }
 
-    void processStarting(sk::io::Stream& umbilical) {
-      umbilical.close();
-      _pipe.close();
-    }
-
     sk::io::Pipe& _pipe;
   };
 
