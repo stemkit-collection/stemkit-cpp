@@ -48,6 +48,13 @@ unlock()
   _mutex.unlock();
 }
 
+void 
+sk::rt::thread::ScopeArbitrator::
+reset()
+{
+  _mutex.reset();
+}
+
 uint64_t
 sk::rt::thread::ScopeArbitrator::
 currentThreadId() const

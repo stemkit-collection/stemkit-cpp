@@ -27,6 +27,9 @@ namespace sk {
           inline void unlock() {
           }
 
+          inline void reset() {
+          }
+
           inline uint64_t currentThreadId() const {
             return 0;
           }
