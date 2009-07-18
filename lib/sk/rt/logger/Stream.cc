@@ -40,7 +40,9 @@ makeHeader(std::ostream& stream) const
   if(_config.isLogTime() == true) {
     char buffer[64];
     time_t now = time(0);
-    strftime(buffer, sizeof(buffer), _config.getTimeFormat(), localtime(&now));
+    struct tm tm_buffer;
+
+    strftime(buffer, sizeof(buffer), _config.getTimeFormat(), localtime_r(&now, &tm_buffer));
     stream << buffer << ' ';
   }
 
