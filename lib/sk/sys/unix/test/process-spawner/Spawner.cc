@@ -21,7 +21,6 @@
 #include <sk/io/EOFException.h>
 
 #include "Spawner.h"
-#include <iostream>
 
 static const char* __className("test::Spawner");
 
@@ -96,17 +95,18 @@ namespace {
 
   struct Reader : public virtual sk::rt::Runnable {
     Reader(sk::io::InputStream& stream) 
-      : _stream(stream) {}
+      : _scope("Reader"), _stream(stream) {}
 
     void run() {
       try { 
         while(true) {
-          std::cerr << "I: " << _stream.readLine().trim() << std::endl;
+          _scope.info("I") << _stream.readLine().trim();
         }
       }
       catch(const sk::io::EOFException& exception) {}
     }
     sk::io::DataInputStream _stream;
+    sk::rt::Scope _scope;
   };
 }
 

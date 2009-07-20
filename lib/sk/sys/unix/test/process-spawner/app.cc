@@ -21,17 +21,19 @@
 int main(int argc, const char* argv[])
 {
   try {
+    sk::rt::Scope::controller().getAggregator().setArbitrator(new sk::rt::thread::ScopeArbitrator);
     sk::rt::Scope::controller().loadXmlConfig(
       sk::rt::config::InlineLocator("\n\
         <scope>\n\
-          <log destination='std::cerr' level='info' />\n\
+          <log destination='file' level='info'>\n\
+            <file name='spawner.log' chunks='0' size='0' policy='pointing' ensure-chunks='true' />\n\
+          </log>\n\
           <scope name='thread-exception-handler'>\n\
             <property name='abort-on-exception' value='true' />\n\
           </scope>\n\
         </scope>\n\
       ")
     );
-    sk::rt::Scope::controller().getAggregator().setArbitrator(new sk::rt::thread::ScopeArbitrator);
     test::Spawner app(argc, argv);
     app.start();
   }
