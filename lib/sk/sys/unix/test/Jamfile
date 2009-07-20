@@ -26,4 +26,4 @@ use-pthreads $(test) ;
 use-unit-test $(test) $(objects) ;
 make-cpp-test $(test) : $(objects) ;
 
-make-subdirs process-spawner ;
+make-subdirs process-spawner process-keeper ;
