@@ -62,16 +62,8 @@ namespace {
   };
 
   struct Block : public virtual sk::rt::Runnable {
-    Block(int id, sk::io::Pipe& pipe) 
-      : _configurator(pipe), _process(sk::util::StringArray("ksh") + "-c" + figureScript(id), _configurator) {}
-
-    static const sk::util::String figureScript(int id) {                                   
-      sk::util::String location(getenv("JAM_SRCDIR"));
-      if(location.isEmpty() == true) {
-        location = ".";
-      }
-      return location + "/" + "worker.sh " + sk::util::String::valueOf(id);
-    }
+    Block(sk::io::Pipe& pipe) 
+      : _configurator(pipe), _process(sk::util::StringArray("date"), _configurator) {}
 
     void run() {
       _process.join();
@@ -100,7 +92,7 @@ namespace {
     void run() {
       try { 
         while(true) {
-          _scope.info("I") << _stream.readLine().trim();
+          _scope.info("D") << _stream.readLine().trim();
         }
       }
       catch(const sk::io::EOFException& exception) {}
@@ -114,19 +106,27 @@ void
 test::Spawner::
 perform()
 {
-  sk::io::AnonymousPipe pipe;
-  sk::rt::Thread reader(new Reader(pipe.inputStream()));
-  reader.start();
+  time_t now = time(0);
 
-  sk::util::ArrayList<sk::rt::Thread> writers;
+  while(true) {
+    sk::io::AnonymousPipe pipe;
+    sk::rt::Thread reader(new Reader(pipe.inputStream()));
+    reader.start();
 
-  for(int counter=10; counter ; --counter) {
-    writers.add(new sk::rt::Thread(new Block(++_counter, pipe)));
+    sk::util::ArrayList<sk::rt::Thread> writers;
+
+    for(int counter=10; counter ; --counter) {
+      writers.add(new sk::rt::Thread(new Block(pipe)));
+    }
+    writers.forEach(Starter());
+    pipe.closeOutput();
+
+    writers.forEach(Joiner());
+    reader.join();
+
+    if((time(0) - now) > 600) {
+      break;
+    }
   }
-  writers.forEach(Starter());
-  pipe.closeOutput();
-
-  writers.forEach(Joiner());
-  reader.join();
 }
 
