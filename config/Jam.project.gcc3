@@ -118,6 +118,7 @@ rule platform-nt-x86
 rule platform-linux-x86
 {
   util.delete-from project.DO_NOT_BUILD : ruby java ;
+  project.PLATFORM_SPECIFICS = linux ;
 
   C++FLAGS += -fpic ;
   CCFLAGS += -fpic ;
@@ -148,6 +149,7 @@ rule platform-linux-amd64
   SYSLIBS = crypt dl ;
   LDFLAGS += -m elf_i386 ;
 
+  project.PLATFORM_SPECIFICS = linux ;
   project.PTY_SPECIFICS = linux ;
 }
 
