@@ -15,4 +15,5 @@ use-project-libraries $(program) :
   sk.util 
 ;
 
+use-pthreads $(program) ;
 make-program $(program) : $(objects) ;
