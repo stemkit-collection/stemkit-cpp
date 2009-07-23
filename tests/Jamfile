@@ -6,11 +6,18 @@ local programs =
   checked-mutex-child-unlock-linux-failure
 ;
 
+if linux in $(project.PLATFORM_SPECIFICS) {
+  programs += 
+    linux-memcheck
+  ;
+}
+
+use-project-libraries $(programs) : sk.util ;
+use-pthreads checked-mutex-child-unlock-linux-failure ;
+
 local _program ;
 for _program in $(programs) {
   make-program $(_program) : $(_program).cc ;
 }
-
-use-pthreads checked-mutex-child-unlock-linux-failure ;
 
 make-subdirs tcp-echo ;
