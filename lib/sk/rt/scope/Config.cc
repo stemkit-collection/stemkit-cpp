@@ -24,7 +24,7 @@ Config()
   : _destinationHolder(new logger::StreamDestination(std::cerr)), 
     _levelHolder(logger::Level::SK_L_INFO), _timeFormat("%y/%m/%d %H:%M:%S"),
     _logPid(false), _logTime(false), _logObject(false), _logThread(false),
-    _lineTerminator("\n")
+    _lineTerminator("\n"), _logMemory(false)
 {
 }
 
@@ -103,6 +103,13 @@ setLogPid(bool state)
   _logPid = state;
 }
 
+void
+sk::rt::scope::Config::
+setLogMemory(bool state) 
+{
+  _logMemory = state;
+}
+
 void 
 sk::rt::scope::Config::
 setLogTime(bool state)
@@ -150,6 +157,13 @@ sk::rt::scope::Config::
 isLogThread() const
 {
   return _logThread;
+}
+
+bool
+sk::rt::scope::Config::
+isLogMemory() const 
+{
+  return _logMemory;
 }
 
 const sk::util::String

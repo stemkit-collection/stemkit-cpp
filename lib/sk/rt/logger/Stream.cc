@@ -17,7 +17,8 @@
 
 sk::rt::logger::Stream::
 Stream(const sk::util::String& label, const Level& level, const logger::IScope& scope)
-  : _requested(false), _label(label), _config(scope.getConfig()), _enabled(_config.checkLogLevel(level)), _level(level), _scope(scope)
+  : _requested(false), _label(label), _config(scope.getConfig()), _enabled(_config.checkLogLevel(level)), _level(level), _scope(scope), 
+    _memory(false)
 {
 }
 
@@ -25,9 +26,20 @@ sk::rt::logger::Stream::
 ~Stream()
 {
   if(_requested == true) {
+    if(_memory == true && _config.isLogMemory() == true) {
+      _stream << " [???]";
+    }
     _stream << _config.getLineTerminator();
     _config.getLogDestination().dispatch(_stream.str().c_str(), _stream.str().size());
   }
+}
+
+const sk::rt::logger::Stream&
+sk::rt::logger::Stream::
+memory() const
+{
+  _memory = true;
+  return *this;
 }
 
 void

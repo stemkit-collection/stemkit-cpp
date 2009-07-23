@@ -26,6 +26,8 @@ namespace sk {
           Stream(const Stream& other);
           virtual ~Stream();
 
+          const sk::rt::logger::Stream& memory() const;
+
           bool isEnabled() const;
           std::ostream& getStream() const;
           
@@ -43,6 +45,7 @@ namespace sk {
           const Level& _level;
           mutable std::stringstream _stream;
           mutable bool _requested;
+          mutable bool _memory;
           bool _enabled;
       };
 

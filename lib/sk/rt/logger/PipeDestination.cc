@@ -210,6 +210,9 @@ namespace {
     bool isLogThread() const {
       return false;
     }
+    bool isLogMemory() const {
+      return false;
+    }
     const sk::util::Object& getObject() const {
       return *this;
     }
@@ -222,6 +225,7 @@ namespace {
     void setLogTime(bool status) {}
     void setLogObject(bool status) {}
     void setLogThread(bool status) {}
+    void setLogMemory(bool status) {}
     void aggregateScopeName(std::ostream& stream) const {
       stream << "PIPE";
     }

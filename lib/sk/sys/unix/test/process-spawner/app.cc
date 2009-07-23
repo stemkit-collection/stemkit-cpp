@@ -25,7 +25,7 @@ int main(int argc, const char* argv[])
     sk::rt::Scope::controller().loadXmlConfig(
       sk::rt::config::InlineLocator("\n\
         <scope>\n\
-          <log destination='file' level='info'>\n\
+          <log destination='file' level='debug' show-memory='true'>\n\
             <file name='spawner.log' chunks='0' size='0' policy='pointing' ensure-chunks='true' />\n\
           </log>\n\
           <scope name='thread-exception-handler'>\n\

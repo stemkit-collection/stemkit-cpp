@@ -158,6 +158,7 @@ updateLogInfo(const TiXmlHandle& handle, scope::IConfig& config)
   config.setLogThread(attribute(handle.ToElement(), "show-thread", config.isLogThread()));
   config.setLogTime(attribute(handle.ToElement(), "show-time", config.isLogTime()));
   config.setLogPid(attribute(handle.ToElement(), "show-pid", config.isLogPid()));
+  config.setLogMemory(attribute(handle.ToElement(), "show-memory", config.isLogMemory()));
   config.setTimeFormat(attribute(handle.ToElement(), "time-format", config.getTimeFormat()));
 
   const sk::util::String eol = attribute(handle.ToElement(), "eol", "").trim().toLowerCase();
