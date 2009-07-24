@@ -8,12 +8,12 @@ local tests =
 ;
 
 local implementation ;
-if windows in $(project.PLATFORM_SPECIFICS) {
-  implementation = win32 ;
+if ! windows in $(project.PLATFORM_SPECIFICS) {
+  implementation = pthreads ;
+  use-pthreads $(tests) ;
 }
-else implementation = pthreads ;
+else implementation = win32 ;
 
-use-pthreads $(tests) ;
 
 local test ;
 for test in $(tests) {

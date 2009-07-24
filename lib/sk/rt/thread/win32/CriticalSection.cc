@@ -96,6 +96,12 @@ tryLock()
   return false;
 }
 
+void 
+sk::rt::thread::win32::CriticalSection::
+reset()
+{
+}
+
 bool 
 sk::rt::thread::win32::CriticalSection::
 hasEnterCount() const

@@ -110,6 +110,12 @@ join()
 
 void 
 sk::rt::thread::win32::Thread::
+detach()
+{
+}
+
+void 
+sk::rt::thread::win32::Thread::
 run()
 {
   try {
