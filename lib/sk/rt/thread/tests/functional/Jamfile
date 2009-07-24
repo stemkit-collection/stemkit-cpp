@@ -13,7 +13,7 @@ if windows in $(project.PLATFORM_SPECIFICS) {
 }
 else implementation = pthreads ;
 
-use-pthreads $(tests)-pthreads ;
+use-pthreads $(tests) ;
 
 local test ;
 for test in $(tests) {
