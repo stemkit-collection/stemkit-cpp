@@ -11,9 +11,9 @@
 
 #include <sk/rt/logger/Stream.h>
 #include <sk/rt/logger/IConfig.h>
+#include <sk/rt/Time.h>
 
 #include <unistd.h>
-#include <time.h>
 
 sk::rt::logger::Stream::
 Stream(const sk::util::String& label, const Level& level, const logger::IScope& scope)
@@ -50,12 +50,7 @@ makeHeader(std::ostream& stream) const
     stream << getpid() << ' ';
   }
   if(_config.isLogTime() == true) {
-    char buffer[64];
-    time_t now = time(0);
-    struct tm tm_buffer;
-
-    strftime(buffer, sizeof(buffer), _config.getTimeFormat(), localtime_r(&now, &tm_buffer));
-    stream << buffer << ' ';
+    stream << sk::rt::Time::now().format(_config.getTimeFormat()) << ' ';
   }
 
   stream << _level.getName() << ':';

@@ -5,6 +5,7 @@ local library = sk.rt ;
 local objects = 
   Scope.cc
   Environment.cc
+  Time.cc
 ;
 
 # if $(PLATFORM_IMPLEMENTATION) = win32 || mks32 in $(project.PLATFORM_SPECIFICS) {
