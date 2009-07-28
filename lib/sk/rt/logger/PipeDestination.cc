@@ -11,6 +11,7 @@
 #include <sk/util/String.h>
 #include <sk/util/Holder.cxx>
 #include <sk/util/SystemException.h>
+#include <sk/util/UnsupportedOperationException.h>
 #include <sk/util/SystemExit.h>
 
 #include <logger/PipeDestination.h>
@@ -231,6 +232,9 @@ namespace {
     }
     uint64_t currentThreadId() const {
       return 0;
+    }
+    sk::rt::Lock& getLock() const {
+      throw sk::util::UnsupportedOperationException("getLock");
     }
     sk::rt::logger::Destination& _destination;
   };

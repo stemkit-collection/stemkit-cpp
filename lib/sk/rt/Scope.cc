@@ -111,6 +111,13 @@ currentThreadId() const
   return _aggregator.getArbitrator().currentThreadId();
 }
 
+sk::rt::Lock&
+sk::rt::Scope::
+getLock() const 
+{
+  return _aggregator.getArbitrator();
+}
+
 const sk::rt::scope::IConfig&
 sk::rt::Scope::
 getConfig() const

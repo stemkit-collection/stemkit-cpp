@@ -59,6 +59,7 @@ namespace sk {
         void aggregateScopeName(std::ostream& stream) const;
         const sk::util::Object& getObject() const;
         const scope::IConfig& getConfig() const;
+        sk::rt::Lock& getLock() const;
 
         // sk::rt::scope::ThreadInfo implementation.
         uint64_t currentThreadId() const;
