@@ -25,6 +25,7 @@
 #include <sk/io/NullDevice.h>
 #include <sk/io/DataInputStream.h>
 #include <sk/io/AnonymousPipe.h>
+#include <sk/rt/ProcessInfo.h>
 #include <sk/rt/Thread.h>
 #include <sk/rt/Runnable.h>
 #include <sk/rt/Locker.cxx>
@@ -217,6 +218,7 @@ start(sk::io::InputStream& inputStream, const sk::util::StringArray& cmdline)
     throw sk::rt::SystemException("fork");
   }
   if(_pid == 0) {
+    sk::rt::ProcessInfo::reset();
     sk::rt::scope::Arbitrator& arbitrator = sk::rt::Scope::controller().getAggregator().getArbitrator();
 
     arbitrator.reset();
