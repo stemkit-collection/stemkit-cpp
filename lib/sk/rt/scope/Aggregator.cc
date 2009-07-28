@@ -12,7 +12,7 @@
 
 #include <sk/rt/scope/Aggregator.h>
 #include <sk/rt/scope/Arbitrator.h>
-#include <sk/rt/Locker.cxx>
+#include <sk/rt/Locker.h>
 #include "scope/Config.h"
 #include "scope/NullArbitrator.h"
 
@@ -74,7 +74,7 @@ sk::rt::scope::Aggregator&
 sk::rt::scope::Aggregator::
 obtain(const sk::util::String& name)
 {
-  sk::rt::Locker<sk::rt::scope::Arbitrator> locker(_arbitratorHolder.get());
+  sk::rt::Locker locker(_arbitratorHolder.get());
   registry::iterator iterator = _subordinates.find(name);
   if(iterator != _subordinates.end()) {
     return iterator->second;

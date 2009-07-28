@@ -7,6 +7,7 @@ local objects =
   Environment.cc
   Time.cc
   ProcessInfo.cc
+  Locker.cc
 ;
 
 # if $(PLATFORM_IMPLEMENTATION) = win32 || mks32 in $(project.PLATFORM_SPECIFICS) {

@@ -8,22 +8,17 @@
  *  Author: Gennady Bystritsky (gennady.bystritsky@quest.com)
 */
 
-#ifndef _SK_RT_LOCKER_CXX_
-#define _SK_RT_LOCKER_CXX_
-
-#include <sk/rt/Locker.hxx>
+#include <sk/rt/Locker.h>
 #include <sk/util/Holder.cxx>
 
-template<typename L>
-sk::rt::Locker<L>::
-Locker(L& lock)
+sk::rt::Locker::
+Locker(sk::rt::Lock& lock)
   : _lockHolder(lock), _locked(true)
 {
   lock.lock();
 }
 
-template<typename L>
-sk::rt::Locker<L>::
+sk::rt::Locker::
 ~Locker()
 {
   if(_lockHolder.getLinks() == 1) {
@@ -31,9 +26,8 @@ sk::rt::Locker<L>::
   }
 }
 
-template<typename L>
 void
-sk::rt::Locker<L>::
+sk::rt::Locker::
 unlock()
 {
   if(_locked == true) {
@@ -42,4 +36,3 @@ unlock()
   }
 }
 
-#endif /* _SK_RT_LOCKER_CXX_ */

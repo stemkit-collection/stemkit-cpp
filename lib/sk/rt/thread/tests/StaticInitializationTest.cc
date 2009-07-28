@@ -10,7 +10,7 @@
 
 #include "StaticInitializationTest.h"
 #include <sk/rt/Mutex.h>
-#include <sk/rt/Locker.cxx>
+#include <sk/rt/Locker.h>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::rt::thread::tests::StaticInitializationTest);
 
@@ -44,7 +44,7 @@ testBasics()
 {
   CPPUNIT_ASSERT_EQUAL(false, _mutex.isLocked());
   {
-    sk::rt::Locker<sk::rt::Mutex> locker(_mutex);
+    sk::rt::Locker locker(_mutex);
     CPPUNIT_ASSERT_EQUAL(true, _mutex.isLocked());
   }
   CPPUNIT_ASSERT_EQUAL(false, _mutex.isLocked());

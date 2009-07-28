@@ -10,7 +10,6 @@
 
 #include "LockerTest.h"
 #include <sk/util/Holder.cxx>
-#include <sk/rt/Locker.cxx>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::rt::thread::tests::LockerTest);
 
@@ -43,7 +42,7 @@ testStatementScope()
   sk::rt::Mutex mutex;
 
   CPPUNIT_ASSERT_EQUAL(false, mutex.isLocked());
-  (sk::rt::Locker<Mutex>(mutex), CPPUNIT_ASSERT_EQUAL(true, mutex.isLocked()));
+  (sk::rt::Locker(mutex), CPPUNIT_ASSERT_EQUAL(true, mutex.isLocked()));
   CPPUNIT_ASSERT_EQUAL(false, mutex.isLocked());
 }
 
@@ -54,7 +53,7 @@ testBlockScope()
   sk::rt::Mutex mutex;
   CPPUNIT_ASSERT_EQUAL(false, mutex.isLocked());
   {
-    const Locker<Mutex> locker(mutex);
+    const Locker locker(mutex);
     CPPUNIT_ASSERT_EQUAL(true, mutex.isLocked());
   }
   CPPUNIT_ASSERT_EQUAL(false, mutex.isLocked());
@@ -67,26 +66,26 @@ testCopying()
   sk::rt::Mutex mutex;
   CPPUNIT_ASSERT_EQUAL(false, mutex.isLocked());
   {
-    const Locker<Mutex> locker(mutex);
+    const Locker locker(mutex);
     CPPUNIT_ASSERT_EQUAL(true, mutex.isLocked());
 
-    Locker<Mutex> another(locker);
+    Locker another(locker);
     CPPUNIT_ASSERT_EQUAL(true, mutex.isLocked());
 
-    Locker<Mutex> yet_another(locker);
+    Locker yet_another(locker);
     CPPUNIT_ASSERT_EQUAL(true, mutex.isLocked());
 
-    Locker<Mutex> other_another(another);
+    Locker other_another(another);
     CPPUNIT_ASSERT_EQUAL(true, mutex.isLocked());
   }
   CPPUNIT_ASSERT_EQUAL(false, mutex.isLocked());
 }
 
-const sk::rt::Locker<sk::rt::Mutex> 
+const sk::rt::Locker
 sk::rt::thread::tests::LockerTest::
 locker_originator()
 {
-  return Locker<Mutex>(_mutexHolder.get());
+  return Locker(_mutexHolder.get());
 }
 
 void
@@ -96,7 +95,7 @@ testReturning()
   _mutexHolder.set(new Mutex);
   CPPUNIT_ASSERT_EQUAL(false, _mutexHolder.get().isLocked());
   {
-    sk::rt::Locker<Mutex> locker = locker_originator();
+    sk::rt::Locker locker = locker_originator();
     CPPUNIT_ASSERT_EQUAL(true, _mutexHolder.get().isLocked());
   }
   CPPUNIT_ASSERT_EQUAL(false, _mutexHolder.get().isLocked());
@@ -106,7 +105,7 @@ void
 sk::rt::thread::tests::LockerTest::
 locker_pitcher()
 {
-  throw sk::rt::Locker<Mutex>(_mutexHolder.get());
+  throw sk::rt::Locker(_mutexHolder.get());
 }
 
 void
@@ -120,7 +119,7 @@ testThrowing()
     locker_pitcher();
     CPPUNIT_FAIL("Must not get here");
   }
-  catch(const sk::rt::Locker<Mutex>& locker) {
+  catch(const sk::rt::Locker& locker) {
     CPPUNIT_ASSERT_EQUAL(true, _mutexHolder.get().isLocked());
   }
   CPPUNIT_ASSERT_EQUAL(false, _mutexHolder.get().isLocked());

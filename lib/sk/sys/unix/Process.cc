@@ -28,7 +28,7 @@
 #include <sk/rt/ProcessInfo.h>
 #include <sk/rt/Thread.h>
 #include <sk/rt/Runnable.h>
-#include <sk/rt/Locker.cxx>
+#include <sk/rt/Locker.h>
 #include <sk/rt/scope/Arbitrator.h>
 
 #include <errno.h>
@@ -211,7 +211,7 @@ start(sk::io::InputStream& inputStream, const sk::util::StringArray& cmdline)
   _running = false;
 
   sk::io::AnonymousPipe pipe;
-  sk::rt::Locker<sk::rt::scope::Arbitrator> locker(sk::rt::Scope::controller().getAggregator().getArbitrator());
+  sk::rt::Locker locker(sk::rt::Scope::controller().getAggregator().getArbitrator());
   _pid = fork();
 
   if(_pid < 0) {
@@ -358,7 +358,7 @@ void
 sk::sys::Process::
 join()
 {
-  sk::rt::Locker<sk::rt::Mutex> locker(_mutex);
+  sk::rt::Locker locker(_mutex);
   if(_running == false) {
     return;
   }

@@ -8,8 +8,8 @@
  *  Author: Gennady Bystritsky (gennady.bystritsky@quest.com)
 */
 
-#ifndef _SK_RT_LOCKER_HXX_
-#define _SK_RT_LOCKER_HXX_
+#ifndef _SK_RT_LOCKER_H_
+#define _SK_RT_LOCKER_H_
 
 #include <sk/util/Holder.hxx>
 #include <sk/rt/Lock.h>
@@ -29,14 +29,14 @@ namespace sk {
      *  - Locking data member @c @b _mutex for the duration of an expression:
      *    @code
      *    ...
-     *    ( sk::rt::Locker<sk::rt::Mutex>(_mutex), _a.calc() + _b.calc() );
+     *    ( sk::rt::Locker(_mutex), _a.calc() + _b.calc() );
      *    ...
      *    @endcode
      *    
      *  - Locking data member @c @b _mutex for the duration of a method:
      *    @code
      *    void someMethod() {
-     *      sk::rt::Locker<sk::rt::Mutex> locker(_mutex);
+     *      sk::rt::Locker locker(_mutex);
      *    
      *      if(process() != 0) {
      *        throw sk::util::IllegalStateException("processing failed");
@@ -44,7 +44,6 @@ namespace sk {
      *    }
      *    @endcode
     */
-    template<typename L>
     class Locker 
     {
       public:
@@ -52,7 +51,7 @@ namespace sk {
          *  Constructs a locker class. The constructor will lock a 
          *  specified resource by calling its lock() method.
         */
-        Locker(L& lock);
+        Locker(sk::rt::Lock& lock);
         /**
          *  Handles the locker instance destruction. When this locker 
          *  goes out of %scope, it will call unlock() on the resource 
@@ -64,10 +63,10 @@ namespace sk {
         void unlock();
     
       private:
-        sk::util::Holder<L, sk::util::slot::policy::Sharing<L> > _lockHolder;
+        sk::util::Holder<Lock>::Sharing _lockHolder;
         bool _locked;
     };
   }
 }
 
-#endif /* _SK_RT_LOCKER_HXX_ */
+#endif /* _SK_RT_LOCKER_H_ */

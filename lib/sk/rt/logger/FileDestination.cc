@@ -12,7 +12,7 @@
 #include <sk/util/IllegalStateException.h>
 #include <sk/util/SystemException.h>
 #include <sk/util/Holder.cxx>
-#include <sk/rt/Locker.cxx>
+#include <sk/rt/Locker.h>
 
 #include <logger/FileDestination.h>
 #include <unistd.h>
@@ -89,7 +89,7 @@ void
 sk::rt::logger::FileDestination::
 dispatch(const char* buffer, int size)
 {
-  sk::rt::Locker<sk::rt::scope::Arbitrator> locker(_arbitrator);
+  sk::rt::Locker locker(_arbitrator);
 
   ensureFile();
   writeData(buffer, size);
