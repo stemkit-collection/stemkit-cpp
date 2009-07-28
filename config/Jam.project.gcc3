@@ -184,6 +184,7 @@ rule platform-aix-ppc
 
 rule platform-macos
 {
+  UNIX_FLAVOR = macosx ;
   project.MAKE_DLL = false ;
 
   TOOLS_HOME = /opt/sk/platform/$(JAMCONFIG_PRODUCT_PLATFORM) ;

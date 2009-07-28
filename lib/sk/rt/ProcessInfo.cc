@@ -60,17 +60,3 @@ pid() const
 {
   return _pid;
 }
-
-uint64_t
-sk::rt::ProcessInfo::
-virtualMemory() const
-{
-  return 0;
-}
-
-uint64_t
-sk::rt::ProcessInfo::
-residentMemory() const
-{
-  return 0;
-}

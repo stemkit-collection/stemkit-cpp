@@ -6,3 +6,7 @@ objects =
 ;
 
 make-library $(library) : $(objects) ;
+
+local implementation = $(UNIX_FLAVOR:E=generic) ;
+make-subdirs $(implementation) ;
+add-project-library $(library) : $(library).$(implementation) ;
