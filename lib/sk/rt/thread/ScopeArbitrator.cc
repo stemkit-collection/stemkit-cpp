@@ -41,6 +41,20 @@ lock()
   _mutex.lock();
 }
 
+bool
+sk::rt::thread::ScopeArbitrator::
+tryLock()
+{
+  return _mutex.tryLock();
+}
+
+bool
+sk::rt::thread::ScopeArbitrator::
+isLocked() const
+{
+  return _mutex.isLocked();
+}
+
 void 
 sk::rt::thread::ScopeArbitrator::
 unlock()

@@ -24,6 +24,14 @@ namespace sk {
           inline void lock() {
           }
 
+          inline bool tryLock() {
+            return true;
+          }
+
+          inline bool isLocked() const {
+            return false;
+          }
+
           inline void unlock() {
           }
 

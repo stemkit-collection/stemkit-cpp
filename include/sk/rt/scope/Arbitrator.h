@@ -12,17 +12,15 @@
 #define _SK_RT_SCOPE_ARBITRATOR_H_
 
 #include <sk/rt/scope/ThreadInfo.h>
+#include <sk/rt/Lock.h>
 
 namespace sk {
   namespace rt {
     namespace scope {
       class Arbitrator 
-        : public virtual sk::rt::scope::ThreadInfo
+        : public virtual sk::rt::scope::ThreadInfo,
+          public virtual sk::rt::Lock
       {
-        public:
-          virtual void lock() = 0;
-          virtual void unlock() = 0;
-          virtual void reset() = 0;
       };
     }
   }

@@ -24,10 +24,14 @@ namespace sk {
           ScopeArbitrator();
           virtual ~ScopeArbitrator();
       
-          // sk::rt::scope::Arbitrator implementation.
+          // sk::rt::Lock implementation.
           void lock();
+          bool tryLock();
+          bool isLocked() const;
           void unlock();
           void reset();
+          
+          // sk::rt::scope::Arbitrator implementation.
           uint64_t currentThreadId() const;
 
           // sk::util::Object re-implementation.
