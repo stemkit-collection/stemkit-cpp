@@ -16,18 +16,18 @@
 #include <sk/rt/ProcessInfo.h>
 #include <sk/rt/Locker.h>
 
-namespace {
-  uint64_t get_stat_at(const sk::util::String& statfile, int index) {
-    sk::util::File file(statfile);
+struct sk::rt::ProcessInfo::Data 
+{
+  Data(pid_t pid) 
+    : _statfile("/proc/" + sk::util::String::valueOf(pid) + "/stat") {}
+
+  uint64_t numericEntryAt(int index) {
+    sk::util::File file(_statfile);
     return sk::util::Integer::parseInt(sk::util::StringArray::parse(file.getLine()).get(index));
   }
-}
 
-struct sk::rt::ProcessInfo::Data {
-  Data(pid_t pid) 
-    : statfile("/proc/" + sk::util::String::valueOf(pid) + "/stat") {}
-
-  sk::util::String statfile;
+  private:
+    sk::util::String _statfile;
 };
 
 void
@@ -49,7 +49,7 @@ uint64_t
 sk::rt::ProcessInfo::
 virtualMemory() const
 {
-  return get_stat_at(_dataHolder.get().statfile, 22);
+  return _dataHolder.get().numericEntryAt(22);
 }
 
 uint64_t
@@ -64,5 +64,5 @@ uint64_t
 sk::rt::ProcessInfo::
 residentMemory() const
 {
-  return get_stat_at(_dataHolder.get().statfile, 23);
+  return _dataHolder.get().numericEntryAt(23);
 }
