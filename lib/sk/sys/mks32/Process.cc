@@ -39,6 +39,9 @@ namespace {
 }
 
 struct sk::sys::Process::Implementation {
+  Implementation()
+    : status(0) {}
+
   int status;
 };
 
@@ -377,6 +380,7 @@ join()
         continue;
       }
       if(errno == ECHILD) {
+        _scope.debug("ATTN") << sk::rt::SystemException("waitpid:" + sk::util::String::valueOf(_pid)).what();
         break;
       }
       throw sk::rt::SystemException("waitpid:" + sk::util::String::valueOf(_pid));

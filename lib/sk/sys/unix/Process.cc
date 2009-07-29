@@ -38,7 +38,10 @@
 #include <iostream>
 
 struct sk::sys::Process::Implementation {
-  int status;
+  Implementation() 
+    : status(0) {}
+
+  volatile int status;
 };
 
 sk::sys::Process::
@@ -373,6 +376,7 @@ join()
         continue;
       }
       if(errno == ECHILD) {
+        _scope.debug("ATTN") << sk::rt::SystemException("waitpid:" + sk::util::String::valueOf(_pid)).what();
         break;
       }
       throw sk::rt::SystemException("waitpid:" + sk::util::String::valueOf(_pid));
