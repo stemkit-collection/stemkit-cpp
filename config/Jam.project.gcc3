@@ -67,6 +67,7 @@ rule platform-nt-x86-win32
 rule platform-nt-x86-mks32
 {
   project.PLATFORM_SPECIFICS = mks32 ;
+  UNIX_FLAVOR = mks32 ;
 
   core.ensure-defined JAM_MKS_ROOT ;
   mswin.setup-mks-toolkit8 "$(JAM_MKS_ROOT:J= )" ;

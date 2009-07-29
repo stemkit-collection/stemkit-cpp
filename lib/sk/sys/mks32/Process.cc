@@ -26,7 +26,7 @@
 #include <sk/io/FileDescriptorStream.h>
 #include <sk/rt/Thread.h>
 #include <sk/rt/Runnable.h>
-#include <sk/rt/Locker.cxx>
+#include <sk/rt/Locker.h>
 
 #include <sk/util/inspect.h>
 #include <nutc.h>
@@ -186,7 +186,7 @@ namespace {
   };
 
   int start_process_with_redirect(const Configurator& configurator, const sk::rt::Environment& environment, const sk::util::StringArray& cmdline) {
-    sk::rt::Locker<sk::rt::Mutex> locker(__mutexHolder.get());
+    sk::rt::Locker locker(__mutexHolder.get());
 
     std::vector<char*> arguments;
     cmdline.forEach(ExecArgumentCollector(arguments));
@@ -365,7 +365,7 @@ void
 sk::sys::Process::
 join()
 {
-  sk::rt::Locker<sk::rt::Mutex> locker(_mutex);
+  sk::rt::Locker locker(_mutex);
   if(_running == false) {
     return;
   }

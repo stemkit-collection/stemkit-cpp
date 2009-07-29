@@ -32,7 +32,7 @@ uint64_t
 sk::rt::ProcessInfo::
 virtualMemory() const
 {
-  return reinterpret_cast<const char*>(sbrk(0)) - reinterpret_cast<const char*>(0);
+  return 0;
 }
 
 uint64_t
