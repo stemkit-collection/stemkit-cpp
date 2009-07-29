@@ -13,7 +13,6 @@
 #include <sk/rt/logger/IScope.h>
 #include <sk/rt/logger/IConfig.h>
 #include <sk/rt/Time.h>
-#include <sk/rt/Locker.h>
 #include <sk/rt/ProcessInfo.h>
 
 sk::rt::logger::Stream::
@@ -28,7 +27,7 @@ sk::rt::logger::Stream::
 {
   if(_requested == true) {
     if(_memory == true && _config.isLogMemory() == true) {
-      uint64_t memory = (sk::rt::Locker(_scope.getLock()), sk::rt::ProcessInfo::current().virtualMemory());
+      uint64_t memory = sk::rt::ProcessInfo::current().virtualMemory(_scope.getLock());
       _stream << " [" << (memory >> 10) << "K]";
     }
     _stream << _config.getLineTerminator();

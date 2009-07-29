@@ -47,10 +47,24 @@ namespace {
 
 uint64_t
 sk::rt::ProcessInfo::
+virtualMemory(sk::rt::Lock& lock) const
+{
+  return virtualMemory();
+}
+
+uint64_t
+sk::rt::ProcessInfo::
 virtualMemory() const
 {
   const struct task_basic_info info = sk_figure_task_info(sk_figure_task(_pid));
   return info.virtual_size;
+}
+
+uint64_t
+sk::rt::ProcessInfo::
+residentMemory(sk::rt::Lock& lock) const
+{
+  return residentMemory();
 }
 
 uint64_t

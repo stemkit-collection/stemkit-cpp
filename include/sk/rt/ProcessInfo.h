@@ -12,6 +12,7 @@
 #define _SK_RT_PROCESSINFO_H_
 
 #include <sk/util/Object.h>
+#include <sk/rt/Lock.h>
 
 namespace sk {
   namespace rt {
@@ -23,7 +24,9 @@ namespace sk {
 
         uint64_t pid() const;
         uint64_t virtualMemory() const;
+        uint64_t virtualMemory(sk::rt::Lock& lock) const;
         uint64_t residentMemory() const;
+        uint64_t residentMemory(sk::rt::Lock& lock) const;
 
         static void reset();
         static const sk::rt::ProcessInfo& current();
