@@ -11,9 +11,7 @@
 #include <sk/util/Class.h>
 #include <sk/rt/ProcessInfo.h>
 #include <sk/util/UnsupportedOperationException.h>
-
 #include <unistd.h>
-#include <malloc.h>
 
 void 
 sk::rt::ProcessInfo::
