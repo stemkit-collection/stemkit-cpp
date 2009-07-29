@@ -26,6 +26,7 @@ sk::rt::ProcessInfo::
 ProcessInfo()
   : _pid(getpid())
 {
+  init();
 }
 
 sk::rt::ProcessInfo::

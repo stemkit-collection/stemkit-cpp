@@ -12,6 +12,7 @@
 #define _SK_RT_PROCESSINFO_H_
 
 #include <sk/util/Object.h>
+#include <sk/util/Holder.hxx>
 #include <sk/rt/Lock.h>
 
 namespace sk {
@@ -39,7 +40,12 @@ namespace sk {
         ProcessInfo(const ProcessInfo& other);
         ProcessInfo& operator = (const ProcessInfo& other);
 
+        void init();
+
         uint64_t _pid;
+
+        struct Data;
+        sk::util::Holder<Data> _dataHolder;
     };
   }
 }

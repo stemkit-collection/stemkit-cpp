@@ -1,0 +1,8 @@
+
+local library = sk.rt.unix.linux ;
+
+objects = 
+  ProcessInfo.cc
+;
+
+make-library $(library) : $(objects) ;

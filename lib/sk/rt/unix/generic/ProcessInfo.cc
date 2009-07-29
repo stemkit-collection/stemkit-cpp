@@ -13,6 +13,12 @@
 #include <sk/util/UnsupportedOperationException.h>
 #include <unistd.h>
 
+void 
+sk::rt::ProcessInfo::
+init()
+{
+}
+
 uint64_t
 sk::rt::ProcessInfo::
 virtualMemory(sk::rt::Lock& lock) const

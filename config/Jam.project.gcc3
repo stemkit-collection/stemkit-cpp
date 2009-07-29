@@ -117,6 +117,7 @@ rule platform-nt-x86
 
 rule platform-linux-x86
 {
+  UNIX_FLAVOR = linux ;
   util.delete-from project.DO_NOT_BUILD : ruby java ;
   project.PLATFORM_SPECIFICS = linux ;
 
@@ -139,6 +140,8 @@ rule platform-linux-ia64
 
 rule platform-linux-amd64
 {
+  UNIX_FLAVOR = linux ;
+
   C++FLAGS += -fPIC -m32 ;
   CCFLAGS += -fPIC -m32 ;
   DEFINES += ;

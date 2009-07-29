@@ -27,8 +27,13 @@ sk::rt::logger::Stream::
 {
   if(_requested == true) {
     if(_memory == true && _config.isLogMemory() == true) {
-      uint64_t memory = sk::rt::ProcessInfo::current().virtualMemory(_scope.getLock());
-      _stream << " [" << (memory >> 10) << "K]";
+      try {
+        uint64_t memory = sk::rt::ProcessInfo::current().virtualMemory(_scope.getLock());
+        _stream << " [" << (memory >> 10) << "K]";
+      }
+      catch(const std::exception& exception) {
+        _stream << " [??? - " << exception.what() << "]";
+      }
     }
     _stream << _config.getLineTerminator();
     _config.getLogDestination().dispatch(_stream.str().c_str(), _stream.str().size());
