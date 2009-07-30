@@ -32,7 +32,7 @@ namespace sk {
         Time();
         Time& operator = (const Time& other);
 
-        const struct tm figure_localtime() const;
+        const struct tm& figure_localtime(struct tm& tm_buffer) const;
 
         time_t _time;
     };

@@ -15,12 +15,10 @@
 #include <sk/rt/Time.h>
 #include <time.h>
 
-const struct tm
+const struct tm&
 sk::rt::Time::
-figure_localtime() const
+figure_localtime(struct tm& tm_buffer) const
 {
-  struct tm tm_buffer;
-
   localtime_r(&_time, &tm_buffer);
   return tm_buffer;
 }
