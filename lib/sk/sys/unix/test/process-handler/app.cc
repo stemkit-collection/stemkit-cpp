@@ -23,7 +23,7 @@ int main(int argc, const char* argv[])
   sk::rt::Scope::controller().loadXmlConfig(
     sk::rt::config::InlineLocator("\n\
       <scope>\n\
-        <log destination='std::cerr' level='debug' show-memory='false' show-pid='true' show-thread='true'>\n\
+        <log destination='std::cerr' level='debug' show-memory='false' show-pid='true' show-thread='true' show-object='true'>\n\
           <file name='handler.log' chunks='0' size='0' policy='pointing' ensure-chunks='true' />\n\
         </log>\n\
         <scope name='thread-exception-handler'>\n\

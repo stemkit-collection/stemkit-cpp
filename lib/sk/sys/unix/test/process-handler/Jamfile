@@ -7,5 +7,6 @@ local objects =
   Handler.cc
 ;
 
+use-pthreads $(program) ;
 use-project-libraries $(program) : sk.rt.bundle sk.rt.thread sk.rt.thread.pthreads sk.util ;
 make-program $(program) : $(objects) ;

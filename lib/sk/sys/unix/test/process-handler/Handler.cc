@@ -11,9 +11,11 @@
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
 #include <sk/rt/SystemException.h>
+#include <sk/util/IllegalStateException.h>
 #include <sk/rt/Runnable.h>
 #include <sk/rt/Thread.h>
 #include <sk/rt/ProcessInfo.h>
+#include <sk/util/ArrayList.cxx>
 
 #include "Handler.h"
 
@@ -46,11 +48,13 @@ namespace {
       int status = 0;
       int result = waitpid(_pid, &status, 0);
 
-      _scope.info("R") << result;
-      _scope.info("S") << std::hex << status;
+      _scope.info("waitpid") << "R: " << result << ", P: " << _pid << ", S: " << std::hex << status;
 
       if(result == -1) {
         throw sk::rt::SystemException("waitpid");
+      }
+      if(result != _pid) {
+        throw sk::util::IllegalStateException("PID MISMATCH!!!");
       }
     }
 
@@ -67,8 +71,7 @@ namespace {
       pid_t pid = fork();
       if(pid == 0) {
         sk::rt::ProcessInfo::reset();
-        sleep(5);
-        _scope.info("CHILD") << getpid();
+        sleep(2);
         _exit(3);
       }
       if(pid < 0) {
@@ -81,10 +84,24 @@ namespace {
 
       thread.start();
       thread.join();
+
+      _scope.info() << "DONE";
     }
 
     private:
       sk::rt::Scope _scope;
+  };
+
+  struct Starter : public virtual sk::util::Processor<sk::rt::Thread> {
+    void process(sk::rt::Thread& thread) const {
+      thread.start();
+    }
+  };
+
+  struct Joiner : public virtual sk::util::Processor<sk::rt::Thread> {
+    void process(sk::rt::Thread& thread) const {
+      thread.join();
+    }
   };
 }
 
@@ -92,9 +109,11 @@ void
 test::Handler::
 start()
 {
-  Forker forker;
-  sk::rt::Thread thread(forker);
+  sk::util::ArrayList<sk::rt::Thread> threads;
 
-  thread.start();
-  thread.join();
+  for(int counter=10; counter ;--counter) {
+    threads.add(new sk::rt::Thread(new Forker));
+  }
+  threads.forEach(Starter());
+  threads.forEach(Joiner());
 }
