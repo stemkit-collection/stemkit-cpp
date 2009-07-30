@@ -18,6 +18,7 @@
 #include <sk/util/ArrayList.cxx>
 
 #include "Handler.h"
+#include <sys/wait.h>
 
 static const sk::util::String __className("test::Handler");
 
