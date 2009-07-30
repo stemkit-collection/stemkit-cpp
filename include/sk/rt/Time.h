@@ -32,6 +32,8 @@ namespace sk {
         Time();
         Time& operator = (const Time& other);
 
+        const struct tm figure_localtime() const;
+
         time_t _time;
     };
   }
