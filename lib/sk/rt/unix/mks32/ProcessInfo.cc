@@ -12,8 +12,8 @@
 #include <sk/rt/ProcessInfo.h>
 #include <sk/util/UnsupportedOperationException.h>
 
-#include <unistd.h>
-#include <malloc.h>
+#include <windows.h>
+#include <psapi.h>
 
 void 
 sk::rt::ProcessInfo::
@@ -25,13 +25,20 @@ uint64_t
 sk::rt::ProcessInfo::
 virtualMemory(sk::rt::Lock& lock) const
 {
-  return virtualMemory();
+  return residentMemory();
 }
 
 uint64_t
 sk::rt::ProcessInfo::
 virtualMemory() const
 {
+  PROCESS_MEMORY_COUNTERS_EX info = { 0 };
+  info.cb = sizeof(info);
+
+  if(GetProcessMemoryInfo(GetCurrentProcess(), reinterpret_cast<PROCESS_MEMORY_COUNTERS*>(&info), sizeof(info)) == TRUE) {
+    // return info.PagefileUsage;
+    return info.PrivateUsage;
+  }
   return 0;
 }
 
@@ -46,5 +53,11 @@ uint64_t
 sk::rt::ProcessInfo::
 residentMemory() const
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  PROCESS_MEMORY_COUNTERS_EX info = { 0 };
+  info.cb = sizeof(info);
+
+  if(GetProcessMemoryInfo(GetCurrentProcess(), reinterpret_cast<PROCESS_MEMORY_COUNTERS*>(&info), sizeof(info)) == TRUE) {
+    return info.WorkingSetSize;
+  }
+  return 0;
 }
