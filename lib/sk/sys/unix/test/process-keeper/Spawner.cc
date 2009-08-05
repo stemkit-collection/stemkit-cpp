@@ -21,6 +21,7 @@
 #include <sk/io/EOFException.h>
 
 #include "Spawner.h"
+#include <time.h>
 
 static const char* __className("test::Spawner");
 
@@ -63,12 +64,14 @@ namespace {
 
   struct Block : public virtual sk::rt::Runnable {
     Block(sk::io::Pipe& pipe) 
-      : _configurator(pipe), _process(sk::util::StringArray("date"), _configurator) {}
+      : _scope("Block"), _configurator(pipe), _process(sk::util::StringArray("date"), _configurator) {}
 
     void run() {
       _process.join();
+      _scope.info() << "Process done";
     }
 
+    sk::rt::Scope _scope;
     Configurator _configurator;
     sk::sys::Process _process;
   };
@@ -124,7 +127,7 @@ perform()
     writers.forEach(Joiner());
     reader.join();
 
-    if((time(0) - now) > 600) {
+    if((time(0) - now) > 60) {
       break;
     }
   }
