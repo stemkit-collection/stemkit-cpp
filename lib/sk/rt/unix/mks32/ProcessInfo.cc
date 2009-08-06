@@ -25,7 +25,7 @@ uint64_t
 sk::rt::ProcessInfo::
 virtualMemory(sk::rt::Lock& lock) const
 {
-  return residentMemory();
+  return virtualMemory();
 }
 
 uint64_t
