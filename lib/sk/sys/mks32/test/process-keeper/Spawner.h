@@ -31,8 +31,6 @@ namespace test {
       Spawner& operator = (const Spawner& other);
 
       void perform();
-
-      int _counter;
   };
 }
 

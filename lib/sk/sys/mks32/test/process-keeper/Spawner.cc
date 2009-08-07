@@ -21,13 +21,11 @@
 #include <sk/io/EOFException.h>
 
 #include "Spawner.h"
-#include <time.h>
 
 static const char* __className("test::Spawner");
 
 test::Spawner::
 Spawner(int argc, const char* argv[])
-  : _counter(0)
 {
 }
 
@@ -109,8 +107,6 @@ void
 test::Spawner::
 perform()
 {
-  time_t now = time(0);
-
   while(true) {
     sk::io::AnonymousPipe pipe;
     sk::rt::Thread reader(new Reader(pipe.inputStream()));
@@ -126,7 +122,6 @@ perform()
 
     writers.forEach(Joiner());
     reader.join();
-    new char[1024*1024*10];
   }
 }
 
