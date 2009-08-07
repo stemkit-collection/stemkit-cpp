@@ -739,7 +739,7 @@
 <a name="l01014"></a>01014         <span class="keywordflow">if</span> ( !node )
 <a name="l01015"></a>01015             <span class="keywordflow">return</span> TIXML_NO_ATTRIBUTE;
 <a name="l01016"></a>01016 
-<a name="l01017"></a>01017         std::stringstream sstream( node-&gt;<a class="code" href="classTiXmlAttribute.html#87705c3ccf9ee9417beb4f7cbacd4d33">ValueStr</a>() );
+<a name="l01017"></a>01017         std::istringstream sstream( node-&gt;<a class="code" href="classTiXmlAttribute.html#87705c3ccf9ee9417beb4f7cbacd4d33">ValueStr</a>() );
 <a name="l01018"></a>01018         sstream &gt;&gt; *outValue;
 <a name="l01019"></a>01019         <span class="keywordflow">if</span> ( !sstream.fail() )
 <a name="l01020"></a>01020             <span class="keywordflow">return</span> TIXML_SUCCESS;

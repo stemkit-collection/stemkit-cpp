@@ -38,7 +38,7 @@ const sk::util::String
 sk::rt::thread::Inspector::
 inspect() const
 {
-  std::stringstream stream;
+  std::ostringstream stream;
 
   stream << '<'
     << _thread.getClass().getName() << ": "

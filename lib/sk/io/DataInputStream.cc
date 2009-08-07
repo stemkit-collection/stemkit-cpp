@@ -101,7 +101,7 @@ const sk::util::String
 sk::io::DataInputStream::
 readLine()
 {
-  std::stringstream stream;
+  std::ostringstream stream;
   try {
     while(true) {
       char c = readChar();

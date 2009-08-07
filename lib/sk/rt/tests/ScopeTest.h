@@ -42,7 +42,7 @@ namespace sk {
         private:
           ScopeTest(const ScopeTest& other);
           ScopeTest& operator = (const ScopeTest& other);
-          std::stringstream _stream;
+          std::ostringstream _stream;
       };
     }
   }

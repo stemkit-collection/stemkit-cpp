@@ -100,7 +100,7 @@ const sk::util::String
 sk::util::Integer::
 toString(int value, int radix)
 {
-  std::stringstream stream;
+  std::ostringstream stream;
   stream << std::setbase(radix) << value;
 
   return stream.str();

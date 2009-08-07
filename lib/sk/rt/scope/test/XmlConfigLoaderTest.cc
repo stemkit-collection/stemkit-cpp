@@ -1,4 +1,5 @@
-/*  Copyright (c) 2007, Gennady Bystritsky <bystr@mac.com>
+/*  vi: sw=2:
+ *  Copyright (c) 2007, Gennady Bystritsky <bystr@mac.com>
  *  
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
@@ -51,8 +52,7 @@ sk::rt::scope::test::XmlConfigLoaderTest::
 testBigPicture()
 {
   XmlConfigLoader loader("app", aggregator(), std::map<std::string, std::string>());
-  std::stringstream stream;
-  stream << 
+  std::istringstream stream(
     "<scope name='app'>\n" 
     "  <log show-pid='true'>\n"
     "    <level severity='warning' />\n"
@@ -67,7 +67,7 @@ testBigPicture()
     "    </property>\n"
     "  </scope>\n"
     "</scope>\n"
-  ;
+  );
   loader.process(stream, "/a/b/c");
 
   CPPUNIT_ASSERT_EQUAL(true, aggregator().obtain("zzz").getConfig().isLogTime());

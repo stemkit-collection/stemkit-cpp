@@ -36,7 +36,7 @@ sk::rt::scope::XmlConfigLoader::
 process(std::istream& stream, const sk::util::Pathname& location) const 
 {
   std::string incoming;
-  std::stringstream content;
+  std::ostringstream content;
 
   while(getline(stream, incoming).eof() == false) {
     content << incoming << std::endl;

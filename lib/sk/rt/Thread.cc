@@ -85,7 +85,7 @@ init()
   _runnerHolder.set(new thread::Runner(_targetHolder.get(), *this));
 
   if(_name.isEmpty() == true) {
-    std::stringstream stream;
+    std::ostringstream stream;
     stream << "Thread" << '-' << _id;
     _name = stream.str();
   }

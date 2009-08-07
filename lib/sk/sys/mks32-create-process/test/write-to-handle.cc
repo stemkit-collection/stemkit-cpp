@@ -24,7 +24,7 @@ int main(int argc, const char* argv[])
     return 2;
   }
   int descriptor = 0;
-  std::stringstream(argv[1]) >> descriptor;
+  std::istringstream(argv[1]) >> descriptor;
   HANDLE handle = reinterpret_cast<HANDLE>(descriptor);
 
   if(SetHandleInformation(handle, HANDLE_FLAG_INHERIT, 0) == 0) {

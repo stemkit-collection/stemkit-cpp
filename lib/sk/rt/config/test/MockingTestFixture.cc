@@ -38,5 +38,5 @@ std::istream*
 sk::rt::config::test::MockingTestFixture::
 openStream(const sk::util::Pathname& name) const
 {
-  return new std::stringstream(name.toString());
+  return new std::istringstream(name.toString());
 }

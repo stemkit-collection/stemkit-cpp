@@ -23,7 +23,7 @@ namespace {
     char* s;
 	int n = FormatMessage(flags, 0, errorCode, 0, LPTSTR(&s), 0, 0);
  
-    std::stringstream stream;
+    std::ostringstream stream;
 	if(n == 0) {
       stream << "Error " << errorCode << "(no message found)";
     }

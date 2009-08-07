@@ -1014,7 +1014,7 @@ public:
 		if ( !node )
 			return TIXML_NO_ATTRIBUTE;
 
-		std::stringstream sstream( node->ValueStr() );
+		std::istringstream sstream( node->ValueStr() );
 		sstream >> *outValue;
 		if ( !sstream.fail() )
 			return TIXML_SUCCESS;

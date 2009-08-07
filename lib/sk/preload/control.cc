@@ -55,7 +55,7 @@ process_recursion_depth()
 
     --value;
 
-    std::stringstream stream;
+    std::ostringstream stream;
     stream << "LD_PRELOAD_DEPTH=" << value << ":" << pid;
     putenv(const_cast<char*>((new std::string(stream.str()))->c_str()));
 

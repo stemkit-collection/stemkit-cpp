@@ -93,7 +93,7 @@ void
 sk::util::test::BooleanTest::
 testStreamOutput()
 {
-  std::stringstream stream;
+  std::ostringstream stream;
   stream << Boolean(true) << ':' << Boolean(false);
 
   CPPUNIT_ASSERT_EQUAL(std::string("true:false"), stream.str());

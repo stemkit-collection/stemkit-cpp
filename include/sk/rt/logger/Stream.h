@@ -43,7 +43,7 @@ namespace sk {
           const logger::IScope& _scope;
           const sk::util::String& _label;
           const Level& _level;
-          mutable std::stringstream _stream;
+          mutable std::ostringstream _stream;
           mutable bool _requested;
           mutable bool _memory;
           bool _enabled;

@@ -109,7 +109,7 @@ const sk::util::String
 sk::rt::thread::AbstractLock::
 inspect() const
 {
-  std::stringstream stream;
+  std::ostringstream stream;
   stream << "<" << getClass().getName() << "#" << std::hex << getId() << ": ";
   collectInspectInfo(stream);
   stream << ">";

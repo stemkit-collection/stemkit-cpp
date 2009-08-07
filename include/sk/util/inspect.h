@@ -69,7 +69,7 @@ namespace sk {
     template<class T>
     const sk::util::String inspect(T& container)
     {
-      std::stringstream stream;
+      std::ostringstream stream;
       std::for_each(container.begin(), container.end(), Converter(stream));
 
       return '"' + stream.str() + '"';

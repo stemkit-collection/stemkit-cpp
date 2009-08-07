@@ -208,7 +208,7 @@ namespace {
     if(value) {
       return value;
     }
-    std::stringstream text_element_collector;
+    std::ostringstream text_element_collector;
     for(TiXmlNode* item=node->FirstChild(); item ;item=item->NextSibling()) {
       if(item->Type() == TiXmlNode::TEXT) {
         text_element_collector << item->ToText()->ValueStr();
@@ -234,7 +234,7 @@ const sk::util::String
 sk::rt::scope::XmlProcessor::
 expand(const sk::util::String& value)
 {
-  std::stringstream stream;
+  std::ostringstream stream;
   std::string::size_type index = 0;
 
   while(true) {

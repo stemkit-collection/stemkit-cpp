@@ -53,7 +53,7 @@ invoke(const StreamProcessor& processor) const
     _locatorHolder.get().invoke(processor);
   }
   try {
-    std::stringstream stream(_content);
+    std::istringstream stream(_content);
     processor.process(stream, ".");
   }
   catch(const sk::util::MissingResourceException& exception) {}
