@@ -9,7 +9,7 @@ product {
   description 'Stemkit'
 
   top ENV['CONTRIB_ROOT'] || '/usr/local'
-  base "stemkit-0.15"
+  base "stemkit-0.16"
 
   package {
     name 'cpp'
