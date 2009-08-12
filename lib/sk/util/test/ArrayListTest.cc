@@ -147,3 +147,16 @@ testFind()
   CPPUNIT_ASSERT(list.find(holder, ExactStringSelector("zzz")) == false);
   CPPUNIT_ASSERT(holder.isEmpty() == true);
 }
+
+void 
+sk::util::test::ArrayListTest::
+testContains()
+{
+  sk::util::String s("abc");
+  sk::util::ArrayList<sk::util::String> list;
+
+  list.add(s);
+  CPPUNIT_ASSERT(list.contains(s) == true);
+  CPPUNIT_ASSERT(list.contains("bbb") == false);
+  CPPUNIT_ASSERT(list.contains("abc") == false);
+}

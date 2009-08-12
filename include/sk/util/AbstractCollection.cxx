@@ -77,7 +77,16 @@ bool
 sk::util::AbstractCollection<T>::
 contains(const T& object) const 
 {
-  throw UnsupportedOperationException("sk::util::AbstractCollection::contains(object)");
+  struct Selector : public virtual sk::util::Selector<T> {
+    Selector(const T& object) 
+      : _object(object) {}
+
+    bool assess(const T& object) const {
+      return &object == &_object;
+    }
+    const T& _object;
+  };
+  return contains(Selector(object));
 }
 
 template<class T>
@@ -85,7 +94,8 @@ bool
 sk::util::AbstractCollection<T>::
 contains(const Selector<T>& selector) const 
 {
-  throw UnsupportedOperationException("sk::util::AbstractCollection::contains(selector)");
+  sk::util::Holder<T> holder;
+  return find(holder, selector);
 }
 
 template<class T>
