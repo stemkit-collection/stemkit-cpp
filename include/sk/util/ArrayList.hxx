@@ -39,6 +39,9 @@ namespace sk {
         T& get(int index) const;
         using AbstractList<T>::get;
 
+        void remove(int index);
+        using AbstractList<T>::remove;
+
       private:
         ArrayList(const ArrayList<T>& other);
         ArrayList<T>& operator = (const ArrayList<T>& other);

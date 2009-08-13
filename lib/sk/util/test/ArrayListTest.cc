@@ -160,3 +160,32 @@ testContains()
   CPPUNIT_ASSERT(list.contains("bbb") == false);
   CPPUNIT_ASSERT(list.contains("abc") == false);
 }
+
+void
+sk::util::test::ArrayListTest::
+testRemove()
+{
+  sk::util::ArrayList<sk::util::String> list;
+  list.add(new sk::util::String("aaa"));
+  list.add(new sk::util::String("bbb"));
+  list.add(new sk::util::String("ccc"));
+
+  CPPUNIT_ASSERT_EQUAL(3, list.size());
+  CPPUNIT_ASSERT_EQUAL("bbb", list.get(1));
+
+  list.remove(1);
+  CPPUNIT_ASSERT_EQUAL(2, list.size());
+  CPPUNIT_ASSERT_EQUAL("aaa", list.get(0));
+  CPPUNIT_ASSERT_EQUAL("ccc", list.get(1));
+
+  list.remove(1);
+  CPPUNIT_ASSERT_EQUAL(1, list.size());
+  CPPUNIT_ASSERT_EQUAL("aaa", list.get(0));
+  CPPUNIT_ASSERT_THROW(list.remove(1), sk::util::IndexOutOfBoundsException);
+
+  list.remove(0);
+  CPPUNIT_ASSERT_EQUAL(0, list.size());
+  CPPUNIT_ASSERT_THROW(list.remove(0), sk::util::IndexOutOfBoundsException);
+  CPPUNIT_ASSERT_THROW(list.remove(1), sk::util::IndexOutOfBoundsException);
+  CPPUNIT_ASSERT_THROW(list.remove(-1), sk::util::IndexOutOfBoundsException);
+}

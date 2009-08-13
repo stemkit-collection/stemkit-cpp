@@ -115,10 +115,21 @@ T&
 sk::util::ArrayList<T>::
 get(int index) const 
 {
-  if(index<0 || index>=_container.size()) {
+  if((index < 0) || (index >= _container.size())) {
     throw sk::util::IndexOutOfBoundsException("sk::util::ArrayList<T>#get()");
   }
   return _container[index]->get();
+}
+
+template<class T>
+void
+sk::util::ArrayList<T>::
+remove(int index) 
+{
+  if((index < 0) || (index >= _container.size())) {
+    throw sk::util::IndexOutOfBoundsException("sk::util::ArrayList<T>#remove()");
+  }
+  _container.erase(_container.begin() + index);
 }
 
 #endif /* _SK_UTIL_ARRAYLIST_CXX_ */
