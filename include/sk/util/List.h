@@ -36,9 +36,18 @@ namespace sk {
         virtual int lastIndexOf(const T& object) const = 0;
         virtual int lastIndexOf(const Selector<T>& selector) const = 0;
 
-        virtual T& remove(int index) = 0;
+        /// Removes the element at the specified position in this list.
+        /// Shifts any subsequent elements to the left (subtracts one 
+        /// from their indices). The element is actually destroyed when
+        /// added to this list as a pointer.
+        virtual void remove(int index) = 0;
         using Collection<T>::remove;
 
+        /// Removes the element at the specified position in this list.
+        /// Shifts any subsequent elements to the left (subtracts one 
+        /// from their indices). Throws an exception when the element 
+        /// was not added as a pointer. Otherwise returns a pointer to
+        /// the element without destroying the latter.
         virtual T* cutoff(int index) = 0;
         using Collection<T>::cutoff;
 

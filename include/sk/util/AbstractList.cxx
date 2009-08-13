@@ -105,7 +105,7 @@ lastIndexOf(const Selector<T>& selector) const
 }
 
 template<class T>
-T& 
+void
 sk::util::AbstractList<T>::
 remove(int index) 
 {
