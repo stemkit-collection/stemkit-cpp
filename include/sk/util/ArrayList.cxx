@@ -116,7 +116,7 @@ sk::util::ArrayList<T>::
 get(int index) const 
 {
   if((index < 0) || (index >= _container.size())) {
-    throw sk::util::IndexOutOfBoundsException("sk::util::ArrayList<T>#get()");
+    throw sk::util::IndexOutOfBoundsException("sk::util::ArrayList<T>#get(), index=" + sk::util::String::valueOf(index) + ", size=" + sk::util::String::valueOf(_container.size()));
   }
   return _container[index]->get();
 }
@@ -127,7 +127,7 @@ sk::util::ArrayList<T>::
 remove(int index) 
 {
   if((index < 0) || (index >= _container.size())) {
-    throw sk::util::IndexOutOfBoundsException("sk::util::ArrayList<T>#remove()");
+    throw sk::util::IndexOutOfBoundsException("sk::util::ArrayList<T>#remove(), index=" + sk::util::String::valueOf(index) + ", size=" + sk::util::String::valueOf(_container.size()));
   }
   _container.erase(_container.begin() + index);
 }
