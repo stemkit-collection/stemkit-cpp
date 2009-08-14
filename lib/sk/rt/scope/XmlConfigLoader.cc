@@ -14,7 +14,7 @@
 #include <sstream>
 
 sk::rt::scope::XmlConfigLoader::
-XmlConfigLoader(const sk::util::String& top, scope::Aggregator& aggregator, const std::map<std::string, std::string>& values)
+XmlConfigLoader(const sk::util::StringArray& top, scope::Aggregator& aggregator, const std::map<std::string, std::string>& values)
   : _top(top), _aggregator(aggregator), _values(values)
 {
 }

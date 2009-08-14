@@ -23,6 +23,7 @@ namespace sk {
         {
           CPPUNIT_TEST_SUITE(sk::rt::scope::test::XmlConfigLoaderTest);
             CPPUNIT_TEST(testBigPicture);
+            CPPUNIT_TEST(testSubScopes);
           CPPUNIT_TEST_SUITE_END();
           
           public:
@@ -32,6 +33,7 @@ namespace sk {
             void setUp();
             void tearDown();
             void testBigPicture();
+            void testSubScopes();
             
           private:
             XmlConfigLoaderTest(const XmlConfigLoaderTest& other);

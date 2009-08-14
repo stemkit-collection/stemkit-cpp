@@ -9,6 +9,7 @@
 #define _SK_RT_SCOPE_CONTROLLER_
 
 #include <sk/util/Object.h>
+#include <sk/util/StringArray.h>
 #include <sk/rt/scope/Aggregator.h>
 #include <map>
 
@@ -29,9 +30,9 @@ namespace sk {
           virtual ~Controller();
 
           void loadXmlConfig(const config::Locator& locator);
-          void loadXmlConfig(const sk::util::String& top, const config::Locator& locator);
+          void loadXmlConfig(const sk::util::StringArray& top, const config::Locator& locator);
           void loadXmlConfig(const config::Locator& locator, const std::map<std::string, std::string>& values);
-          void loadXmlConfig(const sk::util::String& top, const config::Locator& locator, const std::map<std::string, std::string>& values);
+          void loadXmlConfig(const sk::util::StringArray& top, const config::Locator& locator, const std::map<std::string, std::string>& values);
 
           scope::Aggregator& getAggregator();
           
