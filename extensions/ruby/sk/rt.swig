@@ -97,3 +97,13 @@ namespace sk
     return new sk::rt::config::UprootLocator(item, location);
   }
 }
+
+%extend sk::rt::scope::Controller {
+  void loadXmlConfig(const sk::util::String& top, const config::Locator& locator) {
+    self->loadXmlConfig(sk::util::StringArray(top), locator);
+  }
+
+  void loadXmlConfig(const sk::util::String& top, const config::Locator& locator, const std::map<std::string, std::string>& values) {
+    self->loadXmlConfig(sk::util::StringArray(top), locator, values);
+  }
+}
