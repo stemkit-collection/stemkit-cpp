@@ -27,9 +27,6 @@ namespace sk {
           }
       
         private:
-          Equal(const Equal<T>& other);
-          Equal<T>& operator = (const Equal<T>& other);
-
           const T& _object;
       };
     }

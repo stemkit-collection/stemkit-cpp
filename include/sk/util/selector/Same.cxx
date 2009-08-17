@@ -27,9 +27,6 @@ namespace sk {
           }
       
         private:
-          Same(const Same<T>& other);
-          Same<T>& operator = (const Same<T>& other);
-
           const T& _object;
       };
     }
