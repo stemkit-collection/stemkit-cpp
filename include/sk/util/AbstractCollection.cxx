@@ -11,6 +11,7 @@
 
 #include <sk/util/AbstractCollection.hxx>
 #include <sk/util/UnsupportedOperationException.h>
+#include <sk/util/selector/Same.cxx>
 
 template<class T>
 sk::util::AbstractCollection<T>::
@@ -77,16 +78,7 @@ bool
 sk::util::AbstractCollection<T>::
 contains(const T& object) const 
 {
-  struct Selector : public virtual sk::util::Selector<T> {
-    Selector(const T& object) 
-      : _object(object) {}
-
-    bool assess(const T& object) const {
-      return &object == &_object;
-    }
-    const T& _object;
-  };
-  return contains(Selector(object));
+  return contains(selector::Same<T>(object));
 }
 
 template<class T>
