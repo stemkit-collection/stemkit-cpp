@@ -20,6 +20,7 @@ namespace sk {
     {
       public:
         ReentrantLock();
+        ReentrantLock(bool ownership);
         virtual ~ReentrantLock();
 
         bool isLocked() const;

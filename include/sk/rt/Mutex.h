@@ -19,7 +19,8 @@ namespace sk {
       : public thread::AbstractLock
     {
       public:
-        Mutex(bool ownership = true);
+        Mutex();
+        Mutex(bool ownership);
         virtual ~Mutex();
 
         bool isLocked() const;

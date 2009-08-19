@@ -17,6 +17,12 @@
 static const char* __className("sk::rt::Mutex");
 
 sk::rt::Mutex::
+Mutex()
+  : thread::AbstractLock(thread::Implementation::instance().makeSimpleMutex(), true)
+{
+}
+
+sk::rt::Mutex::
 Mutex(bool ownership)
   : thread::AbstractLock(thread::Implementation::instance().makeSimpleMutex(), ownership)
 {

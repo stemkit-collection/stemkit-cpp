@@ -24,6 +24,13 @@ ReentrantLock()
 }
 
 sk::rt::ReentrantLock::
+ReentrantLock(bool ownership)
+  : thread::AbstractLock(thread::Implementation::instance().makeRecursiveMutex(), ownership),
+    _counter(0)
+{
+}
+
+sk::rt::ReentrantLock::
 ~ReentrantLock()
 {
 }
