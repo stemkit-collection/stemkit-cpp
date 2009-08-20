@@ -9,6 +9,7 @@
 #define _SK_RT_LOGGER_STREAM_
 
 #include <sk/util/Object.h>
+#include <sk/util/Holder.hxx>
 #include <sk/rt/logger/IScope.h>
 #include <sk/rt/logger/Level.h>
 #include <sstream>
@@ -43,8 +44,7 @@ namespace sk {
           const logger::IScope& _scope;
           const sk::util::String& _label;
           const Level& _level;
-          mutable std::ostringstream _stream;
-          mutable bool _requested;
+          mutable sk::util::Holder<std::ostringstream> _streamHolder;
           mutable bool _memory;
           bool _enabled;
       };

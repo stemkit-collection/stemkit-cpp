@@ -8,6 +8,7 @@
 
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
+#include <sk/util/Holder.cxx>
 
 #include <sk/rt/logger/Stream.h>
 #include <sk/rt/logger/IScope.h>
@@ -17,7 +18,7 @@
 
 sk::rt::logger::Stream::
 Stream(const sk::util::String& label, const Level& level, const logger::IScope& scope)
-  : _requested(false), _label(label), _config(scope.getConfig()), _enabled(_config.checkLogLevel(level)), _level(level), _scope(scope), 
+  : _label(label), _config(scope.getConfig()), _enabled(_config.checkLogLevel(level)), _level(level), _scope(scope), 
     _memory(false)
 {
 }
@@ -25,18 +26,19 @@ Stream(const sk::util::String& label, const Level& level, const logger::IScope& 
 sk::rt::logger::Stream::
 ~Stream()
 {
-  if(_requested == true) {
+  if(_streamHolder.isEmpty() == false) {
+    std::ostringstream& stream = _streamHolder.get();
     if(_memory == true && _config.isLogMemory() == true) {
       try {
         uint64_t memory = sk::rt::ProcessInfo::current().virtualMemory(_scope.getLock());
-        _stream << " [" << (memory >> 10) << "K]";
+        stream << " [" << (memory >> 10) << "K]";
       }
       catch(const std::exception& exception) {
-        _stream << " [??? - " << exception.what() << "]";
+        stream << " [??? - " << exception.what() << "]";
       }
     }
-    _stream << _config.getLineTerminator();
-    _config.getLogDestination().dispatch(_stream.str().c_str(), _stream.str().size());
+    stream << _config.getLineTerminator();
+    _config.getLogDestination().dispatch(stream.str().c_str(), stream.str().size());
   }
 }
 
@@ -92,9 +94,9 @@ std::ostream&
 sk::rt::logger::Stream::
 getStream() const
 {
-  if(_requested == false) {
-    _requested = true;
-    makeHeader(_stream);
+  if(_streamHolder.isEmpty() == true) {
+    _streamHolder.set(new std::ostringstream);
+    makeHeader(_streamHolder.get());
   }
-  return _stream;
+  return _streamHolder.get();
 }
