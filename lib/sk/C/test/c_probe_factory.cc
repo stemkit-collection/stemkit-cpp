@@ -9,6 +9,7 @@
 */
 
 #include <sk/C/test/Probe.h>
+#include <sk/C/handle.h>
 #include "c_probe_factory_implementation.h"
 #include <stdlib.h>
 
@@ -21,26 +22,20 @@ struct sk_c_test_ProbeFactoryHandle* sk_c_test_ProbeFactory_create()
 extern "C"
 void sk_c_test_ProbeFactory_destroy(struct sk_c_test_ProbeFactoryHandle* handle)
 {
-  if(handle == 0) {
-    abort();
-  }
+  sk_c_handle::ensure_proper(handle);
   delete handle;
 }
 
 extern "C"
 int sk_c_test_ProbeFactory_getSize(const struct sk_c_test_ProbeFactoryHandle* handle)
 {
-  if(handle == 0) {
-    abort();
-  }
+  sk_c_handle::ensure_proper(handle);
   return handle->get().getSize();
 }
 
 extern "C"
 struct sk_c_test_ProbeHandle* sk_c_test_ProbeFactory_makeProbe(struct sk_c_test_ProbeFactoryHandle* handle, const char* name)
 {
-  if(handle == 0) {
-    abort();
-  }
+  sk_c_handle::ensure_proper(handle);
   return handle->get().makeProbe(name).get_c_handle();
 }

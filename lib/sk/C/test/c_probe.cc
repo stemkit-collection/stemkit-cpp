@@ -13,10 +13,8 @@
 extern "C"
 const char* sk_c_test_Probe_inspect(const struct sk_c_test_ProbeHandle* handle, char* buffer, int size)
 {
-  if(handle == 0 || buffer == 0 || size <= 0) {
-    abort();
-  }
-  return sk::C::handle::copy(handle->get().inspect(), buffer, size);
+  sk_c_handle::ensure_proper(handle);
+  return sk_c_handle::copy(handle->get().inspect(), buffer, size);
 }
 
 extern "C"

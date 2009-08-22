@@ -14,7 +14,7 @@ namespace sk {
   namespace C {
     template<class T>
     class abstract_handle
-      : public sk::C::handle
+      : public sk_c_handle
     {
       public:
         abstract_handle(T& object);

@@ -10,41 +10,33 @@
 
 #include <sk/C/handle.h>
 
-#define SK_C_HANDLE_SIGNATURE "_SK_C_HANDLE_H_"
-
 namespace {
   void abort_on_null_c_handle() {
-    abort();
-  }
-
-  void abort_on_non_c_handle() {
     abort();
   }
 
   void abort_on_bad_copy_buffer() {
     abort();
   }
-
-  sk::C::handle& make_c_handle(void* handle) {
-    if(handle == 0) {
-      abort_on_null_c_handle();
-    }
-    sk::C::handle* h = static_cast<sk::C::handle*>(handle);
-    if(h->signature != SK_C_HANDLE_SIGNATURE) {
-      abort_on_non_c_handle();
-    }
-    return *h;
-  }
 }
 
-sk::C::handle::
-handle()
-  : error(false), signature(SK_C_HANDLE_SIGNATURE)
+sk_c_handle::
+sk_c_handle()
+  : error(false)
 {
 }
 
+void
+sk_c_handle::
+ensure_proper(const sk_c_handle* handle)
+{
+  if(handle == 0) {
+    abort_on_null_c_handle();
+  }
+}
+
 char* 
-sk::C::handle::
+sk_c_handle::
 copy(const std::string& s, char* buffer, int size)
 {
   if(buffer == 0 || size <= 0) {
@@ -57,35 +49,35 @@ copy(const std::string& s, char* buffer, int size)
 }
 
 extern "C"
-int sk_c_handle_isError(void* handle) 
+int sk_c_handle_isError(const sk_c_handle* handle) 
 {
-  sk::C::handle& h = make_c_handle(handle);
-  return h.error == true ? 1 : 0;
+  sk_c_handle::ensure_proper(handle);
+  return handle->error == true ? 1 : 0;
 }
 
 extern "C"
-int sk_c_handle_isGood(void* handle)
+int sk_c_handle_isGood(const sk_c_handle* handle)
 {
-  sk::C::handle& h = make_c_handle(handle);
-  return h.error == false ? 1 : 0;
+  sk_c_handle::ensure_proper(handle);
+  return handle->error == false ? 1 : 0;
 }
 
 extern "C"
-const char* sk_c_handle_errorType(void* handle, char* buffer, int size)
+const char* sk_c_handle_errorType(const sk_c_handle* handle, char* buffer, int size)
 {
-  sk::C::handle& h = make_c_handle(handle);
-  if(h.error == false) {
+  sk_c_handle::ensure_proper(handle);
+  if(handle->error == false) {
     return 0;
   }
-  return sk::C::handle::copy(h.errorType, buffer, size);
+  return sk_c_handle::copy(handle->errorType, buffer, size);
 }
 
 extern "C"
-const char* sk_c_handle_errorMessage(void* handle, char* buffer, int size)
+const char* sk_c_handle_errorMessage(const sk_c_handle* handle, char* buffer, int size)
 {
-  sk::C::handle& h = make_c_handle(handle);
-  if(h.error == false) {
+  sk_c_handle::ensure_proper(handle);
+  if(handle->error == false) {
     return 0;
   }
-  return sk::C::handle::copy(h.errorMessage, buffer, size);
+  return sk_c_handle::copy(handle->errorMessage, buffer, size);
 }
