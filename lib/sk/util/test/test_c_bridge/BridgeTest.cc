@@ -8,35 +8,35 @@
  *  Author: Gennady Bystritsky
 */
 
-#include "ProbeTest.h"
+#include "BridgeTest.h"
 #include "api/Probe.h"
 
-CPPUNIT_TEST_SUITE_REGISTRATION(sk::util::test::ProbeTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(sk::util::test::BridgeTest);
 
-sk::util::test::ProbeTest::
-ProbeTest()
+sk::util::test::BridgeTest::
+BridgeTest()
 {
 }
 
-sk::util::test::ProbeTest::
-~ProbeTest()
+sk::util::test::BridgeTest::
+~BridgeTest()
 {
 }
 
 void
-sk::util::test::ProbeTest::
+sk::util::test::BridgeTest::
 setUp()
 {
 }
 
 void
-sk::util::test::ProbeTest::
+sk::util::test::BridgeTest::
 tearDown()
 {
 }
 
 void
-sk::util::test::ProbeTest::
+sk::util::test::BridgeTest::
 testBasics()
 {
   sk::util::test::Probe probe("abc");

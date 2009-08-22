@@ -3,7 +3,7 @@ local test = c-bridge-test ;
 
 local test-objects = 
   TestSuite.cc
-  ProbeTest.cc
+  BridgeTest.cc
 ;
 
 local objects = 

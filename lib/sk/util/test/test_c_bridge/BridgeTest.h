@@ -8,8 +8,8 @@
  *  Author: Gennady Bystritsky
 */
 
-#ifndef _SK_UTIL_TEST_PROBETEST_H_
-#define _SK_UTIL_TEST_PROBETEST_H_
+#ifndef _SK_UTIL_TEST_BRIDGETEST_H_
+#define _SK_UTIL_TEST_BRIDGETEST_H_
 
 #include <cppunit/TestFixture.h>
 #include <cppunit/extensions/HelperMacros.h>
@@ -17,27 +17,27 @@
 namespace sk {
   namespace util {
     namespace test {
-      class ProbeTest
+      class BridgeTest
         : public CppUnit::TestFixture
       {
-        CPPUNIT_TEST_SUITE(sk::util::test::ProbeTest);
+        CPPUNIT_TEST_SUITE(sk::util::test::BridgeTest);
           CPPUNIT_TEST(testBasics);
         CPPUNIT_TEST_SUITE_END();
       
         public:
-          ProbeTest();
-          virtual ~ProbeTest();
+          BridgeTest();
+          virtual ~BridgeTest();
       
           void setUp();
           void tearDown();
           void testBasics();
       
         private:
-          ProbeTest(const ProbeTest& other);
-          ProbeTest& operator = (const ProbeTest& other);
+          BridgeTest(const BridgeTest& other);
+          BridgeTest& operator = (const BridgeTest& other);
       };
     }
   }
 }
 
-#endif /* _SK_UTIL_TEST_PROBETEST_H_ */
+#endif /* _SK_UTIL_TEST_BRIDGETEST_H_ */
