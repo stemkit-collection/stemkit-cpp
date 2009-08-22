@@ -8,9 +8,6 @@
  *  Author: Gennady Bystritsky
 */
 
-#include <sk/util/Class.h>
-#include <sk/util/String.h>
-
 #include "c_probe_implementation.h"
 
 extern "C"

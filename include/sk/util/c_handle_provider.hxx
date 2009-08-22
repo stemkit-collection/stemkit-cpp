@@ -11,6 +11,8 @@
 #ifndef _SK_UTIL_C_HANDLE_PROVIDER_HXX_
 #define _SK_UTIL_C_HANDLE_PROVIDER_HXX_
 
+#include <string>
+
 namespace sk {
   namespace util {
     template<typename T, typename H>

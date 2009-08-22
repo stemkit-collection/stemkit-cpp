@@ -8,7 +8,9 @@ local test-objects =
 
 local objects = 
   Probe.cc
+  ProbeFactory.cc
   c_probe.cc
+  c_probe_factory.cc
 ;
 
 use-unit-test $(test) $(test-objects) ;

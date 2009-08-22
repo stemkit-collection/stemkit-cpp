@@ -12,6 +12,8 @@
 #define _SK_UTIL_TEST_PROBE_H_
 
 #include <sk/util/Object.h>
+#include <sk/util/String.h>
+
 #include <sk/util/c_handle_provider.cxx>
 #include "c_probe.h"
 
