@@ -1,0 +1,16 @@
+
+local test = c-bridge-test ;
+
+local test-objects = 
+  TestSuite.cc
+  ProbeTest.cc
+;
+
+local objects = 
+  Probe.cc
+  c_probe.cc
+;
+
+use-unit-test $(test) $(test-objects) ;
+use-project-libraries $(test) : sk.util sk.cppunit ;
+make-cpp-test $(test) : $(test-objects) $(objects) ;
