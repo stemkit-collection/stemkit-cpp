@@ -29,6 +29,7 @@ void
 sk::util::test::BridgeTest::
 setUp()
 {
+  sk::util::test::Probe::resetInstanceCouner();
 }
 
 void
@@ -52,13 +53,17 @@ void
 sk::util::test::BridgeTest::
 testProbeFactory()
 {
-  sk::util::test::ProbeFactory factory;
-  CPPUNIT_ASSERT_EQUAL(0, factory.getSize());
+  {
+    sk::util::test::ProbeFactory factory;
+    CPPUNIT_ASSERT_EQUAL(0, factory.getSize());
 
-  CPPUNIT_ASSERT_EQUAL("sk::util::test::Probe=\"zzz\"", factory.makeProbe("zzz").inspect());
-  CPPUNIT_ASSERT_EQUAL("sk::util::test::Probe=\"uuu\"", factory.makeProbe("uuu").inspect());
+    CPPUNIT_ASSERT_EQUAL("sk::util::test::Probe=\"zzz\"", factory.makeProbe("zzz").inspect());
+    CPPUNIT_ASSERT_EQUAL("sk::util::test::Probe=\"uuu\"", factory.makeProbe("uuu").inspect());
 
-  CPPUNIT_ASSERT_EQUAL(2, factory.getSize());
+    CPPUNIT_ASSERT_EQUAL(2, factory.getSize());
+    CPPUNIT_ASSERT_EQUAL(2, sk::util::test::Probe::getInstanceCouner());
+  }
+  CPPUNIT_ASSERT_EQUAL(0, sk::util::test::Probe::getInstanceCouner());
 }
 
 void
@@ -73,7 +78,10 @@ testProbeFactoryC()
   CPPUNIT_ASSERT_EQUAL("sk::util::test::Probe=\"uuu\"", sk_util_test_Probe_inspect(sk_util_test_ProbeFactory_makeProbe(factory, "uuu"), buffer, sizeof(buffer)));
 
   CPPUNIT_ASSERT_EQUAL(2, sk_util_test_ProbeFactory_getSize(factory));
+  CPPUNIT_ASSERT_EQUAL(2, sk_util_test_Probe_getInstanceCounter());
+
   sk_util_test_ProbeFactory_destroy(factory);
+  CPPUNIT_ASSERT_EQUAL(0, sk_util_test_Probe_getInstanceCounter());
 }
 
 

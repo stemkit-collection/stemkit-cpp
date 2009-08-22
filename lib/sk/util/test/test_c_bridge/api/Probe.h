@@ -15,7 +15,7 @@
 #include <sk/util/String.h>
 
 #include <sk/util/c_handle_provider.cxx>
-#include "c_probe.h"
+#include "api/c_probe.h"
 
 namespace sk {
   namespace util {
@@ -28,6 +28,9 @@ namespace sk {
           Probe(const sk::util::String& name);
           virtual ~Probe();
 
+          static void resetInstanceCouner();
+          static int getInstanceCouner();
+
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
           const sk::util::String inspect() const;
@@ -37,6 +40,7 @@ namespace sk {
           Probe& operator = (const Probe& other);
 
           sk::util::String _name;
+          static int __instanceCounter;
       };
     }
   }

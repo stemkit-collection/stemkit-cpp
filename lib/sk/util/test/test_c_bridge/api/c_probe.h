@@ -18,6 +18,7 @@ extern "C" {
 #endif
 
 const char* sk_util_test_Probe_inspect(const struct sk_util_test_ProbeHandle* handle, char* buffer, int size);
+int sk_util_test_Probe_getInstanceCounter();
 
 #if defined(__cplusplus)
 }

@@ -16,16 +16,19 @@
 #include "c_probe_implementation.h"
 
 static const sk::util::String __className("sk::util::test::Probe");
+int sk::util::test::Probe::__instanceCounter = 0;
 
 sk::util::test::Probe::
 Probe(const sk::util::String& name)
   : _name(name), c_handle_provider<Probe, sk_util_test_ProbeHandle>(*this)
 {
+  ++__instanceCounter;
 }
 
 sk::util::test::Probe::
 ~Probe()
 {
+  --__instanceCounter;
 }
 
 const sk::util::Class
@@ -40,4 +43,18 @@ sk::util::test::Probe::
 inspect() const 
 {
   return getClass().getName() + "=" + _name.inspect();
+}
+
+int 
+sk::util::test::Probe::
+getInstanceCouner() 
+{
+  return __instanceCounter;
+}
+
+void
+sk::util::test::Probe::
+resetInstanceCouner()
+{
+  __instanceCounter = 0;
 }

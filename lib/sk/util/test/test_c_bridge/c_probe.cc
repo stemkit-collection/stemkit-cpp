@@ -20,3 +20,9 @@ const char* sk_util_test_Probe_inspect(const struct sk_util_test_ProbeHandle* ha
 
   return buffer;
 }
+
+extern "C"
+int sk_util_test_Probe_getInstanceCounter()
+{
+  return sk::util::test::Probe::getInstanceCouner();
+}
