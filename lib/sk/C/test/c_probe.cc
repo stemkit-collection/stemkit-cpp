@@ -16,9 +16,7 @@ const char* sk_c_test_Probe_inspect(const struct sk_c_test_ProbeHandle* handle, 
   if(handle == 0 || buffer == 0 || size <= 0) {
     abort();
   }
-  return handle->get().copy(handle->get().inspect(), buffer, size);
-
-  return buffer;
+  return sk::C::handle::copy(handle->get().inspect(), buffer, size);
 }
 
 extern "C"

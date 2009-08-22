@@ -8,10 +8,13 @@
 #ifndef _SK_C_ABSTRACT_HANDLE_HXX_
 #define _SK_C_ABSTRACT_HANDLE_HXX_
 
+#include <sk/C/handle.h>
+
 namespace sk {
   namespace C {
     template<class T>
     class abstract_handle
+      : public sk::C::handle
     {
       public:
         abstract_handle(T& object);

@@ -15,5 +15,5 @@ local objects =
 ;
 
 use-unit-test $(test) $(test-objects) ;
-use-project-libraries $(test) : sk.util sk.cppunit ;
+use-project-libraries $(test) : sk.C sk.util sk.cppunit ;
 make-cpp-test $(test) : $(test-objects) $(objects) ;

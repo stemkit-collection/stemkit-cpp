@@ -25,8 +25,6 @@ namespace sk {
         H* get_c_handle();
         const H* get_c_handle() const;
     
-        static char* copy(const std::string& s, char* buffer, int size);
-
       private:
         handle_provider<T, H>& operator = (const handle_provider<T, H>& other);
         handle_provider(const handle_provider<T, H>& other);

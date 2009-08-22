@@ -43,18 +43,4 @@ get_c_handle() const
   return _handle;
 }
 
-template<typename T, typename H>
-char* 
-sk::C::handle_provider<T, H>::
-copy(const std::string& s, char* buffer, int size)
-{
-  if(buffer == 0 || size <= 0) {
-    abort();
-  }
-  strncpy(buffer, s.c_str(), size);
-  buffer[size-1] = 0;
-
-  return buffer;
-}
-
 #endif /* _SK_C_HANDLE_PROVIDER_CXX_ */

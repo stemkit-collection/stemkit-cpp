@@ -1,2 +1,9 @@
 
+local library = sk.C ;
+
+local objects = 
+  handle.cc
+;
+
+make-library $(library) : $(objects) ;
 make-subdirs test ;
