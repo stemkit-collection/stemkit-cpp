@@ -4,6 +4,7 @@ local test = c-bridge-test ;
 local test-objects = 
   TestSuite.cc
   BridgeTest.cc
+  test_probe_factory.c
 ;
 
 local objects = 

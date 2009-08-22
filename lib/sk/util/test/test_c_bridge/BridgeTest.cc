@@ -13,6 +13,8 @@
 #include "api/ProbeFactory.h"
 #include "api/c_probe_factory.h"
 
+#include "test_probe_factory.h"
+
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::util::test::BridgeTest);
 
 sk::util::test::BridgeTest::
@@ -84,4 +86,10 @@ testProbeFactoryC()
   CPPUNIT_ASSERT_EQUAL(0, sk_util_test_Probe_getInstanceCounter());
 }
 
-
+void
+sk::util::test::BridgeTest::
+testRealC()
+{
+  CPPUNIT_ASSERT_EQUAL("OK", test_probe_factory());
+  CPPUNIT_ASSERT_EQUAL(0, sk::util::test::Probe::getInstanceCouner());
+}

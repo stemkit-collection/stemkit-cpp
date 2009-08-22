@@ -24,6 +24,7 @@ namespace sk {
           CPPUNIT_TEST(testProbe);
           CPPUNIT_TEST(testProbeFactory);
           CPPUNIT_TEST(testProbeFactoryC);
+          CPPUNIT_TEST(testRealC);
         CPPUNIT_TEST_SUITE_END();
       
         public:
@@ -35,6 +36,7 @@ namespace sk {
           void testProbe();
           void testProbeFactory();
           void testProbeFactoryC();
+          void testRealC();
       
         private:
           BridgeTest(const BridgeTest& other);
