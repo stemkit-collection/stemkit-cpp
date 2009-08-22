@@ -8,28 +8,28 @@
  *  Author: Gennady Bystritsky
 */
 
-#ifndef _SK_UTIL_C_HANDLE_PROVIDER_CXX_
-#define _SK_UTIL_C_HANDLE_PROVIDER_CXX_
+#ifndef _SK_C_HANDLE_PROVIDER_CXX_
+#define _SK_C_HANDLE_PROVIDER_CXX_
 
-#include <sk/util/c_handle_provider.hxx>
+#include <sk/C/handle_provider.hxx>
 
 template<typename T, typename H>
-sk::util::c_handle_provider<T, H>::
-c_handle_provider(T& object)
+sk::C::handle_provider<T, H>::
+handle_provider(T& object)
   : _handle(new H(object))
 {
 }
 
 template<typename T, typename H>
-sk::util::c_handle_provider<T, H>::
-~c_handle_provider()
+sk::C::handle_provider<T, H>::
+~handle_provider()
 {
   delete _handle;
 }
 
 template<typename T, typename H>
 H*
-sk::util::c_handle_provider<T, H>::
+sk::C::handle_provider<T, H>::
 get_c_handle()
 {
   return _handle;
@@ -37,7 +37,7 @@ get_c_handle()
 
 template<typename T, typename H>
 const H*
-sk::util::c_handle_provider<T, H>::
+sk::C::handle_provider<T, H>::
 get_c_handle() const
 {
   return _handle;
@@ -45,7 +45,7 @@ get_c_handle() const
 
 template<typename T, typename H>
 char* 
-sk::util::c_handle_provider<T, H>::
+sk::C::handle_provider<T, H>::
 copy(const std::string& s, char* buffer, int size)
 {
   if(buffer == 0 || size <= 0) {
@@ -57,4 +57,4 @@ copy(const std::string& s, char* buffer, int size)
   return buffer;
 }
 
-#endif /* _SK_UTIL_C_HANDLE_PROVIDER_CXX_ */
+#endif /* _SK_C_HANDLE_PROVIDER_CXX_ */

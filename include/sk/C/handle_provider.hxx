@@ -8,19 +8,19 @@
  *  Author: Gennady Bystritsky
 */
 
-#ifndef _SK_UTIL_C_HANDLE_PROVIDER_HXX_
-#define _SK_UTIL_C_HANDLE_PROVIDER_HXX_
+#ifndef _SK_C_HANDLE_PROVIDER_HXX_
+#define _SK_C_HANDLE_PROVIDER_HXX_
 
 #include <string>
 
 namespace sk {
-  namespace util {
+  namespace C {
     template<typename T, typename H>
-    class c_handle_provider 
+    class handle_provider 
     {
       public:
-        c_handle_provider(T& object);
-        ~c_handle_provider();
+        handle_provider(T& object);
+        ~handle_provider();
     
         H* get_c_handle();
         const H* get_c_handle() const;
@@ -28,12 +28,12 @@ namespace sk {
         static char* copy(const std::string& s, char* buffer, int size);
 
       private:
-        c_handle_provider<T, H>& operator = (const c_handle_provider<T, H>& other);
-        c_handle_provider(const c_handle_provider<T, H>& other);
+        handle_provider<T, H>& operator = (const handle_provider<T, H>& other);
+        handle_provider(const handle_provider<T, H>& other);
 
         H* _handle;
     };
   }
 }
 
-#endif /* _SK_UTIL_C_HANDLE_PROVIDER_HXX_ */
+#endif /* _SK_C_HANDLE_PROVIDER_HXX_ */

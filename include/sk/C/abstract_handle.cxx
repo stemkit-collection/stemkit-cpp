@@ -5,28 +5,28 @@
  *  You must read and accept the license prior to use.
 */
 
-#ifndef _SK_UTIL_ABSTRACT_C_HANDLE_CXX_
-#define _SK_UTIL_ABSTRACT_C_HANDLE_CXX_
+#ifndef _SK_C_ABSTRACT_HANDLE_CXX_
+#define _SK_C_ABSTRACT_HANDLE_CXX_
 
-#include <sk/util/abstract_c_handle.hxx>
+#include <sk/C/abstract_handle.hxx>
 
 template<class T>
-sk::util::abstract_c_handle<T>::
-abstract_c_handle(T& object)
+sk::C::abstract_handle<T>::
+abstract_handle(T& object)
   : _object(&object), _deletable(false)
 {
 }
 
 template<class T>
-sk::util::abstract_c_handle<T>::
-abstract_c_handle(T* object)
+sk::C::abstract_handle<T>::
+abstract_handle(T* object)
   : _object(object), _deletable(true)
 {
 }
 
 template<class T>
-sk::util::abstract_c_handle<T>::
-~abstract_c_handle()
+sk::C::abstract_handle<T>::
+~abstract_handle()
 {
   if(_deletable == true) {
     delete _object;
@@ -35,10 +35,10 @@ sk::util::abstract_c_handle<T>::
 
 template<class T>
 T&
-sk::util::abstract_c_handle<T>::
+sk::C::abstract_handle<T>::
 get() const
 {
   return *_object;
 }
 
-#endif /* _SK_UTIL_ABSTRACT_C_HANDLE_CXX_ */
+#endif /* _SK_C_ABSTRACT_HANDLE_CXX_ */

@@ -14,14 +14,14 @@
 #include <sk/util/Object.h>
 #include <sk/util/String.h>
 
-#include <sk/util/c_handle_provider.cxx>
+#include <sk/C/handle_provider.cxx>
 #include "api/c_probe.h"
 
 namespace sk {
   namespace util {
     namespace test {
       class Probe 
-        : public sk::util::c_handle_provider<Probe, sk_util_test_ProbeHandle>,
+        : public sk::C::handle_provider<Probe, sk_util_test_ProbeHandle>,
           public virtual sk::util::Object
       {
         public:
