@@ -8,20 +8,20 @@
  *  Author: Gennady Bystritsky
 */
 
-#ifndef _SK_UTIL_TEST_PROBE_H_
-#define _SK_UTIL_TEST_PROBE_H_
+#ifndef _SK_C_TEST_PROBE_H_
+#define _SK_C_TEST_PROBE_H_
 
 #include <sk/util/Object.h>
 #include <sk/util/String.h>
 
 #include <sk/C/handle_provider.cxx>
-#include "api/c_probe.h"
+#include <sk/C/test/c_probe.h>
 
 namespace sk {
-  namespace util {
+  namespace C {
     namespace test {
       class Probe 
-        : public sk::C::handle_provider<Probe, sk_util_test_ProbeHandle>,
+        : public sk::C::handle_provider<Probe, sk_c_test_ProbeHandle>,
           public virtual sk::util::Object
       {
         public:
@@ -46,4 +46,4 @@ namespace sk {
   }
 }
 
-#endif /* _SK_UTIL_TEST_PROBE_H_ */
+#endif /* _SK_C_TEST_PROBE_H_ */

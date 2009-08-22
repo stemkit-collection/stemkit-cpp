@@ -8,19 +8,19 @@
  *  Author: Gennady Bystritsky
 */
 
-#ifndef _SK_UTIL_TEST_BRIDGETEST_H_
-#define _SK_UTIL_TEST_BRIDGETEST_H_
+#ifndef _SK_C_TEST_BRIDGETEST_H_
+#define _SK_C_TEST_BRIDGETEST_H_
 
 #include <cppunit/TestFixture.h>
 #include <cppunit/extensions/HelperMacros.h>
 
 namespace sk {
-  namespace util {
+  namespace C {
     namespace test {
       class BridgeTest
         : public CppUnit::TestFixture
       {
-        CPPUNIT_TEST_SUITE(sk::util::test::BridgeTest);
+        CPPUNIT_TEST_SUITE(sk::C::test::BridgeTest);
           CPPUNIT_TEST(testProbe);
           CPPUNIT_TEST(testProbeFactory);
           CPPUNIT_TEST(testProbeFactoryC);
@@ -46,4 +46,4 @@ namespace sk {
   }
 }
 
-#endif /* _SK_UTIL_TEST_BRIDGETEST_H_ */
+#endif /* _SK_C_TEST_BRIDGETEST_H_ */

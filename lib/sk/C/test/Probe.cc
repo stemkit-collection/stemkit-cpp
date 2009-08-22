@@ -12,48 +12,48 @@
 #include <sk/util/String.h>
 #include <sk/C/handle_provider.cxx>
 
-#include "api/Probe.h"
+#include <sk/C/test/Probe.h>
 #include "c_probe_implementation.h"
 
-static const sk::util::String __className("sk::util::test::Probe");
-int sk::util::test::Probe::__instanceCounter = 0;
+static const sk::util::String __className("sk::C::test::Probe");
+int sk::C::test::Probe::__instanceCounter = 0;
 
-sk::util::test::Probe::
+sk::C::test::Probe::
 Probe(const sk::util::String& name)
-  : _name(name), sk::C::handle_provider<Probe, sk_util_test_ProbeHandle>(*this)
+  : _name(name), sk::C::handle_provider<Probe, sk_c_test_ProbeHandle>(*this)
 {
   ++__instanceCounter;
 }
 
-sk::util::test::Probe::
+sk::C::test::Probe::
 ~Probe()
 {
   --__instanceCounter;
 }
 
 const sk::util::Class
-sk::util::test::Probe::
+sk::C::test::Probe::
 getClass() const
 {
   return sk::util::Class(__className);
 }
 
 const sk::util::String
-sk::util::test::Probe::
+sk::C::test::Probe::
 inspect() const 
 {
   return getClass().getName() + "=" + _name.inspect();
 }
 
 int 
-sk::util::test::Probe::
+sk::C::test::Probe::
 getInstanceCouner() 
 {
   return __instanceCounter;
 }
 
 void
-sk::util::test::Probe::
+sk::C::test::Probe::
 resetInstanceCouner()
 {
   __instanceCounter = 0;

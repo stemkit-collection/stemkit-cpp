@@ -11,7 +11,7 @@
 #include "c_probe_implementation.h"
 
 extern "C"
-const char* sk_util_test_Probe_inspect(const struct sk_util_test_ProbeHandle* handle, char* buffer, int size)
+const char* sk_c_test_Probe_inspect(const struct sk_c_test_ProbeHandle* handle, char* buffer, int size)
 {
   if(handle == 0 || buffer == 0 || size <= 0) {
     abort();
@@ -22,7 +22,7 @@ const char* sk_util_test_Probe_inspect(const struct sk_util_test_ProbeHandle* ha
 }
 
 extern "C"
-int sk_util_test_Probe_getInstanceCounter()
+int sk_c_test_Probe_getInstanceCounter()
 {
-  return sk::util::test::Probe::getInstanceCouner();
+  return sk::C::test::Probe::getInstanceCouner();
 }

@@ -8,19 +8,19 @@
  *  Author: Gennady Bystritsky
 */
 
-#ifndef _SK_UTIL_TEST_TEST_C_BRIDGE_C_PROBE_IMPLEMENTATION_H_
-#define _SK_UTIL_TEST_TEST_C_BRIDGE_C_PROBE_IMPLEMENTATION_H_
+#ifndef _SK_C_TEST_TEST_C_BRIDGE_C_PROBE_IMPLEMENTATION_H_
+#define _SK_C_TEST_TEST_C_BRIDGE_C_PROBE_IMPLEMENTATION_H_
 
-#include "api/Probe.h"
-#include "api/c_probe.h"
+#include <sk/C/test/Probe.h>
+#include <sk/C/test/c_probe.h>
 
 #include <sk/C/abstract_handle.cxx>
 
-struct sk_util_test_ProbeHandle 
-  : public sk::C::abstract_handle<sk::util::test::Probe> 
+struct sk_c_test_ProbeHandle 
+  : public sk::C::abstract_handle<sk::C::test::Probe> 
 {
-  sk_util_test_ProbeHandle(sk::util::test::Probe& object)
-    : sk::C::abstract_handle<sk::util::test::Probe>(object) {}
+  sk_c_test_ProbeHandle(sk::C::test::Probe& object)
+    : sk::C::abstract_handle<sk::C::test::Probe>(object) {}
 };
 
-#endif /* _SK_UTIL_TEST_TEST_C_BRIDGE_C_PROBE_IMPLEMENTATION_H_ */
+#endif /* _SK_C_TEST_TEST_C_BRIDGE_C_PROBE_IMPLEMENTATION_H_ */

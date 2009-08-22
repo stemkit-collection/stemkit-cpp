@@ -8,8 +8,8 @@
  *  Author: Gennady Bystritsky
 */
 
-#ifndef _SK_UTIL_TEST_TEST_PROBE_FACTORY_H_
-#define _SK_UTIL_TEST_TEST_PROBE_FACTORY_H_
+#ifndef _SK_C_TEST_TEST_PROBE_FACTORY_H_
+#define _SK_C_TEST_TEST_PROBE_FACTORY_H_
 
 #if defined(__cplusplus)
 extern "C" {
@@ -21,4 +21,4 @@ const char* test_probe_factory();
 }
 #endif
 
-#endif /* _SK_UTIL_TEST_TEST_PROBE_FACTORY_H_ */
+#endif /* _SK_C_TEST_TEST_PROBE_FACTORY_H_ */

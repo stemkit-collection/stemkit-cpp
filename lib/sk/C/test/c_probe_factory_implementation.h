@@ -8,19 +8,19 @@
  *  Author: Gennady Bystritsky
 */
 
-#ifndef _SK_UTIL_TEST_C_PROBE_FACTORY_IMPLEMENTATION_H_
-#define _SK_UTIL_TEST_C_PROBE_FACTORY_IMPLEMENTATION_H_
+#ifndef _SK_C_TEST_C_PROBE_FACTORY_IMPLEMENTATION_H_
+#define _SK_C_TEST_C_PROBE_FACTORY_IMPLEMENTATION_H_
 
-#include "api/ProbeFactory.h"
-#include "api/c_probe_factory.h"
+#include <sk/C/test/ProbeFactory.h>
+#include <sk/C/test/c_probe_factory.h>
 
 #include <sk/C/abstract_handle.cxx>
 
-struct sk_util_test_ProbeFactoryHandle 
-  : public sk::C::abstract_handle<sk::util::test::ProbeFactory> 
+struct sk_c_test_ProbeFactoryHandle 
+  : public sk::C::abstract_handle<sk::C::test::ProbeFactory> 
 {
-  sk_util_test_ProbeFactoryHandle(sk::util::test::ProbeFactory* object)
-    : sk::C::abstract_handle<sk::util::test::ProbeFactory>(object) {}
+  sk_c_test_ProbeFactoryHandle(sk::C::test::ProbeFactory* object)
+    : sk::C::abstract_handle<sk::C::test::ProbeFactory>(object) {}
 };
 
-#endif /* _SK_UTIL_TEST_C_PROBE_FACTORY_IMPLEMENTATION_H_ */
+#endif /* _SK_C_TEST_C_PROBE_FACTORY_IMPLEMENTATION_H_ */

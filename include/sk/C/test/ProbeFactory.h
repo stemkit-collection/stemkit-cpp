@@ -8,14 +8,14 @@
  *  Author: Gennady Bystritsky
 */
 
-#ifndef _SK_UTIL_TEST_PROBEFACTORY_H_
-#define _SK_UTIL_TEST_PROBEFACTORY_H_
+#ifndef _SK_C_TEST_PROBEFACTORY_H_
+#define _SK_C_TEST_PROBEFACTORY_H_
 
 #include <sk/util/Object.h>
 #include <sk/util/ArrayList.hxx>
 
 namespace sk {
-  namespace util {
+  namespace C {
     namespace test {
       class Probe;
 
@@ -27,7 +27,7 @@ namespace sk {
           virtual ~ProbeFactory();
 
           int getSize() const;
-          sk::util::test::Probe& makeProbe(const sk::util::String& name);
+          sk::C::test::Probe& makeProbe(const sk::util::String& name);
       
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
@@ -36,10 +36,10 @@ namespace sk {
           ProbeFactory(const ProbeFactory& other);
           ProbeFactory& operator = (const ProbeFactory& other);
 
-          sk::util::ArrayList<sk::util::test::Probe> _probes;
+          sk::util::ArrayList<sk::C::test::Probe> _probes;
       };
     }
   }
 }
 
-#endif /* _SK_UTIL_TEST_PROBEFACTORY_H_ */
+#endif /* _SK_C_TEST_PROBEFACTORY_H_ */
