@@ -37,5 +37,20 @@ extern "C"
 struct sk_c_test_ProbeHandle* sk_c_test_ProbeFactory_makeProbe(struct sk_c_test_ProbeFactoryHandle* handle, const char* name)
 {
   sk_c_handle::ensure_proper(handle);
-  return handle->get().makeProbe(name).get_c_handle();
+
+  struct Action : public virtual sk_c_handle::Runnable {
+    Action(sk::C::test::ProbeFactory& factory, const char* name, sk_c_test_ProbeHandle** handle)
+      : _factory(factory), _name(name), _handle(handle) {}
+
+    void run() const {
+      *_handle = _factory.makeProbe(_name).get_c_handle();
+    }
+    const char* _name;
+    sk::C::test::ProbeFactory& _factory;
+    sk_c_test_ProbeHandle** _handle;
+  };
+  sk_c_test_ProbeHandle* result = 0;
+  handle->execute(Action(handle->get(), name, &result));
+
+  return result;
 }

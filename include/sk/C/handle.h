@@ -33,7 +33,7 @@ class sk_c_handle
 {
   public:
     struct Runnable : public virtual sk::util::Object {
-      virtual void run() = 0;
+      virtual void run() const = 0;
     };
     sk_c_handle();
 
@@ -41,7 +41,7 @@ class sk_c_handle
     const sk::util::String& errorType() const;
     const sk::util::String& errorMessage() const;
 
-    void execute(sk_c_handle::Runnable& runnable) const;
+    void execute(const sk_c_handle::Runnable& runnable) const;
 
     static char* copy(const std::string& s, char* buffer, int size);
     static void ensure_proper(const struct sk_c_handle* handle);

@@ -60,7 +60,7 @@ ensure_proper(const sk_c_handle* handle)
 
 void
 sk_c_handle::
-execute(sk_c_handle::Runnable& runnable) const
+execute(const sk_c_handle::Runnable& runnable) const
 {
   try {
     runnable.run();
