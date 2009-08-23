@@ -26,18 +26,30 @@ const char* sk_c_handle_errorMessage(const sk_c_handle* handle, char* buffer, in
 #if defined(__cplusplus)
 }
 
+#include <sk/util/Object.h>
 #include <sk/util/String.h>
 
-struct sk_c_handle 
+class sk_c_handle 
 {
-  sk_c_handle();
+  public:
+    struct Runnable : public virtual sk::util::Object {
+      virtual void run() = 0;
+    };
+    sk_c_handle();
 
-  static char* copy(const std::string& s, char* buffer, int size);
-  static void ensure_proper(const struct sk_c_handle* handle);
+    bool isError() const;
+    const sk::util::String& errorType() const;
+    const sk::util::String& errorMessage() const;
 
-  bool error;
-  sk::util::String errorType;
-  sk::util::String errorMessage;
+    void execute(sk_c_handle::Runnable& runnable) const;
+
+    static char* copy(const std::string& s, char* buffer, int size);
+    static void ensure_proper(const struct sk_c_handle* handle);
+
+  private:
+    mutable bool _error;
+    mutable sk::util::String _errorType;
+    mutable sk::util::String _errorMessage;
 };
 
 #endif
