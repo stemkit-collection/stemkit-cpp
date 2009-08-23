@@ -9,6 +9,7 @@
 #define _SK_C_ABSTRACT_HANDLE_HXX_
 
 #include <sk/C/handle.h>
+#include <sk/util/Mapper.h>
 
 namespace sk {
   namespace C {
@@ -19,9 +20,13 @@ namespace sk {
       public:
         abstract_handle(T& object);
         abstract_handle(T* object);
+        abstract_handle(const sk::util::Mapper<bool, T*>& mapper);
         virtual ~abstract_handle();
 
         T& get() const;
+
+        template<typename F, typename R>
+        R invoke(const sk::util::Mapper<F, R>& mapper) const;
         
       private:
         abstract_handle(const abstract_handle<T>& other);

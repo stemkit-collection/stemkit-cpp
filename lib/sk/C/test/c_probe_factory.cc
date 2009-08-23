@@ -8,15 +8,21 @@
  *  Author: Gennady Bystritsky
 */
 
+#include <sk/util/Mapper.h>
 #include <sk/C/test/Probe.h>
 #include <sk/C/handle.h>
+
 #include "c_probe_factory_implementation.h"
-#include <stdlib.h>
 
 extern "C"
 struct sk_c_test_ProbeFactoryHandle* sk_c_test_ProbeFactory_create()
 {
-  return new sk_c_test_ProbeFactoryHandle(new sk::C::test::ProbeFactory);
+  struct Action : public virtual sk::util::Mapper<bool, sk::C::test::ProbeFactory*> {
+    sk::C::test::ProbeFactory* map(bool&) const {
+      return new sk::C::test::ProbeFactory;
+    }
+  };
+  return new sk_c_test_ProbeFactoryHandle(Action());
 }
 
 extern "C"
@@ -30,27 +36,26 @@ extern "C"
 int sk_c_test_ProbeFactory_getSize(const struct sk_c_test_ProbeFactoryHandle* handle)
 {
   sk_c_handle::ensure_proper(handle);
-  return handle->get().getSize();
+  struct Action : public virtual sk::util::Mapper<const sk::C::test::ProbeFactory, int> {
+    int map(const sk::C::test::ProbeFactory& factory) const {
+      return factory.getSize();
+    }
+  };
+  return handle->invoke(Action());
 }
 
 extern "C"
 struct sk_c_test_ProbeHandle* sk_c_test_ProbeFactory_makeProbe(struct sk_c_test_ProbeFactoryHandle* handle, const char* name)
 {
   sk_c_handle::ensure_proper(handle);
+  struct Action : public virtual sk::util::Mapper<sk::C::test::ProbeFactory, sk_c_test_ProbeHandle*> {
+    Action(const char* name)
+      : _name(name) {}
 
-  struct Action : public virtual sk_c_handle::Runnable {
-    Action(sk::C::test::ProbeFactory& factory, const char* name, sk_c_test_ProbeHandle** handle)
-      : _factory(factory), _name(name), _handle(handle) {}
-
-    void run() const {
-      *_handle = _factory.makeProbe(_name).get_c_handle();
+    sk_c_test_ProbeHandle* map(sk::C::test::ProbeFactory& factory) const {
+      return factory.makeProbe(_name).get_c_handle();
     }
     const char* _name;
-    sk::C::test::ProbeFactory& _factory;
-    sk_c_test_ProbeHandle** _handle;
   };
-  sk_c_test_ProbeHandle* result = 0;
-  handle->execute(Action(handle->get(), name, &result));
-
-  return result;
+  return handle->invoke(Action(name));
 }

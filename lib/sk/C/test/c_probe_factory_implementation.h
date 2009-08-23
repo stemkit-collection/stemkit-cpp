@@ -21,6 +21,9 @@ struct sk_c_test_ProbeFactoryHandle
 {
   sk_c_test_ProbeFactoryHandle(sk::C::test::ProbeFactory* object)
     : sk::C::abstract_handle<sk::C::test::ProbeFactory>(object) {}
+
+  sk_c_test_ProbeFactoryHandle(const sk::util::Mapper<bool, sk::C::test::ProbeFactory*>& mapper)
+    : sk::C::abstract_handle<sk::C::test::ProbeFactory>(mapper) {}
 };
 
 #endif /* _SK_C_TEST_C_PROBE_FACTORY_IMPLEMENTATION_H_ */
