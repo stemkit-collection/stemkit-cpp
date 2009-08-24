@@ -11,6 +11,7 @@
 
 #include <sk/C/abstract_handle.hxx>
 #include <sk/util/UnsupportedOperationException.h>
+#include <sk/C/invocator.cxx>
 
 template<class T>
 sk::C::abstract_handle<T>::
@@ -29,8 +30,10 @@ abstract_handle(T* object)
 template<class T>
 sk::C::abstract_handle<T>::
 abstract_handle(const sk::util::Mapper<bool, T*>& mapper)
-  : _object(invoke(mapper)), _deletable(true)
+  : _object(0), _deletable(true)
 {
+  bool dummy = true;
+  execute(sk::C::invocator<bool, T*>(mapper, dummy, _object));
 }
 
 template<class T>
@@ -56,7 +59,9 @@ R
 sk::C::abstract_handle<T>::
 invoke(const sk::util::Mapper<F, R>& mapper) const
 {
-  throw sk::util::UnsupportedOperationException("invoke");
+  R result;
+  execute(sk::C::invocator<F, R>(mapper, get(), result));
+  return result;
 }
 
 #endif /* _SK_C_ABSTRACT_HANDLE_CXX_ */
