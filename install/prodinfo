@@ -45,10 +45,12 @@ fileset {
     cache.lib
   ]
   install.as('include/sk/util').source.tree 'include/sk/util', :follow => true
+  install.as('include/sk/C').source.tree 'include/sk/C', :follow => true
 
   install.into(cache.lib).binary {
     list = %w{
       sk.util
+      sk.C
     }
     if ENV['MAKE_DLL'] == 'true'
       library 'lib' => list
