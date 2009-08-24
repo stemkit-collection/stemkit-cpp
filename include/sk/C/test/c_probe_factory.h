@@ -12,11 +12,16 @@
 #define _SK_C_TEST_C_PROBE_FACTORY_H_
 
 struct sk_c_test_ProbeFactoryHandle;
+
 #include <sk/C/test/c_probe.h>
+#include <sk/C/handle.h>
 
 #if defined(__cplusplus)
 extern "C" {
 #endif
+
+
+struct sk_c_handle* sk_c_test_ProbeFactoryHandle_toHandle(struct sk_c_test_ProbeFactoryHandle* handle);
 
 struct sk_c_test_ProbeFactoryHandle* sk_c_test_ProbeFactory_create();
 void sk_c_test_ProbeFactory_destroy(struct sk_c_test_ProbeFactoryHandle* handle);

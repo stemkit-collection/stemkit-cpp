@@ -17,7 +17,7 @@ namespace sk {
   namespace C {
     template<typename T, typename R>
     class invocator 
-      : public virtual sk_c_handle::Runnable
+      : public virtual sk_c_handle::runnable
     {
       public:
         invocator(const sk::util::Mapper<T, R>& mapper, T& object, R& result);

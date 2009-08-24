@@ -59,7 +59,7 @@ R
 sk::C::abstract_handle<T>::
 invoke(const sk::util::Mapper<F, R>& mapper) const
 {
-  R result;
+  R result = 0;
   execute(sk::C::invocator<F, R>(mapper, get(), result));
   return result;
 }

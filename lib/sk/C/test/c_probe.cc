@@ -10,6 +10,12 @@
 
 #include "c_probe_implementation.h"
 
+struct sk_c_handle* sk_c_test_ProbeHandle_toHandle(struct sk_c_test_ProbeHandle* handle)
+{
+  sk_c_handle::ensure_proper(handle);
+  return handle;
+}
+
 extern "C"
 const char* sk_c_test_Probe_inspect(const struct sk_c_test_ProbeHandle* handle, char* buffer, int size)
 {

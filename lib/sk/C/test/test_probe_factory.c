@@ -14,7 +14,7 @@
 const char* test_probe_factory() 
 {
   struct sk_c_test_ProbeFactoryHandle* factory = sk_c_test_ProbeFactory_create();
-  if(factory == 0) {
+  if(factory == 0 || sk_c_handle_isError(sk_c_test_ProbeFactoryHandle_toHandle(factory))) {
     return "Cannot create factory";
   }
 

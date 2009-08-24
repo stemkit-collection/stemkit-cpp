@@ -13,9 +13,13 @@
 
 struct sk_c_test_ProbeHandle;
 
+#include <sk/C/handle.h>
+
 #if defined(__cplusplus)
 extern "C" {
 #endif
+
+struct sk_c_handle* sk_c_test_ProbeHandle_toHandle(struct sk_c_test_ProbeHandle* handle);
 
 const char* sk_c_test_Probe_inspect(const struct sk_c_test_ProbeHandle* handle, char* buffer, int size);
 int sk_c_test_Probe_getInstanceCounter();

@@ -20,8 +20,8 @@ extern "C" {
 int sk_c_handle_isError(const struct sk_c_handle* handle);
 int sk_c_handle_isGood(const struct sk_c_handle* handle);
 
-const char* sk_c_handle_errorType(const sk_c_handle* handle, char* buffer, int size);
-const char* sk_c_handle_errorMessage(const sk_c_handle* handle, char* buffer, int size);
+const char* sk_c_handle_errorType(const struct sk_c_handle* handle, char* buffer, int size);
+const char* sk_c_handle_errorMessage(const struct sk_c_handle* handle, char* buffer, int size);
 
 #if defined(__cplusplus)
 }
@@ -32,7 +32,7 @@ const char* sk_c_handle_errorMessage(const sk_c_handle* handle, char* buffer, in
 class sk_c_handle 
 {
   public:
-    struct Runnable : public virtual sk::util::Object {
+    struct runnable : public virtual sk::util::Object {
       virtual void run() const = 0;
     };
     sk_c_handle();
@@ -41,7 +41,7 @@ class sk_c_handle
     const sk::util::String& errorType() const;
     const sk::util::String& errorMessage() const;
 
-    void execute(const sk_c_handle::Runnable& runnable) const;
+    void execute(const sk_c_handle::runnable& runnable) const;
 
     static char* copy(const std::string& s, char* buffer, int size);
     static void ensure_proper(const struct sk_c_handle* handle);

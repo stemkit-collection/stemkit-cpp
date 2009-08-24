@@ -14,6 +14,12 @@
 
 #include "c_probe_factory_implementation.h"
 
+struct sk_c_handle* sk_c_test_ProbeFactoryHandle_toHandle(struct sk_c_test_ProbeFactoryHandle* handle)
+{
+  sk_c_handle::ensure_proper(handle);
+  return handle;
+}
+
 extern "C"
 struct sk_c_test_ProbeFactoryHandle* sk_c_test_ProbeFactory_create()
 {
