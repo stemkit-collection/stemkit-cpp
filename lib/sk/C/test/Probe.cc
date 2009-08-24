@@ -38,6 +38,14 @@ getClass() const
   return sk::util::Class(__className);
 }
 
+
+void 
+sk::C::test::Probe::
+raiseException(const sk::util::String& message) const
+{
+  throw sk::util::Exception(_name + " => " + message);
+}
+
 const sk::util::String
 sk::C::test::Probe::
 inspect() const 

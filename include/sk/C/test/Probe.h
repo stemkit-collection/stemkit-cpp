@@ -28,6 +28,8 @@ namespace sk {
           Probe(const sk::util::String& name);
           virtual ~Probe();
 
+          void raiseException(const sk::util::String& message) const;
+
           static void resetInstanceCouner();
           static int getInstanceCouner();
 

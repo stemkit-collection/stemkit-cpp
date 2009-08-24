@@ -22,6 +22,7 @@ extern "C" {
 struct sk_c_handle* sk_c_test_ProbeHandle_toHandle(struct sk_c_test_ProbeHandle* handle);
 
 const char* sk_c_test_Probe_inspect(const struct sk_c_test_ProbeHandle* handle, char* buffer, int size);
+void sk_c_test_Probe_raiseException(const struct sk_c_test_ProbeHandle* handle, const char* message);
 int sk_c_test_Probe_getInstanceCounter();
 
 #if defined(__cplusplus)

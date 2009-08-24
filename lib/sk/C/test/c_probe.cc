@@ -29,6 +29,23 @@ const char* sk_c_test_Probe_inspect(const struct sk_c_test_ProbeHandle* handle, 
 }
 
 extern "C"
+void sk_c_test_Probe_raiseException(const struct sk_c_test_ProbeHandle* handle, const char* message)
+{
+  sk_c_handle::ensure_proper(handle);
+  struct Action : public virtual sk::util::Mapper<sk::C::test::Probe, bool> {
+    Action(const char* message) 
+      : _message(message) {}
+
+    bool map(sk::C::test::Probe& probe) const {
+      probe.raiseException(_message);
+      return false;
+    }
+    const char* _message;
+  };
+  handle->invoke(Action(message));
+}
+
+extern "C"
 int sk_c_test_Probe_getInstanceCounter()
 {
   return sk::C::test::Probe::getInstanceCouner();

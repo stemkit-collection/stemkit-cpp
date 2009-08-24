@@ -10,6 +10,7 @@
 
 #include "test_probe_factory.h"
 #include <sk/C/test/c_probe_factory.h>
+#include <string.h>
 
 const char* test_probe_factory(char* error_buffer, int error_buffer_size) 
 {
@@ -40,6 +41,28 @@ const char* test_probe_factory(char* error_buffer, int error_buffer_size)
 
   if(sk_c_test_Probe_getInstanceCounter() != 2) {
     return "Final probe instance counter not 2";
+  }
+
+  struct sk_c_test_ProbeHandle* probe = sk_c_test_ProbeFactory_makeProbe(factory, "UUU");
+  sk_c_test_Probe_raiseException(probe, "abc");
+  if(!sk_c_handle_isError(sk_c_test_ProbeHandle_toHandle(probe))) {
+    return "No expected error";
+  }
+
+  sk_c_handle_errorMessage(sk_c_test_ProbeHandle_toHandle(probe), error_buffer, error_buffer_size);
+  if(strcmp("ERROR: UUU => abc", error_buffer) != 0) {
+    strcat(error_buffer, " - ");
+    strcat(error_buffer, "Error message mismatch");
+
+    return error_buffer;
+  }
+
+  sk_c_handle_errorType(sk_c_test_ProbeHandle_toHandle(probe), error_buffer, error_buffer_size);
+  if(strcmp("sk::util::Exception", error_buffer) != 0) {
+    strcat(error_buffer, " - ");
+    strcat(error_buffer, "Error type mismatch");
+
+    return error_buffer;
   }
 
   sk_c_test_ProbeFactory_destroy(factory);
