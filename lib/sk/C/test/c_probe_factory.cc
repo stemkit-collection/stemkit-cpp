@@ -16,7 +16,6 @@
 
 struct sk_c_handle* sk_c_test_ProbeFactoryHandle_toHandle(struct sk_c_test_ProbeFactoryHandle* handle)
 {
-  sk_c_handle::ensure_proper(handle);
   return handle;
 }
 

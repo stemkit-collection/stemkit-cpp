@@ -20,6 +20,10 @@ namespace {
   void abort_on_bad_copy_buffer() {
     abort();
   }
+
+  void abort_on_error_not_cleared() {
+    abort();
+  }
 }
 
 sk_c_handle::
@@ -33,6 +37,13 @@ sk_c_handle::
 isError() const
 {
   return _error;
+}
+
+void
+sk_c_handle::
+clearError() const
+{
+  _error = false;
 }
 
 const sk::util::String& 
@@ -51,10 +62,27 @@ errorMessage() const
 
 void
 sk_c_handle::
-ensure_proper(const sk_c_handle* handle)
+ensure_not_null(const sk_c_handle* handle)
 {
   if(handle == 0) {
     abort_on_null_c_handle();
+  }
+}
+
+void
+sk_c_handle::
+ensure_proper(const sk_c_handle* handle)
+{
+  ensure_not_null(handle);
+
+  if(handle->isError() == true) {
+    char error_type[128];
+    char error_message[128];
+
+    copy(handle->errorType(), error_type, sizeof(error_type));
+    copy(handle->errorMessage(), error_message, sizeof(error_message));
+
+    abort_on_error_not_cleared();
   }
 }
 
@@ -99,21 +127,21 @@ copy(const std::string& s, char* buffer, int size)
 extern "C"
 int sk_c_handle_isError(const sk_c_handle* handle) 
 {
-  sk_c_handle::ensure_proper(handle);
+  sk_c_handle::ensure_not_null(handle);
   return handle->isError() == true ? 1 : 0;
 }
 
 extern "C"
-int sk_c_handle_isGood(const sk_c_handle* handle)
+void sk_c_handle_clearError(const sk_c_handle* handle) 
 {
-  sk_c_handle::ensure_proper(handle);
-  return handle->isError() == false ? 1 : 0;
+  sk_c_handle::ensure_not_null(handle);
+  handle->clearError();
 }
 
 extern "C"
 const char* sk_c_handle_errorType(const sk_c_handle* handle, char* buffer, int size)
 {
-  sk_c_handle::ensure_proper(handle);
+  sk_c_handle::ensure_not_null(handle);
   if(handle->isError() == false) {
     return 0;
   }
@@ -123,7 +151,7 @@ const char* sk_c_handle_errorType(const sk_c_handle* handle, char* buffer, int s
 extern "C"
 const char* sk_c_handle_errorMessage(const sk_c_handle* handle, char* buffer, int size)
 {
-  sk_c_handle::ensure_proper(handle);
+  sk_c_handle::ensure_not_null(handle);
   if(handle->isError() == false) {
     return 0;
   }
