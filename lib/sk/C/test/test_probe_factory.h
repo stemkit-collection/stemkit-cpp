@@ -15,7 +15,7 @@
 extern "C" {
 #endif
 
-const char* test_probe_factory();
+const char* test_probe_factory(char* error_buffer, int error_buffer_size);
 
 #if defined(__cplusplus)
 }

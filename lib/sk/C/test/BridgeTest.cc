@@ -90,6 +90,8 @@ void
 sk::C::test::BridgeTest::
 testRealC()
 {
-  CPPUNIT_ASSERT_EQUAL("OK", test_probe_factory());
+  char buffer[1024];
+
+  CPPUNIT_ASSERT_EQUAL("OK", test_probe_factory(buffer, sizeof(buffer)));
   CPPUNIT_ASSERT_EQUAL(0, sk::C::test::Probe::getInstanceCouner());
 }

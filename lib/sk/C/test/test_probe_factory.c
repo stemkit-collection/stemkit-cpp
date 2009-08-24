@@ -11,11 +11,14 @@
 #include "test_probe_factory.h"
 #include <sk/C/test/c_probe_factory.h>
 
-const char* test_probe_factory() 
+const char* test_probe_factory(char* error_buffer, int error_buffer_size) 
 {
   struct sk_c_test_ProbeFactoryHandle* factory = sk_c_test_ProbeFactory_create();
-  if(factory == 0 || sk_c_handle_isError(sk_c_test_ProbeFactoryHandle_toHandle(factory))) {
+  if(factory == 0) {
     return "Cannot create factory";
+  }
+  if(sk_c_handle_isError(sk_c_test_ProbeFactoryHandle_toHandle(factory))) {
+    return sk_c_handle_errorMessage(sk_c_test_ProbeFactoryHandle_toHandle(factory), error_buffer, error_buffer_size);
   }
 
   if(sk_c_test_ProbeFactory_getSize(factory) != 0) {
