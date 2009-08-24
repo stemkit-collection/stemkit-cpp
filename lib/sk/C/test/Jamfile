@@ -14,6 +14,7 @@ local objects =
   c_probe_factory.cc
 ;
 
-use-unit-test $(test) $(test-objects) ;
 use-project-libraries $(test) : sk.C sk.util sk.cppunit ;
+
+use-unit-test $(test) $(test-objects) ;
 make-cpp-test $(test) : $(test-objects) $(objects) ;
