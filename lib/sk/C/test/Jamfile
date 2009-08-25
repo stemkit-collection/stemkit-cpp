@@ -1,10 +1,16 @@
+# vim: sw=2: ft=jam:
 
-local test = c-bridge-test ;
+local categories = normal abort ;
 
-local test-objects = 
+local test-objects-normal = 
   TestSuite.cc
   BridgeTest.cc
   test_probe_factory.c
+;
+
+local test-objects-abort = 
+  TestSuiteAbort.cc
+  AbortTest.cc
 ;
 
 local objects = 
@@ -14,7 +20,13 @@ local objects =
   c_probe_factory.cc
 ;
 
-use-project-libraries $(test) : sk.C sk.util sk.cppunit ;
+local _category ;
+for _category in $(categories) {
+  local test = c-bridge-$(_category) ;
+  local test-objects = $(test-objects-$(_category)) ;
 
-use-unit-test $(test) $(test-objects) ;
-make-cpp-test $(test) : $(test-objects) $(objects) ;
+  use-project-libraries $(test) : sk.C sk.util sk.cppunit ;
+  use-unit-test $(test) $(test-objects) ;
+
+  make-cpp-test $(test) : $(test-objects) $(objects) ;
+}
