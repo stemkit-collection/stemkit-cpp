@@ -22,6 +22,8 @@ namespace sk {
       {
         CPPUNIT_TEST_SUITE(sk::C::test::AbortTest);
           CPPUNIT_TEST(testAbortWrapper);
+          CPPUNIT_TEST(testAbortsOnNullHandle);
+          CPPUNIT_TEST(testAbortsOnBadBuffer);
           CPPUNIT_TEST(testCanContinueAfterClear);
           CPPUNIT_TEST(testAbortsOnNextCallWhenNotCleared);
         CPPUNIT_TEST_SUITE_END();
@@ -33,6 +35,8 @@ namespace sk {
           void setUp();
           void tearDown();
           void testAbortWrapper();
+          void testAbortsOnNullHandle();
+          void testAbortsOnBadBuffer();
           void testCanContinueAfterClear();
           void testAbortsOnNextCallWhenNotCleared();
       

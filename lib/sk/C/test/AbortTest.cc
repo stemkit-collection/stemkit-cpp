@@ -54,6 +54,45 @@ testAbortWrapper()
 
 void
 sk::C::test::AbortTest::
+testAbortsOnNullHandle()
+{
+  try {
+    char buffer[512];
+    sk_c_test_Probe_inspect(0, buffer, sizeof(buffer));
+    CPPUNIT_FAIL("Not aborted as expected");
+  }
+  catch(const sk::util::SystemExit& exception) {}
+}
+
+void
+sk::C::test::AbortTest::
+testAbortsOnBadBuffer()
+{
+  char buffer[512];
+  sk::C::test::Probe probe("abc");
+
+  try {
+    sk_c_test_Probe_inspect(probe.get_c_handle(), buffer, sizeof(buffer));
+  }
+  catch(const sk::util::SystemExit& exception) {
+    CPPUNIT_FAIL("Unexpectedly aborted");
+  }
+
+  try {
+    sk_c_test_Probe_inspect(probe.get_c_handle(), 0, sizeof(buffer));
+    CPPUNIT_FAIL("Not aborted as expected");
+  }
+  catch(const sk::util::SystemExit& exception) {}
+
+  try {
+    sk_c_test_Probe_inspect(probe.get_c_handle(), buffer, 0);
+    CPPUNIT_FAIL("Not aborted as expected");
+  }
+  catch(const sk::util::SystemExit& exception) {}
+}
+
+void
+sk::C::test::AbortTest::
 testCanContinueAfterClear()
 {
   try {
