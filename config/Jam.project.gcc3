@@ -46,6 +46,8 @@ if $(JAM_OFFSET_PLATFORM) = true {
 
 PLATFORM_IMPLEMENTATION = unix ;
 
+project.DO_ABORT_TEST = false ;
+
 rule platform-nt-x86-win32
 {
   PLATFORM_IMPLEMENTATION = win32 ;
@@ -188,6 +190,8 @@ rule platform-aix-ppc
 
 rule platform-macos
 {
+  project.DO_ABORT_TEST = true ;
+
   UNIX_FLAVOR = macosx ;
   project.MAKE_DLL = false ;
 

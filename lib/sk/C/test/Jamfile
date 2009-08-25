@@ -1,6 +1,10 @@
 # vim: sw=2: ft=jam:
 
-local categories = normal abort ;
+local categories = normal ;
+
+if $(project.DO_ABORT_TEST) = true {
+  categories += abort ;
+}
 
 local test-objects-normal = 
   TestSuite.cc
@@ -22,7 +26,7 @@ local objects =
 
 local _category ;
 for _category in $(categories) {
-  local test = c-bridge-$(_category) ;
+  local test = c-bridge-$(_category)-test ;
   local test-objects = $(test-objects-$(_category)) ;
 
   use-project-libraries $(test) : sk.C sk.util sk.cppunit ;

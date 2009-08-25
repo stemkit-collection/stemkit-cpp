@@ -10,8 +10,8 @@
 
 #include "AbortTest.h"
 #include <sk/util/SystemExit.h>
-#include <sk/c/test/Probe.h>
-#include <sk/c/test/c_probe.h>
+#include <sk/C/test/Probe.h>
+#include <sk/C/test/c_probe.h>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::C::test::AbortTest);
 
@@ -20,6 +20,12 @@ static bool abort_raised = false;
 extern "C" 
 void abort() 
 {
+  if(abort_raised == true) {
+    std::cerr << "!!! ANOTHER ABORT ACTIVATED. EXITTING !!!";
+    *((int*)1) = -1;
+    _exit(3);
+  }
+  abort_raised = true;
   throw sk::util::SystemExit(0, "aborted");
 }
 
@@ -49,7 +55,11 @@ void
 sk::C::test::AbortTest::
 testAbortWrapper()
 {
-  CPPUNIT_ASSERT_THROW(abort(), sk::util::SystemExit);
+  try {
+    abort();
+    CPPUNIT_FAIL("No expected exception.");
+  }
+  catch(const sk::util::SystemExit& exception) {}
 }
 
 void
@@ -59,7 +69,7 @@ testAbortsOnNullHandle()
   try {
     char buffer[512];
     sk_c_test_Probe_inspect(0, buffer, sizeof(buffer));
-    CPPUNIT_FAIL("Not aborted as expected");
+    CPPUNIT_FAIL("Not aborted as expected.");
   }
   catch(const sk::util::SystemExit& exception) {}
 }
@@ -75,18 +85,18 @@ testAbortsOnBadBuffer()
     sk_c_test_Probe_inspect(probe.get_c_handle(), buffer, sizeof(buffer));
   }
   catch(const sk::util::SystemExit& exception) {
-    CPPUNIT_FAIL("Unexpectedly aborted");
+    CPPUNIT_FAIL("Unexpectedly aborted.");
   }
 
   try {
     sk_c_test_Probe_inspect(probe.get_c_handle(), 0, sizeof(buffer));
-    CPPUNIT_FAIL("Not aborted as expected");
+    CPPUNIT_FAIL("Not aborted as expected.");
   }
   catch(const sk::util::SystemExit& exception) {}
 
   try {
     sk_c_test_Probe_inspect(probe.get_c_handle(), buffer, 0);
-    CPPUNIT_FAIL("Not aborted as expected");
+    CPPUNIT_FAIL("Not aborted as expected.");
   }
   catch(const sk::util::SystemExit& exception) {}
 }
@@ -109,7 +119,7 @@ testCanContinueAfterClear()
     sk_c_test_Probe_inspect(handle, error_buffer, sizeof(error_buffer));
   }
   catch(const sk::util::SystemExit& exception) {
-    CPPUNIT_FAIL("Unexpectedly aborted");
+    CPPUNIT_FAIL("Unexpectedly aborted.");
   }
 }
 
@@ -129,7 +139,7 @@ testAbortsOnNextCallWhenNotCleared()
     // sk_c_handle_clearError(sk_c_test_ProbeHandle_toHandle(handle));
 
     sk_c_test_Probe_inspect(handle, error_buffer, sizeof(error_buffer));
-    CPPUNIT_FAIL("Not aborted as expected");
+    CPPUNIT_FAIL("Not aborted as expected.");
   }
   catch(const sk::util::SystemExit& exception) {}
 }
