@@ -70,3 +70,10 @@ inspect() const
 {
   return toString();
 }
+
+bool 
+sk::util::
+operator<(const sk::util::Object& first, const sk::util::Object& second)
+{
+  return &first < &second;
+}

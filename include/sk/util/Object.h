@@ -1,4 +1,5 @@
-/*  Copyright (c) 2005, Gennady Bystritsky <bystr@mac.com>
+/*  vi: sw=2:
+ *  Copyright (c) 2005, Gennady Bystritsky <bystr@mac.com>
  *  
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
@@ -49,6 +50,8 @@ namespace sk {
       protected:
         Object();
     };
+
+    bool operator<(const sk::util::Object& first, const sk::util::Object& second);
   }
 }
 

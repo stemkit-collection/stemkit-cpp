@@ -196,9 +196,9 @@ testSort()
 {
   sk::util::ArrayList<sk::util::String> list;
 
+  list.add(new sk::util::String("ccc"));
   list.add(new sk::util::String("bbb"));
   list.add(new sk::util::String("aaa"));
-  list.add(new sk::util::String("ccc"));
 
   list.sort();
 

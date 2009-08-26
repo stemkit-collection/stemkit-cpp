@@ -132,4 +132,21 @@ remove(int index)
   _container.erase(_container.begin() + index);
 }
 
+namespace {
+  template<typename T>
+  struct SlotComparator {
+    bool operator()(const sk::util::Slot<T>* first, const sk::util::Slot<T>* second) {
+      return first->get() < second->get();
+    }
+  };
+}
+
+template<class T>
+void
+sk::util::ArrayList<T>::
+sort()
+{
+  std::sort(_container.begin(), _container.end(), SlotComparator<T>());
+}
+
 #endif /* _SK_UTIL_ARRAYLIST_CXX_ */

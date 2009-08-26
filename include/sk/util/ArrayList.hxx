@@ -42,6 +42,8 @@ namespace sk {
         void remove(int index);
         using AbstractList<T>::remove;
 
+        void sort();
+
       private:
         ArrayList(const ArrayList<T>& other);
         ArrayList<T>& operator = (const ArrayList<T>& other);
