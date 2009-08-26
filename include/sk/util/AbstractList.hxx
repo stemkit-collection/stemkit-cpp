@@ -58,6 +58,8 @@ namespace sk {
         void set(int index, T& object);
         void set(int index, T* object);
 
+        void sort();
+
       private:
         AbstractList(const AbstractList<T>& other);
         AbstractList<T>& operator = (const AbstractList<T>& other);

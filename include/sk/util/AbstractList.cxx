@@ -37,7 +37,7 @@ void
 sk::util::AbstractList<T>::
 add(int index, T& object) 
 {
-  throw UnsupportedOperationException("sk::util::AbstractList::add(index, object&)");
+  throw UnsupportedOperationException(SK_METHOD);
 }
 
 template<class T>
@@ -45,7 +45,7 @@ void
 sk::util::AbstractList<T>::
 add(int index, T* object) 
 {
-  throw UnsupportedOperationException("sk::util::AbstractList::add(index, object*)");
+  throw UnsupportedOperationException(SK_METHOD);
 }
 
 template<class T>
@@ -53,7 +53,7 @@ bool
 sk::util::AbstractList<T>::
 addAll(int index, const Collection<T>& other) 
 {
-  throw UnsupportedOperationException("sk::util::AbstractList::addAll(index, collection)");
+  throw UnsupportedOperationException(SK_METHOD);
 }
 
 template<class T>
@@ -61,7 +61,7 @@ bool
 sk::util::AbstractList<T>::
 moveAll(int index, Collection<T>& other) 
 {
-  throw UnsupportedOperationException("sk::util::AbstractList::moveAll(index, collection)");
+  throw UnsupportedOperationException(SK_METHOD);
 }
 
 template<class T>
@@ -69,7 +69,7 @@ T&
 sk::util::AbstractList<T>::
 get(int index) const 
 {
-  throw UnsupportedOperationException("sk::util::AbstractList::get(index)");
+  throw UnsupportedOperationException(SK_METHOD);
 }
 
 template<class T>
@@ -77,7 +77,7 @@ int
 sk::util::AbstractList<T>::
 indexOf(const T& object) const 
 {
-  throw UnsupportedOperationException("sk::util::AbstractList::indexOf(object)");
+  throw UnsupportedOperationException(SK_METHOD);
 }
 
 template<class T>
@@ -85,7 +85,7 @@ int
 sk::util::AbstractList<T>::
 indexOf(const Selector<T>& selector) const 
 {
-  throw UnsupportedOperationException("sk::util::AbstractList::indexOf(selector)");
+  throw UnsupportedOperationException(SK_METHOD);
 }
 
 template<class T>
@@ -93,7 +93,7 @@ int
 sk::util::AbstractList<T>::
 lastIndexOf(const T& object) const 
 {
-  throw UnsupportedOperationException("sk::util::AbstractList::lastIndexOf(object)");
+  throw UnsupportedOperationException(SK_METHOD);
 }
 
 template<class T>
@@ -101,7 +101,7 @@ int
 sk::util::AbstractList<T>::
 lastIndexOf(const Selector<T>& selector) const 
 {
-  throw UnsupportedOperationException("sk::util::AbstractList::lastIndexOf(selector)");
+  throw UnsupportedOperationException(SK_METHOD);
 }
 
 template<class T>
@@ -109,7 +109,7 @@ void
 sk::util::AbstractList<T>::
 remove(int index) 
 {
-  throw UnsupportedOperationException("sk::util::AbstractList::remove(index)");
+  throw UnsupportedOperationException(SK_METHOD);
 }
 
 template<class T>
@@ -117,7 +117,7 @@ T*
 sk::util::AbstractList<T>::
 cutoff(int index) 
 {
-  throw UnsupportedOperationException("sk::util::AbstractList::cutoff(index)");
+  throw UnsupportedOperationException(SK_METHOD);
 }
 
 template<class T>
@@ -125,7 +125,7 @@ T*
 sk::util::AbstractList<T>::
 release(int index) 
 {
-  throw UnsupportedOperationException("sk::util::AbstractList::release(index)");
+  throw UnsupportedOperationException(SK_METHOD);
 }
 
 template<class T>
@@ -133,7 +133,7 @@ void
 sk::util::AbstractList<T>::
 set(int index, T& object) 
 {
-  throw UnsupportedOperationException("sk::util::AbstractList::set(index, object&)");
+  throw UnsupportedOperationException(SK_METHOD);
 }
 
 template<class T>
@@ -141,7 +141,15 @@ void
 sk::util::AbstractList<T>::
 set(int index, T* object) 
 {
-  throw UnsupportedOperationException("sk::util::AbstractList::set(index, object*)");
+  throw UnsupportedOperationException(SK_METHOD);
+}
+
+template<class T>
+void 
+sk::util::AbstractList<T>::
+sort()
+{
+  throw UnsupportedOperationException(SK_METHOD);
 }
 
 #endif /* _SK_UTIL_ABSTRACTLIST_CXX_ */

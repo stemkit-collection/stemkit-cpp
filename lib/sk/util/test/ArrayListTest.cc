@@ -189,3 +189,20 @@ testRemove()
   CPPUNIT_ASSERT_THROW(list.remove(1), sk::util::IndexOutOfBoundsException);
   CPPUNIT_ASSERT_THROW(list.remove(-1), sk::util::IndexOutOfBoundsException);
 }
+
+void 
+sk::util::test::ArrayListTest::
+testSort()
+{
+  sk::util::ArrayList<sk::util::String> list;
+
+  list.add(new sk::util::String("bbb"));
+  list.add(new sk::util::String("aaa"));
+  list.add(new sk::util::String("ccc"));
+
+  list.sort();
+
+  CPPUNIT_ASSERT_EQUAL("aaa", list.get(0));
+  CPPUNIT_ASSERT_EQUAL("bbb", list.get(1));
+  CPPUNIT_ASSERT_EQUAL("ccc", list.get(2));
+}

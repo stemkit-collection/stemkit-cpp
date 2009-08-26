@@ -56,6 +56,9 @@ namespace sk {
 
         virtual void set(int index, T& object) = 0;
         virtual void set(int index, T* object) = 0;
+
+        // Sorts the list in the acsending order.
+        virtual void sort() = 0;
     };
   }
 }

@@ -25,6 +25,7 @@ namespace sk {
           CPPUNIT_TEST(testFind);
           CPPUNIT_TEST(testContains);
           CPPUNIT_TEST(testRemove);
+          CPPUNIT_TEST(testSort);
         CPPUNIT_TEST_SUITE_END();
         
         public:
@@ -40,6 +41,7 @@ namespace sk {
           void testFind();
           void testContains();
           void testRemove();
+          void testSort();
           
         private:
           ArrayListTest(const ArrayListTest& other);
