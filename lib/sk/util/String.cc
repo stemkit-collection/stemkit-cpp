@@ -564,3 +564,53 @@ operator<(const sk::util::String& first, const sk::util::String& second) {
 
   return f < s;
 }
+
+bool 
+sk::util::
+operator>(const sk::util::String& first, const sk::util::String& second)
+{
+  const std::string& f = first;
+  const std::string& s = second;
+
+  return f > s;
+}
+
+bool 
+sk::util::
+operator==(const sk::util::String& first, const sk::util::String& second)
+{
+  const std::string& f = first;
+  const std::string& s = second;
+
+  return f == s;
+}
+
+bool 
+sk::util::
+operator!=(const sk::util::String& first, const sk::util::String& second)
+{
+  const std::string& f = first;
+  const std::string& s = second;
+
+  return f != s;
+}
+
+bool 
+sk::util::
+operator<=(const sk::util::String& first, const sk::util::String& second)
+{
+  const std::string& f = first;
+  const std::string& s = second;
+
+  return f <= s;
+}
+
+bool 
+sk::util::
+operator>=(const sk::util::String& first, const sk::util::String& second)
+{
+  const std::string& f = first;
+  const std::string& s = second;
+
+  return f >= s;
+}

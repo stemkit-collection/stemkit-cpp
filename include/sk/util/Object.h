@@ -52,6 +52,11 @@ namespace sk {
     };
 
     bool operator<(const sk::util::Object& first, const sk::util::Object& second);
+    bool operator>(const sk::util::Object& first, const sk::util::Object& second);
+    bool operator==(const sk::util::Object& first, const sk::util::Object& second);
+    bool operator!=(const sk::util::Object& first, const sk::util::Object& second);
+    bool operator<=(const sk::util::Object& first, const sk::util::Object& second);
+    bool operator>=(const sk::util::Object& first, const sk::util::Object& second);
   }
 }
 

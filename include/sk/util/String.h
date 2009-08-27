@@ -153,6 +153,11 @@ namespace sk {
     };
 
     bool operator<(const sk::util::String& first, const sk::util::String& second);
+    bool operator>(const sk::util::String& first, const sk::util::String& second);
+    bool operator==(const sk::util::String& first, const sk::util::String& second);
+    bool operator!=(const sk::util::String& first, const sk::util::String& second);
+    bool operator<=(const sk::util::String& first, const sk::util::String& second);
+    bool operator>=(const sk::util::String& first, const sk::util::String& second);
   }
 }
 

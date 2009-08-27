@@ -77,3 +77,38 @@ operator<(const sk::util::Object& first, const sk::util::Object& second)
 {
   return &first < &second;
 }
+
+bool 
+sk::util::
+operator>(const sk::util::Object& first, const sk::util::Object& second)
+{
+  return &first > &second;
+}
+
+bool 
+sk::util::
+operator==(const sk::util::Object& first, const sk::util::Object& second)
+{
+  return &first == &second;
+}
+
+bool 
+sk::util::
+operator!=(const sk::util::Object& first, const sk::util::Object& second)
+{
+  return &first != &second;
+}
+
+bool 
+sk::util::
+operator<=(const sk::util::Object& first, const sk::util::Object& second)
+{
+  return &first <= &second;
+}
+
+bool 
+sk::util::
+operator>=(const sk::util::Object& first, const sk::util::Object& second)
+{
+  return &first >= &second;
+}
