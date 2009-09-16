@@ -165,6 +165,13 @@ namespace sk {
     bool operator!=(const sk::util::String& first, const char* second);
     bool operator<=(const sk::util::String& first, const char* second);
     bool operator>=(const sk::util::String& first, const char* second);
+
+    bool operator<(const sk::util::String& first, const std::string& second);
+    bool operator>(const sk::util::String& first, const std::string& second);
+    bool operator==(const sk::util::String& first, const std::string& second);
+    bool operator!=(const sk::util::String& first, const std::string& second);
+    bool operator<=(const sk::util::String& first, const std::string& second);
+    bool operator>=(const sk::util::String& first, const std::string& second);
   }
 }
 
