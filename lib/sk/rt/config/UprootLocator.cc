@@ -49,7 +49,7 @@ const sk::util::Pathname
 sk::rt::config::UprootLocator::
 expandCwd(const sk::util::Pathname& pathname)
 {
-  if(pathname.toString() != ".") {
+  if(pathname != ".") {
     return pathname;
   }
   char buffer[1024];

@@ -39,6 +39,7 @@ namespace sk {
         const sk::util::String toString() const;
 
         bool operator == (const sk::util::Pathname& other) const;
+        bool operator != (const sk::util::Pathname& other) const;
         
       private:
         void normalize(const sk::util::String& trimmedComponent);

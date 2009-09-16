@@ -45,6 +45,13 @@ operator == (const sk::util::Pathname& other) const
   return _location.equals(other._location) && _path.equals(other._path);
 }
 
+bool
+sk::util::Pathname::
+operator != (const sk::util::Pathname& other) const
+{
+  return !operator==(other);
+}
+
 const sk::util::Class
 sk::util::Pathname::
 getClass() const
