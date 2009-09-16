@@ -373,3 +373,52 @@ testMultiply()
 
   CPPUNIT_ASSERT_THROW(sk::util::String("zzzzzzz") * -2, sk::util::IllegalArgumentException);
 }
+
+void 
+sk::util::test::StringTest::
+testCompareOperators()
+{
+  sk::util::String sample("dddd");
+
+  CPPUNIT_ASSERT(sample == sk::util::String("dddd"));
+  CPPUNIT_ASSERT(sample != sk::util::String("ddd"));
+  CPPUNIT_ASSERT(sample > sk::util::String("aaaa"));
+  CPPUNIT_ASSERT(sample < sk::util::String("eeee"));
+  CPPUNIT_ASSERT(sample >= sk::util::String("aaaa"));
+  CPPUNIT_ASSERT(sample <= sk::util::String("eeee"));
+
+  CPPUNIT_ASSERT(sample == "dddd");
+  CPPUNIT_ASSERT(sample != "ddd");
+  CPPUNIT_ASSERT(sample > "aaaa");
+  CPPUNIT_ASSERT(sample < "eeee");
+  CPPUNIT_ASSERT(sample >= "aaaa");
+  CPPUNIT_ASSERT(sample <= "eeee");
+
+  CPPUNIT_ASSERT(sample == std::string("dddd"));
+  CPPUNIT_ASSERT(sample != std::string("ddd"));
+  CPPUNIT_ASSERT(sample > std::string("aaaa"));
+  CPPUNIT_ASSERT(sample < std::string("eeee"));
+  CPPUNIT_ASSERT(sample >= std::string("aaaa"));
+  CPPUNIT_ASSERT(sample <= std::string("eeee"));
+}
+
+void 
+sk::util::test::StringTest::
+testReverseCompareOperators()
+{
+  sk::util::String sample("dddd");
+
+  CPPUNIT_ASSERT(std::string("dddd") == sample);
+  CPPUNIT_ASSERT(std::string("ddd") != sample);
+  CPPUNIT_ASSERT(std::string("aaaa") < sample);
+  CPPUNIT_ASSERT(std::string("eeee") > sample);
+  CPPUNIT_ASSERT(std::string("aaaa") <= sample);
+  CPPUNIT_ASSERT(std::string("eeee") >= sample);
+
+  CPPUNIT_ASSERT("dddd" == sample);
+  CPPUNIT_ASSERT("ddd" != sample);
+  CPPUNIT_ASSERT("aaaa" < sample);
+  CPPUNIT_ASSERT("eeee" > sample);
+  CPPUNIT_ASSERT("aaaa" <= sample);
+  CPPUNIT_ASSERT("eeee" >= sample);
+}

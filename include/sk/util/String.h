@@ -150,28 +150,31 @@ namespace sk {
         sk::util::Object* clone() const;
 
         static const String EMPTY;
+
+        bool operator<(const sk::util::String& other) const;
+        bool operator<(const std::string& other) const;
+        bool operator<(const char* other) const;
+
+        bool operator>(const sk::util::String& other) const;
+        bool operator>(const std::string& other) const;
+        bool operator>(const char* other) const;
+
+        bool operator==(const sk::util::String& other) const;
+        bool operator==(const std::string& other) const;
+        bool operator==(const char* other) const;
+
+        bool operator!=(const sk::util::String& other) const;
+        bool operator!=(const std::string& other) const;
+        bool operator!=(const char* other) const;
+
+        bool operator<=(const sk::util::String& other) const;
+        bool operator<=(const std::string& other) const;
+        bool operator<=(const char* other) const;
+
+        bool operator>=(const sk::util::String& other) const;
+        bool operator>=(const std::string& other) const;
+        bool operator>=(const char* other) const;
     };
-
-    bool operator<(const sk::util::String& first, const sk::util::String& second);
-    bool operator>(const sk::util::String& first, const sk::util::String& second);
-    bool operator==(const sk::util::String& first, const sk::util::String& second);
-    bool operator!=(const sk::util::String& first, const sk::util::String& second);
-    bool operator<=(const sk::util::String& first, const sk::util::String& second);
-    bool operator>=(const sk::util::String& first, const sk::util::String& second);
-
-    bool operator<(const sk::util::String& first, const char* second);
-    bool operator>(const sk::util::String& first, const char* second);
-    bool operator==(const sk::util::String& first, const char* second);
-    bool operator!=(const sk::util::String& first, const char* second);
-    bool operator<=(const sk::util::String& first, const char* second);
-    bool operator>=(const sk::util::String& first, const char* second);
-
-    bool operator<(const sk::util::String& first, const std::string& second);
-    bool operator>(const sk::util::String& first, const std::string& second);
-    bool operator==(const sk::util::String& first, const std::string& second);
-    bool operator!=(const sk::util::String& first, const std::string& second);
-    bool operator<=(const sk::util::String& first, const std::string& second);
-    bool operator>=(const sk::util::String& first, const std::string& second);
   }
 }
 

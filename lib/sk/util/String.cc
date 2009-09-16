@@ -557,166 +557,170 @@ const sk::util::String operator * (const sk::util::String& string, int multiplie
 }
 
 bool 
-sk::util::
-operator<(const sk::util::String& first, const sk::util::String& second) {
-  const std::string& f = first;
-  const std::string& s = second;
+sk::util::String::
+operator<(const sk::util::String& other) const
+{
+  const std::string& f = *this;
+  const std::string& s = other;
 
   return f < s;
 }
 
 bool 
-sk::util::
-operator>(const sk::util::String& first, const sk::util::String& second)
+sk::util::String::
+operator<(const std::string& other) const
 {
-  const std::string& f = first;
-  const std::string& s = second;
+  const std::string& f = *this;
+
+  return f < other;
+}
+
+bool 
+sk::util::String::
+operator<(const char* other) const
+{
+  const std::string& f = *this;
+
+  return f < other;
+}
+
+bool 
+sk::util::String::
+operator>(const sk::util::String& other) const
+{
+  const std::string& f = *this;
+  const std::string& s = other;
 
   return f > s;
 }
 
 bool 
-sk::util::
-operator==(const sk::util::String& first, const sk::util::String& second)
+sk::util::String::
+operator>(const std::string& other) const
 {
-  const std::string& f = first;
-  const std::string& s = second;
+  const std::string& f = *this;
+
+  return f > other;
+}
+
+bool 
+sk::util::String::
+operator>(const char* other) const
+{
+  const std::string& f = *this;
+
+  return f > other;
+}
+
+bool 
+sk::util::String::
+operator==(const sk::util::String& other) const
+{
+  const std::string& f = *this;
+  const std::string& s = other;
 
   return f == s;
 }
 
 bool 
-sk::util::
-operator!=(const sk::util::String& first, const sk::util::String& second)
+sk::util::String::
+operator==(const std::string& other) const
 {
-  const std::string& f = first;
-  const std::string& s = second;
+  const std::string& f = *this;
+
+  return f == other;
+}
+
+bool 
+sk::util::String::
+operator==(const char* other) const
+{
+  const std::string& f = *this;
+
+  return f == other;
+}
+
+bool 
+sk::util::String::
+operator!=(const sk::util::String& other) const
+{
+  const std::string& f = *this;
+  const std::string& s = other;
 
   return f != s;
 }
 
 bool 
-sk::util::
-operator<=(const sk::util::String& first, const sk::util::String& second)
+sk::util::String::
+operator!=(const std::string& other) const
 {
-  const std::string& f = first;
-  const std::string& s = second;
+  const std::string& f = *this;
+
+  return f != other;
+}
+
+bool 
+sk::util::String::
+operator!=(const char* other) const
+{
+  const std::string& f = *this;
+
+  return f != other;
+}
+
+bool 
+sk::util::String::
+operator<=(const sk::util::String& other) const
+{
+  const std::string& f = *this;
+  const std::string& s = other;
 
   return f <= s;
 }
 
 bool 
-sk::util::
-operator>=(const sk::util::String& first, const sk::util::String& second)
+sk::util::String::
+operator<=(const std::string& other) const
 {
-  const std::string& f = first;
-  const std::string& s = second;
+  const std::string& f = *this;
+
+  return f <= other;
+}
+
+bool 
+sk::util::String::
+operator<=(const char* other) const
+{
+  const std::string& f = *this;
+
+  return f <= other;
+}
+
+bool 
+sk::util::String::
+operator>=(const sk::util::String& other) const
+{
+  const std::string& f = *this;
+  const std::string& s = other;
 
   return f >= s;
 }
 
 bool 
-sk::util::
-operator<(const sk::util::String& first, const char* second) {
-  const std::string& f = first;
-
-  return f < second;
-}
-
-bool 
-sk::util::
-operator>(const sk::util::String& first, const char* second)
+sk::util::String::
+operator>=(const std::string& other) const
 {
-  const std::string& f = first;
+  const std::string& f = *this;
 
-  return f > second;
+  return f >= other;
 }
 
 bool 
-sk::util::
-operator==(const sk::util::String& first, const char* second)
+sk::util::String::
+operator>=(const char* other) const
 {
-  const std::string& f = first;
+  const std::string& f = *this;
 
-  return f == second;
+  return f >= other;
 }
 
-bool 
-sk::util::
-operator!=(const sk::util::String& first, const char* second)
-{
-  const std::string& f = first;
-
-  return f != second;
-}
-
-bool 
-sk::util::
-operator<=(const sk::util::String& first, const char* second)
-{
-  const std::string& f = first;
-
-  return f <= second;
-}
-
-bool 
-sk::util::
-operator>=(const sk::util::String& first, const char* second)
-{
-  const std::string& f = first;
-
-  return f >= second;
-}
-
-bool 
-sk::util::
-operator<(const sk::util::String& first, const std::string& second) {
-  const std::string& f = first;
-
-  return f < second;
-}
-
-bool 
-sk::util::
-operator>(const sk::util::String& first, const std::string& second)
-{
-  const std::string& f = first;
-
-  return f > second;
-}
-
-bool 
-sk::util::
-operator==(const sk::util::String& first, const std::string& second)
-{
-  const std::string& f = first;
-
-  return f == second;
-}
-
-bool 
-sk::util::
-operator!=(const sk::util::String& first, const std::string& second)
-{
-  const std::string& f = first;
-
-  return f != second;
-}
-
-bool 
-sk::util::
-operator<=(const sk::util::String& first, const std::string& second)
-{
-  const std::string& f = first;
-
-  return f <= second;
-}
-
-bool 
-sk::util::
-operator>=(const sk::util::String& first, const std::string& second)
-{
-  const std::string& f = first;
-
-  return f >= second;
-}
