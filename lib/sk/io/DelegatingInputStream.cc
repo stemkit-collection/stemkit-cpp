@@ -7,12 +7,19 @@
 
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
+#include <sk/util/Holder.cxx>
 
 #include <sk/io/DelegatingInputStream.h>
 
 sk::io::DelegatingInputStream::
 DelegatingInputStream(sk::io::InputStream& stream)
-  : _stream(stream)
+  : _streamHolder(stream)
+{
+}
+
+sk::io::DelegatingInputStream::
+DelegatingInputStream(sk::io::InputStream* stream)
+  : _streamHolder(stream)
 {
 }
 
@@ -32,61 +39,61 @@ sk::io::InputStream&
 sk::io::DelegatingInputStream::
 getInputStream() const
 {
-  return _stream;
+  return _streamHolder.get();
 }
 
 int 
 sk::io::DelegatingInputStream::
 read(char* buffer, int offset, int length)
 {
-  return _stream.read(buffer, offset, length);
+  return _streamHolder.get().read(buffer, offset, length);
 }
 
 void 
 sk::io::DelegatingInputStream::
 close()
 {
-  _stream.close();
+  _streamHolder.get().close();
 }
 
 int 
 sk::io::DelegatingInputStream::
 skip(int number)
 {
-  return _stream.skip(number);
+  return _streamHolder.get().skip(number);
 }
 
 long long
 sk::io::DelegatingInputStream::
 available() const
 {
-  return _stream.available();
+  return _streamHolder.get().available();
 }
 
 bool 
 sk::io::DelegatingInputStream::
 markSupported() const
 {
-  return _stream.markSupported();
+  return _streamHolder.get().markSupported();
 }
 
 void 
 sk::io::DelegatingInputStream::
 mark(int readlimit)
 {
-  _stream.mark(readlimit);
+  _streamHolder.get().mark(readlimit);
 }
 
 void 
 sk::io::DelegatingInputStream::
 reset()
 {
-  _stream.reset();
+  _streamHolder.get().reset();
 }
 
 void 
 sk::io::DelegatingInputStream::
 inheritable(bool state)
 {
-  _stream.inheritable(state);
+  _streamHolder.get().inheritable(state);
 }

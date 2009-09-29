@@ -11,7 +11,9 @@ local objects =
   FileTest.cc
   FileStreamsTest.cc
   BufferedInputStreamTest.cc
+  CountingInputStreamTest.cc
   BufferedOutputStreamTest.cc
+  CountingOutputStreamTest.cc
   IOExceptionTest.cc
   EOFExceptionTest.cc
   ClosedChannelExceptionTest.cc

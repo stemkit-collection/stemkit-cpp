@@ -22,7 +22,9 @@ objects =
   NullDevice.cc
   Console.cc
   BufferedInputStream.cc
+  CountingInputStream.cc
   BufferedOutputStream.cc
+  CountingOutputStream.cc
   IOException.cc
   EOFException.cc
   ClosedChannelException.cc

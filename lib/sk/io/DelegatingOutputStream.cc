@@ -8,12 +8,19 @@
 
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
+#include <sk/util/Holder.cxx>
 
 #include <sk/io/DelegatingOutputStream.h>
 
 sk::io::DelegatingOutputStream::
 DelegatingOutputStream(sk::io::OutputStream& stream)
-  : _stream(stream)
+  : _streamHolder(stream)
+{
+}
+
+sk::io::DelegatingOutputStream::
+DelegatingOutputStream(sk::io::OutputStream* stream)
+  : _streamHolder(stream)
 {
 }
 
@@ -33,33 +40,33 @@ sk::io::OutputStream&
 sk::io::DelegatingOutputStream::
 getOutputStream() const 
 {
-  return _stream;
+  return _streamHolder.get();
 }
 
 void 
 sk::io::DelegatingOutputStream::
 close()
 {
-  _stream.close();
+  _streamHolder.get().close();
 }
 
 void 
 sk::io::DelegatingOutputStream::
 flush()
 {
-  _stream.flush();
+  _streamHolder.get().flush();
 }
 
 int 
 sk::io::DelegatingOutputStream::
 write(const char* buffer, int offset, int length)
 {
-  return _stream.write(buffer, offset, length);
+  return _streamHolder.get().write(buffer, offset, length);
 }
 
 void
 sk::io::DelegatingOutputStream::
 inheritable(bool state)
 {
-  _stream.inheritable(state);
+  _streamHolder.get().inheritable(state);
 }

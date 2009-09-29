@@ -9,6 +9,7 @@
 #define _SK_IO_DELEGATINGINPUTSTREAM_
 
 #include <sk/io/AbstractInputStream.h>
+#include <sk/util/Holder.hxx>
 
 namespace sk {
   namespace io {
@@ -17,6 +18,7 @@ namespace sk {
     {
       public:
         DelegatingInputStream(sk::io::InputStream& stream);
+        DelegatingInputStream(sk::io::InputStream* stream);
         virtual ~DelegatingInputStream();
 
         sk::io::InputStream& getInputStream() const;
@@ -39,7 +41,7 @@ namespace sk {
         DelegatingInputStream(const DelegatingInputStream& other);
         DelegatingInputStream& operator = (const DelegatingInputStream& other);
 
-        sk::io::InputStream& _stream;
+        sk::util::Holder<sk::io::InputStream> _streamHolder;
     };
   }
 }
