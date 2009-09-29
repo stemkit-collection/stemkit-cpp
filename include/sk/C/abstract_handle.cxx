@@ -10,7 +10,7 @@
 #define _SK_C_ABSTRACT_HANDLE_CXX_
 
 #include <sk/C/abstract_handle.hxx>
-#include <sk/util/UnsupportedOperationException.h>
+#include <sk/util/IllegalStateException.h>
 #include <sk/C/invocator.cxx>
 
 template<class T>
@@ -51,6 +51,18 @@ sk::C::abstract_handle<T>::
 get() const
 {
   return *_object;
+}
+
+template<class T>
+T*
+sk::C::abstract_handle<T>::
+release() 
+{
+  if(_deletable == false) {
+    throw sk::util::IllegalStateException("sk::C::abstract_handle<T>::release(): not owner");
+  }
+  _deletable = false;
+  return _object;
 }
 
 template<class T>

@@ -24,6 +24,7 @@ namespace sk {
         virtual ~abstract_handle();
 
         T& get() const;
+        T* release();
 
         template<typename F, typename R>
         R invoke(const sk::util::Mapper<F, R>& mapper) const;
@@ -32,7 +33,7 @@ namespace sk {
         abstract_handle(const abstract_handle<T>& other);
         abstract_handle& operator = (const abstract_handle<T>& other);
 
-        const bool _deletable;
+        bool _deletable;
         T* _object;
     };
   }
