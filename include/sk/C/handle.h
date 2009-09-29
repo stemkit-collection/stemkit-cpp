@@ -28,6 +28,7 @@ const char* sk_c_handle_errorMessage(const struct sk_c_handle* handle, char* buf
 
 #include <sk/util/Object.h>
 #include <sk/util/String.h>
+#include <vector>
 
 class sk_c_handle 
 {
@@ -46,6 +47,7 @@ class sk_c_handle
     void execute(const sk_c_handle::runnable& runnable) const;
 
     static char* copy(const std::string& s, char* buffer, int size);
+    static char* copy(const std::vector<char>& data, char* buffer, int size);
     static void ensure_proper(const struct sk_c_handle* handle);
     static void ensure_not_null(const struct sk_c_handle* handle);
 

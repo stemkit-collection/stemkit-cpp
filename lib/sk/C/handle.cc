@@ -11,6 +11,7 @@
 #include <sk/C/handle.h>
 #include <sk/util/Exception.h>
 #include <sk/util/Class.h>
+#include <string.h>
 
 namespace {
   void abort_on_null_c_handle() {
@@ -121,6 +122,17 @@ copy(const std::string& s, char* buffer, int size)
   strncpy(buffer, s.c_str(), size);
   buffer[size-1] = 0;
 
+  return buffer;
+}
+
+char* 
+sk_c_handle::
+copy(const std::vector<char>& data, char* buffer, int size)
+{
+  if(buffer == 0 || size <= 0) {
+    abort_on_bad_copy_buffer();
+  }
+  memcpy(buffer, &data.front(), std::min(data.size(), size_t(size)));
   return buffer;
 }
 
