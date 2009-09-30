@@ -1,7 +1,7 @@
 --- 
 product: sk
 name: stemkit-cpp
-release: 0.17
+release: 0.18
 build: 1
 library-prefix: sk
-library-major: 8
+library-major: 9
