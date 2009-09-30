@@ -1,4 +1,5 @@
-/*  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
+/*  vi: sw=2:
+ *  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
  *  
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
@@ -7,9 +8,10 @@
 
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
+#include <sk/util/Holder.cxx>
 
 #include <sk/io/ByteArrayInputStream.h>
-#include <sk/util/Holder.cxx>
+#include <sk/util/NullPointerException.h>
 #include <sk/io/IOException.h>
 #include <sk/io/EOFException.h>
 #include <sk/io/ClosedChannelException.h>
@@ -17,14 +19,17 @@
 
 sk::io::ByteArrayInputStream::
 ByteArrayInputStream(const char* buffer, int size)
-  : _bufferHolder(new std::vector<char>(buffer, buffer + (size<0 ? 0 : size)))
+  : _depot(buffer), _depotSize(std::max(0, size))
 {
+  if(_depot == 0) {
+    throw sk::util::NullPointerException(SK_METHOD);
+  }
   init();
 }
 
 sk::io::ByteArrayInputStream::
-ByteArrayInputStream(const std::vector<char>& buffer)
-  : _bufferHolder(buffer)
+ByteArrayInputStream(const std::vector<char>& data)
+  : _vectorHolder(data), _depot(&data.front()), _depotSize(data.size())
 {
   init();
 }
@@ -39,7 +44,7 @@ sk::io::ByteArrayInputStream::
 init()
 {
   _closed = false;
-  _cursor = 0;
+  _depotOffset = 0;
 
   initMark();
 }
@@ -69,7 +74,7 @@ long long
 sk::io::ByteArrayInputStream::
 available() const
 {
-  return _bufferHolder.get().size() - _cursor;
+  return _depotSize - _depotOffset;
 }
 
 int
@@ -79,13 +84,23 @@ read(char* buffer, int offset, int length)
   if(_closed == true) {
     throw sk::io::ClosedChannelException();
   }
+  if(buffer == 0 || length <= 0) {
+    return 0;
+  }
+  if(offset < 0) {
+    offset = 0;
+  }
+  if(_vectorHolder.isEmpty() == false) {
+    _depot = &_vectorHolder.get().front();
+    _depotSize = _vectorHolder.get().size();
+  }
   int remaining = filterReadEvents(available());
 
   int number = std::min(std::max(0, length), remaining);
-  std::vector<char>::const_iterator start = _bufferHolder.get().begin();
+  const char* start = _depot;
 
-  std::copy(start + _cursor, start + _cursor + number, buffer+offset);
-  _cursor += number;
+  std::copy(_depot + _depotOffset, _depot + _depotOffset + number, buffer + offset);
+  _depotOffset += number;
   return number;
 }
 
@@ -101,7 +116,7 @@ sk::io::ByteArrayInputStream::
 skip(int number)
 {
   int distance = std::min(number, int(available()));
-  _cursor += distance;
+  _depotOffset += distance;
 
   return distance;
 }
@@ -110,7 +125,7 @@ void
 sk::io::ByteArrayInputStream::
 mark(int readlimit)
 {
-  _mark = _cursor;
+  _mark = _depotOffset;
   _markDistance = readlimit;
 }
 
@@ -118,10 +133,10 @@ void
 sk::io::ByteArrayInputStream::
 reset()
 {
-  if((_cursor - _mark) > _markDistance) {
+  if((_depotOffset - _mark) > _markDistance) {
     initMark();
   }
-  _cursor = _mark;
+  _depotOffset = _mark;
 }
 
 void

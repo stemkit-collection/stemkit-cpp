@@ -39,7 +39,7 @@ void
 sk::io::test::ByteArrayInputStreamTest::
 testEmpty()
 {
-  sk::io::ByteArrayInputStream stream(0, 0);
+  sk::io::ByteArrayInputStream stream("", 0);
 
   CPPUNIT_ASSERT_EQUAL(8, int(sizeof(long long)));
   CPPUNIT_ASSERT_EQUAL(0, int(stream.available()));
