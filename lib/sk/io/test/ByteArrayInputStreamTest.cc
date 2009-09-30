@@ -85,6 +85,8 @@ testReadByVector()
   CPPUNIT_ASSERT_EQUAL(0, int(stream.available()));
   CPPUNIT_ASSERT_EQUAL(3, int(chunk2.size()));
 
+  CPPUNIT_ASSERT_EQUAL(7, stream.getByteCount());
+
   CPPUNIT_ASSERT_EQUAL('e', chunk2[0]);
   CPPUNIT_ASSERT_EQUAL('f', chunk2[1]);
   CPPUNIT_ASSERT_EQUAL('g', chunk2[2]);

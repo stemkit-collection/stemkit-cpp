@@ -144,3 +144,10 @@ sk::io::ByteArrayInputStream::
 inheritable(bool state)
 {
 }
+
+int 
+sk::io::ByteArrayInputStream::
+getByteCount() const
+{
+  return _depotOffset;
+}

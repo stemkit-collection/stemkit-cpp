@@ -21,6 +21,8 @@ namespace sk {
         ByteArrayInputStream(const char* buffer, int size);
         ByteArrayInputStream(const std::vector<char>& buffer);
         virtual ~ByteArrayInputStream();
+
+        int getByteCount() const;
         
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
