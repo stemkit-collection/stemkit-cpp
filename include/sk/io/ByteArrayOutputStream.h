@@ -9,6 +9,7 @@
 #define _SK_IO_BYTEARRAYOUTPUTSTREAM_
 
 #include <sk/io/AbstractOutputStream.h>
+#include <sk/util/Holder.hxx>
 #include <vector>
 
 namespace sk {
@@ -17,8 +18,11 @@ namespace sk {
       : public sk::io::AbstractOutputStream
     {
       public:
+        ByteArrayOutputStream(char* buffer, uint64_t size);
         ByteArrayOutputStream(std::vector<char>& buffer);
         virtual ~ByteArrayOutputStream();
+
+        uint64_t getByteCount() const;
         
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
@@ -33,7 +37,10 @@ namespace sk {
         ByteArrayOutputStream(const ByteArrayOutputStream& other);
         ByteArrayOutputStream& operator = (const ByteArrayOutputStream& other);
 
-        std::vector<char>& _buffer;
+        sk::util::Holder<std::vector<char> > _vectorHolder;
+        char* _depot;
+        uint64_t _depotSize;
+        uint64_t _depotOffset;
         bool _closed;
     };
   }
