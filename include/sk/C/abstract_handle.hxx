@@ -19,9 +19,11 @@ namespace sk {
     {
       public:
         abstract_handle(T& object);
-        abstract_handle(T* object);
         abstract_handle(const sk::util::Mapper<bool, T*>& mapper);
         virtual ~abstract_handle();
+
+        bool isManaged() const;
+        void clear();
 
         T& get() const;
         T* release();
@@ -33,7 +35,8 @@ namespace sk {
         abstract_handle(const abstract_handle<T>& other);
         abstract_handle& operator = (const abstract_handle<T>& other);
 
-        bool _deletable;
+        bool _managed;
+        bool _owner;
         T* _object;
     };
   }

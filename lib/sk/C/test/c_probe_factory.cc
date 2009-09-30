@@ -34,7 +34,10 @@ extern "C"
 void sk_c_test_ProbeFactory_destroy(struct sk_c_test_ProbeFactoryHandle* handle)
 {
   sk_c_handle::ensure_proper(handle);
-  delete handle;
+  handle->clear();
+  if(handle->isManaged() == false) {
+    delete handle;
+  }
 }
 
 extern "C"

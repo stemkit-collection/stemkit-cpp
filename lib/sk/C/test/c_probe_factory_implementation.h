@@ -19,7 +19,7 @@
 struct sk_c_test_ProbeFactoryHandle 
   : public sk::C::abstract_handle<sk::C::test::ProbeFactory> 
 {
-  sk_c_test_ProbeFactoryHandle(sk::C::test::ProbeFactory* object)
+  sk_c_test_ProbeFactoryHandle(sk::C::test::ProbeFactory& object)
     : sk::C::abstract_handle<sk::C::test::ProbeFactory>(object) {}
 
   sk_c_test_ProbeFactoryHandle(const sk::util::Mapper<bool, sk::C::test::ProbeFactory*>& mapper)
