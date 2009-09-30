@@ -37,6 +37,17 @@ sk::C::abstract_handle<T>::
 }
 
 template<class T>
+void
+sk::C::abstract_handle<T>::
+destroy()
+{
+  clear();
+  if(_managed == false) {
+    delete this;
+  }
+}
+
+template<class T>
 bool
 sk::C::abstract_handle<T>::
 isManaged() const

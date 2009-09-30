@@ -24,6 +24,7 @@ namespace sk {
 
         bool isManaged() const;
         void clear();
+        void destroy();
 
         T& get() const;
         T* release();
