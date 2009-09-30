@@ -27,6 +27,9 @@ ByteArrayOutputStream(char* buffer, uint64_t size)
   : _depot(buffer), _depotSize(size), _depotOffset(0), 
     _closed(false)
 {
+  if(_depot == 0) {
+    throw sk::util::NullPointerException(SK_METHOD);
+  }
 }
 
 sk::io::ByteArrayOutputStream::
@@ -45,14 +48,17 @@ int
 sk::io::ByteArrayOutputStream::
 write(const char* buffer, int offset, int length)
 {
-  if(length <= 0) {
+  if((buffer == 0) || (length <= 0)) {
     return 0;
   }
   if(_closed == true) {
     throw sk::io::ClosedChannelException();
   }
+  if(offset < 0) {
+    offset = 0;
+  }
   int guaranteed_length = length;
-  if(_depotSize) {
+  if(_depotSize > 0) {
     guaranteed_length = std::min(uint64_t(length), _depotSize - _depotOffset);
   }
   if(_vectorHolder.isEmpty() == false) {
