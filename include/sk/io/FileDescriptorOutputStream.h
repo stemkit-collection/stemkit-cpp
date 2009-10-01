@@ -16,7 +16,7 @@ namespace sk {
   namespace io {
     class FileDescriptorOutputStream
       : public AbstractOutputStream,
-        public sk::io::FileDescriptorProvider
+        public virtual sk::io::FileDescriptorProvider
     {
       public:
         FileDescriptorOutputStream(int fd);

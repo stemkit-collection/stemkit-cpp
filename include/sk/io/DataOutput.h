@@ -47,6 +47,9 @@ namespace sk {
 
         /// Writes to the output stream all the bytes of the vector.
         virtual void writeFully(const std::vector<char>& value) = 0;
+
+        /// Writes to the output stream all the bytes of the buffer.
+        virtual void writeFully(const char* buffer, int size) = 0;
     };
   }
 }

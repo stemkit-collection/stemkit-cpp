@@ -32,11 +32,11 @@ namespace sk {
         void writeChar(char value);
         void writeChars(const std::string& value);
         void writeFully(const std::vector<char>& value);
+        void writeFully(const char* buffer, int length);
+
       private:
         DataOutputStream(const DataOutputStream& other);
         DataOutputStream& operator = (const DataOutputStream& other);
-
-        void writeFully(const char* buffer, int length);
     };
   }
 }
