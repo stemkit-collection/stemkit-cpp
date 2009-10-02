@@ -12,6 +12,7 @@
 #define _SK_NET_DATAINPUTSTREAM_H_
 
 #include <sk/io/DataInputStream.h>
+#include <sk/util/Holder.hxx>
 
 namespace sk {
   namespace net {
@@ -22,6 +23,8 @@ namespace sk {
         DataInputStream(sk::io::InputStream& stream);
         virtual ~DataInputStream();
     
+        static sk::io::DataInputStream& reuseOrMake(sk::io::InputStream& stream, sk::util::Holder<sk::io::DataInputStream>& _holder);
+
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
     

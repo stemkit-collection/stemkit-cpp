@@ -8,6 +8,7 @@
 #ifndef _SK_IO_DATAOUTPUTSTREAM_
 #define _SK_IO_DATAOUTPUTSTREAM_
 
+#include <sk/util/Holder.hxx>
 #include <sk/io/DelegatingOutputStream.h>
 #include <sk/io/DataOutput.h>
 
@@ -20,6 +21,8 @@ namespace sk {
       public:
         DataOutputStream(sk::io::OutputStream& stream);
         virtual ~DataOutputStream();
+
+        static sk::io::DataOutputStream& reuseOrMake(sk::io::OutputStream& stream, sk::util::Holder<sk::io::DataOutputStream>& _holder);
         
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;

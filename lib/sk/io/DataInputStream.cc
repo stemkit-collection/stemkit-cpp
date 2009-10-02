@@ -7,6 +7,7 @@
 
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
+#include <sk/util/Holder.cxx>
 #include <sk/util/UnsupportedOperationException.h>
 
 #include <sk/io/DataInputStream.h>
@@ -31,8 +32,18 @@ getClass() const
   return sk::util::Class("sk::io::DataInputStream");
 }
 
-#include <iostream>
-#include <iomanip>
+sk::io::DataInputStream&
+sk::io::DataInputStream::
+reuseOrMake(sk::io::InputStream& stream, sk::util::Holder<sk::io::DataInputStream>& _holder)
+{
+  try {
+    _holder.set(sk::util::upcast<sk::io::DataInputStream>(stream));
+  }
+  catch(const sk::util::ClassCastException& exception) {
+    _holder.set(new sk::io::DataInputStream(stream));
+  }
+  return _holder.get();
+}
 
 namespace {
   template<class T>

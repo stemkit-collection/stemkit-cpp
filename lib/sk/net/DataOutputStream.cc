@@ -10,6 +10,7 @@
 
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
+#include <sk/util/Holder.cxx>
 
 #include <sk/net/DataOutputStream.h>
 
@@ -24,6 +25,19 @@ DataOutputStream(sk::io::OutputStream& stream)
 sk::net::DataOutputStream::
 ~DataOutputStream()
 {
+}
+
+sk::io::DataOutputStream&
+sk::net::DataOutputStream::
+reuseOrMake(sk::io::OutputStream& stream, sk::util::Holder<sk::io::DataOutputStream>& _holder)
+{
+  try {
+    _holder.set(sk::util::upcast<sk::io::DataOutputStream>(stream));
+  }
+  catch(const sk::util::ClassCastException& exception) {
+    _holder.set(new sk::net::DataOutputStream(stream));
+  }
+  return _holder.get();
 }
 
 const sk::util::Class

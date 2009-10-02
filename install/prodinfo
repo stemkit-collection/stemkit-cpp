@@ -21,7 +21,7 @@ product {
       system-set-permissions
     }
     filesets %w{
-      main util sys io other rt ruby-rt java-rt cppunit preload
+      main util sys io net other rt ruby-rt java-rt cppunit preload
     }
   }
 }
@@ -72,6 +72,27 @@ fileset {
   install.into(cache.lib).binary {
     list = %w{
       sk.io
+    }
+    if ENV['MAKE_DLL'] == 'true'
+      library 'lib' => list
+    else
+      static_library 'lib' => list
+    end
+  }
+}
+
+fileset {
+  name 'net'
+
+  directory [
+    'include/sk/net',
+    cache.lib
+  ]
+  install.as('include/sk/net').source.tree 'include/sk/net', :follow => true
+
+  install.into(cache.lib).binary {
+    list = %w{
+      sk.net
     }
     if ENV['MAKE_DLL'] == 'true'
       library 'lib' => list

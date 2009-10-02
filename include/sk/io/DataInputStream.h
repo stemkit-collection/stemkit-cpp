@@ -8,6 +8,7 @@
 #ifndef _SK_IO_DATAINPUTSTREAM_
 #define _SK_IO_DATAINPUTSTREAM_
 
+#include <sk/util/Holder.hxx>
 #include <sk/io/DelegatingInputStream.h>
 #include <sk/io/DataInput.h>
 
@@ -21,6 +22,8 @@ namespace sk {
         DataInputStream(sk::io::InputStream& stream);
         virtual ~DataInputStream();
         
+        static sk::io::DataInputStream& reuseOrMake(sk::io::InputStream& stream, sk::util::Holder<sk::io::DataInputStream>& _holder);
+
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
         

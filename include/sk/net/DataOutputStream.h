@@ -12,6 +12,7 @@
 #define _SK_NET_DATAOUTPUTSTREAM_H_
 
 #include <sk/io/DataOutputStream.h>
+#include <sk/util/Holder.hxx>
 
 namespace sk {
   namespace net {
@@ -22,6 +23,8 @@ namespace sk {
         DataOutputStream(sk::io::OutputStream& stream);
         virtual ~DataOutputStream();
     
+        static sk::io::DataOutputStream& reuseOrMake(sk::io::OutputStream& stream, sk::util::Holder<sk::io::DataOutputStream>& _holder);
+
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
     

@@ -8,7 +8,9 @@
 
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
+#include <sk/util/Holder.cxx>
 #include <sk/util/UnsupportedOperationException.h>
+#include <sk/util/ClassCastException.h>
 
 #include <sk/io/DataOutputStream.h>
 
@@ -28,6 +30,19 @@ sk::io::DataOutputStream::
 getClass() const
 {
   return sk::util::Class("sk::io::DataOutputStream");
+}
+
+sk::io::DataOutputStream&
+sk::io::DataOutputStream::
+reuseOrMake(sk::io::OutputStream& stream, sk::util::Holder<sk::io::DataOutputStream>& _holder)
+{
+  try {
+    _holder.set(sk::util::upcast<sk::io::DataOutputStream>(stream));
+  }
+  catch(const sk::util::ClassCastException& exception) {
+    _holder.set(new sk::io::DataOutputStream(stream));
+  }
+  return _holder.get();
 }
 
 namespace {

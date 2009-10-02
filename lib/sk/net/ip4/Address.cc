@@ -24,6 +24,11 @@ Address(const Address& other)
 }
 
 sk::net::ip4::Address::
+Address(const sk::util::String& spec)
+{
+}
+
+sk::net::ip4::Address::
 Address(uint32_t number)
 {
 }
@@ -58,19 +63,19 @@ uint32_t
 sk::net::ip4::Address::
 number() const
 {
-  throw sk::util::UnsupportedOperationException("number()");
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
 }
 
 const sk::util::String
 sk::net::ip4::Address::
 hostname() const
 {
-  throw sk::util::UnsupportedOperationException("hostname()");
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
 }
 
 const sk::util::String
 sk::net::ip4::Address::
 ip() const
 {
-  throw sk::util::UnsupportedOperationException("ip()");
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
 }
