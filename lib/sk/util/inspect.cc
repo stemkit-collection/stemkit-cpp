@@ -92,50 +92,58 @@ sk::util::inspect(const char* str)
   return inspect(str, strlen(str));
 }
 
+template<>
 const sk::util::String 
 sk::util::inspect(const std::string& str)
 {
   return inspect(str.c_str(), str.size());
 }
 
+template<>
 const sk::util::String 
 sk::util::inspect(const std::vector<char>& container)
 {
   return inspect(&container.front(), container.size());
 }
 
+template<>
 const sk::util::String 
 sk::util::inspect(const sk::util::String& str)
 {
   return inspect(str.getChars(), str.size());
 }
 
+template<>
 const sk::util::String 
 sk::util::inspect(const sk::util::Container& container)
 {
   return inspect(container.getChars(), container.size());
 }
 
+template<>
 const sk::util::String 
 sk::util::inspect(const sk::util::Object& object)
 {
   return object.inspect();
 }
 
+template<>
 const sk::util::String 
-sk::util::inspect(int data)
+sk::util::inspect(const int& data)
 {
   return sk::util::String::valueOf(data);
 }
 
+template<>
 const sk::util::String 
-sk::util::inspect(char data)
+sk::util::inspect(const char& data)
 {
   return inspect(&data, 1).replace("\"", "'");
 }
 
+template<>
 const sk::util::String 
-sk::util::inspect(bool data)
+sk::util::inspect(const bool& data)
 {
   return sk::util::Boolean::toString(data);
 }

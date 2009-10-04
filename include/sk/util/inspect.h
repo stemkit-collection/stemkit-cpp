@@ -12,22 +12,30 @@
 #include <sk/util/String.h>
 #include <sk/util/Container.h>
 #include <sk/util/Object.h>
+#include <sstream>
 
 namespace sk {
   namespace util {
     const sk::util::String inspect(const char* buffer, int size);
     const sk::util::String inspect(const char* str);
 
-    const sk::util::String inspect(const std::string& str);
-    const sk::util::String inspect(const std::vector<char>& container);
+    template<typename T> const sk::util::String inspect(const T& data) {
+      std::stringstream stream;
+      stream << data;
 
-    const sk::util::String inspect(const sk::util::String& str);
-    const sk::util::String inspect(const sk::util::Container& container);
-    const sk::util::String inspect(const sk::util::Object& object);
+      return stream.str();
+    }
 
-    const sk::util::String inspect(int data);
-    const sk::util::String inspect(char data);
-    const sk::util::String inspect(bool data);
+    template<> const sk::util::String inspect(const std::string& str);
+    template<> const sk::util::String inspect(const std::vector<char>& container);
+
+    template<> const sk::util::String inspect(const sk::util::String& str);
+    template<> const sk::util::String inspect(const sk::util::Container& container);
+    template<> const sk::util::String inspect(const sk::util::Object& object);
+
+    template<> const sk::util::String inspect(const int& data);
+    template<> const sk::util::String inspect(const char& data);
+    template<> const sk::util::String inspect(const bool& data);
   }
 }
 
