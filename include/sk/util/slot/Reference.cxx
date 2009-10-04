@@ -45,7 +45,7 @@ T*
 sk::util::slot::Reference<T, Mixin>::
 deprive()
 {
-  throw sk::util::UnsupportedOperationException("sk::util::slot::Reference#deprive()");
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
 }
 
 template<typename T, typename Mixin>
@@ -53,7 +53,7 @@ T*
 sk::util::slot::Reference<T, Mixin>::
 replace(T* object)
 {
-  throw sk::util::UnsupportedOperationException("sk::util::slot::Reference#replace()");
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
 }
 
 template<typename T, typename Mixin>

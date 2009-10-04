@@ -38,7 +38,7 @@ T&
 sk::util::AbstractCollection<T>::
 get(const Selector<T>& selector) const 
 {
-  throw UnsupportedOperationException("sk::util::AbstractCollection::get(selector)");
+  throw UnsupportedOperationException(SK_METHOD);
 }
 
 template<class T>
@@ -46,7 +46,7 @@ void
 sk::util::AbstractCollection<T>::
 forEach(const Processor<T>& procesor) const 
 {
-  throw UnsupportedOperationException("sk::util::AbstractCollection::forEach(processor)");
+  throw UnsupportedOperationException(SK_METHOD);
 }
 
 template<class T>
@@ -54,7 +54,7 @@ bool
 sk::util::AbstractCollection<T>::
 find(sk::util::Holder<T>& holder, const Selector<T>& selector) const 
 {
-  throw UnsupportedOperationException("sk::util::AbstractCollection::find()");
+  throw UnsupportedOperationException(SK_METHOD);
 }
 
 template<class T>
@@ -62,7 +62,7 @@ bool
 sk::util::AbstractCollection<T>::
 isEmpty() const 
 {
-  throw UnsupportedOperationException("sk::util::AbstractCollection::isEmpty()");
+  throw UnsupportedOperationException(SK_METHOD);
 }
 
 template<class T>
@@ -70,7 +70,7 @@ int
 sk::util::AbstractCollection<T>::
 size() const 
 {
-  throw UnsupportedOperationException("sk::util::AbstractCollection::size()");
+  throw UnsupportedOperationException(SK_METHOD);
 }
 
 template<class T>
@@ -95,7 +95,7 @@ bool
 sk::util::AbstractCollection<T>::
 containsAll(const Collection<T>& other) const 
 {
-  throw UnsupportedOperationException("sk::util::AbstractCollection::containsAll(collection)");
+  throw UnsupportedOperationException(SK_METHOD);
 }
 
 template<class T>
@@ -103,7 +103,7 @@ bool
 sk::util::AbstractCollection<T>::
 add(T& object) 
 {
-  throw UnsupportedOperationException("sk::util::AbstractCollection::add(object&)");
+  throw UnsupportedOperationException(SK_METHOD);
 }
 
 template<class T>
@@ -111,7 +111,7 @@ bool
 sk::util::AbstractCollection<T>::
 add(T* object) 
 {
-  throw UnsupportedOperationException("sk::util::AbstractCollection::add(object*)");
+  throw UnsupportedOperationException(SK_METHOD);
 }
 
 template<class T>
@@ -119,7 +119,7 @@ bool
 sk::util::AbstractCollection<T>::
 addAll(const Collection<T>& other) 
 {
-  throw UnsupportedOperationException("sk::util::AbstractCollection::addAll(collection)");
+  throw UnsupportedOperationException(SK_METHOD);
 }
 
 template<class T>
@@ -127,7 +127,7 @@ bool
 sk::util::AbstractCollection<T>::
 moveAll(Collection<T>& other) 
 {
-  throw UnsupportedOperationException("sk::util::AbstractCollection::moveAll(collection)");
+  throw UnsupportedOperationException(SK_METHOD);
 }
 
 template<class T>
@@ -135,7 +135,7 @@ void
 sk::util::AbstractCollection<T>::
 clear() 
 {
-  throw UnsupportedOperationException("sk::util::AbstractCollection::clear()");
+  throw UnsupportedOperationException(SK_METHOD);
 }
 
 template<class T>
@@ -143,7 +143,7 @@ bool
 sk::util::AbstractCollection<T>::
 remove(const T& object) 
 {
-  throw UnsupportedOperationException("sk::util::AbstractCollection::remove(object)");
+  throw UnsupportedOperationException(SK_METHOD);
 }
 
 template<class T>
@@ -151,7 +151,7 @@ bool
 sk::util::AbstractCollection<T>::
 remove(const Selector<T>& selector) 
 {
-  throw UnsupportedOperationException("sk::util::AbstractCollection::remove(selector)");
+  throw UnsupportedOperationException(SK_METHOD);
 }
 
 template<class T>
@@ -159,7 +159,7 @@ T*
 sk::util::AbstractCollection<T>::
 cutoff(const T& object) 
 {
-  throw UnsupportedOperationException("sk::util::AbstractCollection::cutoff(object)");
+  throw UnsupportedOperationException(SK_METHOD);
 }
 
 template<class T>
@@ -167,7 +167,7 @@ T*
 sk::util::AbstractCollection<T>::
 cutoff(const Selector<T>& selector) 
 {
-  throw UnsupportedOperationException("sk::util::AbstractCollection::cutoff(selector)");
+  throw UnsupportedOperationException(SK_METHOD);
 }
 
 template<class T>
@@ -175,7 +175,7 @@ T*
 sk::util::AbstractCollection<T>::
 release(const T& object) 
 {
-  throw UnsupportedOperationException("sk::util::AbstractCollection::release(object)");
+  throw UnsupportedOperationException(SK_METHOD);
 }
 
 template<class T>
@@ -183,7 +183,7 @@ T*
 sk::util::AbstractCollection<T>::
 release(const Selector<T>& selector) 
 {
-  throw UnsupportedOperationException("sk::util::AbstractCollection::release(selector)");
+  throw UnsupportedOperationException(SK_METHOD);
 }
 
 template<class T>
@@ -191,7 +191,7 @@ bool
 sk::util::AbstractCollection<T>::
 removeAll(const Collection<T>& other) 
 {
-  throw UnsupportedOperationException("sk::util::AbstractCollection::removeAll(collection)");
+  throw UnsupportedOperationException(SK_METHOD);
 }
 
 template<class T>
@@ -199,7 +199,7 @@ bool
 sk::util::AbstractCollection<T>::
 removeAll(const Selector<T>& selector) 
 {
-  throw UnsupportedOperationException("sk::util::AbstractCollection::removeAll(selector)");
+  throw UnsupportedOperationException(SK_METHOD);
 }
 
 template<class T>
@@ -207,7 +207,7 @@ bool
 sk::util::AbstractCollection<T>::
 retainAll(const Collection<T>& other) 
 {
-  throw UnsupportedOperationException("sk::util::AbstractCollection::retainAll(collection)");
+  throw UnsupportedOperationException(SK_METHOD);
 }
 
 template<class T>
@@ -215,7 +215,7 @@ bool
 sk::util::AbstractCollection<T>::
 retainAll(const Selector<T>& selector) 
 {
-  throw UnsupportedOperationException("sk::util::AbstractCollection::retainAll(selector)");
+  throw UnsupportedOperationException(SK_METHOD);
 }
 
 #endif /* _SK_UTIL_ABSTRACTCOLLECTION_CXX_ */
