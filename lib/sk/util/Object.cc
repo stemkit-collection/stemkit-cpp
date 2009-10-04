@@ -1,4 +1,5 @@
-/*  Copyright (c) 2005, Gennady Bystritsky <bystr@mac.com>
+/*  vi: sw=2:
+ *  Copyright (c) 2005, Gennady Bystritsky <bystr@mac.com>
  *  
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
@@ -8,8 +9,8 @@
 #include <sk/util/Object.h>
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
-#include <sk/util/Integer.h>
 #include <sk/util/UnsupportedOperationException.h>
+#include <sstream>
 
 sk::util::Object::
 Object() 
@@ -61,7 +62,10 @@ const sk::util::String
 sk::util::Object::
 toString() const
 {
-  return getClass().getName() + "#" + Integer::toString(getId());
+  std::stringstream stream;
+  stream << '<' << getClass().getName() << '#' << getId() << '>';
+
+  return stream.str();
 }
 
 const sk::util::String 

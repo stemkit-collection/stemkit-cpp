@@ -70,5 +70,5 @@ void
 sk::util::test::ObjectTest::
 testToString()
 {
-  CPPUNIT_ASSERT_EQUAL(String("sk::util::Object#21"), object.toString());
+  CPPUNIT_ASSERT_EQUAL(String("<sk::util::Object#21>"), object.toString());
 }
