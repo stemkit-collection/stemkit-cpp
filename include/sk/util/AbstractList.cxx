@@ -1,4 +1,5 @@
-/*  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
+/*  vi: sw=2:
+ *  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
  *  
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
@@ -11,6 +12,8 @@
 #include <sk/util/AbstractList.hxx>
 #include <sk/util/AbstractCollection.cxx>
 #include <sk/util/UnsupportedOperationException.h>
+#include <sk/util/StringArray.h>
+#include <sk/util/inspect.h>
 
 template<class T>
 sk::util::AbstractList<T>::
@@ -150,6 +153,33 @@ sk::util::AbstractList<T>::
 sort()
 {
   throw UnsupportedOperationException(SK_METHOD);
+}
+
+namespace {
+  template<typename T>
+  struct AbstractListInspectingCollector : public virtual sk::util::Processor<T> {
+    AbstractListInspectingCollector(sk::util::StringArray& depot)
+      : _depot(depot), _index(0) {}
+
+    void process(T& object) const {
+      _depot << (sk::util::String::valueOf(_index++) + '=' + sk::util::inspect(object));
+    }
+    sk::util::StringArray& _depot;
+    mutable int _index;
+  };
+}
+
+template<class T>
+const sk::util::String 
+sk::util::AbstractList<T>::
+inspect() const
+{
+  if(this->isEmpty() == true) {
+    return "[]";
+  }
+  sk::util::StringArray depot;
+  this->forEach(AbstractListInspectingCollector<T>(depot));
+  return "[" + sk::util::String::valueOf(this->size()) + ": " + depot.join(", ") + " ]";
 }
 
 #endif /* _SK_UTIL_ABSTRACTLIST_CXX_ */

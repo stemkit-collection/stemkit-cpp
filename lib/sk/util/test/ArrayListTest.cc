@@ -206,3 +206,17 @@ testSort()
   CPPUNIT_ASSERT_EQUAL("bbb", list.get(1));
   CPPUNIT_ASSERT_EQUAL("ccc", list.get(2));
 }
+
+void 
+sk::util::test::ArrayListTest::
+testInspect()
+{
+  sk::util::ArrayList<sk::util::String> list;
+  CPPUNIT_ASSERT_EQUAL("[]", list.inspect());
+
+  list.add(new sk::util::String("aaa"));
+  list.add(new sk::util::String("bbb"));
+
+  CPPUNIT_ASSERT_EQUAL("[2: 0=\"aaa\", 1=\"bbb\" ]", list.inspect());
+}
+

@@ -25,6 +25,7 @@ namespace sk {
         
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
+        const sk::util::String inspect() const;
         
         // sk::util::List<T> implementation.
         void add(int index, T& object);
