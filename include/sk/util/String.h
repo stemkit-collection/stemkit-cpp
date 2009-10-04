@@ -175,6 +175,7 @@ namespace sk {
         bool operator>=(const std::string& other) const;
         bool operator>=(const char* other) const;
     };
+    std::ostream& operator<<(std::ostream& stream, const sk::util::String& object);
   }
 }
 

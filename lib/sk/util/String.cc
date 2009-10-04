@@ -724,3 +724,9 @@ operator>=(const char* other) const
   return f >= other;
 }
 
+std::ostream& 
+sk::util::operator<<(std::ostream& stream, const sk::util::String& object) 
+{
+  std::string s = object;
+  return stream << s;
+}

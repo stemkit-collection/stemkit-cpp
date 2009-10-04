@@ -10,6 +10,7 @@
 #define SK_UTIL_OBJECT
 
 #include <inttypes.h>
+#include <ostream>
 
 namespace sk {
   namespace util {
@@ -50,6 +51,8 @@ namespace sk {
       protected:
         Object();
     };
+
+    std::ostream& operator << (std::ostream& stream, const sk::util::Object& object);
 
     bool operator<(const sk::util::Object& first, const sk::util::Object& second);
     bool operator>(const sk::util::Object& first, const sk::util::Object& second);

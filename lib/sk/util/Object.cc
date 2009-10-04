@@ -116,3 +116,11 @@ operator>=(const sk::util::Object& first, const sk::util::Object& second)
 {
   return &first >= &second;
 }
+
+std::ostream&
+sk::util::
+operator<<(std::ostream& stream, const sk::util::Object& object)
+{
+  return stream << object.inspect();
+}
+
