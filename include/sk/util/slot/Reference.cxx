@@ -10,6 +10,7 @@
 
 #include <sk/util/slot/Reference.hxx>
 #include <sk/util/UnsupportedOperationException.h>
+#include <sk/util/Class.h>
 
 template<typename T, typename Mixin>
 sk::util::slot::Reference<T, Mixin>::
@@ -22,6 +23,14 @@ template<typename T, typename Mixin>
 sk::util::slot::Reference<T, Mixin>::
 ~Reference()
 {
+}
+
+template<typename T, typename Mixin>
+const sk::util::Class
+sk::util::slot::Reference<T, Mixin>::
+getClass() const
+{
+  return sk::util::Class("sk::util::slot::Reference");
 }
 
 template<typename T, typename Mixin>

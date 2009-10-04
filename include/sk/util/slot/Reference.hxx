@@ -31,6 +31,7 @@ namespace sk {
           
           // sk::util::Object re-implementation.
           const sk::util::String inspect() const;
+          const sk::util::Class getClass() const;
           
         private:
           Reference(const Reference<T, Mixin>& other);
