@@ -33,7 +33,6 @@ namespace sk {
         bool isEmpty() const;
         bool add(T& object);
         bool add(T* object);
-        void forEach(const sk::util::Processor<T>& processor) const;
         bool find(sk::util::Holder<T>& holder, const Selector<T>& selector) const;
         
         T& get(int index) const;
@@ -43,6 +42,9 @@ namespace sk {
         using AbstractList<T>::remove;
 
         void sort();
+
+      protected:
+        void forEachSlot(const sk::util::SlotProcessor<T>& processor) const;
 
       private:
         ArrayList(const ArrayList<T>& other);

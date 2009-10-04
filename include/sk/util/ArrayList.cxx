@@ -88,10 +88,10 @@ add(T* object)
 template<class T>
 void
 sk::util::ArrayList<T>::
-forEach(const sk::util::Processor<T>& processor) const
+forEachSlot(const sk::util::SlotProcessor<T>& processor) const
 {
   for(typename container::const_iterator iterator = _container.begin(); iterator != _container.end() ; ++iterator) {
-    processor.process((*iterator)->get());
+    processor.process(*(*iterator));
   }
 }
 

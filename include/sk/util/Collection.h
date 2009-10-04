@@ -21,7 +21,7 @@ namespace sk {
     {
       public:
         virtual T& get(const Selector<T>& selector) const = 0;
-        virtual void forEach(const Processor<T>& procesor) const = 0;
+        virtual void forEach(const Processor<T>& processor) const = 0;
         virtual bool find(sk::util::Holder<T>& holder, const Selector<T>& selector) const = 0;
 
         /// Returns true if this collection contains no elements.

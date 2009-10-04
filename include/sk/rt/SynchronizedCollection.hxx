@@ -27,7 +27,7 @@ namespace sk {
         ~SynchronizedCollection();
     
         T& get(const Selector<T>& selector) const;
-        void forEach(const Processor<T>& procesor) const;
+        void forEach(const Processor<T>& processor) const;
         bool find(sk::util::Holder<T>& holder, const Selector<T>& selector) const;
         bool isEmpty() const;
         int size() const;

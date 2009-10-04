@@ -12,6 +12,7 @@
 #include <sk/util/AbstractCollection.hxx>
 #include <sk/util/UnsupportedOperationException.h>
 #include <sk/util/selector/Same.cxx>
+#include <sk/util/SlotContentInvocator.hxx>
 
 template<class T>
 sk::util::AbstractCollection<T>::
@@ -44,9 +45,9 @@ get(const Selector<T>& selector) const
 template<class T>
 void 
 sk::util::AbstractCollection<T>::
-forEach(const Processor<T>& procesor) const 
+forEach(const Processor<T>& processor) const 
 {
-  throw UnsupportedOperationException(SK_METHOD);
+  forEachSlot(SlotContentInvocator<T>(processor));
 }
 
 template<class T>

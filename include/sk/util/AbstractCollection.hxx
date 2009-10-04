@@ -1,4 +1,5 @@
-/*  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
+/*  vi: sw=2:
+ *  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
  *  
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
@@ -10,6 +11,7 @@
 
 #include <sk/util/Collection.h>
 #include <sk/util/Class.h>
+#include <sk/util/SlotProcessor.hxx>
 
 namespace sk {
   namespace util {
@@ -26,7 +28,7 @@ namespace sk {
         
         // sk::util::Collection<T> implementation.
         T& get(const Selector<T>& selector) const;
-        void forEach(const Processor<T>& procesor) const;
+        void forEach(const Processor<T>& processor) const;
         bool find(sk::util::Holder<T>& holder, const Selector<T>& selector) const;
         bool isEmpty() const;
         int size() const;
@@ -48,6 +50,9 @@ namespace sk {
         bool removeAll(const Selector<T>& selector);
         bool retainAll(const Collection<T>& other);
         bool retainAll(const Selector<T>& selector);
+
+      protected:
+        virtual void forEachSlot(const sk::util::SlotProcessor<T>& processor) const = 0;
 
       private:
         AbstractCollection(const AbstractCollection<T>& other);
