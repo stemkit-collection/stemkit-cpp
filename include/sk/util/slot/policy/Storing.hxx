@@ -10,6 +10,8 @@
 
 #include <sk/util/slot/Mixable.hxx>
 #include <sk/util/MissingResourceException.h>
+#include <sk/util/slot/Reference.hxx>
+#include <sk/util/slot/Pointer.hxx>
 
 namespace sk {
   namespace util {

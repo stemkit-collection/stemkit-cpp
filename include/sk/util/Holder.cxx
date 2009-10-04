@@ -1,4 +1,5 @@
-/*  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
+/*  vi: sw=2:
+ *  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
  *  
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
@@ -11,6 +12,7 @@
 #include <sk/util/Holder.hxx>
 #include <sk/util/slot/Reference.cxx>
 #include <sk/util/slot/Pointer.cxx>
+#include <sk/util/inspect.h>
 
 template<typename T, typename Policy>
 sk::util::Holder<T, Policy>::
@@ -146,6 +148,17 @@ release()
   set(*object);
 
   return object;
+}
+
+template<typename T, typename Policy>
+const sk::util::String
+sk::util::Holder<T, Policy>::
+inspect() const
+{
+  if(isEmpty() == true) {
+    return "-";
+  }
+  return (isOwner() ? "*" : "&") + sk::util::inspect(get());
 }
 
 #endif /* _SK_UTIL_HOLDER_CXX_ */

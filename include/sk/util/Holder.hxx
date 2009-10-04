@@ -8,8 +8,6 @@
 #ifndef _SK_UTIL_HOLDER_HXX_
 #define _SK_UTIL_HOLDER_HXX_
 
-#include <sk/util/slot/Reference.hxx>
-#include <sk/util/slot/Pointer.hxx>
 #include <sk/util/slot/mixin/None.h>
 #include <sk/util/slot/policy/Storing.hxx>
 #include <sk/util/slot/policy/Sharing.hxx>
@@ -51,6 +49,9 @@ namespace sk {
         void clear();
 
         T* release();
+
+        // sk::util::Object re-implementation.
+        const sk::util::String inspect() const;
     };
   }
 }

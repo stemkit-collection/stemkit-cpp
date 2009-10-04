@@ -24,6 +24,7 @@ namespace sk {
           CPPUNIT_TEST(testRemove);
           CPPUNIT_TEST(testRelease);
           CPPUNIT_TEST(testSet);
+          CPPUNIT_TEST(testInspect);
         CPPUNIT_TEST_SUITE_END();
         
         public:
@@ -38,6 +39,7 @@ namespace sk {
           void testRemove();
           void testRelease();
           void testSet();
+          void testInspect();
           
         private:
           HolderTest(const HolderTest& other);

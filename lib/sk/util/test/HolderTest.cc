@@ -1,4 +1,5 @@
-/*  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
+/*  vi: sw=2:
+ *  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
  *  
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
@@ -139,4 +140,18 @@ testSet()
   holder.set(0);
   CPPUNIT_ASSERT_EQUAL(0, Probe::getCounter());
   CPPUNIT_ASSERT_EQUAL(true, holder.isEmpty());
+}
+
+void
+sk::util::test::HolderTest::
+testInspect()
+{
+  sk::util::String s("abcd");
+  sk::util::Holder<sk::util::String> holder;
+
+  CPPUNIT_ASSERT_EQUAL("-", holder.inspect());
+  holder.set(s);
+  CPPUNIT_ASSERT_EQUAL("&\"abcd\"", holder.inspect());
+  holder.set(new sk::util::String("zzz"));
+  CPPUNIT_ASSERT_EQUAL("*\"zzz\"", holder.inspect());
 }
