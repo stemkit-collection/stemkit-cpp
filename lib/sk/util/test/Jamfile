@@ -38,6 +38,7 @@ test-objects =
   UpcastTest.cc
   CovariantWorkaroundTest.cc
   PropertiesTest.cc
+  InspectTest.cc
 ;
 
 use-project-library $(test) : sk.util sk.cppunit ;

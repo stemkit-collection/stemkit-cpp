@@ -32,6 +32,7 @@ namespace sk {
         bool isEmpty() const;
         int size() const;
         int length() const;
+        const char* getChars() const;
 
         Container& operator += (const char* buffer);
         Container& operator += (const std::string& string);

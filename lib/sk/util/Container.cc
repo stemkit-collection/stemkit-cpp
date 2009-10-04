@@ -1,4 +1,5 @@
-/*  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
+/*  vi: sw=2:
+ *  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
  *  
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
@@ -128,4 +129,11 @@ append(const std::vector<char>& other)
   self.insert(self.end(), other.begin(), other.end());
 
   return *this;
+}
+
+const char* 
+sk::util::Container::
+getChars() const
+{
+  return &front();
 }

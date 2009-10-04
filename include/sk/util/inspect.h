@@ -1,4 +1,5 @@
-/*  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
+/*  vi: sw=2:
+ *  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
  *  
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
@@ -9,71 +10,24 @@
 #define _SK_UTIL_INSPECT_
 
 #include <sk/util/String.h>
-
-#include <sstream>
-#include <algorithm>
-#include <functional>
-#include <iomanip>
+#include <sk/util/Container.h>
+#include <sk/util/Object.h>
 
 namespace sk {
   namespace util {
-    namespace {
-      struct Converter 
-        : public std::unary_function<char, void> 
-      {
-        Converter(std::ostream& stream) 
-          : _stream(stream) {}
+    const sk::util::String inspect(const char* buffer, int size);
+    const sk::util::String inspect(const char* str);
 
-        void operator() (const char& character) {
-          switch(character) {
-            case '\r': {
-              _stream << "\\r";
-              break;
-            }
-            case '\n': {
-              _stream << "\\n";
-              break;
-            }
-            case '\t': {
-              _stream << "\\t";
-              break;
-            }
-            case '\b': {
-              _stream << "\\b";
-              break;
-            }
-            case '\f': {
-              _stream << "\\f";
-              break;
-            }
-            case '\"': {
-              _stream << "\\\"";
-              break;
-            }
-            default: {
-              if(!(character&0x80) && isprint(character)) {
-                _stream << character;
-              }
-              else {
-                _stream << "\\x" << std::hex << std::setw(2) << std::setfill('0') << std::uppercase;
-                _stream << (int(character) & 0xff);
-              }
-              break;
-            }
-          }
-        }
-        std::ostream& _stream;
-      };
-    }
+    const sk::util::String inspect(const std::string& str);
+    const sk::util::String inspect(const std::vector<char>& container);
 
-    template<class T>
-    const sk::util::String inspect(T& container)
-    {
-      std::ostringstream stream;
-      std::for_each(container.begin(), container.end(), Converter(stream));
+    const sk::util::String inspect(const sk::util::String& str);
+    const sk::util::String inspect(const sk::util::Container& container);
+    const sk::util::String inspect(const sk::util::Object& object);
 
-      return '"' + stream.str() + '"';
-    }
+    const sk::util::String inspect(int data);
+    const sk::util::String inspect(char data);
+    const sk::util::String inspect(bool data);
   }
 }
 

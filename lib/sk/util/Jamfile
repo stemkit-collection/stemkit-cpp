@@ -28,6 +28,7 @@ objects =
   SystemExit.cc
   File.cc
   Properties.cc
+  inspect.cc
 ;
 
 make-library $(library) : $(objects) ;
