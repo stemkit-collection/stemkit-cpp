@@ -13,7 +13,6 @@
 #include <sk/util/AbstractCollection.cxx>
 #include <sk/util/UnsupportedOperationException.h>
 #include <sk/util/StringArray.h>
-#include <sk/util/inspect.h>
 
 template<class T>
 sk::util::AbstractList<T>::
@@ -157,12 +156,13 @@ sort()
 
 namespace {
   template<typename T>
-  struct AbstractListInspectingCollector : public virtual sk::util::Processor<T> {
+  struct AbstractListInspectingCollector : public virtual sk::util::SlotProcessor<T> {
     AbstractListInspectingCollector(sk::util::StringArray& depot)
       : _depot(depot), _index(0) {}
 
-    void process(T& object) const {
-      _depot << (sk::util::String::valueOf(_index++) + '=' + sk::util::inspect(object));
+    bool process(const sk::util::Slot<T>& slot) const {
+      _depot << (sk::util::String::valueOf(_index++) + slot.inspect());
+      return false;
     }
     sk::util::StringArray& _depot;
     mutable int _index;
@@ -178,7 +178,7 @@ inspect() const
     return "[]";
   }
   sk::util::StringArray depot;
-  this->forEach(AbstractListInspectingCollector<T>(depot));
+  this->forEachSlot(AbstractListInspectingCollector<T>(depot));
   return "[" + sk::util::String::valueOf(this->size()) + ": " + depot.join(", ") + " ]";
 }
 

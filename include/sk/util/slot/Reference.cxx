@@ -11,6 +11,7 @@
 #include <sk/util/slot/Reference.hxx>
 #include <sk/util/UnsupportedOperationException.h>
 #include <sk/util/Class.h>
+#include <sk/util/inspect.h>
 
 template<typename T, typename Mixin>
 sk::util::slot::Reference<T, Mixin>::
@@ -70,7 +71,7 @@ const sk::util::String
 sk::util::slot::Reference<T, Mixin>::
 inspect() const
 {
-  return "&";
+  return "&" + sk::util::inspect(_object);
 }
 
 #endif /* _SK_UTIL_SLOT_REFERENCE_CXX_ */

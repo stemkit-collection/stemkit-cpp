@@ -63,5 +63,5 @@ testMisc()
   String s("abcd");
   slot::Reference<String> slot(s);
 
-  CPPUNIT_ASSERT_EQUAL(String("&"), slot.inspect());
+  CPPUNIT_ASSERT_EQUAL(String("&\"abcd\""), slot.inspect());
 }

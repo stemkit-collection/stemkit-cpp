@@ -217,6 +217,11 @@ testInspect()
   list.add(new sk::util::String("aaa"));
   list.add(new sk::util::String("bbb"));
 
-  CPPUNIT_ASSERT_EQUAL("[2: 0=\"aaa\", 1=\"bbb\" ]", list.inspect());
+  CPPUNIT_ASSERT_EQUAL("[2: 0*\"aaa\", 1*\"bbb\" ]", list.inspect());
+
+  sk::util::String s = "zzz";
+  list.add(s);
+
+  CPPUNIT_ASSERT_EQUAL("[3: 0*\"aaa\", 1*\"bbb\", 2&\"zzz\" ]", list.inspect());
 }
 

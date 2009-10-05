@@ -158,7 +158,7 @@ inspect() const
   if(isEmpty() == true) {
     return "-";
   }
-  return (isOwner() ? "*" : "&") + sk::util::inspect(get());
+  return Policy::getSlot().inspect();
 }
 
 #endif /* _SK_UTIL_HOLDER_CXX_ */
