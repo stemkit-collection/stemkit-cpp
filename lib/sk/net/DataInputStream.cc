@@ -18,7 +18,7 @@ static const sk::util::String __className("sk::net::DataInputStream");
 
 sk::net::DataInputStream::
 DataInputStream(sk::io::InputStream& stream)
-  : sk::io::DataInputStream(stream)
+  : sk::io::DataInputStream(stream), _bigEndian(1 == htonl(1))
 {
 }
 
@@ -45,4 +45,29 @@ sk::net::DataInputStream::
 getClass() const
 {
   return sk::util::Class(__className);
+}
+
+int 
+sk::net::DataInputStream::
+readInt()
+{
+  return ntohl(sk::io::DataInputStream::readInt());
+}
+
+long long 
+sk::net::DataInputStream::
+readLong()
+{
+  uint64_t x = sk::io::DataInputStream::readLong();
+  if(_bigEndian == false) {
+    x = ((((uint64_t)ntohl(x)) << 32) + ntohl(x >> 32));
+  }
+  return x;
+}
+
+short 
+sk::net::DataInputStream::
+readShort()
+{
+  return ntohs(sk::io::DataInputStream::readShort());
 }

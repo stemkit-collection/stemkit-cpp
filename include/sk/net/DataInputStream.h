@@ -25,12 +25,19 @@ namespace sk {
     
         static sk::io::DataInputStream& reuseOrMake(sk::io::InputStream& stream, sk::util::Holder<sk::io::DataInputStream>& _holder);
 
+        // sk::io::DataInputStream re-implementation.
+        int readInt();
+        long long readLong();
+        short readShort();
+
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
     
       private:
         DataInputStream(const DataInputStream& other);
         DataInputStream& operator = (const DataInputStream& other);
+
+        bool _bigEndian;
     };
   }
 }

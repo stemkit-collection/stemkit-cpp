@@ -18,7 +18,7 @@ static const sk::util::String __className("sk::net::DataOutputStream");
 
 sk::net::DataOutputStream::
 DataOutputStream(sk::io::OutputStream& stream)
-  : sk::io::DataOutputStream(stream)
+  : sk::io::DataOutputStream(stream), _bigEndian(1 == htonl(1))
 {
 }
 
@@ -45,4 +45,30 @@ sk::net::DataOutputStream::
 getClass() const
 {
   return sk::util::Class(__className);
+}
+
+void 
+sk::net::DataOutputStream::
+writeInt(int value)
+{
+  sk::io::DataOutputStream::writeInt(htonl(value));
+}
+
+void 
+sk::net::DataOutputStream::
+writeLong(long long value)
+{
+  uint64_t x = value;
+
+  if(_bigEndian == false) {
+    x = ((((uint64_t)htonl(x)) << 32) + htonl(x >> 32));
+  }
+  sk::io::DataOutputStream::writeInt(x);
+}
+
+void 
+sk::net::DataOutputStream::
+writeShort(short value)
+{
+  sk::io::DataOutputStream::writeInt(htons(value));
 }
