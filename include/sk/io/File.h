@@ -62,6 +62,8 @@ namespace sk {
   }
 }
 
+std::ostream& operator<<(std::ostream& stream, const ::stat& fileStatistics);
+
 #if 0
   Mode |  Meaning
   -----+--------------------------------------------------------

@@ -19,7 +19,8 @@ namespace sk {
   namespace util {
     template<typename T, typename Policy = slot::policy::Storing<T> >
     class Holder
-      : public Policy
+      : public Policy, 
+        public virtual sk::util::Object
     {
       public:
         typedef Holder<T, slot::policy::Sharing<T> > Sharing;

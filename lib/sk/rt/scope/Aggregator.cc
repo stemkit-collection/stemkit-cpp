@@ -12,6 +12,7 @@
 
 #include <sk/rt/scope/Aggregator.h>
 #include <sk/rt/scope/Arbitrator.h>
+#include <sk/rt/logger/Level.h>
 #include <sk/rt/Locker.h>
 #include "scope/Config.h"
 #include "scope/NullArbitrator.h"

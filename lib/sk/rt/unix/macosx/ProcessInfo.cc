@@ -26,6 +26,7 @@
 // Thanks to Michael Knight for posting it.
 //
 struct sk::rt::ProcessInfo::Data 
+  : public virtual sk::util::Object
 {
   Data(pid_t pid) : _task(MACH_PORT_NULL) {
     if (task_for_pid(current_task(), pid, &_task) != KERN_SUCCESS) {

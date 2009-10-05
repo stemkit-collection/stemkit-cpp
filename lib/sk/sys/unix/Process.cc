@@ -37,7 +37,9 @@
 #include <signal.h>
 #include <iostream>
 
-struct sk::sys::Process::Implementation {
+struct sk::sys::Process::Implementation 
+  : public virtual sk::util::Object
+{
   Implementation() 
     : status(0) {}
 

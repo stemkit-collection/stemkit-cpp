@@ -1,4 +1,5 @@
-/*  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
+/*  vi: sw=2:
+ *  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
  *  
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
@@ -186,4 +187,9 @@ stat() const
     }
   }
   return _statHolder.get();
+}
+
+std::ostream& operator<<(std::ostream& stream, const struct ::stat& fileStatistics) 
+{
+  return stream << "<stat>";
 }

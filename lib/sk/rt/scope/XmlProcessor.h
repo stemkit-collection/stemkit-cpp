@@ -1,4 +1,5 @@
-/*  Copyright (c) 2007, Gennady Bystritsky <bystr@mac.com>
+/*  vi: sw=2:
+ *  Copyright (c) 2007, Gennady Bystritsky <bystr@mac.com>
  *  
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
@@ -67,5 +68,8 @@ namespace sk {
     }
   }
 }
+
+std::ostream& operator<<(std::ostream& stream, const TiXmlHandle& handle);
+std::ostream& operator<<(std::ostream& stream, const TiXmlDocument& document);
 
 #endif /* _SK_RT_SCOPE_XMLPROCESSOR_ */
