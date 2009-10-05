@@ -17,6 +17,7 @@
 #include <sk/rt/Locker.h>
 
 struct sk::rt::ProcessInfo::Data 
+  : sk::util::Object
 {
   Data(pid_t pid) 
     : _statfile("/proc/" + sk::util::String::valueOf(pid) + "/stat") {}

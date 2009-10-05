@@ -13,6 +13,7 @@
 #include <sk/util/Holder.cxx>
 
 #include <sk/net/DataInputStream.h>
+#include <arpa/inet.h>
 
 static const sk::util::String __className("sk::net::DataInputStream");
 
