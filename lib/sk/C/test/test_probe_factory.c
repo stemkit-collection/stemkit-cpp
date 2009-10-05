@@ -65,7 +65,6 @@ const char* test_probe_factory(char* error_buffer, int error_buffer_size)
     return error_buffer;
   }
 
-  sk_c_handle_clearError(sk_c_test_ProbeHandle_toHandle(probe));
   sk_c_test_ProbeFactory_destroy(factory);
   return "OK";
 }

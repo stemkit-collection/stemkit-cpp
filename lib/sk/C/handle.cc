@@ -37,14 +37,10 @@ bool
 sk_c_handle::
 isError() const
 {
-  return _error;
-}
-
-void
-sk_c_handle::
-clearError() const
-{
+  bool result = _error;
   _error = false;
+
+  return result;
 }
 
 const sk::util::String& 
@@ -144,19 +140,9 @@ int sk_c_handle_isError(const sk_c_handle* handle)
 }
 
 extern "C"
-void sk_c_handle_clearError(const sk_c_handle* handle) 
-{
-  sk_c_handle::ensure_not_null(handle);
-  handle->clearError();
-}
-
-extern "C"
 const char* sk_c_handle_errorType(const sk_c_handle* handle, char* buffer, int size)
 {
   sk_c_handle::ensure_not_null(handle);
-  if(handle->isError() == false) {
-    return 0;
-  }
   return sk_c_handle::copy(handle->errorType(), buffer, size);
 }
 
@@ -164,8 +150,5 @@ extern "C"
 const char* sk_c_handle_errorMessage(const sk_c_handle* handle, char* buffer, int size)
 {
   sk_c_handle::ensure_not_null(handle);
-  if(handle->isError() == false) {
-    return 0;
-  }
   return sk_c_handle::copy(handle->errorMessage(), buffer, size);
 }

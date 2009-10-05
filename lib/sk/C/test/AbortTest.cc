@@ -122,7 +122,7 @@ testCanContinueAfterClear()
     sk_c_test_Probe_raiseException(handle, "abc");
     CPPUNIT_ASSERT(sk_c_handle_isError(sk_c_test_ProbeHandle_toHandle(handle)));
 
-    sk_c_handle_clearError(sk_c_test_ProbeHandle_toHandle(handle));
+    sk_c_handle_isError(sk_c_test_ProbeHandle_toHandle(handle));
     CPPUNIT_ASSERT(!sk_c_handle_isError(sk_c_test_ProbeHandle_toHandle(handle)));
 
     sk_c_test_Probe_inspect(handle, error_buffer, sizeof(error_buffer));
@@ -144,8 +144,8 @@ testAbortsOnNextCallWhenNotCleared()
     sk_c_test_Probe_raiseException(handle, "abc");
     CPPUNIT_ASSERT(sk_c_handle_isError(sk_c_test_ProbeHandle_toHandle(handle)));
 
-    // Deleberatelly not clearing here, otherwise the test would fail.
-    // sk_c_handle_clearError(sk_c_test_ProbeHandle_toHandle(handle));
+    // Deleberatelly not checking for error here, otherwise the test fails.
+    // sk_c_handle_isError(sk_c_test_ProbeHandle_toHandle(handle));
 
     sk_c_test_Probe_inspect(handle, error_buffer, sizeof(error_buffer));
     CPPUNIT_FAIL("Not aborted as expected.");

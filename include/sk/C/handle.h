@@ -18,7 +18,6 @@ extern "C" {
 #endif
 
 int sk_c_handle_isError(const struct sk_c_handle* handle);
-void sk_c_handle_clearError(const struct sk_c_handle* handle);
 
 const char* sk_c_handle_errorType(const struct sk_c_handle* handle, char* buffer, int size);
 const char* sk_c_handle_errorMessage(const struct sk_c_handle* handle, char* buffer, int size);
@@ -39,7 +38,6 @@ class sk_c_handle
     sk_c_handle();
 
     bool isError() const;
-    void clearError() const;
 
     const sk::util::String& errorType() const;
     const sk::util::String& errorMessage() const;
