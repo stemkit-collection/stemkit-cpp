@@ -65,12 +65,12 @@ writeLong(long long value)
   if(_bigEndian == false) {
     x = ((((uint64_t)htonl(x)) << 32) + htonl(x >> 32));
   }
-  sk::io::DataOutputStream::writeInt(x);
+  sk::io::DataOutputStream::writeLong(x);
 }
 
 void 
 sk::net::DataOutputStream::
 writeShort(short value)
 {
-  sk::io::DataOutputStream::writeInt(htons(value));
+  sk::io::DataOutputStream::writeShort(htons(value));
 }
