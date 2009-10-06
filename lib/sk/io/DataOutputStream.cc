@@ -115,8 +115,11 @@ void
 sk::io::DataOutputStream::
 writeFully(const char* buffer, int length)
 {
-  if(buffer == 0 || length < 0) {
+  if(length <= 0) {
     return;
+  }
+  if(buffer == 0) {
+    throw sk::util::NullPointerException(SK_METHOD);
   }
   sk::io::OutputStream& stream = getOutputStream();
   int offset = 0;

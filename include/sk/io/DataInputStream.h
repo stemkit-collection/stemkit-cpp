@@ -38,12 +38,11 @@ namespace sk {
         const sk::util::String readLine();
         std::vector<char>& readFully(std::vector<char>& buffer, int number);
         std::vector<char> readFully(int number);
+        void readFully(char* buffer, int length);
 
       private:
         DataInputStream(const DataInputStream& other);
         DataInputStream& operator = (const DataInputStream& other);
-
-        void readFully(char* buffer, int length);
     };
   }
 }

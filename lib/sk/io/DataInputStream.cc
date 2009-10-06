@@ -155,6 +155,12 @@ void
 sk::io::DataInputStream::
 readFully(char* buffer, int length)
 {
+  if(length <= 0) {
+    return;
+  }
+  if(buffer == 0) {
+    throw sk::util::NullPointerException(SK_METHOD);
+  }
   sk::io::InputStream& stream = getInputStream();
   int offset = 0;
 

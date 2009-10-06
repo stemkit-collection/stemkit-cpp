@@ -50,6 +50,10 @@ namespace sk {
         /// Reads exactly number input bytes and returns them as a vector of chars. 
         /// Blocks if the data is not yet available.
         virtual std::vector<char> readFully(int number) = 0;
+        
+        /// Reads exactly number input bytes and stores them in the specified
+        /// character buffer. Blocks if the data is not yet available.
+        virtual void readFully(char* buffer, int number) = 0;
     };
   }
 }
