@@ -1,5 +1,5 @@
 /*  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
- *  
+e*  
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -22,7 +22,7 @@ namespace sk {
         DataOutputStream(sk::io::OutputStream& stream);
         virtual ~DataOutputStream();
 
-        static sk::io::DataOutputStream& reuseOrMake(sk::io::OutputStream& stream, sk::util::Holder<sk::io::DataOutputStream>& _holder);
+        static sk::io::DataOutput& reuseOrMake(sk::io::OutputStream& stream, sk::util::Holder<sk::io::DataOutput>& holder);
         
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;

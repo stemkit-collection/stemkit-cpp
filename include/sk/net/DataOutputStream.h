@@ -23,7 +23,7 @@ namespace sk {
         DataOutputStream(sk::io::OutputStream& stream);
         virtual ~DataOutputStream();
     
-        static sk::io::DataOutputStream& reuseOrMake(sk::io::OutputStream& stream, sk::util::Holder<sk::io::DataOutputStream>& _holder);
+        static sk::io::DataOutput& reuseOrMake(sk::io::OutputStream& stream, sk::util::Holder<sk::io::DataOutput>& holder);
 
         // sk::io::DataOutputStream re-implementation.
         void writeInt(int value);

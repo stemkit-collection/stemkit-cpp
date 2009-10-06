@@ -1,4 +1,5 @@
-/*  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
+/*  vi: sw=2:
+ *  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
  *  
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
@@ -32,17 +33,18 @@ getClass() const
   return sk::util::Class("sk::io::DataInputStream");
 }
 
-sk::io::DataInputStream&
+sk::io::DataInput&
 sk::io::DataInputStream::
-reuseOrMake(sk::io::InputStream& stream, sk::util::Holder<sk::io::DataInputStream>& _holder)
+reuseOrMake(sk::io::InputStream& stream, sk::util::Holder<sk::io::DataInput>& holder)
 {
-  try {
-    _holder.set(sk::util::upcast<sk::io::DataInputStream>(stream));
+  sk::io::DataInput* object = dynamic_cast<sk::io::DataInput*>(&stream);
+  if(object) {
+    holder.set(*object);
   }
-  catch(const sk::util::ClassCastException& exception) {
-    _holder.set(new sk::io::DataInputStream(stream));
+  else {
+    holder.set(new sk::io::DataInputStream(stream));
   }
-  return _holder.get();
+  return holder.get();
 }
 
 namespace {

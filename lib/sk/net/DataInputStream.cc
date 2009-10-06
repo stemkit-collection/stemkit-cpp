@@ -28,17 +28,18 @@ sk::net::DataInputStream::
 {
 }
 
-sk::io::DataInputStream&
+sk::io::DataInput&
 sk::net::DataInputStream::
-reuseOrMake(sk::io::InputStream& stream, sk::util::Holder<sk::io::DataInputStream>& _holder)
+reuseOrMake(sk::io::InputStream& stream, sk::util::Holder<sk::io::DataInput>& holder)
 {
-  try {
-    _holder.set(sk::util::upcast<sk::io::DataInputStream>(stream));
+  sk::io::DataInput* object = dynamic_cast<sk::io::DataInput*>(&stream);
+  if(object) {
+    holder.set(*object);
   }
-  catch(const sk::util::ClassCastException& exception) {
-    _holder.set(new sk::net::DataInputStream(stream));
+  else {
+    holder.set(new sk::net::DataInputStream(stream));
   }
-  return _holder.get();
+  return holder.get();
 }
 
 const sk::util::Class
