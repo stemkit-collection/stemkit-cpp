@@ -39,6 +39,7 @@ namespace sk {
         using AbstractList<T>::get;
 
         void remove(int index);
+        T* cutoff(int index);
         using AbstractList<T>::remove;
 
         void sort();

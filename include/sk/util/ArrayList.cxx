@@ -132,6 +132,20 @@ remove(int index)
   _container.erase(_container.begin() + index);
 }
 
+template<class T>
+T*
+sk::util::ArrayList<T>::
+cutoff(int index) 
+{
+  if((index < 0) || (index >= _container.size())) {
+    throw sk::util::IndexOutOfBoundsException("sk::util::ArrayList<T>#remove(), index=" + sk::util::String::valueOf(index) + ", size=" + sk::util::String::valueOf(_container.size()));
+  }
+  T* object = _container[index]->deprive();
+  _container.erase(_container.begin() + index);
+
+  return object;
+}
+
 namespace {
   template<typename T>
   struct SlotComparator {
