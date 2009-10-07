@@ -91,19 +91,3 @@ testWriteInt()
   CPPUNIT_ASSERT_EQUAL('\x00', buffer()[6]);
   CPPUNIT_ASSERT_EQUAL('\x00', buffer()[7]);
 }
-
-void 
-sk::io::test::DataOutputStreamTest::
-testReuseOrMake()
-{
-  sk::util::Container depot;
-  ByteArrayOutputStream stream(depot);
-  DataOutputStream dataStream(stream);
-  sk::util::Holder<sk::io::DataOutput> holder;
-  sk::io::DataOutput& output = sk::io::DataOutputStream::reuseOrMake(dataStream, holder);
-
-  CPPUNIT_ASSERT_EQUAL(output.inspect(), dataStream.inspect());
-
-  output.writeFully(sk::util::Container("Hello, there"));
-  CPPUNIT_ASSERT_EQUAL("\"Hello, there\"", depot.inspect());
-}

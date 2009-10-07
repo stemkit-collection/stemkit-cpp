@@ -32,20 +32,6 @@ getClass() const
   return sk::util::Class("sk::io::DataOutputStream");
 }
 
-sk::io::DataOutput&
-sk::io::DataOutputStream::
-reuseOrMake(sk::io::OutputStream& stream, sk::util::Holder<sk::io::DataOutput>& holder)
-{
-  sk::io::DataOutput* object = dynamic_cast<sk::io::DataOutput*>(&stream);
-  if(object) {
-    holder.set(*object);
-  }
-  else {
-    holder.set(new sk::io::DataOutputStream(stream));
-  }
-  return holder.get();
-}
-
 namespace {
   template<class T>
   void writeByteNumber(sk::io::DataOutput& stream, T& value, int length) {

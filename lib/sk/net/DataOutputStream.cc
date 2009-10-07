@@ -28,20 +28,6 @@ sk::net::DataOutputStream::
 {
 }
 
-sk::io::DataOutput&
-sk::net::DataOutputStream::
-reuseOrMake(sk::io::OutputStream& stream, sk::util::Holder<sk::io::DataOutput>& holder)
-{
-  sk::io::DataOutput* object = dynamic_cast<sk::io::DataOutput*>(&stream);
-  if(object) {
-    holder.set(*object);
-  }
-  else {
-    holder.set(new sk::net::DataOutputStream(stream));
-  }
-  return holder.get();
-}
-
 const sk::util::Class
 sk::net::DataOutputStream::
 getClass() const

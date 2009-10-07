@@ -22,8 +22,6 @@ namespace sk {
         DataOutputStream(sk::io::OutputStream& stream);
         virtual ~DataOutputStream();
 
-        static sk::io::DataOutput& reuseOrMake(sk::io::OutputStream& stream, sk::util::Holder<sk::io::DataOutput>& holder);
-        
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
         

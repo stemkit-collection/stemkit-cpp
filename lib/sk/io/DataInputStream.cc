@@ -33,20 +33,6 @@ getClass() const
   return sk::util::Class("sk::io::DataInputStream");
 }
 
-sk::io::DataInput&
-sk::io::DataInputStream::
-reuseOrMake(sk::io::InputStream& stream, sk::util::Holder<sk::io::DataInput>& holder)
-{
-  sk::io::DataInput* object = dynamic_cast<sk::io::DataInput*>(&stream);
-  if(object) {
-    holder.set(*object);
-  }
-  else {
-    holder.set(new sk::io::DataInputStream(stream));
-  }
-  return holder.get();
-}
-
 namespace {
   template<class T>
   T readBytesNumber(sk::io::DataInput& stream, int length) {

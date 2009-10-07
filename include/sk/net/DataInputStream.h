@@ -23,8 +23,6 @@ namespace sk {
         DataInputStream(sk::io::InputStream& stream);
         virtual ~DataInputStream();
     
-        static sk::io::DataInput& reuseOrMake(sk::io::InputStream& stream, sk::util::Holder<sk::io::DataInput>& holder);
-
         // sk::io::DataInputStream re-implementation.
         int readInt();
         long long readLong();
