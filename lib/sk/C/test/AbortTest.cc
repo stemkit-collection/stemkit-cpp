@@ -142,7 +142,6 @@ testAbortsOnNextCallWhenNotCleared()
     
     char error_buffer[512];
     sk_c_test_Probe_raiseException(handle, "abc");
-    CPPUNIT_ASSERT(sk_c_handle_isError(sk_c_test_ProbeHandle_toHandle(handle)));
 
     // Deleberatelly not checking for error here, otherwise the test fails.
     // sk_c_handle_isError(sk_c_test_ProbeHandle_toHandle(handle));
