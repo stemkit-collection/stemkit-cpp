@@ -12,19 +12,15 @@
 #include <sk/util/String.h>
 #include <sk/util/Container.h>
 #include <sk/util/Object.h>
-#include <sstream>
+#include <vector>
 
 namespace sk {
   namespace util {
     const sk::util::String inspect(const char* buffer, int size);
     const sk::util::String inspect(const char* str);
 
-    template<typename T> const sk::util::String inspect(const T& data) {
-      std::stringstream stream;
-      stream << data;
-
-      return stream.str();
-    }
+    template<typename T> const sk::util::String inspect(const std::vector<T>& container);
+    template<typename T> const sk::util::String inspect(const T& data);
 
     template<> const sk::util::String inspect(const std::string& str);
     template<> const sk::util::String inspect(const std::vector<char>& container);
@@ -38,5 +34,7 @@ namespace sk {
     template<> const sk::util::String inspect(const bool& data);
   }
 }
+
+#include <sk/util/inspect.cxx>
 
 #endif /* _SK_UTIL_INSPECT_ */

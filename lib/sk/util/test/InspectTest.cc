@@ -55,3 +55,16 @@ testStrings()
   CPPUNIT_ASSERT_EQUAL("\"abcd\\n\\r\\x05\"", sk::util::inspect(s));
   CPPUNIT_ASSERT_EQUAL("\"abcd\\n\\r\\x05\"", sk::util::inspect(o));
 }
+
+void 
+sk::util::test::InspectTest::
+testVectors()
+{
+  std::vector<sk::util::String> depot;
+  CPPUNIT_ASSERT_EQUAL("[]", sk::util::inspect(depot));
+
+  depot.push_back("aaa");
+  depot.push_back("zzz");
+
+  CPPUNIT_ASSERT_EQUAL("[2: 0=\"aaa\", 1=\"zzz\" ]", sk::util::inspect(depot));
+}

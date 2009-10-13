@@ -20,8 +20,8 @@
 #include <iomanip>
 
 namespace {
-  struct Converter : public std::unary_function<char, void> {
-    Converter(std::ostream& stream) 
+  struct CharacterConverter : public std::unary_function<char, void> {
+    CharacterConverter(std::ostream& stream) 
       : _stream(stream) {}
 
     void operator() (const char& character) {
@@ -73,7 +73,7 @@ sk::util::inspect(const char* buffer, int size)
     return "<null>";
   }
   std::ostringstream stream;
-  Converter converter(stream);
+  CharacterConverter converter(stream);
 
   stream << "\"";
   for(int index=0; index<size ;index++) {

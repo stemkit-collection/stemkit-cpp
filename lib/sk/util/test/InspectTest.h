@@ -23,6 +23,7 @@ namespace sk {
         CPPUNIT_TEST_SUITE(sk::util::test::InspectTest);
           CPPUNIT_TEST(testCharBuffers);
           CPPUNIT_TEST(testStrings);
+          CPPUNIT_TEST(testVectors);
         CPPUNIT_TEST_SUITE_END();
       
         public:
@@ -33,6 +34,7 @@ namespace sk {
           void tearDown();
           void testCharBuffers();
           void testStrings();
+          void testVectors();
       
         private:
           InspectTest(const InspectTest& other);
