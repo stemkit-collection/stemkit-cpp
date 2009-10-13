@@ -225,3 +225,26 @@ testInspect()
   CPPUNIT_ASSERT_EQUAL("[3: 0*\"aaa\", 1*\"bbb\", 2&\"zzz\" ]", list.inspect());
 }
 
+void
+sk::util::test::ArrayListTest::
+testRemoveAll()
+{
+  sk::util::ArrayList<sk::util::String> list;
+
+  list.add(new sk::util::String("aaa"));
+  list.add(new sk::util::String("bbbuuu"));
+  list.add(new sk::util::String("ccc"));
+  list.add(new sk::util::String("ddduuu"));
+  list.add(new sk::util::String("uuu"));
+
+  CPPUNIT_ASSERT_EQUAL(5, list.size());
+  struct Selector : public virtual sk::util::Selector<sk::util::String> {
+    bool assess(const sk::util::String& item) const {
+      return item.endsWith("uuu");
+    }
+  };
+  CPPUNIT_ASSERT(list.removeAll(Selector()) == true);
+  CPPUNIT_ASSERT_EQUAL(2, list.size());
+  CPPUNIT_ASSERT_EQUAL("aaa", list.get(0));
+  CPPUNIT_ASSERT_EQUAL("ccc", list.get(1));
+}

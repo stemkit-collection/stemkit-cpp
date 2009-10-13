@@ -98,6 +98,25 @@ forEachSlot(const sk::util::SlotProcessor<T>& processor) const
 template<class T>
 bool
 sk::util::ArrayList<T>::
+removeAll(const sk::util::Selector<T>& selector)
+{
+  int removed = 0;
+  typename container::iterator iterator = _container.begin();
+  while(iterator != _container.end()) {
+    if(selector.assess((*iterator)->get())) {
+      iterator = _container.erase(iterator);
+      ++removed;
+    }
+    else {
+      ++iterator;
+    }
+  }
+  return removed != 0;
+}
+
+template<class T>
+bool
+sk::util::ArrayList<T>::
 find(sk::util::Holder<T>& holder, const sk::util::Selector<T>& selector) const
 {
   for(typename container::const_iterator iterator = _container.begin(); iterator != _container.end() ; ++iterator) {

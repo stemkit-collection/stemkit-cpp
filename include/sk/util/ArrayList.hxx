@@ -39,6 +39,11 @@ namespace sk {
         using AbstractList<T>::get;
 
         void remove(int index);
+        // using AbstractList<T>::remove;
+
+        bool removeAll(const sk::util::Selector<T>& selector);
+        using AbstractList<T>::removeAll;
+
         T* cutoff(int index);
         using AbstractList<T>::remove;
 
