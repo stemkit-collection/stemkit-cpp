@@ -125,7 +125,7 @@ open(int mode, int permissions)
 {
   int fd = ::open(_name.getChars(), mode, permissions);
   if(fd < 0) {
-    throw sk::io::IOException("open() failed");
+    throw sk::io::IOException(getName() + ": open() failed");
   }
   _descriptorHolder.set(new sk::io::FileDescriptor(fd));
   _inputStreamHolder.set(new sk::io::FileDescriptorInputStream(fd));
@@ -163,7 +163,7 @@ position() const
 {
   long long n = lseek(getFileDescriptor().getFileNumber(), 0, SEEK_CUR);
   if(n == -1) {
-    throw sk::io::IOException("lseek() failed");
+    throw sk::io::IOException(getName() + ": lseek() failed");
   }
   return n;
 }
@@ -183,7 +183,7 @@ stat() const
     _statHolder.set(new struct stat);
     int n = fstat(getFileDescriptor().getFileNumber(), &_statHolder.get());
     if(n == -1) {
-      throw sk::io::IOException("fstat() failed");
+      throw sk::io::IOException(getName() + ": fstat() failed");
     }
   }
   return _statHolder.get();
