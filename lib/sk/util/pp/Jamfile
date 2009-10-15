@@ -1,0 +1,17 @@
+# vim: ft=jam: sw=4:
+
+local library = sk.util.pp ;
+
+local objects =
+    AttributeNode.cc
+    CollectionItemNode.cc
+    CollectionNode.cc
+    HolderNode.cc
+    Node.cc
+    PointerNode.cc
+    StringNode.cc
+    StructNode.cc
+    TextNode.cc
+;
+
+make-static-library $(library) : $(objects) ;

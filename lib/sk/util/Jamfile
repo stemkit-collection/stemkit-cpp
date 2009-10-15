@@ -32,4 +32,6 @@ objects =
 ;
 
 make-library $(library) : $(objects) ;
-make-subdir test ;
+add-project-library $(library) : $(library).pp ;
+
+make-subdir test pp ;
