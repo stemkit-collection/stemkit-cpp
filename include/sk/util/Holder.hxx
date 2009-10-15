@@ -50,6 +50,7 @@ namespace sk {
         void clear();
 
         T* release();
+        T* deprive();
 
         // sk::util::Object re-implementation.
         const sk::util::String inspect() const;

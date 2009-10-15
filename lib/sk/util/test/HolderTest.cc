@@ -148,10 +148,14 @@ testInspect()
 {
   sk::util::String s("abcd");
   sk::util::Holder<sk::util::String> holder;
+  CPPUNIT_ASSERT_EQUAL("()", holder.inspect());
 
-  CPPUNIT_ASSERT_EQUAL("-", holder.inspect());
   holder.set(s);
-  CPPUNIT_ASSERT_EQUAL("&\"abcd\"", holder.inspect());
+  CPPUNIT_ASSERT_EQUAL("(&\"abcd\")", holder.inspect());
+
   holder.set(new sk::util::String("zzz"));
-  CPPUNIT_ASSERT_EQUAL("*\"zzz\"", holder.inspect());
+  CPPUNIT_ASSERT_EQUAL("(*\"zzz\")", holder.inspect());
+
+  delete holder.deprive();
+  CPPUNIT_ASSERT_EQUAL("(*<null>)", holder.inspect());
 }

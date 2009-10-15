@@ -16,6 +16,27 @@
 
 template<typename T>
 const sk::util::String 
+sk::util::inspect(const T* data) 
+{
+  if(data == 0) {
+    return "<null>";
+  }
+  std::stringstream stream;
+  stream << "<p:" << data << '>';
+
+  return stream.str();
+}
+
+template<typename T>
+const sk::util::String 
+sk::util::inspect(T* data) 
+{
+  const T* const_data = data;
+  return sk::util::inspect(const_data);
+}
+
+template<typename T>
+const sk::util::String 
 sk::util::inspect(const T& data) 
 {
   std::stringstream stream;

@@ -151,14 +151,22 @@ release()
 }
 
 template<typename T, typename Policy>
+T*
+sk::util::Holder<T, Policy>::
+deprive() 
+{
+  return Policy::getSlot().deprive();
+}
+
+template<typename T, typename Policy>
 const sk::util::String
 sk::util::Holder<T, Policy>::
 inspect() const
 {
   if(isEmpty() == true) {
-    return "-";
+    return "()";
   }
-  return Policy::getSlot().inspect();
+  return "(" + Policy::getSlot().inspect() + ")";
 }
 
 #endif /* _SK_UTIL_HOLDER_CXX_ */

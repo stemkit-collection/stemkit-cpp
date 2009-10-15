@@ -20,6 +20,8 @@ namespace sk {
     const sk::util::String inspect(const char* str);
 
     template<typename T> const sk::util::String inspect(const std::vector<T>& container);
+    template<typename T> const sk::util::String inspect(T* data);
+    template<typename T> const sk::util::String inspect(const T* data);
     template<typename T> const sk::util::String inspect(const T& data);
 
     template<> const sk::util::String inspect(const std::string& str);

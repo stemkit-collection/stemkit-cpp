@@ -79,7 +79,7 @@ const sk::util::String
 sk::util::slot::Pointer<T, Mixin>::
 inspect() const
 {
-  return "*" + (_object == 0 ? sk::util::String('-') : sk::util::inspect(*_object));
+  return "*" + (_object == 0 ? sk::util::inspect(_object) : sk::util::inspect(*_object));
 }
 
 #endif /* _SK_UTIL_SLOT_POINTER_CXX_ */

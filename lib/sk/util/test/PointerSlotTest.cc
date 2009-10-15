@@ -86,8 +86,8 @@ testMisc()
   slot::Pointer<String> slot(s);
 
   CPPUNIT_ASSERT_THROW(new slot::Pointer<String>(0), NullPointerException);
-  CPPUNIT_ASSERT_EQUAL(String("*\"abcd\""), slot.inspect());
+  CPPUNIT_ASSERT_EQUAL("*\"abcd\"", slot.inspect());
 
   delete slot.deprive();
-  CPPUNIT_ASSERT_EQUAL(String("*-"), slot.inspect());
+  CPPUNIT_ASSERT_EQUAL("*<null>", slot.inspect());
 }
