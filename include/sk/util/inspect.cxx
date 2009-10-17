@@ -22,7 +22,7 @@ sk::util::inspect(const T* data)
     return "<null>";
   }
   std::stringstream stream;
-  stream << "<p:" << data << '>';
+  stream << "<" << data << '>';
 
   return stream.str();
 }

@@ -61,14 +61,18 @@ testNull()
   CPPUNIT_ASSERT_EQUAL(9, nodeHolder.get().endPosition());
 }
 
+#include <iostream>
+
 void 
 sk::util::pp::test::PointerNodeTest::
 testGeneric()
 {
-  sk::util::Holder<Node> nodeHolder(PointerNode().parse(sk::util::Container("   <0x12aBcc3>") , 3, sk::util::Container()));
+  sk::util::Container data = "   " + sk::util::inspect(reinterpret_cast<void*>(0x12aBcc4));
+
+  sk::util::Holder<Node> nodeHolder(PointerNode().parse(data, 3, sk::util::Container()));
   CPPUNIT_ASSERT(nodeHolder.isEmpty() == false);
 
-  CPPUNIT_ASSERT_EQUAL("<0x12aBcc3>", nodeHolder.get().toString());
+  CPPUNIT_ASSERT_EQUAL("<0x12abcc4>", nodeHolder.get().toString());
   CPPUNIT_ASSERT_EQUAL(3, nodeHolder.get().startPosition());
   CPPUNIT_ASSERT_EQUAL(14, nodeHolder.get().endPosition());
 }
