@@ -20,6 +20,8 @@ namespace sk {
         : public virtual sk::util::Object
       {
         public:
+          virtual int startPosition() const = 0;
+          virtual int endPosition() const = 0;
       };
     }
   }

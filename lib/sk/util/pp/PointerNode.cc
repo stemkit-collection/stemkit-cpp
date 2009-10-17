@@ -19,13 +19,12 @@ static const sk::util::String __className("sk::util::pp::PointerNode");
 
 sk::util::pp::PointerNode::
 PointerNode()
-  : _begin(0), _end(0)
 {
 }
 
 sk::util::pp::PointerNode::
-PointerNode(const std::vector<char>& data, int begin, int end)
-  : _value(&data.front() + begin, end - begin), _begin(begin), _end(end)
+PointerNode(const std::vector<char>& data, int start, int end)
+  : AbstractNode(data, start, end)
 {
 }
 
@@ -62,9 +61,3 @@ pushOpenBraket(std::vector<char>& brakets) const
   brakets.push_back('<');
 }
 
-const sk::util::String
-sk::util::pp::PointerNode::
-toString() const
-{
-  return _value;
-}

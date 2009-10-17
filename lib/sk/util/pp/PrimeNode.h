@@ -33,6 +33,10 @@ namespace sk {
           // sk::util::pp::Parser implementation.
           Node* parse(const std::vector<char>& data, int offset, const std::vector<char>& terminator) const;
           void pushOpenBraket(std::vector<char>& brakets) const;
+
+          // sk::util::pp::Node implementation.
+          int startPosition() const;
+          int endPosition() const;
       
         private:
           PrimeNode(const PrimeNode& other);

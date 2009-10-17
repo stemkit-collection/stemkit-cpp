@@ -49,8 +49,10 @@ void
 sk::util::pp::test::PointerNodeTest::
 testNull()
 {
-  sk::util::Holder<Node> nodeHolder(PointerNode().parse(sk::util::Container("<null>") , 0, sk::util::Container()));
+  sk::util::Holder<Node> nodeHolder(PointerNode().parse(sk::util::Container("   <null>") , 3, sk::util::Container()));
   CPPUNIT_ASSERT(nodeHolder.isEmpty() == false);
 
   CPPUNIT_ASSERT_EQUAL("<null>", nodeHolder.get().toString());
+  CPPUNIT_ASSERT_EQUAL(3, nodeHolder.get().startPosition());
+  CPPUNIT_ASSERT_EQUAL(9, nodeHolder.get().endPosition());
 }

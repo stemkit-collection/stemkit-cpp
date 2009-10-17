@@ -3,15 +3,16 @@
 local library = sk.util.pp ;
 
 local objects =
-    AttributesNode.cc
-    CollectionItemsNode.cc
-    CollectionNode.cc
-    HolderNode.cc
+    AbstractNode.cc
     PrimeNode.cc
     PointerNode.cc
-    StringNode.cc
-    StructNode.cc
-    TextNode.cc
+    # AttributesNode.cc
+    # CollectionItemsNode.cc
+    # CollectionNode.cc
+    # HolderNode.cc
+    # StringNode.cc
+    # StructNode.cc
+    # TextNode.cc
 ;
 
 make-static-library $(library) : $(objects) ;

@@ -27,11 +27,11 @@ sk::util::pp::PrimeNode::
 PrimeNode()
 {
   _parsers.add(new PointerNode());
-  _parsers.add(new StructNode());
-  _parsers.add(new CollectionNode());
-  _parsers.add(new HolderNode());
-  _parsers.add(new StringNode());
-  _parsers.add(new TextNode());
+  // _parsers.add(new StructNode());
+  // _parsers.add(new CollectionNode());
+  // _parsers.add(new HolderNode());
+  // _parsers.add(new StringNode());
+  // _parsers.add(new TextNode());
 }
 
 sk::util::pp::PrimeNode::
@@ -91,4 +91,18 @@ pushOpenBraket(std::vector<char>& brakets) const
     std::vector<char>& _brakets;
   };
   _parsers.forEach(OpenBraketPusher(brakets));
+}
+
+int 
+sk::util::pp::PrimeNode::
+startPosition() const
+{
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
+}
+
+int 
+sk::util::pp::PrimeNode::
+endPosition() const
+{
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
 }
