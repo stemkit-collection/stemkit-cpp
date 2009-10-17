@@ -7,7 +7,7 @@ local objects =
     CollectionItemNode.cc
     CollectionNode.cc
     HolderNode.cc
-    Node.cc
+    PrimeNode.cc
     PointerNode.cc
     StringNode.cc
     StructNode.cc

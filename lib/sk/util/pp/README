@@ -1,0 +1,33 @@
+Relation
+========
+
+    Node.h
+        CollectionItemNode.h
+        CollectionNode.h
+        AttributeNode.h
+        PointerNode.h
+        HolderNode.h
+        StringNode.h
+        StructNode.h
+        PrimeNode.h
+        TextNode.h
+
+
+Composition
+===========
+
+    PrimeNode
+        StructNode
+            AtrributeNode
+                PrimeNode
+
+        CollectionNode
+            CollectionItemNode
+                PrimeNode
+
+        HolderNode
+            PrimeNode
+
+        PointerNode
+        StringNode
+        TextNode

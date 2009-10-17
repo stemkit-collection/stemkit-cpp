@@ -11,13 +11,13 @@
 #ifndef _SK_UTIL_PP_HOLDERNODE_H_
 #define _SK_UTIL_PP_HOLDERNODE_H_
 
-#include <sk/util/Object.h>
+#include "Node.h"
 
 namespace sk {
   namespace util {
     namespace pp {
       class HolderNode 
-        : public virtual sk::util::Object
+        : public virtual sk::util::pp::Node
       {
         public:
           HolderNode();

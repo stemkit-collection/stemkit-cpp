@@ -20,15 +20,6 @@ namespace sk {
         : public virtual sk::util::Object
       {
         public:
-          Node();
-          virtual ~Node();
-      
-          // sk::util::Object re-implementation.
-          const sk::util::Class getClass() const;
-      
-        private:
-          Node(const Node& other);
-          Node& operator = (const Node& other);
       };
     }
   }
