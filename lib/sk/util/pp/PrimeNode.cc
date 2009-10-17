@@ -11,6 +11,7 @@
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
 #include <sk/util/ArrayList.cxx>
+#include <sk/util/UnsupportedOperationException.h>
 
 #include "PrimeNode.h"
 #include "StructNode.h"
@@ -25,12 +26,12 @@ static const sk::util::String __className("sk::util::pp::PrimeNode");
 sk::util::pp::PrimeNode::
 PrimeNode()
 {
-  _variants.add(new StructNode());
-  _variants.add(new CollectionNode());
-  _variants.add(new HolderNode());
-  _variants.add(new PointerNode());
-  _variants.add(new StringNode());
-  _variants.add(new TextNode());
+  _parsers.add(new StructNode());
+  _parsers.add(new CollectionNode());
+  _parsers.add(new HolderNode());
+  _parsers.add(new PointerNode());
+  _parsers.add(new StringNode());
+  _parsers.add(new TextNode());
 }
 
 sk::util::pp::PrimeNode::
@@ -43,4 +44,11 @@ sk::util::pp::PrimeNode::
 getClass() const
 {
   return sk::util::Class(__className);
+}
+
+sk::util::pp::Node* 
+sk::util::pp::PrimeNode::
+parse(const std::vector<char>& data, int offset) const
+{
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
 }

@@ -12,12 +12,14 @@
 #define _SK_UTIL_PP_COLLECTIONITEMSNODE_H_
 
 #include "Node.h"
+#include "Parser.h"
 
 namespace sk {
   namespace util {
     namespace pp {
       class CollectionItemsNode 
-        : public virtual sk::util::pp::Node
+        : public virtual sk::util::pp::Node,
+          public virtual sk::util::pp::Parser
       {
         public:
           CollectionItemsNode();
@@ -26,6 +28,9 @@ namespace sk {
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
       
+          // sk::util::pp::Parser implementation.
+          Node* parse(const std::vector<char>& data, int offset) const;
+
         private:
           CollectionItemsNode(const CollectionItemsNode& other);
           CollectionItemsNode& operator = (const CollectionItemsNode& other);

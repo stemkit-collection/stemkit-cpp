@@ -12,12 +12,14 @@
 #define _SK_UTIL_PP_HOLDERNODE_H_
 
 #include "Node.h"
+#include "Parser.h"
 
 namespace sk {
   namespace util {
     namespace pp {
       class HolderNode 
-        : public virtual sk::util::pp::Node
+        : public virtual sk::util::pp::Node,
+          public virtual sk::util::pp::Parser
       {
         public:
           HolderNode();
@@ -26,6 +28,9 @@ namespace sk {
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
       
+          // sk::util::pp::Parser implementation.
+          Node* parse(const std::vector<char>& data, int offset) const;
+
         private:
           HolderNode(const HolderNode& other);
           HolderNode& operator = (const HolderNode& other);

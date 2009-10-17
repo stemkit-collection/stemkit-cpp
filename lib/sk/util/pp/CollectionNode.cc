@@ -10,6 +10,7 @@
 
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
+#include <sk/util/UnsupportedOperationException.h>
 
 #include "CollectionNode.h"
 #include "CollectionItemsNode.h"
@@ -32,4 +33,11 @@ sk::util::pp::CollectionNode::
 getClass() const
 {
   return sk::util::Class(__className);
+}
+
+sk::util::pp::Node* 
+sk::util::pp::CollectionNode::
+parse(const std::vector<char>& data, int offset) const
+{
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
 }

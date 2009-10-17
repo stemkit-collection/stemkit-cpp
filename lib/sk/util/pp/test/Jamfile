@@ -1,0 +1,12 @@
+# vim: ft=jam: sw=2
+
+local test = sk-util-pp-test ;
+
+local objects = 
+  TestSuite.cc
+  PrimeNodeTest.cc
+;
+
+use-unit-test $(test) $(objects) ;
+use-project-libraries $(test) : sk.util sk.cppunit ;
+make-cpp-test $(test) : $(objects) ;

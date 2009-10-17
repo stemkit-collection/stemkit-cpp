@@ -10,6 +10,7 @@
 
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
+#include <sk/util/UnsupportedOperationException.h>
 
 #include "PointerNode.h"
 
@@ -30,4 +31,11 @@ sk::util::pp::PointerNode::
 getClass() const
 {
   return sk::util::Class(__className);
+}
+
+sk::util::pp::Node* 
+sk::util::pp::PointerNode::
+parse(const std::vector<char>& data, int offset) const
+{
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
 }

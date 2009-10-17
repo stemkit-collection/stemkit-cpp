@@ -12,13 +12,16 @@
 #define _SK_UTIL_PP_PRIMENODE_H_
 
 #include <sk/util/ArrayList.hxx>
+
 #include "Node.h"
+#include "Parser.h"
 
 namespace sk {
   namespace util {
     namespace pp {
       class PrimeNode 
-        : public virtual sk::util::pp::Node
+        : public virtual sk::util::pp::Node,
+          public virtual sk::util::pp::Parser
       {
         public:
           PrimeNode();
@@ -26,12 +29,15 @@ namespace sk {
       
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
+
+          // sk::util::pp::Parser implementation.
+          Node* parse(const std::vector<char>& data, int offset) const;
       
         private:
           PrimeNode(const PrimeNode& other);
           PrimeNode& operator = (const PrimeNode& other);
 
-          sk::util::ArrayList<Node> _variants;
+          sk::util::ArrayList<Parser> _parsers;
       };
     }
   }
