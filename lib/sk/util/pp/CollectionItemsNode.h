@@ -8,30 +8,30 @@
  *  Author: Gennady Bystritsky (gennady.bystritsky@quest.com)
 */
 
-#ifndef _SK_UTIL_PP_ATTRIBUTENODE_H_
-#define _SK_UTIL_PP_ATTRIBUTENODE_H_
+#ifndef _SK_UTIL_PP_COLLECTIONITEMSNODE_H_
+#define _SK_UTIL_PP_COLLECTIONITEMSNODE_H_
 
 #include "Node.h"
 
 namespace sk {
   namespace util {
     namespace pp {
-      class AttributeNode 
+      class CollectionItemsNode 
         : public virtual sk::util::pp::Node
       {
         public:
-          AttributeNode();
-          virtual ~AttributeNode();
+          CollectionItemsNode();
+          virtual ~CollectionItemsNode();
       
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
       
         private:
-          AttributeNode(const AttributeNode& other);
-          AttributeNode& operator = (const AttributeNode& other);
+          CollectionItemsNode(const CollectionItemsNode& other);
+          CollectionItemsNode& operator = (const CollectionItemsNode& other);
       };
     }
   }
 }
 
-#endif /* _SK_UTIL_PP_ATTRIBUTENODE_H_ */
+#endif /* _SK_UTIL_PP_COLLECTIONITEMSNODE_H_ */

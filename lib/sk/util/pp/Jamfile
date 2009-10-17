@@ -3,8 +3,8 @@
 local library = sk.util.pp ;
 
 local objects =
-    AttributeNode.cc
-    CollectionItemNode.cc
+    AttributesNode.cc
+    CollectionItemsNode.cc
     CollectionNode.cc
     HolderNode.cc
     PrimeNode.cc

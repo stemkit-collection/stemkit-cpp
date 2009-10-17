@@ -11,24 +11,24 @@
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
 
-#include "AttributeNode.h"
+#include "CollectionItemsNode.h"
 #include "PrimeNode.h"
 
-static const sk::util::String __className("sk::util::pp::AttributeNode");
+static const sk::util::String __className("sk::util::pp::CollectionItemsNode");
 
-sk::util::pp::AttributeNode::
-AttributeNode()
+sk::util::pp::CollectionItemsNode::
+CollectionItemsNode()
 {
   PrimeNode node;
 }
 
-sk::util::pp::AttributeNode::
-~AttributeNode()
+sk::util::pp::CollectionItemsNode::
+~CollectionItemsNode()
 {
 }
 
 const sk::util::Class
-sk::util::pp::AttributeNode::
+sk::util::pp::CollectionItemsNode::
 getClass() const
 {
   return sk::util::Class(__className);

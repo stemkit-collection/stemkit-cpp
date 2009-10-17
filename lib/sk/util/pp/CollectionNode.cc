@@ -12,14 +12,14 @@
 #include <sk/util/String.h>
 
 #include "CollectionNode.h"
-#include "CollectionItemNode.h"
+#include "CollectionItemsNode.h"
 
 static const sk::util::String __className("sk::util::pp::CollectionNode");
 
 sk::util::pp::CollectionNode::
 CollectionNode()
 {
-  CollectionItemNode node;
+  CollectionItemsNode node;
 }
 
 sk::util::pp::CollectionNode::

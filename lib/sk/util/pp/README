@@ -2,9 +2,9 @@ Relation
 ========
 
     Node.h
-        CollectionItemNode.h
+        CollectionItemsNode.h
         CollectionNode.h
-        AttributeNode.h
+        AttributesNode.h
         PointerNode.h
         HolderNode.h
         StringNode.h
@@ -22,7 +22,7 @@ Composition
                 PrimeNode
 
         CollectionNode
-            CollectionItemNode
+            CollectionItemsNode
                 PrimeNode
 
         HolderNode
