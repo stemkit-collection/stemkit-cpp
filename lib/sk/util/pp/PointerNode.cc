@@ -35,7 +35,14 @@ getClass() const
 
 sk::util::pp::Node* 
 sk::util::pp::PointerNode::
-parse(const std::vector<char>& data, int offset) const
+parse(const std::vector<char>& data, int offset, const std::vector<char>& terminators) const
 {
   throw sk::util::UnsupportedOperationException(SK_METHOD);
+}
+
+void 
+sk::util::pp::PointerNode::
+pushOpenBraket(std::vector<char>& brakets) const
+{
+  brakets.push_back('<');
 }

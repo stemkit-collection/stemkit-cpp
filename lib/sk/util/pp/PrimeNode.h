@@ -31,7 +31,8 @@ namespace sk {
           const sk::util::Class getClass() const;
 
           // sk::util::pp::Parser implementation.
-          Node* parse(const std::vector<char>& data, int offset) const;
+          Node* parse(const std::vector<char>& data, int offset, const std::vector<char>& terminator) const;
+          void pushOpenBraket(std::vector<char>& brakets) const;
       
         private:
           PrimeNode(const PrimeNode& other);

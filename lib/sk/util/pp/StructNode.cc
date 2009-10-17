@@ -20,7 +20,6 @@ static const sk::util::String __className("sk::util::pp::StructNode");
 sk::util::pp::StructNode::
 StructNode()
 {
-  AttributesNode node;
 }
 
 sk::util::pp::StructNode::
@@ -37,7 +36,15 @@ getClass() const
 
 sk::util::pp::Node* 
 sk::util::pp::StructNode::
-parse(const std::vector<char>& data, int offset) const
+parse(const std::vector<char>& data, int offset, const std::vector<char>& terminators) const
 {
+  AttributesNode node;
   throw sk::util::UnsupportedOperationException(SK_METHOD);
+}
+
+void 
+sk::util::pp::StructNode::
+pushOpenBraket(std::vector<char>& brakets) const
+{
+  brakets.push_back('<');
 }

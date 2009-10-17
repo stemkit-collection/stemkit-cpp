@@ -23,7 +23,8 @@ namespace sk {
         : public virtual sk::util::Object
       {
         public:
-          virtual Node* parse(const std::vector<char>& data, int offset) const = 0;
+          virtual Node* parse(const std::vector<char>& data, int offset, const std::vector<char>& terminators) const = 0;
+          virtual void pushOpenBraket(std::vector<char>& brakets) const = 0;
       };
     }
   }
