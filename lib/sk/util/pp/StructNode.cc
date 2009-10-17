@@ -12,12 +12,14 @@
 #include <sk/util/String.h>
 
 #include "StructNode.h"
+#include "AttributeNode.h"
 
 static const sk::util::String __className("sk::util::pp::StructNode");
 
 sk::util::pp::StructNode::
 StructNode()
 {
+  AttributeNode node;
 }
 
 sk::util::pp::StructNode::

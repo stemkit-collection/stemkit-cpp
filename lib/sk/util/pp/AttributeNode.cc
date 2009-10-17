@@ -12,12 +12,14 @@
 #include <sk/util/String.h>
 
 #include "AttributeNode.h"
+#include "PrimeNode.h"
 
 static const sk::util::String __className("sk::util::pp::AttributeNode");
 
 sk::util::pp::AttributeNode::
 AttributeNode()
 {
+  PrimeNode node;
 }
 
 sk::util::pp::AttributeNode::

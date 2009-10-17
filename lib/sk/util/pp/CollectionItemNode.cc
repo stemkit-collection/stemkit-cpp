@@ -12,12 +12,14 @@
 #include <sk/util/String.h>
 
 #include "CollectionItemNode.h"
+#include "PrimeNode.h"
 
 static const sk::util::String __className("sk::util::pp::CollectionItemNode");
 
 sk::util::pp::CollectionItemNode::
 CollectionItemNode()
 {
+  PrimeNode node;
 }
 
 sk::util::pp::CollectionItemNode::

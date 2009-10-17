@@ -11,6 +11,7 @@
 #ifndef _SK_UTIL_PP_PRIMENODE_H_
 #define _SK_UTIL_PP_PRIMENODE_H_
 
+#include <sk/util/ArrayList.hxx>
 #include "Node.h"
 
 namespace sk {
@@ -29,6 +30,8 @@ namespace sk {
         private:
           PrimeNode(const PrimeNode& other);
           PrimeNode& operator = (const PrimeNode& other);
+
+          sk::util::ArrayList<Node> _variants;
       };
     }
   }

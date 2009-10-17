@@ -12,12 +12,14 @@
 #include <sk/util/String.h>
 
 #include "HolderNode.h"
+#include "PrimeNode.h"
 
 static const sk::util::String __className("sk::util::pp::HolderNode");
 
 sk::util::pp::HolderNode::
 HolderNode()
 {
+  PrimeNode node;
 }
 
 sk::util::pp::HolderNode::
