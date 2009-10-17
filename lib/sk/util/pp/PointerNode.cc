@@ -11,6 +11,7 @@
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
 #include <sk/util/UnsupportedOperationException.h>
+#include <algorithm>
 
 #include "PointerNode.h"
 
@@ -18,6 +19,13 @@ static const sk::util::String __className("sk::util::pp::PointerNode");
 
 sk::util::pp::PointerNode::
 PointerNode()
+  : _begin(0), _end(0)
+{
+}
+
+sk::util::pp::PointerNode::
+PointerNode(const std::vector<char>& data, int begin, int end)
+  : _value(&data.front() + begin, end - begin), _begin(begin), _end(end)
 {
 }
 
@@ -37,7 +45,14 @@ sk::util::pp::Node*
 sk::util::pp::PointerNode::
 parse(const std::vector<char>& data, int offset, const std::vector<char>& terminators) const
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  const sk::util::String null("<null>");
+  int end = offset + null.size();
+  if(offset >= 0 && end <= data.size()) {
+    if(std::equal(data.begin() + offset, data.begin() + end, null.getChars()) == true) {
+      return new PointerNode(data, offset, end);
+    }
+  }
+  return 0;
 }
 
 void 
@@ -45,4 +60,11 @@ sk::util::pp::PointerNode::
 pushOpenBraket(std::vector<char>& brakets) const
 {
   brakets.push_back('<');
+}
+
+const sk::util::String
+sk::util::pp::PointerNode::
+toString() const
+{
+  return _value;
 }

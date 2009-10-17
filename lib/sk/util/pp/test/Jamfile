@@ -5,6 +5,7 @@ local test = sk-util-pp-test ;
 local objects = 
   TestSuite.cc
   PrimeNodeTest.cc
+  PointerNodeTest.cc
 ;
 
 use-unit-test $(test) $(objects) ;
