@@ -43,6 +43,10 @@ sk::util::pp::test::PointerNodeTest::
 testNone()
 {
   CPPUNIT_ASSERT(PointerNode().parse(sk::util::Container("abc"), 0, sk::util::Container()) == 0);
+  CPPUNIT_ASSERT(PointerNode().parse(sk::util::Container("<null"), 0, sk::util::Container()) == 0);
+  CPPUNIT_ASSERT(PointerNode().parse(sk::util::Container("<0x1234"), 0, sk::util::Container()) == 0);
+  CPPUNIT_ASSERT(PointerNode().parse(sk::util::Container("<0x>"), 0, sk::util::Container()) == 0);
+  CPPUNIT_ASSERT(PointerNode().parse(sk::util::Container("<0x1234u>"), 0, sk::util::Container()) == 0);
 }
 
 void
@@ -55,4 +59,16 @@ testNull()
   CPPUNIT_ASSERT_EQUAL("<null>", nodeHolder.get().toString());
   CPPUNIT_ASSERT_EQUAL(3, nodeHolder.get().startPosition());
   CPPUNIT_ASSERT_EQUAL(9, nodeHolder.get().endPosition());
+}
+
+void 
+sk::util::pp::test::PointerNodeTest::
+testGeneric()
+{
+  sk::util::Holder<Node> nodeHolder(PointerNode().parse(sk::util::Container("   <0x12aBcc3>") , 3, sk::util::Container()));
+  CPPUNIT_ASSERT(nodeHolder.isEmpty() == false);
+
+  CPPUNIT_ASSERT_EQUAL("<0x12aBcc3>", nodeHolder.get().toString());
+  CPPUNIT_ASSERT_EQUAL(3, nodeHolder.get().startPosition());
+  CPPUNIT_ASSERT_EQUAL(14, nodeHolder.get().endPosition());
 }

@@ -40,18 +40,71 @@ getClass() const
   return sk::util::Class(__className);
 }
 
+namespace {
+  bool checkNull(const std::vector<char>& data, int offset, int& end) {
+    const sk::util::String null("<null>");
+    end = offset + null.size();
+
+    if(offset >= 0 && end <= data.size()) {
+      if(std::equal(data.begin() + offset, data.begin() + end, null.getChars()) == true) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  bool checkGeneric(const std::vector<char>& data, int offset, int& end) {
+    for(int index=0; (index + offset) < data.size(); ++index) {
+      char item = tolower(data[index + offset]);
+      switch(index) {
+        case 0:
+          if(item == '<') {
+            continue;
+          }
+          break;
+
+        case 1:
+          if(item == '0') {
+            continue;
+          }
+          break;
+
+        case 2:
+          if(item == 'x') {
+            continue;
+          }
+          break;
+
+        default:
+          if(item == '>') {
+            if(index == 3) {
+              break;
+            }
+            end = index + offset + 1;
+            return true;
+          }
+          if((item >= '0' && item <= '9') || (item >= 'a' && item <= 'f')) {
+            continue;
+          }
+      }
+      break;
+    }
+    return false;
+  }
+}
+
 sk::util::pp::Node* 
 sk::util::pp::PointerNode::
 parse(const std::vector<char>& data, int offset, const std::vector<char>& terminators) const
 {
-  const sk::util::String null("<null>");
-  int end = offset + null.size();
-  if(offset >= 0 && end <= data.size()) {
-    if(std::equal(data.begin() + offset, data.begin() + end, null.getChars()) == true) {
-      return new PointerNode(data, offset, end);
+  int end = 0;
+
+  if(checkNull(data, offset, end) == false) {
+    if(checkGeneric(data, offset, end) == false) {
+      return 0;
     }
   }
-  return 0;
+  return new PointerNode(data, offset, end);
 }
 
 void 

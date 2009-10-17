@@ -24,6 +24,7 @@ namespace sk {
           CPPUNIT_TEST_SUITE(sk::util::pp::test::PointerNodeTest);
             CPPUNIT_TEST(testNone);
             CPPUNIT_TEST(testNull);
+            CPPUNIT_TEST(testGeneric);
           CPPUNIT_TEST_SUITE_END();
         
           public:
@@ -34,6 +35,7 @@ namespace sk {
             void tearDown();
             void testNone();
             void testNull();
+            void testGeneric();
         
           private:
             PointerNodeTest(const PointerNodeTest& other);
