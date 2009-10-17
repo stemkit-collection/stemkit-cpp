@@ -18,21 +18,16 @@ template<typename T>
 const sk::util::String 
 sk::util::inspect(const T* data) 
 {
-  if(data == 0) {
-    return "<null>";
-  }
-  std::stringstream stream;
-  stream << "<" << data << '>';
-
-  return stream.str();
+  const void* const_void_data = data;
+  return sk::util::inspect(const_void_data);
 }
 
 template<typename T>
 const sk::util::String 
 sk::util::inspect(T* data) 
 {
-  const T* const_data = data;
-  return sk::util::inspect(const_data);
+  const void* const_void_data = data;
+  return sk::util::inspect(const_void_data);
 }
 
 template<typename T>

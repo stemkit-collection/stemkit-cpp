@@ -83,6 +83,20 @@ sk::util::inspect(const char* buffer, int size)
   return stream.str();
 }
 
+template<>
+const sk::util::String 
+sk::util::inspect(const void* data) 
+{
+  if(data == 0) {
+    return "<null>";
+  }
+  std::stringstream stream;
+  stream << "<" << data << '>';
+
+  return stream.str();
+}
+
+template<>
 const sk::util::String 
 sk::util::inspect(const char* str)
 {
