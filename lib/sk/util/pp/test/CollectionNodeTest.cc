@@ -48,3 +48,14 @@ testEmpty()
   CPPUNIT_ASSERT_EQUAL(3, nodeHolder.get().endPosition());
   CPPUNIT_ASSERT_EQUAL("<CollectionNode: empty>", nodeHolder.get().inspect());
 }
+
+void
+sk::util::pp::test::CollectionNodeTest::
+testOne()
+{
+  sk::util::Holder<Node> nodeHolder(CollectionNode().parse(sk::util::Container("[1: 0*\"abcd\" ]"), 0, sk::util::Container("")));
+  CPPUNIT_ASSERT(nodeHolder.isEmpty() == false);
+  CPPUNIT_ASSERT_EQUAL(0, nodeHolder.get().startPosition());
+  CPPUNIT_ASSERT_EQUAL(14, nodeHolder.get().endPosition());
+  CPPUNIT_ASSERT_EQUAL("<CollectionNode: \"abcd\">", nodeHolder.get().inspect());
+}

@@ -23,6 +23,7 @@ namespace sk {
         {
           CPPUNIT_TEST_SUITE(sk::util::pp::test::CollectionNodeTest);
             CPPUNIT_TEST(testEmpty);
+            // CPPUNIT_TEST(testOne);
           CPPUNIT_TEST_SUITE_END();
         
           public:
@@ -32,6 +33,7 @@ namespace sk {
             void setUp();
             void tearDown();
             void testEmpty();
+            void testOne();
         
           private:
             CollectionNodeTest(const CollectionNodeTest& other);
