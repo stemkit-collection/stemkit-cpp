@@ -76,7 +76,7 @@ const sk::util::String
 sk::util::Container::
 toString() const
 {
-  return inspect();
+  return getChars();
 }
 
 int

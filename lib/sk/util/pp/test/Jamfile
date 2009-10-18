@@ -6,6 +6,7 @@ local objects =
   TestSuite.cc
   PrimeNodeTest.cc
   PointerNodeTest.cc
+  HolderNodeTest.cc
 ;
 
 use-unit-test $(test) $(objects) ;
