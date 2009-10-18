@@ -18,7 +18,6 @@
 #include "CollectionNode.h"
 #include "HolderNode.h"
 #include "PointerNode.h"
-#include "StringNode.h"
 #include "TextNode.h"
 
 static const sk::util::String __className("sk::util::pp::PrimeNode");
@@ -30,8 +29,7 @@ PrimeNode()
   // _parsers.add(new StructNode());
   // _parsers.add(new CollectionNode());
   // _parsers.add(new HolderNode());
-  _parsers.add(new StringNode());
-  // _parsers.add(new TextNode());
+  _parsers.add(new TextNode());
 }
 
 sk::util::pp::PrimeNode::

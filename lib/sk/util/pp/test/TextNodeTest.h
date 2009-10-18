@@ -8,8 +8,8 @@
  *  Author: Gennady Bystritsky
 */
 
-#ifndef _SK_UTIL_PP_TEST_STRINGNODETEST_H_
-#define _SK_UTIL_PP_TEST_STRINGNODETEST_H_
+#ifndef _SK_UTIL_PP_TEST_TEXTNODETEST_H_
+#define _SK_UTIL_PP_TEST_TEXTNODETEST_H_
 
 #include <cppunit/TestFixture.h>
 #include <cppunit/extensions/HelperMacros.h>
@@ -18,10 +18,10 @@ namespace sk {
   namespace util {
     namespace pp {
       namespace test {
-        class StringNodeTest
+        class TextNodeTest
           : public CppUnit::TestFixture
         {
-          CPPUNIT_TEST_SUITE(sk::util::pp::test::StringNodeTest);
+          CPPUNIT_TEST_SUITE(sk::util::pp::test::TextNodeTest);
             CPPUNIT_TEST(testNone);
             CPPUNIT_TEST(testQuotedOnly);
             CPPUNIT_TEST(testQuotedThenRegular);
@@ -29,8 +29,8 @@ namespace sk {
           CPPUNIT_TEST_SUITE_END();
         
           public:
-            StringNodeTest();
-            virtual ~StringNodeTest();
+            TextNodeTest();
+            virtual ~TextNodeTest();
         
             void setUp();
             void tearDown();
@@ -40,12 +40,12 @@ namespace sk {
             void testQuotedThenRegularUpto();
         
           private:
-            StringNodeTest(const StringNodeTest& other);
-            StringNodeTest& operator = (const StringNodeTest& other);
+            TextNodeTest(const TextNodeTest& other);
+            TextNodeTest& operator = (const TextNodeTest& other);
         };
       }
     }
   }
 }
 
-#endif /* _SK_UTIL_PP_TEST_STRINGNODETEST_H_ */
+#endif /* _SK_UTIL_PP_TEST_TEXTNODETEST_H_ */

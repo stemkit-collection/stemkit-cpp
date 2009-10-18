@@ -11,18 +11,19 @@
 #ifndef _SK_UTIL_PP_TEXTNODE_H_
 #define _SK_UTIL_PP_TEXTNODE_H_
 
-#include "Node.h"
+#include "AbstractNode.h"
 #include "Parser.h"
 
 namespace sk {
   namespace util {
     namespace pp {
       class TextNode 
-        : public virtual sk::util::pp::Node,
+        : public sk::util::pp::AbstractNode,
           public virtual sk::util::pp::Parser
       {
         public:
           TextNode();
+          TextNode(const std::vector<char>& data, int start, int end);
           virtual ~TextNode();
       
           // sk::util::Object re-implementation.

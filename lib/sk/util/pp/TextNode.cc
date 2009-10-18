@@ -22,6 +22,12 @@ TextNode()
 }
 
 sk::util::pp::TextNode::
+TextNode(const std::vector<char>& data, int start, int end)
+  : AbstractNode(data, start, end)
+{
+}
+
+sk::util::pp::TextNode::
 ~TextNode()
 {
 }
@@ -37,11 +43,46 @@ sk::util::pp::Node*
 sk::util::pp::TextNode::
 parse(const std::vector<char>& data, int offset, const std::vector<char>& terminators) const
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  if(offset < 0) {
+    return 0;
+  }
+  bool escaped = false;
+  bool quoted = false;
+  int index = 0;
+  while((index + offset) < data.size()) {
+    char item = tolower(data[(index++) + offset]);
+    if(escaped == true) {
+      escaped = false;
+      continue;
+    }
+    if(quoted == false) {
+      if(std::find(terminators.begin(), terminators.end(), item) != terminators.end()) {
+        --index;
+        break;
+      }
+    }
+    if(item == '\\') {
+      escaped = true;
+      continue;
+    }
+    if(item == '"') {
+      if(quoted == true) {
+        quoted = false;
+      }
+      else {
+        quoted = true;
+      }
+    }
+  }
+  if(index != 0 && quoted == false && escaped == false) {
+    return new TextNode(data, offset, index + offset);
+  }
+  return 0;
 }
 
 void 
 sk::util::pp::TextNode::
 pushOpenBraket(std::vector<char>& brakets) const
 {
+  brakets.push_back('"');
 }

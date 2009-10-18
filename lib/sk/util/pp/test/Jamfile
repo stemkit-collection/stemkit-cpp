@@ -7,7 +7,7 @@ local objects =
   PrimeNodeTest.cc
   PointerNodeTest.cc
   HolderNodeTest.cc
-  StringNodeTest.cc
+  TextNodeTest.cc
 ;
 
 use-unit-test $(test) $(objects) ;

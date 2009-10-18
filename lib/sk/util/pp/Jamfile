@@ -10,9 +10,8 @@ local objects =
     # CollectionItemsNode.cc
     # CollectionNode.cc
     # HolderNode.cc
-    StringNode.cc
     # StructNode.cc
-    # TextNode.cc
+    TextNode.cc
 ;
 
 make-static-library $(library) : $(objects) ;
