@@ -44,7 +44,7 @@ testOpenBrakets()
   sk::util::Holder<Node> nodeHolder;
 
   PrimeNode().pushOpenBraket(brakets);
-  CPPUNIT_ASSERT_EQUAL("<", brakets.toString());
+  CPPUNIT_ASSERT_EQUAL("<\"", brakets.toString());
 }
 
 void

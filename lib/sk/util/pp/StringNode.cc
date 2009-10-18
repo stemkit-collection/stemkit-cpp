@@ -22,6 +22,12 @@ StringNode()
 }
 
 sk::util::pp::StringNode::
+StringNode(const std::vector<char>& data, int start, int end)
+  : AbstractNode(data, start, end)
+{
+}
+
+sk::util::pp::StringNode::
 ~StringNode()
 {
 }
@@ -37,7 +43,25 @@ sk::util::pp::Node*
 sk::util::pp::StringNode::
 parse(const std::vector<char>& data, int offset, const std::vector<char>& terminators) const
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  if(offset < 0 || offset >= data.size() || data[offset] != '"') {
+    return 0;
+  }
+  bool escaped = false;
+  for(int index=1; (index + offset) < data.size(); ++index) {
+    char item = tolower(data[index + offset]);
+    if(escaped == true) {
+      escaped = false;
+      continue;
+    }
+    if(item == '\\') {
+      escaped = true;
+      continue;
+    }
+    if(item == '"') {
+      return new StringNode(data, offset, index + offset + 1);
+    }
+  }
+  return 0;
 }
 
 void 

@@ -22,6 +22,7 @@ namespace sk {
           : public CppUnit::TestFixture
         {
           CPPUNIT_TEST_SUITE(sk::util::pp::test::StringNodeTest);
+            CPPUNIT_TEST(testNone);
             CPPUNIT_TEST(testBasics);
           CPPUNIT_TEST_SUITE_END();
         
@@ -32,6 +33,7 @@ namespace sk {
             void setUp();
             void tearDown();
             void testBasics();
+            void testNone();
         
           private:
             StringNodeTest(const StringNodeTest& other);

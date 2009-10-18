@@ -8,7 +8,10 @@
  *  Author: Gennady Bystritsky
 */
 
+#include <sk/util/Holder.cxx>
+#include <sk/util/Container.h>
 #include "StringNodeTest.h"
+#include "../StringNode.h"
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::util::pp::test::StringNodeTest);
 
@@ -36,7 +39,21 @@ tearDown()
 
 void
 sk::util::pp::test::StringNodeTest::
+testNone()
+{
+  CPPUNIT_ASSERT(StringNode().parse(sk::util::Container("abcd"), 0, sk::util::Container()) == 0);
+  CPPUNIT_ASSERT(StringNode().parse(sk::util::Container("\"abcd"), 0, sk::util::Container()) == 0);
+  CPPUNIT_ASSERT(StringNode().parse(sk::util::Container("\"abcd\\\""), 0, sk::util::Container()) == 0);
+}
+
+void
+sk::util::pp::test::StringNodeTest::
 testBasics()
 {
-  CPPUNIT_ASSERT_EQUAL(true, false);
+  sk::util::Holder<Node> nodeHolder(StringNode().parse(sk::util::Container("    \"hello \\\"world\\\"\""),  4, sk::util::Container()));
+  CPPUNIT_ASSERT(nodeHolder.isEmpty() == false);
+
+  CPPUNIT_ASSERT_EQUAL("\"hello \\\"world\\\"\"", nodeHolder.get().toString());
+  CPPUNIT_ASSERT_EQUAL(4, nodeHolder.get().startPosition());
+  CPPUNIT_ASSERT_EQUAL(21, nodeHolder.get().endPosition());
 }

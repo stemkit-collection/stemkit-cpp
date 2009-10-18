@@ -45,7 +45,7 @@ namespace {
     const sk::util::String null("<null>");
     end = offset + null.size();
 
-    if(offset >= 0 && end <= data.size()) {
+    if(end <= data.size()) {
       if(std::equal(data.begin() + offset, data.begin() + end, null.getChars()) == true) {
         return true;
       }
@@ -99,6 +99,9 @@ parse(const std::vector<char>& data, int offset, const std::vector<char>& termin
 {
   int end = 0;
 
+  if(offset < 0) {
+    return 0;
+  }
   if(checkNull(data, offset, end) == false) {
     if(checkGeneric(data, offset, end) == false) {
       return 0;

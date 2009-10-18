@@ -30,7 +30,7 @@ PrimeNode()
   // _parsers.add(new StructNode());
   // _parsers.add(new CollectionNode());
   // _parsers.add(new HolderNode());
-  // _parsers.add(new StringNode());
+  _parsers.add(new StringNode());
   // _parsers.add(new TextNode());
 }
 
