@@ -8,7 +8,11 @@
  *  Author: Gennady Bystritsky
 */
 
+#include <sk/util/Holder.cxx>
+#include <sk/util/Container.h>
+
 #include "CollectionNodeTest.h"
+#include "../CollectionNode.h"
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::util::pp::test::CollectionNodeTest);
 
@@ -36,7 +40,11 @@ tearDown()
 
 void
 sk::util::pp::test::CollectionNodeTest::
-testBasics()
+testEmpty()
 {
-  CPPUNIT_ASSERT_EQUAL(true, false);
+  sk::util::Holder<Node> nodeHolder(CollectionNode().parse(sk::util::Container("[ ]"), 0, sk::util::Container("")));
+  CPPUNIT_ASSERT(nodeHolder.isEmpty() == false);
+  CPPUNIT_ASSERT_EQUAL(0, nodeHolder.get().startPosition());
+  CPPUNIT_ASSERT_EQUAL(3, nodeHolder.get().endPosition());
+  CPPUNIT_ASSERT_EQUAL("<CollectionNode: empty>", nodeHolder.get().inspect());
 }

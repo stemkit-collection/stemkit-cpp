@@ -10,14 +10,22 @@
 
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
+#include <sk/util/Holder.cxx>
 #include <sk/util/UnsupportedOperationException.h>
 
 #include "CollectionNode.h"
+#include "SlotNode.h"
 
 static const sk::util::String __className("sk::util::pp::CollectionNode");
 
 sk::util::pp::CollectionNode::
 CollectionNode()
+{
+}
+
+sk::util::pp::CollectionNode::
+CollectionNode(const std::vector<char>& data, int start)
+  : AbstractCompositeNode(data, start)
 {
 }
 
@@ -37,6 +45,48 @@ sk::util::pp::Node*
 sk::util::pp::CollectionNode::
 parse(const std::vector<char>& data, int offset, const std::vector<char>& terminators) const
 {
+  if(offset < 0) {
+    return 0;
+  }
+  sk::util::Holder<CollectionNode> nodeHolder(new CollectionNode(data, offset));
+  int index = 0;
+  bool inside = false;
+  while((index + offset) < data.size()) {
+    if(index > 0 && inside == false) {
+      break;
+    }
+    char item = data[(index++) + offset];
+    switch(item) {
+      case '[':
+        if(inside == true) {
+          return 0;
+        }
+        inside = true;
+        continue;
+
+      case ']':
+        if(inside == true) {
+          nodeHolder.get().setLength(index);
+          return nodeHolder.deprive();
+        }
+        break;
+
+      case ',':
+        continue;
+
+      default:
+        if(isspace(item) == true) {
+          continue;
+        }
+        --index;
+        int length = nodeHolder.get().addNode(SlotNode().parse(data, offset + index, sk::util::Container(",]")));
+        if(length > 0) {
+          index += length;
+          continue;
+        }
+    }
+    break;
+  }
   return 0;
 }
 
@@ -45,4 +95,11 @@ sk::util::pp::CollectionNode::
 pushOpenBraket(std::vector<char>& brakets) const
 {
   brakets.push_back('[');
+}
+
+const sk::util::String
+sk::util::pp::CollectionNode::
+inspect() const
+{
+  return "<CollectionNode: " + AbstractCompositeNode::inspect() + ">";
 }

@@ -11,7 +11,7 @@
 #ifndef _SK_UTIL_PP_ABSTRACTCOMPOSITENODE_H_
 #define _SK_UTIL_PP_ABSTRACTCOMPOSITENODE_H_
 
-#include <sk/util/Holder.hxx>
+#include <sk/util/ArrayList.hxx>
 #include "Node.h"
 #include <vector>
 
@@ -27,7 +27,7 @@ namespace sk {
           virtual ~AbstractCompositeNode();
       
           void setLength(int length);
-          int setNode(sk::util::pp::Node* node);
+          int addNode(sk::util::pp::Node* node);
       
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
@@ -41,7 +41,7 @@ namespace sk {
           AbstractCompositeNode(const AbstractCompositeNode& other);
           AbstractCompositeNode& operator = (const AbstractCompositeNode& other);
 
-          sk::util::Holder<sk::util::pp::Node> _nodeHolder;
+          sk::util::ArrayList<sk::util::pp::Node> _nodes;
           int _start;
           int _end;
       };

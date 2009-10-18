@@ -30,7 +30,7 @@ SlotNode(const std::vector<char>& data, int start, sk::util::pp::Node* node)
   if(node == 0) {
     throw sk::util::NullPointerException(SK_METHOD);
   }
-  setNode(node);
+  addNode(node);
   setLength(node->endPosition() - start);
   _prefix = sk::util::String(&data.front() + start, node->startPosition() - start);
 }

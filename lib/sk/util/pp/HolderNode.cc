@@ -76,7 +76,7 @@ parse(const std::vector<char>& data, int offset, const std::vector<char>& termin
           continue;
         }
         --index;
-        int length = nodeHolder.get().setNode(SlotNode().parse(data, offset + index, sk::util::Container(")")));
+        int length = nodeHolder.get().addNode(SlotNode().parse(data, offset + index, sk::util::Container(")")));
         if(length > 0) {
           index += length;
           continue;

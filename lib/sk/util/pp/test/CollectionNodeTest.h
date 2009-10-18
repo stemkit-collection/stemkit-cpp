@@ -22,7 +22,7 @@ namespace sk {
           : public CppUnit::TestFixture
         {
           CPPUNIT_TEST_SUITE(sk::util::pp::test::CollectionNodeTest);
-            CPPUNIT_TEST(testBasics);
+            CPPUNIT_TEST(testEmpty);
           CPPUNIT_TEST_SUITE_END();
         
           public:
@@ -31,7 +31,7 @@ namespace sk {
         
             void setUp();
             void tearDown();
-            void testBasics();
+            void testEmpty();
         
           private:
             CollectionNodeTest(const CollectionNodeTest& other);

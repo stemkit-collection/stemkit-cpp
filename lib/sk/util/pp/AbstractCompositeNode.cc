@@ -10,6 +10,7 @@
 
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
+#include <sk/util/ArrayList.cxx>
 
 #include "AbstractCompositeNode.h"
 
@@ -41,11 +42,11 @@ getClass() const
 
 int 
 sk::util::pp::AbstractCompositeNode::
-setNode(sk::util::pp::Node* node)
+addNode(sk::util::pp::Node* node)
 {
-  _nodeHolder.set(node);
-  if(_nodeHolder.isEmpty() == false) {
-    return _nodeHolder.get().endPosition() - _nodeHolder.get().startPosition();
+  if(node != 0) {
+    _nodes.add(node);
+    return node->endPosition() - node->startPosition();
   }
   return 0;
 }
@@ -75,8 +76,8 @@ const sk::util::String
 sk::util::pp::AbstractCompositeNode::
 inspect() const
 {
-  if(_nodeHolder.isEmpty() == true) {
+  if(_nodes.isEmpty() == true) {
     return "empty";
   }
-  return _nodeHolder.get().inspect();
+  return _nodes.get(0).inspect();
 }
