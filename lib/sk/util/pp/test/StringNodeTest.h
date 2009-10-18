@@ -25,6 +25,7 @@ namespace sk {
             CPPUNIT_TEST(testNone);
             CPPUNIT_TEST(testQuotedOnly);
             CPPUNIT_TEST(testQuotedThenRegular);
+            CPPUNIT_TEST(testQuotedThenRegularUpto);
           CPPUNIT_TEST_SUITE_END();
         
           public:
@@ -36,6 +37,7 @@ namespace sk {
             void testNone();
             void testQuotedOnly();
             void testQuotedThenRegular();
+            void testQuotedThenRegularUpto();
         
           private:
             StringNodeTest(const StringNodeTest& other);

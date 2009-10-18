@@ -67,6 +67,12 @@ parse(const std::vector<char>& data, int offset, const std::vector<char>& termin
         quoted = true;
       }
     }
+    if(quoted == false) {
+      if(std::find(terminators.begin(), terminators.end(), item) != terminators.end()) {
+        --index;
+        break;
+      }
+    }
   }
   if(quoted == false && escaped == false) {
     return new StringNode(data, offset, index + offset);

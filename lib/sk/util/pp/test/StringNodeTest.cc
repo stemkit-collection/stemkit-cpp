@@ -60,6 +60,17 @@ testQuotedOnly()
 
 void 
 sk::util::pp::test::StringNodeTest::
+testQuotedThenRegularUpto()
+{
+  sk::util::Holder<Node> nodeHolder(StringNode().parse(sk::util::Container("\"abc\".zzz<uuu"),  0, sk::util::Container("=<(")));
+  CPPUNIT_ASSERT(nodeHolder.isEmpty() == false);
+
+  CPPUNIT_ASSERT_EQUAL("\"abc\".zzz", nodeHolder.get().toString());
+  CPPUNIT_ASSERT_EQUAL(0, nodeHolder.get().startPosition());
+  CPPUNIT_ASSERT_EQUAL(9, nodeHolder.get().endPosition());
+}
+void 
+sk::util::pp::test::StringNodeTest::
 testQuotedThenRegular()
 {
   sk::util::Holder<Node> nodeHolder(StringNode().parse(sk::util::Container("\"abc\".zzz"),  0, sk::util::Container()));
