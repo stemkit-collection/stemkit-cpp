@@ -10,8 +10,7 @@ local objects =
     SlotNode.cc
     HolderNode.cc
     # AttributesNode.cc
-    # CollectionItemsNode.cc
-    # CollectionNode.cc
+    CollectionNode.cc
     # StructNode.cc
     TextNode.cc
 ;

@@ -13,7 +13,6 @@
 #include <sk/util/UnsupportedOperationException.h>
 
 #include "CollectionNode.h"
-#include "CollectionItemsNode.h"
 
 static const sk::util::String __className("sk::util::pp::CollectionNode");
 
@@ -38,8 +37,7 @@ sk::util::pp::Node*
 sk::util::pp::CollectionNode::
 parse(const std::vector<char>& data, int offset, const std::vector<char>& terminators) const
 {
-  CollectionItemsNode node;
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  return 0;
 }
 
 void 
