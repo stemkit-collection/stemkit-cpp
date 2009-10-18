@@ -20,13 +20,13 @@ static const sk::util::String __className("sk::util::pp::HolderNode");
 
 sk::util::pp::HolderNode::
 HolderNode(const std::vector<char>& data, int start)
-  : _start(start), _end(0)
+  : _start(start), _end(0), _kind(0)
 {
 }
 
 sk::util::pp::HolderNode::
 HolderNode()
-  : _start(0), _end(0)
+  : _start(0), _end(0), _kind(0)
 {
 }
 
@@ -74,6 +74,7 @@ parse(const std::vector<char>& data, int offset, const std::vector<char>& termin
 
       case '*':
       case '&':
+        index += nodeHolder.get().setNode(item, PrimeNode().parse(data, offset + index, sk::util::Container(")")));
         continue;
 
       default:
@@ -118,6 +119,21 @@ const sk::util::String
 sk::util::pp::HolderNode::
 inspect() const 
 {
-  return "<HolderNode: size=0>";
+  if(_nodeHolder.isEmpty() == true) {
+    return "<HolderNode: empty>";
+  }
+  return sk::util::String("<HolderNode: ") + _kind + _nodeHolder.get().inspect() + ">";
 }
 
+int 
+sk::util::pp::HolderNode::
+setNode(char kind, sk::util::pp::Node* node)
+{
+  _nodeHolder.set(node);
+  if(_nodeHolder.isEmpty() == false) {
+    _kind = kind;
+    return _nodeHolder.get().endPosition() - _nodeHolder.get().startPosition();
+  }
+  _kind = 0;
+  return 0;
+}

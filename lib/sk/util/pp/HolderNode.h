@@ -11,6 +11,8 @@
 #ifndef _SK_UTIL_PP_HOLDERNODE_H_
 #define _SK_UTIL_PP_HOLDERNODE_H_
 
+#include <sk/util/Holder.hxx>
+
 #include "Node.h"
 #include "Parser.h"
 
@@ -27,6 +29,7 @@ namespace sk {
           virtual ~HolderNode();
 
           void setLength(int length);
+          int setNode(char kind, sk::util::pp::Node* node);
       
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
@@ -42,6 +45,8 @@ namespace sk {
           HolderNode(const HolderNode& other);
           HolderNode& operator = (const HolderNode& other);
 
+          sk::util::Holder<sk::util::pp::Node> _nodeHolder;
+          char _kind;
           int _start;
           int _end;
       };

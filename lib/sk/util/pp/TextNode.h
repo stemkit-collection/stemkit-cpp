@@ -28,6 +28,7 @@ namespace sk {
       
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
+          const sk::util::String inspect() const;
       
           // sk::util::pp::Parser implementation.
           Node* parse(const std::vector<char>& data, int offset, const std::vector<char>& terminators) const;

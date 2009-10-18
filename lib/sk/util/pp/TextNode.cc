@@ -88,3 +88,10 @@ pushOpenBraket(std::vector<char>& brakets) const
 {
   brakets.push_back('"');
 }
+
+const sk::util::String
+sk::util::pp::TextNode::
+inspect() const
+{
+  return "<TextNode: " + toString().inspect() + ">";
+}

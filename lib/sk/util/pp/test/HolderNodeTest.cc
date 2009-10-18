@@ -52,5 +52,38 @@ testEmpty()
   CPPUNIT_ASSERT(nodeHolder.isEmpty() == false);
   CPPUNIT_ASSERT_EQUAL(0, nodeHolder.get().startPosition());
   CPPUNIT_ASSERT_EQUAL(3, nodeHolder.get().endPosition());
-  CPPUNIT_ASSERT_EQUAL("<HolderNode: size=0>", nodeHolder.get().inspect());
+  CPPUNIT_ASSERT_EQUAL("<HolderNode: empty>", nodeHolder.get().inspect());
+}
+
+void 
+sk::util::pp::test::HolderNodeTest::
+testHoldPointer()
+{
+  sk::util::Holder<Node> nodeHolder(HolderNode().parse(sk::util::Container("(*<null>)"), 0, sk::util::Container("")));
+  CPPUNIT_ASSERT(nodeHolder.isEmpty() == false);
+  CPPUNIT_ASSERT_EQUAL(0, nodeHolder.get().startPosition());
+  CPPUNIT_ASSERT_EQUAL(9, nodeHolder.get().endPosition());
+  CPPUNIT_ASSERT_EQUAL("<HolderNode: *<PointerNode: <null>>>", nodeHolder.get().inspect());
+}
+
+void 
+sk::util::pp::test::HolderNodeTest::
+testHoldText()
+{
+  sk::util::Holder<Node> nodeHolder(HolderNode().parse(sk::util::Container("(&HELLO)"), 0, sk::util::Container("")));
+  CPPUNIT_ASSERT(nodeHolder.isEmpty() == false);
+  CPPUNIT_ASSERT_EQUAL(0, nodeHolder.get().startPosition());
+  CPPUNIT_ASSERT_EQUAL(8, nodeHolder.get().endPosition());
+  CPPUNIT_ASSERT_EQUAL("<HolderNode: &<TextNode: \"HELLO\">>", nodeHolder.get().inspect());
+}
+
+void 
+sk::util::pp::test::HolderNodeTest::
+testHoldQuotedText()
+{
+  sk::util::Holder<Node> nodeHolder(HolderNode().parse(sk::util::Container("(&\"world\")"), 0, sk::util::Container("")));
+  CPPUNIT_ASSERT(nodeHolder.isEmpty() == false);
+  CPPUNIT_ASSERT_EQUAL(0, nodeHolder.get().startPosition());
+  CPPUNIT_ASSERT_EQUAL(10, nodeHolder.get().endPosition());
+  CPPUNIT_ASSERT_EQUAL("<HolderNode: &<TextNode: \"\\\"world\\\"\">>", nodeHolder.get().inspect());
 }

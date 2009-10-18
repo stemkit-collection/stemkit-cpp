@@ -117,3 +117,9 @@ pushOpenBraket(std::vector<char>& brakets) const
   brakets.push_back('<');
 }
 
+const sk::util::String
+sk::util::pp::PointerNode::
+inspect() const
+{
+  return "<PointerNode: " + toString() + ">";
+}
