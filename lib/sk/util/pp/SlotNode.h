@@ -5,13 +5,11 @@
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
  *  
- *  Author: Gennady Bystritsky (gennady.bystritsky@quest.com)
+ *  Author: Gennady Bystritsky
 */
 
-#ifndef _SK_UTIL_PP_HOLDERNODE_H_
-#define _SK_UTIL_PP_HOLDERNODE_H_
-
-#include <sk/util/Holder.hxx>
+#ifndef _SK_UTIL_PP_SLOTNODE_H_
+#define _SK_UTIL_PP_SLOTNODE_H_
 
 #include "AbstractCompositeNode.h"
 #include "Parser.h"
@@ -19,15 +17,15 @@
 namespace sk {
   namespace util {
     namespace pp {
-      class HolderNode 
+      class SlotNode 
         : public sk::util::pp::AbstractCompositeNode,
           public virtual sk::util::pp::Parser
       {
         public:
-          HolderNode();
-          HolderNode(const std::vector<char>& data, int start);
-          virtual ~HolderNode();
-
+          SlotNode();
+          SlotNode(const std::vector<char>& data, int start, sk::util::pp::Node* node);
+          virtual ~SlotNode();
+      
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
           const sk::util::String inspect() const;
@@ -37,11 +35,13 @@ namespace sk {
           void pushOpenBraket(std::vector<char>& brakets) const;
 
         private:
-          HolderNode(const HolderNode& other);
-          HolderNode& operator = (const HolderNode& other);
+          SlotNode(const SlotNode& other);
+          SlotNode& operator = (const SlotNode& other);
+
+          sk::util::String _prefix;
       };
     }
   }
 }
 
-#endif /* _SK_UTIL_PP_HOLDERNODE_H_ */
+#endif /* _SK_UTIL_PP_SLOTNODE_H_ */

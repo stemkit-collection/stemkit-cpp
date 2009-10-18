@@ -14,19 +14,18 @@
 #include <sk/util/Holder.cxx>
 
 #include "HolderNode.h"
-#include "PrimeNode.h"
+#include "SlotNode.h"
 
 static const sk::util::String __className("sk::util::pp::HolderNode");
 
 sk::util::pp::HolderNode::
 HolderNode()
-  : _kind(0)
 {
 }
 
 sk::util::pp::HolderNode::
 HolderNode(const std::vector<char>& data, int start)
-  : AbstractCompositeNode(data, start), _kind(0)
+  : AbstractCompositeNode(data, start)
 {
 }
 
@@ -72,14 +71,14 @@ parse(const std::vector<char>& data, int offset, const std::vector<char>& termin
         }
         break;
 
-      case '*':
-      case '&':
-        index += nodeHolder.get().setNode(PrimeNode().parse(data, offset + index, sk::util::Container(")")));
-        nodeHolder.get().setKind(item);
-        continue;
-
       default:
         if(isspace(item) == true) {
+          continue;
+        }
+        --index;
+        int length = nodeHolder.get().setNode(SlotNode().parse(data, offset + index, sk::util::Container(")")));
+        if(length > 0) {
+          index += length;
           continue;
         }
     }
@@ -99,12 +98,5 @@ const sk::util::String
 sk::util::pp::HolderNode::
 inspect() const 
 {
-  return "<HolderNode: " + (_kind ? sk::util::String(_kind) : sk::util::String()) + AbstractCompositeNode::inspect() + ">";
-}
-
-void
-sk::util::pp::HolderNode::
-setKind(char kind) 
-{
-  _kind = kind;
+  return "<HolderNode: " + AbstractCompositeNode::inspect() + ">";
 }

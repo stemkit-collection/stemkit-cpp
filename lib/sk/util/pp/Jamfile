@@ -7,10 +7,11 @@ local objects =
     AbstractCompositeNode.cc
     PrimeNode.cc
     PointerNode.cc
+    SlotNode.cc
+    HolderNode.cc
     # AttributesNode.cc
     # CollectionItemsNode.cc
     # CollectionNode.cc
-    HolderNode.cc
     # StructNode.cc
     TextNode.cc
 ;
