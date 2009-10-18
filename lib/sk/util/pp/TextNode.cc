@@ -57,8 +57,10 @@ parse(const std::vector<char>& data, int offset, const std::vector<char>& termin
     }
     if(quoted == false) {
       if(std::find(terminators.begin(), terminators.end(), item) != terminators.end()) {
-        --index;
-        break;
+        if(!(item == '"' && index == 1)) {
+          --index;
+          break;
+        }
       }
     }
     if(item == '\\') {
