@@ -23,18 +23,27 @@ namespace sk {
       {
         public:
           HolderNode();
+          HolderNode(const std::vector<char>& data, int start);
           virtual ~HolderNode();
+
+          void setLength(int length);
       
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
+          const sk::util::String inspect() const;
       
           // sk::util::pp::Parser implementation.
           Node* parse(const std::vector<char>& data, int offset, const std::vector<char>& terminators) const;
           void pushOpenBraket(std::vector<char>& brakets) const;
+          int startPosition() const;
+          int endPosition() const;
 
         private:
           HolderNode(const HolderNode& other);
           HolderNode& operator = (const HolderNode& other);
+
+          int _start;
+          int _end;
       };
     }
   }

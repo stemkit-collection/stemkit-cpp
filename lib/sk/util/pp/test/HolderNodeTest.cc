@@ -8,7 +8,10 @@
  *  Author: Gennady Bystritsky
 */
 
+#include <sk/util/Holder.cxx>
+#include <sk/util/Container.h>
 #include "HolderNodeTest.h"
+#include "../HolderNode.h"
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::util::pp::test::HolderNodeTest);
 
@@ -36,6 +39,18 @@ tearDown()
 
 void
 sk::util::pp::test::HolderNodeTest::
-testBasics()
+testNone()
 {
+  CPPUNIT_ASSERT(HolderNode().parse(sk::util::Container("("), 0, sk::util::Container("")) == 0);
+}
+
+void
+sk::util::pp::test::HolderNodeTest::
+testEmpty()
+{
+  sk::util::Holder<Node> nodeHolder(HolderNode().parse(sk::util::Container("( )"), 0, sk::util::Container("")));
+  CPPUNIT_ASSERT(nodeHolder.isEmpty() == false);
+  CPPUNIT_ASSERT_EQUAL(0, nodeHolder.get().startPosition());
+  CPPUNIT_ASSERT_EQUAL(3, nodeHolder.get().endPosition());
+  CPPUNIT_ASSERT_EQUAL("<HolderNode: size=0>", nodeHolder.get().inspect());
 }

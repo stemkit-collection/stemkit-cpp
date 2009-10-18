@@ -9,7 +9,7 @@ local objects =
     # AttributesNode.cc
     # CollectionItemsNode.cc
     # CollectionNode.cc
-    # HolderNode.cc
+    HolderNode.cc
     # StructNode.cc
     TextNode.cc
 ;

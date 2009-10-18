@@ -22,7 +22,8 @@ namespace sk {
           : public CppUnit::TestFixture
         {
           CPPUNIT_TEST_SUITE(sk::util::pp::test::HolderNodeTest);
-            CPPUNIT_TEST(testBasics);
+            CPPUNIT_TEST(testNone);
+            CPPUNIT_TEST(testEmpty);
           CPPUNIT_TEST_SUITE_END();
         
           public:
@@ -31,7 +32,8 @@ namespace sk {
         
             void setUp();
             void tearDown();
-            void testBasics();
+            void testNone();
+            void testEmpty();
         
           private:
             HolderNodeTest(const HolderNodeTest& other);
