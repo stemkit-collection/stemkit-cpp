@@ -11,14 +11,14 @@
 #ifndef _SK_UTIL_PP_STRUCTNODE_H_
 #define _SK_UTIL_PP_STRUCTNODE_H_
 
-#include "Node.h"
+#include "AbstractCompositeNode.h"
 #include "Parser.h"
 
 namespace sk {
   namespace util {
     namespace pp {
       class StructNode 
-        : public virtual sk::util::pp::Node,
+        : public sk::util::pp::AbstractCompositeNode,
           public virtual sk::util::pp::Parser
       {
         public:

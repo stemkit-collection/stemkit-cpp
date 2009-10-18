@@ -13,7 +13,6 @@
 #include <sk/util/UnsupportedOperationException.h>
 
 #include "StructNode.h"
-#include "AttributesNode.h"
 
 static const sk::util::String __className("sk::util::pp::StructNode");
 
@@ -38,8 +37,7 @@ sk::util::pp::Node*
 sk::util::pp::StructNode::
 parse(const std::vector<char>& data, int offset, const std::vector<char>& terminators) const
 {
-  AttributesNode node;
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  return 0;
 }
 
 void 

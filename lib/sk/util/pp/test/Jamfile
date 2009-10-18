@@ -8,6 +8,7 @@ local objects =
   PointerNodeTest.cc
   HolderNodeTest.cc
   CollectionNodeTest.cc
+  StructNodeTest.cc
   TextNodeTest.cc
 ;
 

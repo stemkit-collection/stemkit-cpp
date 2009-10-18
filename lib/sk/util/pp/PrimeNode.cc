@@ -26,7 +26,7 @@ sk::util::pp::PrimeNode::
 PrimeNode()
 {
   _parsers.add(new PointerNode());
-  // _parsers.add(new StructNode());
+  _parsers.add(new StructNode());
   _parsers.add(new CollectionNode());
   _parsers.add(new HolderNode());
   _parsers.add(new TextNode());
