@@ -24,7 +24,7 @@ PointerNode()
 
 sk::util::pp::PointerNode::
 PointerNode(const std::vector<char>& data, int start, int end)
-  : AbstractNode(data, start, end)
+  : AbstractValueNode(data, start, end)
 {
 }
 

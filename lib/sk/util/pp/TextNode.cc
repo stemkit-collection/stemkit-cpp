@@ -23,7 +23,7 @@ TextNode()
 
 sk::util::pp::TextNode::
 TextNode(const std::vector<char>& data, int start, int end)
-  : AbstractNode(data, start, end)
+  : AbstractValueNode(data, start, end)
 {
 }
 

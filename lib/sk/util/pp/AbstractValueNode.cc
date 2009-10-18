@@ -11,50 +11,50 @@
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
 
-#include "AbstractNode.h"
+#include "AbstractValueNode.h"
 
-static const sk::util::String __className("sk::util::pp::AbstractNode");
+static const sk::util::String __className("sk::util::pp::AbstractValueNode");
 
-sk::util::pp::AbstractNode::
-AbstractNode()
+sk::util::pp::AbstractValueNode::
+AbstractValueNode()
   : _start(0), _end(0)
 {
 }
 
-sk::util::pp::AbstractNode::
-AbstractNode(const std::vector<char>& data, int start, int end)
+sk::util::pp::AbstractValueNode::
+AbstractValueNode(const std::vector<char>& data, int start, int end)
   : _value(&data.front() + start, end - start), _start(start), _end(end)
 {
 }
 
-sk::util::pp::AbstractNode::
-~AbstractNode()
+sk::util::pp::AbstractValueNode::
+~AbstractValueNode()
 {
 }
 
 const sk::util::Class
-sk::util::pp::AbstractNode::
+sk::util::pp::AbstractValueNode::
 getClass() const
 {
   return sk::util::Class(__className);
 }
 
 const sk::util::String
-sk::util::pp::AbstractNode::
+sk::util::pp::AbstractValueNode::
 toString() const
 {
   return _value;
 }
 
 int 
-sk::util::pp::AbstractNode::
+sk::util::pp::AbstractValueNode::
 startPosition() const
 {
   return _start;
 }
 
 int 
-sk::util::pp::AbstractNode::
+sk::util::pp::AbstractValueNode::
 endPosition() const
 {
   return _end;

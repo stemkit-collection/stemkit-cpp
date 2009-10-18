@@ -11,14 +11,14 @@
 #ifndef _SK_UTIL_PP_POINTERNODE_H_
 #define _SK_UTIL_PP_POINTERNODE_H_
 
-#include "AbstractNode.h"
+#include "AbstractValueNode.h"
 #include "Parser.h"
 
 namespace sk {
   namespace util {
     namespace pp {
       class PointerNode 
-        : public sk::util::pp::AbstractNode,
+        : public sk::util::pp::AbstractValueNode,
           public virtual sk::util::pp::Parser
       {
         public:

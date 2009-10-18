@@ -3,7 +3,7 @@
 local library = sk.util.pp ;
 
 local objects =
-    AbstractNode.cc
+    AbstractValueNode.cc
     PrimeNode.cc
     PointerNode.cc
     # AttributesNode.cc
