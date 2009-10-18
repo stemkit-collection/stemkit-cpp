@@ -48,7 +48,7 @@ testNone()
 
 void
 sk::util::pp::test::StringNodeTest::
-testBasics()
+testQuotedOnly()
 {
   sk::util::Holder<Node> nodeHolder(StringNode().parse(sk::util::Container("    \"hello \\\"world\\\"\""),  4, sk::util::Container()));
   CPPUNIT_ASSERT(nodeHolder.isEmpty() == false);
