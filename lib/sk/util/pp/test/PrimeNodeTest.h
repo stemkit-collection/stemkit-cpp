@@ -22,7 +22,8 @@ namespace sk {
           : public CppUnit::TestFixture
         {
           CPPUNIT_TEST_SUITE(sk::util::pp::test::PrimeNodeTest);
-            CPPUNIT_TEST(testBasics);
+            CPPUNIT_TEST(testOpenBrakets);
+            CPPUNIT_TEST(testPointer);
           CPPUNIT_TEST_SUITE_END();
         
           public:
@@ -31,7 +32,8 @@ namespace sk {
         
             void setUp();
             void tearDown();
-            void testBasics();
+            void testOpenBrakets();
+            void testPointer();
         
           private:
             PrimeNodeTest(const PrimeNodeTest& other);
