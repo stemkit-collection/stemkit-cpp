@@ -43,7 +43,7 @@ sk::util::pp::Node*
 sk::util::pp::StringNode::
 parse(const std::vector<char>& data, int offset, const std::vector<char>& terminators) const
 {
-  if(offset < 0 || offset >= data.size() || data[offset] != '"') {
+  if(offset < 0) {
     return 0;
   }
   bool escaped = false;
@@ -54,6 +54,12 @@ parse(const std::vector<char>& data, int offset, const std::vector<char>& termin
     if(escaped == true) {
       escaped = false;
       continue;
+    }
+    if(quoted == false) {
+      if(std::find(terminators.begin(), terminators.end(), item) != terminators.end()) {
+        --index;
+        break;
+      }
     }
     if(item == '\\') {
       escaped = true;
@@ -67,14 +73,8 @@ parse(const std::vector<char>& data, int offset, const std::vector<char>& termin
         quoted = true;
       }
     }
-    if(quoted == false) {
-      if(std::find(terminators.begin(), terminators.end(), item) != terminators.end()) {
-        --index;
-        break;
-      }
-    }
   }
-  if(quoted == false && escaped == false) {
+  if(index != 0 && quoted == false && escaped == false) {
     return new StringNode(data, offset, index + offset);
   }
   return 0;

@@ -41,7 +41,8 @@ void
 sk::util::pp::test::StringNodeTest::
 testNone()
 {
-  CPPUNIT_ASSERT(StringNode().parse(sk::util::Container("abcd"), 0, sk::util::Container()) == 0);
+  CPPUNIT_ASSERT(StringNode().parse(sk::util::Container(""), 0, sk::util::Container()) == 0);
+  CPPUNIT_ASSERT(StringNode().parse(sk::util::Container("."), 0, sk::util::Container("[*.")) == 0);
   CPPUNIT_ASSERT(StringNode().parse(sk::util::Container("\"abcd"), 0, sk::util::Container()) == 0);
   CPPUNIT_ASSERT(StringNode().parse(sk::util::Container("\"abcd\\\""), 0, sk::util::Container()) == 0);
 }
@@ -62,12 +63,12 @@ void
 sk::util::pp::test::StringNodeTest::
 testQuotedThenRegularUpto()
 {
-  sk::util::Holder<Node> nodeHolder(StringNode().parse(sk::util::Container("\"abc\".zzz<uuu"),  0, sk::util::Container("=<(")));
+  sk::util::Holder<Node> nodeHolder(StringNode().parse(sk::util::Container("me\"abc\".zzz<uuu"),  0, sk::util::Container("=<(")));
   CPPUNIT_ASSERT(nodeHolder.isEmpty() == false);
 
-  CPPUNIT_ASSERT_EQUAL("\"abc\".zzz", nodeHolder.get().toString());
+  CPPUNIT_ASSERT_EQUAL("me\"abc\".zzz", nodeHolder.get().toString());
   CPPUNIT_ASSERT_EQUAL(0, nodeHolder.get().startPosition());
-  CPPUNIT_ASSERT_EQUAL(9, nodeHolder.get().endPosition());
+  CPPUNIT_ASSERT_EQUAL(11, nodeHolder.get().endPosition());
 }
 void 
 sk::util::pp::test::StringNodeTest::
