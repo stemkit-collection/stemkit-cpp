@@ -19,14 +19,14 @@
 static const sk::util::String __className("sk::util::pp::HolderNode");
 
 sk::util::pp::HolderNode::
-HolderNode(const std::vector<char>& data, int start)
-  : _start(start), _end(0), _kind(0)
+HolderNode()
+  : _kind(0)
 {
 }
 
 sk::util::pp::HolderNode::
-HolderNode()
-  : _start(0), _end(0), _kind(0)
+HolderNode(const std::vector<char>& data, int start)
+  : AbstractCompositeNode(data, start), _kind(0)
 {
 }
 
@@ -74,7 +74,8 @@ parse(const std::vector<char>& data, int offset, const std::vector<char>& termin
 
       case '*':
       case '&':
-        index += nodeHolder.get().setNode(item, PrimeNode().parse(data, offset + index, sk::util::Container(")")));
+        index += nodeHolder.get().setNode(PrimeNode().parse(data, offset + index, sk::util::Container(")")));
+        nodeHolder.get().setKind(item);
         continue;
 
       default:
@@ -94,46 +95,16 @@ pushOpenBraket(std::vector<char>& brakets) const
   brakets.push_back('(');
 }
 
-int 
-sk::util::pp::HolderNode::
-startPosition() const
-{
-  return _start;
-}
-
-int 
-sk::util::pp::HolderNode::
-endPosition() const
-{
-  return _end;
-}
-
-void 
-sk::util::pp::HolderNode::
-setLength(int length)
-{
-  _end = _start + length;
-}
-
 const sk::util::String
 sk::util::pp::HolderNode::
 inspect() const 
 {
-  if(_nodeHolder.isEmpty() == true) {
-    return "<HolderNode: empty>";
-  }
-  return sk::util::String("<HolderNode: ") + _kind + _nodeHolder.get().inspect() + ">";
+  return "<HolderNode: " + (_kind ? sk::util::String(_kind) : sk::util::String()) + AbstractCompositeNode::inspect() + ">";
 }
 
-int 
+void
 sk::util::pp::HolderNode::
-setNode(char kind, sk::util::pp::Node* node)
+setKind(char kind) 
 {
-  _nodeHolder.set(node);
-  if(_nodeHolder.isEmpty() == false) {
-    _kind = kind;
-    return _nodeHolder.get().endPosition() - _nodeHolder.get().startPosition();
-  }
-  _kind = 0;
-  return 0;
+  _kind = kind;
 }

@@ -13,14 +13,14 @@
 
 #include <sk/util/Holder.hxx>
 
-#include "Node.h"
+#include "AbstractCompositeNode.h"
 #include "Parser.h"
 
 namespace sk {
   namespace util {
     namespace pp {
       class HolderNode 
-        : public virtual sk::util::pp::Node,
+        : public sk::util::pp::AbstractCompositeNode,
           public virtual sk::util::pp::Parser
       {
         public:
@@ -28,9 +28,8 @@ namespace sk {
           HolderNode(const std::vector<char>& data, int start);
           virtual ~HolderNode();
 
-          void setLength(int length);
-          int setNode(char kind, sk::util::pp::Node* node);
-      
+          void setKind(char kind);
+
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
           const sk::util::String inspect() const;
@@ -38,17 +37,12 @@ namespace sk {
           // sk::util::pp::Parser implementation.
           Node* parse(const std::vector<char>& data, int offset, const std::vector<char>& terminators) const;
           void pushOpenBraket(std::vector<char>& brakets) const;
-          int startPosition() const;
-          int endPosition() const;
 
         private:
           HolderNode(const HolderNode& other);
           HolderNode& operator = (const HolderNode& other);
 
-          sk::util::Holder<sk::util::pp::Node> _nodeHolder;
           char _kind;
-          int _start;
-          int _end;
       };
     }
   }
