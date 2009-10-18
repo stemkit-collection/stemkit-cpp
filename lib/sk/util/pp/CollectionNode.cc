@@ -49,13 +49,12 @@ parse(const std::vector<char>& data, int offset, const std::vector<char>& termin
     return 0;
   }
   sk::util::Holder<CollectionNode> nodeHolder(new CollectionNode(data, offset));
-  int index = 0;
   bool inside = false;
-  while((index + offset) < data.size()) {
+  for(int index=0; (index + offset) < data.size(); ++index) {
     if(index > 0 && inside == false) {
       break;
     }
-    char item = data[(index++) + offset];
+    char item = data[index + offset];
     switch(item) {
       case '[':
         if(inside == true) {
@@ -66,7 +65,7 @@ parse(const std::vector<char>& data, int offset, const std::vector<char>& termin
 
       case ']':
         if(inside == true) {
-          nodeHolder.get().setLength(index);
+          nodeHolder.get().setLength(index + 1);
           return nodeHolder.deprive();
         }
         break;
@@ -78,10 +77,9 @@ parse(const std::vector<char>& data, int offset, const std::vector<char>& termin
         if(isspace(item) == true) {
           continue;
         }
-        --index;
         int length = nodeHolder.get().addNode(SlotNode().parse(data, offset + index, sk::util::Container(",]")));
         if(length > 0) {
-          index += length;
+          index += length - 1;
           continue;
         }
     }

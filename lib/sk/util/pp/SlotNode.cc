@@ -54,14 +54,13 @@ parse(const std::vector<char>& data, int offset, const std::vector<char>& termin
   if(offset < 0) {
     return 0;
   }
-  int index = 0;
-  while((index + offset) < data.size()) {
-    char item = data[(index++) + offset];
+  for(int index=0; (index + offset) < data.size(); ++index) {
+    char item = data[index + offset];
     switch(item) {
       case '*':
       case '&':
       case '=': {
-        Node* node = PrimeNode().parse(data, offset + index, terminators);
+        Node* node = PrimeNode().parse(data, offset + index + 1, terminators);
         if(node != 0) {
           return new SlotNode(data, offset, node);
         }
