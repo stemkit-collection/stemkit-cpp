@@ -25,6 +25,8 @@ namespace sk {
           CollectionNode();
           CollectionNode(const std::vector<char>& data, int start);
           virtual ~CollectionNode();
+
+          void setPrefix(const sk::util::String& prefix);
       
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
@@ -37,6 +39,8 @@ namespace sk {
         private:
           CollectionNode(const CollectionNode& other);
           CollectionNode& operator = (const CollectionNode& other);
+
+          sk::util::String _prefix;
       };
     }
   }

@@ -50,6 +50,7 @@ parse(const std::vector<char>& data, int offset, const std::vector<char>& termin
   }
   sk::util::Holder<CollectionNode> nodeHolder(new CollectionNode(data, offset));
   bool inside = false;
+  bool gotsize = false;
   for(int index=0; (index + offset) < data.size(); ++index) {
     if(index > 0 && inside == false) {
       break;
@@ -70,11 +71,19 @@ parse(const std::vector<char>& data, int offset, const std::vector<char>& termin
         }
         break;
 
-      case ',':
-        continue;
-
       default:
-        if(isspace(item) == true) {
+        if(gotsize == false) {
+          if(item == ':') {
+            nodeHolder.get().setPrefix(sk::util::String(&data.front() + offset + 1, index));
+            gotsize = true;
+            continue;
+          }
+          if(isdigit(item) == true || isspace(item) == true) {
+            continue;
+          }
+          break;
+        }
+        if(item == ',' || isspace(item) == true) {
           continue;
         }
         int length = nodeHolder.get().addNode(SlotNode().parse(data, offset + index, sk::util::Container(",]")));
@@ -99,5 +108,12 @@ const sk::util::String
 sk::util::pp::CollectionNode::
 inspect() const
 {
-  return "<CollectionNode: " + AbstractCompositeNode::inspect() + ">";
+  return "<CollectionNode:" + _prefix + " " + AbstractCompositeNode::inspect() + ">";
+}
+
+void
+sk::util::pp::CollectionNode::
+setPrefix(const sk::util::String& prefix) 
+{
+  _prefix = prefix;
 }

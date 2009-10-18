@@ -79,5 +79,16 @@ inspect() const
   if(_nodes.isEmpty() == true) {
     return "empty";
   }
-  return _nodes.get(0).inspect();
+  sk::util::StringArray depot;
+  struct InspectingProcessor : public virtual sk::util::Processor<Node> {
+    InspectingProcessor(sk::util::StringArray& depot)
+      : _depot(depot) {}
+
+    void process(Node& node) const {
+      _depot << node.inspect();
+    }
+    sk::util::StringArray& _depot;
+  };
+  _nodes.forEach(InspectingProcessor(depot));
+  return depot.join(", ");
 }
