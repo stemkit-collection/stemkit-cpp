@@ -24,6 +24,7 @@ namespace sk {
           CPPUNIT_TEST_SUITE(sk::util::pp::test::StringNodeTest);
             CPPUNIT_TEST(testNone);
             CPPUNIT_TEST(testQuotedOnly);
+            CPPUNIT_TEST(testQuotedThenRegular);
           CPPUNIT_TEST_SUITE_END();
         
           public:
@@ -34,6 +35,7 @@ namespace sk {
             void tearDown();
             void testNone();
             void testQuotedOnly();
+            void testQuotedThenRegular();
         
           private:
             StringNodeTest(const StringNodeTest& other);

@@ -47,8 +47,10 @@ parse(const std::vector<char>& data, int offset, const std::vector<char>& termin
     return 0;
   }
   bool escaped = false;
-  for(int index=1; (index + offset) < data.size(); ++index) {
-    char item = tolower(data[index + offset]);
+  bool quoted = false;
+  int index = 0;
+  while((index + offset) < data.size()) {
+    char item = tolower(data[(index++) + offset]);
     if(escaped == true) {
       escaped = false;
       continue;
@@ -58,8 +60,16 @@ parse(const std::vector<char>& data, int offset, const std::vector<char>& termin
       continue;
     }
     if(item == '"') {
-      return new StringNode(data, offset, index + offset + 1);
+      if(quoted == true) {
+        quoted = false;
+      }
+      else {
+        quoted = true;
+      }
     }
+  }
+  if(quoted == false && escaped == false) {
+    return new StringNode(data, offset, index + offset);
   }
   return 0;
 }
