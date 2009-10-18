@@ -7,7 +7,6 @@ Relation
         AttributesNode.h
         PointerNode.h
         HolderNode.h
-        StringNode.h
         StructNode.h
         PrimeNode.h
         TextNode.h
@@ -29,5 +28,4 @@ Composition
             PrimeNode
 
         PointerNode
-        StringNode
         TextNode
