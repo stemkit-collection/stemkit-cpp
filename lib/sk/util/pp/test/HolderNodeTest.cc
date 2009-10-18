@@ -87,3 +87,14 @@ testHoldQuotedText()
   CPPUNIT_ASSERT_EQUAL(10, nodeHolder.get().endPosition());
   CPPUNIT_ASSERT_EQUAL("<HolderNode: &<TextNode: \"\\\"world\\\"\">>", nodeHolder.get().inspect());
 }
+
+void 
+sk::util::pp::test::HolderNodeTest::
+testHoldHolder()
+{
+  sk::util::Holder<Node> nodeHolder(HolderNode().parse(sk::util::Container("(&())"), 0, sk::util::Container("")));
+  CPPUNIT_ASSERT(nodeHolder.isEmpty() == false);
+  CPPUNIT_ASSERT_EQUAL(0, nodeHolder.get().startPosition());
+  CPPUNIT_ASSERT_EQUAL(5, nodeHolder.get().endPosition());
+  CPPUNIT_ASSERT_EQUAL("<HolderNode: &<HolderNode: empty>>", nodeHolder.get().inspect());
+}

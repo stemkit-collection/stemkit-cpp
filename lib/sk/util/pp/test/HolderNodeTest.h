@@ -27,6 +27,7 @@ namespace sk {
             CPPUNIT_TEST(testHoldPointer);
             CPPUNIT_TEST(testHoldText);
             CPPUNIT_TEST(testHoldQuotedText);
+            CPPUNIT_TEST(testHoldHolder);
           CPPUNIT_TEST_SUITE_END();
         
           public:
@@ -40,6 +41,7 @@ namespace sk {
             void testHoldPointer();
             void testHoldText();
             void testHoldQuotedText();
+            void testHoldHolder();
         
           private:
             HolderNodeTest(const HolderNodeTest& other);
