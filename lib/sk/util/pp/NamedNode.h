@@ -11,13 +11,15 @@
 #ifndef _SK_UTIL_PP_NAMEDNODE_H_
 #define _SK_UTIL_PP_NAMEDNODE_H_
 
-#include <sk/util/Object.h>
+#include "AbstractCompositeNode.h"
+#include "Parser.h"
 
 namespace sk {
   namespace util {
     namespace pp {
       class NamedNode 
-        : public virtual sk::util::Object
+        : public sk::util::pp::AbstractCompositeNode,
+          public virtual sk::util::pp::Parser
       {
         public:
           NamedNode();
@@ -26,6 +28,10 @@ namespace sk {
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
       
+          // sk::util::pp::Parser implementation.
+          Node* parse(const std::vector<char>& data, int offset, const std::vector<char>& terminators) const;
+          void pushOpenBraket(std::vector<char>& brakets) const;
+
         private:
           NamedNode(const NamedNode& other);
           NamedNode& operator = (const NamedNode& other);

@@ -14,6 +14,7 @@
 #include <sk/util/UnsupportedOperationException.h>
 
 #include "StructNode.h"
+#include "NamedNode.h"
 
 static const sk::util::String __className("sk::util::pp::StructNode");
 
@@ -85,13 +86,11 @@ parse(const std::vector<char>& data, int offset, const std::vector<char>& termin
         if(item == ',' || isspace(item) == true) {
           continue;
         }
-        /*
-        int length = nodeHolder.get().addNode(SlotNode().parse(data, offset + index, sk::util::Container(",]")));
+        int length = nodeHolder.get().addNode(NamedNode().parse(data, offset + index, sk::util::Container(",>")));
         if(length > 0) {
           index += length - 1;
           continue;
         }
-        */
     }
     break;
   }

@@ -31,3 +31,17 @@ getClass() const
 {
   return sk::util::Class(__className);
 }
+
+sk::util::pp::Node* 
+sk::util::pp::NamedNode::
+parse(const std::vector<char>& data, int offset, const std::vector<char>& terminators) const
+{
+  return 0;
+}
+
+void
+sk::util::pp::NamedNode::
+pushOpenBraket(std::vector<char>& brakets) const
+{
+}
+
