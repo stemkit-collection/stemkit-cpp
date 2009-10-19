@@ -123,10 +123,6 @@ sk::util::pp::StructNode::
 output(const sk::util::String& indent, std::ostream& stream) const
 {
   stream << '<'<< _name << ": ";
-  if(getNodeCount() != 0) {
-    stream << std::endl;
-    AbstractCompositeNode::output(indent + "  ", stream);
-    stream << indent;
-  }
+  AbstractCompositeNode::output(indent, stream, hasBreakingNode());
   stream << '>';
 }

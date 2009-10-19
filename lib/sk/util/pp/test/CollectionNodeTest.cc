@@ -57,7 +57,7 @@ testOne()
   CPPUNIT_ASSERT(nodeHolder.isEmpty() == false);
   CPPUNIT_ASSERT_EQUAL(0, nodeHolder.get().startPosition());
   CPPUNIT_ASSERT_EQUAL(14, nodeHolder.get().endPosition());
-  CPPUNIT_ASSERT_EQUAL("<CollectionNode:1: 0*<TextNode: \"\\\"abcd\\\" \">>", nodeHolder.get().inspect());
+  CPPUNIT_ASSERT_EQUAL("<CollectionNode:1: 0*<TextNode: \"\\\"abcd\\\"\">>", nodeHolder.get().inspect());
 }
 
 void

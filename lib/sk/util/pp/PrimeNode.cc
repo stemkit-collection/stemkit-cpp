@@ -111,3 +111,10 @@ output(const sk::util::String& indent, std::ostream& stream) const
 {
   throw sk::util::UnsupportedOperationException(SK_METHOD);
 }
+
+bool
+sk::util::pp::PrimeNode::
+isGonnaBreak() const 
+{
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
+}

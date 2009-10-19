@@ -43,7 +43,7 @@ const sk::util::String
 sk::util::pp::AbstractValueNode::
 toString() const
 {
-  return _value;
+  return _value.trim();
 }
 
 int 
@@ -65,4 +65,11 @@ sk::util::pp::AbstractValueNode::
 output(const sk::util::String& indent, std::ostream& stream) const
 {
   stream << _value;
+}
+
+bool
+sk::util::pp::AbstractValueNode::
+isGonnaBreak() const
+{ 
+  return false;
 }

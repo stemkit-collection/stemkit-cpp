@@ -33,6 +33,7 @@ namespace sk {
           int startPosition() const;
           int endPosition() const;
           void output(const sk::util::String& indent, std::ostream& stream) const;
+          bool isGonnaBreak() const;
       
         private:
           AbstractValueNode(const AbstractValueNode& other);

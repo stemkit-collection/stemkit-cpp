@@ -24,6 +24,7 @@ namespace sk {
           virtual int startPosition() const = 0;
           virtual int endPosition() const = 0;
           virtual void output(const sk::util::String& indent, std::ostream& stream) const = 0;
+          virtual bool isGonnaBreak() const = 0;
       };
     }
   }

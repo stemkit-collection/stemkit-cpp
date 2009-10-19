@@ -104,19 +104,45 @@ void
 sk::util::pp::AbstractCompositeNode::
 output(const sk::util::String& indent, std::ostream& stream) const
 {
+  output(indent, stream, hasBreakingNode() || _nodes.size() > 1);
+}
+
+void 
+sk::util::pp::AbstractCompositeNode::
+output(const sk::util::String& indent, std::ostream& stream, bool breaking) const
+{
   struct Printer : public virtual sk::util::Processor<Node> {
-    Printer(const sk::util::String& indent, std::ostream& stream)
-      : _indent(indent), _stream(stream) {}
+    Printer(const sk::util::String& indent, std::ostream& stream, bool breaking)
+      : _indent(indent), _stream(stream), _breaking(breaking) {}
 
     void process(Node& node) const {
-      _stream << _indent;
+      if(_breaking == true) {
+        _stream << _indent;
+      }
       node.output(_indent, _stream);
-      _stream << std::endl;
+
+      if(_breaking == true) {
+        _stream << std::endl;
+      }
+      else {
+        _stream << " ";
+      }
     }
     const sk::util::String& _indent;
     std::ostream& _stream;
+    const bool _breaking;
   };
-  forEachNode(Printer(indent, stream));
+
+  if(getNodeCount() != 0) {
+    if(breaking == true) {
+      stream << std::endl;
+    }
+    forEachNode(Printer(indent + "  ", stream, breaking));
+
+    if(breaking == true) {
+      stream << indent;
+    }
+  }
 }
 
 const sk::util::pp::Node& 
@@ -131,4 +157,30 @@ sk::util::pp::AbstractCompositeNode::
 getNodeCount() const
 {
   return _nodes.size();
+}
+
+bool
+sk::util::pp::AbstractCompositeNode::
+isGonnaBreak() const
+{
+  switch(_nodes.size()) {
+    case 0:
+      return false;
+
+    case 1:
+      return _nodes.get(0).isGonnaBreak();
+  };
+  return true;
+}
+
+bool
+sk::util::pp::AbstractCompositeNode::
+hasBreakingNode() const
+{
+  struct BreakingNodeSelector : public virtual sk::util::Selector<sk::util::pp::Node> {
+    bool assess(const sk::util::pp::Node& node) const {
+      return node.isGonnaBreak();
+    }
+  };
+  return _nodes.contains(BreakingNodeSelector());
 }

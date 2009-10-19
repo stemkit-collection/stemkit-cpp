@@ -43,6 +43,6 @@ testBasics()
   std::ostringstream stream;
   sk::util::PrettyPrinter printer(stream);
 
-  printer.print("<Abc: nnn=[2: 0*(), 1&() ], ttt=ABC>");
-  CPPUNIT_ASSERT_EQUAL("<Abc: \n  nnn => [2:\n    0*()\n    1&()\n  ]\n  ttt => ABC\n>\n", stream.str());
+  printer.print("<Abc: nnn=[2: 0*(), 1&(), 2*<Zzz: n1=AAA, n2=BBB> ], ttt=ABC>");
+  CPPUNIT_ASSERT_EQUAL("<Abc: \n  nnn => [2: \n    0*()\n    1&()\n    2*<Zzz: n1 => AAA n2 => BBB >\n  ]\n  ttt => ABC\n>\n", stream.str());
 }

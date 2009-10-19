@@ -124,9 +124,8 @@ output(const sk::util::String& indent, std::ostream& stream) const
 {
   stream << '[';
   if(getNodeCount() != 0) {
-    stream << _prefix << std::endl;
-    AbstractCompositeNode::output(indent + "  ", stream);
-    stream << indent;
+    stream << _prefix << " ";
+    AbstractCompositeNode::output(indent, stream);
   }
   stream << ']';
 }

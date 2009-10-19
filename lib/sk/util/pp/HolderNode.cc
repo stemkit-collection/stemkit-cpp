@@ -104,10 +104,9 @@ sk::util::pp::HolderNode::
 output(const sk::util::String& indent, std::ostream& stream) const
 {
   stream << '(';
-  if(getNodeCount() != 0) {
-    stream << std::endl;
-    AbstractCompositeNode::output(indent + "  ", stream);
-    stream << indent;
+  if(getNodeCount() > 0) {
+    stream << ' ';
+    AbstractCompositeNode::output(indent, stream);
   }
   stream << ')';
 }
