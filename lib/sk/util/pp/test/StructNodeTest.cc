@@ -8,7 +8,11 @@
  *  Author: Gennady Bystritsky
 */
 
+#include <sk/util/Holder.cxx>
+#include <sk/util/Container.h>
+
 #include "StructNodeTest.h"
+#include "../StructNode.h"
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::util::pp::test::StructNodeTest);
 
@@ -38,4 +42,9 @@ void
 sk::util::pp::test::StructNodeTest::
 testEmpty()
 {
+  sk::util::Holder<Node> nodeHolder(StructNode().parse(sk::util::Container("<Object: >"), 0, sk::util::Container("")));
+  CPPUNIT_ASSERT(nodeHolder.isEmpty() == false);
+  CPPUNIT_ASSERT_EQUAL(0, nodeHolder.get().startPosition());
+  CPPUNIT_ASSERT_EQUAL(10, nodeHolder.get().endPosition());
+  CPPUNIT_ASSERT_EQUAL("<StructNode:Object: empty>", nodeHolder.get().inspect());
 }

@@ -9,8 +9,8 @@ local objects =
     PointerNode.cc
     SlotNode.cc
     HolderNode.cc
-    # AttributesNode.cc
     CollectionNode.cc
+    NamedNode.cc
     StructNode.cc
     TextNode.cc
 ;
