@@ -39,6 +39,7 @@ test-objects =
   CovariantWorkaroundTest.cc
   PropertiesTest.cc
   InspectTest.cc
+  PrettyPrinterTest.cc
 ;
 
 use-project-library $(test) : sk.util sk.cppunit ;

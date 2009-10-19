@@ -29,6 +29,7 @@ objects =
   File.cc
   Properties.cc
   inspect.cc
+  PrettyPrinter.cc
 ;
 
 make-library $(library) : $(objects) ;
