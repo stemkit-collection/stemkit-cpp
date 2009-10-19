@@ -12,6 +12,7 @@
 #define _SK_UTIL_PRETTYPRINTER_H_
 
 #include <sk/util/Object.h>
+#include <ostream>
 
 namespace sk {
   namespace util {
@@ -19,8 +20,10 @@ namespace sk {
       : public virtual sk::util::Object
     {
       public:
-        PrettyPrinter();
+        PrettyPrinter(std::ostream& stream);
         virtual ~PrettyPrinter();
+
+        void print(const sk::util::String& input) const;
     
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
@@ -28,6 +31,8 @@ namespace sk {
       private:
         PrettyPrinter(const PrettyPrinter& other);
         PrettyPrinter& operator = (const PrettyPrinter& other);
+
+        std::ostream& _stream;
     };
   }
 }

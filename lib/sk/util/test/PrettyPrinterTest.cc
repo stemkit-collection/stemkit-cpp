@@ -9,6 +9,8 @@
 */
 
 #include "PrettyPrinterTest.h"
+#include <sstream>
+#include <sk/util/PrettyPrinter.h>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::util::test::PrettyPrinterTest);
 
@@ -38,5 +40,9 @@ void
 sk::util::test::PrettyPrinterTest::
 testBasics()
 {
-  CPPUNIT_ASSERT_EQUAL(true, false);
+  std::ostringstream stream;
+  sk::util::PrettyPrinter printer(stream);
+
+  printer.print("<Abc: nnn=[2: 0*(), 1&() ], ttt=ABC>");
+  CPPUNIT_ASSERT_EQUAL("<StructNode:Abc: nnn=<CollectionNode:2: 0*<HolderNode: empty>, 1&<HolderNode: empty>>, ttt=<TextNode: \"ABC\">>", stream.str());
 }

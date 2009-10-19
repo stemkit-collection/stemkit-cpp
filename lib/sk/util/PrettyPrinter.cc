@@ -10,13 +10,17 @@
 
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
-
+#include <sk/util/Container.h>
+#include <sk/util/Holder.cxx>
 #include <sk/util/PrettyPrinter.h>
+
+#include "pp/PrimeNode.h"
 
 static const sk::util::String __className("sk::util::PrettyPrinter");
 
 sk::util::PrettyPrinter::
-PrettyPrinter()
+PrettyPrinter(std::ostream& stream)
+  : _stream(stream)
 {
 }
 
@@ -30,4 +34,16 @@ sk::util::PrettyPrinter::
 getClass() const
 {
   return sk::util::Class(__className);
+}
+
+void
+sk::util::PrettyPrinter::
+print(const sk::util::String& input) const
+{
+  sk::util::Holder<sk::util::pp::Node> nodeHolder(sk::util::pp::PrimeNode().parse(sk::util::Container(input), 0, sk::util::Container()));
+  if(nodeHolder.isEmpty() == true) {
+    _stream << input << std::endl;
+    return;
+  }
+  _stream << nodeHolder.get().inspect();
 }
