@@ -48,3 +48,25 @@ testEmpty()
   CPPUNIT_ASSERT_EQUAL(10, nodeHolder.get().endPosition());
   CPPUNIT_ASSERT_EQUAL("<StructNode:Object: empty>", nodeHolder.get().inspect());
 }
+
+void
+sk::util::pp::test::StructNodeTest::
+testOne()
+{
+  sk::util::Holder<Node> nodeHolder(StructNode().parse(sk::util::Container("<Abc: n1=()>"), 0, sk::util::Container("")));
+  CPPUNIT_ASSERT(nodeHolder.isEmpty() == false);
+  CPPUNIT_ASSERT_EQUAL(0, nodeHolder.get().startPosition());
+  CPPUNIT_ASSERT_EQUAL(12, nodeHolder.get().endPosition());
+  CPPUNIT_ASSERT_EQUAL("<StructNode:Abc: n1=<HolderNode: empty>>", nodeHolder.get().inspect());
+}
+
+void
+sk::util::pp::test::StructNodeTest::
+testMany()
+{
+  sk::util::Holder<Node> nodeHolder(StructNode().parse(sk::util::Container("   <Abc: n1=(), n2=zzz>"), 3, sk::util::Container("")));
+  CPPUNIT_ASSERT(nodeHolder.isEmpty() == false);
+  CPPUNIT_ASSERT_EQUAL(3, nodeHolder.get().startPosition());
+  CPPUNIT_ASSERT_EQUAL(23, nodeHolder.get().endPosition());
+  CPPUNIT_ASSERT_EQUAL("<StructNode:Abc: n1=<HolderNode: empty>, n2=<TextNode: \"zzz\">>", nodeHolder.get().inspect());
+}

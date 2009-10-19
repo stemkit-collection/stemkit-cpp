@@ -23,10 +23,12 @@ namespace sk {
       {
         public:
           NamedNode();
+          NamedNode(const std::vector<char>& data, int start, const sk::util::String& name, sk::util::pp::Node* node);
           virtual ~NamedNode();
       
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
+          const sk::util::String inspect() const;
       
           // sk::util::pp::Parser implementation.
           Node* parse(const std::vector<char>& data, int offset, const std::vector<char>& terminators) const;
@@ -35,6 +37,8 @@ namespace sk {
         private:
           NamedNode(const NamedNode& other);
           NamedNode& operator = (const NamedNode& other);
+
+          const sk::util::String _name;
       };
     }
   }
