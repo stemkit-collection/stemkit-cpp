@@ -8,23 +8,24 @@
  *  Author: Gennady Bystritsky
 */
 
+#include <sk/io/FileDescriptorInputStream.h>
+#include <sk/io/DataInputStream.h>
+#include <sk/io/EOFException.h>
+#include <sk/util/PrettyPrinter.h>
 #include <iostream>
-#include <iomanip>
-#include <exception>
-#include <string>
 
 int main(int argc, const char* argv[])
 {
+  sk::util::PrettyPrinter printer(std::cout);
+  sk::io::FileDescriptorInputStream input(0);
+  sk::io::DataInputStream stream(input);
+
   try {
-    throw std::string("Hello, world!!!");
+    while(true) {
+      printer.print(stream.readLine());
+    }
   }
-  catch(const std::exception& exception) {
-    std::cerr << "E: " << exception.what() << std::endl;
-  }
-  catch(const std::string& message) {
-    std::cout << message << std::endl;
-  }
-  catch(...) {
-    std::cerr << "Unknown error" << std::endl;
-  }
+  catch(const sk::io::EOFException& exception) {}
+
+  return 0;
 }

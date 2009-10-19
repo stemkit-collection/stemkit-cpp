@@ -6,5 +6,5 @@ local objects =
   skpp.cc
 ;
 
-use-project-libraries $(program) : sk.io sk.util ;
+use-project-libraries $(program) : sk.io sk.rt.bundle sk.util ;
 make-program $(program) : $(objects) ;
