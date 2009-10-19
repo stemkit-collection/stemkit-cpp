@@ -1,0 +1,10 @@
+# vim: ft=jam: sw=2:
+
+local program = skpp ;
+
+local objects = 
+  skpp.cc
+;
+
+use-project-libraries $(program) : sk.io sk.util ;
+make-program $(program) : $(objects) ;
