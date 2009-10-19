@@ -32,6 +32,7 @@ namespace sk {
           // sk::util::pp::Node implementation.
           int startPosition() const;
           int endPosition() const;
+          void output(const sk::util::String& indent, std::ostream& stream) const;
       
         private:
           AbstractValueNode(const AbstractValueNode& other);

@@ -34,6 +34,9 @@ namespace sk {
           Node* parse(const std::vector<char>& data, int offset, const std::vector<char>& terminators) const;
           void pushOpenBraket(std::vector<char>& brakets) const;
 
+          // sk::util::pp::Node implementation.
+          void output(const sk::util::String& indent, std::ostream& stream) const;
+
         private:
           NamedNode(const NamedNode& other);
           NamedNode& operator = (const NamedNode& other);

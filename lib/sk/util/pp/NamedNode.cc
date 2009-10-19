@@ -57,7 +57,7 @@ parse(const std::vector<char>& data, int offset, const std::vector<char>& termin
   }
   for(int index=0; (index + offset) < data.size(); ++index) {
     char item = data[index + offset];
-    if(isspace(item) == true) {
+    if(isspace(item)) {
       continue;
     }
     sk::util::Container terms(terminators);
@@ -89,4 +89,12 @@ sk::util::pp::NamedNode::
 inspect() const
 {
   return _name + "=" + AbstractCompositeNode::inspect();
+}
+
+void 
+sk::util::pp::NamedNode::
+output(const sk::util::String& indent, std::ostream& stream) const
+{
+  stream << _name << " => ";
+  getNode(0).output(indent, stream);
 }

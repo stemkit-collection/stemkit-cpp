@@ -78,12 +78,12 @@ parse(const std::vector<char>& data, int offset, const std::vector<char>& termin
             gotname = true;
             continue;
           }
-          if(isalnum(item) == true) {
+          if(isalnum(item)) {
             continue;
           }
           break;
         }
-        if(item == ',' || isspace(item) == true) {
+        if(item == ',' || isspace(item)) {
           continue;
         }
         int length = nodeHolder.get().addNode(NamedNode().parse(data, offset + index, sk::util::Container(",>")));
@@ -116,4 +116,17 @@ sk::util::pp::StructNode::
 inspect() const
 {
   return "<StructNode:" + _name + ": " + AbstractCompositeNode::inspect() + ">";
+}
+
+void 
+sk::util::pp::StructNode::
+output(const sk::util::String& indent, std::ostream& stream) const
+{
+  stream << '<'<< _name << ": ";
+  if(getNodeCount() != 0) {
+    stream << std::endl;
+    AbstractCompositeNode::output(indent + "  ", stream);
+    stream << indent;
+  }
+  stream << '>';
 }

@@ -42,8 +42,10 @@ print(const sk::util::String& input) const
 {
   sk::util::Holder<sk::util::pp::Node> nodeHolder(sk::util::pp::PrimeNode().parse(sk::util::Container(input), 0, sk::util::Container()));
   if(nodeHolder.isEmpty() == true) {
-    _stream << input << std::endl;
-    return;
+    _stream << input;
   }
-  _stream << nodeHolder.get().inspect();
+  else {
+    nodeHolder.get().output("", _stream);
+  }
+  _stream << std::endl;
 }

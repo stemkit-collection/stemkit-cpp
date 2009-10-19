@@ -78,12 +78,12 @@ parse(const std::vector<char>& data, int offset, const std::vector<char>& termin
             gotsize = true;
             continue;
           }
-          if(isdigit(item) == true || isspace(item) == true) {
+          if(isdigit(item) || isspace(item)) {
             continue;
           }
           break;
         }
-        if(item == ',' || isspace(item) == true) {
+        if(item == ',' || isspace(item)) {
           continue;
         }
         int length = nodeHolder.get().addNode(SlotNode().parse(data, offset + index, sk::util::Container(",]")));
@@ -116,4 +116,17 @@ sk::util::pp::CollectionNode::
 setPrefix(const sk::util::String& prefix) 
 {
   _prefix = prefix;
+}
+
+void 
+sk::util::pp::CollectionNode::
+output(const sk::util::String& indent, std::ostream& stream) const
+{
+  stream << '[';
+  if(getNodeCount() != 0) {
+    stream << _prefix << std::endl;
+    AbstractCompositeNode::output(indent + "  ", stream);
+    stream << indent;
+  }
+  stream << ']';
 }

@@ -44,5 +44,5 @@ testBasics()
   sk::util::PrettyPrinter printer(stream);
 
   printer.print("<Abc: nnn=[2: 0*(), 1&() ], ttt=ABC>");
-  CPPUNIT_ASSERT_EQUAL("<StructNode:Abc: nnn=<CollectionNode:2: 0*<HolderNode: empty>, 1&<HolderNode: empty>>, ttt=<TextNode: \"ABC\">>", stream.str());
+  CPPUNIT_ASSERT_EQUAL("<Abc: \n  nnn => [2:\n    0*()\n    1&()\n  ]\n  ttt => ABC\n>\n", stream.str());
 }

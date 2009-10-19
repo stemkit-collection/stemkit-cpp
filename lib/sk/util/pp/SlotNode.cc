@@ -67,7 +67,7 @@ parse(const std::vector<char>& data, int offset, const std::vector<char>& termin
         break;
       }
       default:
-        if(isdigit(item) == true) {
+        if(isdigit(item)) {
           continue;
         }
     }
@@ -87,4 +87,12 @@ sk::util::pp::SlotNode::
 inspect() const
 {
   return _prefix + AbstractCompositeNode::inspect();
+}
+
+void 
+sk::util::pp::SlotNode::
+output(const sk::util::String& indent, std::ostream& stream) const
+{
+  stream << _prefix;
+  getNode(0).output(indent, stream);
 }

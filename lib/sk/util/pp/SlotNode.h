@@ -34,6 +34,9 @@ namespace sk {
           Node* parse(const std::vector<char>& data, int offset, const std::vector<char>& terminators) const;
           void pushOpenBraket(std::vector<char>& brakets) const;
 
+          // sk::util::pp::Node implementation.
+          void output(const sk::util::String& indent, std::ostream& stream) const;
+
         private:
           SlotNode(const SlotNode& other);
           SlotNode& operator = (const SlotNode& other);

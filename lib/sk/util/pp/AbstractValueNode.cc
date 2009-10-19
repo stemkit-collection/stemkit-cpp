@@ -59,3 +59,10 @@ endPosition() const
 {
   return _end;
 }
+
+void
+sk::util::pp::AbstractValueNode::
+output(const sk::util::String& indent, std::ostream& stream) const
+{
+  stream << _value;
+}

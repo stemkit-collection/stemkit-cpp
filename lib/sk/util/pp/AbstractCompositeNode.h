@@ -36,6 +36,12 @@ namespace sk {
           // sk::util::pp::Node implementation.
           int startPosition() const;
           int endPosition() const;
+          void output(const sk::util::String& indent, std::ostream& stream) const;
+
+        protected:
+          const sk::util::pp::Node& getNode(int index) const;
+          int getNodeCount() const;
+          void forEachNode(const sk::util::Processor<sk::util::pp::Node>& processor) const;
 
         private:
           AbstractCompositeNode(const AbstractCompositeNode& other);

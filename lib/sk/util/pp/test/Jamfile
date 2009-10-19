@@ -12,6 +12,6 @@ local objects =
   TextNodeTest.cc
 ;
 
-use-unit-test $(test) $(objects) ;
 use-project-libraries $(test) : sk.util sk.cppunit ;
+use-unit-test $(test) $(objects) ;
 make-cpp-test $(test) : $(objects) ;

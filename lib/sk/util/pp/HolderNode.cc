@@ -71,7 +71,7 @@ parse(const std::vector<char>& data, int offset, const std::vector<char>& termin
         break;
 
       default:
-        if(isspace(item) == true) {
+        if(isspace(item)) {
           continue;
         }
         int length = nodeHolder.get().addNode(SlotNode().parse(data, offset + index, sk::util::Container(")")));
@@ -97,4 +97,17 @@ sk::util::pp::HolderNode::
 inspect() const 
 {
   return "<HolderNode: " + AbstractCompositeNode::inspect() + ">";
+}
+
+void 
+sk::util::pp::HolderNode::
+output(const sk::util::String& indent, std::ostream& stream) const
+{
+  stream << '(';
+  if(getNodeCount() != 0) {
+    stream << std::endl;
+    AbstractCompositeNode::output(indent + "  ", stream);
+    stream << indent;
+  }
+  stream << ')';
 }

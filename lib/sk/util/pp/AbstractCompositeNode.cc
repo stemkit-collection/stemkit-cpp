@@ -92,3 +92,43 @@ inspect() const
   _nodes.forEach(InspectingProcessor(depot));
   return depot.join(", ");
 }
+
+void 
+sk::util::pp::AbstractCompositeNode::
+forEachNode(const sk::util::Processor<sk::util::pp::Node>& processor) const 
+{
+  _nodes.forEach(processor);
+}
+
+void 
+sk::util::pp::AbstractCompositeNode::
+output(const sk::util::String& indent, std::ostream& stream) const
+{
+  struct Printer : public virtual sk::util::Processor<Node> {
+    Printer(const sk::util::String& indent, std::ostream& stream)
+      : _indent(indent), _stream(stream) {}
+
+    void process(Node& node) const {
+      _stream << _indent;
+      node.output(_indent, _stream);
+      _stream << std::endl;
+    }
+    const sk::util::String& _indent;
+    std::ostream& _stream;
+  };
+  forEachNode(Printer(indent, stream));
+}
+
+const sk::util::pp::Node& 
+sk::util::pp::AbstractCompositeNode::
+getNode(int index) const
+{
+  return _nodes.get(index);
+}
+
+int
+sk::util::pp::AbstractCompositeNode::
+getNodeCount() const
+{
+  return _nodes.size();
+}

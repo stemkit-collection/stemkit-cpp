@@ -12,6 +12,7 @@
 #define _SK_UTIL_PP_NODE_H_
 
 #include <sk/util/Object.h>
+#include <ostream>
 
 namespace sk {
   namespace util {
@@ -22,6 +23,7 @@ namespace sk {
         public:
           virtual int startPosition() const = 0;
           virtual int endPosition() const = 0;
+          virtual void output(const sk::util::String& indent, std::ostream& stream) const = 0;
       };
     }
   }

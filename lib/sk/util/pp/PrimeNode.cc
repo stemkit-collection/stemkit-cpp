@@ -104,3 +104,10 @@ endPosition() const
 {
   throw sk::util::UnsupportedOperationException(SK_METHOD);
 }
+
+void 
+sk::util::pp::PrimeNode::
+output(const sk::util::String& indent, std::ostream& stream) const
+{
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
+}
