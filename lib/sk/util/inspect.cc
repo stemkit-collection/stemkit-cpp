@@ -50,6 +50,10 @@ namespace {
           _stream << "\\\"";
           break;
         }
+        case '\\': {
+          _stream << "\\\\";
+          break;
+        }
         default: {
           if(!(character&0x80) && isprint(character)) {
             _stream << character;

@@ -24,6 +24,7 @@ namespace sk {
           CPPUNIT_TEST(testCharBuffers);
           CPPUNIT_TEST(testStrings);
           CPPUNIT_TEST(testVectors);
+          CPPUNIT_TEST(testContent);
         CPPUNIT_TEST_SUITE_END();
       
         public:
@@ -35,6 +36,7 @@ namespace sk {
           void testCharBuffers();
           void testStrings();
           void testVectors();
+          void testContent();
       
         private:
           InspectTest(const InspectTest& other);

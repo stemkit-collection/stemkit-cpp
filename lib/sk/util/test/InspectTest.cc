@@ -68,3 +68,12 @@ testVectors()
 
   CPPUNIT_ASSERT_EQUAL("[2: 0=\"aaa\", 1=\"zzz\" ]", sk::util::inspect(depot));
 }
+
+void 
+sk::util::test::InspectTest::
+testContent()
+{
+  CPPUNIT_ASSERT_EQUAL("\"abcd\"", sk::util::inspect("abcd"));
+  CPPUNIT_ASSERT_EQUAL("\"ab\\\"cd\"", sk::util::inspect("ab\"cd"));
+  CPPUNIT_ASSERT_EQUAL("\"ab\\\\cd\"", sk::util::inspect("ab\\cd"));
+}
