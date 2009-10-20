@@ -75,19 +75,25 @@ void
 sk::io::test::DataOutputStreamTest::
 testWriteInt()
 {
-  stream().writeInt(0x4fa);
-  CPPUNIT_ASSERT_EQUAL(4, int(buffer().size()));
+  int value = 0x4fa;
+  const char* data = reinterpret_cast<const char*>(&value);
 
-  CPPUNIT_ASSERT_EQUAL('\xFA', buffer()[0]);
-  CPPUNIT_ASSERT_EQUAL('\x04', buffer()[1]);
-  CPPUNIT_ASSERT_EQUAL('\x00', buffer()[2]);
-  CPPUNIT_ASSERT_EQUAL('\x00', buffer()[3]);
+  stream().writeInt(value);
+  CPPUNIT_ASSERT_EQUAL(size_t(4), buffer().size());
 
-  stream().writeInt(15);
-  CPPUNIT_ASSERT_EQUAL(8, int(buffer().size()));
+  CPPUNIT_ASSERT_EQUAL(*(data + 0), buffer()[0]);
+  CPPUNIT_ASSERT_EQUAL(*(data + 1), buffer()[1]);
+  CPPUNIT_ASSERT_EQUAL(*(data + 2), buffer()[2]);
+  CPPUNIT_ASSERT_EQUAL(*(data + 3), buffer()[3]);
 
-  CPPUNIT_ASSERT_EQUAL('\x0F', buffer()[4]);
-  CPPUNIT_ASSERT_EQUAL('\x00', buffer()[5]);
-  CPPUNIT_ASSERT_EQUAL('\x00', buffer()[6]);
-  CPPUNIT_ASSERT_EQUAL('\x00', buffer()[7]);
+  value = 15;
+  data = reinterpret_cast<const char*>(&value);
+
+  stream().writeInt(value);
+  CPPUNIT_ASSERT_EQUAL(size_t(8), buffer().size());
+
+  CPPUNIT_ASSERT_EQUAL(*(data + 0), buffer()[4]);
+  CPPUNIT_ASSERT_EQUAL(*(data + 1), buffer()[5]);
+  CPPUNIT_ASSERT_EQUAL(*(data + 2), buffer()[6]);
+  CPPUNIT_ASSERT_EQUAL(*(data + 3), buffer()[7]);
 }
