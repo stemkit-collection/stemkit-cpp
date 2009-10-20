@@ -1,4 +1,5 @@
-/*  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
+/*  vi: sw=2:
+ *  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
  *  
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
@@ -81,22 +82,29 @@ void
 sk::io::test::DataInputStreamTest::
 testReadInt()
 {
-  buffer().push_back('\x45');
-  buffer().push_back('\x02');
-  buffer().push_back('\x00');
-  buffer().push_back('\x00');
+  int v1 = 0x245;
+  int v2 = 0x1ab12;
 
-  buffer().push_back('\x12');
-  buffer().push_back('\xAB');
-  buffer().push_back('\x01');
-  buffer().push_back('\x00');
+  const char* data = reinterpret_cast<const char*>(&v1);
 
-  buffer().push_back('\x00');
-  buffer().push_back('\x00');
-  buffer().push_back('\x00');
+  buffer().push_back(*(data + 0));
+  buffer().push_back(*(data + 1));
+  buffer().push_back(*(data + 2));
+  buffer().push_back(*(data + 3));
 
-  CPPUNIT_ASSERT_EQUAL(0x245, stream().readInt());
-  CPPUNIT_ASSERT_EQUAL(0x1AB12, stream().readInt());
+  data = reinterpret_cast<const char*>(&v2);
+
+  buffer().push_back(*(data + 0));
+  buffer().push_back(*(data + 1));
+  buffer().push_back(*(data + 2));
+  buffer().push_back(*(data + 3));
+
+  buffer().push_back(0);
+  buffer().push_back(0);
+  buffer().push_back(0);
+
+  CPPUNIT_ASSERT_EQUAL(v1, stream().readInt());
+  CPPUNIT_ASSERT_EQUAL(v2, stream().readInt());
 
   CPPUNIT_ASSERT_THROW(stream().readInt(), sk::io::EOFException);
 }

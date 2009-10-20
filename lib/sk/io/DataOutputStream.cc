@@ -35,8 +35,9 @@ getClass() const
 namespace {
   template<class T>
   void writeByteNumber(sk::io::DataOutput& stream, T& value, int length) {
-    for(int counter=length; counter ;counter--,value>>=8) {
-      stream.writeChar(char(value&0xff));
+    const char* data = reinterpret_cast<const char*>(&value);
+    for(int index=0; index < length; ++index) {
+      stream.writeChar(*(data + index));
     }
   }
 }

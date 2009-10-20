@@ -35,10 +35,13 @@ getClass() const
 
 namespace {
   template<class T>
-  T readBytesNumber(sk::io::DataInput& stream, int length) {
+  T readBytesNumber(sk::io::DataInput& stream) {
     T value = 0;
-    for(int counter=0; counter<length ;counter++) {
-      value |= (int(stream.readChar()) & 0xff) << (8 * counter);
+    int length = sizeof(value);
+
+    char* data = reinterpret_cast<char*>(&value);
+    for(int index=0; index<length; ++index) {
+      *(data + index) = stream.readChar();
     }
     return value;
   }
@@ -48,21 +51,21 @@ int
 sk::io::DataInputStream::
 readInt()
 {
-  return readBytesNumber<int>(*this, 4);
+  return readBytesNumber<int>(*this);
 }
 
 long long 
 sk::io::DataInputStream::
 readLong()
 {
-  return readBytesNumber<long long>(*this, 8);
+  return readBytesNumber<long long>(*this);
 }
 
 short 
 sk::io::DataInputStream::
 readShort()
 {
-  return readBytesNumber<short>(*this, 2);
+  return readBytesNumber<short>(*this);
 }
 
 char 
