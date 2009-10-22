@@ -12,6 +12,7 @@
 #define _SK_UTIL_BITSET_H_
 
 #include <sk/util/Object.h>
+#include <vector>
 
 namespace sk {
   namespace util {
@@ -20,7 +21,8 @@ namespace sk {
     {
       public:
         Bitset();
-        Bitset(uint32_t min, uint32_t max);
+        Bitset(uint32_t lowerBound, uint32_t upperBound);
+        Bitset(uint32_t upperBound);
         virtual ~Bitset();
 
         inline bool isOn(uint32_t index) const;
@@ -28,6 +30,10 @@ namespace sk {
         inline bool clear(uint32_t index);
         inline bool flip(uint32_t index);
         inline bool set(uint32_t index);
+
+        void setUpperBound(uint32_t upper);
+        void setLowerBound(uint32_t upper);
+        void setBounds(uint32_t lower, uint32_t upper);
 
         void clearAll();
         void flipAll();
@@ -49,6 +55,7 @@ namespace sk {
         static inline uint32_t block(uint32_t index);
         static inline uint32_t bit(uint32_t index);
 
+        std::vector<uint32_t> _depotContainer;
         uint32_t* _depot;
         uint32_t _min;
         uint32_t _max;

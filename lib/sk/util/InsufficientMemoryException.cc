@@ -12,8 +12,8 @@
 #include <sk/util/InsufficientMemoryException.h>
 
 sk::util::InsufficientMemoryException::
-InsufficientMemoryException(const sk::util::String& purpose, int amount)
-  : sk::util::Exception(join(join("Memory allocation", purpose), "amount=" + sk::util::Integer::toString(amount))),
+InsufficientMemoryException(const sk::util::String& purpose, size_t amount)
+  : sk::util::Exception(join(join("Memory allocation", purpose), sk::util::Integer::toString(amount))),
     _amount(amount)
 {
 }
@@ -25,7 +25,7 @@ getClass() const
   return sk::util::Class("sk::util::InsufficientMemoryException");
 }
 
-int
+size_t
 sk::util::InsufficientMemoryException::
 getRequestedAmount() const
 {

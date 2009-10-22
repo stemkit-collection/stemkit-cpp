@@ -12,36 +12,39 @@
 #include <sk/util/String.h>
 #include <sk/util/Bitset.h>
 #include <sk/util/UnsupportedOperationException.h>
+#include <sk/util/InsufficientMemoryException.h>
 
 #include <sstream>
 #include <algorithm>
+#include <malloc.h>
 
 static const sk::util::String __className("sk::util::Bitset");
 
-static const uint32_t SK_BITMAP_BLOCKSIZE = 1024;
-
 sk::util::Bitset::
 Bitset()
-  : _depot(0), _min(0), _max(0)
+  : _max(0), _min(0)
 {
 }
 
 sk::util::Bitset::
-Bitset(uint32_t min, uint32_t max)
-  : _depot(0), _min(block(min) << 5), _max(std::max(_min, (block(max) + 1) << 5))
+Bitset(uint32_t upperBound)
+  : _max(0), _min(0)
 {
-  int size = std::max(_max - _min, SK_BITMAP_BLOCKSIZE);
-  _max = _min + size;
+  setBounds(0, upperBound);
+}
 
-  _depot = new uint32_t[size];
-  std::fill(_depot, _depot + size, 0);
+sk::util::Bitset::
+Bitset(uint32_t lowerBound, uint32_t upperBound)
+  : _max(0), _min(0)
+{
+  setBounds(lowerBound, upperBound);
 }
 
 sk::util::Bitset::
 ~Bitset()
 {
   if(_depot) {
-    delete [] _depot;
+    free(_depot);
   }
 }
 
@@ -110,5 +113,66 @@ void
 sk::util::Bitset::
 ensure(uint32_t index) 
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  if(index < _min) {
+    setLowerBound(index);
+  }
+  else if(index >= _max) {
+    setUpperBound(index);
+  }
 }
+
+void 
+sk::util::Bitset::
+setLowerBound(uint32_t bound)
+{
+  setBounds(bound, _max);
+}
+
+void 
+sk::util::Bitset::
+setUpperBound(uint32_t bound)
+{
+  setBounds(_min, bound);
+}
+
+void 
+sk::util::Bitset::
+setBounds(uint32_t lowerBound, uint32_t upperBound)
+{
+  uint32_t lower = block(lowerBound);
+  uint32_t upper = std::max(lower, (block(upperBound) + 1));
+
+  uint32_t min = block(_min);
+  uint32_t max = block(_max);
+
+  int lower_delta = min - lower;
+  int upper_delta = upper - max;
+
+  int old_size = max - min;
+  int new_size = old_size + lower_delta + upper_delta;
+
+  if(new_size > old_size) {
+    _depotContainer.resize(new_size);
+    _depot = &_depotContainer.front();
+  }
+
+  if(lower_delta > 0) {
+    std::copy(_depot, _depot + new_size, _depot + lower_delta);
+    std::fill(_depot, _depot + lower_delta, 0);
+  }
+
+  if(lower_delta < 0) {
+    std::copy(_depot + (-lower_delta), _depot + (-lower_delta) + new_size, _depot);
+  }
+
+  if(new_size > old_size) {
+    std::fill(_depot + old_size, _depot + new_size, 0);
+  }
+  else {
+    _depotContainer.resize(new_size);
+    _depot = &_depotContainer.front();
+  }
+  _min = lower;
+  _max = upper;
+}
+

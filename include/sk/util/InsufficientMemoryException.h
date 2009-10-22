@@ -16,15 +16,15 @@ namespace sk {
       : public sk::util::Exception
     {
       public:
-        InsufficientMemoryException(const sk::util::String& purpose, int amount);
+        InsufficientMemoryException(const sk::util::String& purpose, size_t amount);
 
-        int getRequestedAmount() const;
+        size_t getRequestedAmount() const;
         
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
 
       private:
-        int _amount;
+        size_t _amount;
     };
   }
 }
