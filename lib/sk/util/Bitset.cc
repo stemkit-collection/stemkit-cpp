@@ -11,6 +11,7 @@
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
 #include <sk/util/Bitset.h>
+#include <sk/util/UnsupportedOperationException.h>
 
 #include <sstream>
 #include <algorithm>
@@ -27,7 +28,7 @@ Bitset()
 
 sk::util::Bitset::
 Bitset(uint32_t min, uint32_t max)
-  : _depot(0), _min((min >> 5) << 5), _max(std::max(_min, ((max >> 5) + 1) << 5))
+  : _depot(0), _min(block(min) << 5), _max(std::max(_min, (block(max) + 1) << 5))
 {
   int size = std::max(_max - _min, SK_BITMAP_BLOCKSIZE);
   _max = _min + size;
@@ -83,3 +84,39 @@ getMax() const
 {
   return _max;
 }
+
+bool
+sk::util::Bitset::
+flip(uint32_t index) 
+{
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
+}
+
+bool
+sk::util::Bitset::
+set(uint32_t index) 
+{
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
+}
+
+void
+sk::util::Bitset::
+clearAll()
+{
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
+}
+
+void 
+sk::util::Bitset::
+flipAll() 
+{
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
+}
+
+void
+sk::util::Bitset::
+setAll()
+{
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
+}
+
