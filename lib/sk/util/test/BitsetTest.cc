@@ -10,6 +10,7 @@
 
 #include "BitsetTest.h"
 #include <sk/util/Bitset.h>
+#include <limits>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::util::test::BitsetTest);
 
@@ -46,9 +47,9 @@ testEmpty()
 
   CPPUNIT_ASSERT(bitset.isOn(0) == false);
   CPPUNIT_ASSERT(bitset.isOn(100) == false);
-  CPPUNIT_ASSERT(bitset.isOn(-1) == false);
+  CPPUNIT_ASSERT(bitset.isOn(uint32_t(-1)) == false);
 
   CPPUNIT_ASSERT(bitset.isOff(0) == true);
   CPPUNIT_ASSERT(bitset.isOff(100) == true);
-  CPPUNIT_ASSERT(bitset.isOff(-1) == true);
+  CPPUNIT_ASSERT(bitset.isOff(std::numeric_limits<uint32_t>::max()) == true);
 }
