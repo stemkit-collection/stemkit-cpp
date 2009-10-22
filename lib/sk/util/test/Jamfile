@@ -40,6 +40,7 @@ test-objects =
   PropertiesTest.cc
   InspectTest.cc
   PrettyPrinterTest.cc
+  BitsetTest.cc
 ;
 
 use-project-library $(test) : sk.util sk.cppunit ;

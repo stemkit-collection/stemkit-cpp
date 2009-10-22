@@ -69,3 +69,17 @@ inspect() const
 
   return stream.str();
 }
+
+uint32_t
+sk::util::Bitset::
+getMin() const
+{
+  return _min;
+}
+
+uint32_t
+sk::util::Bitset::
+getMax() const
+{
+  return _max;
+}

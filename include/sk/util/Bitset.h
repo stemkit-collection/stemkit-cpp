@@ -25,6 +25,9 @@ namespace sk {
 
         inline bool isOn(uint32_t index) const;
         inline bool isOff(uint32_t index) const;
+
+        uint32_t getMin() const;
+        uint32_t getMax() const;
     
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
