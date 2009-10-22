@@ -30,6 +30,7 @@ objects =
   Properties.cc
   inspect.cc
   PrettyPrinter.cc
+  Bitset.cc
 ;
 
 make-library $(library) : $(objects) ;
