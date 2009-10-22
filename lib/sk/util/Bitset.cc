@@ -85,20 +85,6 @@ getMax() const
   return _max;
 }
 
-bool
-sk::util::Bitset::
-flip(uint32_t index) 
-{
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
-}
-
-bool
-sk::util::Bitset::
-set(uint32_t index) 
-{
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
-}
-
 void
 sk::util::Bitset::
 clearAll()
@@ -120,3 +106,9 @@ setAll()
   throw sk::util::UnsupportedOperationException(SK_METHOD);
 }
 
+void
+sk::util::Bitset::
+ensure(uint32_t index) 
+{
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
+}

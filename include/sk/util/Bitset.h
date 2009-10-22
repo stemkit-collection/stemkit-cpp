@@ -26,9 +26,8 @@ namespace sk {
         inline bool isOn(uint32_t index) const;
         inline bool isOff(uint32_t index) const;
         inline bool clear(uint32_t index);
-
-        bool flip(uint32_t index);
-        bool set(uint32_t index);
+        inline bool flip(uint32_t index);
+        inline bool set(uint32_t index);
 
         void clearAll();
         void flipAll();
@@ -44,6 +43,8 @@ namespace sk {
       private:
         Bitset(const Bitset& other);
         Bitset& operator = (const Bitset& other);
+
+        void ensure(uint32_t index);
 
         static inline uint32_t block(uint32_t index);
         static inline uint32_t bit(uint32_t index);
@@ -73,13 +74,32 @@ inline bool
 sk::util::Bitset::
 clear(uint32_t index) 
 {
-  if(index < _min || index >= _max) {
+  if(isOn(index) == true) {
+    _depot[block(index)] &= ~bit(index);
+    return true;
+  }
+  return false;
+}
+
+inline bool
+sk::util::Bitset::
+flip(uint32_t index) 
+{
+  ensure(index);
+  return !(_depot[block(index)] ^= bit(index));
+}
+
+inline bool
+sk::util::Bitset::
+set(uint32_t index) 
+{
+  if(isOn(index) == false) {
+    ensure(index);
+    _depot[block(index)] |= bit(index);
+
     return false;
   }
-  bool previous = isOn(index);
-  _depot[block(index)] &= ~bit(index);
-
-  return previous;
+  return true;
 }
 
 inline uint32_t

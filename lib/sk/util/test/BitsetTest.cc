@@ -52,4 +52,6 @@ testEmpty()
   CPPUNIT_ASSERT(bitset.isOff(0) == true);
   CPPUNIT_ASSERT(bitset.isOff(100) == true);
   CPPUNIT_ASSERT(bitset.isOff(std::numeric_limits<uint32_t>::max()) == true);
+
+  CPPUNIT_ASSERT_EQUAL("0<>0", bitset.inspect());
 }
