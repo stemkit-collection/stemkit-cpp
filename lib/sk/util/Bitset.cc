@@ -16,7 +16,6 @@
 
 #include <sstream>
 #include <algorithm>
-#include <malloc.h>
 
 static const sk::util::String __className("sk::util::Bitset");
 
@@ -43,9 +42,6 @@ Bitset(uint32_t lowerBound, uint32_t upperBound)
 sk::util::Bitset::
 ~Bitset()
 {
-  if(_depot) {
-    free(_depot);
-  }
 }
 
 const sk::util::Class
