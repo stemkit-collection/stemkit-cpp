@@ -52,20 +52,28 @@ getClass() const
   return sk::util::Class(__className);
 }
 
+namespace {
+  struct Inspector {
+    Inspector(std::ostream& stream)
+      : _stream(stream) {}
+
+    void operator()(uint32_t value) const {
+      for(int index=32; index; --index, value >>= 1) {
+        _stream <<  (value & 1);
+      }
+    }
+    std::ostream& _stream;
+  };
+}
+
 const sk::util::String
 sk::util::Bitset::
 inspect() const
 {
   std::stringstream stream;
-  stream << _min << '<';
 
-  int size = (_max - _min) >> 5;
-  for(int index=0; index < size; ++index) {
-    uint32_t value = _depot[index];
-    for(int index=32; index; --index, value >>= 1) {
-      stream <<  (value & 1);
-    }
-  }
+  stream << _min << '<';
+  std::for_each(_container.begin(), _container.end(), Inspector(stream));
   stream << '>' << _max;
 
   return stream.str();
@@ -94,7 +102,7 @@ clearAll()
 
 namespace {
   struct Flipper {
-    void operator()(uint32_t& value) {
+    void operator()(uint32_t& value) const {
       value ^= std::numeric_limits<uint32_t>::max();
     }
   };
