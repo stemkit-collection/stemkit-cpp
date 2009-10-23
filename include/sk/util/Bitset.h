@@ -31,10 +31,6 @@ namespace sk {
         inline bool flip(uint32_t index);
         inline bool set(uint32_t index);
 
-        void setUpperBound(uint32_t upper);
-        void setLowerBound(uint32_t upper);
-        void setBounds(uint32_t lower, uint32_t upper);
-
         void clearAll();
         void flipAll();
         void setAll();
@@ -44,6 +40,12 @@ namespace sk {
 
         int capacity() const;
     
+        void setUpperBound(uint32_t upper);
+        void setLowerBound(uint32_t upper);
+        void setBounds(uint32_t lower, uint32_t upper);
+        void ensure(uint32_t index);
+        void compact();
+
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
         const sk::util::String inspect() const;
@@ -51,8 +53,6 @@ namespace sk {
       private:
         Bitset(const Bitset& other);
         Bitset& operator = (const Bitset& other);
-
-        void ensure(uint32_t index);
 
         static inline uint32_t block(uint32_t index);
         static inline uint32_t bit(uint32_t index);

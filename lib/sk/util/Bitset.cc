@@ -114,6 +114,13 @@ setAll()
   std::fill(_container.begin(), _container.end(), std::numeric_limits<uint32_t>::max());
 }
 
+void 
+sk::util::Bitset::
+compact() 
+{
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
+}
+
 void
 sk::util::Bitset::
 ensure(uint32_t index) 
