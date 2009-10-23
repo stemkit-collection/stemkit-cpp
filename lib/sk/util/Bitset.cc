@@ -24,6 +24,7 @@ sk::util::Bitset::
 Bitset()
   : _max(0), _min(0)
 {
+  setBounds(32, 0);
 }
 
 sk::util::Bitset::
@@ -126,7 +127,13 @@ void
 sk::util::Bitset::
 compact() 
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  container::iterator first = std::find_if(_container.begin(), _container.end(), std::bind2nd(std::not_equal_to<uint32_t>(), 0));
+  if(first == _container.end()) {
+    setBounds(32, 0);
+    return;
+  }
+  container::reverse_iterator last = std::find_if(_container.rbegin(), _container.rend(), std::bind2nd(std::not_equal_to<uint32_t>(), 0));
+  setBounds(_min + ((first - _container.begin()) << 5), _max - 1 - ((last - _container.rbegin()) << 5));
 }
 
 void
@@ -161,6 +168,16 @@ setBounds(uint32_t lowerBound, uint32_t upperBound)
 {
   uint32_t lower = block(lowerBound);
   uint32_t upper = std::max(lower, (block(upperBound) + 1));
+
+  if(lower == upper) {
+    _container.clear();
+    _depot = &_container.front();
+
+    _min = 0;
+    _max = 0;
+
+    return;
+  }
 
   uint32_t min = block(_min);
   uint32_t max = block(_max);

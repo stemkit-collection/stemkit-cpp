@@ -147,3 +147,32 @@ testBulk()
   bitset.setAll();
   CPPUNIT_ASSERT_EQUAL("0<11111111111111111111111111111111>32", bitset.inspect());
 }
+
+void 
+sk::util::test::BitsetTest::
+testCompact()
+{
+  sk::util::Bitset bitset(5000);
+  CPPUNIT_ASSERT_EQUAL(157, bitset.capacity());
+  CPPUNIT_ASSERT_EQUAL(uint32_t(0), bitset.getMin());
+  CPPUNIT_ASSERT_EQUAL(uint32_t(5024), bitset.getMax());
+
+  bitset.set(5020 - 32);
+  bitset.compact();
+
+  CPPUNIT_ASSERT_EQUAL(1, bitset.capacity());
+  CPPUNIT_ASSERT_EQUAL(uint32_t(5024 - 32 - 32), bitset.getMin());
+  CPPUNIT_ASSERT_EQUAL(uint32_t(5024 - 32), bitset.getMax());
+  // CPPUNIT_ASSERT_EQUAL("0<>32", bitset.inspect());
+
+  CPPUNIT_ASSERT(bitset.isOn(5020 - 32) == true);
+  CPPUNIT_ASSERT(bitset.clear(5020 - 32) == true);
+  CPPUNIT_ASSERT(bitset.clear(5020 - 32) == false);
+  CPPUNIT_ASSERT(bitset.isOn(5020 - 32) == false);
+
+  bitset.compact();
+
+  CPPUNIT_ASSERT_EQUAL(0, bitset.capacity());
+  CPPUNIT_ASSERT_EQUAL(uint32_t(0), bitset.getMin());
+  CPPUNIT_ASSERT_EQUAL(uint32_t(0), bitset.getMax());
+}

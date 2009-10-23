@@ -57,7 +57,8 @@ namespace sk {
         static inline uint32_t block(uint32_t index);
         static inline uint32_t bit(uint32_t index);
 
-        std::vector<uint32_t> _container;
+        typedef std::vector<uint32_t> container;
+        container _container;
         uint32_t* _depot;
         uint32_t _min;
         uint32_t _max;
@@ -69,7 +70,7 @@ inline bool
 sk::util::Bitset::
 isOn(uint32_t index) const
 {
-  return (index < _min || index >= _max) ? false : _depot[block(index)] & bit(index);
+  return (index < _min || index >= _max) ? false : _depot[block(index - _min)] & bit(index);
 }
 
 inline bool
@@ -84,7 +85,7 @@ sk::util::Bitset::
 clear(uint32_t index) 
 {
   if(isOn(index) == true) {
-    _depot[block(index)] &= ~bit(index);
+    _depot[block(index - _min)] &= ~bit(index);
     return true;
   }
   return false;
@@ -95,7 +96,7 @@ sk::util::Bitset::
 flip(uint32_t index) 
 {
   ensure(index);
-  return !(_depot[block(index)] ^= bit(index));
+  return !(_depot[block(index - _min)] ^= bit(index));
 }
 
 inline bool
@@ -104,7 +105,7 @@ set(uint32_t index)
 {
   if(isOn(index) == false) {
     ensure(index);
-    _depot[block(index)] |= bit(index);
+    _depot[block(index - _min)] |= bit(index);
 
     return false;
   }
