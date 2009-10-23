@@ -58,11 +58,11 @@ inspect() const
   std::stringstream stream;
   stream << _min << '<';
 
-  int size = _max - _min;
+  int size = (_max - _min) >> 5;
   for(int index=0; index < size; ++index) {
     uint32_t value = _depot[index];
     for(int index=32; index; --index, value >>= 1) {
-      stream << '0' + (value & 1);
+      stream <<  (value & 1);
     }
   }
   stream << '>' << _max;
@@ -121,7 +121,7 @@ void
 sk::util::Bitset::
 setLowerBound(uint32_t bound)
 {
-  setBounds(bound, _max);
+  setBounds(bound, _max - 1);
 }
 
 void 
@@ -148,8 +148,8 @@ setBounds(uint32_t lowerBound, uint32_t upperBound)
   int new_size = old_size + lower_delta + upper_delta;
 
   if(new_size > old_size) {
-    _depotContainer.resize(new_size);
-    _depot = &_depotContainer.front();
+    _container.resize(new_size);
+    _depot = &_container.front();
   }
 
   if(lower_delta > 0) {
@@ -165,10 +165,16 @@ setBounds(uint32_t lowerBound, uint32_t upperBound)
     std::fill(_depot + old_size, _depot + new_size, 0);
   }
   else {
-    _depotContainer.resize(new_size);
-    _depot = &_depotContainer.front();
+    _container.resize(new_size);
+    _depot = &_container.front();
   }
-  _min = lower;
-  _max = upper;
+  _min = lower << 5;
+  _max = upper << 5;
 }
 
+int 
+sk::util::Bitset::
+capacity() const 
+{
+  return _container.size();
+}

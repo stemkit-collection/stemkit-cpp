@@ -41,6 +41,8 @@ namespace sk {
 
         uint32_t getMin() const;
         uint32_t getMax() const;
+
+        int capacity() const;
     
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
@@ -55,7 +57,7 @@ namespace sk {
         static inline uint32_t block(uint32_t index);
         static inline uint32_t bit(uint32_t index);
 
-        std::vector<uint32_t> _depotContainer;
+        std::vector<uint32_t> _container;
         uint32_t* _depot;
         uint32_t _min;
         uint32_t _max;

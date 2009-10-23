@@ -22,6 +22,8 @@ namespace sk {
       {
         CPPUNIT_TEST_SUITE(sk::util::test::BitsetTest);
           CPPUNIT_TEST(testEmpty);
+          CPPUNIT_TEST(testUpperBounds);
+          CPPUNIT_TEST(testImplicitCapacityAdjustment);
         CPPUNIT_TEST_SUITE_END();
       
         public:
@@ -31,6 +33,8 @@ namespace sk {
           void setUp();
           void tearDown();
           void testEmpty();
+          void testUpperBounds();
+          void testImplicitCapacityAdjustment();
       
         private:
           BitsetTest(const BitsetTest& other);
