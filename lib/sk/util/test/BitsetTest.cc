@@ -125,3 +125,25 @@ testImplicitCapacityAdjustment()
   CPPUNIT_ASSERT(bitset.isOn(1022) == true);
   CPPUNIT_ASSERT_EQUAL("992<00000000000000000000000000000010>1024", bitset.inspect());
 }
+
+void 
+sk::util::test::BitsetTest::
+testBulk() 
+{
+  Bitset bitset;
+
+  bitset.set(4);
+  bitset.set(6);
+  bitset.flip(8);
+
+  CPPUNIT_ASSERT_EQUAL("0<00001010100000000000000000000000>32", bitset.inspect());
+
+  bitset.flipAll();
+  CPPUNIT_ASSERT_EQUAL("0<11110101011111111111111111111111>32", bitset.inspect());
+  
+  bitset.clearAll();
+  CPPUNIT_ASSERT_EQUAL("0<00000000000000000000000000000000>32", bitset.inspect());
+
+  bitset.setAll();
+  CPPUNIT_ASSERT_EQUAL("0<11111111111111111111111111111111>32", bitset.inspect());
+}

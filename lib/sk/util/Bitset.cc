@@ -15,6 +15,7 @@
 #include <sk/util/InsufficientMemoryException.h>
 
 #include <sstream>
+#include <limits>
 #include <algorithm>
 
 static const sk::util::String __className("sk::util::Bitset");
@@ -88,21 +89,29 @@ void
 sk::util::Bitset::
 clearAll()
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  std::fill(_container.begin(), _container.end(), 0);
+}
+
+namespace {
+  struct Flipper {
+    void operator()(uint32_t& value) {
+      value ^= std::numeric_limits<uint32_t>::max();
+    }
+  };
 }
 
 void 
 sk::util::Bitset::
 flipAll() 
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  std::for_each(_container.begin(), _container.end(), Flipper());
 }
 
 void
 sk::util::Bitset::
 setAll()
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  std::fill(_container.begin(), _container.end(), std::numeric_limits<uint32_t>::max());
 }
 
 void
