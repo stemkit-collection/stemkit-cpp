@@ -26,4 +26,4 @@ make-subdirs $(PLATFORM_IMPLEMENTATION) ;
 add-project-library $(library) : $(library).$(PLATFORM_IMPLEMENTATION) ;
 
 make-subdirs scope logger config bundle tests ;
-make-subdirs thread ;
+make-subdirs thread test ;

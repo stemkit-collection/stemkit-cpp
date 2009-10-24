@@ -1,0 +1,11 @@
+# vim: ft=jam: sw=2
+
+local test = sk-rt-test ;
+local objects = 
+  TestSuite.cc
+  TimerTest.cc
+;
+
+use-project-libraries $(test) : sk.rt.bundle sk.util sk.cppunit ;
+use-unit-test $(test) $(objects) ;
+make-cpp-test $(test) : $(objects) ;

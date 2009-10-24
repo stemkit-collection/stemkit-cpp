@@ -12,6 +12,7 @@
 #define _SK_RT_TIMER_H_
 
 #include <sk/util/Object.h>
+#include <sys/time.h>
 
 namespace sk {
   namespace rt {
@@ -24,6 +25,7 @@ namespace sk {
 
         void start();
         void stop();
+        bool isTicking() const;
     
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
@@ -31,6 +33,11 @@ namespace sk {
       private:
         Timer(const Timer& other);
         Timer& operator = (const Timer& other);
+
+        struct timeval _start;
+        struct timeval _stop;
+        bool _started;
+        bool _stopped;
     };
   }
 }
