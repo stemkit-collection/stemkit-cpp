@@ -8,8 +8,8 @@
  *  Author: Gennady Bystritsky
 */
 
-#ifndef _SK_RT_TEST_TIMERTEST_H_
-#define _SK_RT_TEST_TIMERTEST_H_
+#ifndef _SK_RT_TEST_STOPWATCHTEST_H_
+#define _SK_RT_TEST_STOPWATCHTEST_H_
 
 #include <cppunit/TestFixture.h>
 #include <cppunit/extensions/HelperMacros.h>
@@ -17,27 +17,27 @@
 namespace sk {
   namespace rt {
     namespace test {
-      class TimerTest
+      class StopWatchTest
         : public CppUnit::TestFixture
       {
-        CPPUNIT_TEST_SUITE(sk::rt::test::TimerTest);
+        CPPUNIT_TEST_SUITE(sk::rt::test::StopWatchTest);
           CPPUNIT_TEST(testTicking);
         CPPUNIT_TEST_SUITE_END();
       
         public:
-          TimerTest();
-          virtual ~TimerTest();
+          StopWatchTest();
+          virtual ~StopWatchTest();
       
           void setUp();
           void tearDown();
           void testTicking();
       
         private:
-          TimerTest(const TimerTest& other);
-          TimerTest& operator = (const TimerTest& other);
+          StopWatchTest(const StopWatchTest& other);
+          StopWatchTest& operator = (const StopWatchTest& other);
       };
     }
   }
 }
 
-#endif /* _SK_RT_TEST_TIMERTEST_H_ */
+#endif /* _SK_RT_TEST_STOPWATCHTEST_H_ */

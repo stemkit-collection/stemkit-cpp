@@ -14,7 +14,7 @@
 #include <sk/util/Holder.cxx>
 
 #include <sk/rt/Benchmark.h>
-#include <sk/rt/Timer.h>
+#include <sk/rt/StopWatch.h>
 
 static const sk::util::String __className("sk::rt::Benchmark");
 
@@ -42,7 +42,7 @@ class sk::rt::Benchmark::Item : public virtual sk::util::Object {
   private:
     sk::rt::Scope _scope;
     sk::util::Holder<sk::rt::Runnable> _codeHolder;
-    sk::rt::Timer _timer;
+    sk::rt::StopWatch _timer;
     const sk::util::String _title;
 };
 

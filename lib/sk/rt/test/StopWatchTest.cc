@@ -8,38 +8,38 @@
  *  Author: Gennady Bystritsky
 */
 
-#include "TimerTest.h"
-#include <sk/rt/Timer.h>
+#include "StopWatchTest.h"
+#include <sk/rt/StopWatch.h>
 
-CPPUNIT_TEST_SUITE_REGISTRATION(sk::rt::test::TimerTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(sk::rt::test::StopWatchTest);
 
-sk::rt::test::TimerTest::
-TimerTest()
+sk::rt::test::StopWatchTest::
+StopWatchTest()
 {
 }
 
-sk::rt::test::TimerTest::
-~TimerTest()
+sk::rt::test::StopWatchTest::
+~StopWatchTest()
 {
 }
 
 void
-sk::rt::test::TimerTest::
+sk::rt::test::StopWatchTest::
 setUp()
 {
 }
 
 void
-sk::rt::test::TimerTest::
+sk::rt::test::StopWatchTest::
 tearDown()
 {
 }
 
 void
-sk::rt::test::TimerTest::
+sk::rt::test::StopWatchTest::
 testTicking()
 {
-  sk::rt::Timer timer;
+  sk::rt::StopWatch timer;
 
   CPPUNIT_ASSERT(timer.isTicking() == false);
 

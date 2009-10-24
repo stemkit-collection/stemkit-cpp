@@ -8,20 +8,20 @@
  *  Author: Gennady Bystritsky (gennady.bystritsky@quest.com)
 */
 
-#ifndef _SK_RT_TIMER_H_
-#define _SK_RT_TIMER_H_
+#ifndef _SK_RT_STOPWATCH_H_
+#define _SK_RT_STOPWATCH_H_
 
 #include <sk/util/Object.h>
 #include <sys/time.h>
 
 namespace sk {
   namespace rt {
-    class Timer 
+    class StopWatch 
       : public virtual sk::util::Object
     {
       public:
-        Timer();
-        virtual ~Timer();
+        StopWatch();
+        virtual ~StopWatch();
 
         void start();
         void stop();
@@ -31,8 +31,8 @@ namespace sk {
         const sk::util::Class getClass() const;
     
       private:
-        Timer(const Timer& other);
-        Timer& operator = (const Timer& other);
+        StopWatch(const StopWatch& other);
+        StopWatch& operator = (const StopWatch& other);
 
         struct timeval _start;
         struct timeval _stop;
@@ -42,4 +42,4 @@ namespace sk {
   }
 }
 
-#endif /* _SK_RT_TIMER_H_ */
+#endif /* _SK_RT_STOPWATCH_H_ */

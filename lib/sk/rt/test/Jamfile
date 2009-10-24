@@ -3,7 +3,7 @@
 local test = sk-rt-test ;
 local objects = 
   TestSuite.cc
-  TimerTest.cc
+  StopWatchTest.cc
 ;
 
 use-project-libraries $(test) : sk.rt.bundle sk.util sk.cppunit ;

@@ -11,24 +11,24 @@
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
 
-#include <sk/rt/Timer.h>
+#include <sk/rt/StopWatch.h>
 #include <sk/rt/SystemException.h>
 
-static const sk::util::String __className("sk::rt::Timer");
+static const sk::util::String __className("sk::rt::StopWatch");
 
-sk::rt::Timer::
-Timer()
+sk::rt::StopWatch::
+StopWatch()
   : _started(false), _stopped(false)
 {
 }
 
-sk::rt::Timer::
-~Timer()
+sk::rt::StopWatch::
+~StopWatch()
 {
 }
 
 const sk::util::Class
-sk::rt::Timer::
+sk::rt::StopWatch::
 getClass() const
 {
   return sk::util::Class(__className);
@@ -43,7 +43,7 @@ namespace {
 }
 
 void 
-sk::rt::Timer::
+sk::rt::StopWatch::
 start()
 {
   obtain_current_time(_start);
@@ -52,7 +52,7 @@ start()
 }
 
 void
-sk::rt::Timer::
+sk::rt::StopWatch::
 stop()
 {
   obtain_current_time(_stop);
@@ -60,7 +60,7 @@ stop()
 }
 
 bool
-sk::rt::Timer::
+sk::rt::StopWatch::
 isTicking() const
 {
   return _started == true && _stopped == false;

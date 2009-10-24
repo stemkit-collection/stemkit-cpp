@@ -9,7 +9,7 @@ local objects =
   ProcessInfo.cc
   Locker.cc
   Benchmark.cc
-  Timer.cc
+  StopWatch.cc
 ;
 
 # if $(PLATFORM_IMPLEMENTATION) = win32 || mks32 in $(project.PLATFORM_SPECIFICS) {
