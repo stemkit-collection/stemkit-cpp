@@ -10,6 +10,7 @@
 
 #include "StopWatchTest.h"
 #include <sk/rt/StopWatch.h>
+#include <sk/rt/Thread.h>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::rt::test::StopWatchTest);
 
@@ -39,16 +40,58 @@ void
 sk::rt::test::StopWatchTest::
 testTicking()
 {
-  sk::rt::StopWatch timer;
+  sk::rt::StopWatch stopwatch;
 
-  CPPUNIT_ASSERT(timer.isTicking() == false);
+  CPPUNIT_ASSERT(stopwatch.isTicking() == false);
 
-  timer.stop();
-  CPPUNIT_ASSERT(timer.isTicking() == false);
+  stopwatch.stop();
+  CPPUNIT_ASSERT(stopwatch.isTicking() == false);
 
-  timer.start();
-  CPPUNIT_ASSERT(timer.isTicking() == true);
+  stopwatch.start();
+  CPPUNIT_ASSERT(stopwatch.isTicking() == true);
 
-  timer.stop();
-  CPPUNIT_ASSERT(timer.isTicking() == false);
+  stopwatch.stop();
+  CPPUNIT_ASSERT(stopwatch.isTicking() == false);
 }
+
+void 
+sk::rt::test::StopWatchTest::
+testNotStarted() 
+{
+  sk::rt::StopWatch stopwatch;
+
+  CPPUNIT_ASSERT(stopwatch.isTicking() == false);
+  CPPUNIT_ASSERT(stopwatch.getMilliseconds() == 0);
+
+  stopwatch.stop();
+  CPPUNIT_ASSERT(stopwatch.isTicking() == false);
+  CPPUNIT_ASSERT(stopwatch.getMilliseconds() == 0);
+}
+
+void 
+sk::rt::test::StopWatchTest::
+testChangesUntilStopped()
+{
+  sk::rt::StopWatch stopwatch;
+
+  stopwatch.start();
+  CPPUNIT_ASSERT(stopwatch.isTicking() == true);
+
+  sk::rt::Thread::sleep(10);
+  CPPUNIT_ASSERT(stopwatch.getMilliseconds() != 0);
+
+  uint64_t saved = stopwatch.getMilliseconds();
+
+  sk::rt::Thread::sleep(10);
+  CPPUNIT_ASSERT(stopwatch.getMilliseconds() > saved);
+
+  saved = stopwatch.getMilliseconds();
+  sk::rt::Thread::sleep(10);
+  CPPUNIT_ASSERT(stopwatch.getMilliseconds() > saved);
+
+  stopwatch.stop();
+  saved = stopwatch.getMilliseconds();
+  sk::rt::Thread::sleep(10);
+  CPPUNIT_ASSERT(stopwatch.getMilliseconds() == saved);
+}
+

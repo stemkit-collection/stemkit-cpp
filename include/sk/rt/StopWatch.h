@@ -26,6 +26,7 @@ namespace sk {
         void start();
         void stop();
         bool isTicking() const;
+        uint64_t getMilliseconds() const;
     
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;

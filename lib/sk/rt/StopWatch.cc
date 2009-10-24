@@ -55,8 +55,10 @@ void
 sk::rt::StopWatch::
 stop()
 {
-  obtain_current_time(_stop);
-  _stopped = _started;
+  if(isTicking() == true) {
+    obtain_current_time(_stop);
+    _stopped = true;
+  }
 }
 
 bool
@@ -64,4 +66,18 @@ sk::rt::StopWatch::
 isTicking() const
 {
   return _started == true && _stopped == false;
+}
+
+uint64_t
+sk::rt::StopWatch::
+getMilliseconds() const
+{
+  if(_started == false) {
+    return 0;
+  }
+  struct timeval last = _stop;
+  if(_stopped == false) {
+    obtain_current_time(last);
+  }
+  return (last.tv_sec - _start.tv_sec) * 1000 + (last.tv_usec - _start.tv_usec) / 1000;
 }

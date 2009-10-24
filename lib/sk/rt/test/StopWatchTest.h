@@ -22,6 +22,8 @@ namespace sk {
       {
         CPPUNIT_TEST_SUITE(sk::rt::test::StopWatchTest);
           CPPUNIT_TEST(testTicking);
+          CPPUNIT_TEST(testNotStarted);
+          CPPUNIT_TEST(testChangesUntilStopped);
         CPPUNIT_TEST_SUITE_END();
       
         public:
@@ -31,6 +33,8 @@ namespace sk {
           void setUp();
           void tearDown();
           void testTicking();
+          void testNotStarted();
+          void testChangesUntilStopped();
       
         private:
           StopWatchTest(const StopWatchTest& other);
