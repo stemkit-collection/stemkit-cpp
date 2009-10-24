@@ -95,3 +95,18 @@ testChangesUntilStopped()
   CPPUNIT_ASSERT(stopwatch.getMilliseconds() == saved);
 }
 
+void 
+sk::rt::test::StopWatchTest::
+testInspect() 
+{
+  sk::rt::StopWatch stopwatch;
+  CPPUNIT_ASSERT_EQUAL("<StopWatch: not started, 00:00:00.000>", stopwatch.inspect());
+
+  stopwatch.start();
+  sk::rt::Thread::sleep(10);
+  CPPUNIT_ASSERT_EQUAL("<StopWatch: running, 00:00:00.", stopwatch.inspect().substring(0, 30));
+
+  stopwatch.stop();
+  sk::rt::Thread::sleep(10);
+  CPPUNIT_ASSERT_EQUAL("<StopWatch: stopped, 00:00:00.0" + sk::util::String::valueOf(stopwatch.getMilliseconds()) + '>', stopwatch.inspect());
+}

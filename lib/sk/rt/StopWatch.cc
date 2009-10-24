@@ -10,9 +10,13 @@
 
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
+#include <sk/util/StringArray.h>
 
 #include <sk/rt/StopWatch.h>
 #include <sk/rt/SystemException.h>
+
+#include <sstream>
+#include <iomanip>
 
 static const sk::util::String __className("sk::rt::StopWatch");
 
@@ -81,3 +85,43 @@ getMilliseconds() const
   }
   return (last.tv_sec - _start.tv_sec) * 1000 + (last.tv_usec - _start.tv_usec) / 1000;
 }
+
+const sk::util::String
+sk::rt::StopWatch::
+toString() const
+{
+  uint64_t current = getMilliseconds();
+  uint64_t seconds = current / 1000;
+  uint64_t minutes = seconds / 60;
+
+  std::ostringstream stream;
+  stream.fill('0');
+  stream 
+    << std::setw(2) << minutes / 60 << ':' 
+    << std::setw(2) << minutes % 60 << ':' 
+    << std::setw(2) << seconds % 60 << '.' 
+    << std::setw(3) << current % 1000
+  ;
+  return stream.str();
+}
+
+const sk::util::String
+sk::rt::StopWatch::
+inspect() const
+{
+  sk::util::StringArray depot;
+  if(_started == false) {
+    depot << "not started";
+  }
+  else if(_stopped == true) {
+    depot << "stopped";
+  }
+  else {
+    depot << "running";
+  }
+  depot << toString();
+
+  return "<StopWatch: " + depot.join(", ") + '>';
+}
+
+

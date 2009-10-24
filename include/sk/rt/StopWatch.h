@@ -30,6 +30,8 @@ namespace sk {
     
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
+        const sk::util::String toString() const;
+        const sk::util::String inspect() const;
     
       private:
         StopWatch(const StopWatch& other);
