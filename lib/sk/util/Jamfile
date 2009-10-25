@@ -36,4 +36,4 @@ objects =
 make-library $(library) : $(objects) ;
 add-project-library $(library) : $(library).pp ;
 
-make-subdir test pp ;
+make-subdir pp test performance ;

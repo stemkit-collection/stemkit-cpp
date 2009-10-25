@@ -16,18 +16,23 @@
 #include <sk/util/ArrayList.hxx>
 #include <sk/rt/Runnable.h>
 #include <sk/rt/Scope.h>
+#include <sk/rt/Benchmarkable.h>
 
 namespace sk {
   namespace rt {
     class Benchmark 
-      : public virtual sk::rt::Runnable
+      : public virtual sk::rt::Benchmarkable
     {
       public:
         Benchmark(const sk::util::String& title);
         virtual ~Benchmark();
 
         void add(const sk::util::String& name, sk::rt::Runnable* code);
-        void start();
+        void add(sk::rt::Benchmarkable* code);
+
+        // sk::rt::Benchmarkable implementation
+        void start() throw();
+        void report(int indent, std::ostream& stream) const;
     
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
@@ -36,14 +41,9 @@ namespace sk {
         Benchmark(const Benchmark& other);
         Benchmark& operator = (const Benchmark& other);
 
-        // sk::rt::Runnable implementation.
-        void run();
-    
         sk::rt::Scope _scope;
         const sk::util::String _title;
-
-        class Item;
-        sk::util::ArrayList<Item> _items;
+        sk::util::ArrayList<Benchmarkable> _items;
     };
   }
 }

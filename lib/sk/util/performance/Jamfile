@@ -1,0 +1,11 @@
+# vim: ft=jam: sw=2
+
+local program = sk-util-benchmarks ;
+
+local objects = 
+  Suite.cc
+  StringBenchmarks.cc
+;
+
+use-project-libraries $(program) : sk.rt.bundle sk.util ;
+make-program $(program) : $(objects) ;

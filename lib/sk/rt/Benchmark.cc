@@ -10,6 +10,7 @@
 
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
+#include <sk/util/UnsupportedOperationException.h>
 #include <sk/util/ArrayList.cxx>
 #include <sk/util/Holder.cxx>
 
@@ -18,33 +19,39 @@
 
 static const sk::util::String __className("sk::rt::Benchmark");
 
-class sk::rt::Benchmark::Item : public virtual sk::util::Object {
-  public:
-    Item(const sk::rt::Scope& parent, const sk::util::String& title, sk::rt::Runnable* code)
-      : _scope(parent.scope("Item")), _title(title), _codeHolder(code) {}
+namespace {
+  class BenchmarkItem : public virtual sk::rt::Benchmarkable {
+    public:
+      BenchmarkItem(const sk::rt::Scope& parent, const sk::util::String& title, sk::rt::Runnable* code)
+        : _scope(parent.scope("Item")), _title(title), _codeHolder(code) {}
 
-    void perform() {
-      _scope.info(_title) << "START";
-      try {
-        sk::rt::Runnable& code = _codeHolder.get();
+      void start() throw() {
+        _scope.info(_title) << "START";
+        try {
+          sk::rt::Runnable& code = _codeHolder.get();
 
-        _timer.start();
-        code.run();
-        _timer.stop();
+          _timer.start();
+          code.run();
+          _timer.stop();
+        }
+        catch(const std::exception& exception) {
+          _timer.stop();
+          _scope.error(_title) << exception.what();
+        }
+        _scope.info(_title) << "END: " << _timer.inspect();
       }
-      catch(const std::exception& exception) {
-        _timer.stop();
-        _scope.error(_title) << exception.what();
-      }
-      _scope.info(_title) << "END: " << _timer.inspect();
-    }
 
-  private:
-    sk::rt::Scope _scope;
-    sk::util::Holder<sk::rt::Runnable> _codeHolder;
-    sk::rt::StopWatch _timer;
-    const sk::util::String _title;
-};
+      void report(int indent, std::ostream& stream) const {
+        throw sk::util::UnsupportedOperationException(SK_METHOD);
+      }
+
+    private:
+      sk::rt::Scope _scope;
+      sk::util::Holder<sk::rt::Runnable> _codeHolder;
+      sk::rt::StopWatch _timer;
+      const sk::util::String _title;
+  };
+}
 
 sk::rt::Benchmark::
 Benchmark(const sk::util::String& title)
@@ -66,18 +73,11 @@ getClass() const
 
 void
 sk::rt::Benchmark::
-run()
+start() throw()
 {
-  start();
-}
-
-void
-sk::rt::Benchmark::
-start()
-{
-  struct Performer : public virtual sk::util::Processor<Item> {
-    void process(Item& item) const {
-      item.perform();
+  struct Performer : public virtual sk::util::Processor<Benchmarkable> {
+    void process(Benchmarkable& item) const {
+      item.start();
     }
   };
   _scope.info(_title) << "START";
@@ -89,5 +89,19 @@ void
 sk::rt::Benchmark::
 add(const sk::util::String& name, sk::rt::Runnable* code)
 {
-  _items.add(new Item(_scope, name, code));
+  _items.add(new BenchmarkItem(_scope, name, code));
+}
+
+void
+sk::rt::Benchmark::
+add(sk::rt::Benchmarkable* benchmark)
+{
+  _items.add(benchmark);
+}
+
+void 
+sk::rt::Benchmark::
+report(int indent, std::ostream& stream) const
+{
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
 }
