@@ -48,6 +48,7 @@ namespace sk {
         sk::rt::Scope _scope;
         const sk::util::String _title;
         sk::util::ArrayList<Benchmarkable> _items;
+        int _maxTitleSize;
     };
   }
 }

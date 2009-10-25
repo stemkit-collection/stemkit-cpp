@@ -17,13 +17,15 @@
 #include <sk/rt/Benchmark.h>
 #include <sk/rt/StopWatch.h>
 
+#include <iomanip>
+
 static const sk::util::String __className("sk::rt::Benchmark");
 
 namespace {
   class BenchmarkItem : public virtual sk::rt::Benchmarkable {
     public:
-      BenchmarkItem(const sk::rt::Scope& parent, const sk::util::String& title, sk::rt::Runnable* code)
-        : _scope(parent.scope("Item")), _title(title), _codeHolder(code) {}
+      BenchmarkItem(const sk::rt::Scope& parent, const int& maxTitleSize, const sk::util::String& title, sk::rt::Runnable* code)
+        : _scope(parent.scope("Item")), _maxTitleSize(maxTitleSize), _title(title), _codeHolder(code) {}
 
       void start() throw() {
         _scope.info(_title) << "started";
@@ -33,6 +35,8 @@ namespace {
           _stopwatch.start();
           code.run();
           _stopwatch.stop();
+
+          _codeHolder.clear();
         }
         catch(const std::exception& exception) {
           _stopwatch.stop();
@@ -42,7 +46,8 @@ namespace {
       }
 
       void report(int indent, std::ostream& stream) const {
-        throw sk::util::UnsupportedOperationException(SK_METHOD);
+        sk::util::String prefix = sk::util::String(' ') * indent;
+        stream << prefix << std::setw(_maxTitleSize) << _title << ": " << _stopwatch.toString() << std::endl;
       }
 
     private:
@@ -50,6 +55,7 @@ namespace {
       sk::util::Holder<sk::rt::Runnable> _codeHolder;
       sk::rt::StopWatch _stopwatch;
       const sk::util::String _title;
+      const int& _maxTitleSize;
   };
 }
 
@@ -93,7 +99,10 @@ void
 sk::rt::Benchmark::
 add(const sk::util::String& name, sk::rt::Runnable* code)
 {
-  _items.add(new BenchmarkItem(_scope, name, code));
+  if(_maxTitleSize < name.size()) {
+    _maxTitleSize = name.size();
+  }
+  _items.add(new BenchmarkItem(_scope, _maxTitleSize, name, code));
 }
 
 void
@@ -103,11 +112,27 @@ add(sk::rt::Benchmarkable* benchmark)
   _items.add(benchmark);
 }
 
+namespace {
+  struct Reporter : public virtual sk::util::Processor<sk::rt::Benchmarkable> {
+    Reporter(int indent, std::ostream& stream)
+      : _indent(indent), _stream(stream) {}
+
+    void process(sk::rt::Benchmarkable& benchmark) const {
+      benchmark.report(_indent, _stream);
+    }
+    int _indent;
+    std::ostream& _stream;
+  };
+}
+
 void 
 sk::rt::Benchmark::
 report(int indent, std::ostream& stream) const
 {
-  // throw sk::util::UnsupportedOperationException(SK_METHOD);
+  sk::util::String prefix = sk::util::String(' ') * indent;
+  stream << prefix << _title << std::endl;
+
+  _items.forEach(Reporter(indent + 2, stream));
 }
 
 void 

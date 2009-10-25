@@ -38,6 +38,16 @@ namespace {
     void run() {
       for(int counter = 100000; counter; --counter) {
         sk::util::String* s = new sk::util::String("abc");
+        delete s;
+      }
+    }
+  };
+
+  struct StandardStringCreation : public virtual sk::rt::Runnable {
+    void run() {
+      for(int counter = 100000; counter; --counter) {
+        std::string* s = new std::string("abc");
+        delete s;
       }
     }
   };
@@ -48,4 +58,5 @@ sk::util::performance::StringBenchmarks::
 setUp()
 {
   add("100,000 sk::util::String", new StringCreation());
+  add("100,000 std::string", new StandardStringCreation());
 }
