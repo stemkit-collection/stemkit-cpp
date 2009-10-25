@@ -74,7 +74,7 @@ isTicking() const
 
 uint64_t
 sk::rt::StopWatch::
-getMilliseconds() const
+getMicroseconds() const
 {
   if(_started == false) {
     return 0;
@@ -83,15 +83,23 @@ getMilliseconds() const
   if(_stopped == false) {
     obtain_current_time(last);
   }
-  return (last.tv_sec - _start.tv_sec) * 1000 + (last.tv_usec - _start.tv_usec) / 1000;
+  return (last.tv_sec - _start.tv_sec) * 1000000 + (last.tv_usec - _start.tv_usec);
+}
+
+uint64_t
+sk::rt::StopWatch::
+getMilliseconds() const
+{
+  return getMicroseconds() / 1000;
 }
 
 const sk::util::String
 sk::rt::StopWatch::
 toString() const
 {
-  uint64_t current = getMilliseconds();
-  uint64_t seconds = current / 1000;
+  uint64_t current = getMicroseconds();
+  uint64_t milliseconds = current / 1000;
+  uint64_t seconds = milliseconds / 1000;
   uint64_t minutes = seconds / 60;
 
   std::ostringstream stream;
@@ -100,6 +108,7 @@ toString() const
     << std::setw(2) << minutes / 60 << ':' 
     << std::setw(2) << minutes % 60 << ':' 
     << std::setw(2) << seconds % 60 << '.' 
+    << std::setw(3) << milliseconds % 1000 << ','
     << std::setw(3) << current % 1000
   ;
   return stream.str();
