@@ -27,6 +27,10 @@ namespace sk {
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
 
+        protected:
+          // sk::rt::Benchmark re-implementation.
+          void setUp();
+
         private:
           StringBenchmarks(const StringBenchmarks& other);
           StringBenchmarks& operator = (const StringBenchmarks& other);

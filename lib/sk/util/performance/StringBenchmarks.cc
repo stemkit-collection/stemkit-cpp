@@ -32,3 +32,20 @@ getClass() const
 {
   return sk::util::Class(__className);
 }
+
+namespace {
+  struct StringCreation : public virtual sk::rt::Runnable {
+    void run() {
+      for(int counter = 100000; counter; --counter) {
+        sk::util::String* s = new sk::util::String("abc");
+      }
+    }
+  };
+}
+
+void 
+sk::util::performance::StringBenchmarks::
+setUp()
+{
+  add("100,000 sk::util::String", new StringCreation());
+}

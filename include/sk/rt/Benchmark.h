@@ -37,6 +37,10 @@ namespace sk {
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
 
+      protected:
+        virtual void setUp();
+        virtual void tearDown();
+
       private:
         Benchmark(const Benchmark& other);
         Benchmark& operator = (const Benchmark& other);

@@ -26,19 +26,19 @@ namespace {
         : _scope(parent.scope("Item")), _title(title), _codeHolder(code) {}
 
       void start() throw() {
-        _scope.info(_title) << "START";
+        _scope.info(_title) << "started";
         try {
           sk::rt::Runnable& code = _codeHolder.get();
 
-          _timer.start();
+          _stopwatch.start();
           code.run();
-          _timer.stop();
+          _stopwatch.stop();
         }
         catch(const std::exception& exception) {
-          _timer.stop();
+          _stopwatch.stop();
           _scope.error(_title) << exception.what();
         }
-        _scope.info(_title) << "END: " << _timer.inspect();
+        _scope.info(_title) << "finished: " << _stopwatch.inspect();
       }
 
       void report(int indent, std::ostream& stream) const {
@@ -48,7 +48,7 @@ namespace {
     private:
       sk::rt::Scope _scope;
       sk::util::Holder<sk::rt::Runnable> _codeHolder;
-      sk::rt::StopWatch _timer;
+      sk::rt::StopWatch _stopwatch;
       const sk::util::String _title;
   };
 }
@@ -75,14 +75,18 @@ void
 sk::rt::Benchmark::
 start() throw()
 {
+  setUp();
+
   struct Performer : public virtual sk::util::Processor<Benchmarkable> {
     void process(Benchmarkable& item) const {
       item.start();
     }
   };
-  _scope.info(_title) << "START";
+  _scope.info(_title) << "started";
   _items.forEach(Performer());
-  _scope.info(_title) << "END";
+  _scope.info(_title) << "finished";
+
+  tearDown();
 }
 
 void
@@ -103,5 +107,17 @@ void
 sk::rt::Benchmark::
 report(int indent, std::ostream& stream) const
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  // throw sk::util::UnsupportedOperationException(SK_METHOD);
+}
+
+void 
+sk::rt::Benchmark::
+setUp()
+{
+}
+
+void
+sk::rt::Benchmark::
+tearDown()
+{
 }
