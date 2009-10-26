@@ -97,12 +97,28 @@ start() throw()
 
 void
 sk::rt::Benchmark::
-add(const sk::util::String& name, sk::rt::Runnable* code)
+add(const sk::util::String& title, sk::rt::Runnable* code)
 {
-  if(_maxTitleSize < name.size()) {
-    _maxTitleSize = name.size();
+  if(_maxTitleSize < title.size()) {
+    _maxTitleSize = title.size();
   }
-  _items.add(new BenchmarkItem(_scope, _maxTitleSize, name, code));
+  _items.add(new BenchmarkItem(_scope, _maxTitleSize, title, code));
+}
+
+void
+sk::rt::Benchmark::
+add(const sk::util::String& title, function_t code)
+{
+  struct FunctionAdaptor : public sk::rt::Runnable {
+    FunctionAdaptor(function_t* code) 
+      : _code(code) {}
+
+    void run() {
+      _code();
+    }
+    function_t* _code;
+  };
+  add(title, new FunctionAdaptor(code));
 }
 
 void

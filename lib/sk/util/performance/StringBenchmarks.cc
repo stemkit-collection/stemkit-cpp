@@ -10,6 +10,8 @@
 
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
+#include <sk/util/InsufficientMemoryException.h>
+#include <memory.h>
 
 #include "StringBenchmarks.h"
 
@@ -53,10 +55,24 @@ namespace {
   };
 }
 
+namespace {
+  void c_string_creation() {
+    for(int counter = 100000; counter; --counter) {
+      char* s = (char*)malloc(4);
+      if(s == 0) {
+        throw sk::util::InsufficientMemoryException("plain C string", 4);
+      }
+      strcpy(s, "abc");
+      free(s);
+    }
+  }
+}
+
 void 
 sk::util::performance::StringBenchmarks::
 setUp()
 {
   add("100,000 sk::util::String", new StringCreation());
   add("100,000 std::string", new StandardStringCreation());
+  add("100,000 char*", c_string_creation);
 }

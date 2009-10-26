@@ -23,11 +23,13 @@ namespace sk {
     class Benchmark 
       : public virtual sk::rt::Benchmarkable
     {
+      typedef void (function_t)(void);
       public:
         Benchmark(const sk::util::String& title);
         virtual ~Benchmark();
 
-        void add(const sk::util::String& name, sk::rt::Runnable* code);
+        void add(const sk::util::String& title, sk::rt::Runnable* code);
+        void add(const sk::util::String& title, function_t* code);
         void add(sk::rt::Benchmarkable* code);
         void add(sk::rt::Benchmarkable& code);
 
