@@ -18,7 +18,7 @@ namespace sk {
   namespace util {
     namespace performance {
       class StringBenchmarks 
-        : public virtual sk::rt::Benchmark
+        : public sk::rt::Benchmark
       {
         public:
           StringBenchmarks();

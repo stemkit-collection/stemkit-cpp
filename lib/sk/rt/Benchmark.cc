@@ -112,6 +112,13 @@ add(sk::rt::Benchmarkable* benchmark)
   _items.add(benchmark);
 }
 
+void
+sk::rt::Benchmark::
+add(sk::rt::Benchmarkable& benchmark)
+{
+  _items.add(benchmark);
+}
+
 namespace {
   struct Reporter : public virtual sk::util::Processor<sk::rt::Benchmarkable> {
     Reporter(int indent, std::ostream& stream)

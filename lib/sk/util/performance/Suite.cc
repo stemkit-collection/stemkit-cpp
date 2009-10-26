@@ -19,6 +19,9 @@
 int main(int argc, const char* argv[])
 {
   sk::rt::Benchmark benchmark("stemkit-cpp util benchmarks");
+  sk::util::performance::StringBenchmarks stringBenchmark;
+
+  benchmark.add(stringBenchmark);
   benchmark.add(new sk::util::performance::StringBenchmarks());
 
   benchmark.start();

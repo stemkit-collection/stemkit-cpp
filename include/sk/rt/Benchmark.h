@@ -29,6 +29,7 @@ namespace sk {
 
         void add(const sk::util::String& name, sk::rt::Runnable* code);
         void add(sk::rt::Benchmarkable* code);
+        void add(sk::rt::Benchmarkable& code);
 
         // sk::rt::Benchmarkable implementation
         void start() throw();
