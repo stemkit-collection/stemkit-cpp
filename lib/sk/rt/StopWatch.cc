@@ -97,8 +97,14 @@ const sk::util::String
 sk::rt::StopWatch::
 toString() const
 {
-  uint64_t current = getMicroseconds();
-  uint64_t milliseconds = current / 1000;
+  return toString(getMicroseconds());
+}
+
+const sk::util::String
+sk::rt::StopWatch::
+toString(uint64_t microseconds)
+{
+  uint64_t milliseconds = microseconds / 1000;
   uint64_t seconds = milliseconds / 1000;
   uint64_t minutes = seconds / 60;
 
@@ -109,7 +115,7 @@ toString() const
     << std::setw(2) << minutes % 60 << ':' 
     << std::setw(2) << seconds % 60 << '.' 
     << std::setw(3) << milliseconds % 1000 << ','
-    << std::setw(3) << current % 1000
+    << std::setw(3) << microseconds % 1000
   ;
   return stream.str();
 }

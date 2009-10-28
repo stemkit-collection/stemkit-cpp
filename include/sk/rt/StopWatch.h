@@ -28,6 +28,8 @@ namespace sk {
         bool isTicking() const;
         uint64_t getMicroseconds() const;
         uint64_t getMilliseconds() const;
+
+        static const sk::util::String toString(uint64_t microseconds);
     
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
