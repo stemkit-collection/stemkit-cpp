@@ -12,10 +12,6 @@
 #define _SK_RT_BENCHMARK_H_
 
 #include <sk/util/Object.h>
-#include <sk/util/String.h>
-#include <sk/util/ArrayList.hxx>
-#include <sk/rt/Runnable.h>
-#include <sk/rt/Scope.h>
 #include <sk/rt/Benchmarkable.h>
 
 namespace sk {
@@ -23,36 +19,13 @@ namespace sk {
     class Benchmark 
       : public virtual sk::rt::Benchmarkable
     {
-      typedef void (function_t)(void);
-
       public:
-        Benchmark(const sk::util::String& title);
-        virtual ~Benchmark();
-
-        void add(const sk::util::String& title, sk::rt::Runnable* code);
-        void add(const sk::util::String& title, function_t* code);
-        void add(sk::rt::Benchmarkable* code);
-        void add(sk::rt::Benchmarkable& code);
-
         // sk::rt::Benchmarkable implementation
-        void init();
-        void start() throw();
-        void report(int indent, std::ostream& stream) const;
+        void setup();
+        void reset();
     
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
-
-      protected:
-        virtual void setUp();
-
-      private:
-        Benchmark(const Benchmark& other);
-        Benchmark& operator = (const Benchmark& other);
-
-        sk::rt::Scope _scope;
-        const sk::util::String _title;
-        sk::util::ArrayList<Benchmarkable> _items;
-        int _maxTitleSize;
     };
   }
 }

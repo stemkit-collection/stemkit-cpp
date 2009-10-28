@@ -1,0 +1,9 @@
+# vim: ft=jam: sw=2
+
+local library = sk.rt.bm ;
+
+local objects = 
+  Executor.cc
+;
+
+make-static-library $(library) : $(objects) ;

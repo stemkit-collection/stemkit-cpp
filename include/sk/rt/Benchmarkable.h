@@ -12,7 +12,6 @@
 #define _SK_RT_BENCHMARKABLE_H_
 
 #include <sk/util/Object.h>
-#include <ostream>
 
 namespace sk {
   namespace rt {
@@ -20,9 +19,9 @@ namespace sk {
       : public virtual sk::util::Object
     {
       public:
-        virtual void init() = 0;
-        virtual void start() throw() = 0;
-        virtual void report(int indent, std::ostream& stream) const = 0;
+        virtual void setup() = 0;
+        virtual void run() = 0;
+        virtual void reset() = 0;
     };
   }
 }

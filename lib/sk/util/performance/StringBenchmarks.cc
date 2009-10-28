@@ -11,6 +11,7 @@
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
 #include <sk/util/InsufficientMemoryException.h>
+#include <sk/rt/Benchmark.h>
 #include <memory.h>
 
 #include "StringBenchmarks.h"
@@ -19,7 +20,7 @@ static const sk::util::String __className("sk::util::performance::StringBenchmar
 
 sk::util::performance::StringBenchmarks::
 StringBenchmarks()
-  : sk::rt::Benchmark("String benchmarks")
+  : sk::rt::Benchmarker("String benchmarks")
 {
 }
 
@@ -36,7 +37,7 @@ getClass() const
 }
 
 namespace {
-  struct StringCreation : public virtual sk::rt::Runnable {
+  struct StringCreation : public virtual sk::rt::Benchmark {
     void run() {
       for(int counter = 100000; counter; --counter) {
         sk::util::String* s = new sk::util::String("abc");
@@ -45,7 +46,7 @@ namespace {
     }
   };
 
-  struct StandardStringCreation : public virtual sk::rt::Runnable {
+  struct StandardStringCreation : public virtual sk::rt::Benchmark {
     void run() {
       for(int counter = 100000; counter; --counter) {
         std::string* s = new std::string("abc");

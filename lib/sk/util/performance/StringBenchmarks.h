@@ -12,13 +12,13 @@
 #define _SK_UTIL_PERFORMANCE_STRINGBENCHMARKS_H_
 
 #include <sk/util/Object.h>
-#include <sk/rt/Benchmark.h>
+#include <sk/rt/Benchmarker.h>
 
 namespace sk {
   namespace util {
     namespace performance {
       class StringBenchmarks 
-        : public sk::rt::Benchmark
+        : public sk::rt::Benchmarker
       {
         public:
           StringBenchmarks();
@@ -28,7 +28,7 @@ namespace sk {
           const sk::util::Class getClass() const;
 
         protected:
-          // sk::rt::Benchmark re-implementation.
+          // sk::rt::Benchmarker re-implementation.
           void setUp();
 
         private:

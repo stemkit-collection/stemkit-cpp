@@ -13,12 +13,12 @@
 #include <exception>
 #include <string>
 
-#include <sk/rt/Benchmark.h>
+#include <sk/rt/Benchmarker.h>
 #include "StringBenchmarks.h"
 
 int main(int argc, const char* argv[])
 {
-  sk::rt::Benchmark benchmark("stemkit-cpp util benchmarks");
+  sk::rt::Benchmarker benchmark("stemkit-cpp util benchmarks");
   sk::util::performance::StringBenchmarks stringBenchmark;
 
   benchmark.add(stringBenchmark);

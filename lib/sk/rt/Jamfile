@@ -9,6 +9,7 @@ local objects =
   ProcessInfo.cc
   Locker.cc
   Benchmark.cc
+  Benchmarker.cc
   StopWatch.cc
 ;
 
@@ -23,7 +24,9 @@ local INCLUDES = $(INCLUDES) $(system.SRCDIR) ;
 make-library $(library) : $(objects) ;
 
 make-subdirs $(PLATFORM_IMPLEMENTATION) ;
+
 add-project-library $(library) : $(library).$(PLATFORM_IMPLEMENTATION) ;
+add-project-library $(library) : $(library).bm ;
 
 make-subdirs scope logger config bundle tests ;
-make-subdirs thread test ;
+make-subdirs thread bm test ;
