@@ -14,15 +14,15 @@
 #include <string>
 
 #include <sk/rt/Benchmarker.h>
-#include "StringBenchmarks.h"
+#include "StringBenchmarker.h"
 
 int main(int argc, const char* argv[])
 {
   sk::rt::Benchmarker benchmark("stemkit-cpp util benchmarks");
-  sk::util::performance::StringBenchmarks stringBenchmark;
+  sk::util::performance::StringBenchmarker stringBenchmark;
 
   benchmark.add(stringBenchmark);
-  benchmark.add(new sk::util::performance::StringBenchmarks());
+  benchmark.add(new sk::util::performance::StringBenchmarker());
 
   benchmark.init();
   for(int counter=25; counter; --counter) {

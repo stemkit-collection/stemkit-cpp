@@ -8,8 +8,8 @@
  *  Author: Gennady Bystritsky
 */
 
-#ifndef _SK_UTIL_PERFORMANCE_STRINGBENCHMARKS_H_
-#define _SK_UTIL_PERFORMANCE_STRINGBENCHMARKS_H_
+#ifndef _SK_UTIL_PERFORMANCE_STRINGBENCHMARKER_H_
+#define _SK_UTIL_PERFORMANCE_STRINGBENCHMARKER_H_
 
 #include <sk/util/Object.h>
 #include <sk/rt/Benchmarker.h>
@@ -17,12 +17,12 @@
 namespace sk {
   namespace util {
     namespace performance {
-      class StringBenchmarks 
+      class StringBenchmarker 
         : public sk::rt::Benchmarker
       {
         public:
-          StringBenchmarks();
-          virtual ~StringBenchmarks();
+          StringBenchmarker();
+          virtual ~StringBenchmarker();
       
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
@@ -32,11 +32,11 @@ namespace sk {
           void setUp();
 
         private:
-          StringBenchmarks(const StringBenchmarks& other);
-          StringBenchmarks& operator = (const StringBenchmarks& other);
+          StringBenchmarker(const StringBenchmarker& other);
+          StringBenchmarker& operator = (const StringBenchmarker& other);
       };
     }
   }
 }
 
-#endif /* _SK_UTIL_PERFORMANCE_STRINGBENCHMARKS_H_ */
+#endif /* _SK_UTIL_PERFORMANCE_STRINGBENCHMARKER_H_ */

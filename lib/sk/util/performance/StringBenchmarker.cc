@@ -14,23 +14,23 @@
 #include <sk/rt/Benchmark.h>
 #include <memory.h>
 
-#include "StringBenchmarks.h"
+#include "StringBenchmarker.h"
 
-static const sk::util::String __className("sk::util::performance::StringBenchmarks");
+static const sk::util::String __className("sk::util::performance::StringBenchmarker");
 
-sk::util::performance::StringBenchmarks::
-StringBenchmarks()
+sk::util::performance::StringBenchmarker::
+StringBenchmarker()
   : sk::rt::Benchmarker("String benchmarks")
 {
 }
 
-sk::util::performance::StringBenchmarks::
-~StringBenchmarks()
+sk::util::performance::StringBenchmarker::
+~StringBenchmarker()
 {
 }
 
 const sk::util::Class
-sk::util::performance::StringBenchmarks::
+sk::util::performance::StringBenchmarker::
 getClass() const
 {
   return sk::util::Class(__className);
@@ -70,7 +70,7 @@ namespace {
 }
 
 void 
-sk::util::performance::StringBenchmarks::
+sk::util::performance::StringBenchmarker::
 setUp()
 {
   add("100,000 sk::util::String", new StringCreation());
