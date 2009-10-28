@@ -18,6 +18,7 @@
 #include <sk/rt/StopWatch.h>
 
 #include <iomanip>
+#include <numeric>
 
 static const sk::util::String __className("sk::rt::Benchmark");
 
@@ -27,41 +28,64 @@ namespace {
       BenchmarkItem(const sk::rt::Scope& parent, const int& maxTitleSize, const sk::util::String& title, sk::rt::Runnable* code)
         : _scope(parent.scope("Item")), _maxTitleSize(maxTitleSize), _title(title), _codeHolder(code) {}
 
+      void init() {
+      }
+
       void start() throw() {
         _scope.info(_title) << "started";
+        sk::rt::Runnable& code = _codeHolder.get();
+        sk::rt::StopWatch stopwatch;
+
         try {
-          sk::rt::Runnable& code = _codeHolder.get();
-
-          _stopwatch.start();
+          stopwatch.start();
           code.run();
-          _stopwatch.stop();
-
-          _codeHolder.clear();
+          stopwatch.stop();
         }
         catch(const std::exception& exception) {
-          _stopwatch.stop();
+          stopwatch.stop();
           _scope.error(_title) << exception.what();
         }
-        _scope.info(_title) << "finished: " << _stopwatch.inspect();
+        _scope.info(_title) << "finished: " << stopwatch.inspect();
+        _results.push_back(stopwatch.getMicroseconds());
       }
 
       void report(int indent, std::ostream& stream) const {
         sk::util::String prefix = sk::util::String(' ') * indent;
-        stream << prefix << std::setw(_maxTitleSize) << _title << ": " << _stopwatch.toString() << std::endl;
+        stream << prefix << std::setw(_maxTitleSize) << _title << ":";
+        size_t size = _results.size();
+        switch(size) {
+          case 0:
+            stream << " <not mesured yet>";
+            break;
+
+          case 1:
+            stream << ' ' << sk::rt::StopWatch::toString(_results[0]);
+            break;
+
+          default:
+            stream << " min => " << sk::rt::StopWatch::toString(*std::min_element(_results.begin(), _results.end()));
+            stream << " max => " << sk::rt::StopWatch::toString(*std::max_element(_results.begin(), _results.end()));
+
+            if(size > 2) {
+              uint64_t average = std::accumulate(_results.begin(), _results.end(), 0) / size;
+              stream << ' ' << size << " => " << sk::rt::StopWatch::toString(average);
+            }
+        }
+        stream << std::endl;
       }
 
     private:
       sk::rt::Scope _scope;
       sk::util::Holder<sk::rt::Runnable> _codeHolder;
-      sk::rt::StopWatch _stopwatch;
       const sk::util::String _title;
       const int& _maxTitleSize;
+      std::vector<uint64_t> _results;
   };
 }
 
 sk::rt::Benchmark::
 Benchmark(const sk::util::String& title)
-  : _title(title), _scope(__className)
+  : _title(title), _scope(__className), _maxTitleSize(0)
 {
 }
 
@@ -79,10 +103,22 @@ getClass() const
 
 void
 sk::rt::Benchmark::
-start() throw()
+init()
 {
   setUp();
 
+  struct Initializer : public virtual sk::util::Processor<Benchmarkable> {
+    void process(Benchmarkable& item) const {
+      item.init();
+    }
+  };
+  _items.forEach(Initializer());
+}
+
+void
+sk::rt::Benchmark::
+start() throw()
+{
   struct Performer : public virtual sk::util::Processor<Benchmarkable> {
     void process(Benchmarkable& item) const {
       item.start();
@@ -91,8 +127,6 @@ start() throw()
   _scope.info(_title) << "started";
   _items.forEach(Performer());
   _scope.info(_title) << "finished";
-
-  tearDown();
 }
 
 void
@@ -161,11 +195,5 @@ report(int indent, std::ostream& stream) const
 void 
 sk::rt::Benchmark::
 setUp()
-{
-}
-
-void
-sk::rt::Benchmark::
-tearDown()
 {
 }

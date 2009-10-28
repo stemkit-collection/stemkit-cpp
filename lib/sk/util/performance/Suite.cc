@@ -24,7 +24,10 @@ int main(int argc, const char* argv[])
   benchmark.add(stringBenchmark);
   benchmark.add(new sk::util::performance::StringBenchmarks());
 
-  benchmark.start();
+  benchmark.init();
+  for(int counter=25; counter; --counter) {
+    benchmark.start();
+  }
   benchmark.report(0, std::cout);
 
   return 0;

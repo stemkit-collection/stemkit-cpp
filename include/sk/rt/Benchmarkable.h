@@ -20,6 +20,7 @@ namespace sk {
       : public virtual sk::util::Object
     {
       public:
+        virtual void init() = 0;
         virtual void start() throw() = 0;
         virtual void report(int indent, std::ostream& stream) const = 0;
     };

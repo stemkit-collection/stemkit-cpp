@@ -24,6 +24,7 @@ namespace sk {
       : public virtual sk::rt::Benchmarkable
     {
       typedef void (function_t)(void);
+
       public:
         Benchmark(const sk::util::String& title);
         virtual ~Benchmark();
@@ -34,6 +35,7 @@ namespace sk {
         void add(sk::rt::Benchmarkable& code);
 
         // sk::rt::Benchmarkable implementation
+        void init();
         void start() throw();
         void report(int indent, std::ostream& stream) const;
     
@@ -42,7 +44,6 @@ namespace sk {
 
       protected:
         virtual void setUp();
-        virtual void tearDown();
 
       private:
         Benchmark(const Benchmark& other);
