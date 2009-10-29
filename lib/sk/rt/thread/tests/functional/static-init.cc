@@ -22,7 +22,7 @@ int abc = sample_f();
 sk::rt::Scope scope("abc");
 sk::rt::Mutex _mutex;
 
-int main(int argc, const char* argv[])
+int main(int /*argc*/, const char* /*argv*/[])
 {
   scope.warning() << "MAIN";
   try {

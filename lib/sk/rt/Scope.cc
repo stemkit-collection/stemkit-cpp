@@ -55,13 +55,6 @@ sk::rt::Scope::
   detail().memory() << "Leave";
 }
 
-sk::rt::Scope& 
-sk::rt::Scope::
-operator = (const Scope& other)
-{
-  return *this;
-}
-
 const sk::util::Class
 sk::rt::Scope::
 getClass() const
@@ -127,49 +120,49 @@ getConfig() const
 
 const sk::rt::logger::Stream
 sk::rt::Scope::
-error(const sk::util::String& label, const sk::rt::logger::Spot& spot) const
+error(const sk::util::String& label) const
 {
   return sk::rt::logger::Stream(label, logger::Level::SK_L_ERROR, *this);
 }
 
 const sk::rt::logger::Stream
 sk::rt::Scope::
-warning(const sk::util::String& label, const sk::rt::logger::Spot& spot) const
+warning(const sk::util::String& label) const
 {
   return sk::rt::logger::Stream(label, logger::Level::SK_L_WARNING, *this);
 }
 
 const sk::rt::logger::Stream
 sk::rt::Scope::
-stat(const sk::util::String& label, const sk::rt::logger::Spot& spot) const
+stat(const sk::util::String& label) const
 {
   return sk::rt::logger::Stream(label, logger::Level::SK_L_STAT, *this);
 }
 
 const sk::rt::logger::Stream
 sk::rt::Scope::
-info(const sk::util::String& label, const sk::rt::logger::Spot& spot) const
+info(const sk::util::String& label) const
 {
   return sk::rt::logger::Stream(label, logger::Level::SK_L_INFO, *this);
 }
 
 const sk::rt::logger::Stream
 sk::rt::Scope::
-notice(const sk::util::String& label, const sk::rt::logger::Spot& spot) const
+notice(const sk::util::String& label) const
 {
   return sk::rt::logger::Stream(label, logger::Level::SK_L_NOTICE, *this);
 }
 
 const sk::rt::logger::Stream
 sk::rt::Scope::
-debug(const sk::util::String& label, const sk::rt::logger::Spot& spot) const
+debug(const sk::util::String& label) const
 {
   return sk::rt::logger::Stream(label, logger::Level::SK_L_DEBUG, *this);
 }
 
 const sk::rt::logger::Stream
 sk::rt::Scope::
-detail(const sk::util::String& label, const sk::rt::logger::Spot& spot) const
+detail(const sk::util::String& label) const
 {
   return sk::rt::logger::Stream(label, logger::Level::SK_L_DETAIL, *this);
 }

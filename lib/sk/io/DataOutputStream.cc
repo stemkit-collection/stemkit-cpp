@@ -65,14 +65,14 @@ writeShort(short value)
 
 void 
 sk::io::DataOutputStream::
-writeDouble(double value)
+writeDouble(double /*value*/)
 {
   throw sk::util::UnsupportedOperationException("writeDouble()");
 }
 
 void 
 sk::io::DataOutputStream::
-writeFloat(float value)
+writeFloat(float /*value*/)
 {
   throw sk::util::UnsupportedOperationException("writeFloat()");
 }

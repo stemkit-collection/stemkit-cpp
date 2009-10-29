@@ -152,7 +152,7 @@ namespace {
 
 void 
 sk::sys::DaemonProcess::
-processStarting(sk::io::Stream& umbilical) 
+processStarting(sk::io::Stream& /*umbilical*/) 
 {
   _pipe.inputStream().close();
   DaemonConfigurator configurator(_scope, _pipe.outputStream());
@@ -177,7 +177,7 @@ processJoining()
 
 void 
 sk::sys::DaemonProcess::
-processFailing(const sk::util::String& message) 
+processFailing(const sk::util::String& /*message*/) 
 {
 }
 

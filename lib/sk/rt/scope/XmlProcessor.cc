@@ -291,12 +291,12 @@ updateFileDestination(const TiXmlHandle& handle, scope::IConfig& config)
   config.getLogDestination().makeReady();
 }
 
-std::ostream& operator<<(std::ostream& stream, const TiXmlHandle& handle)
+std::ostream& operator<<(std::ostream& stream, const TiXmlHandle& /*handle*/)
 {
   return stream << "<TiXmlHandle>";
 }
 
-std::ostream& operator<<(std::ostream& stream, const TiXmlDocument& document) 
+std::ostream& operator<<(std::ostream& stream, const TiXmlDocument& /*document*/) 
 {
   return stream << "<TiXmlDocument>";
 }

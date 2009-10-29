@@ -187,7 +187,7 @@ namespace {
     const sk::rt::logger::IConfig& getConfig() const {
       return *this;
     }
-    bool checkLogLevel(const sk::rt::logger::Level& level) const {
+    bool checkLogLevel(const sk::rt::logger::Level& /*level*/) const {
       return true;
     }
     sk::rt::logger::Destination& getLogDestination() const {
@@ -218,15 +218,15 @@ namespace {
       return *this;
     }
     void setLogDestination() {}
-    void setLogLevel(const sk::rt::logger::Level& level) {}
-    void setTimeFormat(const sk::util::String& format) {}
-    void setLineTerminator(const sk::util::String& terminator) {}
-    void setLogDestination(const sk::rt::logger::Destination& destination) {}
-    void setLogPid(bool status) {}
-    void setLogTime(bool status) {}
-    void setLogObject(bool status) {}
-    void setLogThread(bool status) {}
-    void setLogMemory(bool status) {}
+    void setLogLevel(const sk::rt::logger::Level& /*level*/) {}
+    void setTimeFormat(const sk::util::String& /*format*/) {}
+    void setLineTerminator(const sk::util::String& /*terminator*/) {}
+    void setLogDestination(const sk::rt::logger::Destination& /*destination*/) {}
+    void setLogPid(bool /*status*/) {}
+    void setLogTime(bool /*status*/) {}
+    void setLogObject(bool /*status*/) {}
+    void setLogThread(bool /*status*/) {}
+    void setLogMemory(bool /*status*/) {}
     void aggregateScopeName(std::ostream& stream) const {
       stream << "PIPE";
     }

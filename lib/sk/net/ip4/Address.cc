@@ -19,17 +19,17 @@ Address()
 }
 
 sk::net::ip4::Address::
-Address(const Address& other)
+Address(const Address& /*TODO: other*/)
 {
 }
 
 sk::net::ip4::Address::
-Address(const sk::util::String& spec)
+Address(const sk::util::String& /*TODO: spec*/)
 {
 }
 
 sk::net::ip4::Address::
-Address(uint32_t number)
+Address(uint32_t /*TODO: number*/)
 {
 }
 

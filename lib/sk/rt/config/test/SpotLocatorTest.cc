@@ -27,7 +27,7 @@ namespace {
     Processor(std::vector<sk::util::String>& locations)
       : _locations(locations) {}
 
-    void process(std::istream& stream, const sk::util::Pathname& location) const {
+    void process(std::istream& /*stream*/, const sk::util::Pathname& location) const {
       _locations.push_back(location.toString());
     }
     std::vector<sk::util::String>& _locations;

@@ -38,7 +38,7 @@ struct Derrived : public virtual Base {
   int _data;
 };
 
-int main(int argc, const char* argv[])
+int main(int /*argc*/, const char* /*argv*/[])
 {
   Derrived fdis;
   Base& s = fdis;

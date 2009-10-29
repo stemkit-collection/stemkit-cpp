@@ -83,7 +83,7 @@ close()
 
 void
 sk::io::ByteArrayOutputStream::
-inheritable(bool state)
+inheritable(bool /*state*/)
 {
 }
 

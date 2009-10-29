@@ -37,7 +37,7 @@ getClass() const
 template<class T>
 T& 
 sk::util::AbstractCollection<T>::
-get(const Selector<T>& selector) const 
+get(const Selector<T>& /*selector*/) const 
 {
   throw UnsupportedOperationException(SK_METHOD);
 }
@@ -53,7 +53,7 @@ forEach(const Processor<T>& processor) const
 template<class T>
 bool 
 sk::util::AbstractCollection<T>::
-find(sk::util::Holder<T>& holder, const Selector<T>& selector) const 
+find(sk::util::Holder<T>& /*holder*/, const Selector<T>& /*selector*/) const 
 {
   throw UnsupportedOperationException(SK_METHOD);
 }
@@ -94,7 +94,7 @@ contains(const Selector<T>& selector) const
 template<class T>
 bool 
 sk::util::AbstractCollection<T>::
-containsAll(const Collection<T>& other) const 
+containsAll(const Collection<T>& /*other*/) const 
 {
   throw UnsupportedOperationException(SK_METHOD);
 }
@@ -102,7 +102,7 @@ containsAll(const Collection<T>& other) const
 template<class T>
 bool 
 sk::util::AbstractCollection<T>::
-add(T& object) 
+add(T& /*object*/) 
 {
   throw UnsupportedOperationException(SK_METHOD);
 }
@@ -110,7 +110,7 @@ add(T& object)
 template<class T>
 bool 
 sk::util::AbstractCollection<T>::
-add(T* object) 
+add(T* /*object*/) 
 {
   throw UnsupportedOperationException(SK_METHOD);
 }
@@ -118,7 +118,7 @@ add(T* object)
 template<class T>
 bool 
 sk::util::AbstractCollection<T>::
-addAll(const Collection<T>& other) 
+addAll(const Collection<T>& /*other*/) 
 {
   throw UnsupportedOperationException(SK_METHOD);
 }
@@ -126,7 +126,7 @@ addAll(const Collection<T>& other)
 template<class T>
 bool 
 sk::util::AbstractCollection<T>::
-moveAll(Collection<T>& other) 
+moveAll(Collection<T>& /*other*/) 
 {
   throw UnsupportedOperationException(SK_METHOD);
 }
@@ -142,7 +142,7 @@ clear()
 template<class T>
 bool 
 sk::util::AbstractCollection<T>::
-remove(const T& object) 
+remove(const T& /*object*/) 
 {
   throw UnsupportedOperationException(SK_METHOD);
 }
@@ -150,7 +150,7 @@ remove(const T& object)
 template<class T>
 bool 
 sk::util::AbstractCollection<T>::
-remove(const Selector<T>& selector) 
+remove(const Selector<T>& /*selector*/) 
 {
   throw UnsupportedOperationException(SK_METHOD);
 }
@@ -158,7 +158,7 @@ remove(const Selector<T>& selector)
 template<class T>
 T* 
 sk::util::AbstractCollection<T>::
-cutoff(const T& object) 
+cutoff(const T& /*object*/) 
 {
   throw UnsupportedOperationException(SK_METHOD);
 }
@@ -166,7 +166,7 @@ cutoff(const T& object)
 template<class T>
 T* 
 sk::util::AbstractCollection<T>::
-cutoff(const Selector<T>& selector) 
+cutoff(const Selector<T>& /*selector*/) 
 {
   throw UnsupportedOperationException(SK_METHOD);
 }
@@ -174,7 +174,7 @@ cutoff(const Selector<T>& selector)
 template<class T>
 T* 
 sk::util::AbstractCollection<T>::
-release(const T& object) 
+release(const T& /*object*/) 
 {
   throw UnsupportedOperationException(SK_METHOD);
 }
@@ -182,7 +182,7 @@ release(const T& object)
 template<class T>
 T* 
 sk::util::AbstractCollection<T>::
-release(const Selector<T>& selector) 
+release(const Selector<T>& /*selector*/) 
 {
   throw UnsupportedOperationException(SK_METHOD);
 }
@@ -190,7 +190,7 @@ release(const Selector<T>& selector)
 template<class T>
 bool 
 sk::util::AbstractCollection<T>::
-removeAll(const Collection<T>& other) 
+removeAll(const Collection<T>& /*other*/) 
 {
   throw UnsupportedOperationException(SK_METHOD);
 }
@@ -198,7 +198,7 @@ removeAll(const Collection<T>& other)
 template<class T>
 bool 
 sk::util::AbstractCollection<T>::
-removeAll(const Selector<T>& selector) 
+removeAll(const Selector<T>& /*selector*/) 
 {
   throw UnsupportedOperationException(SK_METHOD);
 }
@@ -206,7 +206,7 @@ removeAll(const Selector<T>& selector)
 template<class T>
 bool 
 sk::util::AbstractCollection<T>::
-retainAll(const Collection<T>& other) 
+retainAll(const Collection<T>& /*other*/) 
 {
   throw UnsupportedOperationException(SK_METHOD);
 }
@@ -214,7 +214,7 @@ retainAll(const Collection<T>& other)
 template<class T>
 bool 
 sk::util::AbstractCollection<T>::
-retainAll(const Selector<T>& selector) 
+retainAll(const Selector<T>& /*selector*/) 
 {
   throw UnsupportedOperationException(SK_METHOD);
 }

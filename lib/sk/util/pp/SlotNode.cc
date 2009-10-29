@@ -78,7 +78,7 @@ parse(const std::vector<char>& data, int offset, const std::vector<char>& termin
 
 void
 sk::util::pp::SlotNode::
-pushOpenBraket(std::vector<char>& brakets) const
+pushOpenBraket(std::vector<char>& /*brakets*/) const
 {
 }
 

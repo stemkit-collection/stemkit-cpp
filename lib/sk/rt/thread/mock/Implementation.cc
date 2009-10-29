@@ -50,14 +50,14 @@ makeRecursiveMutex() const
 
 sk::rt::thread::mock::Thread*
 sk::rt::thread::mock::Implementation::
-makeThread(sk::rt::Runnable& target, sk::rt::thread::Generic& handle) const
+makeThread(sk::rt::Runnable& target, sk::rt::thread::Generic& /*handle*/) const
 {
   return new mock::Thread(target);
 }
 
 sk::rt::thread::mock::Thread*
 sk::rt::thread::mock::Implementation::
-wrapCurrentThread(sk::rt::thread::Generic& handle) const
+wrapCurrentThread(sk::rt::thread::Generic& /*handle*/) const
 {
   return new mock::Thread();
 }
@@ -71,7 +71,7 @@ getGeneric() const
 
 void
 sk::rt::thread::mock::Implementation::
-sleep(uint64_t milliseconds) const 
+sleep(uint64_t /*milliseconds*/) const 
 {
   throw sk::util::UnsupportedOperationException(SK_CLASS_METHOD);
 }

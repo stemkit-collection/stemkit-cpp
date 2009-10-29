@@ -189,7 +189,7 @@ stat() const
   return _statHolder.get();
 }
 
-std::ostream& operator<<(std::ostream& stream, const struct ::stat& fileStatistics) 
+std::ostream& operator<<(std::ostream& stream, const struct ::stat& /*fileStatistics*/) 
 {
   return stream << "<stat>";
 }

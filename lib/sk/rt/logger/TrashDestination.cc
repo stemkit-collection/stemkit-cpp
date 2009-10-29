@@ -36,7 +36,7 @@ makeReady()
 
 void
 sk::rt::logger::TrashDestination::
-dispatch(const char* buffer, int size) 
+dispatch(const char* /*buffer*/, int /*size*/) 
 {
 }
 

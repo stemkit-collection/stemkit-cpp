@@ -85,6 +85,6 @@ chunk(int index) const
 
 void
 sk::io::test::MockInputStream::
-inheritable(bool state)
+inheritable(bool /*state*/)
 {
 }

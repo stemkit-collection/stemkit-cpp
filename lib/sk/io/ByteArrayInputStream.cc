@@ -141,7 +141,7 @@ reset()
 
 void
 sk::io::ByteArrayInputStream::
-inheritable(bool state)
+inheritable(bool /*state*/)
 {
 }
 

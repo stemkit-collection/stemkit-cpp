@@ -22,7 +22,7 @@ Thread()
 }
 
 sk::rt::thread::mock::Thread::
-Thread(sk::rt::Runnable& target)
+Thread(sk::rt::Runnable& /*target*/)
 {
 }
 

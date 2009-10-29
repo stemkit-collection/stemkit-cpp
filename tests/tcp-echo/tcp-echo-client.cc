@@ -62,7 +62,7 @@ int main(int argc, const char* argv[])
   }
 }
 
-void start(int argc, const char* argv[]) {
+void start(int /*argc*/, const char* /*argv*/[]) {
   sk::rt::Scope scope(__FUNCTION__);
 
   sk::sys::StreamPortal& portal = sk::sys::Process::streamPortal();

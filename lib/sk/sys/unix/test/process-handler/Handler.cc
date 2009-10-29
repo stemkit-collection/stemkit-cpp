@@ -23,7 +23,7 @@
 static const sk::util::String __className("test::Handler");
 
 test::Handler::
-Handler(int argc, const char* argv[])
+Handler(int /*argc*/, const char* /*argv*/[])
   : _scope(__className)
 {
 }

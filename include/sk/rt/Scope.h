@@ -12,7 +12,6 @@
 #include <sk/util/String.h>
 #include <sk/util/Boolean.h>
 
-#include <sk/rt/logger/Spot.h>
 #include <sk/rt/scope/Controller.h>
 #include <sk/rt/logger/Stream.h>
 #include <sk/rt/logger/IScope.h>
@@ -30,18 +29,16 @@ namespace sk {
         Scope(const Scope& other);
         virtual ~Scope();
 
-        Scope& operator = (const Scope& other);
-
         static scope::Controller& controller();
         const Scope scope(const sk::util::String& name) const;
 
-        const logger::Stream error(const sk::util::String& label = sk::util::String::EMPTY, const sk::rt::logger::Spot& spot = sk::rt::logger::Spot::NOTSET) const;
-        const logger::Stream warning(const sk::util::String& label = sk::util::String::EMPTY, const sk::rt::logger::Spot& spot = sk::rt::logger::Spot::NOTSET) const;
-        const logger::Stream stat(const sk::util::String& label = sk::util::String::EMPTY, const sk::rt::logger::Spot& spot = sk::rt::logger::Spot::NOTSET) const;
-        const logger::Stream info(const sk::util::String& label = sk::util::String::EMPTY, const sk::rt::logger::Spot& spot = sk::rt::logger::Spot::NOTSET) const;
-        const logger::Stream notice(const sk::util::String& label = sk::util::String::EMPTY, const sk::rt::logger::Spot& spot = sk::rt::logger::Spot::NOTSET) const;
-        const logger::Stream debug(const sk::util::String& label = sk::util::String::EMPTY, const sk::rt::logger::Spot& spot = sk::rt::logger::Spot::NOTSET) const;
-        const logger::Stream detail(const sk::util::String& label = sk::util::String::EMPTY, const sk::rt::logger::Spot& spot = sk::rt::logger::Spot::NOTSET) const;
+        const logger::Stream error(const sk::util::String& label = sk::util::String::EMPTY) const;
+        const logger::Stream warning(const sk::util::String& label = sk::util::String::EMPTY) const;
+        const logger::Stream stat(const sk::util::String& label = sk::util::String::EMPTY) const;
+        const logger::Stream info(const sk::util::String& label = sk::util::String::EMPTY) const;
+        const logger::Stream notice(const sk::util::String& label = sk::util::String::EMPTY) const;
+        const logger::Stream debug(const sk::util::String& label = sk::util::String::EMPTY) const;
+        const logger::Stream detail(const sk::util::String& label = sk::util::String::EMPTY) const;
 
         const sk::util::String getProperty(const sk::util::String& name) const;
         bool hasProperty(const sk::util::String& name) const;
@@ -66,6 +63,7 @@ namespace sk {
         
       private:
         Scope(const Scope& parent, const sk::util::String& name);
+        Scope& operator = (const Scope& other);
 
         scope::Aggregator& getAggregator() const;
 
@@ -78,7 +76,5 @@ namespace sk {
     };
   }
 }
-
-#define SK_LOGSPOT sk::rt::logger::Spot::function(__FUNCTION__, __LINE__)
 
 #endif /* _SK_RT_SCOPE_ */

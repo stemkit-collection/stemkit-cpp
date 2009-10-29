@@ -42,7 +42,7 @@ namespace {
     ProbeDestination(int readfd, int writefd)
       : _readfd(readfd), _writefd(writefd) {}
 
-    void dispatch(const char* buffer, int size) {
+    void dispatch(const char* /*buffer*/, int /*size*/) {
       makeReady();
     }
 

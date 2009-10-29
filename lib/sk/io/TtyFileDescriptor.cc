@@ -52,7 +52,7 @@ ensureTty()
 
 void
 sk::io::TtyFileDescriptor::
-setLines(int lines)
+setLines(int /*lines*/)
 {
   // TODO: Provide actual implementation, ignoring the call for now.
   // throw sk::util::UnsupportedOperationException("setLines()");
@@ -60,7 +60,7 @@ setLines(int lines)
 
 void 
 sk::io::TtyFileDescriptor::
-setColumns(int columns)
+setColumns(int /*columns*/)
 {
   // TODO: Provide actual implementation, ignoring the call for now.
   // throw sk::util::UnsupportedOperationException("setColumns()");

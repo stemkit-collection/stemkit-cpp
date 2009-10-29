@@ -19,7 +19,7 @@
 
 void perform();
 
-int main(int argc, const char* argv[])
+int main(int /*argc*/, const char* /*argv*/[])
 {
   sk::rt::Scope::controller().loadXmlConfig(
     sk::rt::config::InlineLocator("\n\

@@ -95,7 +95,7 @@ namespace {
 
 sk::util::pp::Node* 
 sk::util::pp::PointerNode::
-parse(const std::vector<char>& data, int offset, const std::vector<char>& terminators) const
+parse(const std::vector<char>& data, int offset, const std::vector<char>& /*terminators*/) const
 {
   int end = 0;
 

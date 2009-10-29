@@ -56,7 +56,7 @@ init()
 
 uint64_t
 sk::rt::ProcessInfo::
-virtualMemory(sk::rt::Lock& lock) const
+virtualMemory(sk::rt::Lock& /*lock*/) const
 {
   return virtualMemory();
 }
@@ -70,7 +70,7 @@ virtualMemory() const
 
 uint64_t
 sk::rt::ProcessInfo::
-residentMemory(sk::rt::Lock& lock) const
+residentMemory(sk::rt::Lock& /*lock*/) const
 {
   return residentMemory();
 }

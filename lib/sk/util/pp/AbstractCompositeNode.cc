@@ -22,8 +22,9 @@ AbstractCompositeNode()
 {
 }
 
+// TODO: see how data parameter can be used or remove it from the interface.
 sk::util::pp::AbstractCompositeNode::
-AbstractCompositeNode(const std::vector<char>& data, int start)
+AbstractCompositeNode(const std::vector<char>& /*data*/, int start)
   : _start(start), _end(0)
 {
 }

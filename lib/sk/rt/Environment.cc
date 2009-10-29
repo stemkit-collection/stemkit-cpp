@@ -64,7 +64,7 @@ namespace {
     Serializer(const sk::util::PropertyRegistry& registry, std::vector<char>& block, std::vector<int>& indices)
       : _registry(registry), _block(block), _indices(indices) {}
 
-    void process(const sk::util::String& key, const sk::util::String& value) const {
+    void process(const sk::util::String& key, const sk::util::String& /*value*/) const {
       _indices.push_back(_block.size());
 
       const sk::util::String data = _registry.dumpProperty(key);
@@ -110,7 +110,7 @@ namespace {
     Installer(sk::util::PropertyRegistry& registry) 
       : _registry(registry) {}
 
-    void process(const sk::util::String& key, const sk::util::String& value) const {
+    void process(const sk::util::String& key, const sk::util::String& /*value*/) const {
       const sk::util::String entry = _registry.dumpProperty(key);
       char* s = new char[entry.length() + 1];
       ::strcpy(s, entry.getChars());

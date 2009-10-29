@@ -43,7 +43,7 @@ getClass() const
 
 sk::util::pp::Node* 
 sk::util::pp::StructNode::
-parse(const std::vector<char>& data, int offset, const std::vector<char>& terminators) const
+parse(const std::vector<char>& data, int offset, const std::vector<char>& /*terminators*/) const
 {
   if(offset < 0) {
     return 0;

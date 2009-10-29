@@ -16,7 +16,7 @@
 #include <sk/rt/Benchmarker.h>
 #include "StringBenchmarker.h"
 
-int main(int argc, const char* argv[])
+int main(int /*argc*/, const char* /*argv*/[])
 {
   sk::rt::Benchmarker benchmark("stemkit-cpp util benchmarks");
   sk::util::performance::StringBenchmarker stringBenchmark;

@@ -18,7 +18,7 @@
 
 void perform();
 
-int main(int argc, const char* argv[])
+int main(int /*argc*/, const char* /*argv*/[])
 {
   sk::rt::Thread::setup();
 

@@ -26,7 +26,7 @@
 static const char* __className("test::Spawner");
 
 test::Spawner::
-Spawner(int argc, const char* argv[])
+Spawner(int /*argc*/, const char* /*argv*/[])
   : _counter(0)
 {
 }

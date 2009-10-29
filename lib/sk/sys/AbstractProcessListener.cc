@@ -29,7 +29,7 @@ getClass() const
 
 void 
 sk::sys::AbstractProcessListener::
-processStarting(sk::io::Stream& umbilical)
+processStarting(sk::io::Stream& /*umbilical*/)
 {
 }
 
@@ -48,12 +48,12 @@ processJoining()
 
 void 
 sk::sys::AbstractProcessListener::
-processFailing(const sk::util::String& message)
+processFailing(const sk::util::String& /*message*/)
 {
 }
 
 void 
 sk::sys::AbstractProcessListener::
-processConfiguring(sk::sys::ProcessConfigurator& configurator)
+processConfiguring(sk::sys::ProcessConfigurator& /*configurator*/)
 {
 }

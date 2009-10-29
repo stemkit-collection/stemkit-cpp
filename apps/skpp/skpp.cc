@@ -14,7 +14,10 @@
 #include <sk/util/PrettyPrinter.h>
 #include <iostream>
 
-int main(int argc, const char* argv[])
+// TODO: Looks like sk::io::FileDescriptorInputStream does not recognize EOF
+// correctly. Needs verification.
+//
+int main(int /*TODO: argc*/, const char* /*TODO: argv*/[])
 {
   sk::util::PrettyPrinter printer(std::cout);
   sk::io::FileDescriptorInputStream input(0);

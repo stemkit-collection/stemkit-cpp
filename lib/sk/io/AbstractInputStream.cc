@@ -37,7 +37,7 @@ markSupported() const
 
 void
 sk::io::AbstractInputStream::
-mark(int readlimit) 
+mark(int /*readlimit*/) 
 {
   throw sk::util::UnsupportedOperationException(SK_METHOD);
 }
