@@ -1,0 +1,33 @@
+# vim: ft=jam: sw=2:
+
+local library = sk.other.yaml-cpp ;
+
+local objects =
+  src/aliascontent.cpp
+  src/content.cpp
+  src/conversion.cpp
+  src/emitter.cpp
+  src/emitterstate.cpp
+  src/emitterutils.cpp
+  src/exp.cpp
+  src/iterator.cpp
+  src/map.cpp
+  src/node.cpp
+  src/null.cpp
+  src/ostream.cpp
+  src/parser.cpp
+  src/parserstate.cpp
+  src/regex.cpp
+  src/scalar.cpp
+  src/scanner.cpp
+  src/scanscalar.cpp
+  src/scantoken.cpp
+  src/sequence.cpp
+  src/simplekey.cpp
+  src/stream.cpp
+;
+
+use-local-includes $(objects) : include ;
+make-library $(library) : $(objects) ;
+
+make-subdirs util yaml-reader ;

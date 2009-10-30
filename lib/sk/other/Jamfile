@@ -1,2 +1,2 @@
 
-make-subdirs tinyxml ;
+make-subdirs tinyxml yaml-cpp ;

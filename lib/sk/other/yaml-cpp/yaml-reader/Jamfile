@@ -1,0 +1,16 @@
+# vim: ft=jam: sw=2:
+
+local program = yaml-reader ;
+
+local objects = 
+  emittertests.cpp
+  main.cpp
+  parsertests.cpp
+  spectests.cpp
+  tests.cpp
+;
+
+use-local-includes $(objects) : ../include ;
+use-project-libraries $(program) : sk.other.yaml-cpp ;
+
+make-program $(program) : $(objects) ;

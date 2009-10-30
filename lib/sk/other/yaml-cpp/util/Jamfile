@@ -1,0 +1,12 @@
+# vim: ft=jam: sw=2:
+
+local program = parse ;
+
+local objects = 
+  parse.cpp 
+;
+
+use-local-includes $(objects) : ../include ;
+use-project-libraries $(program) : sk.other.yaml-cpp ;
+
+make-program $(program) : $(objects) ;
