@@ -79,6 +79,9 @@ namespace YAML
 				return MatchOpRange(source);
 			case REGEX_OR:
 				return MatchOpOr(source);
+        }
+
+		switch(m_op) {
 			case REGEX_AND:
 				return MatchOpAnd(source);
 			case REGEX_NOT:
