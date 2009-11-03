@@ -186,6 +186,7 @@ fileset {
     'include/sk',
     'include/sk/other',
     'include/sk/other/tinyxml',
+    'include/sk/other/yaml-cpp',
     cache.lib
   ]
   install.as('include/sk/other').source.tree 'include/sk/other', :follow => true
@@ -193,6 +194,7 @@ fileset {
   install.into(cache.lib).binary {
     list = %w{
       sk.other.tinyxml
+      sk.other.yaml-cpp
     }
     if ENV['MAKE_DLL'] == 'true'
       library 'lib' => list

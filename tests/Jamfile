@@ -4,6 +4,7 @@ local programs =
   test-covariants
   test-temporary-in-constructor-init-list
   checked-mutex-child-unlock-linux-failure
+  yaml-producer
 ;
 
 if linux in $(project.PLATFORM_SPECIFICS) {
@@ -14,6 +15,8 @@ if linux in $(project.PLATFORM_SPECIFICS) {
 
 use-project-libraries $(programs) : sk.util ;
 use-pthreads checked-mutex-child-unlock-linux-failure ;
+
+use-project-libraries yaml-producer : sk.other.yaml-cpp ;
 
 local _program ;
 for _program in $(programs) {

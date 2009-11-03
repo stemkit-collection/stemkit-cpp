@@ -27,7 +27,7 @@ local objects =
   src/stream.cpp
 ;
 
-use-local-includes $(objects) : include ;
+use-project-includes $(objects) : include/sk/other/yaml-cpp ;
 make-library $(library) : $(objects) ;
 
 make-subdirs util yaml-reader ;

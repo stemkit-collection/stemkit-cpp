@@ -6,7 +6,7 @@ local objects =
   parse.cpp 
 ;
 
-use-local-includes $(objects) : ../include ;
+use-project-includes $(objects) : include/sk/other/yaml-cpp ;
 use-project-libraries $(program) : sk.other.yaml-cpp ;
 
 make-program $(program) : $(objects) ;

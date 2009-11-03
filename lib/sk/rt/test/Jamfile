@@ -6,6 +6,7 @@ local objects =
   StopWatchTest.cc
 ;
 
+use-pthreads $(test) ;
 use-project-libraries $(test) : sk.rt.thread sk.rt.thread.pthreads sk.rt.bundle sk.util sk.cppunit ;
 use-unit-test $(test) $(objects) ;
 make-cpp-test $(test) : $(objects) ;
