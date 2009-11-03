@@ -35,7 +35,8 @@ LDFLAGS = ;
 DLLFLAGS = ;
 LD_EXPORT_DYNAMIC = -Wl,-E ;
 
-C++FLAGS = -Werror -Wreturn-type -Wno-ctor-dtor-privacy -Wunused-parameter ;
+# C++FLAGS = -Werror -Wreturn-type -Wno-ctor-dtor-privacy -Wunused-parameter ;
+C++FLAGS = -Werror -Wreturn-type -Wno-ctor-dtor-privacy ;
 CCFLAGS = -Werror -Wreturn-type ;
 
 DEFINES  = _REENTRANT _THREAD_SAFE ;
