@@ -62,7 +62,7 @@ endPosition() const
 
 void
 sk::util::pp::AbstractValueNode::
-output(const sk::util::String& indent, std::ostream& stream) const
+output(const Configurator& configurator, const sk::util::String& indent, std::ostream& stream) const
 {
   stream << _value;
 }

@@ -120,9 +120,9 @@ inspect() const
 
 void 
 sk::util::pp::StructNode::
-output(const sk::util::String& indent, std::ostream& stream) const
+output(const Configurator& configurator, const sk::util::String& indent, std::ostream& stream) const
 {
   stream << '<'<< _name << ": ";
-  AbstractCompositeNode::output(indent, stream, hasBreakingNode());
+  AbstractCompositeNode::output(configurator, indent, stream);
   stream << '>';
 }

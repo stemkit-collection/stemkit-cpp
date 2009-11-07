@@ -91,8 +91,8 @@ inspect() const
 
 void 
 sk::util::pp::SlotNode::
-output(const sk::util::String& indent, std::ostream& stream) const
+output(const Configurator& configurator, const sk::util::String& indent, std::ostream& stream) const
 {
   stream << _prefix;
-  getNode(0).output(indent, stream);
+  getNode(0).output(configurator, indent, stream);
 }

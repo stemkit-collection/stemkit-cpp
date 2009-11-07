@@ -13,6 +13,7 @@
 #include <sk/util/ArrayList.cxx>
 
 #include "AbstractCompositeNode.h"
+#include "Configurator.h"
 
 static const sk::util::String __className("sk::util::pp::AbstractCompositeNode");
 
@@ -102,24 +103,24 @@ forEachNode(const sk::util::Processor<sk::util::pp::Node>& processor) const
 
 void 
 sk::util::pp::AbstractCompositeNode::
-output(const sk::util::String& indent, std::ostream& stream) const
+output(const Configurator& configurator, const sk::util::String& indent, std::ostream& stream) const
 {
-  output(indent, stream, hasBreakingNode() || _nodes.size() > 1);
+  output(configurator, indent, stream, hasBreakingNode() || (_nodes.size() > 1 && configurator.isCompact() == false));
 }
 
 void 
 sk::util::pp::AbstractCompositeNode::
-output(const sk::util::String& indent, std::ostream& stream, bool breaking) const
+output(const Configurator& configurator, const sk::util::String& indent, std::ostream& stream, bool breaking) const
 {
   struct Printer : public virtual sk::util::Processor<Node> {
-    Printer(const sk::util::String& indent, std::ostream& stream, bool breaking)
-      : _indent(indent), _stream(stream), _breaking(breaking) {}
+    Printer(const sk::util::String& indent, std::ostream& stream, bool breaking, const Configurator& configurator)
+      : _indent(indent), _stream(stream), _breaking(breaking), _configurator(configurator) {}
 
     void process(Node& node) const {
       if(_breaking == true) {
         _stream << _indent;
       }
-      node.output(_indent, _stream);
+      node.output(_configurator, _indent, _stream);
 
       if(_breaking == true) {
         _stream << std::endl;
@@ -128,6 +129,7 @@ output(const sk::util::String& indent, std::ostream& stream, bool breaking) cons
         _stream << " ";
       }
     }
+    const Configurator& _configurator;
     const sk::util::String& _indent;
     std::ostream& _stream;
     const bool _breaking;
@@ -137,7 +139,7 @@ output(const sk::util::String& indent, std::ostream& stream, bool breaking) cons
     if(breaking == true) {
       stream << std::endl;
     }
-    forEachNode(Printer(indent + "  ", stream, breaking));
+    forEachNode(Printer(indent + "  ", stream, breaking, configurator));
 
     if(breaking == true) {
       stream << indent;
