@@ -25,9 +25,9 @@ namespace sk {
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
         
-        void writeInt(int value);
-        void writeLong(long long value);
-        void writeShort(short value);
+        void writeInt(uint32_t value);
+        void writeLong(uint64_t value);
+        void writeShort(uint16_t value);
         void writeDouble(double value);
         void writeFloat(float value);
         void writeChar(char value);

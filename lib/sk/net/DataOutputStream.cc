@@ -37,14 +37,14 @@ getClass() const
 
 void 
 sk::net::DataOutputStream::
-writeInt(int value)
+writeInt(uint32_t value)
 {
   sk::io::DataOutputStream::writeInt(htonl(value));
 }
 
 void 
 sk::net::DataOutputStream::
-writeLong(long long value)
+writeLong(uint64_t value)
 {
   uint64_t x = value;
 
@@ -56,7 +56,7 @@ writeLong(long long value)
 
 void 
 sk::net::DataOutputStream::
-writeShort(short value)
+writeShort(uint16_t value)
 {
   sk::io::DataOutputStream::writeShort(htons(value));
 }

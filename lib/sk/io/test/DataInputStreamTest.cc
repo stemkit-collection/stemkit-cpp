@@ -82,8 +82,8 @@ void
 sk::io::test::DataInputStreamTest::
 testReadInt()
 {
-  int v1 = 0x245;
-  int v2 = 0x1ab12;
+  uint32_t v1 = 0x245;
+  uint32_t v2 = 0x1ab12;
 
   const char* data = reinterpret_cast<const char*>(&v1);
 

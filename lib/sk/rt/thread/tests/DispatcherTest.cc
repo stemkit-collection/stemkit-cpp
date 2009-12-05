@@ -49,7 +49,7 @@ void
 sk::rt::thread::tests::DispatcherTest::
 testMainInstance()
 {
-  long long id = Dispatcher::main().getId();
+  uint64_t id = Dispatcher::main().getId();
   CPPUNIT_ASSERT(id == Dispatcher::main().getId());
   CPPUNIT_ASSERT(Dispatcher::main().getId() == Dispatcher::main().getId());
 

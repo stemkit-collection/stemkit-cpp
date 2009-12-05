@@ -63,7 +63,7 @@ skip(int number)
   return _streamHolder.get().skip(number);
 }
 
-long long
+uint64_t
 sk::io::DelegatingInputStream::
 available() const
 {

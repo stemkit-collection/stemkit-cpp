@@ -26,9 +26,9 @@ namespace sk {
         const sk::util::Class getClass() const;
         
         // sk::io::DataInput implementation.
-        int readInt();
-        long long readLong();
-        short readShort();
+        uint32_t readInt();
+        uint64_t readLong();
+        uint16_t readShort();
         char readChar();
         double readDouble();
         float readFloat();

@@ -24,9 +24,9 @@ namespace sk {
         virtual ~DataOutputStream();
     
         // sk::io::DataOutputStream re-implementation.
-        void writeInt(int value);
-        void writeLong(long long value);
-        void writeShort(short value);
+        void writeInt(uint32_t value);
+        void writeLong(uint64_t value);
+        void writeShort(uint16_t value);
 
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;

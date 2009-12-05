@@ -44,21 +44,21 @@ namespace {
 
 void 
 sk::io::DataOutputStream::
-writeInt(int value)
+writeInt(uint32_t value)
 {
   writeByteNumber(*this, value, 4);
 }
 
 void 
 sk::io::DataOutputStream::
-writeLong(long long value)
+writeLong(uint64_t value)
 {
   writeByteNumber(*this, value, 8);
 }
 
 void 
 sk::io::DataOutputStream::
-writeShort(short value)
+writeShort(uint16_t value)
 {
   writeByteNumber(*this, value, 2);
 }

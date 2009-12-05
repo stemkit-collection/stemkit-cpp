@@ -44,7 +44,7 @@ namespace sk {
         /// Returns the number of bytes that can be read (or skipped over)
         /// from this input stream without blocking by the next caller of a
         /// method for this input stream.
-        virtual long long available() const = 0;
+        virtual uint64_t available() const = 0;
         
         /// Tests if this input stream supports the mark and reset methods.
         virtual bool markSupported() const = 0;

@@ -27,7 +27,7 @@ namespace sk {
         const sk::util::Class getClass() const;
 
         // sk::io::AbstractInputStream re-implementation.
-        long long available() const;
+        uint64_t available() const;
         
       private:
         FileInputStream(const FileInputStream& other);

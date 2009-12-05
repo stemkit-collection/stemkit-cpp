@@ -49,7 +49,7 @@ reset()
   throw sk::util::UnsupportedOperationException(SK_METHOD);
 }
 
-long long
+uint64_t
 sk::io::AbstractInputStream::
 available() const
 {

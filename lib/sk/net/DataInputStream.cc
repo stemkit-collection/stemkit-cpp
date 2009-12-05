@@ -35,14 +35,14 @@ getClass() const
   return sk::util::Class(__className);
 }
 
-int 
+uint32_t 
 sk::net::DataInputStream::
 readInt()
 {
   return ntohl(sk::io::DataInputStream::readInt());
 }
 
-long long 
+uint64_t 
 sk::net::DataInputStream::
 readLong()
 {
@@ -53,7 +53,7 @@ readLong()
   return x;
 }
 
-short 
+uint16_t 
 sk::net::DataInputStream::
 readShort()
 {

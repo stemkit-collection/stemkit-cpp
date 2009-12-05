@@ -70,7 +70,7 @@ close()
 {
 }
 
-long long
+uint64_t
 sk::io::ByteArrayInputStream::
 available() const
 {

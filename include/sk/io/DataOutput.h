@@ -20,15 +20,15 @@ namespace sk {
       public:
         /// Writes an int value, which is comprised of four bytes, to the
         /// output stream.
-        virtual void writeInt(int value) = 0;
+        virtual void writeInt(uint32_t value) = 0;
 
         /// Writes a long value, which is comprised of eight bytes, to the
         /// output stream.
-        virtual void writeLong(long long value) = 0;
+        virtual void writeLong(uint64_t value) = 0;
 
         /// Writes two bytes to the output stream to represent the value of
         /// the argument.
-        virtual void writeShort(short value) = 0;
+        virtual void writeShort(uint16_t value) = 0;
 
         /// Writes a double value, which is comprised of eight bytes, to the
         /// output stream.

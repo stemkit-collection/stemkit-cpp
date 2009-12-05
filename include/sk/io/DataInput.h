@@ -18,13 +18,13 @@ namespace sk {
     {
       public:
         /// Reads four input bytes and returns an int value.
-        virtual int readInt() = 0;
+        virtual uint32_t readInt() = 0;
 
-        /// Reads eight input bytes and returns a long long value.
-        virtual long long readLong() = 0;
+        /// Reads eight input bytes and returns a uint64_t value.
+        virtual uint64_t readLong() = 0;
 
         /// Reads two input bytes and returns a short value.
-        virtual short readShort() = 0;
+        virtual uint16_t readShort() = 0;
 
         /// Reads an input char and returns the char value.
         virtual char readChar() = 0;

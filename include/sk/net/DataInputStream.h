@@ -24,9 +24,9 @@ namespace sk {
         virtual ~DataInputStream();
     
         // sk::io::DataInputStream re-implementation.
-        int readInt();
-        long long readLong();
-        short readShort();
+        uint32_t readInt();
+        uint64_t readLong();
+        uint16_t readShort();
 
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;

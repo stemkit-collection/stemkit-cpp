@@ -35,7 +35,7 @@ getClass() const
   return sk::util::Class("sk::io::FileInputStream");
 }
 
-long long
+uint64_t
 sk::io::FileInputStream::
 available() const
 {

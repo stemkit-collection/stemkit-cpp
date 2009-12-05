@@ -47,25 +47,25 @@ namespace {
   }
 }
 
-int 
+uint32_t
 sk::io::DataInputStream::
 readInt()
 {
-  return readBytesNumber<int>(*this);
+  return readBytesNumber<uint32_t>(*this);
 }
 
-long long 
+uint64_t 
 sk::io::DataInputStream::
 readLong()
 {
-  return readBytesNumber<long long>(*this);
+  return readBytesNumber<uint64_t>(*this);
 }
 
-short 
+uint16_t 
 sk::io::DataInputStream::
 readShort()
 {
-  return readBytesNumber<short>(*this);
+  return readBytesNumber<uint16_t>(*this);
 }
 
 char 

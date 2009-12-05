@@ -41,7 +41,7 @@ testEmpty()
 {
   sk::io::ByteArrayInputStream stream("", 0);
 
-  CPPUNIT_ASSERT_EQUAL(8, int(sizeof(long long)));
+  CPPUNIT_ASSERT_EQUAL(8, int(sizeof(uint64_t)));
   CPPUNIT_ASSERT_EQUAL(0, int(stream.available()));
   CPPUNIT_ASSERT_THROW(stream.read(), sk::io::EOFException);
 }

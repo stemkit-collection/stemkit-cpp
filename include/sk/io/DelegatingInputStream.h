@@ -29,7 +29,7 @@ namespace sk {
         // sk::io::InputStream implementation.
         void close();
         int skip(int number);
-        long long available() const;
+        uint64_t available() const;
         bool markSupported() const;
         void mark(int readlimit);
         void reset();
