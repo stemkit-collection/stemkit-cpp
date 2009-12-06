@@ -26,6 +26,7 @@ namespace sk {
         FileInfo(const FileInfo& other);
         virtual ~FileInfo();
 
+        const sk::util::String getType() const;
         const sk::util::Pathname& getPath() const;
         uint64_t getSize() const;
         uint64_t getTimeAccessed() const;
@@ -40,6 +41,7 @@ namespace sk {
     
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
+        const sk::util::String inspect() const;
     
       private:
         FileInfo& operator = (const FileInfo& other);

@@ -140,3 +140,59 @@ getTimeAccessed() const
 {
   return figureTime(_dataHolder.get().status.st_atimespec);
 }
+
+const sk::util::String
+sk::io::FileInfo::
+getType() const
+{
+  if(isDirectory() == true) {
+    return "directory";
+  }
+  if(isRegular() == true) {
+    return "file";
+  }
+  if(isSymlink() == true) {
+    return "symlink";
+  }
+  if(isSocket() == true) {
+    return "socket";
+  }
+  if(isPipe() == true) {
+    return "pipe";
+  }
+  if(isDevice() == true) {
+    return "device";
+  }
+  return "unknown";
+}
+
+const sk::util::String
+sk::io::FileInfo::
+inspect() const
+{
+  sk::util::StringArray depot;
+
+  depot << "path=" + _path.inspect();
+  depot << "type=" + getType();
+  {
+    std::stringstream stream;
+    stream << getSize();
+    depot << "size=" + stream.str();
+  }
+  {
+    std::stringstream stream;
+    stream << getTimeAccessed();
+    depot << "accessed_at=" + stream.str();
+  }
+  {
+    std::stringstream stream;
+    stream << getTimeModified();
+    depot << "modified_at=" + stream.str();
+  }
+  {
+    std::stringstream stream;
+    stream << getTimeUpdated();
+    depot << "updated_at=" + stream.str();
+  }
+  return "<FileInfo: " + depot.join(", ") + '>';
+}
