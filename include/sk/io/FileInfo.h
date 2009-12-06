@@ -22,6 +22,7 @@ namespace sk {
       public:
         FileInfo(const sk::util::String& path);
         FileInfo(int descriptor);
+        FileInfo(const FileInfo& other);
         virtual ~FileInfo();
 
         const sk::util::String& getPath() const;
@@ -40,7 +41,6 @@ namespace sk {
         const sk::util::Class getClass() const;
     
       private:
-        FileInfo(const FileInfo& other);
         FileInfo& operator = (const FileInfo& other);
 
         struct Data;
