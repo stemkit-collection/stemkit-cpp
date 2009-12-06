@@ -16,7 +16,9 @@ objects =
   FileDescriptorStream.cc
   FileDescriptorInputStream.cc
   FileDescriptorOutputStream.cc
+  Dir.cc
   File.cc
+  FileInfo.cc
   FileInputStream.cc
   FileOutputStream.cc
   NullDevice.cc
