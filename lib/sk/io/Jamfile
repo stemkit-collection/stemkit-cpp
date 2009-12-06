@@ -41,3 +41,6 @@ make-subdir test ;
 
 make-subdir $(PLATFORM_IMPLEMENTATION) ;
 add-project-library $(library) : $(library).$(PLATFORM_IMPLEMENTATION) ;
+
+make-program show-dir : show-dir.cc ;
+use-project-libraries show-dir : sk.io sk.rt sk.util ;
