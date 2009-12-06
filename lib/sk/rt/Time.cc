@@ -70,7 +70,7 @@ const sk::util::String
 sk::rt::Time::
 inspect() const
 {
-  return "<Time " + format("%m/%d/%y@%H:%M:%S") + '.' + sk::util::String::valueOf(_microseconds) + '>';
+  return "<Time " + format("%y/%m/%d %H:%M:%S") + '.' + sk::util::String::valueOf(_microseconds) + '>';
 }
 
 time_t
