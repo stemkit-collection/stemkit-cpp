@@ -115,26 +115,26 @@ isDevice() const
 }
 
 namespace {
-  uint64_t figureTime(const struct timespec spec) {
-    return (spec.tv_sec * 1000000) + (spec.tv_nsec / 1000);
+  const sk::rt::Time figureTime(const struct timespec spec) {
+    return sk::rt::Time::at(spec.tv_sec, spec.tv_nsec/1000);
   }
 }
 
-uint64_t
+const sk::rt::Time
 sk::io::FileInfo::
 getTimeUpdated() const
 {
   return figureTime(_dataHolder.get().status.st_ctimespec);
 }
 
-uint64_t
+const sk::rt::Time
 sk::io::FileInfo::
 getTimeModified() const
 {
   return figureTime(_dataHolder.get().status.st_mtimespec);
 }
 
-uint64_t
+const sk::rt::Time
 sk::io::FileInfo::
 getTimeAccessed() const
 {
@@ -179,20 +179,9 @@ inspect() const
     stream << getSize();
     depot << "size=" + stream.str();
   }
-  {
-    std::stringstream stream;
-    stream << getTimeAccessed();
-    depot << "accessed_at=" + stream.str();
-  }
-  {
-    std::stringstream stream;
-    stream << getTimeModified();
-    depot << "modified_at=" + stream.str();
-  }
-  {
-    std::stringstream stream;
-    stream << getTimeUpdated();
-    depot << "updated_at=" + stream.str();
-  }
+  depot << "accessed_at=" + getTimeAccessed().inspect();
+  depot << "modified_at=" + getTimeModified().inspect();
+  depot << "updated_at=" + getTimeUpdated().inspect();
+  
   return "<FileInfo: " + depot.join(", ") + '>';
 }

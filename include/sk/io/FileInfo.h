@@ -14,6 +14,7 @@
 #include <sk/util/Object.h>
 #include <sk/util/Pathname.h>
 #include <sk/util/Holder.hxx>
+#include <sk/rt/Time.h>
 
 namespace sk {
   namespace io {
@@ -29,9 +30,9 @@ namespace sk {
         const sk::util::String getType() const;
         const sk::util::Pathname& getPath() const;
         uint64_t getSize() const;
-        uint64_t getTimeAccessed() const;
-        uint64_t getTimeModified() const;
-        uint64_t getTimeUpdated() const;
+        const sk::rt::Time getTimeAccessed() const;
+        const sk::rt::Time getTimeModified() const;
+        const sk::rt::Time getTimeUpdated() const;
         bool isDirectory() const;
         bool isRegular() const;
         bool isSymlink() const;
