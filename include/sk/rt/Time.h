@@ -23,18 +23,25 @@ namespace sk {
         virtual ~Time();
 
         static const sk::rt::Time now();
+        static const sk::rt::Time at(time_t seconds);
+        static const sk::rt::Time at(time_t seconds, uint32_t microseconds);
+
         const sk::util::String format(const sk::util::String& specification) const;
+        time_t getSeconds() const;
+        uint32_t getMicroseconds() const;
     
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
+        const sk::util::String inspect() const;
     
       private:
-        Time();
+        Time(time_t seconds, uint32_t microseconds);
         Time& operator = (const Time& other);
 
         const struct tm& figure_localtime(struct tm& tm_buffer) const;
 
-        time_t _time;
+        time_t _seconds;
+        uint32_t _microseconds;
     };
   }
 }

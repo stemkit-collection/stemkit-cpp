@@ -19,6 +19,6 @@ const struct tm&
 sk::rt::Time::
 figure_localtime(struct tm& tm_buffer) const
 {
-  localtime_r(&_time, &tm_buffer);
+  localtime_r(&_seconds, &tm_buffer);
   return tm_buffer;
 }

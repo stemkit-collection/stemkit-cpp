@@ -18,8 +18,8 @@
 static const char* __className("sk::rt::Time");
 
 sk::rt::Time::
-Time()
-  : _time(time(0))
+Time(time_t seconds, uint32_t microseconds)
+  : _seconds(seconds), _microseconds(microseconds)
 {
 }
 
@@ -39,7 +39,21 @@ const sk::rt::Time
 sk::rt::Time::
 now() 
 {
-  return Time();
+  return Time(time(0), 0);
+}
+
+const sk::rt::Time
+sk::rt::Time::
+at(time_t seconds, uint32_t microseconds)
+{
+  return Time(seconds, microseconds);
+}
+
+const sk::rt::Time
+sk::rt::Time::
+at(time_t seconds)
+{
+  return at(seconds, 0);
 }
 
 const sk::util::String
@@ -50,4 +64,25 @@ format(const sk::util::String& specification) const
   struct tm tm_buffer;
   strftime(buffer, sizeof(buffer), specification.getChars(), &figure_localtime(tm_buffer));
   return buffer;
+}
+
+const sk::util::String
+sk::rt::Time::
+inspect() const
+{
+  return "<Time " + format("%m/%d/%y@%H:%M:%S") + '.' + sk::util::String::valueOf(_microseconds) + '>';
+}
+
+time_t
+sk::rt::Time::
+getSeconds() const
+{ 
+  return _seconds;
+}
+
+uint32_t
+sk::rt::Time::
+getMicroseconds() const
+{
+  return _microseconds;
 }
