@@ -12,6 +12,7 @@
 #define _SK_IO_FILEINFO_H_
 
 #include <sk/util/Object.h>
+#include <sk/util/Pathname.h>
 #include <sk/util/Holder.hxx>
 
 namespace sk {
@@ -20,12 +21,12 @@ namespace sk {
       : public virtual sk::util::Object
     {
       public:
-        FileInfo(const sk::util::String& path);
+        FileInfo(const sk::util::Pathname& path);
         FileInfo(int descriptor);
         FileInfo(const FileInfo& other);
         virtual ~FileInfo();
 
-        const sk::util::String& getPath() const;
+        const sk::util::Pathname& getPath() const;
         uint64_t getSize() const;
         uint64_t getTimeAccessed() const;
         uint64_t getTimeModified() const;
@@ -45,7 +46,7 @@ namespace sk {
 
         struct Data;
         sk::util::Holder<Data> _dataHolder;
-        const sk::util::String _path;
+        const sk::util::Pathname _path;
     };
   }
 }

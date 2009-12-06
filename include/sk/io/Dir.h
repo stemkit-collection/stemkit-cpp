@@ -12,6 +12,7 @@
 #define _SK_IO_DIR_H_
 
 #include <sk/util/Object.h>
+#include <sk/util/Pathname.h>
 #include <sk/util/Holder.hxx>
 #include <sk/util/Processor.h>
 
@@ -23,10 +24,10 @@ namespace sk {
       : public virtual sk::util::Object
     {
       public:
-        Dir(const sk::util::String& path);
+        Dir(const sk::util::Pathname& path);
         virtual ~Dir();
 
-        const sk::util::String& getPath() const;
+        const sk::util::Pathname& getPath() const;
         void forEachEntry(const sk::util::Processor<const sk::io::FileInfo>& processor) const;
         void close();
     
@@ -37,7 +38,7 @@ namespace sk {
         Dir(const Dir& other);
         Dir& operator = (const Dir& other);
         
-        const sk::util::String _path;
+        const sk::util::Pathname _path;
         struct Data;
         sk::util::Holder<Data> _dataHolder;
     };

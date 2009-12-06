@@ -26,17 +26,17 @@ struct sk::io::FileInfo::Data : public virtual sk::util::Object {
 
 
 sk::io::FileInfo::
-FileInfo(const sk::util::String& path)
-  : _path(path.trim()), _dataHolder(new Data)
+FileInfo(const sk::util::Pathname& path)
+  : _path(path), _dataHolder(new Data)
 {
-  if(::stat(_path.getChars(), &_dataHolder.get().status) != 0) {
+  if(::stat(_path.toString().getChars(), &_dataHolder.get().status) != 0) {
     throw sk::rt::SystemException("stat()");
   }
 }
 
 sk::io::FileInfo::
 FileInfo(int descriptor)
-  : _dataHolder(new Data)
+  : _dataHolder(new Data), _path("")
 {
   if(::fstat(descriptor, &_dataHolder.get().status) != 0) {
     throw sk::rt::SystemException("fstat()");
@@ -55,7 +55,7 @@ getClass() const
   return sk::util::Class(__className);
 }
 
-const sk::util::String& 
+const sk::util::Pathname& 
 sk::io::FileInfo::
 getPath() const 
 {

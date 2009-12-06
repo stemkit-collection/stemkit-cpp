@@ -26,10 +26,10 @@ struct sk::io::Dir::Data : public virtual sk::util::Object {
 };
 
 sk::io::Dir::
-Dir(const sk::util::String& path)
-  : _path(path.trim()), _dataHolder(new Data)
+Dir(const sk::util::Pathname& path)
+  : _path(path), _dataHolder(new Data)
 {
-  DIR* handle = ::opendir(_path.getChars());
+  DIR* handle = ::opendir(_path.toString().getChars());
   if(handle == 0) {
     throw sk::util::MissingResourceException("directory " + _path.inspect());
   }
@@ -49,7 +49,7 @@ getClass() const
   return sk::util::Class(__className);
 }
 
-const sk::util::String& 
+const sk::util::Pathname& 
 sk::io::Dir::
 getPath() const
 {
@@ -87,6 +87,17 @@ forEachEntry(const sk::util::Processor<const sk::io::FileInfo>& processor) const
     if(result == 0) {
       break;
     }
-    processor.process(sk::io::FileInfo(entry.d_name));
+    const char* name = entry.d_name;
+    if(name[0] == '.') {
+      if(name[1] == 0) {
+        continue;
+      }
+      if(name[1] == '.') {
+        if(name[2] == 0) {
+          continue;
+        }
+      }
+    }
+    processor.process(sk::io::FileInfo(_path.join(name)));
   }
 }
