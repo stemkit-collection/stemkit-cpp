@@ -12,6 +12,7 @@
 #define _SK_IO_FILEINFO_H_
 
 #include <sk/util/Object.h>
+#include <sk/util/Holder.hxx>
 
 namespace sk {
   namespace io {
@@ -19,8 +20,21 @@ namespace sk {
       : public virtual sk::util::Object
     {
       public:
-        FileInfo();
+        FileInfo(const sk::util::String& path);
+        FileInfo(int descriptor);
         virtual ~FileInfo();
+
+        const sk::util::String& getPath() const;
+        uint64_t getSize() const;
+        uint64_t getTimeAccessed() const;
+        uint64_t getTimeModified() const;
+        uint64_t getTimeUpdated() const;
+        bool isDirectory() const;
+        bool isRegular() const;
+        bool isSymlink() const;
+        bool isSocket() const;
+        bool isPipe() const;
+        bool isDevice() const;
     
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
@@ -28,6 +42,10 @@ namespace sk {
       private:
         FileInfo(const FileInfo& other);
         FileInfo& operator = (const FileInfo& other);
+
+        struct Data;
+        sk::util::Holder<Data> _dataHolder;
+        const sk::util::String _path;
     };
   }
 }
