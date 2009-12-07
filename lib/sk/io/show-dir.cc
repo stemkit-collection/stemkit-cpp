@@ -30,7 +30,8 @@ int main(int argc, const char* argv[])
       throw sk::util::IllegalArgumentException("USAGE: " + program.basename() + " <directory>");
     }
     sk::io::Dir dir(argv[1]);
-    dir.forEachEntry(Printer());
+    dir.forEachDirectory(Printer());
+    dir.forEachRegularFile(Printer());
   }
   catch(const std::exception& exception) {
     std::cerr << exception.what() << std::endl;

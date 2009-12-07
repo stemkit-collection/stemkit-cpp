@@ -28,7 +28,10 @@ namespace sk {
         virtual ~Dir();
 
         const sk::util::Pathname& getPath() const;
+        void forEachEntry(const sk::util::Processor<const sk::util::Pathname>& processor) const;
         void forEachEntry(const sk::util::Processor<const sk::io::FileInfo>& processor) const;
+        void forEachRegularFile(const sk::util::Processor<const sk::io::FileInfo>& processor) const;
+        void forEachDirectory(const sk::util::Processor<const sk::io::FileInfo>& processor) const;
         void close();
     
         // sk::util::Object re-implementation.
