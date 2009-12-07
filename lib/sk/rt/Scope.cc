@@ -55,6 +55,13 @@ sk::rt::Scope::
   detail().memory() << "Leave";
 }
 
+sk::rt::Scope& 
+sk::rt::Scope::
+operator = (const Scope& other)
+{
+  return *this;
+}
+
 const sk::util::Class
 sk::rt::Scope::
 getClass() const
