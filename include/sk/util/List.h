@@ -1,4 +1,5 @@
-/*  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
+/*  vi: sw=2:
+ *  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
  *  
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
@@ -9,6 +10,7 @@
 #define _SK_UTIL_LIST_
 
 #include <sk/util/Collection.h>
+#include <sk/util/OrderingChecker.h>
 
 namespace sk {
   namespace util {
@@ -59,6 +61,7 @@ namespace sk {
 
         // Sorts the list in the acsending order.
         virtual void sort() = 0;
+        virtual void sort(const sk::util::OrderingChecker<T>& checker) = 0;
     };
   }
 }

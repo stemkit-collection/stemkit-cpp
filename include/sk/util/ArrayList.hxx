@@ -48,6 +48,7 @@ namespace sk {
         using AbstractList<T>::remove;
 
         void sort();
+        void sort(const sk::util::OrderingChecker<T>& checker);
 
       protected:
         void forEachSlot(const sk::util::SlotProcessor<T>& processor) const;

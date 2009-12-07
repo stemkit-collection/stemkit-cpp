@@ -9,6 +9,7 @@
 #include "ArrayListTest.h"
 #include <sk/util/ArrayList.cxx>
 #include <sk/util/Holder.cxx>
+#include <sk/util/OrderingChecker.h>
 #include "Probe.h"
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::util::test::ArrayListTest);
@@ -190,21 +191,47 @@ testRemove()
   CPPUNIT_ASSERT_THROW(list.remove(-1), sk::util::IndexOutOfBoundsException);
 }
 
+namespace {
+  class NumberedString : public sk::util::String {
+    public:
+      NumberedString(const char* string, int number)
+        : sk::util::String(string), _number(number) {}
+
+      int getNumber() const {
+        return _number;
+      }
+
+    private:
+      int _number;
+  };
+}
+
 void 
 sk::util::test::ArrayListTest::
 testSort()
 {
-  sk::util::ArrayList<sk::util::String> list;
+  sk::util::ArrayList<NumberedString> list;
 
-  list.add(new sk::util::String("ccc"));
-  list.add(new sk::util::String("bbb"));
-  list.add(new sk::util::String("aaa"));
+  list.add(new NumberedString("ccc", 2));
+  list.add(new NumberedString("bbb", 1));
+  list.add(new NumberedString("aaa", 3));
 
   list.sort();
 
   CPPUNIT_ASSERT_EQUAL("aaa", list.get(0));
   CPPUNIT_ASSERT_EQUAL("bbb", list.get(1));
   CPPUNIT_ASSERT_EQUAL("ccc", list.get(2));
+
+  struct Ordering : public virtual sk::util::OrderingChecker<NumberedString> {
+    bool isOrdered(const NumberedString& first, const NumberedString& second) const {
+      return first.getNumber() < second.getNumber();
+    }
+  };
+  list.sort(Ordering());
+
+  CPPUNIT_ASSERT_EQUAL("bbb", list.get(0));
+  CPPUNIT_ASSERT_EQUAL("ccc", list.get(1));
+  CPPUNIT_ASSERT_EQUAL("aaa", list.get(2));
 }
 
 void 

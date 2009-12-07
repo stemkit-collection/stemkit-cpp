@@ -17,6 +17,7 @@
 #include <sk/util/slot/Pointer.cxx>
 #include <sk/util/StreamLiner.h>
 #include <sk/util/IndexOutOfBoundsException.h>
+#include <sk/util/slot/Ordering.cxx>
 #include <iostream>
 
 template<class T>
@@ -165,21 +166,20 @@ cutoff(int index)
   return object;
 }
 
-namespace {
-  template<typename T>
-  struct SlotComparator {
-    bool operator()(const sk::util::Slot<T>* first, const sk::util::Slot<T>* second) {
-      return first->get() < second->get();
-    }
-  };
-}
-
 template<class T>
 void
 sk::util::ArrayList<T>::
 sort()
 {
-  std::sort(_container.begin(), _container.end(), SlotComparator<T>());
+  std::sort(_container.begin(), _container.end(), sk::util::slot::Ordering<T>());
+}
+
+template<class T>
+void
+sk::util::ArrayList<T>::
+sort(const sk::util::OrderingChecker<T>& checker)
+{
+  std::sort(_container.begin(), _container.end(), sk::util::slot::Ordering<T>(checker));
 }
 
 #endif /* _SK_UTIL_ARRAYLIST_CXX_ */

@@ -154,6 +154,14 @@ sort()
   throw UnsupportedOperationException(SK_METHOD);
 }
 
+template<class T>
+void 
+sk::util::AbstractList<T>::
+sort(const sk::util::OrderingChecker<T>& checker)
+{
+  throw UnsupportedOperationException(SK_METHOD);
+}
+
 namespace {
   template<typename T>
   struct AbstractListInspectingCollector : public virtual sk::util::SlotProcessor<T> {

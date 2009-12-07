@@ -60,6 +60,7 @@ namespace sk {
         void set(int index, T* object);
 
         void sort();
+        void sort(const sk::util::OrderingChecker<T>& checker);
 
       private:
         AbstractList(const AbstractList<T>& other);
