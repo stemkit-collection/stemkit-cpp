@@ -4,6 +4,7 @@ local test = sk-rt-test ;
 local objects = 
   TestSuite.cc
   StopWatchTest.cc
+  TimeTest.cc
 ;
 
 use-pthreads $(test) ;

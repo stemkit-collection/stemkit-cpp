@@ -43,6 +43,13 @@ namespace sk {
         time_t _seconds;
         uint32_t _microseconds;
     };
+
+    bool operator<(const sk::rt::Time& first, const sk::rt::Time& second);
+    bool operator>(const sk::rt::Time& first, const sk::rt::Time& second);
+    bool operator==(const sk::rt::Time& first, const sk::rt::Time& second);
+    bool operator!=(const sk::rt::Time& first, const sk::rt::Time& second);
+    bool operator<=(const sk::rt::Time& first, const sk::rt::Time& second);
+    bool operator>=(const sk::rt::Time& first, const sk::rt::Time& second);
   }
 }
 

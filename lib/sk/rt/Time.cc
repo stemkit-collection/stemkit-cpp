@@ -86,3 +86,54 @@ getMicroseconds() const
 {
   return _microseconds;
 }
+
+bool 
+sk::rt::
+operator==(const sk::rt::Time& first, const sk::rt::Time& second)
+{
+  return (first.getSeconds() == second.getSeconds()) && (first.getMicroseconds() == second.getMicroseconds());
+}
+
+bool 
+sk::rt::
+operator!=(const sk::rt::Time& first, const sk::rt::Time& second)
+{
+  return !(first == second);
+}
+
+bool 
+sk::rt::
+operator<(const sk::rt::Time& first, const sk::rt::Time& second) 
+{
+  time_t s1 = first.getSeconds();
+  time_t s2 = second.getSeconds();
+
+  if(s1 < s2) {
+    return true;
+  }
+  if(s1 == s2) {
+    return first.getMicroseconds() < second.getMicroseconds();
+  }
+  return false;
+}
+
+bool 
+sk::rt::
+operator<=(const sk::rt::Time& first, const sk::rt::Time& second)
+{
+  return (first == second) || (first < second);
+}
+
+bool 
+sk::rt::
+operator>(const sk::rt::Time& first, const sk::rt::Time& second)
+{
+  return !(first <= second);
+}
+
+bool 
+sk::rt::
+operator>=(const sk::rt::Time& first, const sk::rt::Time& second)
+{
+  return !(first < second);
+}
