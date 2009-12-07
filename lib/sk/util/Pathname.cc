@@ -66,6 +66,13 @@ toString() const
   return _location + _path;
 }
 
+const sk::util::String
+sk::util::Pathname::
+inspect() const
+{
+  return toString().inspect();
+}
+
 const sk::util::Pathname
 sk::util::Pathname::
 join(const sk::util::Pathname& other) const
@@ -196,3 +203,4 @@ const sk::util::Pathname operator + (const sk::util::Pathname& first, const sk::
 {
   return first.join(second);
 }
+

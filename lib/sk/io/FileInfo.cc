@@ -172,8 +172,7 @@ inspect() const
 {
   sk::util::StringArray depot;
 
-  depot << "path=" + _path.inspect();
-  depot << "type=" + getType();
+  depot << getType() + '=' + _path.inspect();
   {
     std::stringstream stream;
     stream << getSize();
