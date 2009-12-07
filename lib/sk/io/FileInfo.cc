@@ -115,8 +115,8 @@ isDevice() const
 }
 
 namespace {
-  const sk::rt::Time figureTime(const struct timespec spec) {
-    return sk::rt::Time::at(spec.tv_sec, spec.tv_nsec/1000);
+  const sk::rt::Time figureTime(time_t moment) {
+    return sk::rt::Time::at(moment);
   }
 }
 
@@ -124,21 +124,21 @@ const sk::rt::Time
 sk::io::FileInfo::
 getTimeUpdated() const
 {
-  return figureTime(_dataHolder.get().status.st_ctimespec);
+  return figureTime(_dataHolder.get().status.st_ctime);
 }
 
 const sk::rt::Time
 sk::io::FileInfo::
 getTimeModified() const
 {
-  return figureTime(_dataHolder.get().status.st_mtimespec);
+  return figureTime(_dataHolder.get().status.st_mtime);
 }
 
 const sk::rt::Time
 sk::io::FileInfo::
 getTimeAccessed() const
 {
-  return figureTime(_dataHolder.get().status.st_atimespec);
+  return figureTime(_dataHolder.get().status.st_atime);
 }
 
 const sk::util::String
