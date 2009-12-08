@@ -24,7 +24,6 @@ struct sk::io::FileInfo::Data : public virtual sk::util::Object {
   struct stat status;
 };
 
-
 sk::io::FileInfo::
 FileInfo(const sk::util::Pathname& path)
   : _path(path), _dataHolder(new Data)
