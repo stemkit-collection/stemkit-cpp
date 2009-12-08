@@ -242,7 +242,7 @@ rule platform-solaris-sparc
 
   C++FLAGS += -fPIC ;
   CCFLAGS += -fPIC ;
-  DEFINES += _FILE_OFFSET_BITS=64 ;
+  DEFINES += _FILE_OFFSET_BITS=64 _POSIX_PTHREAD_SEMANTICS ;
   INCLUDES += [ util.make-path $(system.SRCTOP) platform include solaris ] ;
   SYSLIBS = socket nsl gen rt ;
 
@@ -261,7 +261,7 @@ rule platform-solaris-x86
 {
   C++FLAGS += -fpic ;
   CCFLAGS += -fpic ;
-  DEFINES += ;
+  DEFINES += _FILE_OFFSET_BITS=64 _POSIX_PTHREAD_SEMANTICS ;
   INCLUDES += [ util.make-path $(system.SRCTOP) platform include solaris ] ;
   SYSLIBS = socket nsl gen rt ;
 

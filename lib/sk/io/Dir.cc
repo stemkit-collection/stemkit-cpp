@@ -85,17 +85,17 @@ forEachEntry(const sk::util::Processor<const sk::util::Pathname>& processor) con
   }
   ::rewinddir(handle);
 
-  while(true) {
-    struct dirent entry;
-    struct dirent* result;
+  struct dirent* result = 0;
+  std::vector<char> entry(sizeof(*result) + PATH_MAX);
 
-    if(::readdir_r(handle, &entry, &result) != 0) {
+  while(true) {
+    if(::readdir_r(handle, reinterpret_cast<struct dirent*>(&entry.front()), &result) != 0) {
       throw sk::rt::SystemException("readdir_r()");
     }
     if(result == 0) {
       break;
     }
-    const char* name = entry.d_name;
+    const char* name = result->d_name;
     if(name[0] == '.') {
       if(name[1] == 0) {
         continue;
