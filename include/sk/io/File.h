@@ -14,12 +14,11 @@
 #include <sk/util/String.h>
 #include <sk/io/FileDescriptor.h>
 
-struct stat;
-
 namespace sk {
   namespace io {
     class InputStream;
     class OutputStream;
+    class FileInfo;
 
     class File
       : public virtual sk::util::Object 
@@ -33,6 +32,8 @@ namespace sk {
         File(const File& other);
         virtual ~File();
 
+        const sk::io::FileInfo& info() const;
+
         sk::io::InputStream& inputStream() const;
         sk::io::OutputStream& outputStream() const;
 
@@ -44,6 +45,14 @@ namespace sk {
         
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
+
+        static bool exists(const sk::util::String& path);
+        static bool isRegular(const sk::util::String& path);
+        static bool isDirectory(const sk::util::String& path);
+        static bool isPipe(const sk::util::String& path);
+        static bool isDevice(const sk::util::String& path);
+        static void unlink(const sk::util::String& path);
+        static void rename(const sk::util::String& oldpath, const sk::util::String& newpath);
         
       private:
         File& operator = (const File& other);
@@ -51,18 +60,15 @@ namespace sk {
         void open(const sk::util::String& mode, int permissions);
         void open(int mode, int permissions);
         int numericMode(const sk::util::String& mode);
-        struct ::stat& stat() const;
 
         sk::util::String _name;
         sk::util::Holder<sk::io::FileDescriptor> _descriptorHolder;
         sk::util::Holder<sk::io::InputStream> _inputStreamHolder;
         sk::util::Holder<sk::io::OutputStream> _outputStreamHolder;
-        mutable sk::util::Holder<struct ::stat> _statHolder;
+        sk::util::Holder<sk::io::FileInfo> _infoHolder;
     };
   }
 }
-
-std::ostream& operator<<(std::ostream& stream, const struct ::stat& fileStatistics);
 
 #if 0
   Mode |  Meaning

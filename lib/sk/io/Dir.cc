@@ -23,6 +23,9 @@
 #include <sk/io/Dir.h>
 #include <sk/io/FileInfo.h>
 #include <dirent.h>
+#include <errno.h>
+#include <sys/stat.h>
+#include <vector>
 
 static const sk::util::String __className("sk::io::Dir");
 
@@ -126,4 +129,45 @@ sk::io::Dir::
 forEachRegularFile(const sk::util::Processor<const sk::io::FileInfo>& processor) const
 {
   forEachEntry(sk::util::SelectingProcessor<const sk::io::FileInfo>(processor, sk::io::selector::RegularFile()));
+}
+
+void 
+sk::io::Dir::
+change(const sk::util::String& path)
+{
+  if(::chdir(path.getChars()) != 0) {
+    throw sk::rt::SystemException("chdir");
+  }
+}
+
+void 
+sk::io::Dir::
+make(const sk::util::String& path)
+{
+  if(::mkdir(path.getChars(), 0777) != 0) {
+    throw sk::rt::SystemException("mkdir");
+  }
+}
+
+const sk::util::Pathname 
+sk::io::Dir::
+current()
+{
+  std::vector<char> buffer(1024, 0);
+  while(::getcwd(&buffer.front(), buffer.size()) == 0) {
+    if(errno != ERANGE) {
+      throw sk::rt::SystemException("getcwd");
+    }
+    buffer.resize(buffer.size() + 1024, 0);
+  }
+  return sk::util::String(&buffer.front());
+}
+
+void 
+sk::io::Dir::
+unlink(const sk::util::String& path)
+{
+  if(::rmdir(path.getChars()) != 0) {
+    throw sk::rt::SystemException("mkdir");
+  }
 }

@@ -36,6 +36,11 @@ namespace sk {
     
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
+
+        static void change(const sk::util::String& path);
+        static void make(const sk::util::String& path);
+        static const sk::util::Pathname current();
+        static void unlink(const sk::util::String& path);
     
       private:
         Dir(const Dir& other);

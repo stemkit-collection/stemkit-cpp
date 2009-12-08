@@ -9,15 +9,17 @@
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
 #include <sk/util/Holder.cxx>
+#include <sk/rt/SystemException.h>
 
 #include <sk/io/File.h>
 #include <sk/io/IOException.h>
 #include <sk/io/ClosedChannelException.h>
 #include <sk/io/FileDescriptorInputStream.h>
 #include <sk/io/FileDescriptorOutputStream.h>
+#include <sk/io/FileInfo.h>
 #include <fcntl.h>
 #include <unistd.h>
-#include <sys/stat.h>
+#include <fstream>
 
 sk::io::File::
 File(const sk::io::File& other)
@@ -130,6 +132,8 @@ open(int mode, int permissions)
   _descriptorHolder.set(new sk::io::FileDescriptor(fd));
   _inputStreamHolder.set(new sk::io::FileDescriptorInputStream(fd));
   _outputStreamHolder.set(new sk::io::FileDescriptorOutputStream(fd));
+
+  _infoHolder.set(new sk::io::FileInfo(_name));
 }
 
 int
@@ -172,24 +176,65 @@ uint64_t
 sk::io::File::
 size() const
 {
-  return stat().st_size;
+  return info().getSize();
 }
 
-struct ::stat&
+bool 
 sk::io::File::
-stat() const
+exists(const sk::util::String& path)
 {
-  if(_statHolder.isEmpty() == true) {
-    _statHolder.set(new struct stat);
-    int n = fstat(getFileDescriptor().getFileNumber(), &_statHolder.get());
-    if(n == -1) {
-      throw sk::io::IOException(getName() + ": fstat() failed");
-    }
-  }
-  return _statHolder.get();
+  return std::ifstream(path.getChars()).good();
 }
 
-std::ostream& operator<<(std::ostream& stream, const struct ::stat& /*fileStatistics*/) 
+bool 
+sk::io::File::
+isRegular(const sk::util::String& path)
 {
-  return stream << "<stat>";
+  return sk::io::FileInfo(path).isRegular();
+}
+
+bool 
+sk::io::File::
+isDirectory(const sk::util::String& path)
+{
+  return sk::io::FileInfo(path).isDirectory();
+}
+
+bool 
+sk::io::File::
+isPipe(const sk::util::String& path)
+{
+  return sk::io::FileInfo(path).isPipe();
+}
+
+bool 
+sk::io::File::
+isDevice(const sk::util::String& path)
+{
+  return sk::io::FileInfo(path).isDevice();
+}
+
+void 
+sk::io::File::
+unlink(const sk::util::String& path)
+{
+  if(::unlink(path.getChars()) != 0) {
+    throw sk::rt::SystemException("unlink");
+  }
+}
+
+void 
+sk::io::File::
+rename(const sk::util::String& oldpath, const sk::util::String& newpath)
+{
+  if(::rename(oldpath.getChars(), newpath.getChars()) != 0) {
+    throw sk::rt::SystemException("rename");
+  }
+}
+
+const sk::io::FileInfo&
+sk::io::File::
+info() const
+{
+  return _infoHolder.get();
 }
