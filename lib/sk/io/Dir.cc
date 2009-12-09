@@ -24,6 +24,7 @@
 #include <sk/io/FileInfo.h>
 #include <dirent.h>
 #include <errno.h>
+#include <unistd.h>
 #include <sys/stat.h>
 #include <vector>
 

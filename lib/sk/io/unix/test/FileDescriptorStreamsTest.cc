@@ -58,7 +58,7 @@ sk::io::test::FileDescriptorStreamsTest::
 testReadWrite()
 {
   dataOutput().writeInt(1234);
-  CPPUNIT_ASSERT_EQUAL(1234U, dataInput().readInt());
+  CPPUNIT_ASSERT_EQUAL(uint32_t(1234), dataInput().readInt());
 
   dataOutput().writeChars("Hello\n");
   CPPUNIT_ASSERT_EQUAL(sk::util::String("\"Hello\\n\""), dataInput().readLine().inspect());
