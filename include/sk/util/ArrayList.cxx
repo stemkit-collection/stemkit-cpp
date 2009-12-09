@@ -19,6 +19,7 @@
 #include <sk/util/IndexOutOfBoundsException.h>
 #include <sk/util/slot/Ordering.cxx>
 #include <iostream>
+#include <algorithm>
 
 template<class T>
 sk::util::ArrayList<T>::

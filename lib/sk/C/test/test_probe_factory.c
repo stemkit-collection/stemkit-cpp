@@ -26,13 +26,15 @@ const char* test_probe_factory(char* error_buffer, int error_buffer_size)
     return "Initial factory size not 0";
   }
 
-  char buffer[80];
-  if(strcmp(sk_c_test_Probe_inspect(sk_c_test_ProbeFactory_makeProbe(factory, "AAA"), buffer, sizeof(buffer)), "sk::C::test::Probe=\"AAA\"") != 0) {
-    return "Probe not AAA";
-  }
+  {
+    char buffer[80];
+    if(strcmp(sk_c_test_Probe_inspect(sk_c_test_ProbeFactory_makeProbe(factory, "AAA"), buffer, sizeof(buffer)), "sk::C::test::Probe=\"AAA\"") != 0) {
+      return "Probe not AAA";
+    }
 
-  if(strcmp(sk_c_test_Probe_inspect(sk_c_test_ProbeFactory_makeProbe(factory, "BBB"), buffer, sizeof(buffer)), "sk::C::test::Probe=\"BBB\"") != 0) {
-    return "Probe not BBB";
+    if(strcmp(sk_c_test_Probe_inspect(sk_c_test_ProbeFactory_makeProbe(factory, "BBB"), buffer, sizeof(buffer)), "sk::C::test::Probe=\"BBB\"") != 0) {
+      return "Probe not BBB";
+    }
   }
 
   if(sk_c_test_ProbeFactory_getSize(factory) != 2) {
@@ -43,21 +45,23 @@ const char* test_probe_factory(char* error_buffer, int error_buffer_size)
     return "Final probe instance counter not 2";
   }
 
-  struct sk_c_test_ProbeHandle* probe = sk_c_test_ProbeFactory_makeProbe(factory, "UUU");
-  sk_c_test_Probe_raiseException(probe, "abc");
-  if(!sk_c_handle_isError(sk_c_test_ProbeHandle_toHandle(probe))) {
-    return "No expected error";
+  {
+    struct sk_c_test_ProbeHandle* probe = sk_c_test_ProbeFactory_makeProbe(factory, "UUU");
+    sk_c_test_Probe_raiseException(probe, "abc");
+    if(!sk_c_handle_isError(sk_c_test_ProbeHandle_toHandle(probe))) {
+      return "No expected error";
+    }
+
+    sk_c_handle_errorMessage(sk_c_test_ProbeHandle_toHandle(probe), error_buffer, error_buffer_size);
+    if(strcmp("ERROR: UUU => abc", error_buffer) != 0) {
+      strcat(error_buffer, " - ");
+      strcat(error_buffer, "Error message mismatch");
+
+      return error_buffer;
+    }
+
+    sk_c_handle_errorType(sk_c_test_ProbeHandle_toHandle(probe), error_buffer, error_buffer_size);
   }
-
-  sk_c_handle_errorMessage(sk_c_test_ProbeHandle_toHandle(probe), error_buffer, error_buffer_size);
-  if(strcmp("ERROR: UUU => abc", error_buffer) != 0) {
-    strcat(error_buffer, " - ");
-    strcat(error_buffer, "Error message mismatch");
-
-    return error_buffer;
-  }
-
-  sk_c_handle_errorType(sk_c_test_ProbeHandle_toHandle(probe), error_buffer, error_buffer_size);
   if(strcmp("sk::util::Exception", error_buffer) != 0) {
     strcat(error_buffer, " - ");
     strcat(error_buffer, "Error type mismatch");

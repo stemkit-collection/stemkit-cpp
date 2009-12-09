@@ -47,6 +47,8 @@ namespace sk {
         int lastIndexOf(const T& object) const;
         int lastIndexOf(const Selector<T>& selector) const;
 
+        using AbstractCollection<T>::removeAll;
+
         void remove(int index);
         using AbstractCollection<T>::remove;
 

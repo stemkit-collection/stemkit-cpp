@@ -17,6 +17,7 @@
 #include <sstream>
 #include <limits>
 #include <algorithm>
+#include <functional>
 
 static const sk::util::String __className("sk::util::Bitset");
 

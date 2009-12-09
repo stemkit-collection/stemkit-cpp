@@ -13,6 +13,7 @@
 #include <sk/util/UnsupportedOperationException.h>
 
 #include "TextNode.h"
+#include <algorithm>
 
 static const sk::util::String __className("sk::util::pp::TextNode");
 

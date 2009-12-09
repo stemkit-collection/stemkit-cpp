@@ -17,6 +17,7 @@
 
 #include <iomanip>
 #include <numeric>
+#include <algorithm>
 
 static const sk::util::String __className("sk::rt::bm::Executor");
 
