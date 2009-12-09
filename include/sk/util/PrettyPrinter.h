@@ -25,6 +25,7 @@ namespace sk {
     {
       public:
         PrettyPrinter(std::ostream& stream);
+        PrettyPrinter(const PrettyPrinter& other);
         virtual ~PrettyPrinter();
 
         void setCompact(bool state);
@@ -34,7 +35,6 @@ namespace sk {
         const sk::util::Class getClass() const;
     
       private:
-        PrettyPrinter(const PrettyPrinter& other);
         PrettyPrinter& operator = (const PrettyPrinter& other);
 
         std::ostream& _stream;

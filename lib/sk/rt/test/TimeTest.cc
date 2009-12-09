@@ -44,8 +44,8 @@ testBasics()
   CPPUNIT_ASSERT_EQUAL(time_t(127), t.getSeconds());
   CPPUNIT_ASSERT_EQUAL(uint32_t(0), t.getMicroseconds());
 
-  CPPUNIT_ASSERT_EQUAL("<Time 69/12/31 16:02:07.0>", t.inspect());
-  CPPUNIT_ASSERT_EQUAL("<Time 69/12/31 16:02:07.478>", sk::rt::Time::at(127, 478).inspect());
+  CPPUNIT_ASSERT_EQUAL("<Time: date=69/12/31, time=16:02:07.0>", t.inspect());
+  CPPUNIT_ASSERT_EQUAL("<Time: date=69/12/31, time=16:02:07.478>", sk::rt::Time::at(127, 478).inspect());
 }
 
 void 

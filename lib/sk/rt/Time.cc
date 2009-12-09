@@ -11,6 +11,7 @@
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
 #include <sk/util/UnsupportedOperationException.h>
+#include <sk/util/StringArray.h>
 
 #include <sk/rt/Time.h>
 #include <time.h>
@@ -70,7 +71,12 @@ const sk::util::String
 sk::rt::Time::
 inspect() const
 {
-  return "<Time: " + format("%y/%m/%d %H:%M:%S") + '.' + sk::util::String::valueOf(_microseconds) + '>';
+  sk::util::StringArray depot;
+
+  depot << "date=" + format("%y/%m/%d");
+  depot << "time=" + format("%H:%M:%S") + '.' + sk::util::String::valueOf(_microseconds);
+
+  return "<Time: " + depot.join(", ") + '>';
 }
 
 time_t

@@ -11,6 +11,7 @@
 #include <iostream>
 #include <sk/util/IllegalArgumentException.h>
 #include <sk/util/Pathname.h>
+#include <sk/util/PrettyPrinter.h>
 #include <sk/io/FileInfo.h>
 #include <sk/io/Dir.h>
 
@@ -19,6 +20,16 @@ namespace {
     void process(const sk::io::FileInfo& info) const {
       std::cout << info << std::endl;
     }
+  };
+
+  struct PrettyPrinter : public virtual sk::util::Processor<const sk::io::FileInfo> {
+    PrettyPrinter() 
+      : _printer(std::cout) {}
+
+    void process(const sk::io::FileInfo& info) const {
+      _printer.print(info.inspect());
+    }
+    sk::util::PrettyPrinter _printer;
   };
 }
 

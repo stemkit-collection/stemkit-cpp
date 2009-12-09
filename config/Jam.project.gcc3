@@ -182,7 +182,12 @@ rule platform-aix-ppc
 {
   project.MAKE_DLL = false ;
 
-  DEFINES += ;
+  C++LDFLAGS =
+    -Wl,-bmaxdata:0x50000000
+    -Wl,-u__TSC_BUILD__
+  ;
+  # DEFINES += _POSIX_PTHREAD_SEMANTICS _FILE_OFFSET_BITS=64 _LARGE_FILES ;
+  DEFINES += _POSIX_PTHREAD_SEMANTICS _FILE_OFFSET_BITS=64 ;
   INCLUDES += [ util.make-path $(system.SRCTOP) platform include aix ] ;
   SYSLIBS = crypt dl ;
 
