@@ -85,15 +85,19 @@ forEachEntry(const sk::util::Processor<const sk::util::Pathname>& processor) con
   }
   ::rewinddir(handle);
 
-  struct dirent* result = 0;
-  std::vector<char> entry(sizeof(*result) + PATH_MAX);
-
+  // In the following code readdir() is used instead of readdir_r() as the
+  // latter is not fully compatible on all platforms (AIX in particular).
+  // Besides, on AIX readdir_r() returns with error with no errno set under
+  // certain conditions. It is not thread-safe now.
+  //
   while(true) {
-    if(::readdir_r(handle, reinterpret_cast<struct dirent*>(&entry.front()), &result) != 0) {
-      throw sk::rt::SystemException("readdir_r()");
-    }
+    errno = 0;
+    struct dirent* result = ::readdir(handle);
     if(result == 0) {
-      break;
+      if(errno == 0) {
+        break;
+      }
+      throw sk::rt::SystemException("readdir_r()");
     }
     const char* name = result->d_name;
     if(name[0] == '.') {
