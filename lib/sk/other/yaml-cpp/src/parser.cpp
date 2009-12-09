@@ -1,5 +1,5 @@
 #include "crt.h"
-#include "parser.h"
+#include <sk/other/yaml-cpp/parser.h>
 #include "scanner.h"
 #include "token.h"
 #include "exceptions.h"

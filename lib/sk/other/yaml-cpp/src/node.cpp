@@ -3,7 +3,7 @@
 #include "token.h"
 #include "scanner.h"
 #include "content.h"
-#include "parser.h"
+#include <sk/other/yaml-cpp/parser.h>
 #include "scalar.h"
 #include "sequence.h"
 #include "map.h"
