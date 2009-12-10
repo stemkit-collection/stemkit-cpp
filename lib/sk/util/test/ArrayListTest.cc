@@ -10,6 +10,7 @@
 #include <sk/util/ArrayList.cxx>
 #include <sk/util/Holder.cxx>
 #include <sk/util/OrderingChecker.h>
+#include <sk/util/CopyingProcessor.cxx>
 #include "Probe.h"
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::util::test::ArrayListTest);
@@ -274,4 +275,28 @@ testRemoveAll()
   CPPUNIT_ASSERT_EQUAL(2, list.size());
   CPPUNIT_ASSERT_EQUAL("aaa", list.get(0));
   CPPUNIT_ASSERT_EQUAL("ccc", list.get(1));
+}
+
+void
+sk::util::test::ArrayListTest::
+testShuffle()
+{
+  sk::util::ArrayList<sk::util::String> l1;
+  l1.add(new sk::util::String("aaa"));
+  l1.add(new sk::util::String("bbb"));
+  l1.add(new sk::util::String("ccc"));
+  l1.add(new sk::util::String("ddd"));
+  l1.add(new sk::util::String("eee"));
+  l1.add(new sk::util::String("fff"));
+  l1.add(new sk::util::String("uuu"));
+  l1.add(new sk::util::String("zzz"));
+
+  sk::util::ArrayList<sk::util::String> l2;
+  l1.forEach(sk::util::CopyingProcessor<sk::util::String>(l2));
+
+  CPPUNIT_ASSERT_EQUAL(l1.inspect(), l2.inspect());
+
+  l2.shuffle();
+  CPPUNIT_ASSERT_EQUAL(l1.size(), l2.size());
+  CPPUNIT_ASSERT(l1.inspect() != l2.inspect());
 }

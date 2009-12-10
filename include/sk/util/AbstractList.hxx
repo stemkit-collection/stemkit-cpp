@@ -63,6 +63,7 @@ namespace sk {
 
         void sort();
         void sort(const sk::util::OrderingChecker<T>& checker);
+        void shuffle();
 
       private:
         AbstractList(const AbstractList<T>& other);

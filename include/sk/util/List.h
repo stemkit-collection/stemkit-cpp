@@ -62,6 +62,9 @@ namespace sk {
         // Sorts the list in the acsending order.
         virtual void sort() = 0;
         virtual void sort(const sk::util::OrderingChecker<T>& checker) = 0;
+        
+        // Randomly permutes the list using a default source of randomness.
+        virtual void shuffle() = 0;
     };
   }
 }

@@ -183,4 +183,12 @@ sort(const sk::util::OrderingChecker<T>& checker)
   std::sort(_container.begin(), _container.end(), sk::util::slot::Ordering<T>(checker));
 }
 
+template<class T>
+void
+sk::util::ArrayList<T>::
+shuffle()
+{
+  std::random_shuffle(_container.begin(), _container.end());
+}
+
 #endif /* _SK_UTIL_ARRAYLIST_CXX_ */

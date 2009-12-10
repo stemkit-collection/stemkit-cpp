@@ -28,6 +28,7 @@ namespace sk {
           CPPUNIT_TEST(testSort);
           CPPUNIT_TEST(testInspect);
           CPPUNIT_TEST(testRemoveAll);
+          CPPUNIT_TEST(testShuffle);
         CPPUNIT_TEST_SUITE_END();
         
         public:
@@ -46,6 +47,7 @@ namespace sk {
           void testSort();
           void testInspect();
           void testRemoveAll();
+          void testShuffle();
           
         private:
           ArrayListTest(const ArrayListTest& other);
