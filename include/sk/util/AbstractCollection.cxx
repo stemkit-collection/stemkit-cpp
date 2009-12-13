@@ -14,6 +14,7 @@
 #include <sk/util/UnsupportedOperationException.h>
 #include <sk/util/NoSuchElementException.h>
 #include <sk/util/selector/Same.cxx>
+#include <sk/util/selector/Any.cxx>
 #include <sk/util/assessor/SameObjects.cxx>
 #include <sk/util/assessor/Binding.cxx>
 #include <sk/util/slot/ContentInvocator.cxx>
@@ -220,7 +221,7 @@ void
 sk::util::AbstractCollection<T>::
 clear() 
 {
-  throw UnsupportedOperationException(SK_METHOD);
+  removeAll(sk::util::selector::Any<T>());
 }
 
 template<class T>

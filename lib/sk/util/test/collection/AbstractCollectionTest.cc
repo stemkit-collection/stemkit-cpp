@@ -147,3 +147,23 @@ testContainsAll()
   c2.add("zzz");
   CPPUNIT_ASSERT(c1.containsAll(c2, sk::util::assessor::EqualObjects<sk::util::String>()) == false);
 }
+
+void 
+sk::util::test::collection::AbstractCollectionTest::
+testClear()
+{
+  SampleCollection collection;
+
+  CPPUNIT_ASSERT(collection.isEmpty() == true);
+  CPPUNIT_ASSERT_EQUAL(0, collection.size());
+
+  collection.add("aaa");
+  collection.add("bbb");
+  collection.add("ccc");
+  CPPUNIT_ASSERT(collection.isEmpty() == false);
+  CPPUNIT_ASSERT_EQUAL(3, collection.size());
+
+  collection.clear();
+  CPPUNIT_ASSERT(collection.isEmpty() == true);
+  CPPUNIT_ASSERT_EQUAL(0, collection.size());
+}
