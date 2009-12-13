@@ -103,11 +103,32 @@ namespace sk {
         /// element was present, false otherwise.
         virtual bool remove(const Selector<T>& selector) = 0;
 
+        /// Removes a single instance of the specified element from this
+        /// collection, and returns the element as a pointer. The caller 
+        /// is responsible for deleting the pointer. Throws exception
+        /// sk::util::NoSuchElementException when the element was not 
+        /// present in this collection. When the collection does not own
+        /// the element exception sk::util::UnsupportedOperationException
+        /// is thrown.
         virtual T* cutoff(const T& object) = 0;
+        
+        /// Removes a single element from this colleciton for which the
+        /// specified selector assesses to true and returns the element 
+        /// as a pointer. The caller is responsible for deleting the 
+        /// pointer. Throws exception sk::util::NoSuchElementException 
+        /// when the element was not present in this collection. When 
+        /// the collection does not own the elemen, exception
+        /// sk::util::NoSuchElementException is thrown.
         virtual T* cutoff(const Selector<T>& selector) = 0;
 
+        //@{
+        /// Same as cutoff(), however the element is not removed from the
+        /// collection, being replaced by a reference instead. It performs 
+        /// just the ownership release. Again, the caller is responsible for 
+        /// the actual poiner deletion.
         virtual T* release(const T& object) = 0;
         virtual T* release(const Selector<T>& selector) = 0;
+        //@}
 
         /// Removes all of this collection's elements that are also contained in
         /// the specified collection. Returns true if the collection has been 
