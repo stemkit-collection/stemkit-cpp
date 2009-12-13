@@ -8,22 +8,24 @@
  *  Author: Gennady Bystritsky
 */
 
-#ifndef _SK_UTIL_SLOTPROCESSOR_HXX_
-#define _SK_UTIL_SLOTPROCESSOR_HXX_
+#ifndef _SK_UTIL_SLOT_PROCESSOR_H_
+#define _SK_UTIL_SLOT_PROCESSOR_H_
 
 #include <sk/util/Object.h>
 #include <sk/util/Slot.hxx>
 
 namespace sk {
   namespace util {
-    template<typename T>
-    class SlotProcessor 
-      : public virtual sk::util::Object
-    {
-      public:
-        virtual bool process(const sk::util::Slot<T>& slot) const = 0;
-    };
+    namespace slot {
+      template<typename T>
+      class Processor 
+        : public virtual sk::util::Object
+      {
+        public:
+          virtual bool process(const sk::util::Slot<T>& slot) const = 0;
+      };
+    }
   }
 }
 
-#endif /* _SK_UTIL_SLOTPROCESSOR_HXX_ */
+#endif /* _SK_UTIL_SLOT_PROCESSOR_H_ */

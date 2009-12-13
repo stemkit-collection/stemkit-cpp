@@ -13,6 +13,7 @@
 #include <sk/util/Holder.hxx>
 #include <sk/util/Selector.h>
 #include <sk/util/Processor.h>
+#include <sk/util/Assessor.h>
 
 namespace sk {
   namespace util {
@@ -70,6 +71,10 @@ namespace sk {
         /// Returns true if this collection contains all of the elements in
         /// the specified collection.
         virtual bool containsAll(const Collection<T>& other) const = 0;
+
+        /// Returns true if this collection contains all of the elements in
+        /// the specified collection according to the specified assessor.
+        virtual bool containsAll(const Collection<T>& other, const sk::util::BinaryAssessor<T>& assessor) const = 0;
 
         //@{
         /// Ensures that this collection contains the specified element. A

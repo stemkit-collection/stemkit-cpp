@@ -21,6 +21,7 @@ namespace sk {
       {
         public:
           Reference(T& object);
+          Reference(const Reference<T, Mixin>& other);
           virtual ~Reference();
           
           // sk::util::Slot re-implementation.
@@ -34,7 +35,6 @@ namespace sk {
           const sk::util::Class getClass() const;
           
         private:
-          Reference(const Reference<T, Mixin>& other);
           Reference<T, Mixin>& operator = (const Reference<T, Mixin>& other);
 
           T& _object;

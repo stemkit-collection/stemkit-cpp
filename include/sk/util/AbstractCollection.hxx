@@ -11,7 +11,7 @@
 
 #include <sk/util/Collection.h>
 #include <sk/util/Class.h>
-#include <sk/util/SlotProcessor.hxx>
+#include <sk/util/slot/Processor.h>
 
 namespace sk {
   namespace util {
@@ -43,6 +43,7 @@ namespace sk {
         bool contains(const T& object) const;
         bool contains(const Selector<T>& selector) const;
         bool containsAll(const Collection<T>& other) const;
+        bool containsAll(const Collection<T>& other, const sk::util::BinaryAssessor<T>& assessor) const;
 
         bool add(const T& object);
         bool add(T& object);
@@ -65,8 +66,8 @@ namespace sk {
         bool retainAll(const Selector<T>& selector);
 
       protected:
-        virtual void forEachSlot(const sk::util::SlotProcessor<const T>& processor) const = 0;
-        virtual void forEachSlot(const sk::util::SlotProcessor<T>& processor) = 0;
+        virtual void forEachSlot(const sk::util::slot::Processor<const T>& processor) const = 0;
+        virtual void forEachSlot(const sk::util::slot::Processor<T>& processor) = 0;
 
       private:
         AbstractCollection(const AbstractCollection<T>& other);

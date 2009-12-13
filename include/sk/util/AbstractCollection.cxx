@@ -10,9 +10,13 @@
 #define _SK_UTIL_ABSTRACTCOLLECTION_CXX_
 
 #include <sk/util/AbstractCollection.hxx>
+#include <sk/util/Holder.cxx>
 #include <sk/util/UnsupportedOperationException.h>
+#include <sk/util/NoSuchElementException.h>
 #include <sk/util/selector/Same.cxx>
-#include <sk/util/SlotContentInvocator.hxx>
+#include <sk/util/assessor/SameObjects.cxx>
+#include <sk/util/assessor/Binding.cxx>
+#include <sk/util/slot/ContentInvocator.cxx>
 #include <sk/util/Break.h>
 
 template<class T>
@@ -93,7 +97,7 @@ void
 sk::util::AbstractCollection<T>::
 forEach(const Processor<const T>& processor) const 
 {
-  forEachSlot(SlotContentInvocator<const T>(processor));
+  forEachSlot(sk::util::slot::ContentInvocator<const T>(processor));
 }
 
 template<class T>
@@ -101,7 +105,7 @@ void
 sk::util::AbstractCollection<T>::
 forEach(const Processor<T>& processor) 
 {
-  forEachSlot(SlotContentInvocator<T>(processor));
+  forEachSlot(sk::util::slot::ContentInvocator<T>(processor));
 }
 
 template<class T>
@@ -142,19 +146,28 @@ bool
 sk::util::AbstractCollection<T>::
 containsAll(const Collection<T>& other) const 
 {
+  return containsAll(other, sk::util::assessor::SameObjects<T>());
+}
+
+template<class T>
+bool 
+sk::util::AbstractCollection<T>::
+containsAll(const Collection<T>& other, const sk::util::BinaryAssessor<T>& assessor) const 
+{
   struct Processor : public virtual sk::util::Processor<const T> {
-    Processor(const sk::util::Collection<T>& collection)
-      : _collection(collection) {}
+    Processor(const sk::util::Collection<T>& collection, const sk::util::BinaryAssessor<T>& assessor)
+      : _collection(collection), _assessor(assessor) {}
 
     void process(const T& item) const {
-      if(_collection.contains(item) == false) {
+      if(_collection.contains(sk::util::assessor::Binding<T>(item, _assessor)) == false) {
         throw sk::util::Break();
       }
     }
     const sk::util::Collection<T>& _collection;
+    const sk::util::BinaryAssessor<T>& _assessor;
   };
   try {
-    other.forEach(Scanner(*this));
+    other.forEach(Processor(*this, assessor));
     return true;
   }
   catch(const sk::util::Break& event) {}
@@ -245,7 +258,7 @@ cutoff(const Selector<T>& /*selector*/)
 template<class T>
 T* 
 sk::util::AbstractCollection<T>::
-release(const T& /*object*/) 
+release(const T& object) 
 {
   return release(selector::Same<T>(object));
 }
