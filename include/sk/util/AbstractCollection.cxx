@@ -13,6 +13,7 @@
 #include <sk/util/UnsupportedOperationException.h>
 #include <sk/util/selector/Same.cxx>
 #include <sk/util/SlotContentInvocator.hxx>
+#include <sk/util/Break.h>
 
 template<class T>
 sk::util::AbstractCollection<T>::
@@ -35,7 +36,7 @@ getClass() const
 }
 
 template<class T>
-T& 
+const T& 
 sk::util::AbstractCollection<T>::
 get(const Selector<T>& /*selector*/) const 
 {
@@ -43,9 +44,62 @@ get(const Selector<T>& /*selector*/) const
 }
 
 template<class T>
+T& 
+sk::util::AbstractCollection<T>::
+getMutable(const Selector<T>& /*selector*/)
+{
+  throw UnsupportedOperationException(SK_METHOD);
+}
+
+template<class T>
+bool 
+sk::util::AbstractCollection<T>::
+find(sk::util::Holder<const T>& holder, const Selector<T>& selector) const
+{
+  try {
+    holder.set(get(selector));
+    return true;
+  }
+  catch(const sk::util::NoSuchElementException& exception) {
+    return false;
+  }
+}
+
+template<class T>
+bool 
+sk::util::AbstractCollection<T>::
+find(sk::util::Holder<const T>& holder, const Selector<T>& selector)
+{
+  const sk::util::AbstractCollection<T>& self = *this;
+  return self.find(holder, selector);
+}
+
+template<class T>
+bool 
+sk::util::AbstractCollection<T>::
+find(sk::util::Holder<T>& holder, const Selector<T>& selector)
+{
+  try {
+    holder.set(getMutable(selector));
+    return true;
+  }
+  catch(const sk::util::NoSuchElementException& exception) {
+    return false;
+  }
+}
+
+template<class T>
 void 
 sk::util::AbstractCollection<T>::
-forEach(const Processor<T>& processor) const 
+forEach(const Processor<const T>& processor) const 
+{
+  forEachSlot(SlotContentInvocator<const T>(processor));
+}
+
+template<class T>
+void 
+sk::util::AbstractCollection<T>::
+forEach(const Processor<T>& processor) 
 {
   forEachSlot(SlotContentInvocator<T>(processor));
 }
@@ -53,17 +107,9 @@ forEach(const Processor<T>& processor) const
 template<class T>
 bool 
 sk::util::AbstractCollection<T>::
-find(sk::util::Holder<T>& /*holder*/, const Selector<T>& /*selector*/) const 
-{
-  throw UnsupportedOperationException(SK_METHOD);
-}
-
-template<class T>
-bool 
-sk::util::AbstractCollection<T>::
 isEmpty() const 
 {
-  throw UnsupportedOperationException(SK_METHOD);
+  return size() == 0;
 }
 
 template<class T>
@@ -87,14 +133,39 @@ bool
 sk::util::AbstractCollection<T>::
 contains(const Selector<T>& selector) const 
 {
-  sk::util::Holder<T> holder;
+  sk::util::Holder<const T> holder;
   return find(holder, selector);
 }
 
 template<class T>
 bool 
 sk::util::AbstractCollection<T>::
-containsAll(const Collection<T>& /*other*/) const 
+containsAll(const Collection<T>& other) const 
+{
+  struct Processor : public virtual sk::util::Processor<const T> {
+    Processor(const sk::util::Collection<T>& collection)
+      : _collection(collection) {}
+
+    void process(const T& item) const {
+      if(_collection.contains(item) == false) {
+        throw sk::util::Break();
+      }
+    }
+    const sk::util::Collection<T>& _collection;
+  };
+  try {
+    other.forEach(Scanner(*this));
+    return true;
+  }
+  catch(const sk::util::Break& event) {}
+
+  return false;
+}
+
+template<class T>
+bool 
+sk::util::AbstractCollection<T>::
+add(const T& /*object*/) 
 {
   throw UnsupportedOperationException(SK_METHOD);
 }
@@ -142,9 +213,9 @@ clear()
 template<class T>
 bool 
 sk::util::AbstractCollection<T>::
-remove(const T& /*object*/) 
+remove(const T& object) 
 {
-  throw UnsupportedOperationException(SK_METHOD);
+  return remove(selector::Same<T>(object));
 }
 
 template<class T>
@@ -158,9 +229,9 @@ remove(const Selector<T>& /*selector*/)
 template<class T>
 T* 
 sk::util::AbstractCollection<T>::
-cutoff(const T& /*object*/) 
+cutoff(const T& object) 
 {
-  throw UnsupportedOperationException(SK_METHOD);
+  return cutoff(selector::Same<T>(object));
 }
 
 template<class T>
@@ -176,7 +247,7 @@ T*
 sk::util::AbstractCollection<T>::
 release(const T& /*object*/) 
 {
-  throw UnsupportedOperationException(SK_METHOD);
+  return release(selector::Same<T>(object));
 }
 
 template<class T>
