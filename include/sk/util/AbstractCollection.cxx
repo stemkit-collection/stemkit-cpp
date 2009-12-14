@@ -297,9 +297,12 @@ release(const T& object)
 template<class T>
 T* 
 sk::util::AbstractCollection<T>::
-release(const Selector<T>& /*selector*/) 
+release(const Selector<T>& selector) 
 {
-  throw UnsupportedOperationException(SK_METHOD);
+  sk::util::Holder<T> holder(cutoff(selector));
+  add(holder.get());
+
+  return holder.release();
 }
 
 template<class T>
