@@ -233,22 +233,6 @@ add(T* /*object*/)
 }
 
 template<class T>
-bool 
-sk::util::AbstractCollection<T>::
-addAll(const Collection<T>& /*other*/) 
-{
-  throw UnsupportedOperationException(SK_METHOD);
-}
-
-template<class T>
-bool 
-sk::util::AbstractCollection<T>::
-moveAll(Collection<T>& /*other*/) 
-{
-  throw UnsupportedOperationException(SK_METHOD);
-}
-
-template<class T>
 void 
 sk::util::AbstractCollection<T>::
 clear() 

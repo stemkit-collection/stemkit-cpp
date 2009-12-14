@@ -87,14 +87,6 @@ namespace sk {
         /// pointer ownership will be assumed.
         virtual bool add(T* object) = 0;
 
-        /// Adds all of the elements in the specified collection to this
-        /// collection.
-        virtual bool addAll(const Collection<T>& other) = 0;
-        
-        /// Moves all of the elements from the specified collection to this
-        /// collection.
-        virtual bool moveAll(Collection<T>& other) = 0;
-
         /// Removes all of the elements from this collection.
         virtual void clear() = 0;
 

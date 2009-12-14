@@ -48,8 +48,6 @@ namespace sk {
         bool add(const T& object);
         bool add(T& object);
         bool add(T* object);
-        bool addAll(const Collection<T>& other);
-        bool moveAll(Collection<T>& other);
 
         void clear();
         bool remove(const T& object);
