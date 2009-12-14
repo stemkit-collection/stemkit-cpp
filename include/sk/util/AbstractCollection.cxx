@@ -16,7 +16,7 @@
 #include <sk/util/selector/Same.cxx>
 #include <sk/util/selector/Any.cxx>
 #include <sk/util/selector/Not.cxx>
-#include <sk/util/assessor/Not.cxx>
+#include <sk/util/selector/Belongs.cxx>
 #include <sk/util/assessor/SameObjects.cxx>
 #include <sk/util/assessor/Binding.cxx>
 #include <sk/util/slot/ContentInvocator.cxx>
@@ -320,17 +320,7 @@ bool
 sk::util::AbstractCollection<T>::
 removeAll(const sk::util::Collection<T>& other, const sk::util::BinaryAssessor<T>& assessor)
 {
-  struct Selector : public virtual sk::util::Selector<T> {
-    Selector(const sk::util::Collection<T>& other, const sk::util::BinaryAssessor<T>& assessor)
-      : _other(other), _assessor(assessor) {}
-
-    bool assess(const T& item) const {
-      return _other.contains(sk::util::assessor::Binding<T>(item, _assessor));
-    }
-    const sk::util::Collection<T>& _other;
-    const sk::util::BinaryAssessor<T>& _assessor;
-  };
-  return removeAll(Selector(other, assessor));
+  return removeAll(sk::util::selector::Belongs<T>(other, assessor));
 }
 
 template<class T>
@@ -361,17 +351,7 @@ bool
 sk::util::AbstractCollection<T>::
 retainAll(const Collection<T>& other, const sk::util::BinaryAssessor<T>& assessor)
 {
-  struct Selector : public virtual sk::util::Selector<T> {
-    Selector(const sk::util::Collection<T>& other, const sk::util::BinaryAssessor<T>& assessor)
-      : _other(other), _assessor(assessor) {}
-
-    bool assess(const T& item) const {
-      return _other.contains(sk::util::assessor::Binding<T>(item, _assessor));
-    }
-    const sk::util::Collection<T>& _other;
-    const sk::util::BinaryAssessor<T>& _assessor;
-  };
-  return removeAll(sk::util::selector::Not<T>(Selector(other, assessor)));
+  return removeAll(sk::util::selector::Not<T>(sk::util::selector::Belongs<T>(other, assessor)));
 }
 
 template<class T>
