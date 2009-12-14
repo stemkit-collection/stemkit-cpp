@@ -43,31 +43,48 @@ getClass() const
 template<class T>
 const T& 
 sk::util::AbstractCollection<T>::
-get(const Selector<T>& /*selector*/) const 
+get(const Selector<T>& selector) const 
 {
-  throw UnsupportedOperationException(SK_METHOD);
+  sk::util::Holder<const T> holder;
+  if(find(holder, selector) == true) {
+    return holder.get();
+  }
+  throw sk::util::NoSuchElementException("get()");
 }
 
 template<class T>
 T& 
 sk::util::AbstractCollection<T>::
-getMutable(const Selector<T>& /*selector*/)
+getMutable(const Selector<T>& selector)
 {
-  throw UnsupportedOperationException(SK_METHOD);
+  sk::util::Holder<T> holder;
+  if(find(holder, selector) == true) {
+    return holder.get();
+  }
+  throw sk::util::NoSuchElementException("getMutable()");
 }
 
 template<class T>
 bool 
 sk::util::AbstractCollection<T>::
-find(sk::util::Holder<const T>& holder, const Selector<T>& selector) const
+find(sk::util::Holder<const T>& holder, const sk::util::Selector<T>& selector) const
 {
-  try {
-    holder.set(get(selector));
-    return true;
-  }
-  catch(const sk::util::NoSuchElementException& exception) {
-    return false;
-  }
+  struct Processor : public virtual sk::util::Processor<const T> {
+    Processor(sk::util::Holder<const T>& holder, const sk::util::Selector<T>& selector)
+      : _holder(holder), _selector(selector) {}
+
+    void process(const T& object) const {
+      if(_selector.assess(object) == true) {
+        _holder.set(object);
+        throw sk::util::Break();
+      }
+    }
+    sk::util::Holder<const T>& _holder;
+    const sk::util::Selector<T>& _selector;
+  };
+  holder.clear();
+  forEach(Processor(holder, selector));
+  return holder.isEmpty() == false;
 }
 
 template<class T>
@@ -84,13 +101,22 @@ bool
 sk::util::AbstractCollection<T>::
 find(sk::util::Holder<T>& holder, const Selector<T>& selector)
 {
-  try {
-    holder.set(getMutable(selector));
-    return true;
-  }
-  catch(const sk::util::NoSuchElementException& exception) {
-    return false;
-  }
+  struct Processor : public virtual sk::util::Processor<T> {
+    Processor(sk::util::Holder<T>& holder, const sk::util::Selector<T>& selector)
+      : _holder(holder), _selector(selector) {}
+
+    void process(T& object) const {
+      if(_selector.assess(object) == true) {
+        _holder.set(object);
+        throw sk::util::Break();
+      }
+    }
+    sk::util::Holder<T>& _holder;
+    const sk::util::Selector<T>& _selector;
+  };
+  holder.clear();
+  forEach(Processor(holder, selector));
+  return holder.isEmpty() == false;
 }
 
 template<class T>
@@ -98,7 +124,10 @@ void
 sk::util::AbstractCollection<T>::
 forEach(const Processor<const T>& processor) const 
 {
-  forEachSlot(sk::util::slot::ContentInvocator<const T>(processor));
+  try {
+    forEachSlot(sk::util::slot::ContentInvocator<const T>(processor));
+  }
+  catch(const sk::util::Break& event) {}
 }
 
 template<class T>
@@ -106,7 +135,10 @@ void
 sk::util::AbstractCollection<T>::
 forEach(const Processor<T>& processor) 
 {
-  forEachSlot(sk::util::slot::ContentInvocator<T>(processor));
+  try {
+    forEachSlot(sk::util::slot::ContentInvocator<T>(processor));
+  }
+  catch(const sk::util::Break& event) {}
 }
 
 template<class T>
@@ -155,25 +187,23 @@ bool
 sk::util::AbstractCollection<T>::
 containsAll(const Collection<T>& other, const sk::util::BinaryAssessor<T>& assessor) const 
 {
+  bool result = true;
   struct Processor : public virtual sk::util::Processor<const T> {
-    Processor(const sk::util::Collection<T>& collection, const sk::util::BinaryAssessor<T>& assessor)
-      : _collection(collection), _assessor(assessor) {}
+    Processor(const sk::util::Collection<T>& collection, const sk::util::BinaryAssessor<T>& assessor, bool& result)
+      : _collection(collection), _assessor(assessor), _result(result) {}
 
     void process(const T& item) const {
       if(_collection.contains(sk::util::assessor::Binding<T>(item, _assessor)) == false) {
+        _result = false;
         throw sk::util::Break();
       }
     }
     const sk::util::Collection<T>& _collection;
     const sk::util::BinaryAssessor<T>& _assessor;
+    bool& _result;
   };
-  try {
-    other.forEach(Processor(*this, assessor));
-    return true;
-  }
-  catch(const sk::util::Break& event) {}
-
-  return false;
+  other.forEach(Processor(*this, assessor, result));
+  return result;
 }
 
 template<class T>
@@ -283,9 +313,16 @@ removeAll(const Collection<T>& /*other*/)
 template<class T>
 bool 
 sk::util::AbstractCollection<T>::
-removeAll(const Selector<T>& /*selector*/) 
+removeAll(const Selector<T>& selector) 
 {
-  throw UnsupportedOperationException(SK_METHOD);
+  bool result = false;
+  while(true) {
+    if(remove(selector) == false) {
+      break;
+    }
+    result = true;
+  }
+  return result;
 }
 
 template<class T>

@@ -23,13 +23,13 @@ CPPUNIT_TEST_SUITE_REGISTRATION(sk::util::test::collection::AbstractCollectionTe
 namespace {
   struct SampleCollection : public virtual sk::util::AbstractCollection<sk::util::String> {
     void forEachSlot(const sk::util::slot::Processor<const sk::util::String>& processor) const {
-      for(int index=0; index < _content.size(); ++index) {
-        processor.process(sk::util::slot::Reference<const sk::util::String>(_content[index]));
+      for(container::const_iterator iterator = _content.begin(); iterator != _content.end(); ++iterator) {
+        processor.process(sk::util::slot::Reference<const sk::util::String>(*iterator));
       }
     }
 
     void forEachSlot(const sk::util::slot::Processor<sk::util::String>& processor) {
-      throw sk::util::UnsupportedOperationException("forEachSlot");
+      throw sk::util::String("No mutable forEachSlot() in SampleCollection");
     }
 
     bool add(const sk::util::String& item) {
@@ -41,20 +41,18 @@ namespace {
       return _content.size();
     }
 
-    const sk::util::String& get(const sk::util::Selector<sk::util::String>& selector) const {
-      for(int index=0; index < _content.size(); ++index) {
-        if(selector.assess(_content[index]) == true) {
-          return _content[index];
+    bool remove(const sk::util::Selector<sk::util::String>& selector) {
+      for(container::iterator iterator = _content.begin(); iterator != _content.end(); ++iterator) {
+        if(selector.assess(*iterator) == true) {
+          _content.erase(iterator);
+          return true;
         }
       }
-      throw sk::util::NoSuchElementException("get()");
+      return false;
     }
 
-    sk::util::String& getMutable(const sk::util::Selector<sk::util::String>& selector) {
-      throw sk::util::String("No getMutable() in SampleCollection");
-    }
-
-    std::vector<sk::util::String> _content;
+    typedef std::vector<sk::util::String> container;
+    container _content;
   };
 }
 
@@ -101,12 +99,13 @@ testBasics()
   CPPUNIT_ASSERT(collection.find(holder, sk::util::selector::Equal<sk::util::String>("ddd")) == false);
 
   sk::util::Holder<sk::util::String> mutableHolder;
+
   try {
     collection.find(mutableHolder, sk::util::selector::Equal<sk::util::String>("aaa"));
     CPPUNIT_FAIL("No expected exception");
   }
   catch(const sk::util::String& message) {
-      CPPUNIT_ASSERT_EQUAL("No getMutable() in SampleCollection", message);
+    CPPUNIT_ASSERT_EQUAL("No mutable forEachSlot() in SampleCollection", message);
   }
 }
 

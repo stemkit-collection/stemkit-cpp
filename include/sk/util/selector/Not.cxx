@@ -8,8 +8,8 @@
  *  Author: Gennady Bystritsky
 */
 
-#ifndef _SK_UTIL_SELECTOR_NONE_CXX_
-#define _SK_UTIL_SELECTOR_NONE_CXX_
+#ifndef _SK_UTIL_SELECTOR_NOT_CXX_
+#define _SK_UTIL_SELECTOR_NOT_CXX_
 
 #include <sk/util/Selector.h>
 
@@ -17,14 +17,20 @@ namespace sk {
   namespace util {
     namespace selector {
       template<typename T>
-      class None : public virtual sk::util::Selector<T> {
+      class Not : public virtual sk::util::Selector<T> {
         public:
+          Not(const sk::util::Selector<T>& selector)
+            : _selector(selector) {}
+
           bool assess(const T& object) const {
-            return false;
+            return not _selector.assess(object);
           }
+
+        private:
+          const sk::util::Selector<T>& _selector;
       };
     }
   }
 }
 
-#endif /* _SK_UTIL_SELECTOR_NONE_HXX_ */
+#endif /* _SK_UTIL_SELECTOR_NOT_HXX_ */
