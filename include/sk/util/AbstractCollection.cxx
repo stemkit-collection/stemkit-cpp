@@ -15,6 +15,8 @@
 #include <sk/util/NoSuchElementException.h>
 #include <sk/util/selector/Same.cxx>
 #include <sk/util/selector/Any.cxx>
+#include <sk/util/selector/Not.cxx>
+#include <sk/util/assessor/Not.cxx>
 #include <sk/util/assessor/SameObjects.cxx>
 #include <sk/util/assessor/Binding.cxx>
 #include <sk/util/slot/ContentInvocator.cxx>
@@ -187,7 +189,6 @@ bool
 sk::util::AbstractCollection<T>::
 containsAll(const Collection<T>& other, const sk::util::BinaryAssessor<T>& assessor) const 
 {
-  bool result = true;
   struct Processor : public virtual sk::util::Processor<const T> {
     Processor(const sk::util::Collection<T>& collection, const sk::util::BinaryAssessor<T>& assessor, bool& result)
       : _collection(collection), _assessor(assessor), _result(result) {}
@@ -202,6 +203,7 @@ containsAll(const Collection<T>& other, const sk::util::BinaryAssessor<T>& asses
     const sk::util::BinaryAssessor<T>& _assessor;
     bool& _result;
   };
+  bool result = true;
   other.forEach(Processor(*this, assessor, result));
   return result;
 }
@@ -308,9 +310,9 @@ release(const Selector<T>& selector)
 template<class T>
 bool 
 sk::util::AbstractCollection<T>::
-removeAll(const Collection<T>& /*other*/) 
+removeAll(const Collection<T>& other) 
 {
-  throw UnsupportedOperationException(SK_METHOD);
+  return removeAll(other, sk::util::assessor::SameObjects<T>());
 }
 
 template<class T>
@@ -318,7 +320,22 @@ bool
 sk::util::AbstractCollection<T>::
 removeAll(const Collection<T>& other, const sk::util::BinaryAssessor<T>& assessor)
 {
-  throw UnsupportedOperationException(SK_METHOD);
+  struct Processor : public virtual sk::util::Processor<const T> {
+    Processor(sk::util::Collection<T>& collection, const sk::util::BinaryAssessor<T>& assessor, bool& modified)
+      : _collection(collection), _assessor(assessor), _modified(modified) {}
+
+    void process(const T& item) const {
+      if(_collection.removeAll(sk::util::assessor::Binding<T>(item, _assessor)) == true) {
+        _modified = true;
+      }
+    }
+    sk::util::Collection<T>& _collection;
+    const sk::util::BinaryAssessor<T>& _assessor;
+    bool& _modified;
+  };
+  bool modified = false;
+  other.forEach(Processor(*this, assessor, modified));
+  return modified;
 }
 
 template<class T>
@@ -339,17 +356,9 @@ removeAll(const Selector<T>& selector)
 template<class T>
 bool 
 sk::util::AbstractCollection<T>::
-retainAll(const Collection<T>& /*other*/) 
+retainAll(const Collection<T>& other) 
 {
-  throw UnsupportedOperationException(SK_METHOD);
-}
-
-template<class T>
-bool 
-sk::util::AbstractCollection<T>::
-retainAll(const Selector<T>& /*selector*/) 
-{
-  throw UnsupportedOperationException(SK_METHOD);
+  return retainAll(other, sk::util::assessor::SameObjects<T>());
 }
 
 template<class T>
@@ -357,7 +366,15 @@ bool
 sk::util::AbstractCollection<T>::
 retainAll(const Collection<T>& other, const sk::util::BinaryAssessor<T>& assessor)
 {
-  throw UnsupportedOperationException(SK_METHOD);
+  return removeAll(other, sk::util::assessor::Not<T>(assessor));
+}
+
+template<class T>
+bool 
+sk::util::AbstractCollection<T>::
+retainAll(const Selector<T>& selector) 
+{
+  return removeAll(sk::util::selector::Not<T>(selector));
 }
 
 #endif /* _SK_UTIL_ABSTRACTCOLLECTION_CXX_ */

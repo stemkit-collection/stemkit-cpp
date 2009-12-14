@@ -166,3 +166,88 @@ testClear()
   CPPUNIT_ASSERT(collection.isEmpty() == true);
   CPPUNIT_ASSERT_EQUAL(0, collection.size());
 }
+
+void
+sk::util::test::collection::AbstractCollectionTest::
+testSelectorRemoveAll()
+{
+  SampleCollection collection;
+
+  collection.add("aaa");
+  collection.add("bbb");
+  collection.add("ccc");
+  collection.add("aaa");
+  CPPUNIT_ASSERT_EQUAL(4, collection.size());
+
+  CPPUNIT_ASSERT(collection.removeAll(sk::util::selector::Equal<sk::util::String>("aaa")) == true);
+  CPPUNIT_ASSERT_EQUAL(2, collection.size());
+
+  CPPUNIT_ASSERT(collection.contains(sk::util::selector::Equal<sk::util::String>("aaa")) == false);
+  CPPUNIT_ASSERT(collection.contains(sk::util::selector::Equal<sk::util::String>("bbb")) == true);
+  CPPUNIT_ASSERT(collection.contains(sk::util::selector::Equal<sk::util::String>("ccc")) == true);
+}
+
+void 
+sk::util::test::collection::AbstractCollectionTest::
+testCollectionRemoveAll()
+{
+  SampleCollection c1;
+  SampleCollection c2;
+
+  c1.add("aaa");
+  c1.add("bbb");
+  c1.add("aaa");
+  c1.add("ccc");
+  CPPUNIT_ASSERT_EQUAL(4, c1.size());
+
+  c2.add("aaa");
+  c2.add("bbb");
+
+  CPPUNIT_ASSERT(c1.removeAll(c2, sk::util::assessor::EqualObjects<sk::util::String>()) == true);
+  CPPUNIT_ASSERT_EQUAL(1, c1.size());
+  CPPUNIT_ASSERT(c1.contains(sk::util::selector::Equal<sk::util::String>("ccc")) == true);
+}
+
+void
+sk::util::test::collection::AbstractCollectionTest::
+testSelectorRetainAll()
+{
+  SampleCollection collection;
+
+  collection.add("aaa");
+  collection.add("bbb");
+  collection.add("ccc");
+  collection.add("aaa");
+  CPPUNIT_ASSERT_EQUAL(4, collection.size());
+
+  CPPUNIT_ASSERT(collection.retainAll(sk::util::selector::Equal<sk::util::String>("aaa")) == true);
+  CPPUNIT_ASSERT_EQUAL(2, collection.size());
+
+  CPPUNIT_ASSERT(collection.contains(sk::util::selector::Equal<sk::util::String>("aaa")) == true);
+  CPPUNIT_ASSERT(collection.contains(sk::util::selector::Equal<sk::util::String>("bbb")) == false);
+  CPPUNIT_ASSERT(collection.contains(sk::util::selector::Equal<sk::util::String>("ccc")) == false);
+}
+
+void 
+sk::util::test::collection::AbstractCollectionTest::
+testCollectionRetainAll()
+{
+  SampleCollection c1;
+  SampleCollection c2;
+
+  c1.add("aaa");
+  c1.add("bbb");
+  c1.add("aaa");
+  c1.add("ccc");
+  CPPUNIT_ASSERT_EQUAL(4, c1.size());
+
+  c2.add("aaa");
+  c2.add("bbb");
+
+  CPPUNIT_ASSERT(c1.retainAll(c2, sk::util::assessor::EqualObjects<sk::util::String>()) == true);
+  CPPUNIT_ASSERT_EQUAL(3, c1.size());
+  CPPUNIT_ASSERT(c1.contains(sk::util::selector::Equal<sk::util::String>("ccc")) == false);
+  CPPUNIT_ASSERT(c1.contains(sk::util::selector::Equal<sk::util::String>("bbb")) == true);
+  CPPUNIT_ASSERT(c1.contains(sk::util::selector::Equal<sk::util::String>("aaa")) == true);
+}
+

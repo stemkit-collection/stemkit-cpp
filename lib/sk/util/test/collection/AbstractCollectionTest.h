@@ -26,6 +26,10 @@ namespace sk {
             CPPUNIT_TEST(testContains);
             CPPUNIT_TEST(testContainsAll);
             CPPUNIT_TEST(testClear);
+            CPPUNIT_TEST(testSelectorRemoveAll);
+            CPPUNIT_TEST(testCollectionRemoveAll);
+            CPPUNIT_TEST(testSelectorRetainAll);
+            CPPUNIT_TEST(testCollectionRetainAll);
           CPPUNIT_TEST_SUITE_END();
         
           public:
@@ -38,6 +42,10 @@ namespace sk {
             void testContains();
             void testContainsAll();
             void testClear();
+            void testSelectorRemoveAll();
+            void testCollectionRemoveAll();
+            void testSelectorRetainAll();
+            void testCollectionRetainAll();
         
           private:
             AbstractCollectionTest(const AbstractCollectionTest& other);

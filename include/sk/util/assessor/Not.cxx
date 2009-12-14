@@ -29,7 +29,7 @@ namespace sk {
           }
       
         private:
-          sk::util::BinaryAssessor<T>& _assessor;
+          const sk::util::BinaryAssessor<T>& _assessor;
       };
     }
   }
