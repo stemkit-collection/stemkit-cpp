@@ -318,24 +318,19 @@ removeAll(const Collection<T>& other)
 template<class T>
 bool 
 sk::util::AbstractCollection<T>::
-removeAll(const Collection<T>& other, const sk::util::BinaryAssessor<T>& assessor)
+removeAll(const sk::util::Collection<T>& other, const sk::util::BinaryAssessor<T>& assessor)
 {
-  struct Processor : public virtual sk::util::Processor<const T> {
-    Processor(sk::util::Collection<T>& collection, const sk::util::BinaryAssessor<T>& assessor, bool& modified)
-      : _collection(collection), _assessor(assessor), _modified(modified) {}
+  struct Selector : public virtual sk::util::Selector<T> {
+    Selector(const sk::util::Collection<T>& other, const sk::util::BinaryAssessor<T>& assessor)
+      : _other(other), _assessor(assessor) {}
 
-    void process(const T& item) const {
-      if(_collection.removeAll(sk::util::assessor::Binding<T>(item, _assessor)) == true) {
-        _modified = true;
-      }
+    bool assess(const T& item) const {
+      return _other.contains(sk::util::assessor::Binding<T>(item, _assessor));
     }
-    sk::util::Collection<T>& _collection;
+    const sk::util::Collection<T>& _other;
     const sk::util::BinaryAssessor<T>& _assessor;
-    bool& _modified;
   };
-  bool modified = false;
-  other.forEach(Processor(*this, assessor, modified));
-  return modified;
+  return removeAll(Selector(other, assessor));
 }
 
 template<class T>
@@ -366,7 +361,17 @@ bool
 sk::util::AbstractCollection<T>::
 retainAll(const Collection<T>& other, const sk::util::BinaryAssessor<T>& assessor)
 {
-  return removeAll(other, sk::util::assessor::Not<T>(assessor));
+  struct Selector : public virtual sk::util::Selector<T> {
+    Selector(const sk::util::Collection<T>& other, const sk::util::BinaryAssessor<T>& assessor)
+      : _other(other), _assessor(assessor) {}
+
+    bool assess(const T& item) const {
+      return _other.contains(sk::util::assessor::Binding<T>(item, _assessor));
+    }
+    const sk::util::Collection<T>& _other;
+    const sk::util::BinaryAssessor<T>& _assessor;
+  };
+  return removeAll(sk::util::selector::Not<T>(Selector(other, assessor)));
 }
 
 template<class T>
