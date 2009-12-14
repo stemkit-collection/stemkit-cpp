@@ -139,6 +139,11 @@ namespace sk {
         /// the specified collection. Returns true if the collection has been 
         /// modified, false otherwise.
         virtual bool removeAll(const Collection<T>& other) = 0;
+        
+        /// Removes all of this collection's elements that are also contained in
+        /// the specified collection according to the specified assessor. 
+        /// Returns true if the collection has been modified, false otherwise.
+        virtual bool removeAll(const Collection<T>& other, const sk::util::BinaryAssessor<T>& assessor) = 0;
 
         /// Removes all of this collection's elements for which the specified
         /// selector assesses to true. Returns true if the collection has been 
@@ -149,6 +154,11 @@ namespace sk {
         /// the specified collection. Returns true if the collection has been 
         /// modified, false otherwise.
         virtual bool retainAll(const Collection<T>& other) = 0;
+        
+        /// Retains only the elements in this collection that are contained in
+        /// the specified collection according to the specified assessor. 
+        /// Returns true if the collection has been modified, false otherwise.
+        virtual bool retainAll(const Collection<T>& other, const sk::util::BinaryAssessor<T>& assessor) = 0;
 
         /// Retains only the elements in this collection for which the
         /// specified selector assesses to true. Returns true if the 

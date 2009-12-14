@@ -316,6 +316,14 @@ removeAll(const Collection<T>& /*other*/)
 template<class T>
 bool 
 sk::util::AbstractCollection<T>::
+removeAll(const Collection<T>& other, const sk::util::BinaryAssessor<T>& assessor)
+{
+  throw UnsupportedOperationException(SK_METHOD);
+}
+
+template<class T>
+bool 
+sk::util::AbstractCollection<T>::
 removeAll(const Selector<T>& selector) 
 {
   bool result = false;
@@ -340,6 +348,14 @@ template<class T>
 bool 
 sk::util::AbstractCollection<T>::
 retainAll(const Selector<T>& /*selector*/) 
+{
+  throw UnsupportedOperationException(SK_METHOD);
+}
+
+template<class T>
+bool 
+sk::util::AbstractCollection<T>::
+retainAll(const Collection<T>& other, const sk::util::BinaryAssessor<T>& assessor)
 {
   throw UnsupportedOperationException(SK_METHOD);
 }

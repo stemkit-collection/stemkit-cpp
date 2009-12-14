@@ -61,8 +61,11 @@ namespace sk {
         T* release(const Selector<T>& selector);
 
         bool removeAll(const Collection<T>& other);
+        bool removeAll(const Collection<T>& other, const sk::util::BinaryAssessor<T>& assessor);
         bool removeAll(const Selector<T>& selector);
+
         bool retainAll(const Collection<T>& other);
+        bool retainAll(const Collection<T>& other, const sk::util::BinaryAssessor<T>& assessor);
         bool retainAll(const Selector<T>& selector);
 
       protected:
