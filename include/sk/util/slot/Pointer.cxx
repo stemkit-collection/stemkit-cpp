@@ -1,4 +1,5 @@
-/*  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
+/*  vi: sw=2:
+ *  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
  *  
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
@@ -9,6 +10,7 @@
 #define _SK_UTIL_SLOT_POINTER_CXX_
 
 #include <sk/util/slot/Pointer.hxx>
+#include <sk/util/Slot.cxx>
 #include <sk/util/MissingResourceException.h>
 #include <sk/util/NullPointerException.h>
 #include <sk/util/inspect.h>
@@ -16,18 +18,23 @@
 template<typename T, typename Mixin>
 sk::util::slot::Pointer<T, Mixin>::
 Pointer(T* object)
-  : _object(object)
+  : Slot<T, Mixin>(object)
 {
-  if(_object == 0) {
-    throw NullPointerException("sk::util::slot::Pointer()");
-  }
 }
 
 template<typename T, typename Mixin>
 sk::util::slot::Pointer<T, Mixin>::
 ~Pointer()
 {
-  delete _object;
+  delete sk::util::Slot<T, Mixin>::_object;
+}
+
+template<typename T, typename Mixin>
+const sk::util::Class
+sk::util::slot::Pointer<T, Mixin>::
+getClass() const
+{
+  return sk::util::Class("sk::util::slot::Pointer");
 }
 
 template<typename T, typename Mixin>
@@ -39,26 +46,15 @@ isOwner() const
 }
 
 template<typename T, typename Mixin>
-T&
-sk::util::slot::Pointer<T, Mixin>::
-get() const
-{
-  if(_object == 0) {
-    throw MissingResourceException("sk::util::slot::Pointer#get()");
-  }
-  return *_object;
-}
-
-template<typename T, typename Mixin>
 T*
 sk::util::slot::Pointer<T, Mixin>::
 deprive()
 {
-  if(_object == 0) {
-    throw MissingResourceException("sk::util::slot::Pointer#deprive()");
+  if(sk::util::Slot<T, Mixin>::_object == 0) {
+    throw MissingResourceException(SK_METHOD);
   }
-  T* object = _object;
-  _object = 0;
+  T* object = sk::util::Slot<T, Mixin>::_object;
+  sk::util::Slot<T, Mixin>::_object = 0;
 
   return object;
 }
@@ -68,8 +64,14 @@ T*
 sk::util::slot::Pointer<T, Mixin>::
 replace(T* object)
 {
-  T* original = _object;
-  _object = object;
+  if(object == 0) {
+    throw sk::util::NullPointerException(SK_METHOD);
+  }
+  if(sk::util::Slot<T, Mixin>::_object == 0) {
+    throw MissingResourceException(SK_METHOD);
+  }
+  T* original = sk::util::Slot<T, Mixin>::_object;
+  sk::util::Slot<T, Mixin>::_object = object;
 
   return original;
 }
@@ -79,7 +81,8 @@ const sk::util::String
 sk::util::slot::Pointer<T, Mixin>::
 inspect() const
 {
-  return "*" + (_object == 0 ? sk::util::inspect(_object) : sk::util::inspect(*_object));
+  T* object = sk::util::Slot<T, Mixin>::_object;
+  return "*" + (object == 0 ? sk::util::inspect(object) : sk::util::inspect(*object));
 }
 
 #endif /* _SK_UTIL_SLOT_POINTER_CXX_ */
