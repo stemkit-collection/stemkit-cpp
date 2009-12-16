@@ -77,15 +77,12 @@ namespace sk {
         virtual bool containsAll(const Collection<T>& other, const sk::util::BinaryAssessor<T>& assessor) const = 0;
 
         //@{
-        /// Ensures that this collection contains the specified element. A
-        /// reference is added as needed.
+        /// Ensures that this collection contains the specified element.
+        /// When added as a pointer, the pointer ownership is assumed.
         virtual bool add(const T& object) = 0;
         virtual bool add(T& object) = 0;
-        //@}
-
-        /// Ensures that this collection contains the specified element. A
-        /// pointer ownership will be assumed.
         virtual bool add(T* object) = 0;
+        //@}
 
         /// Removes all of the elements from this collection.
         virtual void clear() = 0;
@@ -119,7 +116,7 @@ namespace sk {
         virtual T* cutoff(const Selector<T>& selector) = 0;
 
         //@{
-        /// Same as cutoff(), however the element is not removed from the
+        /// Same as for cutoff(), however the element is not removed from the
         /// collection, being replaced by a reference instead. It performs 
         /// just the ownership release. Again, the caller is responsible for 
         /// the actual poiner deletion.
