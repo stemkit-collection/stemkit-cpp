@@ -13,7 +13,6 @@
 
 #include <sk/util/Slot.hxx>
 #include <sk/util/NullPointerException.h>
-#include <sk/util/MissingResourceException.h>
 #include <sk/util/Class.h>
 
 template<typename T, typename Mixin>
@@ -31,17 +30,6 @@ sk::util::Slot<T, Mixin>::
 Slot(T& object)
   : _object(&object) 
 {
-}
-
-template<typename T, typename Mixin>
-T&
-sk::util::Slot<T, Mixin>::
-get() const
-{
-  if(_object == 0) {
-    throw sk::util::MissingResourceException(SK_METHOD);
-  }
-  return *_object;
 }
 
 #endif /* _SK_UTIL_SLOT_CXX_ */

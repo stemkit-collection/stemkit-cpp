@@ -10,6 +10,8 @@
 #define _SK_UTIL_SLOT_HXX_
 
 #include <sk/util/Object.h>
+#include <sk/util/Class.h>
+#include <sk/util/MissingResourceException.h>
 #include <sk/util/slot/mixin/None.h>
 
 namespace sk {
@@ -37,6 +39,17 @@ namespace sk {
         T* _object;
     };
   }
+}
+
+template<typename T, typename Mixin>
+inline T&
+sk::util::Slot<T, Mixin>::
+get() const
+{
+  if(_object == 0) {
+    throw sk::util::MissingResourceException(SK_METHOD);
+  }
+  return *_object;
 }
 
 #endif /* _SK_UTIL_SLOT_HXX_ */
