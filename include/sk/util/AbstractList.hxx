@@ -80,8 +80,10 @@ namespace sk {
         AbstractList<T>& operator = (const AbstractList<T>& other);
 
         void validateIndex(int index) const;
-        struct InspectingSlotProcessor;
+
+        struct IndexSelector;
         struct IndexScanningSelector;
+        struct InspectingSlotProcessor;
     };
   }
 }

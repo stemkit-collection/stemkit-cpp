@@ -88,22 +88,16 @@ add(int /*index*/, T* /*object*/)
   throw UnsupportedOperationException(SK_METHOD);
 }
 
-namespace {
-  template<class T>
-  struct AbstractListGettingProcessor : public virtual sk::util::Processor<T> {
-    AbstractListGettingProcessor(sk::util::Holder<T>& holder, int& index)
-      : _holder(holder), _index(index) {}
+template<class T>
+struct sk::util::AbstractList<T>::IndexSelector : public virtual sk::util::Selector<T> {
+  IndexSelector(int index)
+    : _index(index) {}
 
-    void process(T& object) const {
-      if(_index-- == 0) {
-        _holder.set(object);
-        throw sk::util::Break();
-      }
-    }
-    sk::util::Holder<T>& _holder;
-    int& _index;
-  };
-}
+  bool assess(const T& object) const {
+    return _index-- == 0;
+  }
+  mutable int _index;
+};
 
 template<class T>
 void
@@ -121,10 +115,7 @@ sk::util::AbstractList<T>::
 get(int index) const 
 {
   validateIndex(index);
-
-  sk::util::Holder<const T> holder;
-  forEach(AbstractListGettingProcessor<const T>(holder, index));
-  return holder.get();
+  return get(IndexSelector(index));
 }
 
 template<class T>
@@ -133,10 +124,7 @@ sk::util::AbstractList<T>::
 getMutable(int index) 
 {
   validateIndex(index);
-
-  sk::util::Holder<T> holder;
-  forEach(AbstractListGettingProcessor<T>(holder, index));
-  return holder.get();
+  return getMutable(IndexSelector(index));
 }
 
 template<class T>
@@ -296,7 +284,7 @@ inspect() const
     return "[]";
   }
   sk::util::StringArray depot;
-  forEachSlot(typename sk::util::AbstractList<T>::InspectingSlotProcessor(depot));
+  forEachSlot(InspectingSlotProcessor(depot));
   return "[" + sk::util::String::valueOf(size()) + ": " + depot.join(", ") + " ]";
 }
 
