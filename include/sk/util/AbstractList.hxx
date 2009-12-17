@@ -28,9 +28,14 @@ namespace sk {
         const sk::util::String inspect() const;
         
         // sk::util::List<T> implementation.
+        bool add(const T& object);
+        bool add(T& object);
+        bool add(T* object);
+
         void add(int index, const T& object);
         void add(int index, T& object);
         void add(int index, T* object);
+
         using AbstractCollection<T>::add;
         
         const T& get(int index) const;

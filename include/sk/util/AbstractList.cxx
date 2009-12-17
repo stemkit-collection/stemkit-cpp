@@ -36,6 +36,30 @@ getClass() const
 }
 
 template<class T>
+bool
+sk::util::AbstractList<T>::
+add(const T& /*object*/) 
+{
+  throw UnsupportedOperationException(SK_METHOD);
+}
+
+template<class T>
+bool
+sk::util::AbstractList<T>::
+add(T& /*object*/) 
+{
+  throw UnsupportedOperationException(SK_METHOD);
+}
+
+template<class T>
+bool
+sk::util::AbstractList<T>::
+add(T* /*object*/) 
+{
+  throw UnsupportedOperationException(SK_METHOD);
+}
+
+template<class T>
 void 
 sk::util::AbstractList<T>::
 add(int /*index*/, const T& /*object*/) 
