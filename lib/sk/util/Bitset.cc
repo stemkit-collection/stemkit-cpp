@@ -167,8 +167,8 @@ void
 sk::util::Bitset::
 setBounds(uint32_t lowerBound, uint32_t upperBound)
 {
-  uint32_t lower = block(lowerBound);
-  uint32_t upper = std::max(lower, (block(upperBound) + 1));
+  uint32_t lower = sk_util_Bitset_block(lowerBound);
+  uint32_t upper = std::max(lower, (sk_util_Bitset_block(upperBound) + 1));
 
   if(lower == upper) {
     _container.clear();
@@ -180,8 +180,8 @@ setBounds(uint32_t lowerBound, uint32_t upperBound)
     return;
   }
 
-  uint32_t min = block(_min);
-  uint32_t max = block(_max);
+  uint32_t min = sk_util_Bitset_block(_min);
+  uint32_t max = sk_util_Bitset_block(_max);
 
   int lower_delta = min - lower;
   int upper_delta = upper - max;
