@@ -38,25 +38,28 @@ getClass() const
 template<class T>
 bool
 sk::util::AbstractList<T>::
-add(const T& /*object*/) 
+add(const T& object) 
 {
-  throw UnsupportedOperationException(SK_METHOD);
+  add(size(), object);
+  return true;
 }
 
 template<class T>
 bool
 sk::util::AbstractList<T>::
-add(T& /*object*/) 
+add(T& object) 
 {
-  throw UnsupportedOperationException(SK_METHOD);
+  add(size(), object);
+  return true;
 }
 
 template<class T>
 bool
 sk::util::AbstractList<T>::
-add(T* /*object*/) 
+add(T* object) 
 {
-  throw UnsupportedOperationException(SK_METHOD);
+  add(size(), object);
+  return true;
 }
 
 template<class T>

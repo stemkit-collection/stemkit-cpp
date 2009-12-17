@@ -31,6 +31,8 @@ namespace sk {
             CPPUNIT_TEST(testCollectionCollectionRemoveAll);
             CPPUNIT_TEST(testCollectionSelectorRetainAll);
             CPPUNIT_TEST(testCollectionCollectionRetainAll);
+
+            CPPUNIT_TEST(testListAdd);
           CPPUNIT_TEST_SUITE_END();
         
           public:
@@ -40,6 +42,8 @@ namespace sk {
             void setUp();
             void tearDown();
         
+            void testListAdd();
+
           protected:
             sk::util::Collection<sk::util::String>* makeCollection();
 
