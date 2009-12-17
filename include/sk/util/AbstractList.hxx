@@ -28,18 +28,16 @@ namespace sk {
         const sk::util::String inspect() const;
         
         // sk::util::List<T> implementation.
+        void add(int index, const T& object);
         void add(int index, T& object);
         void add(int index, T* object);
         using AbstractCollection<T>::add;
         
-        bool addAll(int index, const Collection<T>& other);
-        using AbstractCollection<T>::addAll;
-
-        bool moveAll(int index, Collection<T>& other);
-        using AbstractCollection<T>::moveAll;
-
-        T& get(int index) const;
+        const T& get(int index) const;
         using AbstractCollection<T>::get;
+
+        T& getMutable(int index);
+        using AbstractCollection<T>::getMutable;
 
         int indexOf(const T& object) const;
         int indexOf(const Selector<T>& selector) const;
@@ -47,10 +45,11 @@ namespace sk {
         int lastIndexOf(const T& object) const;
         int lastIndexOf(const Selector<T>& selector) const;
 
-        using AbstractCollection<T>::removeAll;
-
         void remove(int index);
         using AbstractCollection<T>::remove;
+
+        using AbstractCollection<T>::removeAll;
+        using AbstractCollection<T>::retainAll;
 
         T* cutoff(int index);
         using AbstractCollection<T>::cutoff;
@@ -58,16 +57,23 @@ namespace sk {
         T* release(int index);
         using AbstractCollection<T>::release;
 
+        void set(int index, const T& object);
         void set(int index, T& object);
         void set(int index, T* object);
 
         void sort();
-        void sort(const sk::util::OrderingChecker<T>& checker);
+        void sort(const sk::util::BinaryAssessor<T>& assessor);
         void shuffle();
+        void reverse();
+
+        using AbstractCollection<T>::size;
+        using AbstractCollection<T>::isEmpty;
 
       private:
         AbstractList(const AbstractList<T>& other);
         AbstractList<T>& operator = (const AbstractList<T>& other);
+
+        struct InspectingSlotProcessor;
     };
   }
 }

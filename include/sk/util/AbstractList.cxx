@@ -10,9 +10,10 @@
 #define _SK_UTIL_ABSTRACTLIST_CXX_
 
 #include <sk/util/AbstractList.hxx>
-#include <sk/util/AbstractCollection.cxx>
 #include <sk/util/UnsupportedOperationException.h>
 #include <sk/util/StringArray.h>
+#include <sk/util/slot/Processor.h>
+#include <sk/util/selector/Same.cxx>
 
 template<class T>
 sk::util::AbstractList<T>::
@@ -37,6 +38,14 @@ getClass() const
 template<class T>
 void 
 sk::util::AbstractList<T>::
+add(int /*index*/, const T& /*object*/) 
+{
+  throw UnsupportedOperationException(SK_METHOD);
+}
+
+template<class T>
+void 
+sk::util::AbstractList<T>::
 add(int /*index*/, T& /*object*/) 
 {
   throw UnsupportedOperationException(SK_METHOD);
@@ -51,23 +60,7 @@ add(int /*index*/, T* /*object*/)
 }
 
 template<class T>
-bool 
-sk::util::AbstractList<T>::
-addAll(int /*index*/, const Collection<T>& /*other*/) 
-{
-  throw UnsupportedOperationException(SK_METHOD);
-}
-
-template<class T>
-bool 
-sk::util::AbstractList<T>::
-moveAll(int /*index*/, Collection<T>& /*other*/) 
-{
-  throw UnsupportedOperationException(SK_METHOD);
-}
-
-template<class T>
-T& 
+const T& 
 sk::util::AbstractList<T>::
 get(int /*index*/) const 
 {
@@ -75,11 +68,19 @@ get(int /*index*/) const
 }
 
 template<class T>
-int 
+T& 
 sk::util::AbstractList<T>::
-indexOf(const T& /*object*/) const 
+getMutable(int /*index*/) 
 {
   throw UnsupportedOperationException(SK_METHOD);
+}
+
+template<class T>
+int 
+sk::util::AbstractList<T>::
+indexOf(const T& object) const 
+{
+  return indexOf(sk::util::selector::Same<T>(object));
 }
 
 template<class T>
@@ -93,9 +94,9 @@ indexOf(const Selector<T>& /*selector*/) const
 template<class T>
 int 
 sk::util::AbstractList<T>::
-lastIndexOf(const T& /*object*/) const 
+lastIndexOf(const T& object) const 
 {
-  throw UnsupportedOperationException(SK_METHOD);
+  return lastIndexOf(sk::util::selector::Same<T>(object));
 }
 
 template<class T>
@@ -133,6 +134,14 @@ release(int /*index*/)
 template<class T>
 void 
 sk::util::AbstractList<T>::
+set(int /*index*/, const T& /*object*/) 
+{
+  throw UnsupportedOperationException(SK_METHOD);
+}
+
+template<class T>
+void 
+sk::util::AbstractList<T>::
 set(int /*index*/, T& /*object*/) 
 {
   throw UnsupportedOperationException(SK_METHOD);
@@ -157,7 +166,7 @@ sort()
 template<class T>
 void 
 sk::util::AbstractList<T>::
-sort(const sk::util::OrderingChecker<T>& checker)
+sort(const sk::util::BinaryAssessor<T>& assessor)
 {
   throw UnsupportedOperationException(SK_METHOD);
 }
@@ -170,32 +179,38 @@ shuffle()
   throw UnsupportedOperationException(SK_METHOD);
 }
 
-namespace {
-  template<typename T>
-  struct AbstractListInspectingCollector : public virtual sk::util::SlotProcessor<T> {
-    AbstractListInspectingCollector(sk::util::StringArray& depot)
-      : _depot(depot), _index(0) {}
-
-    bool process(const sk::util::Slot<T>& slot) const {
-      _depot << (sk::util::String::valueOf(_index++) + slot.inspect());
-      return false;
-    }
-    sk::util::StringArray& _depot;
-    mutable int _index;
-  };
+template<class T>
+void 
+sk::util::AbstractList<T>::
+reverse()
+{
+  throw UnsupportedOperationException(SK_METHOD);
 }
+
+template<typename T>
+struct sk::util::AbstractList<T>::InspectingSlotProcessor : public virtual sk::util::slot::Processor<const T> {
+  InspectingSlotProcessor(sk::util::StringArray& depot)
+    : _depot(depot), _index(0) {}
+
+  bool process(const sk::util::Slot<const T>& slot) const {
+    _depot << (sk::util::String::valueOf(_index++) + slot.inspect());
+    return false;
+  }
+  sk::util::StringArray& _depot;
+  mutable int _index;
+};
 
 template<class T>
 const sk::util::String 
 sk::util::AbstractList<T>::
 inspect() const
 {
-  if(this->isEmpty() == true) {
+  if(isEmpty() == true) {
     return "[]";
   }
   sk::util::StringArray depot;
-  this->forEachSlot(AbstractListInspectingCollector<T>(depot));
-  return "[" + sk::util::String::valueOf(this->size()) + ": " + depot.join(", ") + " ]";
+  forEachSlot(typename sk::util::AbstractList<T>::InspectingSlotProcessor(depot));
+  return "[" + sk::util::String::valueOf(size()) + ": " + depot.join(", ") + " ]";
 }
 
 #endif /* _SK_UTIL_ABSTRACTLIST_CXX_ */

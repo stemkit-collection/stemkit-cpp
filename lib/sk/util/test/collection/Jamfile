@@ -4,6 +4,7 @@ test = sk-util-test ;
 test-objects = 
   TestSuite.cc
   AbstractCollectionTest.cc
+  AbstractListTest.cc
 ;
 
 use-project-library $(test) : sk.util sk.cppunit ;
