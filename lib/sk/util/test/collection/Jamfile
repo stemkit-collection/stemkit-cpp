@@ -3,6 +3,7 @@ test = sk-util-test ;
 
 test-objects = 
   TestSuite.cc
+  CollectionTest.cc
   AbstractCollectionTest.cc
   AbstractListTest.cc
 ;

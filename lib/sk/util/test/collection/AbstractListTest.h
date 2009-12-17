@@ -13,16 +13,24 @@
 
 #include <cppunit/TestFixture.h>
 #include <cppunit/extensions/HelperMacros.h>
+#include "CollectionTest.h"
 
 namespace sk {
   namespace util {
     namespace test {
       namespace collection {
         class AbstractListTest
-          : public CppUnit::TestFixture
+          : public CollectionTest
         {
           CPPUNIT_TEST_SUITE(sk::util::test::collection::AbstractListTest);
-            CPPUNIT_TEST(testBasics);
+            CPPUNIT_TEST(testCollectionBasics);
+            CPPUNIT_TEST(testCollectionContains);
+            CPPUNIT_TEST(testCollectionContainsAll);
+            CPPUNIT_TEST(testCollectionClear);
+            CPPUNIT_TEST(testCollectionSelectorRemoveAll);
+            CPPUNIT_TEST(testCollectionCollectionRemoveAll);
+            CPPUNIT_TEST(testCollectionSelectorRetainAll);
+            CPPUNIT_TEST(testCollectionCollectionRetainAll);
           CPPUNIT_TEST_SUITE_END();
         
           public:
@@ -31,8 +39,10 @@ namespace sk {
         
             void setUp();
             void tearDown();
-            void testBasics();
         
+          protected:
+            sk::util::Collection<sk::util::String>* makeCollection();
+
           private:
             AbstractListTest(const AbstractListTest& other);
             AbstractListTest& operator = (const AbstractListTest& other);

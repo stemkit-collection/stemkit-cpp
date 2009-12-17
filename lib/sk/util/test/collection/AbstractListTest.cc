@@ -12,18 +12,43 @@
 #include <sk/util/AbstractList.cxx>
 #include <sk/util/UnsupportedOperationException.h>
 #include <sk/util/String.h>
+#include <list>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::util::test::collection::AbstractListTest);
 
 namespace {
   struct SampleList : public sk::util::AbstractList<sk::util::String> {
     void forEachSlot(const sk::util::slot::Processor<const sk::util::String>& processor) const {
-      throw sk::util::UnsupportedOperationException("forEachSlot()");
+      for(container::const_iterator iterator = _content.begin(); iterator != _content.end(); ++iterator) {
+        processor.process(sk::util::slot::Reference<const sk::util::String>(*iterator));
+      }
     }
 
     void forEachSlot(const sk::util::slot::Processor<sk::util::String>& processor) {
-      throw sk::util::UnsupportedOperationException("forEachSlot()");
+      throw sk::util::String("No mutable forEachSlot() in the sample collection");
     }
+
+    bool add(const sk::util::String& item) {
+      _content.push_back(item);
+      return true;
+    }
+
+    int size() const {
+      return _content.size();
+    }
+
+    bool remove(const sk::util::Selector<sk::util::String>& selector) {
+      for(container::iterator iterator = _content.begin(); iterator != _content.end(); ++iterator) {
+        if(selector.assess(*iterator) == true) {
+          _content.erase(iterator);
+          return true;
+        }
+      }
+      return false;
+    }
+
+    typedef std::list<sk::util::String> container;
+    container _content;
   };
 }
 
@@ -37,6 +62,13 @@ sk::util::test::collection::AbstractListTest::
 {
 }
 
+sk::util::Collection<sk::util::String>* 
+sk::util::test::collection::AbstractListTest::
+makeCollection()
+{
+  return new SampleList();
+}
+
 void
 sk::util::test::collection::AbstractListTest::
 setUp()
@@ -47,11 +79,4 @@ void
 sk::util::test::collection::AbstractListTest::
 tearDown()
 {
-}
-
-void
-sk::util::test::collection::AbstractListTest::
-testBasics()
-{
-  SampleList list;
 }
