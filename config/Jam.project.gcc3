@@ -372,7 +372,7 @@ SWIG ?= $(TOOLS_HOME)/swig-$(SWIG_VERSION)/bin/swig ;
 
 LIBDIRS += $(GCC_ROOT)/lib ;
 
-CCOFLAGS ?= -O0 -fno-guess-branch-probability ;
+CCOFLAGS ?= -O2 -fno-guess-branch-probability ;
 DLLFLAGS ?= -shared ;
 
 UNITTEST_DIRS ?= $(CONTRIB_ROOT)/cppunit-$(CPPUNIT_VERSION) ;
