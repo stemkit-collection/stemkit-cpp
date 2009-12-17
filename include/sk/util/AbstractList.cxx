@@ -88,42 +88,10 @@ add(int /*index*/, T* /*object*/)
   throw UnsupportedOperationException(SK_METHOD);
 }
 
-template<class T>
-const T& 
-sk::util::AbstractList<T>::
-get(int index) const 
-{
-  if((index < 0) || (index >= size())) {
-    throw sk::util::IndexOutOfBoundsException(SK_METHOD);
-  }
-  struct Processor : public virtual sk::util::Processor<const T> {
-    Processor(sk::util::Holder<const T>& holder, int& index)
-      : _holder(holder), _index(index) {}
-
-    void process(const T& object) const {
-      if(_index-- == 0) {
-        _holder.set(object);
-        throw sk::util::Break();
-      }
-    }
-    sk::util::Holder<const T>& _holder;
-    int& _index;
-  };
-  sk::util::Holder<const T> holder;
-  forEach(Processor(holder, index));
-  return holder.get();
-}
-
-template<class T>
-T& 
-sk::util::AbstractList<T>::
-getMutable(int index) 
-{
-  if((index < 0) || (index >= size())) {
-    throw sk::util::IndexOutOfBoundsException(SK_METHOD);
-  }
-  struct Processor : public virtual sk::util::Processor<T> {
-    Processor(sk::util::Holder<T>& holder, int& index)
+namespace {
+  template<class T>
+  struct AbstractListGettingProcessor : public virtual sk::util::Processor<T> {
+    AbstractListGettingProcessor(sk::util::Holder<T>& holder, int& index)
       : _holder(holder), _index(index) {}
 
     void process(T& object) const {
@@ -135,8 +103,39 @@ getMutable(int index)
     sk::util::Holder<T>& _holder;
     int& _index;
   };
+}
+
+template<class T>
+void
+sk::util::AbstractList<T>::
+validateIndex(int index) const 
+{
+  if((index < 0) || (index >= size())) {
+    throw sk::util::IndexOutOfBoundsException(SK_METHOD);
+  }
+}
+
+template<class T>
+const T& 
+sk::util::AbstractList<T>::
+get(int index) const 
+{
+  validateIndex(index);
+
+  sk::util::Holder<const T> holder;
+  forEach(AbstractListGettingProcessor<const T>(holder, index));
+  return holder.get();
+}
+
+template<class T>
+T& 
+sk::util::AbstractList<T>::
+getMutable(int index) 
+{
+  validateIndex(index);
+
   sk::util::Holder<T> holder;
-  forEach(Processor(holder, index));
+  forEach(AbstractListGettingProcessor<T>(holder, index));
   return holder.get();
 }
 

@@ -79,6 +79,7 @@ namespace sk {
         AbstractList(const AbstractList<T>& other);
         AbstractList<T>& operator = (const AbstractList<T>& other);
 
+        void validateIndex(int index) const;
         struct InspectingSlotProcessor;
     };
   }
