@@ -147,12 +147,33 @@ indexOf(const T& object) const
   return indexOf(sk::util::selector::Same<T>(object));
 }
 
+template<typename T>
+struct sk::util::AbstractList<T>::IndexScanningSelector : public virtual sk::util::Selector<T> {
+  IndexScanningSelector(const sk::util::Selector<T>& selector, int& index, bool terminate)
+    : _selector(selector), _index(index), _terminate(terminate), _counter(0) {}
+
+  bool assess(const T& item) const {
+    const int current = _counter++;
+    if(_selector.assess(item) == true) {
+      _index = current;
+      return _terminate;
+    }
+    return false;
+  }
+  const sk::util::Selector<T>& _selector;
+  int& _index;
+  const bool _terminate;
+  mutable int _counter;
+};
+
 template<class T>
 int 
 sk::util::AbstractList<T>::
-indexOf(const Selector<T>& /*selector*/) const 
+indexOf(const sk::util::Selector<T>& selector) const 
 {
-  throw UnsupportedOperationException(SK_METHOD);
+  int index = -1;
+  contains(IndexScanningSelector(selector, index, true));
+  return index;
 }
 
 template<class T>
@@ -166,9 +187,11 @@ lastIndexOf(const T& object) const
 template<class T>
 int 
 sk::util::AbstractList<T>::
-lastIndexOf(const Selector<T>& /*selector*/) const 
+lastIndexOf(const Selector<T>& selector) const 
 {
-  throw UnsupportedOperationException(SK_METHOD);
+  int index = -1;
+  contains(IndexScanningSelector(selector, index, false));
+  return index;
 }
 
 template<class T>

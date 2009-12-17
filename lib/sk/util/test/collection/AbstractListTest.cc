@@ -13,6 +13,7 @@
 #include <sk/util/UnsupportedOperationException.h>
 #include <sk/util/IndexOutOfBoundsException.h>
 #include <sk/util/stl/VectorPopulator.cxx>
+#include <sk/util/selector/Equal.cxx>
 #include <sk/util/String.h>
 #include <list>
 
@@ -151,4 +152,27 @@ testListGetMutable()
   catch(const sk::util::String& message) {
     CPPUNIT_ASSERT_EQUAL("No mutable forEachSlot() in the sample collection", message);
   }
+}
+
+void 
+sk::util::test::collection::AbstractListTest::
+testListIndexOf()
+{
+  SampleList list;
+
+  CPPUNIT_ASSERT_EQUAL(-1, list.indexOf("aaa"));
+  CPPUNIT_ASSERT_EQUAL(-1, list.lastIndexOf("zzz"));
+
+  list.add("aaa");
+  list.add("bbb");
+  list.add("aaa");
+  list.add("zzz");
+
+  CPPUNIT_ASSERT_EQUAL(0, list.indexOf(sk::util::selector::Equal<sk::util::String>("aaa")));
+  CPPUNIT_ASSERT_EQUAL(1, list.indexOf(sk::util::selector::Equal<sk::util::String>("bbb")));
+  CPPUNIT_ASSERT_EQUAL(3, list.indexOf(sk::util::selector::Equal<sk::util::String>("zzz")));
+
+  CPPUNIT_ASSERT_EQUAL(2, list.lastIndexOf(sk::util::selector::Equal<sk::util::String>("aaa")));
+  CPPUNIT_ASSERT_EQUAL(1, list.lastIndexOf(sk::util::selector::Equal<sk::util::String>("bbb")));
+  CPPUNIT_ASSERT_EQUAL(3, list.lastIndexOf(sk::util::selector::Equal<sk::util::String>("zzz")));
 }

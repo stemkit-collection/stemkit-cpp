@@ -81,6 +81,7 @@ namespace sk {
 
         void validateIndex(int index) const;
         struct InspectingSlotProcessor;
+        struct IndexScanningSelector;
     };
   }
 }
