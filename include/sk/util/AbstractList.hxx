@@ -39,9 +39,9 @@ namespace sk {
         using AbstractCollection<T>::add;
         
         const T& get(int index) const;
-        using AbstractCollection<T>::get;
-
         T& getMutable(int index);
+
+        using AbstractCollection<T>::get;
         using AbstractCollection<T>::getMutable;
 
         int indexOf(const T& object) const;
@@ -71,6 +71,7 @@ namespace sk {
         void shuffle();
         void reverse();
 
+        using AbstractCollection<T>::forEach;
         using AbstractCollection<T>::size;
         using AbstractCollection<T>::isEmpty;
 

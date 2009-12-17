@@ -112,3 +112,43 @@ testListAdd()
   CPPUNIT_ASSERT_EQUAL("bbb", depot.at(1));
   CPPUNIT_ASSERT_EQUAL("ccc", depot.at(2));
 }
+
+void 
+sk::util::test::collection::AbstractListTest::
+testListGet()
+{
+  SampleList list;
+
+  CPPUNIT_ASSERT_THROW(list.get(0), sk::util::IndexOutOfBoundsException);
+
+  list.add("aaa");
+  list.add("bbb");
+  list.add("ccc");
+
+  CPPUNIT_ASSERT_EQUAL("aaa", list.get(0));
+  CPPUNIT_ASSERT_EQUAL("bbb", list.get(1));
+  CPPUNIT_ASSERT_EQUAL("ccc", list.get(2));
+
+  CPPUNIT_ASSERT_THROW(list.get(3), sk::util::IndexOutOfBoundsException);
+  CPPUNIT_ASSERT_THROW(list.get(-1), sk::util::IndexOutOfBoundsException);
+}
+
+void 
+sk::util::test::collection::AbstractListTest::
+testListGetMutable()
+{
+  SampleList list;
+
+  CPPUNIT_ASSERT_THROW(list.get(0), sk::util::IndexOutOfBoundsException);
+  CPPUNIT_ASSERT_THROW(list.get(-1), sk::util::IndexOutOfBoundsException);
+
+  list.add("aaa");
+
+  try {
+    list.getMutable(0);
+    CPPUNIT_FAIL("No expected exception");
+  }
+  catch(const sk::util::String& message) {
+    CPPUNIT_ASSERT_EQUAL("No mutable forEachSlot() in the sample collection", message);
+  }
+}

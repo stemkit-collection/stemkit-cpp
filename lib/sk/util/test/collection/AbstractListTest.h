@@ -33,6 +33,8 @@ namespace sk {
             CPPUNIT_TEST(testCollectionCollectionRetainAll);
 
             CPPUNIT_TEST(testListAdd);
+            CPPUNIT_TEST(testListGet);
+            CPPUNIT_TEST(testListGetMutable);
           CPPUNIT_TEST_SUITE_END();
         
           public:
@@ -43,6 +45,8 @@ namespace sk {
             void tearDown();
         
             void testListAdd();
+            void testListGet();
+            void testListGetMutable();
 
           protected:
             sk::util::Collection<sk::util::String>* makeCollection();

@@ -11,6 +11,8 @@
 
 #include <sk/util/AbstractList.hxx>
 #include <sk/util/UnsupportedOperationException.h>
+#include <sk/util/IndexOutOfBoundsException.h>
+#include <sk/util/Break.h>
 #include <sk/util/StringArray.h>
 #include <sk/util/slot/Processor.h>
 #include <sk/util/selector/Same.cxx>
@@ -89,17 +91,53 @@ add(int /*index*/, T* /*object*/)
 template<class T>
 const T& 
 sk::util::AbstractList<T>::
-get(int /*index*/) const 
+get(int index) const 
 {
-  throw UnsupportedOperationException(SK_METHOD);
+  if((index < 0) || (index >= size())) {
+    throw sk::util::IndexOutOfBoundsException(SK_METHOD);
+  }
+  struct Processor : public virtual sk::util::Processor<const T> {
+    Processor(sk::util::Holder<const T>& holder, int& index)
+      : _holder(holder), _index(index) {}
+
+    void process(const T& object) const {
+      if(_index-- == 0) {
+        _holder.set(object);
+        throw sk::util::Break();
+      }
+    }
+    sk::util::Holder<const T>& _holder;
+    int& _index;
+  };
+  sk::util::Holder<const T> holder;
+  forEach(Processor(holder, index));
+  return holder.get();
 }
 
 template<class T>
 T& 
 sk::util::AbstractList<T>::
-getMutable(int /*index*/) 
+getMutable(int index) 
 {
-  throw UnsupportedOperationException(SK_METHOD);
+  if((index < 0) || (index >= size())) {
+    throw sk::util::IndexOutOfBoundsException(SK_METHOD);
+  }
+  struct Processor : public virtual sk::util::Processor<T> {
+    Processor(sk::util::Holder<T>& holder, int& index)
+      : _holder(holder), _index(index) {}
+
+    void process(T& object) const {
+      if(_index-- == 0) {
+        _holder.set(object);
+        throw sk::util::Break();
+      }
+    }
+    sk::util::Holder<T>& _holder;
+    int& _index;
+  };
+  sk::util::Holder<T> holder;
+  forEach(Processor(holder, index));
+  return holder.get();
 }
 
 template<class T>
