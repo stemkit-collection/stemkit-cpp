@@ -90,8 +90,11 @@ add(int /*index*/, T* /*object*/)
 
 template<class T>
 struct sk::util::AbstractList<T>::IndexSelector : public virtual sk::util::Selector<T> {
-  IndexSelector(int index)
-    : _index(index) {}
+  IndexSelector(int index, int size) : _index(index) {
+    if((index < 0) || (index >= size)) {
+      throw sk::util::IndexOutOfBoundsException("index=" + sk::util::String::valueOf(index) + ", size=" + sk::util::String::valueOf(size));
+    }
+  }
 
   bool assess(const T& object) const {
     return _index-- == 0;
@@ -100,22 +103,11 @@ struct sk::util::AbstractList<T>::IndexSelector : public virtual sk::util::Selec
 };
 
 template<class T>
-void
-sk::util::AbstractList<T>::
-validateIndex(int index) const 
-{
-  if((index < 0) || (index >= size())) {
-    throw sk::util::IndexOutOfBoundsException(SK_METHOD);
-  }
-}
-
-template<class T>
 const T& 
 sk::util::AbstractList<T>::
 get(int index) const 
 {
-  validateIndex(index);
-  return get(IndexSelector(index));
+  return get(IndexSelector(index, size()));
 }
 
 template<class T>
@@ -123,8 +115,7 @@ T&
 sk::util::AbstractList<T>::
 getMutable(int index) 
 {
-  validateIndex(index);
-  return getMutable(IndexSelector(index));
+  return getMutable(IndexSelector(index, size()));
 }
 
 template<class T>
