@@ -204,3 +204,31 @@ testListRemove()
   CPPUNIT_ASSERT_EQUAL(0, list.size());
   CPPUNIT_ASSERT_THROW(list.remove(0), sk::util::IndexOutOfBoundsException);
 }
+
+void 
+sk::util::test::collection::AbstractListTest::
+testListSet()
+{
+  SampleList list;
+
+  CPPUNIT_ASSERT_THROW(list.set(0, "abc"), sk::util::IndexOutOfBoundsException);
+  list.add("aaa");
+  list.add("bbb");
+  list.add("ccc");
+
+  CPPUNIT_ASSERT_EQUAL(3, list.size());
+  CPPUNIT_ASSERT_EQUAL("aaa", list.get(0));
+  CPPUNIT_ASSERT_EQUAL("bbb", list.get(1));
+  CPPUNIT_ASSERT_EQUAL("ccc", list.get(2));
+
+  list.set(2, "CCC");
+  list.set(0, "AAA");
+  list.set(1, "BBB");
+
+  CPPUNIT_ASSERT_EQUAL(3, list.size());
+  CPPUNIT_ASSERT_EQUAL("AAA", list.get(0));
+  CPPUNIT_ASSERT_EQUAL("BBB", list.get(1));
+  CPPUNIT_ASSERT_EQUAL("CCC", list.get(2));
+
+  CPPUNIT_ASSERT_THROW(list.set(3, "abc"), sk::util::IndexOutOfBoundsException);
+}

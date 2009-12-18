@@ -12,7 +12,6 @@
 #include <sk/util/AbstractList.hxx>
 #include <sk/util/UnsupportedOperationException.h>
 #include <sk/util/IndexOutOfBoundsException.h>
-#include <sk/util/Break.h>
 #include <sk/util/StringArray.h>
 #include <sk/util/slot/Processor.h>
 #include <sk/util/selector/Same.cxx>
@@ -200,25 +199,28 @@ release(int index)
 template<class T>
 void 
 sk::util::AbstractList<T>::
-set(int /*index*/, const T& /*object*/) 
+set(int index, const T& object) 
 {
-  throw UnsupportedOperationException(SK_METHOD);
+  remove(index);
+  add(index, object);
 }
 
 template<class T>
 void 
 sk::util::AbstractList<T>::
-set(int /*index*/, T& /*object*/) 
+set(int index, T& object) 
 {
-  throw UnsupportedOperationException(SK_METHOD);
+  remove(index);
+  add(index, object);
 }
 
 template<class T>
 void 
 sk::util::AbstractList<T>::
-set(int /*index*/, T* /*object*/) 
+set(int index, T* object) 
 {
-  throw UnsupportedOperationException(SK_METHOD);
+  remove(index);
+  add(index, object);
 }
 
 template<class T>
