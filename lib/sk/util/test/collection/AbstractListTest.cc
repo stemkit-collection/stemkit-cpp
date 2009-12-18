@@ -232,3 +232,17 @@ testListSet()
 
   CPPUNIT_ASSERT_THROW(list.set(3, "abc"), sk::util::IndexOutOfBoundsException);
 }
+
+void
+sk::util::test::collection::AbstractListTest::
+testListInspect()
+{
+  SampleList list;
+  CPPUNIT_ASSERT_EQUAL("[]", list.inspect());
+
+  list.add("a");
+  list.add("b");
+  list.add("c");
+
+  CPPUNIT_ASSERT_EQUAL("[3: 0&\"a\", 1&\"b\", 2&\"c\" ]", list.inspect());
+}
