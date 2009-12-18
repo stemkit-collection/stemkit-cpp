@@ -8,19 +8,20 @@
  *  Author: Gennady Bystritsky
 */
 
-#ifndef _SK_UTIL_TEST_COLLECTION_ABSTRACTLISTTEST_H_
-#define _SK_UTIL_TEST_COLLECTION_ABSTRACTLISTTEST_H_
+#ifndef _SK_UTIL_TEST_COLLECTION_LISTTEST_H_
+#define _SK_UTIL_TEST_COLLECTION_LISTTEST_H_
 
-#include "ListTest.h"
+#include "CollectionTest.h"
+#include <sk/util/List.h>
 
 namespace sk {
   namespace util {
     namespace test {
       namespace collection {
-        class AbstractListTest
-          : public ListTest
+        class ListTest
+          : public CollectionTest
         {
-          CPPUNIT_TEST_SUITE(sk::util::test::collection::AbstractListTest);
+          CPPUNIT_TEST_SUITE(sk::util::test::collection::ListTest);
             CPPUNIT_TEST(testCollectionBasics);
             CPPUNIT_TEST(testCollectionContains);
             CPPUNIT_TEST(testCollectionContainsAll);
@@ -40,22 +41,29 @@ namespace sk {
           CPPUNIT_TEST_SUITE_END();
         
           public:
-            AbstractListTest();
-            virtual ~AbstractListTest();
+            ListTest();
         
-            void setUp();
-            void tearDown();
-        
+            void testListAdd();
+            void testListGet();
+            void testListGetMutable();
+            void testListIndexOf();
+            void testListRemove();
+            void testListSet();
+            void testListInspect();
+
           protected:
-            sk::util::List<sk::util::String>* makeList();
+            sk::util::Collection<sk::util::String>* makeCollection();
+            virtual sk::util::List<sk::util::String>* makeList();
 
           private:
-            AbstractListTest(const AbstractListTest& other);
-            AbstractListTest& operator = (const AbstractListTest& other);
+            typedef sk::util::List<sk::util::String> List;
+
+            ListTest(const ListTest& other);
+            ListTest& operator = (const ListTest& other);
         };
       }
     }
   }
 }
 
-#endif /* _SK_UTIL_TEST_COLLECTION_ABSTRACTLISTTEST_H_ */
+#endif /* _SK_UTIL_TEST_COLLECTION_LISTTEST_H_ */

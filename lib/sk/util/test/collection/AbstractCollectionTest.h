@@ -11,8 +11,6 @@
 #ifndef _SK_UTIL_TEST_COLLECTION_ABSTRACTCOLLECTIONTEST_H_
 #define _SK_UTIL_TEST_COLLECTION_ABSTRACTCOLLECTIONTEST_H_
 
-#include <cppunit/TestFixture.h>
-#include <cppunit/extensions/HelperMacros.h>
 #include "CollectionTest.h"
 
 namespace sk {
