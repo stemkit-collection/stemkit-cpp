@@ -36,6 +36,7 @@ namespace sk {
             CPPUNIT_TEST(testListGet);
             CPPUNIT_TEST(testListGetMutable);
             CPPUNIT_TEST(testListIndexOf);
+            CPPUNIT_TEST(testListRemove);
           CPPUNIT_TEST_SUITE_END();
         
           public:
@@ -49,6 +50,7 @@ namespace sk {
             void testListGet();
             void testListGetMutable();
             void testListIndexOf();
+            void testListRemove();
 
           protected:
             sk::util::Collection<sk::util::String>* makeCollection();

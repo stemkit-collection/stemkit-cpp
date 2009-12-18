@@ -176,25 +176,25 @@ lastIndexOf(const Selector<T>& selector) const
 template<class T>
 void
 sk::util::AbstractList<T>::
-remove(int /*index*/) 
+remove(int index) 
 {
-  throw UnsupportedOperationException(SK_METHOD);
+  remove(IndexSelector(index, size()));
 }
 
 template<class T>
 T* 
 sk::util::AbstractList<T>::
-cutoff(int /*index*/) 
+cutoff(int index) 
 {
-  throw UnsupportedOperationException(SK_METHOD);
+  return cutoff(IndexSelector(index, size()));
 }
 
 template<class T>
 T* 
 sk::util::AbstractList<T>::
-release(int /*index*/) 
+release(int index) 
 {
-  throw UnsupportedOperationException(SK_METHOD);
+  return release(IndexSelector(index, size()));
 }
 
 template<class T>

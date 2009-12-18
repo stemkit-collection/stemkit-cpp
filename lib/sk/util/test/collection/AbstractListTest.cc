@@ -57,6 +57,7 @@ namespace {
       }
       return false;
     }
+    using sk::util::AbstractList<sk::util::String>::remove;
 
     typedef std::list<sk::util::String> container;
     container _content;
@@ -175,4 +176,31 @@ testListIndexOf()
   CPPUNIT_ASSERT_EQUAL(2, list.lastIndexOf(sk::util::selector::Equal<sk::util::String>("aaa")));
   CPPUNIT_ASSERT_EQUAL(1, list.lastIndexOf(sk::util::selector::Equal<sk::util::String>("bbb")));
   CPPUNIT_ASSERT_EQUAL(3, list.lastIndexOf(sk::util::selector::Equal<sk::util::String>("zzz")));
+}
+
+void 
+sk::util::test::collection::AbstractListTest::
+testListRemove()
+{
+  SampleList list;
+  CPPUNIT_ASSERT_THROW(list.remove(0), sk::util::IndexOutOfBoundsException);
+
+  list.add("aaa");
+  list.add("bbb");
+  list.add("ccc");
+
+  CPPUNIT_ASSERT_EQUAL(3, list.size());
+
+  list.remove(1);
+  CPPUNIT_ASSERT_EQUAL(2, list.size());
+  CPPUNIT_ASSERT_EQUAL("aaa", list.get(0));
+  CPPUNIT_ASSERT_EQUAL("ccc", list.get(1));
+
+  list.remove(0);
+  CPPUNIT_ASSERT_EQUAL(1, list.size());
+  CPPUNIT_ASSERT_EQUAL("ccc", list.get(0));
+
+  list.remove(0);
+  CPPUNIT_ASSERT_EQUAL(0, list.size());
+  CPPUNIT_ASSERT_THROW(list.remove(0), sk::util::IndexOutOfBoundsException);
 }
