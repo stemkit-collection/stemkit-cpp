@@ -18,9 +18,6 @@ test-objects =
   CloningHolderTest.cc
   CopyingHolderTest.cc
   PathnameTest.cc
-# AbstractCollectionTest.cc
-# AbstractListTest.cc
-  ArrayListTest.cc
   StringArrayTest.cc
   StringHashTest.cc
   TestSuite.cc
@@ -41,7 +38,6 @@ test-objects =
   InspectTest.cc
   PrettyPrinterTest.cc
   BitsetTest.cc
-  AliasingProcessorTest.cc
 ;
 
 use-project-library $(test) : sk.util sk.cppunit ;
