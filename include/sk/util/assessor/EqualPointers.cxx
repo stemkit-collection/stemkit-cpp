@@ -8,8 +8,8 @@
  *  Author: Gennady Bystritsky
 */
 
-#ifndef _SK_UTIL_ASSESSOR_EQUALOBJECTS_CXX_
-#define _SK_UTIL_ASSESSOR_EQUALOBJECTS_CXX_
+#ifndef _SK_UTIL_ASSESSOR_EQUALPOINTERS_CXX_
+#define _SK_UTIL_ASSESSOR_EQUALPOINTERS_CXX_
 
 #include <sk/util/Assessor.h>
 
@@ -17,16 +17,16 @@ namespace sk {
   namespace util {
     namespace assessor {
       template<typename T>
-      class EqualObjects 
+      class EqualPointers 
         : public virtual sk::util::BinaryAssessor<T>
       {
         public:
           bool assess(const T& first, const T& second) const {
-            return first == second;
+            return &first == &second;
           }
       };
     }
   }
 }
 
-#endif /* _SK_UTIL_ASSESSOR_EQUALOBJECTS_CXX_ */
+#endif /* _SK_UTIL_ASSESSOR_EQUALPOINTERS_CXX_ */

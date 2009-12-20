@@ -14,7 +14,7 @@
 #include <sk/util/IndexOutOfBoundsException.h>
 #include <sk/util/StringArray.h>
 #include <sk/util/slot/Processor.h>
-#include <sk/util/selector/Same.cxx>
+#include <sk/util/selector/EqualPointer.cxx>
 
 template<class T>
 sk::util::AbstractList<T>::
@@ -122,7 +122,7 @@ int
 sk::util::AbstractList<T>::
 indexOf(const T& object) const 
 {
-  return indexOf(sk::util::selector::Same<T>(object));
+  return indexOf(sk::util::selector::EqualPointer<T>(object));
 }
 
 template<typename T>
@@ -159,7 +159,7 @@ int
 sk::util::AbstractList<T>::
 lastIndexOf(const T& object) const 
 {
-  return lastIndexOf(sk::util::selector::Same<T>(object));
+  return lastIndexOf(sk::util::selector::EqualPointer<T>(object));
 }
 
 template<class T>

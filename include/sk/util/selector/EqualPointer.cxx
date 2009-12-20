@@ -8,8 +8,8 @@
  *  Author: Gennady Bystritsky (gennady.bystritsky@quest.com)
 */
 
-#ifndef _SK_UTIL_SELECTOR_EQUAL_CXX_
-#define _SK_UTIL_SELECTOR_EQUAL_CXX_
+#ifndef _SK_UTIL_SELECTOR_EQUALPOINTER_CXX_
+#define _SK_UTIL_SELECTOR_EQUALPOINTER_CXX_
 
 #include <sk/util/Selector.h>
 
@@ -17,13 +17,13 @@ namespace sk {
   namespace util {
     namespace selector {
       template<typename T>
-      class Equal : public virtual sk::util::Selector<T> {
+      class EqualPointer : public virtual sk::util::Selector<T> {
         public:
-          Equal<T>(const T& object) 
+          EqualPointer<T>(const T& object) 
             : _object(object) {}
       
           bool assess(const T& object) const {
-            return object == _object;
+            return &object == &_object;
           }
       
         private:
@@ -33,4 +33,4 @@ namespace sk {
   }
 }
 
-#endif /* _SK_UTIL_SELECTOR_EQUAL_CXX_ */
+#endif /* _SK_UTIL_SELECTOR_EQUALPOINTER_CXX_ */

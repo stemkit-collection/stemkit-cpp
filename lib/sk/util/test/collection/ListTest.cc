@@ -14,7 +14,7 @@
 #include <sk/util/UnsupportedOperationException.h>
 #include <sk/util/IndexOutOfBoundsException.h>
 #include <sk/util/stl/VectorPopulator.cxx>
-#include <sk/util/selector/Equal.cxx>
+#include <sk/util/selector/EqualValue.cxx>
 #include <sk/util/String.h>
 #include <list>
 
@@ -113,13 +113,13 @@ testListIndexOf()
   list.get().add("aaa");
   list.get().add("zzz");
 
-  CPPUNIT_ASSERT_EQUAL(0, list.get().indexOf(sk::util::selector::Equal<sk::util::String>("aaa")));
-  CPPUNIT_ASSERT_EQUAL(1, list.get().indexOf(sk::util::selector::Equal<sk::util::String>("bbb")));
-  CPPUNIT_ASSERT_EQUAL(3, list.get().indexOf(sk::util::selector::Equal<sk::util::String>("zzz")));
+  CPPUNIT_ASSERT_EQUAL(0, list.get().indexOf(sk::util::selector::EqualValue<sk::util::String>("aaa")));
+  CPPUNIT_ASSERT_EQUAL(1, list.get().indexOf(sk::util::selector::EqualValue<sk::util::String>("bbb")));
+  CPPUNIT_ASSERT_EQUAL(3, list.get().indexOf(sk::util::selector::EqualValue<sk::util::String>("zzz")));
 
-  CPPUNIT_ASSERT_EQUAL(2, list.get().lastIndexOf(sk::util::selector::Equal<sk::util::String>("aaa")));
-  CPPUNIT_ASSERT_EQUAL(1, list.get().lastIndexOf(sk::util::selector::Equal<sk::util::String>("bbb")));
-  CPPUNIT_ASSERT_EQUAL(3, list.get().lastIndexOf(sk::util::selector::Equal<sk::util::String>("zzz")));
+  CPPUNIT_ASSERT_EQUAL(2, list.get().lastIndexOf(sk::util::selector::EqualValue<sk::util::String>("aaa")));
+  CPPUNIT_ASSERT_EQUAL(1, list.get().lastIndexOf(sk::util::selector::EqualValue<sk::util::String>("bbb")));
+  CPPUNIT_ASSERT_EQUAL(3, list.get().lastIndexOf(sk::util::selector::EqualValue<sk::util::String>("zzz")));
 }
 
 void 

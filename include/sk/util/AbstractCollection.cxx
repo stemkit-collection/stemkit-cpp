@@ -13,11 +13,11 @@
 #include <sk/util/Holder.cxx>
 #include <sk/util/UnsupportedOperationException.h>
 #include <sk/util/NoSuchElementException.h>
-#include <sk/util/selector/Same.cxx>
+#include <sk/util/selector/EqualPointer.cxx>
 #include <sk/util/selector/Any.cxx>
 #include <sk/util/selector/Not.cxx>
 #include <sk/util/selector/Belongs.cxx>
-#include <sk/util/assessor/SameObjects.cxx>
+#include <sk/util/assessor/EqualPointers.cxx>
 #include <sk/util/assessor/Binding.cxx>
 #include <sk/util/slot/ContentInvocator.cxx>
 #include <sk/util/Break.h>
@@ -164,7 +164,7 @@ bool
 sk::util::AbstractCollection<T>::
 contains(const T& object) const 
 {
-  return contains(selector::Same<T>(object));
+  return contains(selector::EqualPointer<T>(object));
 }
 
 template<class T>
@@ -181,7 +181,7 @@ bool
 sk::util::AbstractCollection<T>::
 containsAll(const Collection<T>& other) const 
 {
-  return containsAll(other, sk::util::assessor::SameObjects<T>());
+  return containsAll(other, sk::util::assessor::EqualPointers<T>());
 }
 
 template<class T>
@@ -245,7 +245,7 @@ bool
 sk::util::AbstractCollection<T>::
 remove(const T& object) 
 {
-  return remove(selector::Same<T>(object));
+  return remove(selector::EqualPointer<T>(object));
 }
 
 template<class T>
@@ -261,7 +261,7 @@ T*
 sk::util::AbstractCollection<T>::
 cutoff(const T& object) 
 {
-  return cutoff(selector::Same<T>(object));
+  return cutoff(selector::EqualPointer<T>(object));
 }
 
 template<class T>
@@ -277,7 +277,7 @@ T*
 sk::util::AbstractCollection<T>::
 release(const T& object) 
 {
-  return release(selector::Same<T>(object));
+  return release(selector::EqualPointer<T>(object));
 }
 
 template<class T>
@@ -296,7 +296,7 @@ bool
 sk::util::AbstractCollection<T>::
 removeAll(const Collection<T>& other) 
 {
-  return removeAll(other, sk::util::assessor::SameObjects<T>());
+  return removeAll(other, sk::util::assessor::EqualPointers<T>());
 }
 
 template<class T>
@@ -327,7 +327,7 @@ bool
 sk::util::AbstractCollection<T>::
 retainAll(const Collection<T>& other) 
 {
-  return retainAll(other, sk::util::assessor::SameObjects<T>());
+  return retainAll(other, sk::util::assessor::EqualPointers<T>());
 }
 
 template<class T>

@@ -12,8 +12,6 @@
 #include <sk/util/AbstractList.cxx>
 #include <sk/util/UnsupportedOperationException.h>
 #include <sk/util/IndexOutOfBoundsException.h>
-#include <sk/util/stl/VectorPopulator.cxx>
-#include <sk/util/selector/Equal.cxx>
 #include <sk/util/String.h>
 #include <list>
 
