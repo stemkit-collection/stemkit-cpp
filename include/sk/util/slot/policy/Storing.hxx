@@ -28,6 +28,11 @@ namespace sk {
               _slot = slot;
             }
 
+            void setObject(const T& object) {
+              clearSlot();
+              setSlot(new slot::Reference<T, SlotMixin>(object));
+            }
+
             void setObject(T& object) {
               clearSlot();
               setSlot(new slot::Reference<T, SlotMixin>(object));

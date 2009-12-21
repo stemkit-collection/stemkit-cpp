@@ -17,6 +17,8 @@
 #include <sk/util/slot/Pointer.cxx>
 #include <sk/util/StreamLiner.h>
 #include <sk/util/IndexOutOfBoundsException.h>
+#include <sk/util/slot/BinaryAssessorFunctor.cxx>
+#include <sk/util/assessor/LessValues.cxx>
 #include <iostream>
 #include <algorithm>
 
@@ -89,9 +91,19 @@ add(T* object)
 template<class T>
 void
 sk::util::ArrayList<T>::
-forEachSlot(const sk::util::SlotProcessor<T>& processor) const
+forEachSlot(const sk::util::Processor<const sk::util::Slot<T> >& processor) const
 {
   for(typename container::const_iterator iterator = _container.begin(); iterator != _container.end() ; ++iterator) {
+    processor.process(*(*iterator));
+  }
+}
+
+template<class T>
+void
+sk::util::ArrayList<T>::
+forEachSlot(const sk::util::Processor<sk::util::Slot<T> >& processor)
+{
+  for(typename container::iterator iterator = _container.begin(); iterator != _container.end() ; ++iterator) {
     processor.process(*(*iterator));
   }
 }
@@ -132,7 +144,7 @@ find(sk::util::Holder<T>& holder, const sk::util::Selector<T>& selector) const
 }
 
 template<class T>
-T& 
+const T& 
 sk::util::ArrayList<T>::
 get(int index) const 
 {
@@ -176,15 +188,15 @@ void
 sk::util::ArrayList<T>::
 sort()
 {
-  std::sort(_container.begin(), _container.end(), sk::util::slot::Ordering<T>());
+  std::sort(_container.begin(), _container.end(), sk::util::slot::BinaryAssessorFunctor<T>(sk::util::assessor::LessValues<T>()));
 }
 
 template<class T>
 void
 sk::util::ArrayList<T>::
-sort(const sk::util::OrderingChecker<T>& checker)
+sort(const sk::util::BinaryAssessor<T>& assessor)
 {
-  std::sort(_container.begin(), _container.end(), sk::util::slot::Ordering<T>(checker));
+  std::sort(_container.begin(), _container.end(), sk::util::slot::BinaryAssessorFunctor<T>(assessor));
 }
 
 template<class T>

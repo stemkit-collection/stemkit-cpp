@@ -10,6 +10,7 @@
 #define _SK_UTIL_ABSTRACTLIST_CXX_
 
 #include <sk/util/AbstractList.hxx>
+#include <sk/util/AbstractCollection.cxx>
 #include <sk/util/UnsupportedOperationException.h>
 #include <sk/util/IndexOutOfBoundsException.h>
 #include <sk/util/StringArray.h>
@@ -255,11 +256,11 @@ reverse()
 }
 
 template<typename T>
-struct sk::util::AbstractList<T>::InspectingSlotProcessor : public virtual sk::util::Processor<const sk::util::Slot<const T> > {
+struct sk::util::AbstractList<T>::InspectingSlotProcessor : public virtual sk::util::Processor<const sk::util::Slot<T> > {
   InspectingSlotProcessor(sk::util::StringArray& depot)
     : _depot(depot), _index(0) {}
 
-  void process(const sk::util::Slot<const T>& slot) const {
+  void process(const sk::util::Slot<T>& slot) const {
     _depot << (sk::util::String::valueOf(_index++) + slot.inspect());
   }
   sk::util::StringArray& _depot;

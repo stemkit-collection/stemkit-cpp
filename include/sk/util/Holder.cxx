@@ -29,6 +29,13 @@ Holder(T& object)
 
 template<typename T, typename Policy>
 sk::util::Holder<T, Policy>::
+Holder(const T& object)
+{
+  set(object);
+}
+
+template<typename T, typename Policy>
+sk::util::Holder<T, Policy>::
 Holder(T* object)
 {
   set(object);
@@ -69,6 +76,14 @@ operator=(const slot::policy::Storing<T>& other)
 template<typename T, typename Policy>
 void
 sk::util::Holder<T, Policy>::
+set(const T& object)
+{
+  Policy::setObject(object);
+}
+
+template<typename T, typename Policy>
+void
+sk::util::Holder<T, Policy>::
 set(T& object)
 {
   Policy::setObject(object);
@@ -83,11 +98,19 @@ set(T* object)
 }
 
 template<typename T, typename Policy>
-T&
+const T&
 sk::util::Holder<T, Policy>::
 get() const
 {
   return Policy::getSlot().get();
+}
+
+template<typename T, typename Policy>
+T&
+sk::util::Holder<T, Policy>::
+getMutable()
+{
+  return Policy::getSlot().getMutable();
 }
 
 template<typename T, typename Policy>

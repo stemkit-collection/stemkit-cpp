@@ -20,6 +20,7 @@ namespace sk {
         : public sk::util::Slot<T, Mixin>
       {
         public:
+          Reference(const T& object);
           Reference(T& object);
           virtual ~Reference();
           

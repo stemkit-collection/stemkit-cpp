@@ -35,7 +35,7 @@ namespace sk {
         bool add(T* object);
         bool find(sk::util::Holder<T>& holder, const Selector<T>& selector) const;
         
-        T& get(int index) const;
+        const T& get(int index) const;
         using AbstractList<T>::get;
 
         void remove(int index);
@@ -48,11 +48,12 @@ namespace sk {
         using AbstractList<T>::remove;
 
         void sort();
-        void sort(const sk::util::OrderingChecker<T>& checker);
+        void sort(const sk::util::BinaryAssessor<T>& assessor);
         void shuffle();
 
       protected:
-        void forEachSlot(const sk::util::SlotProcessor<T>& processor) const;
+        void forEachSlot(const sk::util::Processor<const sk::util::Slot<T> >& processor) const;
+        void forEachSlot(const sk::util::Processor<sk::util::Slot<T> >& processor);
 
       private:
         ArrayList(const ArrayList<T>& other);

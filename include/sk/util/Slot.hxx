@@ -12,6 +12,7 @@
 #include <sk/util/Object.h>
 #include <sk/util/Class.h>
 #include <sk/util/MissingResourceException.h>
+#include <sk/util/IllegalStateException.h>
 #include <sk/util/slot/mixin/None.h>
 
 namespace sk {
@@ -22,11 +23,13 @@ namespace sk {
         public Mixin
     {
       public:
+        Slot(const T& object);
         Slot(T& object);
         Slot(T* object);
         Slot(const Slot<T, Mixin>& other);
 
-        inline T& get() const;
+        inline bool isMutable() const;
+        inline const T& get() const;
         inline T& getMutable();
 
         virtual bool isOwner() const = 0;
@@ -38,12 +41,21 @@ namespace sk {
 
       protected:
         T* _object;
+        bool _mutable;
     };
   }
 }
 
 template<typename T, typename Mixin>
-inline T&
+inline bool
+sk::util::Slot<T, Mixin>::
+isMutable() const
+{
+  return _mutable;
+}
+
+template<typename T, typename Mixin>
+inline const T&
 sk::util::Slot<T, Mixin>::
 get() const
 {
@@ -60,6 +72,9 @@ getMutable()
 {
   if(_object == 0) {
     throw sk::util::MissingResourceException(SK_METHOD);
+  }
+  if(_mutable == false) {
+    throw sk::util::IllegalStateException("immutalbe object");
   }
   return *_object;
 }

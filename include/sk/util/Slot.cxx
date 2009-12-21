@@ -17,19 +17,26 @@
 
 template<typename T, typename Mixin>
 sk::util::Slot<T, Mixin>::
-Slot(T* object)
-  : _object(object) 
+Slot(const T& object)
+  : _object(const_cast<T*>(&object)), _mutable(false)
 {
-  if(_object == 0) {
-    throw sk::util::NullPointerException(SK_METHOD);
-  }
 }
 
 template<typename T, typename Mixin>
 sk::util::Slot<T, Mixin>::
 Slot(T& object)
-  : _object(&object) 
+  : _object(&object), _mutable(true)
 {
+}
+
+template<typename T, typename Mixin>
+sk::util::Slot<T, Mixin>::
+Slot(T* object)
+  : _object(object), _mutable(true)
+{
+  if(_object == 0) {
+    throw sk::util::NullPointerException(SK_METHOD);
+  }
 }
 
 #endif /* _SK_UTIL_SLOT_CXX_ */

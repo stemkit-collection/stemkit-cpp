@@ -33,6 +33,7 @@ namespace sk {
         Holder(const slot::policy::Storing<T>& other);
         explicit Holder(T* object);
         explicit Holder(T& object);
+        explicit Holder(const T& object);
         virtual ~Holder();
 
         Holder<T, Policy>& operator=(const Holder<T, Policy>& other);
@@ -41,10 +42,12 @@ namespace sk {
         bool contains(const T& object) const;
         bool isEmpty() const;
         bool isOwner() const;
-        T& get() const;
+        const T& get() const;
+        T& getMutable();
 
         void set(T* object);
         void set(T& object);
+        void set(const T& object);
 
         bool remove();
         void clear();

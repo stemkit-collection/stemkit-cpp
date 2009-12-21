@@ -24,6 +24,13 @@ Reference(T& object)
 
 template<typename T, typename Mixin>
 sk::util::slot::Reference<T, Mixin>::
+Reference(const T& object)
+  : Slot<T, Mixin>(object)
+{
+}
+
+template<typename T, typename Mixin>
+sk::util::slot::Reference<T, Mixin>::
 ~Reference()
 {
 }

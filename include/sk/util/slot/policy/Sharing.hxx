@@ -61,6 +61,16 @@ namespace sk {
                 Super::getSlot().link();
               }
             }
+
+            void setObject(const T& object) {
+              if(Super::hasSlot() == true) {
+                throw sk::util::IllegalStateException("Non-replacable shared content");
+              }
+              else {
+                Super::setObject(object);
+                Super::getSlot().link();
+              }
+            }
             
             void clearSlot() {
               if(Super::hasSlot() == true) {

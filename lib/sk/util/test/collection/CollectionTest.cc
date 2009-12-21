@@ -35,23 +35,21 @@ testCollectionBasics()
   Holder<Collection> collection(makeCollection());
   CPPUNIT_ASSERT(collection.get().isEmpty() == true);
 
-  collection.get().add("aaa");
-  collection.get().add("bbb");
-  collection.get().add("ccc");
+  collection.getMutable().add("aaa");
+  collection.getMutable().add("bbb");
+  collection.getMutable().add("ccc");
 
   CPPUNIT_ASSERT(collection.get().isEmpty() == false);
   CPPUNIT_ASSERT_EQUAL(3, collection.get().size());
 
-  sk::util::Holder<const sk::util::String> holder;
+  sk::util::Holder<sk::util::String> holder;
   CPPUNIT_ASSERT(collection.get().find(holder, sk::util::selector::EqualValue<sk::util::String>("aaa")) == true);
   CPPUNIT_ASSERT(collection.get().find(holder, sk::util::selector::EqualValue<sk::util::String>("bbb")) == true);
   CPPUNIT_ASSERT(collection.get().find(holder, sk::util::selector::EqualValue<sk::util::String>("ccc")) == true);
   CPPUNIT_ASSERT(collection.get().find(holder, sk::util::selector::EqualValue<sk::util::String>("ddd")) == false);
 
-  sk::util::Holder<sk::util::String> mutableHolder;
-
   try {
-    collection.get().find(mutableHolder, sk::util::selector::EqualValue<sk::util::String>("aaa"));
+    collection.getMutable().find(holder, sk::util::selector::EqualValue<sk::util::String>("aaa"));
     CPPUNIT_FAIL("No expected exception");
   }
   catch(const sk::util::String& message) {
@@ -66,9 +64,9 @@ testCollectionContains()
   Holder<Collection> collection(makeCollection());
   CPPUNIT_ASSERT(collection.get().contains(sk::util::selector::EqualValue<sk::util::String>("uuu")) == false);
 
-  collection.get().add("uuu");
-  collection.get().add("zzz");
-  collection.get().add("ppp");
+  collection.getMutable().add("uuu");
+  collection.getMutable().add("zzz");
+  collection.getMutable().add("ppp");
 
   CPPUNIT_ASSERT(collection.get().contains(sk::util::selector::EqualValue<sk::util::String>("uuu")) == true);
   CPPUNIT_ASSERT(collection.get().contains(sk::util::selector::EqualValue<sk::util::String>("ppp")) == true);
@@ -85,15 +83,15 @@ testCollectionContainsAll()
 
   CPPUNIT_ASSERT(c1.get().containsAll(c2.get()) == true);
 
-  c1.get().add("aaa");
-  c1.get().add("bbb");
-  c1.get().add("ccc");
+  c1.getMutable().add("aaa");
+  c1.getMutable().add("bbb");
+  c1.getMutable().add("ccc");
 
-  c2.get().add("ccc");
-  c2.get().add("bbb");
+  c2.getMutable().add("ccc");
+  c2.getMutable().add("bbb");
   CPPUNIT_ASSERT(c1.get().containsAll(c2.get(), sk::util::assessor::EqualValues<sk::util::String>()) == true);
 
-  c2.get().add("zzz");
+  c2.getMutable().add("zzz");
   CPPUNIT_ASSERT(c1.get().containsAll(c2.get(), sk::util::assessor::EqualValues<sk::util::String>()) == false);
 }
 
@@ -106,13 +104,13 @@ testCollectionClear()
   CPPUNIT_ASSERT(collection.get().isEmpty() == true);
   CPPUNIT_ASSERT_EQUAL(0, collection.get().size());
 
-  collection.get().add("aaa");
-  collection.get().add("bbb");
-  collection.get().add("ccc");
+  collection.getMutable().add("aaa");
+  collection.getMutable().add("bbb");
+  collection.getMutable().add("ccc");
   CPPUNIT_ASSERT(collection.get().isEmpty() == false);
   CPPUNIT_ASSERT_EQUAL(3, collection.get().size());
 
-  collection.get().clear();
+  collection.getMutable().clear();
   CPPUNIT_ASSERT(collection.get().isEmpty() == true);
   CPPUNIT_ASSERT_EQUAL(0, collection.get().size());
 }
@@ -123,13 +121,13 @@ testCollectionSelectorRemoveAll()
 {
   Holder<Collection> collection(makeCollection());
 
-  collection.get().add("aaa");
-  collection.get().add("bbb");
-  collection.get().add("ccc");
-  collection.get().add("aaa");
+  collection.getMutable().add("aaa");
+  collection.getMutable().add("bbb");
+  collection.getMutable().add("ccc");
+  collection.getMutable().add("aaa");
   CPPUNIT_ASSERT_EQUAL(4, collection.get().size());
 
-  CPPUNIT_ASSERT(collection.get().removeAll(sk::util::selector::EqualValue<sk::util::String>("aaa")) == true);
+  CPPUNIT_ASSERT(collection.getMutable().removeAll(sk::util::selector::EqualValue<sk::util::String>("aaa")) == true);
   CPPUNIT_ASSERT_EQUAL(2, collection.get().size());
 
   CPPUNIT_ASSERT(collection.get().contains(sk::util::selector::EqualValue<sk::util::String>("aaa")) == false);
@@ -144,16 +142,16 @@ testCollectionCollectionRemoveAll()
   Holder<Collection> c1(makeCollection());
   Holder<Collection> c2(makeCollection());
 
-  c1.get().add("aaa");
-  c1.get().add("bbb");
-  c1.get().add("aaa");
-  c1.get().add("ccc");
+  c1.getMutable().add("aaa");
+  c1.getMutable().add("bbb");
+  c1.getMutable().add("aaa");
+  c1.getMutable().add("ccc");
   CPPUNIT_ASSERT_EQUAL(4, c1.get().size());
 
-  c2.get().add("aaa");
-  c2.get().add("bbb");
+  c2.getMutable().add("aaa");
+  c2.getMutable().add("bbb");
 
-  CPPUNIT_ASSERT(c1.get().removeAll(c2.get(), sk::util::assessor::EqualValues<sk::util::String>()) == true);
+  CPPUNIT_ASSERT(c1.getMutable().removeAll(c2.get(), sk::util::assessor::EqualValues<sk::util::String>()) == true);
   CPPUNIT_ASSERT_EQUAL(1, c1.get().size());
   CPPUNIT_ASSERT(c1.get().contains(sk::util::selector::EqualValue<sk::util::String>("ccc")) == true);
 }
@@ -164,13 +162,13 @@ testCollectionSelectorRetainAll()
 {
   Holder<Collection> collection(makeCollection());
 
-  collection.get().add("aaa");
-  collection.get().add("bbb");
-  collection.get().add("ccc");
-  collection.get().add("aaa");
+  collection.getMutable().add("aaa");
+  collection.getMutable().add("bbb");
+  collection.getMutable().add("ccc");
+  collection.getMutable().add("aaa");
   CPPUNIT_ASSERT_EQUAL(4, collection.get().size());
 
-  CPPUNIT_ASSERT(collection.get().retainAll(sk::util::selector::EqualValue<sk::util::String>("aaa")) == true);
+  CPPUNIT_ASSERT(collection.getMutable().retainAll(sk::util::selector::EqualValue<sk::util::String>("aaa")) == true);
   CPPUNIT_ASSERT_EQUAL(2, collection.get().size());
 
   CPPUNIT_ASSERT(collection.get().contains(sk::util::selector::EqualValue<sk::util::String>("aaa")) == true);
@@ -185,16 +183,16 @@ testCollectionCollectionRetainAll()
   Holder<Collection> c1(makeCollection());
   Holder<Collection> c2(makeCollection());
 
-  c1.get().add("aaa");
-  c1.get().add("bbb");
-  c1.get().add("aaa");
-  c1.get().add("ccc");
+  c1.getMutable().add("aaa");
+  c1.getMutable().add("bbb");
+  c1.getMutable().add("aaa");
+  c1.getMutable().add("ccc");
   CPPUNIT_ASSERT_EQUAL(4, c1.get().size());
 
-  c2.get().add("aaa");
-  c2.get().add("bbb");
+  c2.getMutable().add("aaa");
+  c2.getMutable().add("bbb");
 
-  CPPUNIT_ASSERT(c1.get().retainAll(c2.get(), sk::util::assessor::EqualValues<sk::util::String>()) == true);
+  CPPUNIT_ASSERT(c1.getMutable().retainAll(c2.get(), sk::util::assessor::EqualValues<sk::util::String>()) == true);
   CPPUNIT_ASSERT_EQUAL(3, c1.get().size());
   CPPUNIT_ASSERT(c1.get().contains(sk::util::selector::EqualValue<sk::util::String>("ccc")) == false);
   CPPUNIT_ASSERT(c1.get().contains(sk::util::selector::EqualValue<sk::util::String>("bbb")) == true);

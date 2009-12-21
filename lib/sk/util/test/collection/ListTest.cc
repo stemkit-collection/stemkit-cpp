@@ -45,9 +45,9 @@ testListAdd()
 
   CPPUNIT_ASSERT_EQUAL(0, list.get().size());
 
-  list.get().add("aaa");
-  list.get().add("bbb");
-  list.get().add("ccc");
+  list.getMutable().add("aaa");
+  list.getMutable().add("bbb");
+  list.getMutable().add("ccc");
 
   CPPUNIT_ASSERT_EQUAL(3, list.get().size());
 
@@ -67,9 +67,9 @@ testListGet()
 
   CPPUNIT_ASSERT_THROW(list.get().get(0), sk::util::IndexOutOfBoundsException);
 
-  list.get().add("aaa");
-  list.get().add("bbb");
-  list.get().add("ccc");
+  list.getMutable().add("aaa");
+  list.getMutable().add("bbb");
+  list.getMutable().add("ccc");
 
   CPPUNIT_ASSERT_EQUAL("aaa", list.get().get(0));
   CPPUNIT_ASSERT_EQUAL("bbb", list.get().get(1));
@@ -88,10 +88,10 @@ testListGetMutable()
   CPPUNIT_ASSERT_THROW(list.get().get(0), sk::util::IndexOutOfBoundsException);
   CPPUNIT_ASSERT_THROW(list.get().get(-1), sk::util::IndexOutOfBoundsException);
 
-  list.get().add("aaa");
+  list.getMutable().add("aaa");
 
   try {
-    list.get().getMutable(0);
+    list.getMutable().getMutable(0);
     CPPUNIT_FAIL("No expected exception");
   }
   catch(const sk::util::String& message) {
@@ -108,10 +108,10 @@ testListIndexOf()
   CPPUNIT_ASSERT_EQUAL(-1, list.get().indexOf("aaa"));
   CPPUNIT_ASSERT_EQUAL(-1, list.get().lastIndexOf("zzz"));
 
-  list.get().add("aaa");
-  list.get().add("bbb");
-  list.get().add("aaa");
-  list.get().add("zzz");
+  list.getMutable().add("aaa");
+  list.getMutable().add("bbb");
+  list.getMutable().add("aaa");
+  list.getMutable().add("zzz");
 
   CPPUNIT_ASSERT_EQUAL(0, list.get().indexOf(sk::util::selector::EqualValue<sk::util::String>("aaa")));
   CPPUNIT_ASSERT_EQUAL(1, list.get().indexOf(sk::util::selector::EqualValue<sk::util::String>("bbb")));
@@ -127,26 +127,26 @@ sk::util::test::collection::ListTest::
 testListRemove()
 {
   sk::util::Holder<List> list(makeList());
-  CPPUNIT_ASSERT_THROW(list.get().remove(0), sk::util::IndexOutOfBoundsException);
+  CPPUNIT_ASSERT_THROW(list.getMutable().remove(0), sk::util::IndexOutOfBoundsException);
 
-  list.get().add("aaa");
-  list.get().add("bbb");
-  list.get().add("ccc");
+  list.getMutable().add("aaa");
+  list.getMutable().add("bbb");
+  list.getMutable().add("ccc");
 
   CPPUNIT_ASSERT_EQUAL(3, list.get().size());
 
-  list.get().remove(1);
+  list.getMutable().remove(1);
   CPPUNIT_ASSERT_EQUAL(2, list.get().size());
   CPPUNIT_ASSERT_EQUAL("aaa", list.get().get(0));
   CPPUNIT_ASSERT_EQUAL("ccc", list.get().get(1));
 
-  list.get().remove(0);
+  list.getMutable().remove(0);
   CPPUNIT_ASSERT_EQUAL(1, list.get().size());
   CPPUNIT_ASSERT_EQUAL("ccc", list.get().get(0));
 
-  list.get().remove(0);
+  list.getMutable().remove(0);
   CPPUNIT_ASSERT_EQUAL(0, list.get().size());
-  CPPUNIT_ASSERT_THROW(list.get().remove(0), sk::util::IndexOutOfBoundsException);
+  CPPUNIT_ASSERT_THROW(list.getMutable().remove(0), sk::util::IndexOutOfBoundsException);
 }
 
 void 
@@ -155,26 +155,26 @@ testListSet()
 {
   sk::util::Holder<List> list(makeList());
 
-  CPPUNIT_ASSERT_THROW(list.get().set(0, "abc"), sk::util::IndexOutOfBoundsException);
-  list.get().add("aaa");
-  list.get().add("bbb");
-  list.get().add("ccc");
+  CPPUNIT_ASSERT_THROW(list.getMutable().set(0, "abc"), sk::util::IndexOutOfBoundsException);
+  list.getMutable().add("aaa");
+  list.getMutable().add("bbb");
+  list.getMutable().add("ccc");
 
   CPPUNIT_ASSERT_EQUAL(3, list.get().size());
   CPPUNIT_ASSERT_EQUAL("aaa", list.get().get(0));
   CPPUNIT_ASSERT_EQUAL("bbb", list.get().get(1));
   CPPUNIT_ASSERT_EQUAL("ccc", list.get().get(2));
 
-  list.get().set(2, "CCC");
-  list.get().set(0, "AAA");
-  list.get().set(1, "BBB");
+  list.getMutable().set(2, "CCC");
+  list.getMutable().set(0, "AAA");
+  list.getMutable().set(1, "BBB");
 
   CPPUNIT_ASSERT_EQUAL(3, list.get().size());
   CPPUNIT_ASSERT_EQUAL("AAA", list.get().get(0));
   CPPUNIT_ASSERT_EQUAL("BBB", list.get().get(1));
   CPPUNIT_ASSERT_EQUAL("CCC", list.get().get(2));
 
-  CPPUNIT_ASSERT_THROW(list.get().set(3, "abc"), sk::util::IndexOutOfBoundsException);
+  CPPUNIT_ASSERT_THROW(list.getMutable().set(3, "abc"), sk::util::IndexOutOfBoundsException);
 }
 
 void
@@ -184,9 +184,9 @@ testListInspect()
   sk::util::Holder<List> list(makeList());
   CPPUNIT_ASSERT_EQUAL("[]", list.get().inspect());
 
-  list.get().add("a");
-  list.get().add("b");
-  list.get().add("c");
+  list.getMutable().add("a");
+  list.getMutable().add("b");
+  list.getMutable().add("c");
 
   CPPUNIT_ASSERT_EQUAL("[3: 0&\"a\", 1&\"b\", 2&\"c\" ]", list.get().inspect());
 }

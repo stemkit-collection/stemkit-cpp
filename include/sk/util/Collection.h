@@ -39,8 +39,7 @@ namespace sk {
         /// element was found, false otherwise. If a mmutable element holder
         /// is specified but the collection element is immutalbe, exception
         /// sk::util::IllegalStateException is thrown.
-        virtual bool find(sk::util::Holder<const T>& holder, const Selector<T>& selector) const = 0;
-        virtual bool find(sk::util::Holder<const T>& holder, const Selector<T>& selector) = 0;
+        virtual bool find(sk::util::Holder<T>& holder, const Selector<T>& selector) const = 0;
         virtual bool find(sk::util::Holder<T>& holder, const Selector<T>& selector) = 0;
         //@}
 

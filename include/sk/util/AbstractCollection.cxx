@@ -46,7 +46,7 @@ const T&
 sk::util::AbstractCollection<T>::
 get(const Selector<T>& selector) const 
 {
-  sk::util::Holder<const T> holder;
+  sk::util::Holder<T> holder;
   if(find(holder, selector) == true) {
     return holder.get();
   }
@@ -60,72 +60,80 @@ getMutable(const Selector<T>& selector)
 {
   sk::util::Holder<T> holder;
   if(find(holder, selector) == true) {
-    return holder.get();
+    return holder.getMutable();
   }
   throw sk::util::NoSuchElementException("getMutable()");
 }
 
 template<class T>
-bool 
-sk::util::AbstractCollection<T>::
-find(sk::util::Holder<const T>& holder, const sk::util::Selector<T>& selector) const
-{
-  struct Processor : public virtual sk::util::Processor<const T> {
-    Processor(sk::util::Holder<const T>& holder, const sk::util::Selector<T>& selector)
-      : _holder(holder), _selector(selector) {}
+struct sk::util::AbstractCollection<T>::Finder : public virtual sk::util::Processor<const sk::util::Slot<T> > {
+  Finder(sk::util::Holder<T>& holder, const sk::util::Selector<T>& selector)
+    : _holder(holder), _selector(selector) {}
 
-    void process(const T& object) const {
-      if(_selector.assess(object) == true) {
-        _holder.set(object);
-        throw sk::util::Break();
-      }
+  void process(const sk::util::Slot<T>& slot) const {
+    const T& object = slot.get();
+    if(_selector.assess(object) == true) {
+      _holder.set(object);
+      throw sk::util::Break();
     }
-    sk::util::Holder<const T>& _holder;
-    const sk::util::Selector<T>& _selector;
-  };
-  holder.clear();
-  forEach(Processor(holder, selector));
-  return holder.isEmpty() == false;
-}
+  }
+  sk::util::Holder<T>& _holder;
+  const sk::util::Selector<T>& _selector;
+};
 
 template<class T>
 bool 
 sk::util::AbstractCollection<T>::
-find(sk::util::Holder<const T>& holder, const Selector<T>& selector)
+find(sk::util::Holder<T>& holder, const sk::util::Selector<T>& selector) const
 {
-  const sk::util::AbstractCollection<T>& self = *this;
-  return self.find(holder, selector);
+  try {
+    forEachSlot(Finder(holder, selector));
+    return false;
+  }
+  catch(const sk::util::Break& event) {}
+  return true;
 }
+
+template<class T>
+struct sk::util::AbstractCollection<T>::MutableFinder : public virtual sk::util::Processor<sk::util::Slot<T> > {
+  MutableFinder(sk::util::Holder<T>& holder, const sk::util::Selector<T>& selector)
+    : _holder(holder), _selector(selector) {}
+
+  void process(sk::util::Slot<T>& slot) const {
+    const T& object = slot.get();
+    if(_selector.assess(object) == true) {
+      if(slot.isMutable() == true) {
+        _holder.set(slot.getMutable());
+      }
+      else {
+        _holder.set(object);
+      }
+      throw sk::util::Break();
+    }
+  }
+  sk::util::Holder<T>& _holder;
+  const sk::util::Selector<T>& _selector;
+};
 
 template<class T>
 bool 
 sk::util::AbstractCollection<T>::
 find(sk::util::Holder<T>& holder, const Selector<T>& selector)
 {
-  struct Processor : public virtual sk::util::Processor<T> {
-    Processor(sk::util::Holder<T>& holder, const sk::util::Selector<T>& selector)
-      : _holder(holder), _selector(selector) {}
-
-    void process(T& object) const {
-      if(_selector.assess(object) == true) {
-        _holder.set(object);
-        throw sk::util::Break();
-      }
-    }
-    sk::util::Holder<T>& _holder;
-    const sk::util::Selector<T>& _selector;
-  };
-  holder.clear();
-  forEach(Processor(holder, selector));
-  return holder.isEmpty() == false;
+  try {
+    forEachSlot(MutableFinder(holder, selector));
+    return false;
+  }
+  catch(const sk::util::Break& event) {}
+  return true;
 }
 
 template<class T>
-struct sk::util::AbstractCollection<T>::Invocator : public virtual sk::util::Processor<const sk::util::Slot<const T> > {
+struct sk::util::AbstractCollection<T>::Invocator : public virtual sk::util::Processor<const sk::util::Slot<T> > {
   Invocator(const sk::util::Processor<const T>& processor)
     : _processor(processor) {}
 
-  void process(const sk::util::Slot<const T>& slot) const {
+  void process(const sk::util::Slot<T>& slot) const {
     _processor.process(slot.get());
   }
   const sk::util::Processor<const T>& _processor;
@@ -193,7 +201,7 @@ bool
 sk::util::AbstractCollection<T>::
 contains(const Selector<T>& selector) const 
 {
-  sk::util::Holder<const T> holder;
+  sk::util::Holder<T> holder;
   return find(holder, selector);
 }
 
@@ -206,26 +214,28 @@ containsAll(const Collection<T>& other) const
 }
 
 template<class T>
+struct sk::util::AbstractCollection<T>::Checker : public virtual sk::util::Processor<const T> {
+  Checker(const sk::util::Collection<T>& collection, const sk::util::BinaryAssessor<T>& assessor, bool& result)
+    : _collection(collection), _assessor(assessor), _result(result) {}
+
+  void process(const T& item) const {
+    if(_collection.contains(sk::util::assessor::Binding<T>(item, _assessor)) == false) {
+      _result = false;
+      throw sk::util::Break();
+    }
+  }
+  const sk::util::Collection<T>& _collection;
+  const sk::util::BinaryAssessor<T>& _assessor;
+  bool& _result;
+};
+
+template<class T>
 bool 
 sk::util::AbstractCollection<T>::
 containsAll(const Collection<T>& other, const sk::util::BinaryAssessor<T>& assessor) const 
 {
-  struct Processor : public virtual sk::util::Processor<const T> {
-    Processor(const sk::util::Collection<T>& collection, const sk::util::BinaryAssessor<T>& assessor, bool& result)
-      : _collection(collection), _assessor(assessor), _result(result) {}
-
-    void process(const T& item) const {
-      if(_collection.contains(sk::util::assessor::Binding<T>(item, _assessor)) == false) {
-        _result = false;
-        throw sk::util::Break();
-      }
-    }
-    const sk::util::Collection<T>& _collection;
-    const sk::util::BinaryAssessor<T>& _assessor;
-    bool& _result;
-  };
   bool result = true;
-  other.forEach(Processor(*this, assessor, result));
+  other.forEach(Checker(*this, assessor, result));
   return result;
 }
 

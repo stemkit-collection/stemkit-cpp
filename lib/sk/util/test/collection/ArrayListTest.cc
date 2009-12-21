@@ -9,9 +9,8 @@
 #include "ArrayListTest.h"
 #include <sk/util/ArrayList.cxx>
 #include <sk/util/Holder.cxx>
-#include <sk/util/OrderingChecker.h>
 #include <sk/util/CopyingProcessor.cxx>
-#include "Probe.h"
+#include <sk/util/test/Probe.cxx>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::util::test::ArrayListTest);
 
@@ -29,21 +28,21 @@ void
 sk::util::test::ArrayListTest::
 setUp()
 {
-  Probe::resetCounter();
+  test::Probe<String>::resetCounter();
 }
 
 void
 sk::util::test::ArrayListTest::
 tearDown()
 {
-  Probe::resetCounter();
+  test::Probe<String>::resetCounter();
 }
 
 void
 sk::util::test::ArrayListTest::
 testCreate()
 {
-  ArrayList<Probe> list;
+  ArrayList<test::Probe<String> > list;
 
   CPPUNIT_ASSERT_EQUAL(0, list.size());
   CPPUNIT_ASSERT_EQUAL(true, list.isEmpty());
@@ -53,24 +52,24 @@ void
 sk::util::test::ArrayListTest::
 testAdd()
 {
-  CPPUNIT_ASSERT_EQUAL(0, Probe::getCounter());
-  ArrayList<Probe> list;
-  Probe p1("aaa");
-  Probe p2("bbb");
+  CPPUNIT_ASSERT_EQUAL(0, test::Probe<String>::getCounter());
+  ArrayList<test::Probe<String> > list;
+  test::Probe<String> p1("aaa");
+  test::Probe<String> p2("bbb");
   
   list.add(p1);
   list.add(p2);
-  list.add(new Probe("ccc"));
+  list.add(new test::Probe<String>("ccc"));
 
   CPPUNIT_ASSERT_EQUAL(false, list.isEmpty());
   CPPUNIT_ASSERT_EQUAL(3, list.size());
-  CPPUNIT_ASSERT_EQUAL(3, Probe::getCounter());
+  CPPUNIT_ASSERT_EQUAL(3, test::Probe<String>::getCounter());
 
   list.clear();
 
   CPPUNIT_ASSERT_EQUAL(true, list.isEmpty());
   CPPUNIT_ASSERT_EQUAL(0, list.size());
-  CPPUNIT_ASSERT_EQUAL(2, Probe::getCounter());
+  CPPUNIT_ASSERT_EQUAL(2, test::Probe<String>::getCounter());
 }
 
 void
@@ -223,12 +222,12 @@ testSort()
   CPPUNIT_ASSERT_EQUAL("bbb", list.get(1));
   CPPUNIT_ASSERT_EQUAL("ccc", list.get(2));
 
-  struct Ordering : public virtual sk::util::OrderingChecker<NumberedString> {
-    bool isOrdered(const NumberedString& first, const NumberedString& second) const {
+  struct Assessor : public virtual sk::util::BinaryAssessor<NumberedString> {
+    bool assess(const NumberedString& first, const NumberedString& second) const {
       return first.getNumber() < second.getNumber();
     }
   };
-  list.sort(Ordering());
+  list.sort(Assessor());
 
   CPPUNIT_ASSERT_EQUAL("bbb", list.get(0));
   CPPUNIT_ASSERT_EQUAL("ccc", list.get(1));

@@ -29,8 +29,7 @@ namespace sk {
         const T& get(const Selector<T>& selector) const;
         T& getMutable(const Selector<T>& selector);
 
-        bool find(sk::util::Holder<const T>& holder, const Selector<T>& selector) const;
-        bool find(sk::util::Holder<const T>& holder, const Selector<T>& selector);
+        bool find(sk::util::Holder<T>& holder, const Selector<T>& selector) const;
         bool find(sk::util::Holder<T>& holder, const Selector<T>& selector);
 
         void forEach(const Processor<const T>& processor) const;
@@ -66,13 +65,16 @@ namespace sk {
         bool retainAll(const Selector<T>& selector);
 
       protected:
-        virtual void forEachSlot(const sk::util::Processor<const sk::util::Slot<const T> >& processor) const = 0;
+        virtual void forEachSlot(const sk::util::Processor<const sk::util::Slot<T> >& processor) const = 0;
         virtual void forEachSlot(const sk::util::Processor<sk::util::Slot<T> >& processor) = 0;
 
       private:
         AbstractCollection(const AbstractCollection<T>& other);
         AbstractCollection<T>& operator = (const AbstractCollection<T>& other);
 
+        struct Checker;
+        struct Finder;
+        struct MutableFinder;
         struct Invocator;
         struct MutableInvocator;
     };
