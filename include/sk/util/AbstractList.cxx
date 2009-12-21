@@ -13,7 +13,6 @@
 #include <sk/util/UnsupportedOperationException.h>
 #include <sk/util/IndexOutOfBoundsException.h>
 #include <sk/util/StringArray.h>
-#include <sk/util/slot/Processor.h>
 #include <sk/util/selector/EqualPointer.cxx>
 
 template<class T>
@@ -256,7 +255,7 @@ reverse()
 }
 
 template<typename T>
-struct sk::util::AbstractList<T>::InspectingSlotProcessor : public virtual sk::util::slot::Processor<const T> {
+struct sk::util::AbstractList<T>::InspectingSlotProcessor : public virtual sk::util::Processor<const sk::util::Slot<const T> > {
   InspectingSlotProcessor(sk::util::StringArray& depot)
     : _depot(depot), _index(0) {}
 

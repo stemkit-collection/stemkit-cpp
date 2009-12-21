@@ -19,7 +19,6 @@
 #include <sk/util/selector/Belongs.cxx>
 #include <sk/util/assessor/EqualPointers.cxx>
 #include <sk/util/assessor/Binding.cxx>
-#include <sk/util/slot/ContentInvocator.cxx>
 #include <sk/util/Break.h>
 
 template<class T>
@@ -122,15 +121,37 @@ find(sk::util::Holder<T>& holder, const Selector<T>& selector)
 }
 
 template<class T>
+struct sk::util::AbstractCollection<T>::Invocator : public virtual sk::util::Processor<const sk::util::Slot<const T> > {
+  Invocator(const sk::util::Processor<const T>& processor)
+    : _processor(processor) {}
+
+  void process(const sk::util::Slot<const T>& slot) const {
+    _processor.process(slot.get());
+  }
+  const sk::util::Processor<const T>& _processor;
+};
+
+template<class T>
 void 
 sk::util::AbstractCollection<T>::
 forEach(const Processor<const T>& processor) const 
 {
   try {
-    forEachSlot(sk::util::slot::ContentInvocator<const T>(processor));
+    forEachSlot(Invocator(processor));
   }
   catch(const sk::util::Break& event) {}
 }
+
+template<class T>
+struct sk::util::AbstractCollection<T>::MutableInvocator : public virtual sk::util::Processor<sk::util::Slot<T> > {
+  MutableInvocator(const sk::util::Processor<T>& processor)
+    : _processor(processor) {}
+
+  void process(sk::util::Slot<T>& slot) const {
+    _processor.process(slot.getMutable());
+  }
+  const sk::util::Processor<T>& _processor;
+};
 
 template<class T>
 void 
@@ -138,7 +159,7 @@ sk::util::AbstractCollection<T>::
 forEach(const Processor<T>& processor) 
 {
   try {
-    forEachSlot(sk::util::slot::ContentInvocator<T>(processor));
+    forEachSlot(MutableInvocator(processor));
   }
   catch(const sk::util::Break& event) {}
 }

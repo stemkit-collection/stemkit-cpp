@@ -11,7 +11,6 @@
 
 #include <sk/util/Collection.h>
 #include <sk/util/Class.h>
-#include <sk/util/slot/Processor.h>
 
 namespace sk {
   namespace util {
@@ -67,12 +66,15 @@ namespace sk {
         bool retainAll(const Selector<T>& selector);
 
       protected:
-        virtual void forEachSlot(const sk::util::slot::Processor<const T>& processor) const = 0;
-        virtual void forEachSlot(const sk::util::slot::Processor<T>& processor) = 0;
+        virtual void forEachSlot(const sk::util::Processor<const sk::util::Slot<const T> >& processor) const = 0;
+        virtual void forEachSlot(const sk::util::Processor<sk::util::Slot<T> >& processor) = 0;
 
       private:
         AbstractCollection(const AbstractCollection<T>& other);
         AbstractCollection<T>& operator = (const AbstractCollection<T>& other);
+
+        struct Invocator;
+        struct MutableInvocator;
     };
   }
 }

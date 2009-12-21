@@ -27,6 +27,7 @@ namespace sk {
         Slot(const Slot<T, Mixin>& other);
 
         inline T& get() const;
+        inline T& getMutable();
 
         virtual bool isOwner() const = 0;
         virtual T* deprive() = 0;
@@ -45,6 +46,17 @@ template<typename T, typename Mixin>
 inline T&
 sk::util::Slot<T, Mixin>::
 get() const
+{
+  if(_object == 0) {
+    throw sk::util::MissingResourceException(SK_METHOD);
+  }
+  return *_object;
+}
+
+template<typename T, typename Mixin>
+inline T&
+sk::util::Slot<T, Mixin>::
+getMutable()
 {
   if(_object == 0) {
     throw sk::util::MissingResourceException(SK_METHOD);
