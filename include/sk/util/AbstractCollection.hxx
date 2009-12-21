@@ -30,7 +30,7 @@ namespace sk {
         T& getMutable(const Selector<T>& selector);
 
         bool find(sk::util::Holder<T>& holder, const Selector<T>& selector) const;
-        bool find(sk::util::Holder<T>& holder, const Selector<T>& selector);
+        bool findMutable(sk::util::Holder<T>& holder, const Selector<T>& selector);
 
         void forEach(const Processor<const T>& processor) const;
         void forEach(const Processor<T>& processor);

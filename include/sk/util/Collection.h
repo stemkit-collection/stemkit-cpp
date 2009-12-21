@@ -33,15 +33,17 @@ namespace sk {
         /// mutalbe, exception sk::util::IllegalStateException is thrown.
         virtual T& getMutable(const Selector<T>& selector) = 0;
 
-        //@{
-        /// Finds an element for which the specified selector assesses to true
-        /// and places it into the specified holder. Returns true if such an
-        /// element was found, false otherwise. If a mmutable element holder
-        /// is specified but the collection element is immutalbe, exception
-        /// sk::util::IllegalStateException is thrown.
+        /// Finds an immutable element for which the specified selector 
+        /// assesses to true and places it into the specified holder. 
+        /// Returns true if such an element was found, false otherwise. 
         virtual bool find(sk::util::Holder<T>& holder, const Selector<T>& selector) const = 0;
-        virtual bool find(sk::util::Holder<T>& holder, const Selector<T>& selector) = 0;
-        //@}
+
+        /// Finds an immutable element for which the specified selector 
+        /// assesses to true and places it into the specified holder. 
+        /// Returns true if such an element was found, false otherwise. 
+        /// In case the found element is not mutalbe, exception 
+        /// sk::util::IllegalStateException is thrown.
+        virtual bool findMutable(sk::util::Holder<T>& holder, const Selector<T>& selector) = 0;
 
         //@{
         /// Iterates over all the elements in this collection invoking the

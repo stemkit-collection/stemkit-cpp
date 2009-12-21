@@ -59,7 +59,7 @@ sk::util::AbstractCollection<T>::
 getMutable(const Selector<T>& selector)
 {
   sk::util::Holder<T> holder;
-  if(find(holder, selector) == true) {
+  if(findMutable(holder, selector) == true) {
     return holder.getMutable();
   }
   throw sk::util::NoSuchElementException("getMutable()");
@@ -100,14 +100,8 @@ struct sk::util::AbstractCollection<T>::MutableFinder : public virtual sk::util:
     : _holder(holder), _selector(selector) {}
 
   void process(sk::util::Slot<T>& slot) const {
-    const T& object = slot.get();
-    if(_selector.assess(object) == true) {
-      if(slot.isMutable() == true) {
-        _holder.set(slot.getMutable());
-      }
-      else {
-        _holder.set(object);
-      }
+    if(_selector.assess(slot.get()) == true) {
+      _holder.set(slot.getMutable());
       throw sk::util::Break();
     }
   }
@@ -118,7 +112,7 @@ struct sk::util::AbstractCollection<T>::MutableFinder : public virtual sk::util:
 template<class T>
 bool 
 sk::util::AbstractCollection<T>::
-find(sk::util::Holder<T>& holder, const Selector<T>& selector)
+findMutable(sk::util::Holder<T>& holder, const Selector<T>& selector)
 {
   try {
     forEachSlot(MutableFinder(holder, selector));

@@ -49,7 +49,7 @@ testCollectionBasics()
   CPPUNIT_ASSERT(collection.get().find(holder, sk::util::selector::EqualValue<sk::util::String>("ddd")) == false);
 
   try {
-    collection.getMutable().find(holder, sk::util::selector::EqualValue<sk::util::String>("aaa"));
+    collection.getMutable().findMutable(holder, sk::util::selector::EqualValue<sk::util::String>("aaa"));
     CPPUNIT_FAIL("No expected exception");
   }
   catch(const sk::util::String& message) {
