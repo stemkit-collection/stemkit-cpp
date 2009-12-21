@@ -259,9 +259,8 @@ struct sk::util::AbstractList<T>::InspectingSlotProcessor : public virtual sk::u
   InspectingSlotProcessor(sk::util::StringArray& depot)
     : _depot(depot), _index(0) {}
 
-  bool process(const sk::util::Slot<const T>& slot) const {
+  void process(const sk::util::Slot<const T>& slot) const {
     _depot << (sk::util::String::valueOf(_index++) + slot.inspect());
-    return false;
   }
   sk::util::StringArray& _depot;
   mutable int _index;

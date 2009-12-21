@@ -17,7 +17,6 @@
 #include <sk/util/slot/Pointer.cxx>
 #include <sk/util/StreamLiner.h>
 #include <sk/util/IndexOutOfBoundsException.h>
-#include <sk/util/slot/Ordering.cxx>
 #include <iostream>
 #include <algorithm>
 
