@@ -31,8 +31,13 @@ namespace sk {
         void clear();
         int size() const;
         bool isEmpty() const;
+        bool add(const T& object);
         bool add(T& object);
         bool add(T* object);
+        void add(int index, const T& object);
+        void add(int index, T& object);
+        void add(int index, T* object);
+
         bool find(sk::util::Holder<T>& holder, const Selector<T>& selector) const;
         
         const T& get(int index) const;

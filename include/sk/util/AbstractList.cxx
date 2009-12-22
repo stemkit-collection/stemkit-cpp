@@ -88,11 +88,19 @@ add(int /*index*/, T* /*object*/)
 }
 
 template<class T>
+void
+sk::util::AbstractList<T>::
+ensureIndex(int index, int size)
+{
+  if((index < 0) || (index >= size)) {
+    throw sk::util::IndexOutOfBoundsException("index=" + sk::util::String::valueOf(index) + ", size=" + sk::util::String::valueOf(size));
+  }
+}
+
+template<class T>
 struct sk::util::AbstractList<T>::IndexSelector : public virtual sk::util::Selector<T> {
   IndexSelector(int index, int size) : _index(index) {
-    if((index < 0) || (index >= size)) {
-      throw sk::util::IndexOutOfBoundsException("index=" + sk::util::String::valueOf(index) + ", size=" + sk::util::String::valueOf(size));
-    }
+    sk::util::AbstractList<T>::ensureIndex(index, size);
   }
 
   bool assess(const T& object) const {

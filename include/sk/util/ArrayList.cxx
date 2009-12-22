@@ -73,6 +73,15 @@ isEmpty() const
 template<class T>
 bool
 sk::util::ArrayList<T>::
+add(const T& object)
+{
+  _container.push_back(new slot::Reference<T>(object));
+  return true;
+}
+
+template<class T>
+bool
+sk::util::ArrayList<T>::
 add(T& object)
 {
   _container.push_back(new slot::Reference<T>(object));
@@ -86,6 +95,33 @@ add(T* object)
 {
   _container.push_back(new slot::Pointer<T>(object));
   return true;
+}
+
+template<class T>
+void
+sk::util::ArrayList<T>::
+add(int index, const T& object)
+{
+  ensureIndex(index, size());
+  _container.insert(_container.begin() + index, new slot::Reference<T>(object));
+}
+
+template<class T>
+void
+sk::util::ArrayList<T>::
+add(int index, T& object)
+{
+  ensureIndex(index, size());
+  _container.insert(_container.begin() + index, new slot::Reference<T>(object));
+}
+
+template<class T>
+void
+sk::util::ArrayList<T>::
+add(int index, T* object)
+{
+  ensureIndex(index, size());
+  _container.insert(_container.begin() + index, new slot::Pointer<T>(object));
 }
 
 template<class T>

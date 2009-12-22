@@ -12,34 +12,41 @@
 #include <sk/util/CopyingProcessor.cxx>
 #include <sk/util/test/Probe.cxx>
 
-CPPUNIT_TEST_SUITE_REGISTRATION(sk::util::test::ArrayListTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(sk::util::test::collection::ArrayListTest);
 
-sk::util::test::ArrayListTest::
+sk::util::test::collection::ArrayListTest::
 ArrayListTest()
 {
 }
 
-sk::util::test::ArrayListTest::
+sk::util::test::collection::ArrayListTest::
 ~ArrayListTest()
 {
 }
 
+sk::util::List<sk::util::String>* 
+sk::util::test::collection::ArrayListTest::
+makeList()
+{
+  return new sk::util::ArrayList<sk::util::String>();
+}
+
 void
-sk::util::test::ArrayListTest::
+sk::util::test::collection::ArrayListTest::
 setUp()
 {
   test::Probe<String>::resetCounter();
 }
 
 void
-sk::util::test::ArrayListTest::
+sk::util::test::collection::ArrayListTest::
 tearDown()
 {
   test::Probe<String>::resetCounter();
 }
 
 void
-sk::util::test::ArrayListTest::
+sk::util::test::collection::ArrayListTest::
 testCreate()
 {
   ArrayList<test::Probe<String> > list;
@@ -49,7 +56,7 @@ testCreate()
 }
 
 void
-sk::util::test::ArrayListTest::
+sk::util::test::collection::ArrayListTest::
 testAdd()
 {
   CPPUNIT_ASSERT_EQUAL(0, test::Probe<String>::getCounter());
@@ -73,7 +80,7 @@ testAdd()
 }
 
 void
-sk::util::test::ArrayListTest::
+sk::util::test::collection::ArrayListTest::
 testGet()
 {
   ArrayList<String> list;
@@ -90,7 +97,7 @@ testGet()
 }
 
 void
-sk::util::test::ArrayListTest::
+sk::util::test::collection::ArrayListTest::
 testForEach()
 {
   ArrayList<String> list;
@@ -128,7 +135,7 @@ namespace {
 };
 
 void
-sk::util::test::ArrayListTest::
+sk::util::test::collection::ArrayListTest::
 testFind()
 {
   ArrayList<String> list;
@@ -150,7 +157,7 @@ testFind()
 }
 
 void 
-sk::util::test::ArrayListTest::
+sk::util::test::collection::ArrayListTest::
 testContains()
 {
   sk::util::String s("abc");
@@ -163,7 +170,7 @@ testContains()
 }
 
 void
-sk::util::test::ArrayListTest::
+sk::util::test::collection::ArrayListTest::
 testRemove()
 {
   sk::util::ArrayList<sk::util::String> list;
@@ -207,7 +214,7 @@ namespace {
 }
 
 void 
-sk::util::test::ArrayListTest::
+sk::util::test::collection::ArrayListTest::
 testSort()
 {
   sk::util::ArrayList<NumberedString> list;
@@ -235,7 +242,7 @@ testSort()
 }
 
 void 
-sk::util::test::ArrayListTest::
+sk::util::test::collection::ArrayListTest::
 testInspect()
 {
   sk::util::ArrayList<sk::util::String> list;
@@ -253,7 +260,7 @@ testInspect()
 }
 
 void
-sk::util::test::ArrayListTest::
+sk::util::test::collection::ArrayListTest::
 testRemoveAll()
 {
   sk::util::ArrayList<sk::util::String> list;
@@ -277,7 +284,7 @@ testRemoveAll()
 }
 
 void
-sk::util::test::ArrayListTest::
+sk::util::test::collection::ArrayListTest::
 testShuffle()
 {
   sk::util::ArrayList<sk::util::String> l1;
