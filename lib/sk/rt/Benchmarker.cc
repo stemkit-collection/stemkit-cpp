@@ -86,7 +86,7 @@ add(const sk::util::String& title, sk::rt::Runnable* code)
       : _codeHolder(code) {}
 
     void run() {
-      _codeHolder.get().run();
+      _codeHolder.getMutable().run();
     }
     sk::util::Holder<sk::rt::Runnable> _codeHolder;
   };
@@ -124,11 +124,11 @@ add(sk::rt::bm::Runner& runner)
 }
 
 namespace {
-  struct Reporter : public virtual sk::util::Processor<sk::rt::bm::Runner> {
+  struct Reporter : public virtual sk::util::Processor<const sk::rt::bm::Runner> {
     Reporter(int indent, std::ostream& stream)
       : _indent(indent), _stream(stream) {}
 
-    void process(sk::rt::bm::Runner& runner) const {
+    void process(const sk::rt::bm::Runner& runner) const {
       runner.report(_indent, _stream);
     }
     int _indent;

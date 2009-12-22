@@ -56,7 +56,7 @@ namespace sk {
           const sk::util::Pathname _location;
           sk::util::Holder<SpotLocator> _locatorHolder;
 
-          static sk::util::Holder<const NamedStreamOpener> _streamOpenerHolder;
+          static sk::util::Holder<NamedStreamOpener> _streamOpenerHolder;
       };
     }
   }

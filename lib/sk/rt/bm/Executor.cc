@@ -49,7 +49,7 @@ sk::rt::bm::Executor::
 start() throw() 
 {
   _scope.info(_title) << "started";
-  sk::rt::Benchmarkable& code = _codeHolder.get();
+  sk::rt::Benchmarkable& code = _codeHolder.getMutable();
   sk::rt::StopWatch stopwatch;
 
   code.setup();

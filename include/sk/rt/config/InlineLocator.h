@@ -40,7 +40,7 @@ namespace sk {
           InlineLocator& operator = (const InlineLocator& other);
 
           const sk::util::String _content;
-          sk::util::Holder<const Locator>::Aliasing _locatorHolder;
+          sk::util::Holder<Locator>::Aliasing _locatorHolder;
       };
     }
   }

@@ -138,7 +138,7 @@ makePipe()
           ::close(0);
           ::dup(descriptors[0]);
 
-          std::vector<int> preserve = _destinationHolder.get().makeReady();
+          std::vector<int> preserve = _destinationHolder.getMutable().makeReady();
           for(int descriptor=3; descriptor < FD_SETSIZE ;descriptor++) {
             if(std::find(preserve.begin(), preserve.end(), descriptor) == preserve.end()) {
               ::close(descriptor);
@@ -245,8 +245,8 @@ sk::rt::logger::PipeDestination::
 output(const sk::util::String& message)
 {
   try {
-    _destinationHolder.get().dispatch("### ", 4);
-    OutputScope scope(_destinationHolder.get());
+    _destinationHolder.getMutable().dispatch("### ", 4);
+    OutputScope scope(_destinationHolder.getMutable());
     Stream stream(sk::util::String::EMPTY, logger::Level::SK_L_NOTICE, scope);
 
     stream << message;
@@ -258,7 +258,7 @@ void
 sk::rt::logger::PipeDestination::
 waitData(int descriptor)
 {
-  Destination& destination = _destinationHolder.get();
+  Destination& destination = _destinationHolder.getMutable();
 
   std::vector<char> buffer(264);
   while(true) {
