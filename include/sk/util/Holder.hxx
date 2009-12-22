@@ -19,8 +19,7 @@ namespace sk {
   namespace util {
     template<typename T, typename Policy = slot::policy::Storing<T> >
     class Holder
-      : public Policy, 
-        public virtual sk::util::Object
+      : public virtual sk::util::Object
     {
       public:
         typedef Holder<T, slot::policy::Sharing<T> > Sharing;
@@ -30,14 +29,14 @@ namespace sk {
 
       public:
         Holder();
-        Holder(const slot::policy::Storing<T>& other);
+        Holder(const Holder<T, Policy>& other);
+
         explicit Holder(T* object);
         explicit Holder(T& object);
         explicit Holder(const T& object);
         virtual ~Holder();
 
         Holder<T, Policy>& operator=(const Holder<T, Policy>& other);
-        Holder<T, Policy>& operator=(const slot::policy::Storing<T>& other);
 
         bool contains(const T& object) const;
         bool isEmpty() const;
@@ -57,6 +56,9 @@ namespace sk {
 
         // sk::util::Object re-implementation.
         const sk::util::String inspect() const;
+
+      private:
+        typename Policy::slot_storage_type _storage;
     };
   }
 }

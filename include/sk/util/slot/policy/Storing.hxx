@@ -20,60 +20,57 @@ namespace sk {
         template<typename T, typename SlotMixin = slot::mixin::None>
         class Storing
         {
-          protected: 
-            Storing() 
-              : _slot(0) {}
+          public: 
+            typedef sk::util::Slot<T, SlotMixin> slot_type;
+            typedef slot_type* slot_storage_type;
 
-            void setSlot(sk::util::Slot<T, SlotMixin>* slot) {
-              _slot = slot;
+            static void setSlot(slot_storage_type& storage, slot_type* slot) {
+              storage = slot;
             }
 
-            void setObject(const T& object) {
-              clearSlot();
-              setSlot(new slot::Reference<T, SlotMixin>(object));
+            static void setObject(slot_storage_type& storage, const T& object) {
+              clearSlot(storage);
+              setSlot(storage, new slot::Reference<T, SlotMixin>(object));
             }
 
-            void setObject(T& object) {
-              clearSlot();
-              setSlot(new slot::Reference<T, SlotMixin>(object));
+            static void setObject(slot_storage_type& storage, T& object) {
+              clearSlot(storage);
+              setSlot(storage, new slot::Reference<T, SlotMixin>(object));
             }
 
-            void setObject(T* object) {
-              clearSlot();
+            static void setObject(slot_storage_type& storage, T* object) {
+              clearSlot(storage);
               if(object != 0) {
-                setSlot(new slot::Pointer<T, SlotMixin>(object));
+                setSlot(storage, new slot::Pointer<T, SlotMixin>(object));
               }
             }
 
-            bool hasSlot() const {
-              return _slot != 0;
+            static bool hasSlot(const slot_storage_type& storage) {
+              return storage != 0;
             }
 
             static bool hasSlot(const Storing<T, SlotMixin>& other) {
               return other.hasSlot();
             }
 
-            void clearSlot() {
-              delete _slot;
-              _slot = 0;
+            static void clearSlot(slot_storage_type& storage) {
+              delete storage;
+              storage = 0;
             }
 
-            sk::util::Slot<T, SlotMixin>& getSlot() const {
-              if(hasSlot() == false) {
+            static sk::util::Slot<T, SlotMixin>& getSlot(const slot_storage_type& storage) {
+              if(hasSlot(storage) == false) {
                 throw MissingResourceException("sk::util::slot::policy::Storing#getSlot()");
               }
-              return *_slot;
+              return *storage;
             }
 
             static sk::util::Slot<T, SlotMixin>& getSlot(const Storing<T, SlotMixin>& other) {
               return other.getSlot();
             }
 
-          private:
-            Storing(const Storing<T, SlotMixin>& other);
-            Storing<T, SlotMixin>& operator = (const Storing<T, SlotMixin>& other);
-
-            sk::util::Slot<T, SlotMixin>* _slot;
+          protected:
+            Storing();
         };
       }
     }
