@@ -5,63 +5,63 @@
  *  You must read and accept the license prior to use.
 */
 
-#include "CloningHolderTest.h"
+#include "CopyingHolderTest.h"
 #include <sk/util/Holder.cxx>
 #include <sk/util/String.h>
 
-CPPUNIT_TEST_SUITE_REGISTRATION(sk::util::test::CloningHolderTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(sk::util::test::CopyingHolderTest);
 
-sk::util::test::CloningHolderTest::
-CloningHolderTest()
+sk::util::test::CopyingHolderTest::
+CopyingHolderTest()
 {
 }
 
-sk::util::test::CloningHolderTest::
-~CloningHolderTest()
+sk::util::test::CopyingHolderTest::
+~CopyingHolderTest()
 {
 }
 
 void
-sk::util::test::CloningHolderTest::
+sk::util::test::CopyingHolderTest::
 setUp()
 {
 }
 
 void
-sk::util::test::CloningHolderTest::
+sk::util::test::CopyingHolderTest::
 tearDown()
 {
 }
 
 void
-sk::util::test::CloningHolderTest::
+sk::util::test::CopyingHolderTest::
 testClone()
 {
   Holder<String> holder(new String("abc"));
-  Holder<String>::Cloning clone(holder.get());
+  Holder<String>::Copying clone(holder.get());
 
   CPPUNIT_ASSERT_EQUAL(true, holder.isOwner());
   CPPUNIT_ASSERT_EQUAL(true, clone.isOwner());
 }
 
 void
-sk::util::test::CloningHolderTest::
+sk::util::test::CopyingHolderTest::
 testCopyConstructor()
 {
-  Holder<String>::Cloning holder(new String("abc"));
-  Holder<String>::Cloning clone(holder);
+  Holder<String>::Copying holder(new String("abc"));
+  Holder<String>::Copying clone(holder);
 
   CPPUNIT_ASSERT_EQUAL(true, holder.isOwner());
   CPPUNIT_ASSERT_EQUAL(true, clone.isOwner());
 }
 
 void
-sk::util::test::CloningHolderTest::
+sk::util::test::CopyingHolderTest::
 testCopyFromAlias()
 {
   Holder<String> holder(new String("abc"));
   Holder<String>::Aliasing alias(holder);
-  Holder<String>::Cloning clone(alias);
+  Holder<String>::Copying clone(alias);
 
   CPPUNIT_ASSERT_EQUAL(true, holder.isOwner());
   CPPUNIT_ASSERT_EQUAL(false, alias.isOwner());
@@ -69,20 +69,20 @@ testCopyFromAlias()
 }
 
 void
-sk::util::test::CloningHolderTest::
+sk::util::test::CopyingHolderTest::
 testStringLiteral()
 {
-  Holder<const String>::Cloning holder("abc");
+  Holder<String>::Copying holder("abc");
   CPPUNIT_ASSERT_EQUAL(true, holder.isOwner());
   CPPUNIT_ASSERT_EQUAL(String("abc").inspect(), holder.get().inspect());
 }
 
 void
-sk::util::test::CloningHolderTest::
+sk::util::test::CopyingHolderTest::
 testAssignment()
 {
-  Holder<const String>::Cloning holder("abc");
-  Holder<const String>::Cloning other("cba");
+  Holder<String>::Copying holder("abc");
+  Holder<String>::Copying other("cba");
 
   CPPUNIT_ASSERT_EQUAL(String("cba").inspect(), other.get().inspect());
   other = holder;
@@ -96,12 +96,12 @@ testAssignment()
 }
 
 void
-sk::util::test::CloningHolderTest::
+sk::util::test::CopyingHolderTest::
 testAssignmentFromOther()
 {
-  Holder<const String> holder(new String("abc"));
-  Holder<const String>::Aliasing alias(holder);
-  Holder<const String>::Cloning other("cba");
+  Holder<String> holder(new String("abc"));
+  Holder<String>::Aliasing alias(holder);
+  Holder<String>::Copying other("cba");
 
   CPPUNIT_ASSERT_EQUAL(String("cba").inspect(), other.get().inspect());
   other = alias;

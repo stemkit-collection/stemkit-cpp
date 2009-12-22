@@ -9,13 +9,6 @@ test-objects =
   ContainerTest.cc
   IntegerTest.cc
   BooleanTest.cc
-  ReferenceSlotTest.cc
-  PointerSlotTest.cc
-  HolderTest.cc
-  SharingHolderTest.cc
-  AliasingHolderTest.cc
-  CloningHolderTest.cc
-  CopyingHolderTest.cc
   PathnameTest.cc
   StringArrayTest.cc
   StringHashTest.cc

@@ -1,8 +1,19 @@
+# vim: ft=jam: sw=2:
 
 test = sk-util-test ;
 
 test-objects = 
   TestSuite.cc
+
+  PointerSlotTest.cc
+  ReferenceSlotTest.cc
+
+  HolderTest.cc
+  AliasingHolderTest.cc
+  CloningHolderTest.cc
+  CopyingHolderTest.cc
+  SharingHolderTest.cc
+
   CollectionTest.cc
   ListTest.cc
   AbstractCollectionTest.cc

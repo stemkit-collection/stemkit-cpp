@@ -41,8 +41,8 @@ testGet()
   String s("abcd");
   slot::Reference<String> slot(s);
 
-  CPPUNIT_ASSERT_EQUAL(String("abcd"), slot.get());
-  CPPUNIT_ASSERT_EQUAL(&s, &slot.get());
+  CPPUNIT_ASSERT_EQUAL("abcd", slot.get());
+  CPPUNIT_ASSERT_EQUAL(&s, &slot.getMutable());
 }
 
 void

@@ -38,6 +38,10 @@ namespace sk {
             }
 
           protected:
+            void setObject(const T& object) {
+              Storing<T>::setObject(new T(object));
+            }
+
             void setObject(T& object) {
               Storing<T>::setObject(new T(object));
             }

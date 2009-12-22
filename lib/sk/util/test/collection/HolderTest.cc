@@ -45,7 +45,7 @@ testCreateWithReference()
   test::Probe<String> probe("abc");
   Holder<test::Probe<String> > holder(probe);
 
-  CPPUNIT_ASSERT_EQUAL(&probe, &holder.get());
+  CPPUNIT_ASSERT_EQUAL(&probe, &holder.getMutable());
   CPPUNIT_ASSERT_EQUAL(false, holder.isEmpty());
   CPPUNIT_ASSERT_EQUAL(true, holder.contains(probe));
   CPPUNIT_ASSERT_EQUAL(false, holder.contains(test::Probe<String>("bbb")));
@@ -62,7 +62,7 @@ testCreateWithPointer()
 
     CPPUNIT_ASSERT_EQUAL(1, test::Probe<String>::getCounter());
 
-    CPPUNIT_ASSERT_EQUAL(probe, &holder.get());
+    CPPUNIT_ASSERT_EQUAL(probe, &holder.getMutable());
     CPPUNIT_ASSERT_EQUAL(false, holder.isEmpty());
     CPPUNIT_ASSERT_EQUAL(true, holder.contains(*probe));
     CPPUNIT_ASSERT_EQUAL(false, holder.contains(test::Probe<String>("bbb")));
@@ -114,7 +114,7 @@ testRelease()
   CPPUNIT_ASSERT_EQUAL(1, test::Probe<String>::getCounter());
   CPPUNIT_ASSERT_EQUAL(false, holder.isEmpty());
   CPPUNIT_ASSERT_EQUAL(probe, released);
-  CPPUNIT_ASSERT_EQUAL(probe, &holder.get());
+  CPPUNIT_ASSERT_EQUAL(probe, &holder.getMutable());
 
   CPPUNIT_ASSERT_THROW(holder.release(), UnsupportedOperationException);
   

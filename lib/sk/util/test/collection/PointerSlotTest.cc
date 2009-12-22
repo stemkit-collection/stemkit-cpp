@@ -46,11 +46,13 @@ testGet()
   CPPUNIT_ASSERT_EQUAL(0, test::Probe<String>::getCounter());
   {
     test::Probe<String>* probe = new test::Probe<String>("dcba");
+    const test::Probe<String>* constProbe = probe;
     slot::Pointer<test::Probe<String> > slot(probe);
 
     CPPUNIT_ASSERT_EQUAL(1, test::Probe<String>::getCounter());
     CPPUNIT_ASSERT_EQUAL("dcba", slot.get());
-    CPPUNIT_ASSERT_EQUAL(probe, &slot.get());
+    CPPUNIT_ASSERT_EQUAL(probe, &slot.getMutable());
+    CPPUNIT_ASSERT_EQUAL(constProbe, &slot.get());
   }
   CPPUNIT_ASSERT_EQUAL(0, test::Probe<String>::getCounter());
 }
