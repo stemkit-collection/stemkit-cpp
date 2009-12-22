@@ -10,7 +10,6 @@
 
 #include <sk/util/Slot.hxx>
 #include <sk/util/slot/mixin/None.h>
-#include <sk/util/String.h>
 
 namespace sk {
   namespace util {
@@ -22,16 +21,6 @@ namespace sk {
         public:
           Reference(const T& object);
           Reference(T& object);
-          virtual ~Reference();
-          
-          // sk::util::Slot re-implementation.
-          bool isOwner() const;
-          T* deprive();
-          T* replace(T* object);
-          
-          // sk::util::Object re-implementation.
-          const sk::util::String inspect() const;
-          const sk::util::Class getClass() const;
       };
     }
   }

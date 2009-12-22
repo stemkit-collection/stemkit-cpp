@@ -9,39 +9,43 @@
 #ifndef _SK_UTIL_SLOT_HXX_
 #define _SK_UTIL_SLOT_HXX_
 
-#include <sk/util/Object.h>
-#include <sk/util/Class.h>
 #include <sk/util/MissingResourceException.h>
 #include <sk/util/IllegalStateException.h>
 #include <sk/util/slot/mixin/None.h>
+#include <bitset>
 
 namespace sk {
   namespace util {
     template<typename T, typename Mixin = slot::mixin::None>
     class Slot
-      : public virtual sk::util::Object,
-        public Mixin
+      : public Mixin
     {
       public:
-        Slot(const T& object);
-        Slot(T& object);
-        Slot(T* object);
         Slot(const Slot<T, Mixin>& other);
+        virtual ~Slot();
 
         inline bool isMutable() const;
+        inline bool isOwner() const;
         inline const T& get() const;
         inline T& getMutable();
 
-        virtual bool isOwner() const = 0;
-        virtual T* deprive() = 0;
-        virtual T* replace(T* object) = 0;
+        const sk::util::String inspect() const;
+        T* deprive();
+        T* replace(T* object);
 
       private:
         Slot<T, Mixin>& operator = (const Slot<T, Mixin>& other);
 
+        void setOwner(bool state);
+        void setMutable(bool state);
+
       protected:
+        Slot(const T& object);
+        Slot(T& object);
+        Slot(T* object);
+
         T* _object;
-        bool _mutable;
+        std::bitset<8> _traits;
     };
   }
 }
@@ -51,7 +55,15 @@ inline bool
 sk::util::Slot<T, Mixin>::
 isMutable() const
 {
-  return _mutable;
+  return _traits.test(0);
+}
+
+template<typename T, typename Mixin>
+inline bool
+sk::util::Slot<T, Mixin>::
+isOwner() const
+{
+  return _traits.test(1);
 }
 
 template<typename T, typename Mixin>
@@ -60,7 +72,7 @@ sk::util::Slot<T, Mixin>::
 get() const
 {
   if(_object == 0) {
-    throw sk::util::MissingResourceException(SK_METHOD);
+    throw sk::util::MissingResourceException("get()");
   }
   return *_object;
 }
@@ -71,9 +83,9 @@ sk::util::Slot<T, Mixin>::
 getMutable()
 {
   if(_object == 0) {
-    throw sk::util::MissingResourceException(SK_METHOD);
+    throw sk::util::MissingResourceException("getMutable()");
   }
-  if(_mutable == false) {
+  if(isMutable() == false) {
     throw sk::util::IllegalStateException("immutalbe object");
   }
   return *_object;
