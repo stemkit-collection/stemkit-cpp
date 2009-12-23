@@ -18,6 +18,7 @@ local objects =
   EOFExceptionTest.cc
   ClosedChannelExceptionTest.cc
   AnonymousPipeTest.cc
+  DirTest.cc
   TestSuite.cc
 ;
 

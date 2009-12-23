@@ -45,6 +45,8 @@ namespace sk {
       private:
         Dir(const Dir& other);
         Dir& operator = (const Dir& other);
+
+        void init();
         
         const sk::util::Pathname _path;
         struct Data;

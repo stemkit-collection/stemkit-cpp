@@ -22,7 +22,6 @@
 
 #include <sk/io/Dir.h>
 #include <sk/io/FileInfo.h>
-#include <dirent.h>
 #include <errno.h>
 #include <unistd.h>
 #include <sys/stat.h>
@@ -30,19 +29,11 @@
 
 static const sk::util::String __className("sk::io::Dir");
 
-struct sk::io::Dir::Data : public virtual sk::util::Object {
-  DIR* handle;
-};
-
 sk::io::Dir::
 Dir(const sk::util::Pathname& path)
-  : _path(path), _dataHolder(new Data)
+  : _path(path)
 {
-  DIR* handle = ::opendir(_path.toString().getChars());
-  if(handle == 0) {
-    throw sk::util::MissingResourceException("directory " + _path.inspect());
-  }
-  _dataHolder.get().handle = handle;
+  init();
 }
 
 sk::io::Dir::
@@ -63,56 +54,6 @@ sk::io::Dir::
 getPath() const
 {
   return _path;
-}
-
-void
-sk::io::Dir::
-close()
-{
-  DIR** handle = &_dataHolder.get().handle;
-  if(*handle != 0) {
-    ::closedir(*handle);
-    *handle = 0;
-  }
-}
-
-void 
-sk::io::Dir::
-forEachEntry(const sk::util::Processor<const sk::util::Pathname>& processor) const
-{
-  DIR* handle = _dataHolder.get().handle;
-  if(handle == 0) {
-    throw sk::io::ClosedChannelException();
-  }
-  ::rewinddir(handle);
-
-  // In the following code readdir() is used instead of readdir_r() as the
-  // latter is not fully compatible on all platforms (AIX in particular).
-  // Besides, on AIX readdir_r() returns with error with no errno set under
-  // certain conditions. It is not thread-safe now.
-  //
-  while(true) {
-    errno = 0;
-    struct dirent* result = ::readdir(handle);
-    if(result == 0) {
-      if(errno == 0) {
-        break;
-      }
-      throw sk::rt::SystemException("readdir_r()");
-    }
-    const char* name = result->d_name;
-    if(name[0] == '.') {
-      if(name[1] == 0) {
-        continue;
-      }
-      if(name[1] == '.') {
-        if(name[2] == 0) {
-          continue;
-        }
-      }
-    }
-    processor.process(_path.join(name));
-  }
 }
 
 void 
