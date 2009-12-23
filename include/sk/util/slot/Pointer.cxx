@@ -23,7 +23,9 @@ template<typename T, typename Mixin>
 sk::util::slot::Pointer<T, Mixin>::
 ~Pointer()
 {
-  delete sk::util::Slot<T, Mixin>::_object;
+  if(Slot<T, Mixin>::isEmpty() == false) {
+    delete Slot<T, Mixin>::deprive();
+  }
 }
 
 #endif /* _SK_UTIL_SLOT_POINTER_CXX_ */

@@ -24,14 +24,22 @@ namespace sk {
         Slot(const Slot<T, Mixin>& other);
         virtual ~Slot();
 
+        inline bool isEmpty() const;
         inline bool isMutable() const;
         inline bool isOwner() const;
+
         inline const T& get() const;
         inline T& getMutable();
 
-        const sk::util::String inspect() const;
         T* deprive();
         T* replace(T* object);
+
+        const sk::util::String inspect() const;
+
+      protected:
+        Slot(const T& object);
+        Slot(T& object);
+        Slot(T* object);
 
       private:
         Slot<T, Mixin>& operator = (const Slot<T, Mixin>& other);
@@ -39,15 +47,18 @@ namespace sk {
         void setOwner(bool state);
         void setMutable(bool state);
 
-      protected:
-        Slot(const T& object);
-        Slot(T& object);
-        Slot(T* object);
-
         T* _object;
         std::bitset<8> _traits;
     };
   }
+}
+
+template<typename T, typename Mixin>
+inline bool
+sk::util::Slot<T, Mixin>::
+isEmpty() const
+{
+  return _object == 0;
 }
 
 template<typename T, typename Mixin>
