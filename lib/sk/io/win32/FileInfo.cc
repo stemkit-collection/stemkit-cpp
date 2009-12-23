@@ -14,26 +14,26 @@ bool
 sk::io::FileInfo::
 isSymlink() const
 {
-  return _dataHolder.get().status.st_mode & S_IFLNK;
+  return false;
 }
 
 bool
 sk::io::FileInfo::
 isSocket() const
 {
-  return _dataHolder.get().status.st_mode & S_IFSOCK;
+  return false;
 }
 
 bool
 sk::io::FileInfo::
 isPipe() const
 {
-  return _dataHolder.get().status.st_mode & S_IFIFO;
+  return false;
 }
 
 bool
 sk::io::FileInfo::
 isDevice() const
 {
-  return _dataHolder.get().status.st_mode & (S_IFCHR | S_IFBLK);
+  return false;
 }
