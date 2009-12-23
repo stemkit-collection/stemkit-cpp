@@ -19,7 +19,7 @@ namespace sk {
           : public ListTest
         {
           CPPUNIT_TEST_SUITE(sk::util::test::collection::ArrayListTest);
-            // CPPUNIT_TEST(testCollectionBasics);
+            CPPUNIT_TEST(testCollectionBasics);
             CPPUNIT_TEST(testCollectionContains);
             CPPUNIT_TEST(testCollectionContainsAll);
             CPPUNIT_TEST(testCollectionClear);

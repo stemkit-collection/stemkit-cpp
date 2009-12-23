@@ -47,14 +47,6 @@ testCollectionBasics()
   CPPUNIT_ASSERT(collection.get().find(holder, sk::util::selector::EqualValue<sk::util::String>("bbb")) == true);
   CPPUNIT_ASSERT(collection.get().find(holder, sk::util::selector::EqualValue<sk::util::String>("ccc")) == true);
   CPPUNIT_ASSERT(collection.get().find(holder, sk::util::selector::EqualValue<sk::util::String>("ddd")) == false);
-
-  try {
-    collection.getMutable().findMutable(holder, sk::util::selector::EqualValue<sk::util::String>("aaa"));
-    CPPUNIT_FAIL("No expected exception");
-  }
-  catch(const sk::util::String& message) {
-    CPPUNIT_ASSERT_EQUAL("No mutable forEachSlot() in the sample collection", message);
-  }
 }
 
 void
