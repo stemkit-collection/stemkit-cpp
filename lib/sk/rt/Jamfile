@@ -6,6 +6,7 @@ local objects =
   Scope.cc
   Environment.cc
   Time.cc
+  StopWatch.cc
   ProcessInfo.cc
   Locker.cc
   Benchmark.cc

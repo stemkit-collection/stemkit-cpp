@@ -14,18 +14,11 @@
 #include <sk/util/StringArray.h>
 
 #include <sk/rt/StopWatch.h>
-#include <sk/rt/SystemException.h>
-#include <sys/time.h>
 
 #include <sstream>
 #include <iomanip>
 
 static const sk::util::String __className("sk::rt::StopWatch");
-
-struct sk::rt::StopWatch::Data : public virtual sk::util::Object {
-  struct timeval start;
-  struct timeval stop;
-};
 
 sk::rt::StopWatch::
 StopWatch()
@@ -39,13 +32,6 @@ sk::rt::StopWatch::
 {
 }
 
-void
-sk::rt::StopWatch::
-init()
-{
-  _dataHolder.set(new Data);
-}
-
 const sk::util::Class
 sk::rt::StopWatch::
 getClass() const
@@ -53,52 +39,11 @@ getClass() const
   return sk::util::Class(__className);
 }
 
-namespace {
-  void obtain_current_time(struct timeval& timeinfo) {
-    if(gettimeofday(&timeinfo, 0) != 0) {
-      throw sk::rt::SystemException("gettimeofday");
-    }
-  }
-}
-
-void 
-sk::rt::StopWatch::
-start()
-{
-  obtain_current_time(_dataHolder.get().start);
-  _started = true;
-  _stopped = false;
-}
-
-void
-sk::rt::StopWatch::
-stop()
-{
-  if(isTicking() == true) {
-    obtain_current_time(_dataHolder.get().stop);
-    _stopped = true;
-  }
-}
-
 bool
 sk::rt::StopWatch::
 isTicking() const
 {
   return _started == true && _stopped == false;
-}
-
-uint64_t
-sk::rt::StopWatch::
-getMicroseconds() const
-{
-  if(_started == false) {
-    return 0;
-  }
-  struct timeval last = _dataHolder.get().stop;
-  if(_stopped == false) {
-    obtain_current_time(last);
-  }
-  return (last.tv_sec - _dataHolder.get().start.tv_sec) * 1000000 + (last.tv_usec - _dataHolder.get().start.tv_usec);
 }
 
 uint64_t
@@ -153,5 +98,3 @@ inspect() const
 
   return "<StopWatch: " + depot.join(", ") + '>';
 }
-
-
