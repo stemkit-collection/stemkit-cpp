@@ -4,7 +4,6 @@ local library = sk.rt.unix ;
 objects = 
   SystemException.cc
   Time.cc
-  StopWatch.cc
 ;
 
 make-library $(library) : $(objects) ;

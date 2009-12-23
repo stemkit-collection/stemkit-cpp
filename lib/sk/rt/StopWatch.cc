@@ -10,10 +10,10 @@
 
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
-#include <sk/util/Holder.cxx>
 #include <sk/util/StringArray.h>
 
 #include <sk/rt/StopWatch.h>
+#include <sk/rt/SystemException.h>
 
 #include <sstream>
 #include <iomanip>
@@ -24,7 +24,6 @@ sk::rt::StopWatch::
 StopWatch()
   : _started(false), _stopped(false)
 {
-  init();
 }
 
 sk::rt::StopWatch::
@@ -39,11 +38,52 @@ getClass() const
   return sk::util::Class(__className);
 }
 
+namespace {
+  void obtain_current_time(struct timeval& timeinfo) {
+    if(gettimeofday(&timeinfo, 0) != 0) {
+      throw sk::rt::SystemException("gettimeofday");
+    }
+  }
+}
+
+void 
+sk::rt::StopWatch::
+start()
+{
+  obtain_current_time(_start);
+  _started = true;
+  _stopped = false;
+}
+
+void
+sk::rt::StopWatch::
+stop()
+{
+  if(isTicking() == true) {
+    obtain_current_time(_stop);
+    _stopped = true;
+  }
+}
+
 bool
 sk::rt::StopWatch::
 isTicking() const
 {
   return _started == true && _stopped == false;
+}
+
+uint64_t
+sk::rt::StopWatch::
+getMicroseconds() const
+{
+  if(_started == false) {
+    return 0;
+  }
+  struct timeval last = _stop;
+  if(_stopped == false) {
+    obtain_current_time(last);
+  }
+  return (last.tv_sec - _start.tv_sec) * 1000000 + (last.tv_usec - _start.tv_usec);
 }
 
 uint64_t
@@ -98,3 +138,5 @@ inspect() const
 
   return "<StopWatch: " + depot.join(", ") + '>';
 }
+
+

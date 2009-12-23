@@ -6,11 +6,11 @@ local objects =
   Scope.cc
   Environment.cc
   Time.cc
-  StopWatch.cc
   ProcessInfo.cc
   Locker.cc
   Benchmark.cc
   Benchmarker.cc
+  StopWatch.cc
 ;
 
 # if $(PLATFORM_IMPLEMENTATION) = win32 || mks32 in $(project.PLATFORM_SPECIFICS) {

@@ -12,7 +12,7 @@
 #define _SK_RT_STOPWATCH_H_
 
 #include <sk/util/Object.h>
-#include <sk/util/Holder.hxx>
+#include <sys/time.h>
 
 namespace sk {
   namespace rt {
@@ -40,13 +40,10 @@ namespace sk {
         StopWatch(const StopWatch& other);
         StopWatch& operator = (const StopWatch& other);
 
-        void init();
-
+        struct timeval _start;
+        struct timeval _stop;
         bool _started;
         bool _stopped;
-
-        struct Data;
-        sk::util::Holder<Data> _dataHolder;
     };
   }
 }
