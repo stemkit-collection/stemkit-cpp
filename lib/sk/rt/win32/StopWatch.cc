@@ -15,16 +15,15 @@
 
 #include <sk/rt/StopWatch.h>
 #include <sk/rt/SystemException.h>
-#include <sys/time.h>
 
 #include <sstream>
 #include <iomanip>
 
+#include <windows.h>
+
 static const sk::util::String __className("sk::rt::StopWatch");
 
 struct sk::rt::StopWatch::Data : public virtual sk::util::Object {
-  struct timeval start;
-  struct timeval stop;
 };
 
 sk::rt::StopWatch::
