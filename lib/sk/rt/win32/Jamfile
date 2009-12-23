@@ -4,8 +4,8 @@ local library = sk.rt.win32 ;
 local objects = 
   SystemException.cc
   ProcessInfo.cc
-  StopWatch.cc
   Time.cc
+  StopWatch.cc
 ;
 
 make-library $(library) : $(objects) ;
