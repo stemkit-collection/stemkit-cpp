@@ -63,14 +63,6 @@ Holder(const Sharing& other)
 
 template<typename T, typename Policy>
 sk::util::Holder<T, Policy>::
-Holder(Sharing& other)
-  : _storage(0)
-{
-  Policy::makeCopy(_storage, other._storage);
-}
-
-template<typename T, typename Policy>
-sk::util::Holder<T, Policy>::
 Holder(T& object)
   : _storage(0)
 {
@@ -140,15 +132,6 @@ template<typename T, typename Policy>
 sk::util::Holder<T, Policy>&
 sk::util::Holder<T, Policy>::
 operator=(const Sharing& other)
-{
-  Policy::makeCopy(_storage, other._storage);
-  return *this;
-}
-
-template<typename T, typename Policy>
-sk::util::Holder<T, Policy>&
-sk::util::Holder<T, Policy>::
-operator=(Sharing& other)
 {
   Policy::makeCopy(_storage, other._storage);
   return *this;

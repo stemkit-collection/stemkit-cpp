@@ -35,7 +35,6 @@ namespace sk {
         Holder(const Cloning& other);
         Holder(const Aliasing& other);
         Holder(const Sharing& other);
-        Holder(Sharing& other);
 
         explicit Holder(T* object);
         explicit Holder(T& object);
@@ -47,7 +46,6 @@ namespace sk {
         Holder<T, Policy>& operator=(const Cloning& other);
         Holder<T, Policy>& operator=(const Aliasing& other);
         Holder<T, Policy>& operator=(const Sharing& other);
-        Holder<T, Policy>& operator=(Sharing& other);
 
         const typename Policy::slot_type& getSlot() const;
 

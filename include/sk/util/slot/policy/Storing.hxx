@@ -45,7 +45,7 @@ namespace sk {
               }
             }
 
-            static bool hasSlot(const slot_storage_type& storage) {
+            static bool hasSlot(slot_storage_type storage) {
               return storage != 0;
             }
 
@@ -54,7 +54,7 @@ namespace sk {
               storage = 0;
             }
 
-            static sk::util::Slot<T, SlotMixin>& getSlot(const slot_storage_type& storage) {
+            static sk::util::Slot<T, SlotMixin>& getSlot(slot_storage_type storage) {
               if(hasSlot(storage) == false) {
                 throw MissingResourceException("sk::util::slot::policy::Storing#getSlot()");
               }
