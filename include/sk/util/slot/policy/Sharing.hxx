@@ -68,7 +68,7 @@ namespace sk {
               }
             }
 
-            static void makeCopy(typename Super::slot_storage_type& storage, typename Super::slot_storage_type other) {
+            static void acceptSlot(typename Super::slot_storage_type& storage, typename Super::slot_storage_type other) {
               if(storage == other) {
                 return;
               }

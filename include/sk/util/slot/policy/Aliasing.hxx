@@ -10,6 +10,7 @@
 #define _SK_UTIL_SLOT_POLICY_ALIASING_HXX_
 
 #include <sk/util/slot/policy/Storing.hxx>
+#include <sk/util/slot/policy/Accepting.hxx>
 
 namespace sk {
   namespace util {
@@ -17,20 +18,8 @@ namespace sk {
       namespace policy {
         template<typename T>
         class Aliasing 
-          : public Storing<T> 
+          : public Accepting<T, Aliasing<T> >
         {
-          public:
-            static void makeCopy(typename Storing<T>::slot_storage_type& storage, const typename Storing<T>::slot_storage_type& other) {
-              if(storage == other) {
-                return;
-              }
-              if(hasSlot(other) == true) {
-                setObject(storage, getSlot(other).get());
-              }
-              else {
-                clearSlot(storage);
-              }
-            }
         };
       }
     }

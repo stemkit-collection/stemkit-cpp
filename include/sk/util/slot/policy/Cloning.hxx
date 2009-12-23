@@ -10,6 +10,7 @@
 #define _SK_UTIL_SLOT_POLICY_CLONING_HXX_
 
 #include <sk/util/slot/policy/Storing.hxx>
+#include <sk/util/slot/policy/Accepting.hxx>
 #include <sk/util/covariant.h>
 
 namespace sk {
@@ -18,7 +19,7 @@ namespace sk {
       namespace policy {
         template<typename T>
         struct Cloning 
-          : public Storing<T> 
+          : public Accepting<T, Cloning<T> > 
         {
           public:
             static void setObject(typename Storing<T>::slot_storage_type& storage, const T& object) {
@@ -31,18 +32,6 @@ namespace sk {
 
             static void setObject(typename Storing<T>::slot_storage_type& storage, T* object) {
               Storing<T>::setObject(storage, object);
-            }
-
-            static void makeCopy(typename Storing<T>::slot_storage_type& storage, const typename Storing<T>::slot_storage_type& other) {
-              if(storage == other) {
-                return;
-              }
-              if(hasSlot(other) == true) {
-                setObject(storage, getSlot(other).get());
-              }
-              else {
-                clearSlot(storage);
-              }
             }
 
           protected:

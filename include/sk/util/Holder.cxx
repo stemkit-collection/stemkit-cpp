@@ -26,7 +26,7 @@ sk::util::Holder<T, Policy>::
 Holder(const Storing& other)
   : _storage(0)
 {
-  Policy::makeCopy(_storage, other._storage);
+  Policy::acceptSlot(_storage, other._storage);
 }
 
 template<typename T, typename Policy>
@@ -34,7 +34,7 @@ sk::util::Holder<T, Policy>::
 Holder(const Copying& other)
   : _storage(0)
 {
-  Policy::makeCopy(_storage, other._storage);
+  Policy::acceptSlot(_storage, other._storage);
 }
 
 template<typename T, typename Policy>
@@ -42,7 +42,7 @@ sk::util::Holder<T, Policy>::
 Holder(const Cloning& other)
   : _storage(0)
 {
-  Policy::makeCopy(_storage, other._storage);
+  Policy::acceptSlot(_storage, other._storage);
 }
 
 template<typename T, typename Policy>
@@ -50,7 +50,7 @@ sk::util::Holder<T, Policy>::
 Holder(const Aliasing& other)
   : _storage(0)
 {
-  Policy::makeCopy(_storage, other._storage);
+  Policy::acceptSlot(_storage, other._storage);
 }
 
 template<typename T, typename Policy>
@@ -58,7 +58,7 @@ sk::util::Holder<T, Policy>::
 Holder(const Sharing& other)
   : _storage(0)
 {
-  Policy::makeCopy(_storage, other._storage);
+  Policy::acceptSlot(_storage, other._storage);
 }
 
 template<typename T, typename Policy>
@@ -97,7 +97,7 @@ sk::util::Holder<T, Policy>&
 sk::util::Holder<T, Policy>::
 operator=(const Storing& other)
 {
-  Policy::makeCopy(_storage, other._storage);
+  Policy::acceptSlot(_storage, other._storage);
   return *this;
 }
 
@@ -106,7 +106,7 @@ sk::util::Holder<T, Policy>&
 sk::util::Holder<T, Policy>::
 operator=(const Copying& other)
 {
-  Policy::makeCopy(_storage, other._storage);
+  Policy::acceptSlot(_storage, other._storage);
   return *this;
 }
 
@@ -115,7 +115,7 @@ sk::util::Holder<T, Policy>&
 sk::util::Holder<T, Policy>::
 operator=(const Cloning& other)
 {
-  Policy::makeCopy(_storage, other._storage);
+  Policy::acceptSlot(_storage, other._storage);
   return *this;
 }
 
@@ -124,7 +124,7 @@ sk::util::Holder<T, Policy>&
 sk::util::Holder<T, Policy>::
 operator=(const Aliasing& other)
 {
-  Policy::makeCopy(_storage, other._storage);
+  Policy::acceptSlot(_storage, other._storage);
   return *this;
 }
 
@@ -133,7 +133,7 @@ sk::util::Holder<T, Policy>&
 sk::util::Holder<T, Policy>::
 operator=(const Sharing& other)
 {
-  Policy::makeCopy(_storage, other._storage);
+  Policy::acceptSlot(_storage, other._storage);
   return *this;
 }
 
