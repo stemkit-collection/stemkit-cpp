@@ -5,6 +5,7 @@ objects =
   AnonymousPipe.cc
   LooseFileDescriptor.cc
   Dir.cc
+  FileInfo.cc
 ;
 
 if mks32 in $(project.PLATFORM_SPECIFICS) {
