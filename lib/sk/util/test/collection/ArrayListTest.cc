@@ -28,7 +28,7 @@ sk::util::List<sk::util::String>*
 sk::util::test::collection::ArrayListTest::
 makeList()
 {
-  return new sk::util::ArrayList<sk::util::String>();
+  return new sk::util::ArrayList<sk::util::String>::Copying();
 }
 
 void

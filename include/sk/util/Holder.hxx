@@ -8,7 +8,8 @@
 #ifndef _SK_UTIL_HOLDER_HXX_
 #define _SK_UTIL_HOLDER_HXX_
 
-#include <sk/util/slot/mixin/None.h>
+#include <sk/util/Object.h>
+
 #include <sk/util/slot/policy/Storing.hxx>
 #include <sk/util/slot/policy/Sharing.hxx>
 #include <sk/util/slot/policy/Cloning.hxx>

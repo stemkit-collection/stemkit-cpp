@@ -22,135 +22,156 @@
 #include <iostream>
 #include <algorithm>
 
-template<class T>
-sk::util::ArrayList<T>::
+template<typename T, typename Policy>
+sk::util::ArrayList<T, Policy>::
 ArrayList()
 {
 }
 
-template<class T>
-sk::util::ArrayList<T>::
+template<typename T, typename Policy>
+sk::util::ArrayList<T, Policy>::
 ~ArrayList()
 {
-  Exception::guard(StreamLiner(std::cerr), *this, &ArrayList<T>::clear, __FUNCTION__);
+  Exception::guard(StreamLiner(std::cerr), *this, &ArrayList<T, Policy>::clear, __FUNCTION__);
 }
 
-template<class T>
+template<typename T, typename Policy>
 const sk::util::Class
-sk::util::ArrayList<T>::
+sk::util::ArrayList<T, Policy>::
 getClass() const
 {
   return sk::util::Class("sk::util::ArrayList");
 }
 
-template<class T>
+template<typename T, typename Policy>
 void
-sk::util::ArrayList<T>::
+sk::util::ArrayList<T, Policy>::
 clear()
 {
-  for(typename container::iterator iterator = _container.begin(); iterator != _container.end() ; ++iterator) {
+  for(typename container_t::iterator iterator = _container.begin(); iterator != _container.end() ; ++iterator) {
     delete *iterator;
   }
   _container.clear();
 }
 
-template<class T>
+template<typename T, typename Policy>
 int
-sk::util::ArrayList<T>::
+sk::util::ArrayList<T, Policy>::
 size() const 
 {
   return _container.size();
 }
 
-template<class T>
+template<typename T, typename Policy>
 bool
-sk::util::ArrayList<T>::
+sk::util::ArrayList<T, Policy>::
 isEmpty() const
 {
   return _container.empty();
 }
 
-template<class T>
+template<typename T, typename Policy>
 bool
-sk::util::ArrayList<T>::
+sk::util::ArrayList<T, Policy>::
 add(const T& object)
 {
-  _container.push_back(new slot::Reference<T>(object));
+  item_t item = 0;
+  Policy::setObject(item, object);
+  _container.push_back(item);
+
   return true;
 }
 
-template<class T>
+template<typename T, typename Policy>
 bool
-sk::util::ArrayList<T>::
+sk::util::ArrayList<T, Policy>::
 add(T& object)
 {
-  _container.push_back(new slot::Reference<T>(object));
+  item_t item = 0;
+  Policy::setObject(item, object);
+  _container.push_back(item);
+
   return true;
 }
 
-template<class T>
+template<typename T, typename Policy>
 bool
-sk::util::ArrayList<T>::
+sk::util::ArrayList<T, Policy>::
 add(T* object)
 {
-  _container.push_back(new slot::Pointer<T>(object));
+  item_t item = 0;
+  Policy::setObject(item, object);
+  _container.push_back(item);
+
   return true;
 }
 
-template<class T>
+template<typename T, typename Policy>
 void
-sk::util::ArrayList<T>::
+sk::util::ArrayList<T, Policy>::
 add(int index, const T& object)
 {
-  ensureIndex(index, size());
-  _container.insert(_container.begin() + index, new slot::Reference<T>(object));
+  ensureIndex(index, size() + 1);
+
+  item_t item = 0;
+  Policy::setObject(item, object);
+
+  _container.insert(_container.begin() + index, item);
 }
 
-template<class T>
+template<typename T, typename Policy>
 void
-sk::util::ArrayList<T>::
+sk::util::ArrayList<T, Policy>::
 add(int index, T& object)
 {
-  ensureIndex(index, size());
-  _container.insert(_container.begin() + index, new slot::Reference<T>(object));
+  ensureIndex(index, size() + 1);
+
+  item_t item = 0;
+  Policy::setObject(item, object);
+
+  _container.insert(_container.begin() + index, item);
 }
 
-template<class T>
+template<typename T, typename Policy>
 void
-sk::util::ArrayList<T>::
+sk::util::ArrayList<T, Policy>::
 add(int index, T* object)
 {
-  ensureIndex(index, size());
-  _container.insert(_container.begin() + index, new slot::Pointer<T>(object));
+  ensureIndex(index, size() + 1);
+
+  item_t item = 0;
+  Policy::setObject(item, object);
+
+  _container.insert(_container.begin() + index, item);
 }
 
-template<class T>
+template<typename T, typename Policy>
 void
-sk::util::ArrayList<T>::
+sk::util::ArrayList<T, Policy>::
 forEachSlot(const sk::util::Processor<const sk::util::Slot<T> >& processor) const
 {
-  for(typename container::const_iterator iterator = _container.begin(); iterator != _container.end() ; ++iterator) {
+  for(typename container_t::const_iterator iterator = _container.begin(); iterator != _container.end() ; ++iterator) {
     processor.process(*(*iterator));
   }
 }
 
-template<class T>
+template<typename T, typename Policy>
 void
-sk::util::ArrayList<T>::
+sk::util::ArrayList<T, Policy>::
 forEachSlot(const sk::util::Processor<sk::util::Slot<T> >& processor)
 {
-  for(typename container::iterator iterator = _container.begin(); iterator != _container.end() ; ++iterator) {
+  for(typename container_t::iterator iterator = _container.begin(); iterator != _container.end() ; ++iterator) {
     processor.process(*(*iterator));
   }
 }
 
-template<class T>
+template<typename T, typename Policy>
 bool
-sk::util::ArrayList<T>::
+sk::util::ArrayList<T, Policy>::
 removeAll(const sk::util::Selector<T>& selector)
 {
   int removed = 0;
-  typename container::iterator iterator = _container.begin();
+  typename container_t::iterator iterator = _container.begin();
   while(iterator != _container.end()) {
     if(selector.assess((*iterator)->get())) {
       delete *iterator;
@@ -164,12 +185,12 @@ removeAll(const sk::util::Selector<T>& selector)
   return removed != 0;
 }
 
-template<class T>
+template<typename T, typename Policy>
 bool
-sk::util::ArrayList<T>::
+sk::util::ArrayList<T, Policy>::
 find(sk::util::Holder<T>& holder, const sk::util::Selector<T>& selector) const
 {
-  for(typename container::const_iterator iterator = _container.begin(); iterator != _container.end() ; ++iterator) {
+  for(typename container_t::const_iterator iterator = _container.begin(); iterator != _container.end() ; ++iterator) {
     if(selector.assess((*iterator)->get()) == true) {
       holder.set((*iterator)->get());
       return true;
@@ -179,65 +200,61 @@ find(sk::util::Holder<T>& holder, const sk::util::Selector<T>& selector) const
   return false;
 }
 
-template<class T>
+template<typename T, typename Policy>
 const T& 
-sk::util::ArrayList<T>::
+sk::util::ArrayList<T, Policy>::
 get(int index) const 
 {
-  if((index < 0) || (index >= _container.size())) {
-    throw sk::util::IndexOutOfBoundsException("sk::util::ArrayList<T>#get(), index=" + sk::util::String::valueOf(index) + ", size=" + sk::util::String::valueOf(_container.size()));
-  }
+  ensureIndex(index, size());
   return _container[index]->get();
 }
 
-template<class T>
+template<typename T, typename Policy>
 void
-sk::util::ArrayList<T>::
+sk::util::ArrayList<T, Policy>::
 remove(int index) 
 {
-  if((index < 0) || (index >= _container.size())) {
-    throw sk::util::IndexOutOfBoundsException("sk::util::ArrayList<T>#remove(), index=" + sk::util::String::valueOf(index) + ", size=" + sk::util::String::valueOf(_container.size()));
-  }
-  typename container::iterator iterator = _container.begin() + index;
+  ensureIndex(index, size());
+
+  typename container_t::iterator iterator = _container.begin() + index;
   delete *iterator;
   _container.erase(iterator);
 }
 
-template<class T>
+template<typename T, typename Policy>
 T*
-sk::util::ArrayList<T>::
+sk::util::ArrayList<T, Policy>::
 cutoff(int index) 
 {
-  if((index < 0) || (index >= _container.size())) {
-    throw sk::util::IndexOutOfBoundsException("sk::util::ArrayList<T>#remove(), index=" + sk::util::String::valueOf(index) + ", size=" + sk::util::String::valueOf(_container.size()));
-  }
+  ensureIndex(index, size());
+
   T* object = _container[index]->deprive();
-  typename container::iterator iterator = _container.begin() + index;
+  typename container_t::iterator iterator = _container.begin() + index;
   delete *iterator;
   _container.erase(iterator);
 
   return object;
 }
 
-template<class T>
+template<typename T, typename Policy>
 void
-sk::util::ArrayList<T>::
+sk::util::ArrayList<T, Policy>::
 sort()
 {
   std::sort(_container.begin(), _container.end(), sk::util::slot::BinaryAssessorFunctor<T>(sk::util::assessor::LessValues<T>()));
 }
 
-template<class T>
+template<typename T, typename Policy>
 void
-sk::util::ArrayList<T>::
+sk::util::ArrayList<T, Policy>::
 sort(const sk::util::BinaryAssessor<T>& assessor)
 {
   std::sort(_container.begin(), _container.end(), sk::util::slot::BinaryAssessorFunctor<T>(assessor));
 }
 
-template<class T>
+template<typename T, typename Policy>
 void
-sk::util::ArrayList<T>::
+sk::util::ArrayList<T, Policy>::
 shuffle()
 {
   std::random_shuffle(_container.begin(), _container.end());

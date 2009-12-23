@@ -1,4 +1,5 @@
-/*  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
+/*  vi: sw=2:
+ *  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
  *  
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
@@ -14,12 +15,25 @@
 #include <sk/util/Slot.hxx>
 #include <vector>
 
+#include <sk/util/slot/policy/Storing.hxx>
+#include <sk/util/slot/policy/Sharing.hxx>
+#include <sk/util/slot/policy/Cloning.hxx>
+#include <sk/util/slot/policy/Copying.hxx>
+#include <sk/util/slot/policy/Aliasing.hxx>
+
 namespace sk {
   namespace util {
-    template<class T>
+    template<typename T, typename Policy = slot::policy::Storing<T> >
     class ArrayList
       : public sk::util::AbstractList<T>
     {
+      public:
+        typedef ArrayList<T, slot::policy::Storing<T> > Storing;
+        typedef ArrayList<T, slot::policy::Cloning<T> > Cloning;
+        typedef ArrayList<T, slot::policy::Copying<T> > Copying;
+        typedef ArrayList<T, slot::policy::Aliasing<T> > Aliasing;
+        typedef ArrayList<T, slot::policy::Sharing<T> > Sharing;
+
       public:
         ArrayList();
         virtual ~ArrayList();
@@ -61,14 +75,14 @@ namespace sk {
         void forEachSlot(const sk::util::Processor<sk::util::Slot<T> >& processor);
 
       private:
-        ArrayList(const ArrayList<T>& other);
-        ArrayList<T>& operator = (const ArrayList<T>& other);
+        ArrayList(const ArrayList<T, Policy>& other);
+        ArrayList<T>& operator = (const ArrayList<T, Policy>& other);
 
-        typedef Slot<T>* item;
-        typedef std::allocator<item> allocator;
-        typedef std::vector<item, allocator> container;
+        typedef typename Policy::slot_storage_type item_t;
+        typedef std::allocator<item_t> allocator_t;
+        typedef std::vector<item_t, allocator_t> container_t;
 
-        container _container;
+        container_t _container;
     };
   }
 }
