@@ -94,3 +94,44 @@ forEachEntry(const sk::util::Processor<const sk::util::Pathname>& processor) con
     processor.process(_path.join(name));
   }
 }
+
+void 
+sk::io::Dir::
+change(const sk::util::String& path)
+{
+  if(::chdir(path.getChars()) != 0) {
+    throw sk::rt::SystemException("chdir");
+  }
+}
+
+void 
+sk::io::Dir::
+make(const sk::util::String& path)
+{
+  if(::mkdir(path.getChars(), 0777) != 0) {
+    throw sk::rt::SystemException("mkdir");
+  }
+}
+
+const sk::util::Pathname 
+sk::io::Dir::
+current()
+{
+  std::vector<char> buffer(1024, 0);
+  while(::getcwd(&buffer.front(), buffer.size()) == 0) {
+    if(errno != ERANGE) {
+      throw sk::rt::SystemException("getcwd");
+    }
+    buffer.resize(buffer.size() + 1024, 0);
+  }
+  return sk::util::String(&buffer.front());
+}
+
+void 
+sk::io::Dir::
+unlink(const sk::util::String& path)
+{
+  if(::rmdir(path.getChars()) != 0) {
+    throw sk::rt::SystemException("mkdir");
+  }
+}
