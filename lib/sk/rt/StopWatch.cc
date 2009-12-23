@@ -10,25 +10,40 @@
 
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
+#include <sk/util/Holder.cxx>
 #include <sk/util/StringArray.h>
 
 #include <sk/rt/StopWatch.h>
 #include <sk/rt/SystemException.h>
+#include <sys/time.h>
 
 #include <sstream>
 #include <iomanip>
 
 static const sk::util::String __className("sk::rt::StopWatch");
 
+struct sk::rt::StopWatch::Data : public virtual sk::util::Object {
+  struct timeval start;
+  struct timeval stop;
+};
+
 sk::rt::StopWatch::
 StopWatch()
   : _started(false), _stopped(false)
 {
+  init();
 }
 
 sk::rt::StopWatch::
 ~StopWatch()
 {
+}
+
+void
+sk::rt::StopWatch::
+init()
+{
+  _dataHolder.set(new Data);
 }
 
 const sk::util::Class
@@ -50,7 +65,7 @@ void
 sk::rt::StopWatch::
 start()
 {
-  obtain_current_time(_start);
+  obtain_current_time(_dataHolder.get().start);
   _started = true;
   _stopped = false;
 }
@@ -60,7 +75,7 @@ sk::rt::StopWatch::
 stop()
 {
   if(isTicking() == true) {
-    obtain_current_time(_stop);
+    obtain_current_time(_dataHolder.get().stop);
     _stopped = true;
   }
 }
@@ -79,11 +94,11 @@ getMicroseconds() const
   if(_started == false) {
     return 0;
   }
-  struct timeval last = _stop;
+  struct timeval last = _dataHolder.get().stop;
   if(_stopped == false) {
     obtain_current_time(last);
   }
-  return (last.tv_sec - _start.tv_sec) * 1000000 + (last.tv_usec - _start.tv_usec);
+  return (last.tv_sec - _dataHolder.get().start.tv_sec) * 1000000 + (last.tv_usec - _dataHolder.get().start.tv_usec);
 }
 
 uint64_t
