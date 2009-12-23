@@ -10,7 +10,6 @@ local objects =
   Locker.cc
   Benchmark.cc
   Benchmarker.cc
-  StopWatch.cc
 ;
 
 # if $(PLATFORM_IMPLEMENTATION) = win32 || mks32 in $(project.PLATFORM_SPECIFICS) {
