@@ -3,7 +3,6 @@
 local programs =
   test-covariants
   test-temporary-in-constructor-init-list
-  checked-mutex-child-unlock-linux-failure
   yaml-producer
 ;
 
@@ -13,8 +12,15 @@ if linux in $(project.PLATFORM_SPECIFICS) {
   ;
 }
 
+if ! windows in $(project.PLATFORM_SPECIFICS) {
+  programs += 
+    checked-mutex-child-unlock-linux-failure
+  ;
+  use-pthreads checked-mutex-child-unlock-linux-failure ;
+  make-subdirs tcp-echo ;
+}
+
 use-project-libraries $(programs) : sk.util ;
-use-pthreads checked-mutex-child-unlock-linux-failure ;
 
 use-project-libraries yaml-producer : sk.other.yaml-cpp ;
 
@@ -23,4 +29,3 @@ for _program in $(programs) {
   make-program $(_program) : $(_program).cc ;
 }
 
-make-subdirs tcp-echo ;
