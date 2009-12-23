@@ -22,21 +22,34 @@ namespace sk {
       : public virtual sk::util::Object
     {
       public:
-        typedef Holder<T, slot::policy::Sharing<T> > Sharing;
+        typedef Holder<T, slot::policy::Storing<T> > Storing;
         typedef Holder<T, slot::policy::Cloning<T> > Cloning;
         typedef Holder<T, slot::policy::Copying<T> > Copying;
         typedef Holder<T, slot::policy::Aliasing<T> > Aliasing;
+        typedef Holder<T, slot::policy::Sharing<T> > Sharing;
 
       public:
         Holder();
-        Holder(const Holder<T, Policy>& other);
+        Holder(const Storing& other);
+        Holder(const Copying& other);
+        Holder(const Cloning& other);
+        Holder(const Aliasing& other);
+        Holder(const Sharing& other);
+        Holder(Sharing& other);
 
         explicit Holder(T* object);
         explicit Holder(T& object);
         explicit Holder(const T& object);
         virtual ~Holder();
 
-        Holder<T, Policy>& operator=(const Holder<T, Policy>& other);
+        Holder<T, Policy>& operator=(const Storing& other);
+        Holder<T, Policy>& operator=(const Copying& other);
+        Holder<T, Policy>& operator=(const Cloning& other);
+        Holder<T, Policy>& operator=(const Aliasing& other);
+        Holder<T, Policy>& operator=(const Sharing& other);
+        Holder<T, Policy>& operator=(Sharing& other);
+
+        const typename Policy::slot_type& getSlot() const;
 
         bool contains(const T& object) const;
         bool isEmpty() const;
@@ -58,6 +71,12 @@ namespace sk {
         const sk::util::String inspect() const;
 
       private:
+        friend class Holder<T, slot::policy::Storing<T> >;
+        friend class Holder<T, slot::policy::Copying<T> >;
+        friend class Holder<T, slot::policy::Cloning<T> >;
+        friend class Holder<T, slot::policy::Aliasing<T> >;
+        friend class Holder<T, slot::policy::Sharing<T> >;
+
         typename Policy::slot_storage_type _storage;
     };
   }

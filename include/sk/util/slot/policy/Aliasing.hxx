@@ -1,4 +1,5 @@
-/*  Copyright (c) 2007, Gennady Bystritsky <bystr@mac.com>
+/*  vi: sw=2:
+ *  Copyright (c) 2007, Gennady Bystritsky <bystr@mac.com>
  *  
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
@@ -9,7 +10,6 @@
 #define _SK_UTIL_SLOT_POLICY_ALIASING_HXX_
 
 #include <sk/util/slot/policy/Storing.hxx>
-#include <sk/util/slot/mixin/LinkCounter.h>
 
 namespace sk {
   namespace util {
@@ -20,33 +20,15 @@ namespace sk {
           : public Storing<T> 
         {
           public:
-            Aliasing() {}
-
-            Aliasing(const Aliasing<T>& other) {
-              alias(other);
-            }
-
-            Aliasing(const Storing<T>& other) {
-              alias(other);
-            }
-
-            void operator=(const Aliasing<T>& other) {
-              alias(other);
-            }
-
-            void operator=(const Storing<T>& other) {
-              alias(other);
-            }
-
-          private:
-            void alias(const Storing<T>& other) {
-              if(&other == this) {
+            static void makeCopy(typename Storing<T>::slot_storage_type& storage, const typename Storing<T>::slot_storage_type& other) {
+              if(storage == other) {
                 return;
-              } 
-              Storing<T>::clearSlot();
-
+              }
               if(hasSlot(other) == true) {
-                setObject(getSlot(other).get());
+                setObject(storage, getSlot(other).get());
+              }
+              else {
+                clearSlot(storage);
               }
             }
         };

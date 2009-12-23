@@ -39,7 +39,7 @@ testBasics()
   Holder<String>::Sharing holder(new String("abc"));
   CPPUNIT_ASSERT_EQUAL(false, holder.isEmpty());
   CPPUNIT_ASSERT_EQUAL(true, holder.isOwner());
-  CPPUNIT_ASSERT_EQUAL(1, holder.getLinks());
+  CPPUNIT_ASSERT_EQUAL(1, holder.getSlot().getLinks());
 
   {
     Holder<String>::Sharing other(holder);
@@ -49,15 +49,15 @@ testBasics()
     CPPUNIT_ASSERT_EQUAL(false, other.isEmpty());
     CPPUNIT_ASSERT_EQUAL(true, other.isOwner());
 
-    CPPUNIT_ASSERT_EQUAL(2, holder.getLinks());
-    CPPUNIT_ASSERT_EQUAL(2, other.getLinks());
+    CPPUNIT_ASSERT_EQUAL(2, holder.getSlot().getLinks());
+    CPPUNIT_ASSERT_EQUAL(2, other.getSlot().getLinks());
 
     CPPUNIT_ASSERT_EQUAL(&other.get(), &holder.get());
   }
 
   CPPUNIT_ASSERT_EQUAL(false, holder.isEmpty());
   CPPUNIT_ASSERT_EQUAL(true, holder.isOwner());
-  CPPUNIT_ASSERT_EQUAL(1, holder.getLinks());
+  CPPUNIT_ASSERT_EQUAL(1, holder.getSlot().getLinks());
 }
 
 void
@@ -67,7 +67,7 @@ testAssignment()
   Holder<String>::Sharing holder(new String("abc"));
   CPPUNIT_ASSERT_EQUAL(false, holder.isEmpty());
   CPPUNIT_ASSERT_EQUAL(true, holder.isOwner());
-  CPPUNIT_ASSERT_EQUAL(1, holder.getLinks());
+  CPPUNIT_ASSERT_EQUAL(1, holder.getSlot().getLinks());
 
   Holder<String>::Sharing other;
   CPPUNIT_ASSERT_EQUAL(true, other.isEmpty());
@@ -76,8 +76,8 @@ testAssignment()
 
   CPPUNIT_ASSERT_EQUAL(false, other.isEmpty());
   CPPUNIT_ASSERT_EQUAL(true, other.isOwner());
-  CPPUNIT_ASSERT_EQUAL(2, holder.getLinks());
-  CPPUNIT_ASSERT_EQUAL(2, other.getLinks());
+  CPPUNIT_ASSERT_EQUAL(2, holder.getSlot().getLinks());
+  CPPUNIT_ASSERT_EQUAL(2, other.getSlot().getLinks());
 
   CPPUNIT_ASSERT_EQUAL(&other.get(), &holder.get());
 }
@@ -89,16 +89,16 @@ testReplacementAfterClear()
   Holder<String>::Sharing h1(new String("abc"));
   Holder<String>::Sharing h2(h1);
 
-  CPPUNIT_ASSERT_EQUAL(2, h1.getLinks());
-  CPPUNIT_ASSERT_EQUAL(2, h2.getLinks());
+  CPPUNIT_ASSERT_EQUAL(2, h1.getSlot().getLinks());
+  CPPUNIT_ASSERT_EQUAL(2, h2.getSlot().getLinks());
   CPPUNIT_ASSERT_EQUAL(&h1.get(), &h2.get());
 
   h1.clear();
-  CPPUNIT_ASSERT_EQUAL(1, h2.getLinks());
+  CPPUNIT_ASSERT_EQUAL(1, h2.getSlot().getLinks());
   h1.set(new String("cba"));
 
-  CPPUNIT_ASSERT_EQUAL(1, h1.getLinks());
-  CPPUNIT_ASSERT_EQUAL(1, h2.getLinks());
+  CPPUNIT_ASSERT_EQUAL(1, h1.getSlot().getLinks());
+  CPPUNIT_ASSERT_EQUAL(1, h2.getSlot().getLinks());
   CPPUNIT_ASSERT_EQUAL(sk::util::String("cba").inspect(), h1.get().inspect());
   CPPUNIT_ASSERT_EQUAL(sk::util::String("abc").inspect(), h2.get().inspect());
 }
@@ -109,13 +109,13 @@ testReplacement()
   Holder<String>::Sharing h1(new String("abc"));
   Holder<String>::Sharing h2(h1);
 
-  CPPUNIT_ASSERT_EQUAL(2, h1.getLinks());
-  CPPUNIT_ASSERT_EQUAL(2, h2.getLinks());
+  CPPUNIT_ASSERT_EQUAL(2, h1.getSlot().getLinks());
+  CPPUNIT_ASSERT_EQUAL(2, h2.getSlot().getLinks());
   CPPUNIT_ASSERT_EQUAL(&h1.get(), &h2.get());
 
   h1.set(new String("cba"));
 
-  CPPUNIT_ASSERT_EQUAL(2, h1.getLinks());
-  CPPUNIT_ASSERT_EQUAL(2, h2.getLinks());
+  CPPUNIT_ASSERT_EQUAL(2, h1.getSlot().getLinks());
+  CPPUNIT_ASSERT_EQUAL(2, h2.getSlot().getLinks());
   CPPUNIT_ASSERT_EQUAL(&h1.get(), &h2.get());
 }

@@ -23,10 +23,50 @@ Holder()
 
 template<typename T, typename Policy>
 sk::util::Holder<T, Policy>::
-Holder(const Holder<T, Policy>& other)
+Holder(const Storing& other)
   : _storage(0)
 {
-  Policy::makeCopy(other);
+  Policy::makeCopy(_storage, other._storage);
+}
+
+template<typename T, typename Policy>
+sk::util::Holder<T, Policy>::
+Holder(const Copying& other)
+  : _storage(0)
+{
+  Policy::makeCopy(_storage, other._storage);
+}
+
+template<typename T, typename Policy>
+sk::util::Holder<T, Policy>::
+Holder(const Cloning& other)
+  : _storage(0)
+{
+  Policy::makeCopy(_storage, other._storage);
+}
+
+template<typename T, typename Policy>
+sk::util::Holder<T, Policy>::
+Holder(const Aliasing& other)
+  : _storage(0)
+{
+  Policy::makeCopy(_storage, other._storage);
+}
+
+template<typename T, typename Policy>
+sk::util::Holder<T, Policy>::
+Holder(const Sharing& other)
+  : _storage(0)
+{
+  Policy::makeCopy(_storage, other._storage);
+}
+
+template<typename T, typename Policy>
+sk::util::Holder<T, Policy>::
+Holder(Sharing& other)
+  : _storage(0)
+{
+  Policy::makeCopy(_storage, other._storage);
 }
 
 template<typename T, typename Policy>
@@ -63,10 +103,63 @@ sk::util::Holder<T, Policy>::
 template<typename T, typename Policy>
 sk::util::Holder<T, Policy>&
 sk::util::Holder<T, Policy>::
-operator=(const Holder<T, Policy>& other)
+operator=(const Storing& other)
 {
-  Policy::makeCopy(other);
+  Policy::makeCopy(_storage, other._storage);
   return *this;
+}
+
+template<typename T, typename Policy>
+sk::util::Holder<T, Policy>&
+sk::util::Holder<T, Policy>::
+operator=(const Copying& other)
+{
+  Policy::makeCopy(_storage, other._storage);
+  return *this;
+}
+
+template<typename T, typename Policy>
+sk::util::Holder<T, Policy>&
+sk::util::Holder<T, Policy>::
+operator=(const Cloning& other)
+{
+  Policy::makeCopy(_storage, other._storage);
+  return *this;
+}
+
+template<typename T, typename Policy>
+sk::util::Holder<T, Policy>&
+sk::util::Holder<T, Policy>::
+operator=(const Aliasing& other)
+{
+  Policy::makeCopy(_storage, other._storage);
+  return *this;
+}
+
+template<typename T, typename Policy>
+sk::util::Holder<T, Policy>&
+sk::util::Holder<T, Policy>::
+operator=(const Sharing& other)
+{
+  Policy::makeCopy(_storage, other._storage);
+  return *this;
+}
+
+template<typename T, typename Policy>
+sk::util::Holder<T, Policy>&
+sk::util::Holder<T, Policy>::
+operator=(Sharing& other)
+{
+  Policy::makeCopy(_storage, other._storage);
+  return *this;
+}
+
+template<typename T, typename Policy>
+const typename Policy::slot_type& 
+sk::util::Holder<T, Policy>::
+getSlot() const
+{
+  return Policy::getSlot(_storage);
 }
 
 template<typename T, typename Policy>

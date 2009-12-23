@@ -49,10 +49,6 @@ namespace sk {
               return storage != 0;
             }
 
-            static bool hasSlot(const Storing<T, SlotMixin>& other) {
-              return other.hasSlot();
-            }
-
             static void clearSlot(slot_storage_type& storage) {
               delete storage;
               storage = 0;
@@ -63,10 +59,6 @@ namespace sk {
                 throw MissingResourceException("sk::util::slot::policy::Storing#getSlot()");
               }
               return *storage;
-            }
-
-            static sk::util::Slot<T, SlotMixin>& getSlot(const Storing<T, SlotMixin>& other) {
-              return other.getSlot();
             }
 
           protected:

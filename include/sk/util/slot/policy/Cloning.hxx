@@ -1,4 +1,5 @@
-/*  Copyright (c) 2007, Gennady Bystritsky <bystr@mac.com>
+/*  vi: sw=2:
+ *  Copyright (c) 2007, Gennady Bystritsky <bystr@mac.com>
  *  
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
@@ -20,47 +21,32 @@ namespace sk {
           : public Storing<T> 
         {
           public:
-            Cloning() {}
-
-            Cloning(const Cloning<T>& other) {
-              makeClone(other);
+            static void setObject(typename Storing<T>::slot_storage_type& storage, const T& object) {
+              Storing<T>::setObject(storage, sk::util::covariant<T>(object.clone()));
             }
 
-            Cloning(const Storing<T>& other) {
-              makeClone(other);
+            static void setObject(typename Storing<T>::slot_storage_type& storage, T& object) {
+              Storing<T>::setObject(storage, sk::util::covariant<T>(object.clone()));
             }
 
-            void operator=(const Cloning<T>& other) {
-              makeClone(other);
+            static void setObject(typename Storing<T>::slot_storage_type& storage, T* object) {
+              Storing<T>::setObject(storage, object);
             }
 
-            void operator=(const Storing<T>& other) {
-              makeClone(other);
-            }
-            
-          protected:
-            void setObject(const T& object) {
-              Storing<T>::setObject(sk::util::covariant<T>(object.clone()));
-            }
-
-            void setObject(T& object) {
-              Storing<T>::setObject(sk::util::covariant<T>(object.clone()));
-            }
-
-            void setObject(T* object) {
-              Storing<T>::setObject(object);
-            }
-
-            void makeClone(const Storing<T>& other) {
-              if(&other == this) {
+            static void makeCopy(typename Storing<T>::slot_storage_type& storage, const typename Storing<T>::slot_storage_type& other) {
+              if(storage == other) {
                 return;
               }
-              Storing<T>::clearSlot();
-
               if(hasSlot(other) == true) {
-                setObject(getSlot(other).get());
+                setObject(storage, getSlot(other).get());
+              }
+              else {
+                clearSlot(storage);
               }
             }
+
+          protected:
+            Cloning();
         };
       }
     }

@@ -19,47 +19,32 @@ namespace sk {
           : public Storing<T> 
         {
           public:
-            Copying() {}
-
-            Copying(const Copying<T>& other) {
-              makeCopy(other);
+            static void setObject(typename Storing<T>::slot_storage_type& storage, const T& object) {
+              Storing<T>::setObject(storage, new T(object));
             }
 
-            Copying(const Storing<T>& other) {
-              makeCopy(other);
-            }
-            
-            void operator=(const Copying<T>& other) {
-              makeCopy(other);
+            static void setObject(typename Storing<T>::slot_storage_type& storage, T& object) {
+              Storing<T>::setObject(storage, new T(object));
             }
 
-            void operator=(const Storing<T>& other) {
-              makeCopy(other);
+            static void setObject(typename Storing<T>::slot_storage_type& storage, T* object) {
+              Storing<T>::setObject(storage, object);
+            }
+
+            static void makeCopy(typename Storing<T>::slot_storage_type& storage, const typename Storing<T>::slot_storage_type& other) {
+              if(storage == other) {
+                return;
+              }
+              if(hasSlot(other) == true) {
+                setObject(storage, getSlot(other).get());
+              }
+              else {
+                clearSlot(storage);
+              }
             }
 
           protected:
-            void setObject(const T& object) {
-              Storing<T>::setObject(new T(object));
-            }
-
-            void setObject(T& object) {
-              Storing<T>::setObject(new T(object));
-            }
-
-            void setObject(T* object) {
-              Storing<T>::setObject(object);
-            }
-
-            void makeCopy(const Storing<T>& other) {
-              if(&other == this) {
-                return;
-              }
-              Storing<T>::clearSlot();
-
-              if(hasSlot(other) == true) {
-                setObject(getSlot(other).get());
-              }
-            }
+            Copying();
         };
       }
     }

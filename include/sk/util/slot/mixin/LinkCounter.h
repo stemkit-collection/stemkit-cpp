@@ -27,7 +27,7 @@ namespace sk {
               return _counter > 0 ? --_counter == 0 : true;
             }
 
-            int getCounter() const {
+            int getLinks() const {
               return _counter;
             }
 
