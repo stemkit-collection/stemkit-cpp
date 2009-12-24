@@ -18,7 +18,9 @@ test-objects =
   ListTest.cc
   AbstractCollectionTest.cc
   AbstractListTest.cc
+
   ArrayListTest.cc
+  VectorTest.cc
 ;
 
 use-project-library $(test) : sk.util sk.cppunit ;
