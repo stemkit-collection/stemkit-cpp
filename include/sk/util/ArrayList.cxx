@@ -210,6 +210,15 @@ get(int index) const
 }
 
 template<typename T, typename Policy>
+T& 
+sk::util::ArrayList<T, Policy>::
+getMutable(int index)
+{
+  ensureIndex(index, size());
+  return _container[index]->getMutable();
+}
+
+template<typename T, typename Policy>
 void
 sk::util::ArrayList<T, Policy>::
 remove(int index) 
@@ -258,6 +267,14 @@ sk::util::ArrayList<T, Policy>::
 shuffle()
 {
   std::random_shuffle(_container.begin(), _container.end());
+}
+
+template<typename T, typename Policy>
+void
+sk::util::ArrayList<T, Policy>::
+reverse()
+{
+  std::reverse(_container.begin(), _container.end());
 }
 
 #endif /* _SK_UTIL_ARRAYLIST_CXX_ */

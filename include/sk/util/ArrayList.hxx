@@ -13,7 +13,7 @@
 #include <sk/util/Processor.h>
 #include <sk/util/Class.h>
 #include <sk/util/Slot.hxx>
-#include <vector>
+#include <deque>
 
 #include <sk/util/slot/policy/Storing.hxx>
 #include <sk/util/slot/policy/Sharing.hxx>
@@ -45,9 +45,11 @@ namespace sk {
         void clear();
         int size() const;
         bool isEmpty() const;
+
         bool add(const T& object);
         bool add(T& object);
         bool add(T* object);
+
         void add(int index, const T& object);
         void add(int index, T& object);
         void add(int index, T* object);
@@ -57,18 +59,22 @@ namespace sk {
         const T& get(int index) const;
         using AbstractList<T, Policy>::get;
 
+        T& getMutable(int index);
+        using AbstractList<T, Policy>::getMutable;
+
         void remove(int index);
-        // using AbstractList<T, Policy>::remove;
+        using AbstractList<T, Policy>::remove;
 
         bool removeAll(const sk::util::Selector<T>& selector);
         using AbstractList<T, Policy>::removeAll;
 
         T* cutoff(int index);
-        using AbstractList<T, Policy>::remove;
+        using AbstractList<T, Policy>::cutoff;
 
         void sort();
         void sort(const sk::util::BinaryAssessor<T>& assessor);
         void shuffle();
+        void reverse();
 
       protected:
         void forEachSlot(const sk::util::Processor<const typename Policy::slot_t>& processor) const;
@@ -80,7 +86,7 @@ namespace sk {
 
         typedef typename Policy::slot_storage_t item_t;
         typedef std::allocator<item_t> allocator_t;
-        typedef std::vector<item_t, allocator_t> container_t;
+        typedef std::deque<item_t, allocator_t> container_t;
 
         container_t _container;
     };

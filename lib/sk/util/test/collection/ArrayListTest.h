@@ -47,6 +47,7 @@ namespace sk {
             CPPUNIT_TEST(testInspect);
             CPPUNIT_TEST(testRemoveAll);
             CPPUNIT_TEST(testShuffle);
+            CPPUNIT_TEST(testReverse);
           CPPUNIT_TEST_SUITE_END();
           
           public:
@@ -66,6 +67,7 @@ namespace sk {
             void testInspect();
             void testRemoveAll();
             void testShuffle();
+            void testReverse();
             
           protected:
             sk::util::List<sk::util::String>* makeList();

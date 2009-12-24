@@ -306,3 +306,20 @@ testShuffle()
   CPPUNIT_ASSERT_EQUAL(l1.size(), l2.size());
   CPPUNIT_ASSERT(l1.inspect() != l2.inspect());
 }
+
+void 
+sk::util::test::collection::ArrayListTest::
+testReverse()
+{
+  ArrayList<String>::Copying list;
+
+  list.add("aaa");
+  list.add("bbb");
+  list.add("ccc");
+  list.add("ddd");
+
+  CPPUNIT_ASSERT_EQUAL("[4: 0*\"aaa\", 1*\"bbb\", 2*\"ccc\", 3*\"ddd\" ]", list.inspect());
+
+  list.reverse();
+  CPPUNIT_ASSERT_EQUAL("[4: 0*\"ddd\", 1*\"ccc\", 2*\"bbb\", 3*\"aaa\" ]", list.inspect());
+}
