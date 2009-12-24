@@ -29,7 +29,10 @@ namespace {
     }
 
     void forEachSlot(const sk::util::Processor<sk::util::Slot<sk::util::String> >& processor) {
-      throw sk::util::String("No mutable forEachSlot() in the sample collection");
+      for(container::const_iterator iterator = _content.begin(); iterator != _content.end(); ++iterator) {
+        sk::util::slot::Reference<sk::util::String> slot(*iterator);
+        processor.process(slot);
+      }
     }
 
     bool add(const sk::util::String& item) {

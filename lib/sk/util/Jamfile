@@ -25,6 +25,7 @@ objects =
   InsufficientMemoryException.cc
   ClassCastException.cc
   IllegalArgumentException.cc
+  ImmutableObjectException.cc
   SystemExit.cc
   File.cc
   Properties.cc

@@ -10,7 +10,7 @@
 #define _SK_UTIL_SLOT_HXX_
 
 #include <sk/util/MissingResourceException.h>
-#include <sk/util/IllegalStateException.h>
+#include <sk/util/ImmutableObjectException.h>
 #include <sk/util/slot/mixin/None.h>
 #include <bitset>
 
@@ -97,7 +97,7 @@ getMutable()
     throw sk::util::MissingResourceException("getMutable()");
   }
   if(isMutable() == false) {
-    throw sk::util::IllegalStateException("immutalbe object");
+    throw sk::util::ImmutableObjectException("getMutable()");
   }
   return *_object;
 }

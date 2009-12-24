@@ -13,6 +13,7 @@
 #include <sk/util/Holder.cxx>
 #include <sk/util/UnsupportedOperationException.h>
 #include <sk/util/IndexOutOfBoundsException.h>
+#include <sk/util/ImmutableObjectException.h>
 #include <sk/util/stl/VectorPopulator.hxx>
 #include <sk/util/selector/EqualValue.hxx>
 #include <sk/util/String.h>
@@ -94,9 +95,7 @@ testListGetMutable()
     list.getMutable().getMutable(0);
     CPPUNIT_FAIL("No expected exception");
   }
-  catch(const sk::util::String& message) {
-    CPPUNIT_ASSERT_EQUAL("No mutable forEachSlot() in the sample collection", message);
-  }
+  catch(const sk::util::ImmutableObjectException& exception) {}
 }
 
 void 
