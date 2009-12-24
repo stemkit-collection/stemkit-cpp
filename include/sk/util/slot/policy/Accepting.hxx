@@ -20,7 +20,7 @@ namespace sk {
           : public Storing<T>
         {
           public:
-            static void acceptSlot(typename Storing<T>::slot_storage_type& storage, typename Storing<T>::slot_storage_type other) {
+            static void acceptSlot(typename Storing<T>::slot_storage_t& storage, typename Storing<T>::slot_storage_t other) {
               if(storage == other) {
                 return;
               }

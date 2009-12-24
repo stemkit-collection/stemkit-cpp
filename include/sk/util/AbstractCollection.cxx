@@ -66,11 +66,11 @@ getMutable(const Selector<T>& selector)
 }
 
 template<typename T, typename Policy>
-struct sk::util::AbstractCollection<T, Policy>::Finder : public virtual sk::util::Processor<const typename Policy::slot_type> {
+struct sk::util::AbstractCollection<T, Policy>::Finder : public virtual sk::util::Processor<const typename Policy::slot_t> {
   Finder(sk::util::Holder<T>& holder, const sk::util::Selector<T>& selector)
     : _holder(holder), _selector(selector) {}
 
-  void process(const typename Policy::slot_type& slot) const {
+  void process(const typename Policy::slot_t& slot) const {
     const T& object = slot.get();
     if(_selector.assess(object) == true) {
       _holder.set(object);
@@ -95,11 +95,11 @@ find(sk::util::Holder<T>& holder, const sk::util::Selector<T>& selector) const
 }
 
 template<typename T, typename Policy>
-struct sk::util::AbstractCollection<T, Policy>::MutableFinder : public virtual sk::util::Processor<typename Policy::slot_type> {
+struct sk::util::AbstractCollection<T, Policy>::MutableFinder : public virtual sk::util::Processor<typename Policy::slot_t> {
   MutableFinder(sk::util::Holder<T>& holder, const sk::util::Selector<T>& selector)
     : _holder(holder), _selector(selector) {}
 
-  void process(typename Policy::slot_type& slot) const {
+  void process(typename Policy::slot_t& slot) const {
     if(_selector.assess(slot.get()) == true) {
       _holder.set(slot.getMutable());
       throw sk::util::Break();
@@ -123,11 +123,11 @@ findMutable(sk::util::Holder<T>& holder, const Selector<T>& selector)
 }
 
 template<typename T, typename Policy>
-struct sk::util::AbstractCollection<T, Policy>::Invocator : public virtual sk::util::Processor<const typename Policy::slot_type> {
+struct sk::util::AbstractCollection<T, Policy>::Invocator : public virtual sk::util::Processor<const typename Policy::slot_t> {
   Invocator(const sk::util::Processor<const T>& processor)
     : _processor(processor) {}
 
-  void process(const typename Policy::slot_type& slot) const {
+  void process(const typename Policy::slot_t& slot) const {
     _processor.process(slot.get());
   }
   const sk::util::Processor<const T>& _processor;
@@ -145,11 +145,11 @@ forEach(const Processor<const T>& processor) const
 }
 
 template<typename T, typename Policy>
-struct sk::util::AbstractCollection<T, Policy>::MutableInvocator : public virtual sk::util::Processor<typename Policy::slot_type> {
+struct sk::util::AbstractCollection<T, Policy>::MutableInvocator : public virtual sk::util::Processor<typename Policy::slot_t> {
   MutableInvocator(const sk::util::Processor<T>& processor)
     : _processor(processor) {}
 
-  void process(typename Policy::slot_type& slot) const {
+  void process(typename Policy::slot_t& slot) const {
     _processor.process(slot.getMutable());
   }
   const sk::util::Processor<T>& _processor;

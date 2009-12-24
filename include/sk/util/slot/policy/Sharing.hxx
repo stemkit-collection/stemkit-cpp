@@ -24,7 +24,7 @@ namespace sk {
           typedef Storing<T, slot::mixin::LinkCounter> Super;
 
           public:
-            static void setObject(typename Super::slot_storage_type& storage, T* object) {
+            static void setObject(typename Super::slot_storage_t& storage, T* object) {
               if(hasSlot(storage) == true) {
                 if(getSlot(storage).isOwner() == false) {
                   throw sk::util::IllegalStateException("Non-replacable shared content");
@@ -37,7 +37,7 @@ namespace sk {
               }
             }
             
-            static void setObject(typename Super::slot_storage_type& storage, T& object) {
+            static void setObject(typename Super::slot_storage_t& storage, T& object) {
               if(hasSlot(storage) == true) {
                 throw sk::util::IllegalStateException("Non-replacable shared content");
               }
@@ -47,7 +47,7 @@ namespace sk {
               }
             }
 
-            static void setObject(typename Super::slot_storage_type& storage, const T& object) {
+            static void setObject(typename Super::slot_storage_t& storage, const T& object) {
               if(hasSlot(storage) == true) {
                 throw sk::util::IllegalStateException("Non-replacable shared content");
               }
@@ -57,7 +57,7 @@ namespace sk {
               }
             }
             
-            static void clearSlot(typename Super::slot_storage_type& storage) {
+            static void clearSlot(typename Super::slot_storage_t& storage) {
               if(hasSlot(storage) == true) {
                 if(getSlot(storage).unlink() == true) {
                   Super::clearSlot(storage);
@@ -68,7 +68,7 @@ namespace sk {
               }
             }
 
-            static void acceptSlot(typename Super::slot_storage_type& storage, typename Super::slot_storage_type other) {
+            static void acceptSlot(typename Super::slot_storage_t& storage, typename Super::slot_storage_t other) {
               if(storage == other) {
                 return;
               }

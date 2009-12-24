@@ -78,7 +78,7 @@ namespace sk {
         ArrayList(const ArrayList<T, Policy>& other);
         ArrayList<T>& operator = (const ArrayList<T, Policy>& other);
 
-        typedef typename Policy::slot_storage_type item_t;
+        typedef typename Policy::slot_storage_t item_t;
         typedef std::allocator<item_t> allocator_t;
         typedef std::vector<item_t, allocator_t> container_t;
 

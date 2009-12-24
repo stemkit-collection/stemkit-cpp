@@ -22,60 +22,60 @@ namespace sk {
         class Storing
         {
           public: 
-            typedef sk::util::Slot<T, SlotMixin> slot_type;
-            typedef slot_type* slot_storage_type;
+            typedef sk::util::Slot<T, SlotMixin> slot_t;
+            typedef slot_t* slot_storage_t;
 
-            static const T& getObject(const slot_storage_type storage) {
+            static const T& getObject(const slot_storage_t storage) {
               return getSlot(storage).get();
             }
 
-            static T& getMutableObject(const slot_storage_type storage) {
+            static T& getMutableObject(const slot_storage_t storage) {
               return getSlot(storage).getMutable();
             }
 
-            static bool isObjectOwner(const slot_storage_type storage) {
+            static bool isObjectOwner(const slot_storage_t storage) {
               return getSlot(storage).isOwner();
             }
 
-            static T* depriveObject(const slot_storage_type storage) {
+            static T* depriveObject(const slot_storage_t storage) {
               return getSlot(storage).deprive();
             }
 
-            static const sk::util::String inspectObject(const slot_storage_type storage) {
+            static const sk::util::String inspectObject(const slot_storage_t storage) {
               return getSlot(storage).inspect();
             }
 
-            static void setSlot(slot_storage_type& storage, slot_type* slot) {
+            static void setSlot(slot_storage_t& storage, slot_t* slot) {
               storage = slot;
             }
 
-            static void setObject(slot_storage_type& storage, const T& object) {
+            static void setObject(slot_storage_t& storage, const T& object) {
               clearSlot(storage);
               setSlot(storage, new slot::Reference<T, SlotMixin>(object));
             }
 
-            static void setObject(slot_storage_type& storage, T& object) {
+            static void setObject(slot_storage_t& storage, T& object) {
               clearSlot(storage);
               setSlot(storage, new slot::Reference<T, SlotMixin>(object));
             }
 
-            static void setObject(slot_storage_type& storage, T* object) {
+            static void setObject(slot_storage_t& storage, T* object) {
               clearSlot(storage);
               if(object != 0) {
                 setSlot(storage, new slot::Pointer<T, SlotMixin>(object));
               }
             }
 
-            static bool hasSlot(const slot_storage_type storage) {
+            static bool hasSlot(const slot_storage_t storage) {
               return storage != 0;
             }
 
-            static void clearSlot(slot_storage_type& storage) {
+            static void clearSlot(slot_storage_t& storage) {
               delete storage;
               storage = 0;
             }
 
-            static sk::util::Slot<T, SlotMixin>& getSlot(const slot_storage_type storage) {
+            static sk::util::Slot<T, SlotMixin>& getSlot(const slot_storage_t storage) {
               if(hasSlot(storage) == false) {
                 throw MissingResourceException("sk::util::slot::policy::Storing#getSlot()");
               }

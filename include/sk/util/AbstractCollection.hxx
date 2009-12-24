@@ -67,8 +67,8 @@ namespace sk {
         bool retainAll(const Selector<T>& selector);
 
       protected:
-        virtual void forEachSlot(const sk::util::Processor<const typename Policy::slot_type>& processor) const = 0;
-        virtual void forEachSlot(const sk::util::Processor<typename Policy::slot_type>& processor) = 0;
+        virtual void forEachSlot(const sk::util::Processor<const typename Policy::slot_t>& processor) const = 0;
+        virtual void forEachSlot(const sk::util::Processor<typename Policy::slot_t>& processor) = 0;
 
       private:
         AbstractCollection(const AbstractCollection<T, Policy>& other);

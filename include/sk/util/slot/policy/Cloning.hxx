@@ -22,15 +22,15 @@ namespace sk {
           : public Accepting<T, Cloning<T> > 
         {
           public:
-            static void setObject(typename Storing<T>::slot_storage_type& storage, const T& object) {
+            static void setObject(typename Storing<T>::slot_storage_t& storage, const T& object) {
               Storing<T>::setObject(storage, sk::util::covariant<T>(object.clone()));
             }
 
-            static void setObject(typename Storing<T>::slot_storage_type& storage, T& object) {
+            static void setObject(typename Storing<T>::slot_storage_t& storage, T& object) {
               Storing<T>::setObject(storage, sk::util::covariant<T>(object.clone()));
             }
 
-            static void setObject(typename Storing<T>::slot_storage_type& storage, T* object) {
+            static void setObject(typename Storing<T>::slot_storage_t& storage, T* object) {
               Storing<T>::setObject(storage, object);
             }
 

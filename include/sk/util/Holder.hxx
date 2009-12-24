@@ -48,7 +48,7 @@ namespace sk {
         Holder<T, Policy>& operator=(const Aliasing& other);
         Holder<T, Policy>& operator=(const Sharing& other);
 
-        const typename Policy::slot_type& getSlot() const;
+        const typename Policy::slot_t& getSlot() const;
 
         bool contains(const T& object) const;
         bool isEmpty() const;
@@ -76,7 +76,7 @@ namespace sk {
         friend class Holder<T, slot::policy::Aliasing<T> >;
         friend class Holder<T, slot::policy::Sharing<T> >;
 
-        typename Policy::slot_storage_type _storage;
+        typename Policy::slot_storage_t _storage;
     };
   }
 }

@@ -138,7 +138,7 @@ operator=(const Sharing& other)
 }
 
 template<typename T, typename Policy>
-const typename Policy::slot_type& 
+const typename Policy::slot_t& 
 sk::util::Holder<T, Policy>::
 getSlot() const
 {
