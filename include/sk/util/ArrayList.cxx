@@ -148,7 +148,7 @@ add(int index, T* object)
 template<typename T, typename Policy>
 void
 sk::util::ArrayList<T, Policy>::
-forEachSlot(const sk::util::Processor<const sk::util::Slot<T> >& processor) const
+forEachSlot(const sk::util::Processor<const typename Policy::slot_t>& processor) const
 {
   for(typename container_t::const_iterator iterator = _container.begin(); iterator != _container.end() ; ++iterator) {
     processor.process(*(*iterator));
@@ -158,7 +158,7 @@ forEachSlot(const sk::util::Processor<const sk::util::Slot<T> >& processor) cons
 template<typename T, typename Policy>
 void
 sk::util::ArrayList<T, Policy>::
-forEachSlot(const sk::util::Processor<sk::util::Slot<T> >& processor)
+forEachSlot(const sk::util::Processor<typename Policy::slot_t>& processor)
 {
   for(typename container_t::iterator iterator = _container.begin(); iterator != _container.end() ; ++iterator) {
     processor.process(*(*iterator));

@@ -14,9 +14,9 @@
 
 namespace sk {
   namespace util {
-    template<class T>
+    template<typename T, typename Policy = slot::policy::Storing<T> >
     class AbstractList
-      : public sk::util::AbstractCollection<T>,
+      : public sk::util::AbstractCollection<T, Policy>,
         public virtual sk::util::List<T> 
     {
       public:
@@ -36,13 +36,13 @@ namespace sk {
         void add(int index, T& object);
         void add(int index, T* object);
 
-        using AbstractCollection<T>::add;
+        using AbstractCollection<T, Policy>::add;
         
         const T& get(int index) const;
         T& getMutable(int index);
 
-        using AbstractCollection<T>::get;
-        using AbstractCollection<T>::getMutable;
+        using AbstractCollection<T, Policy>::get;
+        using AbstractCollection<T, Policy>::getMutable;
 
         int indexOf(const T& object) const;
         int indexOf(const Selector<T>& selector) const;
@@ -51,16 +51,16 @@ namespace sk {
         int lastIndexOf(const Selector<T>& selector) const;
 
         void remove(int index);
-        using AbstractCollection<T>::remove;
+        using AbstractCollection<T, Policy>::remove;
 
-        using AbstractCollection<T>::removeAll;
-        using AbstractCollection<T>::retainAll;
+        using AbstractCollection<T, Policy>::removeAll;
+        using AbstractCollection<T, Policy>::retainAll;
 
         T* cutoff(int index);
-        using AbstractCollection<T>::cutoff;
+        using AbstractCollection<T, Policy>::cutoff;
 
         T* release(int index);
-        using AbstractCollection<T>::release;
+        using AbstractCollection<T, Policy>::release;
 
         void set(int index, const T& object);
         void set(int index, T& object);
@@ -71,16 +71,16 @@ namespace sk {
         void shuffle();
         void reverse();
 
-        using AbstractCollection<T>::forEach;
-        using AbstractCollection<T>::size;
-        using AbstractCollection<T>::isEmpty;
+        using AbstractCollection<T, Policy>::forEach;
+        using AbstractCollection<T, Policy>::size;
+        using AbstractCollection<T, Policy>::isEmpty;
 
       protected:
         static void ensureIndex(int index, int size);
 
       private:
-        AbstractList(const AbstractList<T>& other);
-        AbstractList<T>& operator = (const AbstractList<T>& other);
+        AbstractList(const AbstractList<T, Policy>& other);
+        AbstractList<T, Policy>& operator = (const AbstractList<T, Policy>& other);
 
         struct IndexSelector;
         struct IndexScanningSelector;

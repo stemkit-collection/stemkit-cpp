@@ -25,7 +25,7 @@ namespace sk {
   namespace util {
     template<typename T, typename Policy = slot::policy::Storing<T> >
     class ArrayList
-      : public sk::util::AbstractList<T>
+      : public sk::util::AbstractList<T, Policy>
     {
       public:
         typedef ArrayList<T, slot::policy::Storing<T> > Storing;
@@ -55,24 +55,24 @@ namespace sk {
         bool find(sk::util::Holder<T>& holder, const Selector<T>& selector) const;
         
         const T& get(int index) const;
-        using AbstractList<T>::get;
+        using AbstractList<T, Policy>::get;
 
         void remove(int index);
-        // using AbstractList<T>::remove;
+        // using AbstractList<T, Policy>::remove;
 
         bool removeAll(const sk::util::Selector<T>& selector);
-        using AbstractList<T>::removeAll;
+        using AbstractList<T, Policy>::removeAll;
 
         T* cutoff(int index);
-        using AbstractList<T>::remove;
+        using AbstractList<T, Policy>::remove;
 
         void sort();
         void sort(const sk::util::BinaryAssessor<T>& assessor);
         void shuffle();
 
       protected:
-        void forEachSlot(const sk::util::Processor<const sk::util::Slot<T> >& processor) const;
-        void forEachSlot(const sk::util::Processor<sk::util::Slot<T> >& processor);
+        void forEachSlot(const sk::util::Processor<const typename Policy::slot_t>& processor) const;
+        void forEachSlot(const sk::util::Processor<typename Policy::slot_t>& processor);
 
       private:
         ArrayList(const ArrayList<T, Policy>& other);

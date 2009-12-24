@@ -16,80 +16,80 @@
 #include <sk/util/StringArray.h>
 #include <sk/util/selector/EqualPointer.cxx>
 
-template<class T>
-sk::util::AbstractList<T>::
+template<typename T, typename Policy>
+sk::util::AbstractList<T, Policy>::
 AbstractList()
 {
 }
 
-template<class T>
-sk::util::AbstractList<T>::
+template<typename T, typename Policy>
+sk::util::AbstractList<T, Policy>::
 ~AbstractList()
 {
 }
 
-template<class T>
+template<typename T, typename Policy>
 const sk::util::Class 
-sk::util::AbstractList<T>::
+sk::util::AbstractList<T, Policy>::
 getClass() const
 {
   return sk::util::Class("sk::util::AbstractList");
 }
 
-template<class T>
+template<typename T, typename Policy>
 bool
-sk::util::AbstractList<T>::
+sk::util::AbstractList<T, Policy>::
 add(const T& object) 
 {
   add(size(), object);
   return true;
 }
 
-template<class T>
+template<typename T, typename Policy>
 bool
-sk::util::AbstractList<T>::
+sk::util::AbstractList<T, Policy>::
 add(T& object) 
 {
   add(size(), object);
   return true;
 }
 
-template<class T>
+template<typename T, typename Policy>
 bool
-sk::util::AbstractList<T>::
+sk::util::AbstractList<T, Policy>::
 add(T* object) 
 {
   add(size(), object);
   return true;
 }
 
-template<class T>
+template<typename T, typename Policy>
 void 
-sk::util::AbstractList<T>::
+sk::util::AbstractList<T, Policy>::
 add(int /*index*/, const T& /*object*/) 
 {
   throw UnsupportedOperationException(SK_METHOD);
 }
 
-template<class T>
+template<typename T, typename Policy>
 void 
-sk::util::AbstractList<T>::
+sk::util::AbstractList<T, Policy>::
 add(int /*index*/, T& /*object*/) 
 {
   throw UnsupportedOperationException(SK_METHOD);
 }
 
-template<class T>
+template<typename T, typename Policy>
 void 
-sk::util::AbstractList<T>::
+sk::util::AbstractList<T, Policy>::
 add(int /*index*/, T* /*object*/) 
 {
   throw UnsupportedOperationException(SK_METHOD);
 }
 
-template<class T>
+template<typename T, typename Policy>
 void
-sk::util::AbstractList<T>::
+sk::util::AbstractList<T, Policy>::
 ensureIndex(int index, int size)
 {
   if((index < 0) || (index >= size)) {
@@ -97,10 +97,10 @@ ensureIndex(int index, int size)
   }
 }
 
-template<class T>
-struct sk::util::AbstractList<T>::IndexSelector : public virtual sk::util::Selector<T> {
+template<typename T, typename Policy>
+struct sk::util::AbstractList<T, Policy>::IndexSelector : public virtual sk::util::Selector<T> {
   IndexSelector(int index, int size) : _index(index) {
-    sk::util::AbstractList<T>::ensureIndex(index, size);
+    sk::util::AbstractList<T, Policy>::ensureIndex(index, size);
   }
 
   bool assess(const T& object) const {
@@ -109,32 +109,32 @@ struct sk::util::AbstractList<T>::IndexSelector : public virtual sk::util::Selec
   mutable int _index;
 };
 
-template<class T>
+template<typename T, typename Policy>
 const T& 
-sk::util::AbstractList<T>::
+sk::util::AbstractList<T, Policy>::
 get(int index) const 
 {
   return get(IndexSelector(index, size()));
 }
 
-template<class T>
+template<typename T, typename Policy>
 T& 
-sk::util::AbstractList<T>::
+sk::util::AbstractList<T, Policy>::
 getMutable(int index) 
 {
   return getMutable(IndexSelector(index, size()));
 }
 
-template<class T>
+template<typename T, typename Policy>
 int 
-sk::util::AbstractList<T>::
+sk::util::AbstractList<T, Policy>::
 indexOf(const T& object) const 
 {
   return indexOf(sk::util::selector::EqualPointer<T>(object));
 }
 
-template<typename T>
-struct sk::util::AbstractList<T>::IndexScanningSelector : public virtual sk::util::Selector<T> {
+template<typename T, typename Policy>
+struct sk::util::AbstractList<T, Policy>::IndexScanningSelector : public virtual sk::util::Selector<T> {
   IndexScanningSelector(const sk::util::Selector<T>& selector, int& index, bool terminate)
     : _selector(selector), _index(index), _terminate(terminate), _counter(0) {}
 
@@ -152,9 +152,9 @@ struct sk::util::AbstractList<T>::IndexScanningSelector : public virtual sk::uti
   mutable int _counter;
 };
 
-template<class T>
+template<typename T, typename Policy>
 int 
-sk::util::AbstractList<T>::
+sk::util::AbstractList<T, Policy>::
 indexOf(const sk::util::Selector<T>& selector) const 
 {
   int index = -1;
@@ -162,17 +162,17 @@ indexOf(const sk::util::Selector<T>& selector) const
   return index;
 }
 
-template<class T>
+template<typename T, typename Policy>
 int 
-sk::util::AbstractList<T>::
+sk::util::AbstractList<T, Policy>::
 lastIndexOf(const T& object) const 
 {
   return lastIndexOf(sk::util::selector::EqualPointer<T>(object));
 }
 
-template<class T>
+template<typename T, typename Policy>
 int 
-sk::util::AbstractList<T>::
+sk::util::AbstractList<T, Policy>::
 lastIndexOf(const Selector<T>& selector) const 
 {
   int index = -1;
@@ -180,104 +180,104 @@ lastIndexOf(const Selector<T>& selector) const
   return index;
 }
 
-template<class T>
+template<typename T, typename Policy>
 void
-sk::util::AbstractList<T>::
+sk::util::AbstractList<T, Policy>::
 remove(int index) 
 {
   remove(IndexSelector(index, size()));
 }
 
-template<class T>
+template<typename T, typename Policy>
 T* 
-sk::util::AbstractList<T>::
+sk::util::AbstractList<T, Policy>::
 cutoff(int index) 
 {
   return cutoff(IndexSelector(index, size()));
 }
 
-template<class T>
+template<typename T, typename Policy>
 T* 
-sk::util::AbstractList<T>::
+sk::util::AbstractList<T, Policy>::
 release(int index) 
 {
   return release(IndexSelector(index, size()));
 }
 
-template<class T>
+template<typename T, typename Policy>
 void 
-sk::util::AbstractList<T>::
+sk::util::AbstractList<T, Policy>::
 set(int index, const T& object) 
 {
   remove(index);
   add(index, object);
 }
 
-template<class T>
+template<typename T, typename Policy>
 void 
-sk::util::AbstractList<T>::
+sk::util::AbstractList<T, Policy>::
 set(int index, T& object) 
 {
   remove(index);
   add(index, object);
 }
 
-template<class T>
+template<typename T, typename Policy>
 void 
-sk::util::AbstractList<T>::
+sk::util::AbstractList<T, Policy>::
 set(int index, T* object) 
 {
   remove(index);
   add(index, object);
 }
 
-template<class T>
+template<typename T, typename Policy>
 void 
-sk::util::AbstractList<T>::
+sk::util::AbstractList<T, Policy>::
 sort()
 {
   throw UnsupportedOperationException(SK_METHOD);
 }
 
-template<class T>
+template<typename T, typename Policy>
 void 
-sk::util::AbstractList<T>::
+sk::util::AbstractList<T, Policy>::
 sort(const sk::util::BinaryAssessor<T>& assessor)
 {
   throw UnsupportedOperationException(SK_METHOD);
 }
 
-template<class T>
+template<typename T, typename Policy>
 void 
-sk::util::AbstractList<T>::
+sk::util::AbstractList<T, Policy>::
 shuffle()
 {
   throw UnsupportedOperationException(SK_METHOD);
 }
 
-template<class T>
+template<typename T, typename Policy>
 void 
-sk::util::AbstractList<T>::
+sk::util::AbstractList<T, Policy>::
 reverse()
 {
   throw UnsupportedOperationException(SK_METHOD);
 }
 
-template<typename T>
-struct sk::util::AbstractList<T>::InspectingSlotProcessor : public virtual sk::util::Processor<const sk::util::Slot<T> > {
+template<typename T, typename Policy>
+struct sk::util::AbstractList<T, Policy>::InspectingSlotProcessor : public virtual sk::util::Processor<const typename Policy::slot_t> {
   InspectingSlotProcessor(sk::util::StringArray& depot)
     : _depot(depot), _index(0) {}
 
-  void process(const sk::util::Slot<T>& slot) const {
+  void process(const typename Policy::slot_t& slot) const {
     _depot << (sk::util::String::valueOf(_index++) + slot.inspect());
   }
   sk::util::StringArray& _depot;
   mutable int _index;
 };
 
-template<class T>
+template<typename T, typename Policy>
 const sk::util::String 
-sk::util::AbstractList<T>::
+sk::util::AbstractList<T, Policy>::
 inspect() const
 {
   if(isEmpty() == true) {
