@@ -8,8 +8,8 @@
  *  Author: Gennady Bystritsky
 */
 
-#ifndef _SK_UTIL_ASSESSOR_BINDING_CXX_
-#define _SK_UTIL_ASSESSOR_BINDING_CXX_
+#ifndef _SK_UTIL_ASSESSOR_NOT_HXX_
+#define _SK_UTIL_ASSESSOR_NOT_HXX_
 
 #include <sk/util/Assessor.h>
 
@@ -17,23 +17,22 @@ namespace sk {
   namespace util {
     namespace assessor {
       template<typename T>
-      class Binding 
-        : public virtual sk::util::Assessor<T>
+      class Not 
+        : public virtual sk::util::BinaryAssessor<T>
       {
         public:
-          Binding(const T& first, const sk::util::BinaryAssessor<T>& assessor)
-            : _first(first), _assessor(assessor) {}
+          Not(const sk::util::BinaryAssessor<T>& assessor)
+            : _assessor(assessor) {}
       
-          bool assess(const T& second) const {
-            return _assessor.assess(_first, second);
+          bool assess(const T& first, const T& second) const {
+            return not _assessor.assess(first, second);
           }
       
         private:
-          const T& _first;
           const sk::util::BinaryAssessor<T>& _assessor;
       };
     }
   }
 }
 
-#endif /* _SK_UTIL_ASSESSOR_BINDING_CXX_ */
+#endif /* _SK_UTIL_ASSESSOR_NOT_HXX_ */

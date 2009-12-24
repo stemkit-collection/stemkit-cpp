@@ -8,8 +8,8 @@
  *  Author: Gennady Bystritsky
 */
 
-#ifndef _SK_UTIL_STL_VECTORPOPULATOR_CXX_
-#define _SK_UTIL_STL_VECTORPOPULATOR_CXX_
+#ifndef _SK_UTIL_STL_VECTORPOPULATOR_HXX_
+#define _SK_UTIL_STL_VECTORPOPULATOR_HXX_
 
 #include <sk/util/Processor.h>
 
@@ -35,4 +35,4 @@ namespace sk {
   }
 }
 
-#endif /* _SK_UTIL_STL_VECTORPOPULATOR_CXX_ */
+#endif /* _SK_UTIL_STL_VECTORPOPULATOR_HXX_ */

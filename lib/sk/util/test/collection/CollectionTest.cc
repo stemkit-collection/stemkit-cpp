@@ -13,8 +13,8 @@
 #include <sk/util/NoSuchElementException.h>
 #include <sk/util/String.h>
 #include <sk/util/Holder.cxx>
-#include <sk/util/selector/EqualValue.cxx>
-#include <sk/util/assessor/EqualValues.cxx>
+#include <sk/util/selector/EqualValue.hxx>
+#include <sk/util/assessor/EqualValues.hxx>
 
 sk::util::test::collection::CollectionTest::
 CollectionTest()

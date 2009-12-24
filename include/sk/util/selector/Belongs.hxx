@@ -8,12 +8,12 @@
  *  Author: Gennady Bystritsky
 */
 
-#ifndef _SK_UTIL_SELECTOR_BELONGS_CXX_
-#define _SK_UTIL_SELECTOR_BELONGS_CXX_
+#ifndef _SK_UTIL_SELECTOR_BELONGS_HXX_
+#define _SK_UTIL_SELECTOR_BELONGS_HXX_
 
 #include <sk/util/Selector.h>
 #include <sk/util/Assessor.h>
-#include <sk/util/assessor/Binding.cxx>
+#include <sk/util/assessor/Binding.hxx>
 #include <sk/util/Collection.h>
 
 namespace sk {
@@ -37,4 +37,4 @@ namespace sk {
   }
 }
 
-#endif /* _SK_UTIL_SELECTOR_BELONGS_CXX_ */
+#endif /* _SK_UTIL_SELECTOR_BELONGS_HXX_ */

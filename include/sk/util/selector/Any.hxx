@@ -8,25 +8,23 @@
  *  Author: Gennady Bystritsky
 */
 
-#ifndef _SK_UTIL_ASSESSOR_EQUALVALUES_CXX_
-#define _SK_UTIL_ASSESSOR_EQUALVALUES_CXX_
+#ifndef _SK_UTIL_SELECTOR_ANY_HXX_
+#define _SK_UTIL_SELECTOR_ANY_HXX_
 
-#include <sk/util/Assessor.h>
+#include <sk/util/Selector.h>
 
 namespace sk {
   namespace util {
-    namespace assessor {
+    namespace selector {
       template<typename T>
-      class EqualValues 
-        : public virtual sk::util::BinaryAssessor<T>
-      {
+      class Any : public virtual sk::util::Selector<T> {
         public:
-          bool assess(const T& first, const T& second) const {
-            return first == second;
+          bool assess(const T& object) const {
+            return true;
           }
       };
     }
   }
 }
 
-#endif /* _SK_UTIL_ASSESSOR_EQUALVALUES_CXX_ */
+#endif /* _SK_UTIL_SELECTOR_ANY_HXX_ */

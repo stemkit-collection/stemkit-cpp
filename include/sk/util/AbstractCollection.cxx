@@ -13,12 +13,12 @@
 #include <sk/util/Holder.cxx>
 #include <sk/util/UnsupportedOperationException.h>
 #include <sk/util/NoSuchElementException.h>
-#include <sk/util/selector/EqualPointer.cxx>
-#include <sk/util/selector/Any.cxx>
-#include <sk/util/selector/Not.cxx>
-#include <sk/util/selector/Belongs.cxx>
-#include <sk/util/assessor/EqualPointers.cxx>
-#include <sk/util/assessor/Binding.cxx>
+#include <sk/util/selector/EqualPointer.hxx>
+#include <sk/util/selector/Any.hxx>
+#include <sk/util/selector/Not.hxx>
+#include <sk/util/selector/Belongs.hxx>
+#include <sk/util/assessor/EqualPointers.hxx>
+#include <sk/util/assessor/Binding.hxx>
 #include <sk/util/Break.h>
 
 template<typename T, typename Policy>

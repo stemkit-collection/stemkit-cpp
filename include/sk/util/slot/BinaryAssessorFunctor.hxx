@@ -8,8 +8,8 @@
  *  Author: Gennady Bystritsky
 */
 
-#ifndef _SK_UTIL_ASSESSOR_BINARYASSESSORFUNCTOR_CXX_
-#define _SK_UTIL_ASSESSOR_BINARYASSESSORFUNCTOR_CXX_
+#ifndef _SK_UTIL_ASSESSOR_BINARYASSESSORFUNCTOR_HXX_
+#define _SK_UTIL_ASSESSOR_BINARYASSESSORFUNCTOR_HXX_
 
 #include <sk/util/Assessor.h>
 #include <sk/util/Slot.hxx>
@@ -37,4 +37,4 @@ namespace sk {
   }
 }
 
-#endif /* _SK_UTIL_ASSESSOR_BINARYASSESSORFUNCTOR_CXX_ */
+#endif /* _SK_UTIL_ASSESSOR_BINARYASSESSORFUNCTOR_HXX_ */

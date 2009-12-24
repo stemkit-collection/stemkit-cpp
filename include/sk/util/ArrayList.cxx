@@ -17,8 +17,8 @@
 #include <sk/util/slot/Pointer.cxx>
 #include <sk/util/StreamLiner.h>
 #include <sk/util/IndexOutOfBoundsException.h>
-#include <sk/util/slot/BinaryAssessorFunctor.cxx>
-#include <sk/util/assessor/LessValues.cxx>
+#include <sk/util/slot/BinaryAssessorFunctor.hxx>
+#include <sk/util/assessor/LessValues.hxx>
 #include <iostream>
 #include <algorithm>
 

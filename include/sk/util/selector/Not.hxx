@@ -8,8 +8,8 @@
  *  Author: Gennady Bystritsky
 */
 
-#ifndef _SK_UTIL_SELECTOR_NOT_CXX_
-#define _SK_UTIL_SELECTOR_NOT_CXX_
+#ifndef _SK_UTIL_SELECTOR_NOT_HXX_
+#define _SK_UTIL_SELECTOR_NOT_HXX_
 
 #include <sk/util/Selector.h>
 

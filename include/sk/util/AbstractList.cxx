@@ -14,7 +14,7 @@
 #include <sk/util/UnsupportedOperationException.h>
 #include <sk/util/IndexOutOfBoundsException.h>
 #include <sk/util/StringArray.h>
-#include <sk/util/selector/EqualPointer.cxx>
+#include <sk/util/selector/EqualPointer.hxx>
 
 template<typename T, typename Policy>
 sk::util::AbstractList<T, Policy>::

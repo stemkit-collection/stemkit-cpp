@@ -13,8 +13,8 @@
 #include <sk/util/UnsupportedOperationException.h>
 #include <sk/util/NoSuchElementException.h>
 #include <sk/util/String.h>
-#include <sk/util/selector/EqualValue.cxx>
-#include <sk/util/assessor/EqualValues.cxx>
+#include <sk/util/selector/EqualValue.hxx>
+#include <sk/util/assessor/EqualValues.hxx>
 #include <sk/util/slot/Reference.cxx>
 #include <vector>
 

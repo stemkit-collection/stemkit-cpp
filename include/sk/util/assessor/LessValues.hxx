@@ -8,23 +8,25 @@
  *  Author: Gennady Bystritsky
 */
 
-#ifndef _SK_UTIL_SELECTOR_ANY_CXX_
-#define _SK_UTIL_SELECTOR_ANY_CXX_
+#ifndef _SK_UTIL_ASSESSOR_LESSVALUES_HXX_
+#define _SK_UTIL_ASSESSOR_LESSVALUES_HXX_
 
-#include <sk/util/Selector.h>
+#include <sk/util/Assessor.h>
 
 namespace sk {
   namespace util {
-    namespace selector {
+    namespace assessor {
       template<typename T>
-      class Any : public virtual sk::util::Selector<T> {
+      class LessValues 
+        : public virtual sk::util::BinaryAssessor<T>
+      {
         public:
-          bool assess(const T& object) const {
-            return true;
+          bool assess(const T& first, const T& second) const {
+            return first < second;
           }
       };
     }
   }
 }
 
-#endif /* _SK_UTIL_SELECTOR_ANY_HXX_ */
+#endif /* _SK_UTIL_ASSESSOR_LESSVALUES_HXX_ */

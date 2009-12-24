@@ -8,8 +8,8 @@
  *  Author: Gennady Bystritsky
 */
 
-#ifndef _SK_UTIL_ASSESSOR_LESSVALUES_CXX_
-#define _SK_UTIL_ASSESSOR_LESSVALUES_CXX_
+#ifndef _SK_UTIL_ASSESSOR_LESSPOINTERS_HXX_
+#define _SK_UTIL_ASSESSOR_LESSPOINTERS_HXX_
 
 #include <sk/util/Assessor.h>
 
@@ -17,16 +17,16 @@ namespace sk {
   namespace util {
     namespace assessor {
       template<typename T>
-      class LessValues 
+      class LessPointers 
         : public virtual sk::util::BinaryAssessor<T>
       {
         public:
           bool assess(const T& first, const T& second) const {
-            return first < second;
+            return &first < &second;
           }
       };
     }
   }
 }
 
-#endif /* _SK_UTIL_ASSESSOR_LESSVALUES_CXX_ */
+#endif /* _SK_UTIL_ASSESSOR_LESSPOINTERS_HXX_ */

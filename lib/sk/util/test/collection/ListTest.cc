@@ -13,8 +13,8 @@
 #include <sk/util/Holder.cxx>
 #include <sk/util/UnsupportedOperationException.h>
 #include <sk/util/IndexOutOfBoundsException.h>
-#include <sk/util/stl/VectorPopulator.cxx>
-#include <sk/util/selector/EqualValue.cxx>
+#include <sk/util/stl/VectorPopulator.hxx>
+#include <sk/util/selector/EqualValue.hxx>
 #include <sk/util/String.h>
 #include <list>
 

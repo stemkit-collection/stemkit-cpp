@@ -8,8 +8,8 @@
  *  Author: Gennady Bystritsky
 */
 
-#ifndef _SK_UTIL_ASSESSOR_NOT_CXX_
-#define _SK_UTIL_ASSESSOR_NOT_CXX_
+#ifndef _SK_UTIL_ASSESSOR_EQUALPOINTERS_HXX_
+#define _SK_UTIL_ASSESSOR_EQUALPOINTERS_HXX_
 
 #include <sk/util/Assessor.h>
 
@@ -17,22 +17,16 @@ namespace sk {
   namespace util {
     namespace assessor {
       template<typename T>
-      class Not 
+      class EqualPointers 
         : public virtual sk::util::BinaryAssessor<T>
       {
         public:
-          Not(const sk::util::BinaryAssessor<T>& assessor)
-            : _assessor(assessor) {}
-      
           bool assess(const T& first, const T& second) const {
-            return not _assessor.assess(first, second);
+            return &first == &second;
           }
-      
-        private:
-          const sk::util::BinaryAssessor<T>& _assessor;
       };
     }
   }
 }
 
-#endif /* _SK_UTIL_ASSESSOR_NOT_CXX_ */
+#endif /* _SK_UTIL_ASSESSOR_EQUALPOINTERS_HXX_ */
