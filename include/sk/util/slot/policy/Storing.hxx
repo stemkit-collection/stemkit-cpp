@@ -1,4 +1,5 @@
-/*  Copyright (c) 2007, Gennady Bystritsky <bystr@mac.com>
+/*  vi: sw=2:
+ *  Copyright (c) 2007, Gennady Bystritsky <bystr@mac.com>
  *  
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
@@ -24,6 +25,26 @@ namespace sk {
             typedef sk::util::Slot<T, SlotMixin> slot_type;
             typedef slot_type* slot_storage_type;
 
+            static const T& getObject(const slot_storage_type storage) {
+              return getSlot(storage).get();
+            }
+
+            static T& getMutableObject(const slot_storage_type storage) {
+              return getSlot(storage).getMutable();
+            }
+
+            static bool isObjectOwner(const slot_storage_type storage) {
+              return getSlot(storage).isOwner();
+            }
+
+            static T* depriveObject(const slot_storage_type storage) {
+              return getSlot(storage).deprive();
+            }
+
+            static const sk::util::String inspectObject(const slot_storage_type storage) {
+              return getSlot(storage).inspect();
+            }
+
             static void setSlot(slot_storage_type& storage, slot_type* slot) {
               storage = slot;
             }
@@ -45,7 +66,7 @@ namespace sk {
               }
             }
 
-            static bool hasSlot(slot_storage_type storage) {
+            static bool hasSlot(const slot_storage_type storage) {
               return storage != 0;
             }
 
@@ -54,7 +75,7 @@ namespace sk {
               storage = 0;
             }
 
-            static sk::util::Slot<T, SlotMixin>& getSlot(slot_storage_type storage) {
+            static sk::util::Slot<T, SlotMixin>& getSlot(const slot_storage_type storage) {
               if(hasSlot(storage) == false) {
                 throw MissingResourceException("sk::util::slot::policy::Storing#getSlot()");
               }

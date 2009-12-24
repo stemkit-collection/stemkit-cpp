@@ -174,7 +174,7 @@ const T&
 sk::util::Holder<T, Policy>::
 get() const
 {
-  return Policy::getSlot(_storage).get();
+  return Policy::getObject(_storage);
 }
 
 template<typename T, typename Policy>
@@ -182,7 +182,7 @@ T&
 sk::util::Holder<T, Policy>::
 getMutable()
 {
-  return Policy::getSlot(_storage).getMutable();
+  return Policy::getMutableObject(_storage);
 }
 
 template<typename T, typename Policy>
@@ -190,7 +190,7 @@ bool
 sk::util::Holder<T, Policy>::
 isOwner() const
 {
-  return Policy::getSlot(_storage).isOwner();
+  return Policy::isObjectOwner(_storage);
 }
 
 template<typename T, typename Policy>
@@ -209,7 +209,7 @@ contains(const T& object) const
   if(Policy::hasSlot(_storage) == false) {
     return false;
   }
-  return &Policy::getSlot(_storage).get() == &object ? true : false;
+  return &Policy::getObject(_storage) == &object ? true : false;
 }
 
 template<typename T, typename Policy>
@@ -238,7 +238,7 @@ T*
 sk::util::Holder<T, Policy>::
 release()
 {
-  T* object = Policy::getSlot(_storage).deprive();
+  T* object = Policy::depriveObject(_storage);
   remove();
   set(*object);
 
@@ -250,7 +250,7 @@ T*
 sk::util::Holder<T, Policy>::
 deprive() 
 {
-  return Policy::getSlot(_storage).deprive();
+  return Policy::depriveObject(_storage);
 }
 
 template<typename T, typename Policy>
@@ -261,7 +261,7 @@ inspect() const
   if(isEmpty() == true) {
     return "()";
   }
-  return "(" + Policy::getSlot(_storage).inspect() + ")";
+  return "(" + Policy::inspectObject(_storage) + ")";
 }
 
 #endif /* _SK_UTIL_HOLDER_CXX_ */
