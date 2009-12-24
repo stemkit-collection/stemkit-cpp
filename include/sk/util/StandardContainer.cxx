@@ -13,21 +13,21 @@
 
 #include <sk/util/StandardContainer.hxx>
 
-template<typename T, typename Policy, typename Provider>
-sk::util::StandardContainer<T, Policy, Provider>::
+template<typename T, typename Policy, typename Type>
+sk::util::StandardContainer<T, Policy, Type>::
 StandardContainer()
 {
 }
 
-template<typename T, typename Policy, typename Provider>
-sk::util::StandardContainer<T, Policy, Provider>::
+template<typename T, typename Policy, typename Type>
+sk::util::StandardContainer<T, Policy, Type>::
 ~StandardContainer()
 {
 }
 
-template<typename T, typename Policy, typename Provider>
+template<typename T, typename Policy, typename Type>
 void
-sk::util::StandardContainer<T, Policy, Provider>::
+sk::util::StandardContainer<T, Policy, Type>::
 process(T& object)
 {
 }
