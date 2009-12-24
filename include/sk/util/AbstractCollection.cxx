@@ -21,29 +21,29 @@
 #include <sk/util/assessor/Binding.cxx>
 #include <sk/util/Break.h>
 
-template<class T>
-sk::util::AbstractCollection<T>::
+template<typename T, typename Policy>
+sk::util::AbstractCollection<T, Policy>::
 AbstractCollection()
 {
 }
 
-template<class T>
-sk::util::AbstractCollection<T>::
+template<typename T, typename Policy>
+sk::util::AbstractCollection<T, Policy>::
 ~AbstractCollection()
 {
 }
 
-template<class T>
+template<typename T, typename Policy>
 const sk::util::Class 
-sk::util::AbstractCollection<T>::
+sk::util::AbstractCollection<T, Policy>::
 getClass() const
 {
   return sk::util::Class("sk::util::AbstractCollection");
 }
 
-template<class T>
+template<typename T, typename Policy>
 const T& 
-sk::util::AbstractCollection<T>::
+sk::util::AbstractCollection<T, Policy>::
 get(const Selector<T>& selector) const 
 {
   sk::util::Holder<T> holder;
@@ -53,9 +53,9 @@ get(const Selector<T>& selector) const
   throw sk::util::NoSuchElementException("get()");
 }
 
-template<class T>
+template<typename T, typename Policy>
 T& 
-sk::util::AbstractCollection<T>::
+sk::util::AbstractCollection<T, Policy>::
 getMutable(const Selector<T>& selector)
 {
   sk::util::Holder<T> holder;
@@ -65,12 +65,12 @@ getMutable(const Selector<T>& selector)
   throw sk::util::NoSuchElementException("getMutable()");
 }
 
-template<class T>
-struct sk::util::AbstractCollection<T>::Finder : public virtual sk::util::Processor<const sk::util::Slot<T> > {
+template<typename T, typename Policy>
+struct sk::util::AbstractCollection<T, Policy>::Finder : public virtual sk::util::Processor<const typename Policy::slot_type> {
   Finder(sk::util::Holder<T>& holder, const sk::util::Selector<T>& selector)
     : _holder(holder), _selector(selector) {}
 
-  void process(const sk::util::Slot<T>& slot) const {
+  void process(const typename Policy::slot_type& slot) const {
     const T& object = slot.get();
     if(_selector.assess(object) == true) {
       _holder.set(object);
@@ -81,9 +81,9 @@ struct sk::util::AbstractCollection<T>::Finder : public virtual sk::util::Proces
   const sk::util::Selector<T>& _selector;
 };
 
-template<class T>
+template<typename T, typename Policy>
 bool 
-sk::util::AbstractCollection<T>::
+sk::util::AbstractCollection<T, Policy>::
 find(sk::util::Holder<T>& holder, const sk::util::Selector<T>& selector) const
 {
   try {
@@ -94,12 +94,12 @@ find(sk::util::Holder<T>& holder, const sk::util::Selector<T>& selector) const
   return true;
 }
 
-template<class T>
-struct sk::util::AbstractCollection<T>::MutableFinder : public virtual sk::util::Processor<sk::util::Slot<T> > {
+template<typename T, typename Policy>
+struct sk::util::AbstractCollection<T, Policy>::MutableFinder : public virtual sk::util::Processor<typename Policy::slot_type> {
   MutableFinder(sk::util::Holder<T>& holder, const sk::util::Selector<T>& selector)
     : _holder(holder), _selector(selector) {}
 
-  void process(sk::util::Slot<T>& slot) const {
+  void process(typename Policy::slot_type& slot) const {
     if(_selector.assess(slot.get()) == true) {
       _holder.set(slot.getMutable());
       throw sk::util::Break();
@@ -109,9 +109,9 @@ struct sk::util::AbstractCollection<T>::MutableFinder : public virtual sk::util:
   const sk::util::Selector<T>& _selector;
 };
 
-template<class T>
+template<typename T, typename Policy>
 bool 
-sk::util::AbstractCollection<T>::
+sk::util::AbstractCollection<T, Policy>::
 findMutable(sk::util::Holder<T>& holder, const Selector<T>& selector)
 {
   try {
@@ -122,20 +122,20 @@ findMutable(sk::util::Holder<T>& holder, const Selector<T>& selector)
   return true;
 }
 
-template<class T>
-struct sk::util::AbstractCollection<T>::Invocator : public virtual sk::util::Processor<const sk::util::Slot<T> > {
+template<typename T, typename Policy>
+struct sk::util::AbstractCollection<T, Policy>::Invocator : public virtual sk::util::Processor<const typename Policy::slot_type> {
   Invocator(const sk::util::Processor<const T>& processor)
     : _processor(processor) {}
 
-  void process(const sk::util::Slot<T>& slot) const {
+  void process(const typename Policy::slot_type& slot) const {
     _processor.process(slot.get());
   }
   const sk::util::Processor<const T>& _processor;
 };
 
-template<class T>
+template<typename T, typename Policy>
 void 
-sk::util::AbstractCollection<T>::
+sk::util::AbstractCollection<T, Policy>::
 forEach(const Processor<const T>& processor) const 
 {
   try {
@@ -144,20 +144,20 @@ forEach(const Processor<const T>& processor) const
   catch(const sk::util::Break& event) {}
 }
 
-template<class T>
-struct sk::util::AbstractCollection<T>::MutableInvocator : public virtual sk::util::Processor<sk::util::Slot<T> > {
+template<typename T, typename Policy>
+struct sk::util::AbstractCollection<T, Policy>::MutableInvocator : public virtual sk::util::Processor<typename Policy::slot_type> {
   MutableInvocator(const sk::util::Processor<T>& processor)
     : _processor(processor) {}
 
-  void process(sk::util::Slot<T>& slot) const {
+  void process(typename Policy::slot_type& slot) const {
     _processor.process(slot.getMutable());
   }
   const sk::util::Processor<T>& _processor;
 };
 
-template<class T>
+template<typename T, typename Policy>
 void 
-sk::util::AbstractCollection<T>::
+sk::util::AbstractCollection<T, Policy>::
 forEach(const Processor<T>& processor) 
 {
   try {
@@ -166,49 +166,49 @@ forEach(const Processor<T>& processor)
   catch(const sk::util::Break& event) {}
 }
 
-template<class T>
+template<typename T, typename Policy>
 bool 
-sk::util::AbstractCollection<T>::
+sk::util::AbstractCollection<T, Policy>::
 isEmpty() const 
 {
   return size() == 0;
 }
 
-template<class T>
+template<typename T, typename Policy>
 int 
-sk::util::AbstractCollection<T>::
+sk::util::AbstractCollection<T, Policy>::
 size() const 
 {
   throw UnsupportedOperationException(SK_METHOD);
 }
 
-template<class T>
+template<typename T, typename Policy>
 bool 
-sk::util::AbstractCollection<T>::
+sk::util::AbstractCollection<T, Policy>::
 contains(const T& object) const 
 {
   return contains(selector::EqualPointer<T>(object));
 }
 
-template<class T>
+template<typename T, typename Policy>
 bool 
-sk::util::AbstractCollection<T>::
+sk::util::AbstractCollection<T, Policy>::
 contains(const Selector<T>& selector) const 
 {
   sk::util::Holder<T> holder;
   return find(holder, selector);
 }
 
-template<class T>
+template<typename T, typename Policy>
 bool 
-sk::util::AbstractCollection<T>::
+sk::util::AbstractCollection<T, Policy>::
 containsAll(const Collection<T>& other) const 
 {
   return containsAll(other, sk::util::assessor::EqualPointers<T>());
 }
 
-template<class T>
-struct sk::util::AbstractCollection<T>::Checker : public virtual sk::util::Processor<const T> {
+template<typename T, typename Policy>
+struct sk::util::AbstractCollection<T, Policy>::Checker : public virtual sk::util::Processor<const T> {
   Checker(const sk::util::Collection<T>& collection, const sk::util::BinaryAssessor<T>& assessor, bool& result)
     : _collection(collection), _assessor(assessor), _result(result) {}
 
@@ -223,9 +223,9 @@ struct sk::util::AbstractCollection<T>::Checker : public virtual sk::util::Proce
   bool& _result;
 };
 
-template<class T>
+template<typename T, typename Policy>
 bool 
-sk::util::AbstractCollection<T>::
+sk::util::AbstractCollection<T, Policy>::
 containsAll(const Collection<T>& other, const sk::util::BinaryAssessor<T>& assessor) const 
 {
   bool result = true;
@@ -233,81 +233,81 @@ containsAll(const Collection<T>& other, const sk::util::BinaryAssessor<T>& asses
   return result;
 }
 
-template<class T>
+template<typename T, typename Policy>
 bool 
-sk::util::AbstractCollection<T>::
+sk::util::AbstractCollection<T, Policy>::
 add(const T& /*object*/) 
 {
   throw UnsupportedOperationException(SK_METHOD);
 }
 
-template<class T>
+template<typename T, typename Policy>
 bool 
-sk::util::AbstractCollection<T>::
+sk::util::AbstractCollection<T, Policy>::
 add(T& /*object*/) 
 {
   throw UnsupportedOperationException(SK_METHOD);
 }
 
-template<class T>
+template<typename T, typename Policy>
 bool 
-sk::util::AbstractCollection<T>::
+sk::util::AbstractCollection<T, Policy>::
 add(T* /*object*/) 
 {
   throw UnsupportedOperationException(SK_METHOD);
 }
 
-template<class T>
+template<typename T, typename Policy>
 void 
-sk::util::AbstractCollection<T>::
+sk::util::AbstractCollection<T, Policy>::
 clear() 
 {
   removeAll(sk::util::selector::Any<T>());
 }
 
-template<class T>
+template<typename T, typename Policy>
 bool 
-sk::util::AbstractCollection<T>::
+sk::util::AbstractCollection<T, Policy>::
 remove(const T& object) 
 {
   return remove(selector::EqualPointer<T>(object));
 }
 
-template<class T>
+template<typename T, typename Policy>
 bool 
-sk::util::AbstractCollection<T>::
+sk::util::AbstractCollection<T, Policy>::
 remove(const Selector<T>& /*selector*/) 
 {
   throw UnsupportedOperationException(SK_METHOD);
 }
 
-template<class T>
+template<typename T, typename Policy>
 T* 
-sk::util::AbstractCollection<T>::
+sk::util::AbstractCollection<T, Policy>::
 cutoff(const T& object) 
 {
   return cutoff(selector::EqualPointer<T>(object));
 }
 
-template<class T>
+template<typename T, typename Policy>
 T* 
-sk::util::AbstractCollection<T>::
+sk::util::AbstractCollection<T, Policy>::
 cutoff(const Selector<T>& /*selector*/) 
 {
   throw UnsupportedOperationException(SK_METHOD);
 }
 
-template<class T>
+template<typename T, typename Policy>
 T* 
-sk::util::AbstractCollection<T>::
+sk::util::AbstractCollection<T, Policy>::
 release(const T& object) 
 {
   return release(selector::EqualPointer<T>(object));
 }
 
-template<class T>
+template<typename T, typename Policy>
 T* 
-sk::util::AbstractCollection<T>::
+sk::util::AbstractCollection<T, Policy>::
 release(const Selector<T>& selector) 
 {
   sk::util::Holder<T> holder(cutoff(selector));
@@ -316,25 +316,25 @@ release(const Selector<T>& selector)
   return holder.release();
 }
 
-template<class T>
+template<typename T, typename Policy>
 bool 
-sk::util::AbstractCollection<T>::
+sk::util::AbstractCollection<T, Policy>::
 removeAll(const Collection<T>& other) 
 {
   return removeAll(other, sk::util::assessor::EqualPointers<T>());
 }
 
-template<class T>
+template<typename T, typename Policy>
 bool 
-sk::util::AbstractCollection<T>::
+sk::util::AbstractCollection<T, Policy>::
 removeAll(const sk::util::Collection<T>& other, const sk::util::BinaryAssessor<T>& assessor)
 {
   return removeAll(sk::util::selector::Belongs<T>(other, assessor));
 }
 
-template<class T>
+template<typename T, typename Policy>
 bool 
-sk::util::AbstractCollection<T>::
+sk::util::AbstractCollection<T, Policy>::
 removeAll(const Selector<T>& selector) 
 {
   bool result = false;
@@ -347,25 +347,25 @@ removeAll(const Selector<T>& selector)
   return result;
 }
 
-template<class T>
+template<typename T, typename Policy>
 bool 
-sk::util::AbstractCollection<T>::
+sk::util::AbstractCollection<T, Policy>::
 retainAll(const Collection<T>& other) 
 {
   return retainAll(other, sk::util::assessor::EqualPointers<T>());
 }
 
-template<class T>
+template<typename T, typename Policy>
 bool 
-sk::util::AbstractCollection<T>::
+sk::util::AbstractCollection<T, Policy>::
 retainAll(const Collection<T>& other, const sk::util::BinaryAssessor<T>& assessor)
 {
   return removeAll(sk::util::selector::Not<T>(sk::util::selector::Belongs<T>(other, assessor)));
 }
 
-template<class T>
+template<typename T, typename Policy>
 bool 
-sk::util::AbstractCollection<T>::
+sk::util::AbstractCollection<T, Policy>::
 retainAll(const Selector<T>& selector) 
 {
   return removeAll(sk::util::selector::Not<T>(selector));

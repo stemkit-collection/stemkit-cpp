@@ -12,9 +12,11 @@
 #include <sk/util/Collection.h>
 #include <sk/util/Class.h>
 
+#include <sk/util/slot/policy/Storing.hxx>
+
 namespace sk {
   namespace util {
-    template<class T>
+    template<typename T, typename Policy = slot::policy::Storing<T> >
     class AbstractCollection
       : public virtual sk::util::Collection<T>
     {
@@ -65,12 +67,12 @@ namespace sk {
         bool retainAll(const Selector<T>& selector);
 
       protected:
-        virtual void forEachSlot(const sk::util::Processor<const sk::util::Slot<T> >& processor) const = 0;
-        virtual void forEachSlot(const sk::util::Processor<sk::util::Slot<T> >& processor) = 0;
+        virtual void forEachSlot(const sk::util::Processor<const typename Policy::slot_type>& processor) const = 0;
+        virtual void forEachSlot(const sk::util::Processor<typename Policy::slot_type>& processor) = 0;
 
       private:
-        AbstractCollection(const AbstractCollection<T>& other);
-        AbstractCollection<T>& operator = (const AbstractCollection<T>& other);
+        AbstractCollection(const AbstractCollection<T, Policy>& other);
+        AbstractCollection<T, Policy>& operator = (const AbstractCollection<T, Policy>& other);
 
         struct Checker;
         struct Finder;
