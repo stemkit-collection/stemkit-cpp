@@ -13,8 +13,12 @@
 
 #include <sk/util/StandardContainer.hxx>
 #include <sk/util/StreamLiner.h>
+#include <sk/util/Break.h>
 #include <sk/util/NoSuchElementException.h>
 #include <sk/util/selector/EqualPointer.hxx>
+#include <sk/util/selector/Not.hxx>
+#include <sk/util/selector/Belongs.hxx>
+#include <sk/util/assessor/EqualPointers.hxx>
 #include <algorithm>
 
 template<typename T, typename Policy, typename Type>
@@ -139,7 +143,10 @@ void
 sk::util::StandardContainer<T, Policy, Type>::
 forEach(const Processor<const T>& processor) const
 {
-  std::for_each(_container.begin(), _container.end(), ConstProcessingFunctor(processor));
+  try {
+    std::for_each(_container.begin(), _container.end(), ConstProcessingFunctor(processor));
+  }
+  catch(const sk::util::Break& event) {}
 }
 
 template<typename T, typename Policy, typename Type>
@@ -158,7 +165,10 @@ void
 sk::util::StandardContainer<T, Policy, Type>::
 forEach(const Processor<T>& processor)
 {
-  std::for_each(_container.begin(), _container.end(), ProcessingFunctor(processor));
+  try {
+    std::for_each(_container.begin(), _container.end(), ProcessingFunctor(processor));
+  }
+  catch(const sk::util::Break& event) {}
 }
 
 template<typename T, typename Policy, typename Type>
@@ -166,7 +176,7 @@ bool
 sk::util::StandardContainer<T, Policy, Type>::
 contains(const T& object) const
 {
-  return contains(sk::util::selector::EqualPointer<T>(object));
+  return std::find_if(_container.begin(), _container.end(), SelectingFunctor(selector::EqualPointer<T>(object))) != _container.end();
 }
 
 template<typename T, typename Policy, typename Type>
@@ -175,6 +185,22 @@ sk::util::StandardContainer<T, Policy, Type>::
 contains(const Selector<T>& selector) const
 {
   return std::find_if(_container.begin(), _container.end(), SelectingFunctor(selector)) != _container.end();
+}
+
+template<typename T, typename Policy, typename Type>
+bool 
+sk::util::StandardContainer<T, Policy, Type>::
+containsAll(const Collection<T>& other) const
+{
+  return containsAll(other, assessor::EqualPointers<T>());
+}
+
+template<typename T, typename Policy, typename Type>
+bool 
+sk::util::StandardContainer<T, Policy, Type>::
+containsAll(const Collection<T>& other, const sk::util::BinaryAssessor<T>& assessor) const
+{
+  return other.contains(selector::Not<T>(selector::Belongs<T>(*this, assessor))) == false;
 }
 
 #endif /* _SK_UTIL_STANDARDCONTAINER_CXX_ */
