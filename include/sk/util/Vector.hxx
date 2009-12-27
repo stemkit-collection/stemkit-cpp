@@ -30,9 +30,19 @@ namespace sk {
       : public sk::util::StandardContainer<T, Policy, type::vector<T, Policy> >
     {
       public:
+        typedef Vector<T, slot::policy::Storing<T> > Storing;
+        typedef Vector<T, slot::policy::Cloning<T> > Cloning;
+        typedef Vector<T, slot::policy::Copying<T> > Copying;
+        typedef Vector<T, slot::policy::Aliasing<T> > Aliasing;
+        typedef Vector<T, slot::policy::Sharing<T> > Sharing;
+
+      public:
         Vector();
         ~Vector();
     
+        // sk::util::Object re-implementation.
+        const sk::util::Class getClass() const;
+
       private:
         Vector(const Vector<T, Policy>& other);
         Vector<T, Policy>& operator = (const Vector<T, Policy>& other);

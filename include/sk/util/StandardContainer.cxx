@@ -11,10 +11,12 @@
 #ifndef _SK_UTIL_STANDARDCONTAINER_CXX_
 #define _SK_UTIL_STANDARDCONTAINER_CXX_
 
+#include <sk/util/Class.h>
 #include <sk/util/StandardContainer.hxx>
 #include <sk/util/StreamLiner.h>
 #include <sk/util/Break.h>
 #include <sk/util/NoSuchElementException.h>
+#include <sk/util/UnsupportedOperationException.h>
 #include <sk/util/selector/EqualPointer.hxx>
 #include <sk/util/selector/Not.hxx>
 #include <sk/util/selector/Belongs.hxx>
@@ -32,6 +34,14 @@ sk::util::StandardContainer<T, Policy, Type>::
 ~StandardContainer()
 {
   sk::util::Exception::guard(StreamLiner(std::cerr), *this, &StandardContainer<T, Policy, Type>::clear, __FUNCTION__);
+}
+
+template<typename T, typename Policy, typename Type>
+const sk::util::Class 
+sk::util::StandardContainer<T, Policy, Type>::
+getClass() const
+{
+  return sk::util::Class("sk::util::StandardContainer");
 }
 
 template<typename T, typename Policy, typename Type>
@@ -201,6 +211,294 @@ sk::util::StandardContainer<T, Policy, Type>::
 containsAll(const Collection<T>& other, const sk::util::BinaryAssessor<T>& assessor) const
 {
   return other.contains(selector::Not<T>(selector::Belongs<T>(*this, assessor))) == false;
+}
+
+template<typename T, typename Policy, typename Type>
+bool 
+sk::util::StandardContainer<T, Policy, Type>::
+add(const T& object) 
+{
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
+}
+
+template<typename T, typename Policy, typename Type>
+bool 
+sk::util::StandardContainer<T, Policy, Type>::
+add(T& object)
+{
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
+}
+
+template<typename T, typename Policy, typename Type>
+bool 
+sk::util::StandardContainer<T, Policy, Type>::
+add(T* object)
+{
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
+}
+
+template<typename T, typename Policy, typename Type>
+bool 
+sk::util::StandardContainer<T, Policy, Type>::
+remove(const T& object)
+{
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
+}
+
+template<typename T, typename Policy, typename Type>
+bool 
+sk::util::StandardContainer<T, Policy, Type>::
+remove(const Selector<T>& selector)
+{
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
+}
+
+template<typename T, typename Policy, typename Type>
+T* 
+sk::util::StandardContainer<T, Policy, Type>::
+cutoff(const T& object)
+{
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
+}
+
+template<typename T, typename Policy, typename Type>
+T* 
+sk::util::StandardContainer<T, Policy, Type>::
+cutoff(const Selector<T>& selector)
+{
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
+}
+
+template<typename T, typename Policy, typename Type>
+T* 
+sk::util::StandardContainer<T, Policy, Type>::
+release(const T& object)
+{
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
+}
+
+template<typename T, typename Policy, typename Type>
+T* 
+sk::util::StandardContainer<T, Policy, Type>::
+release(const Selector<T>& selector)
+{
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
+}
+
+template<typename T, typename Policy, typename Type>
+bool 
+sk::util::StandardContainer<T, Policy, Type>::
+removeAll(const Collection<T>& other)
+{
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
+}
+
+template<typename T, typename Policy, typename Type>
+bool 
+sk::util::StandardContainer<T, Policy, Type>::
+removeAll(const Collection<T>& other, const sk::util::BinaryAssessor<T>& assessor)
+{
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
+}
+
+template<typename T, typename Policy, typename Type>
+bool 
+sk::util::StandardContainer<T, Policy, Type>::
+removeAll(const Selector<T>& selector)
+{
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
+}
+
+template<typename T, typename Policy, typename Type>
+bool 
+sk::util::StandardContainer<T, Policy, Type>::
+retainAll(const Collection<T>& other)
+{
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
+}
+
+template<typename T, typename Policy, typename Type>
+bool 
+sk::util::StandardContainer<T, Policy, Type>::
+retainAll(const Collection<T>& other, const sk::util::BinaryAssessor<T>& assessor)
+{
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
+}
+
+template<typename T, typename Policy, typename Type>
+bool 
+sk::util::StandardContainer<T, Policy, Type>::
+retainAll(const Selector<T>& selector)
+{
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
+}
+
+template<typename T, typename Policy, typename Type>
+void 
+sk::util::StandardContainer<T, Policy, Type>::
+add(int index, const T& object)
+{
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
+}
+
+template<typename T, typename Policy, typename Type>
+void 
+sk::util::StandardContainer<T, Policy, Type>::
+add(int index, T& object)
+{
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
+}
+
+template<typename T, typename Policy, typename Type>
+void 
+sk::util::StandardContainer<T, Policy, Type>::
+add(int index, T* object)
+{
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
+}
+
+template<typename T, typename Policy, typename Type>
+const T& 
+sk::util::StandardContainer<T, Policy, Type>::
+get(int index) const
+{
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
+}
+
+template<typename T, typename Policy, typename Type>
+T& 
+sk::util::StandardContainer<T, Policy, Type>::
+getMutable(int index)
+{
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
+}
+
+template<typename T, typename Policy, typename Type>
+int 
+sk::util::StandardContainer<T, Policy, Type>::
+indexOf(const T& object) const
+{
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
+}
+
+template<typename T, typename Policy, typename Type>
+int 
+sk::util::StandardContainer<T, Policy, Type>::
+indexOf(const Selector<T>& selector) const
+{
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
+}
+
+template<typename T, typename Policy, typename Type>
+int 
+sk::util::StandardContainer<T, Policy, Type>::
+lastIndexOf(const T& object) const
+{
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
+}
+
+template<typename T, typename Policy, typename Type>
+int 
+sk::util::StandardContainer<T, Policy, Type>::
+lastIndexOf(const Selector<T>& selector) const
+{
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
+}
+
+template<typename T, typename Policy, typename Type>
+void 
+sk::util::StandardContainer<T, Policy, Type>::
+remove(int index)
+{
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
+}
+
+template<typename T, typename Policy, typename Type>
+T* 
+sk::util::StandardContainer<T, Policy, Type>::
+cutoff(int index)
+{
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
+}
+
+template<typename T, typename Policy, typename Type>
+T* 
+sk::util::StandardContainer<T, Policy, Type>::
+release(int index)
+{
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
+}
+
+template<typename T, typename Policy, typename Type>
+void 
+sk::util::StandardContainer<T, Policy, Type>::
+set(int index, const T& object)
+{
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
+}
+
+template<typename T, typename Policy, typename Type>
+void 
+sk::util::StandardContainer<T, Policy, Type>::
+set(int index, T& object)
+{
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
+}
+
+template<typename T, typename Policy, typename Type>
+void 
+sk::util::StandardContainer<T, Policy, Type>::
+set(int index, T* object)
+{
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
+}
+
+template<typename T, typename Policy, typename Type>
+void 
+sk::util::StandardContainer<T, Policy, Type>::
+sort()
+{
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
+}
+
+template<typename T, typename Policy, typename Type>
+void 
+sk::util::StandardContainer<T, Policy, Type>::
+sort(const sk::util::BinaryAssessor<T>& assessor)
+{
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
+}
+
+template<typename T, typename Policy, typename Type>
+void 
+sk::util::StandardContainer<T, Policy, Type>::
+shuffle()
+{
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
+}
+
+template<typename T, typename Policy, typename Type>
+void 
+sk::util::StandardContainer<T, Policy, Type>::
+reverse()
+{
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
+}
+
+template<typename T, typename Policy, typename Type>
+const sk::util::String 
+sk::util::StandardContainer<T, Policy, Type>::
+inspect() const
+{
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
+}
+
+template<typename T, typename Policy, typename Type>
+const sk::util::String 
+sk::util::StandardContainer<T, Policy, Type>::
+toString() const
+{
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
 }
 
 #endif /* _SK_UTIL_STANDARDCONTAINER_CXX_ */
