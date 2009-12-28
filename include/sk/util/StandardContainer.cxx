@@ -254,7 +254,7 @@ bool
 sk::util::StandardContainer<T, Policy, Type>::
 remove(const T& object)
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  return remove(sk::util::selector::EqualPointer<T>(object));
 }
 
 template<typename T, typename Policy, typename Type>
@@ -262,7 +262,12 @@ bool
 sk::util::StandardContainer<T, Policy, Type>::
 remove(const Selector<T>& selector)
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  typename container_t::iterator iterator = std::find_if(_container.begin(), _container.end(), SelectingFunctor(selector));
+  if(iterator == _container.end()) {
+    return false;
+  }
+  Policy::clearSlot(*iterator);
+  return true;
 }
 
 template<typename T, typename Policy, typename Type>
@@ -270,7 +275,7 @@ T*
 sk::util::StandardContainer<T, Policy, Type>::
 cutoff(const T& object)
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  return cutoff(sk::util::selector::EqualPointer<T>(object));
 }
 
 template<typename T, typename Policy, typename Type>
@@ -278,7 +283,11 @@ T*
 sk::util::StandardContainer<T, Policy, Type>::
 cutoff(const Selector<T>& selector)
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  typename container_t::iterator iterator = std::find_if(_container.begin(), _container.end(), SelectingFunctor(selector));
+  if(iterator == _container.end()) {
+    throw sk::util::NoSuchElementException(SK_METHOD);
+  }
+  return Policy::depriveObject(*iterator);
 }
 
 template<typename T, typename Policy, typename Type>
@@ -286,7 +295,7 @@ T*
 sk::util::StandardContainer<T, Policy, Type>::
 release(const T& object)
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  return release(sk::util::selector::EqualPointer<T>(object));
 }
 
 template<typename T, typename Policy, typename Type>
@@ -294,7 +303,15 @@ T*
 sk::util::StandardContainer<T, Policy, Type>::
 release(const Selector<T>& selector)
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  typename container_t::iterator iterator = std::find_if(_container.begin(), _container.end(), SelectingFunctor(selector));
+  if(iterator == _container.end()) {
+    throw sk::util::NoSuchElementException(SK_METHOD);
+  }
+  item_t& item = *iterator;
+  T* object = Policy::depriveObject(item);
+  Policy::setObject(item, *object);
+
+  return object;
 }
 
 template<typename T, typename Policy, typename Type>

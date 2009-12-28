@@ -239,8 +239,7 @@ sk::util::Holder<T, Policy>::
 release()
 {
   T* object = Policy::depriveObject(_storage);
-  remove();
-  set(*object);
+  Policy::setObject(_storage, *object);
 
   return object;
 }
