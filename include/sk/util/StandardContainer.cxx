@@ -360,7 +360,7 @@ bool
 sk::util::StandardContainer<T, Policy, Type>::
 retainAll(const Collection<T>& other)
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  return retainAll(other, assessor::EqualPointers<T>());
 }
 
 template<typename T, typename Policy, typename Type>
@@ -368,7 +368,7 @@ bool
 sk::util::StandardContainer<T, Policy, Type>::
 retainAll(const Collection<T>& other, const sk::util::BinaryAssessor<T>& assessor)
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  return removeAll(sk::util::selector::Not<T>(sk::util::selector::Belongs<T>(other, assessor)));
 }
 
 template<typename T, typename Policy, typename Type>
@@ -376,7 +376,7 @@ bool
 sk::util::StandardContainer<T, Policy, Type>::
 retainAll(const Selector<T>& selector)
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  return removeAll(sk::util::selector::Not<T>(selector));
 }
 
 template<typename T, typename Policy, typename Type>
