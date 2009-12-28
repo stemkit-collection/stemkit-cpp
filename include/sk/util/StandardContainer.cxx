@@ -218,7 +218,7 @@ bool
 sk::util::StandardContainer<T, Policy, Type>::
 add(const T& object) 
 {
-  typename Type::item_t item;
+  typename Type::item_t item = 0;
   Policy::setObject(item, object);
 
   _container.push_back(item);
@@ -230,7 +230,7 @@ bool
 sk::util::StandardContainer<T, Policy, Type>::
 add(T& object)
 {
-  typename Type::item_t item;
+  typename Type::item_t item = 0;
   Policy::setObject(item, object);
 
   _container.push_back(item);
@@ -242,7 +242,7 @@ bool
 sk::util::StandardContainer<T, Policy, Type>::
 add(T* object)
 {
-  typename Type::item_t item;
+  typename Type::item_t item = 0;
   Policy::setObject(item, object);
 
   _container.push_back(item);
