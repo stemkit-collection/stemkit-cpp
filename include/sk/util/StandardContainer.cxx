@@ -267,6 +267,8 @@ remove(const Selector<T>& selector)
     return false;
   }
   Policy::clearSlot(*iterator);
+  _container.erase(iterator);
+
   return true;
 }
 
@@ -287,7 +289,10 @@ cutoff(const Selector<T>& selector)
   if(iterator == _container.end()) {
     throw sk::util::NoSuchElementException(SK_METHOD);
   }
-  return Policy::depriveObject(*iterator);
+  T* object = Policy::depriveObject(*iterator);
+  _container.erase(iterator);
+
+  return object;
 }
 
 template<typename T, typename Policy, typename Type>
@@ -319,7 +324,7 @@ bool
 sk::util::StandardContainer<T, Policy, Type>::
 removeAll(const Collection<T>& other)
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  return removeAll(selector::Belongs<T>(other, assessor::EqualPointers<T>()));
 }
 
 template<typename T, typename Policy, typename Type>
@@ -327,7 +332,7 @@ bool
 sk::util::StandardContainer<T, Policy, Type>::
 removeAll(const Collection<T>& other, const sk::util::BinaryAssessor<T>& assessor)
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  return removeAll(selector::Belongs<T>(other, assessor));
 }
 
 template<typename T, typename Policy, typename Type>
@@ -335,7 +340,19 @@ bool
 sk::util::StandardContainer<T, Policy, Type>::
 removeAll(const Selector<T>& selector)
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  bool modified = false;
+  typename Type::container_t::iterator iterator = _container.begin(); 
+  while(iterator != _container.end()) {
+    if(selector.assess(Policy::getObject(*iterator)) == true) {
+      Policy::clearSlot(*iterator);
+      iterator = _container.erase(iterator);
+      modified = true;
+    }
+    else {
+      ++iterator;
+    }
+  }
+  return modified;
 }
 
 template<typename T, typename Policy, typename Type>
