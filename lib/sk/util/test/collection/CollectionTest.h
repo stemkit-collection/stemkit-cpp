@@ -48,7 +48,7 @@ namespace sk {
             void testCollectionCollectionRetainAll();
 
           protected:
-            virtual sk::util::Collection<sk::util::String>* makeCollection();
+            virtual sk::util::Collection<sk::util::String>* makeCopyingCollection();
         
           private:
             typedef sk::util::Collection<sk::util::String> Collection;

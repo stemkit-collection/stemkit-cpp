@@ -70,7 +70,7 @@ namespace sk {
             void testReverse();
             
           protected:
-            sk::util::List<sk::util::String>* makeList();
+            sk::util::List<sk::util::String>* makeCopyingList();
 
           private:
             ArrayListTest(const ArrayListTest& other);

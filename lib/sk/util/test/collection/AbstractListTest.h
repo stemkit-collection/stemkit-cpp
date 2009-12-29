@@ -47,7 +47,7 @@ namespace sk {
             void tearDown();
         
           protected:
-            sk::util::List<sk::util::String>* makeList();
+            sk::util::List<sk::util::String>* makeCopyingList();
 
           private:
             AbstractListTest(const AbstractListTest& other);

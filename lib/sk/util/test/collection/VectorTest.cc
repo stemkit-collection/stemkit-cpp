@@ -27,7 +27,7 @@ sk::util::test::collection::VectorTest::
 
 sk::util::List<sk::util::String>* 
 sk::util::test::collection::VectorTest::
-makeList()
+makeCopyingList()
 {
   return new sk::util::Vector<sk::util::String>::Copying();
 }

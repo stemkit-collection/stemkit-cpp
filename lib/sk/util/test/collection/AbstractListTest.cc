@@ -78,7 +78,7 @@ sk::util::test::collection::AbstractListTest::
 
 sk::util::List<sk::util::String>* 
 sk::util::test::collection::AbstractListTest::
-makeList()
+makeCopyingList()
 {
   return new SampleList();
 }

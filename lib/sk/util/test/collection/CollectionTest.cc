@@ -23,16 +23,16 @@ CollectionTest()
 
 sk::util::Collection<sk::util::String>* 
 sk::util::test::collection::CollectionTest::
-makeCollection()
+makeCopyingCollection()
 {
-  throw sk::util::UnsupportedOperationException("makeCollection()");
+  throw sk::util::UnsupportedOperationException("makeCopyingCollection()");
 }
 
 void
 sk::util::test::collection::CollectionTest::
 testCollectionBasics()
 {
-  Holder<Collection> collection(makeCollection());
+  Holder<Collection> collection(makeCopyingCollection());
   CPPUNIT_ASSERT(collection.get().isEmpty() == true);
 
   collection.getMutable().add("aaa");
@@ -53,7 +53,7 @@ void
 sk::util::test::collection::CollectionTest::
 testCollectionContains()
 {
-  Holder<Collection> collection(makeCollection());
+  Holder<Collection> collection(makeCopyingCollection());
   CPPUNIT_ASSERT(collection.get().contains(sk::util::selector::EqualValue<sk::util::String>("uuu")) == false);
 
   collection.getMutable().add("uuu");
@@ -70,8 +70,8 @@ void
 sk::util::test::collection::CollectionTest::
 testCollectionContainsAll()
 {
-  Holder<Collection> c1(makeCollection());
-  Holder<Collection> c2(makeCollection());
+  Holder<Collection> c1(makeCopyingCollection());
+  Holder<Collection> c2(makeCopyingCollection());
 
   CPPUNIT_ASSERT(c1.get().containsAll(c2.get()) == true);
 
@@ -91,7 +91,7 @@ void
 sk::util::test::collection::CollectionTest::
 testCollectionClear()
 {
-  Holder<Collection> collection(makeCollection());
+  Holder<Collection> collection(makeCopyingCollection());
 
   CPPUNIT_ASSERT(collection.get().isEmpty() == true);
   CPPUNIT_ASSERT_EQUAL(0, collection.get().size());
@@ -111,7 +111,7 @@ void
 sk::util::test::collection::CollectionTest::
 testCollectionSelectorRemoveAll()
 {
-  Holder<Collection> collection(makeCollection());
+  Holder<Collection> collection(makeCopyingCollection());
 
   collection.getMutable().add("aaa");
   collection.getMutable().add("bbb");
@@ -131,8 +131,8 @@ void
 sk::util::test::collection::CollectionTest::
 testCollectionCollectionRemoveAll()
 {
-  Holder<Collection> c1(makeCollection());
-  Holder<Collection> c2(makeCollection());
+  Holder<Collection> c1(makeCopyingCollection());
+  Holder<Collection> c2(makeCopyingCollection());
 
   c1.getMutable().add("aaa");
   c1.getMutable().add("bbb");
@@ -152,7 +152,7 @@ void
 sk::util::test::collection::CollectionTest::
 testCollectionSelectorRetainAll()
 {
-  Holder<Collection> collection(makeCollection());
+  Holder<Collection> collection(makeCopyingCollection());
 
   collection.getMutable().add("aaa");
   collection.getMutable().add("bbb");
@@ -172,8 +172,8 @@ void
 sk::util::test::collection::CollectionTest::
 testCollectionCollectionRetainAll()
 {
-  Holder<Collection> c1(makeCollection());
-  Holder<Collection> c2(makeCollection());
+  Holder<Collection> c1(makeCopyingCollection());
+  Holder<Collection> c2(makeCopyingCollection());
 
   c1.getMutable().add("aaa");
   c1.getMutable().add("bbb");

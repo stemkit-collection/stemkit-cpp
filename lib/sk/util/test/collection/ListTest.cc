@@ -26,23 +26,23 @@ ListTest()
 
 sk::util::Collection<sk::util::String>* 
 sk::util::test::collection::ListTest::
-makeCollection()
+makeCopyingCollection()
 {
-  return makeList();
+  return makeCopyingList();
 }
 
 sk::util::List<sk::util::String>* 
 sk::util::test::collection::ListTest::
-makeList()
+makeCopyingList()
 {
-  throw sk::util::UnsupportedOperationException("makeList()");
+  throw sk::util::UnsupportedOperationException("makeCopyingList()");
 }
 
 void 
 sk::util::test::collection::ListTest::
 testListAdd()
 {
-  sk::util::Holder<List> list(makeList());
+  sk::util::Holder<List> list(makeCopyingList());
 
   CPPUNIT_ASSERT_EQUAL(0, list.get().size());
 
@@ -64,7 +64,7 @@ void
 sk::util::test::collection::ListTest::
 testListGet()
 {
-  sk::util::Holder<List> list(makeList());
+  sk::util::Holder<List> list(makeCopyingList());
 
   CPPUNIT_ASSERT_THROW(list.get().get(0), sk::util::IndexOutOfBoundsException);
 
@@ -84,7 +84,7 @@ void
 sk::util::test::collection::ListTest::
 testListGetMutable()
 {
-  sk::util::Holder<List> list(makeList());
+  sk::util::Holder<List> list(makeCopyingList());
 
   CPPUNIT_ASSERT_THROW(list.get().get(0), sk::util::IndexOutOfBoundsException);
   CPPUNIT_ASSERT_THROW(list.get().get(-1), sk::util::IndexOutOfBoundsException);
@@ -102,7 +102,7 @@ void
 sk::util::test::collection::ListTest::
 testListIndexOf()
 {
-  sk::util::Holder<List> list(makeList());
+  sk::util::Holder<List> list(makeCopyingList());
 
   CPPUNIT_ASSERT_EQUAL(-1, list.get().indexOf("aaa"));
   CPPUNIT_ASSERT_EQUAL(-1, list.get().lastIndexOf("zzz"));
@@ -125,7 +125,7 @@ void
 sk::util::test::collection::ListTest::
 testListRemove()
 {
-  sk::util::Holder<List> list(makeList());
+  sk::util::Holder<List> list(makeCopyingList());
   CPPUNIT_ASSERT_THROW(list.getMutable().remove(0), sk::util::IndexOutOfBoundsException);
 
   list.getMutable().add("aaa");
@@ -152,7 +152,7 @@ void
 sk::util::test::collection::ListTest::
 testListSet()
 {
-  sk::util::Holder<List> list(makeList());
+  sk::util::Holder<List> list(makeCopyingList());
 
   CPPUNIT_ASSERT_THROW(list.getMutable().set(0, "abc"), sk::util::IndexOutOfBoundsException);
   list.getMutable().add("aaa");
@@ -180,7 +180,7 @@ void
 sk::util::test::collection::ListTest::
 testListInspect()
 {
-  sk::util::Holder<List> list(makeList());
+  sk::util::Holder<List> list(makeCopyingList());
   CPPUNIT_ASSERT_EQUAL("[]", list.get().inspect());
 
   list.getMutable().add("a");

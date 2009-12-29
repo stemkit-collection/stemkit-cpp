@@ -71,7 +71,7 @@ sk::util::test::collection::AbstractCollectionTest::
 
 sk::util::Collection<sk::util::String>* 
 sk::util::test::collection::AbstractCollectionTest::
-makeCollection()
+makeCopyingCollection()
 {
   return new SampleCollection();
 }

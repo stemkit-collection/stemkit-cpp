@@ -50,7 +50,7 @@ namespace sk {
             void testBasics();
         
           protected:
-            sk::util::List<sk::util::String>* makeList();
+            sk::util::List<sk::util::String>* makeCopyingList();
 
           private:
             VectorTest(const VectorTest& other);

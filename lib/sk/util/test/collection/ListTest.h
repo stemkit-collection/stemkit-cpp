@@ -52,8 +52,8 @@ namespace sk {
             void testListInspect();
 
           protected:
-            sk::util::Collection<sk::util::String>* makeCollection();
-            virtual sk::util::List<sk::util::String>* makeList();
+            sk::util::Collection<sk::util::String>* makeCopyingCollection();
+            virtual sk::util::List<sk::util::String>* makeCopyingList();
 
           private:
             typedef sk::util::List<sk::util::String> List;

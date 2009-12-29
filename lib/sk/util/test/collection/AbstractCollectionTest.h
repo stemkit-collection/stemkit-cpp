@@ -39,7 +39,7 @@ namespace sk {
             void tearDown();
         
           protected:
-            sk::util::Collection<sk::util::String>* makeCollection();
+            sk::util::Collection<sk::util::String>* makeCopyingCollection();
 
           private:
             AbstractCollectionTest(const AbstractCollectionTest& other);
