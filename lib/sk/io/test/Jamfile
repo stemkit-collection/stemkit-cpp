@@ -8,8 +8,6 @@ local objects =
   ByteArrayOutputStreamTest.cc
   DataInputStreamTest.cc
   DataOutputStreamTest.cc
-  FileTest.cc
-  FileStreamsTest.cc
   BufferedInputStreamTest.cc
   CountingInputStreamTest.cc
   BufferedOutputStreamTest.cc
@@ -17,14 +15,8 @@ local objects =
   IOExceptionTest.cc
   EOFExceptionTest.cc
   ClosedChannelExceptionTest.cc
-  AnonymousPipeTest.cc
-  DirTest.cc
   TestSuite.cc
 ;
-
-if ! mks32 in $(project.PLATFORM_SPECIFICS) {
-  objects += PtyTest.cc ;
-}
 
 use-project-library $(test) : sk.cppunit sk.io sk.rt.bundle sk.util ;
 
