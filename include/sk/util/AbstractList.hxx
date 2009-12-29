@@ -75,7 +75,6 @@ namespace sk {
         using AbstractCollection<T, Policy>::size;
         using AbstractCollection<T, Policy>::isEmpty;
 
-      protected:
         static void ensureIndex(int index, int size);
 
       private:

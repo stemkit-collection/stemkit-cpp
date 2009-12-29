@@ -100,15 +100,15 @@ namespace sk {
         StandardContainer(const StandardContainer<T, Policy, Type>& other);
         StandardContainer<T, Policy, Type>& operator = (const StandardContainer<T, Policy, Type>& other);
 
-        typedef typename Type::item_t item_t;
-        typedef typename Type::container_t container_t;
+        typename Type::container_t::iterator position(int index, int size);
+        typename Type::container_t::const_iterator position(int index, int size) const;
 
         struct Cleaner;
         struct SelectingFunctor;
         struct ConstProcessingFunctor;
         struct ProcessingFunctor;
 
-        container_t _container;
+        typename Type::container_t _container;
     };
   }
 }

@@ -13,6 +13,7 @@
 
 #include <sk/util/Class.h>
 #include <sk/util/StandardContainer.hxx>
+#include <sk/util/AbstractList.cxx>
 #include <sk/util/StreamLiner.h>
 #include <sk/util/Break.h>
 #include <sk/util/NoSuchElementException.h>
@@ -92,7 +93,7 @@ const T&
 sk::util::StandardContainer<T, Policy, Type>::
 get(const Selector<T>& selector) const
 {
-  typename container_t::const_iterator iterator = std::find_if(_container.begin(), _container.end(), SelectingFunctor(selector));
+  typename Type::container_t::const_iterator iterator = std::find_if(_container.begin(), _container.end(), SelectingFunctor(selector));
   if(iterator == _container.end()) {
     throw sk::util::NoSuchElementException(SK_METHOD);
   }
@@ -104,7 +105,7 @@ T&
 sk::util::StandardContainer<T, Policy, Type>::
 getMutable(const Selector<T>& selector)
 {
-  typename container_t::const_iterator iterator = std::find_if(_container.begin(), _container.end(), SelectingFunctor(selector));
+  typename Type::container_t::const_iterator iterator = std::find_if(_container.begin(), _container.end(), SelectingFunctor(selector));
   if(iterator == _container.end()) {
     throw sk::util::NoSuchElementException(SK_METHOD);
   }
@@ -116,7 +117,7 @@ bool
 sk::util::StandardContainer<T, Policy, Type>::
 find(sk::util::Holder<T>& holder, const Selector<T>& selector) const
 {
-  typename container_t::const_iterator iterator = std::find_if(_container.begin(), _container.end(), SelectingFunctor(selector));
+  typename Type::container_t::const_iterator iterator = std::find_if(_container.begin(), _container.end(), SelectingFunctor(selector));
   if(iterator == _container.end()) {
     return false;
   }
@@ -129,7 +130,7 @@ bool
 sk::util::StandardContainer<T, Policy, Type>::
 findMutable(sk::util::Holder<T>& holder, const Selector<T>& selector)
 {
-  typename container_t::const_iterator iterator = std::find_if(_container.begin(), _container.end(), SelectingFunctor(selector));
+  typename Type::container_t::const_iterator iterator = std::find_if(_container.begin(), _container.end(), SelectingFunctor(selector));
   if(iterator == _container.end()) {
     return false;
   }
@@ -262,7 +263,7 @@ bool
 sk::util::StandardContainer<T, Policy, Type>::
 remove(const Selector<T>& selector)
 {
-  typename container_t::iterator iterator = std::find_if(_container.begin(), _container.end(), SelectingFunctor(selector));
+  typename Type::container_t::iterator iterator = std::find_if(_container.begin(), _container.end(), SelectingFunctor(selector));
   if(iterator == _container.end()) {
     return false;
   }
@@ -285,7 +286,7 @@ T*
 sk::util::StandardContainer<T, Policy, Type>::
 cutoff(const Selector<T>& selector)
 {
-  typename container_t::iterator iterator = std::find_if(_container.begin(), _container.end(), SelectingFunctor(selector));
+  typename Type::container_t::iterator iterator = std::find_if(_container.begin(), _container.end(), SelectingFunctor(selector));
   if(iterator == _container.end()) {
     throw sk::util::NoSuchElementException(SK_METHOD);
   }
@@ -308,11 +309,11 @@ T*
 sk::util::StandardContainer<T, Policy, Type>::
 release(const Selector<T>& selector)
 {
-  typename container_t::iterator iterator = std::find_if(_container.begin(), _container.end(), SelectingFunctor(selector));
+  typename Type::container_t::iterator iterator = std::find_if(_container.begin(), _container.end(), SelectingFunctor(selector));
   if(iterator == _container.end()) {
     throw sk::util::NoSuchElementException(SK_METHOD);
   }
-  item_t& item = *iterator;
+  typename Type::item_t& item = *iterator;
   T* object = Policy::depriveObject(item);
   Policy::setObject(item, *object);
 
@@ -380,11 +381,42 @@ retainAll(const Selector<T>& selector)
 }
 
 template<typename T, typename Policy, typename Type>
+typename Type::container_t::iterator
+sk::util::StandardContainer<T, Policy, Type>::
+position(int index, int size)
+{
+  sk::util::AbstractList<T, Policy>::ensureIndex(index, size);
+  typename Type::container_t::iterator iterator = _container.begin();
+  while(index--) {
+    ++iterator;
+  }
+  return iterator;
+}
+
+template<typename T, typename Policy, typename Type>
+typename Type::container_t::const_iterator
+sk::util::StandardContainer<T, Policy, Type>::
+position(int index, int size) const
+{
+  sk::util::AbstractList<T, Policy>::ensureIndex(index, size);
+  typename Type::container_t::const_iterator iterator = _container.begin();
+  while(index--) {
+    ++iterator;
+  }
+  return iterator;
+}
+
+template<typename T, typename Policy, typename Type>
 void 
 sk::util::StandardContainer<T, Policy, Type>::
 add(int index, const T& object)
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  typename Type::container_t::iterator iterator = position(index, size() + 1);
+
+  typename Type::item_t item = 0;
+  Policy::setObject(item, object);
+
+  _container.insert(iterator, item);
 }
 
 template<typename T, typename Policy, typename Type>
@@ -392,7 +424,12 @@ void
 sk::util::StandardContainer<T, Policy, Type>::
 add(int index, T& object)
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  typename Type::container_t::iterator iterator = position(index, size() + 1);
+
+  typename Type::item_t item = 0;
+  Policy::setObject(item, object);
+
+  _container.insert(iterator, item);
 }
 
 template<typename T, typename Policy, typename Type>
@@ -400,7 +437,12 @@ void
 sk::util::StandardContainer<T, Policy, Type>::
 add(int index, T* object)
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  typename Type::container_t::iterator iterator = position(index, size() + 1);
+
+  typename Type::item_t item = 0;
+  Policy::setObject(item, object);
+
+  _container.insert(iterator, item);
 }
 
 template<typename T, typename Policy, typename Type>
@@ -408,7 +450,7 @@ const T&
 sk::util::StandardContainer<T, Policy, Type>::
 get(int index) const
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  return Policy::getObject(*position(index, size()));
 }
 
 template<typename T, typename Policy, typename Type>
@@ -416,7 +458,7 @@ T&
 sk::util::StandardContainer<T, Policy, Type>::
 getMutable(int index)
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  return Policy::getMutableObject(*position(index, size()));
 }
 
 template<typename T, typename Policy, typename Type>
