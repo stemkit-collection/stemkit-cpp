@@ -19,6 +19,7 @@ test-objects =
   AbstractCollectionTest.cc
   AbstractListTest.cc
 
+  StandardContainerTest.cc
   ArrayListTest.cc
   VectorTest.cc
 ;

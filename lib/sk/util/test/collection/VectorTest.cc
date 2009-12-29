@@ -32,6 +32,13 @@ makeCopyingList()
   return new sk::util::Vector<sk::util::String>::Copying();
 }
 
+sk::util::List<sk::util::String>* 
+sk::util::test::collection::VectorTest::
+makeStoringList()
+{
+  return new sk::util::Vector<sk::util::String>::Storing();
+}
+
 void
 sk::util::test::collection::VectorTest::
 setUp()

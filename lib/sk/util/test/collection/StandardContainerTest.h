@@ -1,28 +1,24 @@
-/*  vim: set sw=2:
- *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
+/*  vi: sw=2:
+ *  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
  *  
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
- *  Author: Gennady Bystritsky
 */
 
-#ifndef _SK_UTIL_TEST_COLLECTION_VECTORTEST_H_
-#define _SK_UTIL_TEST_COLLECTION_VECTORTEST_H_
+#ifndef _SK_UTIL_TEST_STANDARDCONTAINERTEST_
+#define _SK_UTIL_TEST_STANDARDCONTAINERTEST_
 
-#include "StandardContainerTest.h"
+#include "ListTest.h"
 
 namespace sk {
   namespace util {
     namespace test {
       namespace collection {
-        class VectorTest
-          : public StandardContainerTest
+        class StandardContainerTest
+          : public ListTest
         {
-          CPPUNIT_TEST_SUITE(sk::util::test::collection::VectorTest);
-            CPPUNIT_TEST(testBasics);
-
+          CPPUNIT_TEST_SUITE(sk::util::test::collection::StandardContainerTest);
             CPPUNIT_TEST(testCollectionBasics);
             CPPUNIT_TEST(testCollectionContains);
             CPPUNIT_TEST(testCollectionContainsAll);
@@ -53,26 +49,36 @@ namespace sk {
             CPPUNIT_TEST(testStandardContainerShuffle);
             CPPUNIT_TEST(testStandardContainerReverse);
           CPPUNIT_TEST_SUITE_END();
-        
+          
           public:
-            VectorTest();
-            virtual ~VectorTest();
-        
+            StandardContainerTest();
+            virtual ~StandardContainerTest();
+            
             void setUp();
             void tearDown();
-            void testBasics();
-        
+            void testStandardContainerCreate();
+            void testStandardContainerAdd();
+            void testStandardContainerGet();
+            void testStandardContainerForEach();
+            void testStandardContainerFind();
+            void testStandardContainerContains();
+            void testStandardContainerRemove();
+            void testStandardContainerSort();
+            void testStandardContainerInspect();
+            void testStandardContainerRemoveAll();
+            void testStandardContainerShuffle();
+            void testStandardContainerReverse();
+            
           protected:
-            sk::util::List<sk::util::String>* makeCopyingList();
             sk::util::List<sk::util::String>* makeStoringList();
 
           private:
-            VectorTest(const VectorTest& other);
-            VectorTest& operator = (const VectorTest& other);
+            StandardContainerTest(const StandardContainerTest& other);
+            StandardContainerTest& operator = (const StandardContainerTest& other);
         };
       }
     }
   }
 }
 
-#endif /* _SK_UTIL_TEST_COLLECTION_VECTORTEST_H_ */
+#endif /* _SK_UTIL_TEST_STANDARDCONTAINERTEST_ */
