@@ -37,9 +37,9 @@ namespace sk {
         ByteArrayOutputStream(const ByteArrayOutputStream& other);
         ByteArrayOutputStream& operator = (const ByteArrayOutputStream& other);
 
+        uint64_t _depotSize;
         sk::util::Holder<std::vector<char> > _vectorHolder;
         char* _depot;
-        uint64_t _depotSize;
         uint64_t _depotOffset;
         bool _closed;
     };

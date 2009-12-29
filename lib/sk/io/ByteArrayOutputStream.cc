@@ -17,7 +17,7 @@
 
 sk::io::ByteArrayOutputStream::
 ByteArrayOutputStream(std::vector<char>& buffer)
-  : _vectorHolder(buffer), _depot(&buffer.front()), _depotSize(0), _depotOffset(0), 
+  : _vectorHolder(buffer), _depot(0), _depotSize(0), _depotOffset(0), 
     _closed(false)
 {
 }
