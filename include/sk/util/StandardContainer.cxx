@@ -510,7 +510,9 @@ void
 sk::util::StandardContainer<T, Policy, Type>::
 remove(int index)
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  typename Type::container_t::iterator iterator = position(index, size());
+  Policy::clearSlot(*iterator);
+  _container.erase(iterator);
 }
 
 template<typename T, typename Policy, typename Type>
@@ -518,7 +520,11 @@ T*
 sk::util::StandardContainer<T, Policy, Type>::
 cutoff(int index)
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  typename Type::container_t::iterator iterator = position(index, size());
+  T* object = Policy::depriveObject(*iterator);
+  _container.erase(iterator);
+
+  return object;
 }
 
 template<typename T, typename Policy, typename Type>
@@ -526,7 +532,12 @@ T*
 sk::util::StandardContainer<T, Policy, Type>::
 release(int index)
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  typename Type::container_t::iterator iterator = position(index, size());
+  typename Type::item_t& item = *iterator;
+  T* object = Policy::depriveObject(item);
+  Policy::setObject(item, *object);
+
+  return object;
 }
 
 template<typename T, typename Policy, typename Type>
