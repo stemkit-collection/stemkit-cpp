@@ -545,7 +545,8 @@ void
 sk::util::StandardContainer<T, Policy, Type>::
 set(int index, const T& object)
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  typename Type::container_t::iterator iterator = position(index, size());
+  Policy::setObject(*iterator, object);
 }
 
 template<typename T, typename Policy, typename Type>
@@ -553,7 +554,8 @@ void
 sk::util::StandardContainer<T, Policy, Type>::
 set(int index, T& object)
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  typename Type::container_t::iterator iterator = position(index, size());
+  Policy::setObject(*iterator, object);
 }
 
 template<typename T, typename Policy, typename Type>
@@ -561,7 +563,8 @@ void
 sk::util::StandardContainer<T, Policy, Type>::
 set(int index, T* object)
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  typename Type::container_t::iterator iterator = position(index, size());
+  Policy::setObject(*iterator, object);
 }
 
 template<typename T, typename Policy, typename Type>
