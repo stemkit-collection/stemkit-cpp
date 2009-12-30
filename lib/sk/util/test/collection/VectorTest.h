@@ -21,8 +21,6 @@ namespace sk {
           : public StandardContainerTest
         {
           CPPUNIT_TEST_SUITE(sk::util::test::collection::VectorTest);
-            CPPUNIT_TEST(testBasics);
-
             CPPUNIT_TEST(testCollectionBasics);
             CPPUNIT_TEST(testCollectionContains);
             CPPUNIT_TEST(testCollectionContainsAll);

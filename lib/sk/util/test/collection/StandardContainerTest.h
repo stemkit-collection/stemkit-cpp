@@ -70,7 +70,7 @@ namespace sk {
             void testStandardContainerReverse();
             
           protected:
-            sk::util::List<sk::util::String>* makeStoringList();
+            virtual sk::util::List<sk::util::String>* makeStoringList();
 
           private:
             StandardContainerTest(const StandardContainerTest& other);

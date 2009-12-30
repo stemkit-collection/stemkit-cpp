@@ -22,6 +22,7 @@
 #include <sk/util/selector/Not.hxx>
 #include <sk/util/selector/Belongs.hxx>
 #include <sk/util/assessor/EqualPointers.hxx>
+#include <sk/util/assessor/LessValues.hxx>
 #include <algorithm>
 
 template<typename T, typename Policy, typename Type>
@@ -568,11 +569,22 @@ set(int index, T* object)
 }
 
 template<typename T, typename Policy, typename Type>
+struct sk::util::StandardContainer<T, Policy, Type>::AssessingBinaryFunctor : std::binary_function<typename Type::item_t, typename Type::item_t, void> {
+  AssessingBinaryFunctor(const sk::util::BinaryAssessor<T>& assessor) 
+    : _assessor(assessor) {}
+
+  bool operator()(const typename Type::item_t first, const typename Type::item_t second) const {
+    return _assessor.assess(Policy::getObject(first), Policy::getObject(second));
+  }
+  const sk::util::BinaryAssessor<T>& _assessor;
+};
+
+template<typename T, typename Policy, typename Type>
 void 
 sk::util::StandardContainer<T, Policy, Type>::
 sort()
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  std::sort(_container.begin(), _container.end(), AssessingBinaryFunctor(sk::util::assessor::LessValues<T>()));
 }
 
 template<typename T, typename Policy, typename Type>
@@ -580,7 +592,7 @@ void
 sk::util::StandardContainer<T, Policy, Type>::
 sort(const sk::util::BinaryAssessor<T>& assessor)
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  std::sort(_container.begin(), _container.end(), AssessingBinaryFunctor(assessor));
 }
 
 template<typename T, typename Policy, typename Type>
@@ -588,7 +600,7 @@ void
 sk::util::StandardContainer<T, Policy, Type>::
 shuffle()
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  std::random_shuffle(_container.begin(), _container.end());
 }
 
 template<typename T, typename Policy, typename Type>
@@ -596,15 +608,32 @@ void
 sk::util::StandardContainer<T, Policy, Type>::
 reverse()
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  std::reverse(_container.begin(), _container.end());
 }
+
+template<typename T, typename Policy, typename Type>
+struct sk::util::StandardContainer<T, Policy, Type>::InspectingFunctor : std::unary_function<typename Type::item_t, void> {
+  InspectingFunctor(sk::util::StringArray& depot)
+    : _depot(depot), _index(0) {}
+
+  void operator()(const typename Type::item_t& item) const {
+    _depot << (sk::util::String::valueOf(_index++) + Policy::inspectSlot(item));
+  }
+  sk::util::StringArray& _depot;
+  mutable int _index;
+};
 
 template<typename T, typename Policy, typename Type>
 const sk::util::String 
 sk::util::StandardContainer<T, Policy, Type>::
 inspect() const
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  if(isEmpty() == true) {
+    return "[]";
+  }
+  sk::util::StringArray depot;
+  std::for_each(_container.begin(), _container.end(), InspectingFunctor(depot));
+  return "[" + sk::util::String::valueOf(size()) + ": " + depot.join(", ") + " ]";
 }
 
 template<typename T, typename Policy, typename Type>
@@ -612,7 +641,7 @@ const sk::util::String
 sk::util::StandardContainer<T, Policy, Type>::
 toString() const
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  return inspect();
 }
 
 #endif /* _SK_UTIL_STANDARDCONTAINER_CXX_ */

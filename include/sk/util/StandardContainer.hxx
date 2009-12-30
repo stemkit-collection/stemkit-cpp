@@ -107,6 +107,8 @@ namespace sk {
         struct SelectingFunctor;
         struct ConstProcessingFunctor;
         struct ProcessingFunctor;
+        struct AssessingBinaryFunctor;
+        struct InspectingFunctor;
 
         typename Type::container_t _container;
     };

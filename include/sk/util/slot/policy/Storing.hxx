@@ -41,7 +41,7 @@ namespace sk {
               return getSlot(storage).deprive();
             }
 
-            static const sk::util::String inspectObject(const slot_storage_t storage) {
+            static const sk::util::String inspectSlot(const slot_storage_t storage) {
               return getSlot(storage).inspect();
             }
 

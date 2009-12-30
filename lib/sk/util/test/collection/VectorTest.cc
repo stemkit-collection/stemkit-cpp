@@ -50,10 +50,3 @@ sk::util::test::collection::VectorTest::
 tearDown()
 {
 }
-
-void
-sk::util::test::collection::VectorTest::
-testBasics()
-{
-  sk::util::Vector<String> _data;
-}

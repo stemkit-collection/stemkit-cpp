@@ -7,8 +7,8 @@
 */
 
 #include "StandardContainerTest.h"
-#include <sk/util/ArrayList.cxx>
 #include <sk/util/Holder.cxx>
+#include <sk/util/IndexOutOfBoundsException.h>
 #include <sk/util/CopyingProcessor.cxx>
 #include <sk/util/test/Probe.cxx>
 
@@ -47,10 +47,10 @@ void
 sk::util::test::collection::StandardContainerTest::
 testStandardContainerCreate()
 {
-  ArrayList<test::Probe<String> > list;
+  Holder<List> list(makeStoringList());
 
-  CPPUNIT_ASSERT_EQUAL(0, list.size());
-  CPPUNIT_ASSERT_EQUAL(true, list.isEmpty());
+  CPPUNIT_ASSERT_EQUAL(0, list.get().size());
+  CPPUNIT_ASSERT_EQUAL(true, list.get().isEmpty());
 }
 
 void
@@ -58,22 +58,23 @@ sk::util::test::collection::StandardContainerTest::
 testStandardContainerAdd()
 {
   CPPUNIT_ASSERT_EQUAL(0, test::Probe<String>::getCounter());
-  ArrayList<test::Probe<String> > list;
+  Holder<List> list(makeStoringList());
+
   test::Probe<String> p1("aaa");
   test::Probe<String> p2("bbb");
   
-  list.add(p1);
-  list.add(p2);
-  list.add(new test::Probe<String>("ccc"));
+  list.getMutable().add(p1);
+  list.getMutable().add(p2);
+  list.getMutable().add(new test::Probe<String>("ccc"));
 
-  CPPUNIT_ASSERT_EQUAL(false, list.isEmpty());
-  CPPUNIT_ASSERT_EQUAL(3, list.size());
+  CPPUNIT_ASSERT_EQUAL(false, list.get().isEmpty());
+  CPPUNIT_ASSERT_EQUAL(3, list.get().size());
   CPPUNIT_ASSERT_EQUAL(3, test::Probe<String>::getCounter());
 
-  list.clear();
+  list.getMutable().clear();
 
-  CPPUNIT_ASSERT_EQUAL(true, list.isEmpty());
-  CPPUNIT_ASSERT_EQUAL(0, list.size());
+  CPPUNIT_ASSERT_EQUAL(true, list.get().isEmpty());
+  CPPUNIT_ASSERT_EQUAL(0, list.get().size());
   CPPUNIT_ASSERT_EQUAL(2, test::Probe<String>::getCounter());
 }
 
@@ -81,42 +82,43 @@ void
 sk::util::test::collection::StandardContainerTest::
 testStandardContainerGet()
 {
-  ArrayList<String> list;
+  Holder<List> list(makeStoringList());
 
-  list.add(new String("aaa"));
-  list.add(new String("bbb"));
-  list.add(new String("ccc"));
+  list.getMutable().add(new String("aaa"));
+  list.getMutable().add(new String("bbb"));
+  list.getMutable().add(new String("ccc"));
 
-  CPPUNIT_ASSERT_EQUAL(3, list.size());
-  CPPUNIT_ASSERT_EQUAL("aaa", list.get(0));
-  CPPUNIT_ASSERT_EQUAL("bbb", list.get(1));
-  CPPUNIT_ASSERT_EQUAL("ccc", list.get(2));
-  CPPUNIT_ASSERT_THROW(list.get(3), sk::util::IndexOutOfBoundsException);
+  CPPUNIT_ASSERT_EQUAL(3, list.get().size());
+  CPPUNIT_ASSERT_EQUAL("aaa", list.get().get(0));
+  CPPUNIT_ASSERT_EQUAL("bbb", list.get().get(1));
+  CPPUNIT_ASSERT_EQUAL("ccc", list.get().get(2));
+
+  CPPUNIT_ASSERT_THROW(list.get().get(3), sk::util::IndexOutOfBoundsException);
 }
 
 void
 sk::util::test::collection::StandardContainerTest::
 testStandardContainerForEach()
 {
-  ArrayList<String> list;
+  Holder<List> list(makeStoringList());
   std::vector<String> target;
 
   CPPUNIT_ASSERT_EQUAL(size_t(0), target.size());
-  list.add(new String("aaa"));
-  list.add(new String("zzz"));
-  list.add(new String("uuu"));
+  list.getMutable().add(new String("aaa"));
+  list.getMutable().add(new String("zzz"));
+  list.getMutable().add(new String("uuu"));
 
-  struct Copier : public virtual sk::util::Processor<String> {
+  struct Copier : public virtual sk::util::Processor<const String> {
     Copier(std::vector<String>& target) 
       : _target(target) {}
 
-    void process(String& item) const {
+    void process(const String& item) const {
       _target.push_back(item);
     }
     std::vector<String>& _target;
   };
 
-  list.forEach(Copier(target));
+  list.get().forEach(Copier(target));
   CPPUNIT_ASSERT_EQUAL(size_t(3), target.size());
 }
 
@@ -136,22 +138,21 @@ void
 sk::util::test::collection::StandardContainerTest::
 testStandardContainerFind()
 {
-  ArrayList<String> list;
+  Holder<List> list(makeStoringList());
 
-  list.add(new String("aaa"));
-  list.add(new String("bbb"));
-  list.add(new String("ccc"));
+  list.getMutable().add(new String("aaa"));
+  list.getMutable().add(new String("bbb"));
+  list.getMutable().add(new String("ccc"));
   Holder<String> holder;
 
-  CPPUNIT_ASSERT(list.find(holder, ExactStringSelector("zzz")) == false);
-  CPPUNIT_ASSERT(list.find(holder, ExactStringSelector("aaa")) == true);
-  CPPUNIT_ASSERT(&holder.get() == &list.get(0));
+  CPPUNIT_ASSERT(list.get().find(holder, ExactStringSelector("zzz")) == false);
+  CPPUNIT_ASSERT(list.get().find(holder, ExactStringSelector("aaa")) == true);
+  CPPUNIT_ASSERT(&holder.get() == &list.get().get(0));
 
-  CPPUNIT_ASSERT(list.find(holder, ExactStringSelector("ccc")) == true);
-  CPPUNIT_ASSERT(&holder.get() == &list.get(2));
+  CPPUNIT_ASSERT(list.get().find(holder, ExactStringSelector("ccc")) == true);
+  CPPUNIT_ASSERT(&holder.get() == &list.get().get(2));
 
-  CPPUNIT_ASSERT(list.find(holder, ExactStringSelector("zzz")) == false);
-  CPPUNIT_ASSERT(holder.isEmpty() == true);
+  CPPUNIT_ASSERT(list.get().find(holder, ExactStringSelector("zzz")) == false);
 }
 
 void 
@@ -159,41 +160,41 @@ sk::util::test::collection::StandardContainerTest::
 testStandardContainerContains()
 {
   sk::util::String s("abc");
-  sk::util::ArrayList<sk::util::String> list;
+  Holder<List> list(makeStoringList());
 
-  list.add(s);
-  CPPUNIT_ASSERT(list.contains(s) == true);
-  CPPUNIT_ASSERT(list.contains("bbb") == false);
-  CPPUNIT_ASSERT(list.contains("abc") == false);
+  list.getMutable().add(s);
+  CPPUNIT_ASSERT(list.get().contains(s) == true);
+  CPPUNIT_ASSERT(list.get().contains("bbb") == false);
+  CPPUNIT_ASSERT(list.get().contains("abc") == false);
 }
 
 void
 sk::util::test::collection::StandardContainerTest::
 testStandardContainerRemove()
 {
-  sk::util::ArrayList<sk::util::String> list;
-  list.add(new sk::util::String("aaa"));
-  list.add(new sk::util::String("bbb"));
-  list.add(new sk::util::String("ccc"));
+  Holder<List> list(makeStoringList());
+  list.getMutable().add(new sk::util::String("aaa"));
+  list.getMutable().add(new sk::util::String("bbb"));
+  list.getMutable().add(new sk::util::String("ccc"));
 
-  CPPUNIT_ASSERT_EQUAL(3, list.size());
-  CPPUNIT_ASSERT_EQUAL("bbb", list.get(1));
+  CPPUNIT_ASSERT_EQUAL(3, list.get().size());
+  CPPUNIT_ASSERT_EQUAL("bbb", list.get().get(1));
 
-  list.remove(1);
-  CPPUNIT_ASSERT_EQUAL(2, list.size());
-  CPPUNIT_ASSERT_EQUAL("aaa", list.get(0));
-  CPPUNIT_ASSERT_EQUAL("ccc", list.get(1));
+  list.getMutable().remove(1);
+  CPPUNIT_ASSERT_EQUAL(2, list.get().size());
+  CPPUNIT_ASSERT_EQUAL("aaa", list.get().get(0));
+  CPPUNIT_ASSERT_EQUAL("ccc", list.get().get(1));
 
-  list.remove(1);
-  CPPUNIT_ASSERT_EQUAL(1, list.size());
-  CPPUNIT_ASSERT_EQUAL("aaa", list.get(0));
-  CPPUNIT_ASSERT_THROW(list.remove(1), sk::util::IndexOutOfBoundsException);
+  list.getMutable().remove(1);
+  CPPUNIT_ASSERT_EQUAL(1, list.get().size());
+  CPPUNIT_ASSERT_EQUAL("aaa", list.get().get(0));
+  CPPUNIT_ASSERT_THROW(list.getMutable().remove(1), sk::util::IndexOutOfBoundsException);
 
-  list.remove(0);
-  CPPUNIT_ASSERT_EQUAL(0, list.size());
-  CPPUNIT_ASSERT_THROW(list.remove(0), sk::util::IndexOutOfBoundsException);
-  CPPUNIT_ASSERT_THROW(list.remove(1), sk::util::IndexOutOfBoundsException);
-  CPPUNIT_ASSERT_THROW(list.remove(-1), sk::util::IndexOutOfBoundsException);
+  list.getMutable().remove(0);
+  CPPUNIT_ASSERT_EQUAL(0, list.get().size());
+  CPPUNIT_ASSERT_THROW(list.getMutable().remove(0), sk::util::IndexOutOfBoundsException);
+  CPPUNIT_ASSERT_THROW(list.getMutable().remove(1), sk::util::IndexOutOfBoundsException);
+  CPPUNIT_ASSERT_THROW(list.getMutable().remove(-1), sk::util::IndexOutOfBoundsException);
 }
 
 namespace {
@@ -215,109 +216,109 @@ void
 sk::util::test::collection::StandardContainerTest::
 testStandardContainerSort()
 {
-  sk::util::ArrayList<NumberedString> list;
+  Holder<List> list(makeStoringList());
 
-  list.add(new NumberedString("ccc", 2));
-  list.add(new NumberedString("bbb", 1));
-  list.add(new NumberedString("aaa", 3));
+  list.getMutable().add(new NumberedString("ccc", 2));
+  list.getMutable().add(new NumberedString("bbb", 1));
+  list.getMutable().add(new NumberedString("aaa", 3));
 
-  list.sort();
+  list.getMutable().sort();
 
-  CPPUNIT_ASSERT_EQUAL("aaa", list.get(0));
-  CPPUNIT_ASSERT_EQUAL("bbb", list.get(1));
-  CPPUNIT_ASSERT_EQUAL("ccc", list.get(2));
+  CPPUNIT_ASSERT_EQUAL("aaa", list.get().get(0));
+  CPPUNIT_ASSERT_EQUAL("bbb", list.get().get(1));
+  CPPUNIT_ASSERT_EQUAL("ccc", list.get().get(2));
 
-  struct Assessor : public virtual sk::util::BinaryAssessor<NumberedString> {
-    bool assess(const NumberedString& first, const NumberedString& second) const {
-      return first.getNumber() < second.getNumber();
+  struct Assessor : public virtual sk::util::BinaryAssessor<String> {
+    bool assess(const String& first, const String& second) const {
+      return upcast<NumberedString>(first).getNumber() < upcast<NumberedString>(second).getNumber();
     }
   };
-  list.sort(Assessor());
+  list.getMutable().sort(Assessor());
 
-  CPPUNIT_ASSERT_EQUAL("bbb", list.get(0));
-  CPPUNIT_ASSERT_EQUAL("ccc", list.get(1));
-  CPPUNIT_ASSERT_EQUAL("aaa", list.get(2));
+  CPPUNIT_ASSERT_EQUAL("bbb", list.get().get(0));
+  CPPUNIT_ASSERT_EQUAL("ccc", list.get().get(1));
+  CPPUNIT_ASSERT_EQUAL("aaa", list.get().get(2));
 }
 
 void 
 sk::util::test::collection::StandardContainerTest::
 testStandardContainerInspect()
 {
-  sk::util::ArrayList<sk::util::String> list;
-  CPPUNIT_ASSERT_EQUAL("[]", list.inspect());
+  Holder<List> list(makeStoringList());
+  CPPUNIT_ASSERT_EQUAL("[]", list.get().inspect());
 
-  list.add(new sk::util::String("aaa"));
-  list.add(new sk::util::String("bbb"));
+  list.getMutable().add(new sk::util::String("aaa"));
+  list.getMutable().add(new sk::util::String("bbb"));
 
-  CPPUNIT_ASSERT_EQUAL("[2: 0*\"aaa\", 1*\"bbb\" ]", list.inspect());
+  CPPUNIT_ASSERT_EQUAL("[2: 0*\"aaa\", 1*\"bbb\" ]", list.get().inspect());
 
   sk::util::String s = "zzz";
-  list.add(s);
+  list.getMutable().add(s);
 
-  CPPUNIT_ASSERT_EQUAL("[3: 0*\"aaa\", 1*\"bbb\", 2&\"zzz\" ]", list.inspect());
+  CPPUNIT_ASSERT_EQUAL("[3: 0*\"aaa\", 1*\"bbb\", 2&\"zzz\" ]", list.get().inspect());
 }
 
 void
 sk::util::test::collection::StandardContainerTest::
 testStandardContainerRemoveAll()
 {
-  sk::util::ArrayList<sk::util::String> list;
+  Holder<List> list(makeStoringList());
 
-  list.add(new sk::util::String("aaa"));
-  list.add(new sk::util::String("bbbuuu"));
-  list.add(new sk::util::String("ccc"));
-  list.add(new sk::util::String("ddduuu"));
-  list.add(new sk::util::String("uuu"));
+  list.getMutable().add(new sk::util::String("aaa"));
+  list.getMutable().add(new sk::util::String("bbbuuu"));
+  list.getMutable().add(new sk::util::String("ccc"));
+  list.getMutable().add(new sk::util::String("ddduuu"));
+  list.getMutable().add(new sk::util::String("uuu"));
 
-  CPPUNIT_ASSERT_EQUAL(5, list.size());
+  CPPUNIT_ASSERT_EQUAL(5, list.get().size());
   struct Selector : public virtual sk::util::Selector<sk::util::String> {
     bool assess(const sk::util::String& item) const {
       return item.endsWith("uuu");
     }
   };
-  CPPUNIT_ASSERT(list.removeAll(Selector()) == true);
-  CPPUNIT_ASSERT_EQUAL(2, list.size());
-  CPPUNIT_ASSERT_EQUAL("aaa", list.get(0));
-  CPPUNIT_ASSERT_EQUAL("ccc", list.get(1));
+  CPPUNIT_ASSERT(list.getMutable().removeAll(Selector()) == true);
+  CPPUNIT_ASSERT_EQUAL(2, list.get().size());
+  CPPUNIT_ASSERT_EQUAL("aaa", list.get().get(0));
+  CPPUNIT_ASSERT_EQUAL("ccc", list.get().get(1));
 }
 
 void
 sk::util::test::collection::StandardContainerTest::
 testStandardContainerShuffle()
 {
-  sk::util::ArrayList<sk::util::String> l1;
-  l1.add(new sk::util::String("aaa"));
-  l1.add(new sk::util::String("bbb"));
-  l1.add(new sk::util::String("ccc"));
-  l1.add(new sk::util::String("ddd"));
-  l1.add(new sk::util::String("eee"));
-  l1.add(new sk::util::String("fff"));
-  l1.add(new sk::util::String("uuu"));
-  l1.add(new sk::util::String("zzz"));
+  Holder<List> l1(makeCopyingList());
+  l1.getMutable().add("aaa");
+  l1.getMutable().add("bbb");
+  l1.getMutable().add("ccc");
+  l1.getMutable().add("ddd");
+  l1.getMutable().add("eee");
+  l1.getMutable().add("fff");
+  l1.getMutable().add("uuu");
+  l1.getMutable().add("zzz");
 
-  sk::util::ArrayList<sk::util::String> l2;
-  l1.forEach(sk::util::CopyingProcessor<sk::util::String>(l2));
+  Holder<List> l2(makeStoringList());
+  l1.getMutable().forEach(sk::util::CopyingProcessor<sk::util::String>(l2.getMutable()));
 
-  CPPUNIT_ASSERT_EQUAL(l1.inspect(), l2.inspect());
+  CPPUNIT_ASSERT_EQUAL(l1.get().inspect(), l2.get().inspect());
 
-  l2.shuffle();
-  CPPUNIT_ASSERT_EQUAL(l1.size(), l2.size());
-  CPPUNIT_ASSERT(l1.inspect() != l2.inspect());
+  l2.getMutable().shuffle();
+  CPPUNIT_ASSERT_EQUAL(l1.get().size(), l2.get().size());
+  CPPUNIT_ASSERT(l1.get().inspect() != l2.get().inspect());
 }
 
 void 
 sk::util::test::collection::StandardContainerTest::
 testStandardContainerReverse()
 {
-  ArrayList<String>::Copying list;
+  Holder<List> list(makeCopyingList());
 
-  list.add("aaa");
-  list.add("bbb");
-  list.add("ccc");
-  list.add("ddd");
+  list.getMutable().add("aaa");
+  list.getMutable().add("bbb");
+  list.getMutable().add("ccc");
+  list.getMutable().add("ddd");
 
-  CPPUNIT_ASSERT_EQUAL("[4: 0*\"aaa\", 1*\"bbb\", 2*\"ccc\", 3*\"ddd\" ]", list.inspect());
+  CPPUNIT_ASSERT_EQUAL("[4: 0*\"aaa\", 1*\"bbb\", 2*\"ccc\", 3*\"ddd\" ]", list.get().inspect());
 
-  list.reverse();
-  CPPUNIT_ASSERT_EQUAL("[4: 0*\"ddd\", 1*\"ccc\", 2*\"bbb\", 3*\"aaa\" ]", list.inspect());
+  list.getMutable().reverse();
+  CPPUNIT_ASSERT_EQUAL("[4: 0*\"ddd\", 1*\"ccc\", 2*\"bbb\", 3*\"aaa\" ]", list.get().inspect());
 }

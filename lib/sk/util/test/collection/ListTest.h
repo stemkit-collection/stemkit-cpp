@@ -55,9 +55,9 @@ namespace sk {
             sk::util::Collection<sk::util::String>* makeCopyingCollection();
             virtual sk::util::List<sk::util::String>* makeCopyingList();
 
-          private:
             typedef sk::util::List<sk::util::String> List;
 
+          private:
             ListTest(const ListTest& other);
             ListTest& operator = (const ListTest& other);
         };

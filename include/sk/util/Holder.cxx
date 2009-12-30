@@ -260,7 +260,7 @@ inspect() const
   if(isEmpty() == true) {
     return "()";
   }
-  return "(" + Policy::inspectObject(_storage) + ")";
+  return "(" + Policy::inspectSlot(_storage) + ")";
 }
 
 #endif /* _SK_UTIL_HOLDER_CXX_ */
