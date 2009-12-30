@@ -23,7 +23,9 @@
 #include <sk/util/selector/Belongs.hxx>
 #include <sk/util/assessor/EqualPointers.hxx>
 #include <sk/util/assessor/LessValues.hxx>
+
 #include <algorithm>
+#include <iostream>
 
 template<typename T, typename Policy, typename Type>
 sk::util::StandardContainer<T, Policy, Type>::
