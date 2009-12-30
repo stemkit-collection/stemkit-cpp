@@ -11,6 +11,7 @@
 #include <sk/util/IndexOutOfBoundsException.h>
 #include <sk/util/CopyingProcessor.cxx>
 #include <sk/util/test/Probe.cxx>
+#include <sk/util/selector/EqualValue.hxx>
 
 sk::util::test::collection::StandardContainerTest::
 StandardContainerTest()
@@ -124,18 +125,6 @@ testStandardContainerForEach()
   CPPUNIT_ASSERT_EQUAL(size_t(3), target.size());
 }
 
-namespace {
-  struct ExactStringSelector : public virtual sk::util::Selector<sk::util::String> {
-    ExactStringSelector(const sk::util::String& item)
-      : _item(item) {}
-
-    bool assess(const sk::util::String& item) const {
-      return _item.equals(item);
-    }
-    const sk::util::String& _item;
-  };
-};
-
 void
 sk::util::test::collection::StandardContainerTest::
 testStandardContainerFind()
@@ -147,14 +136,14 @@ testStandardContainerFind()
   list.getMutable().add(new String("ccc"));
   Holder<String> holder;
 
-  CPPUNIT_ASSERT(list.get().find(holder, ExactStringSelector("zzz")) == false);
-  CPPUNIT_ASSERT(list.get().find(holder, ExactStringSelector("aaa")) == true);
+  CPPUNIT_ASSERT(list.get().find(holder, selector::EqualValue<String>("zzz")) == false);
+  CPPUNIT_ASSERT(list.get().find(holder, selector::EqualValue<String>("aaa")) == true);
   CPPUNIT_ASSERT(&holder.get() == &list.get().get(0));
 
-  CPPUNIT_ASSERT(list.get().find(holder, ExactStringSelector("ccc")) == true);
+  CPPUNIT_ASSERT(list.get().find(holder, selector::EqualValue<String>("ccc")) == true);
   CPPUNIT_ASSERT(&holder.get() == &list.get().get(2));
 
-  CPPUNIT_ASSERT(list.get().find(holder, ExactStringSelector("zzz")) == false);
+  CPPUNIT_ASSERT(list.get().find(holder, selector::EqualValue<String>("zzz")) == false);
 }
 
 void 
