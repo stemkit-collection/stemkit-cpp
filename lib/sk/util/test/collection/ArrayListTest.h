@@ -1,22 +1,24 @@
-/*  vi: sw=2:
- *  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
+/*  vim: set sw=2:
+ *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
  *  
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
+ *  
+ *  Author: Gennady Bystritsky
 */
 
-#ifndef _SK_UTIL_TEST_ARRAYLISTTEST_
-#define _SK_UTIL_TEST_ARRAYLISTTEST_
+#ifndef _SK_UTIL_TEST_COLLECTION_ARRAYLISTTEST_H_
+#define _SK_UTIL_TEST_COLLECTION_ARRAYLISTTEST_H_
 
-#include "ListTest.h"
+#include "StandardContainerTest.h"
 
 namespace sk {
   namespace util {
     namespace test {
       namespace collection {
         class ArrayListTest
-          : public ListTest
+          : public StandardContainerTest
         {
           CPPUNIT_TEST_SUITE(sk::util::test::collection::ArrayListTest);
             CPPUNIT_TEST(testCollectionBasics);
@@ -36,41 +38,27 @@ namespace sk {
             CPPUNIT_TEST(testListSet);
             // CPPUNIT_TEST(testListInspect);
 
-            CPPUNIT_TEST(testCreate);
-            CPPUNIT_TEST(testAdd);
-            CPPUNIT_TEST(testGet);
-            CPPUNIT_TEST(testForEach);
-            CPPUNIT_TEST(testFind);
-            CPPUNIT_TEST(testContains);
-            CPPUNIT_TEST(testRemove);
-            CPPUNIT_TEST(testSort);
-            CPPUNIT_TEST(testInspect);
-            CPPUNIT_TEST(testRemoveAll);
-            CPPUNIT_TEST(testShuffle);
-            CPPUNIT_TEST(testReverse);
+            CPPUNIT_TEST(testStandardContainerCreate);
+            CPPUNIT_TEST(testStandardContainerAdd);
+            CPPUNIT_TEST(testStandardContainerGet);
+            CPPUNIT_TEST(testStandardContainerForEach);
+            CPPUNIT_TEST(testStandardContainerFind);
+            CPPUNIT_TEST(testStandardContainerContains);
+            CPPUNIT_TEST(testStandardContainerRemove);
+            CPPUNIT_TEST(testStandardContainerSort);
+            CPPUNIT_TEST(testStandardContainerInspect);
+            CPPUNIT_TEST(testStandardContainerRemoveAll);
+            CPPUNIT_TEST(testStandardContainerShuffle);
+            CPPUNIT_TEST(testStandardContainerReverse);
           CPPUNIT_TEST_SUITE_END();
-          
+        
           public:
             ArrayListTest();
             virtual ~ArrayListTest();
-            
-            void setUp();
-            void tearDown();
-            void testCreate();
-            void testAdd();
-            void testGet();
-            void testForEach();
-            void testFind();
-            void testContains();
-            void testRemove();
-            void testSort();
-            void testInspect();
-            void testRemoveAll();
-            void testShuffle();
-            void testReverse();
-            
+        
           protected:
             sk::util::List<sk::util::String>* makeCopyingList();
+            sk::util::List<sk::util::String>* makeStoringList();
 
           private:
             ArrayListTest(const ArrayListTest& other);
@@ -81,4 +69,4 @@ namespace sk {
   }
 }
 
-#endif /* _SK_UTIL_TEST_ARRAYLISTTEST_ */
+#endif /* _SK_UTIL_TEST_COLLECTION_ARRAYLISTTEST_H_ */
