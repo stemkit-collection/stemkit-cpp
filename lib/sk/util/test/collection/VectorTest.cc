@@ -39,14 +39,3 @@ makeStoringList()
   return new sk::util::Vector<sk::util::String>::Storing();
 }
 
-void
-sk::util::test::collection::VectorTest::
-setUp()
-{
-}
-
-void
-sk::util::test::collection::VectorTest::
-tearDown()
-{
-}

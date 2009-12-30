@@ -56,10 +56,6 @@ namespace sk {
             VectorTest();
             virtual ~VectorTest();
         
-            void setUp();
-            void tearDown();
-            void testBasics();
-        
           protected:
             sk::util::List<sk::util::String>* makeCopyingList();
             sk::util::List<sk::util::String>* makeStoringList();

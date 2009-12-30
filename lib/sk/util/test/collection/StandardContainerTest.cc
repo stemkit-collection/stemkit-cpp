@@ -34,6 +34,7 @@ sk::util::test::collection::StandardContainerTest::
 setUp()
 {
   test::Probe<String>::resetCounter();
+  ListTest::setUp();
 }
 
 void
@@ -41,6 +42,7 @@ sk::util::test::collection::StandardContainerTest::
 tearDown()
 {
   test::Probe<String>::resetCounter();
+  ListTest::tearDown();
 }
 
 void

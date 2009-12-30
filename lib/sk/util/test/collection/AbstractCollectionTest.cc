@@ -76,15 +76,3 @@ makeCopyingCollection()
   return new SampleCollection();
 }
 
-void
-sk::util::test::collection::AbstractCollectionTest::
-setUp()
-{
-}
-
-void
-sk::util::test::collection::AbstractCollectionTest::
-tearDown()
-{
-}
-

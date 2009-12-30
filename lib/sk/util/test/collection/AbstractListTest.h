@@ -43,9 +43,6 @@ namespace sk {
             AbstractListTest();
             virtual ~AbstractListTest();
         
-            void setUp();
-            void tearDown();
-        
           protected:
             sk::util::List<sk::util::String>* makeCopyingList();
 

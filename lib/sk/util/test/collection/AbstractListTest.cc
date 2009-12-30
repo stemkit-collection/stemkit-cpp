@@ -82,16 +82,3 @@ makeCopyingList()
 {
   return new SampleList();
 }
-
-void
-sk::util::test::collection::AbstractListTest::
-setUp()
-{
-}
-
-void
-sk::util::test::collection::AbstractListTest::
-tearDown()
-{
-}
-

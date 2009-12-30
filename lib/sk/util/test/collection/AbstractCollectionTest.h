@@ -35,9 +35,6 @@ namespace sk {
             AbstractCollectionTest();
             virtual ~AbstractCollectionTest();
         
-            void setUp();
-            void tearDown();
-        
           protected:
             sk::util::Collection<sk::util::String>* makeCopyingCollection();
 
