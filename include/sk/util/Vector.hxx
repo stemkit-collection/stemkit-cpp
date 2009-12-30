@@ -46,9 +46,6 @@ namespace sk {
       private:
         Vector(const Vector<T, Policy>& other);
         Vector<T, Policy>& operator = (const Vector<T, Policy>& other);
-
-        typedef typename type::vector<T, Policy>::item_t item_t;
-        typedef typename type::vector<T, Policy>::container_t container_t;
     };
   }
 }
