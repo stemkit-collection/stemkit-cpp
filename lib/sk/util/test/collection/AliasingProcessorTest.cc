@@ -10,7 +10,7 @@
 
 #include "AliasingProcessorTest.h"
 #include <sk/util/ArrayList.cxx>
-#include <sk/util/AliasingProcessor.cxx>
+#include <sk/util/processor/Aliasing.hxx>
 #include <sk/util/String.h>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::util::test::AliasingProcessorTest);
@@ -41,14 +41,14 @@ void
 sk::util::test::AliasingProcessorTest::
 testAliasing()
 {
-  sk::util::ArrayList<sk::util::String> source;
+  sk::util::ArrayList<sk::util::String>::Copying source;
   sk::util::ArrayList<sk::util::String> target;
 
-  source.add(new sk::util::String("aaa"));
-  source.add(new sk::util::String("bbb"));
-  source.add(new sk::util::String("ccc"));
+  source.add("aaa");
+  source.add("bbb");
+  source.add("ccc");
 
-  source.forEach(AliasingProcessor<sk::util::String>(target));
+  source.forEach(processor::Aliasing<sk::util::String>(target));
 
   CPPUNIT_ASSERT_EQUAL(3, target.size());
   CPPUNIT_ASSERT(&source.get(0) == &target.get(0));

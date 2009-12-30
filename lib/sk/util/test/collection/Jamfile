@@ -4,6 +4,7 @@ test = sk-util-test ;
 
 test-objects = 
   TestSuite.cc
+  AliasingProcessorTest.cc
 
   PointerSlotTest.cc
   ReferenceSlotTest.cc

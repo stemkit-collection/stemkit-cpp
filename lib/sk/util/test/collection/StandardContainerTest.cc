@@ -9,7 +9,7 @@
 #include "StandardContainerTest.h"
 #include <sk/util/Holder.cxx>
 #include <sk/util/IndexOutOfBoundsException.h>
-#include <sk/util/CopyingProcessor.cxx>
+#include <sk/util/processor/Copying.hxx>
 #include <sk/util/test/Probe.cxx>
 #include <sk/util/selector/EqualValue.hxx>
 
@@ -288,7 +288,7 @@ testStandardContainerShuffle()
   l1.getMutable().add("zzz");
 
   Holder<List> l2(makeStoringList());
-  l1.getMutable().forEach(sk::util::CopyingProcessor<sk::util::String>(l2.getMutable()));
+  l1.getMutable().forEach(sk::util::processor::Copying<sk::util::String>(l2.getMutable()));
 
   CPPUNIT_ASSERT_EQUAL(l1.get().inspect(), l2.get().inspect());
 

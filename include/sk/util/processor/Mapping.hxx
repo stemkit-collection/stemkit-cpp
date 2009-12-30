@@ -28,7 +28,6 @@ namespace sk {
           }
       
         private:
-          // Allowing copy constructor.
           // Mapping(const Mapping<F, T>& other);
           Mapping<F, T>& operator = (const Mapping<F, T>& other);
 
