@@ -29,6 +29,8 @@ namespace sk {
     class Vector 
       : public sk::util::StandardContainer<T, Policy, type::vector<T, Policy> >
     {
+      typedef sk::util::StandardContainer<T, Policy, type::vector<T, Policy> > super_t;
+
       public:
         typedef Vector<T, slot::policy::Storing<T> > Storing;
         typedef Vector<T, slot::policy::Cloning<T> > Cloning;
@@ -40,6 +42,9 @@ namespace sk {
         Vector();
         ~Vector();
     
+        void sort(const sk::util::BinaryAssessor<T>& assessor);
+        void shuffle();
+
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
 

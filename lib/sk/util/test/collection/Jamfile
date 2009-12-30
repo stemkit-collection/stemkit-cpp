@@ -20,8 +20,9 @@ test-objects =
   AbstractListTest.cc
 
   StandardContainerTest.cc
-  ArrayListTest.cc
   VectorTest.cc
+  ArrayListTest.cc
+  LinkedListTest.cc
 ;
 
 use-project-library $(test) : sk.util sk.cppunit ;

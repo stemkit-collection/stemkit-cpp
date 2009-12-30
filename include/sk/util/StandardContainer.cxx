@@ -584,7 +584,7 @@ void
 sk::util::StandardContainer<T, Policy, Type>::
 sort()
 {
-  std::sort(_container.begin(), _container.end(), AssessingBinaryFunctor(sk::util::assessor::LessValues<T>()));
+  sort(assessor::LessValues<T>());
 }
 
 template<typename T, typename Policy, typename Type>
@@ -592,7 +592,7 @@ void
 sk::util::StandardContainer<T, Policy, Type>::
 sort(const sk::util::BinaryAssessor<T>& assessor)
 {
-  std::sort(_container.begin(), _container.end(), AssessingBinaryFunctor(assessor));
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
 }
 
 template<typename T, typename Policy, typename Type>
@@ -600,7 +600,7 @@ void
 sk::util::StandardContainer<T, Policy, Type>::
 shuffle()
 {
-  std::random_shuffle(_container.begin(), _container.end());
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
 }
 
 template<typename T, typename Policy, typename Type>

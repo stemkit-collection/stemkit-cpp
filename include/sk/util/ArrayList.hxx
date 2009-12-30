@@ -29,6 +29,8 @@ namespace sk {
     class ArrayList 
       : public sk::util::StandardContainer<T, Policy, type::deque<T, Policy> >
     {
+      typedef sk::util::StandardContainer<T, Policy, type::deque<T, Policy> > super_t;
+
       public:
         typedef ArrayList<T, slot::policy::Storing<T> > Storing;
         typedef ArrayList<T, slot::policy::Cloning<T> > Cloning;
@@ -40,6 +42,9 @@ namespace sk {
         ArrayList();
         ~ArrayList();
     
+        void sort(const sk::util::BinaryAssessor<T>& assessor);
+        void shuffle();
+
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
 
