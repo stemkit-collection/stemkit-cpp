@@ -13,9 +13,10 @@
 
 #include <sk/util/Class.h>
 #include <sk/util/StandardContainer.hxx>
-#include <sk/util/AbstractList.cxx>
 #include <sk/util/StreamLiner.h>
+#include <sk/util/StringArray.h>
 #include <sk/util/Break.h>
+#include <sk/util/Validator.h>
 #include <sk/util/NoSuchElementException.h>
 #include <sk/util/UnsupportedOperationException.h>
 #include <sk/util/selector/EqualPointer.hxx>
@@ -388,7 +389,7 @@ typename Type::container_t::iterator
 sk::util::StandardContainer<T, Policy, Type>::
 position(int index, int size)
 {
-  sk::util::AbstractList<T, Policy>::ensureIndex(index, size);
+  sk::util::Validator::ensureIndex(index, size);
   typename Type::container_t::iterator iterator = _container.begin();
   while(index--) {
     ++iterator;
@@ -401,7 +402,7 @@ typename Type::container_t::const_iterator
 sk::util::StandardContainer<T, Policy, Type>::
 position(int index, int size) const
 {
-  sk::util::AbstractList<T, Policy>::ensureIndex(index, size);
+  sk::util::Validator::ensureIndex(index, size);
   typename Type::container_t::const_iterator iterator = _container.begin();
   while(index--) {
     ++iterator;

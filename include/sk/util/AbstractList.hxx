@@ -75,8 +75,6 @@ namespace sk {
         using AbstractCollection<T, Policy>::size;
         using AbstractCollection<T, Policy>::isEmpty;
 
-        static void ensureIndex(int index, int size);
-
       private:
         AbstractList(const AbstractList<T, Policy>& other);
         AbstractList<T, Policy>& operator = (const AbstractList<T, Policy>& other);

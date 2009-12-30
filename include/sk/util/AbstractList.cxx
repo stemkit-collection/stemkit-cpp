@@ -14,6 +14,7 @@
 #include <sk/util/UnsupportedOperationException.h>
 #include <sk/util/IndexOutOfBoundsException.h>
 #include <sk/util/StringArray.h>
+#include <sk/util/Validator.h>
 #include <sk/util/selector/EqualPointer.hxx>
 
 template<typename T, typename Policy>
@@ -88,19 +89,9 @@ add(int /*index*/, T* /*object*/)
 }
 
 template<typename T, typename Policy>
-void
-sk::util::AbstractList<T, Policy>::
-ensureIndex(int index, int size)
-{
-  if((index < 0) || (index >= size)) {
-    throw sk::util::IndexOutOfBoundsException("index=" + sk::util::String::valueOf(index) + ", size=" + sk::util::String::valueOf(size));
-  }
-}
-
-template<typename T, typename Policy>
 struct sk::util::AbstractList<T, Policy>::IndexSelector : public virtual sk::util::Selector<T> {
   IndexSelector(int index, int size) : _index(index) {
-    sk::util::AbstractList<T, Policy>::ensureIndex(index, size);
+    sk::util::Validator::ensureIndex(index, size);
   }
 
   bool assess(const T& object) const {
