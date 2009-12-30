@@ -12,7 +12,7 @@
 #include <sk/util/NoSuchElementException.h>
 
 #include <sk/util/StringArray.h>
-#include <sk/util/InspectingConverter.cxx>
+#include <sk/util/mapper/Inspecting.hxx>
 
 static const char* __className = "sk::util::StringArray";
 
@@ -49,7 +49,7 @@ const sk::util::String
 sk::util::StringArray::
 inspect() const
 {
-  return getClass().getName() + '[' + map(sk::util::InspectingConverter<sk::util::String>()).join(" ", ", ", " ") + ']';
+  return getClass().getName() + '[' + map(sk::util::mapper::Inspecting<sk::util::String>()).join(" ", ", ", " ") + ']';
 }
 
 const sk::util::String
@@ -87,20 +87,20 @@ join(const sk::util::String& prologue, const sk::util::String& separator, const 
 
 const sk::util::StringArray
 sk::util::StringArray::
-map(const sk::util::Converter<sk::util::String, sk::util::String>& converter) const
+map(const sk::util::Mapper<sk::util::String>& mapper) const
 {
   sk::util::StringArray result;
   struct Mapper : public virtual sk::util::Processor<const sk::util::String> {
-    Mapper(sk::util::StringArray& array, const sk::util::Converter<sk::util::String, sk::util::String>& converter)
-      : _array(array), _converter(converter) {}
+    Mapper(sk::util::StringArray& array, const sk::util::Mapper<sk::util::String>& mapper)
+      : _array(array), _mapper(mapper) {}
 
     void process(const sk::util::String& item) const {
-      _array << _converter.convert(item);
+      _array << _mapper.map(item);
     }
     sk::util::StringArray& _array; 
-    const sk::util::Converter<sk::util::String, sk::util::String>& _converter;
+    const sk::util::Mapper<sk::util::String>& _mapper;
   };
-  forEach(Mapper(result, converter));
+  forEach(Mapper(result, mapper));
 
   return result;
 }

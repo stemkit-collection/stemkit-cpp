@@ -11,7 +11,7 @@
 #include <sk/util/Object.h>
 #include <sk/util/String.h>
 #include <sk/util/Processor.h>
-#include <sk/util/Converter.h>
+#include <sk/util/Mapper.h>
 #include <deque>
 
 namespace sk {
@@ -37,7 +37,7 @@ namespace sk {
         const sk::util::String pop();
         const sk::util::String shift();
         const sk::util::StringArray slice(int number) const;
-        const sk::util::StringArray map(const sk::util::Converter<sk::util::String, sk::util::String>& converter) const;
+        const sk::util::StringArray map(const sk::util::Mapper<sk::util::String>& mapper) const;
         const sk::util::String join(const sk::util::String& separator) const;
         const sk::util::String join(const sk::util::String& prologue, const sk::util::String& separator) const;
         const sk::util::String join(const sk::util::String& prologue, const sk::util::String& separator, const sk::util::String& epilogue) const;
