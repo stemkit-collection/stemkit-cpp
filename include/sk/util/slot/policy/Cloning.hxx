@@ -10,7 +10,7 @@
 #define _SK_UTIL_SLOT_POLICY_CLONING_HXX_
 
 #include <sk/util/slot/policy/Storing.hxx>
-#include <sk/util/slot/policy/Accepting.hxx>
+#include <sk/util/slot/policy/Acceptor.hxx>
 #include <sk/util/covariant.h>
 
 namespace sk {
@@ -19,19 +19,27 @@ namespace sk {
       namespace policy {
         template<typename T>
         struct Cloning 
-          : public Accepting<T, Cloning<T> > 
+          : public Storing<T>
         {
           public:
-            static void setObject(typename Storing<T>::slot_storage_t& storage, const T& object) {
-              Storing<T>::setObject(storage, sk::util::covariant<T>(object.clone()));
+            typedef Storing<T> super_t;
+            typedef typename super_t::slot_t slot_t;
+            typedef typename super_t::slot_storage_t slot_storage_t;
+
+            static void setObject(slot_storage_t& storage, const T& object) {
+              super_t::setObject(storage, sk::util::covariant<T>(object.clone()));
             }
 
-            static void setObject(typename Storing<T>::slot_storage_t& storage, T& object) {
-              Storing<T>::setObject(storage, sk::util::covariant<T>(object.clone()));
+            static void setObject(slot_storage_t& storage, T& object) {
+              super_t::setObject(storage, sk::util::covariant<T>(object.clone()));
             }
 
-            static void setObject(typename Storing<T>::slot_storage_t& storage, T* object) {
-              Storing<T>::setObject(storage, object);
+            static void setObject(slot_storage_t& storage, T* object) {
+              super_t::setObject(storage, object);
+            }
+
+            static void acceptSlot(slot_storage_t& storage, slot_storage_t other) {
+              Acceptor<T, Cloning<T> >::acceptSlot(storage, other);
             }
 
           protected:

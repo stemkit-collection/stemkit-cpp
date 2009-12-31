@@ -6,26 +6,23 @@
  *  You must read and accept the license prior to use.
 */
 
-#ifndef _SK_UTIL_SLOT_POLICY_ACCEPTING_HXX_
-#define _SK_UTIL_SLOT_POLICY_ACCEPTING_HXX_
-
-#include <sk/util/slot/policy/Storing.hxx>
+#ifndef _SK_UTIL_SLOT_POLICY_ACCEPTOR_HXX_
+#define _SK_UTIL_SLOT_POLICY_ACCEPTOR_HXX_
 
 namespace sk {
   namespace util {
     namespace slot {
       namespace policy {
         template<typename T, typename Policy>
-        class Accepting 
-          : public Storing<T>
+        class Acceptor
         {
           public:
-            static void acceptSlot(typename Storing<T>::slot_storage_t& storage, typename Storing<T>::slot_storage_t other) {
+            static void acceptSlot(typename Policy::slot_storage_t& storage, typename Policy::slot_storage_t other) {
               if(storage == other) {
                 return;
               }
               if(Policy::hasSlot(other) == true) {
-                Policy::setObject(storage, Policy::getSlot(other).get());
+                Policy::setObject(storage, Policy::getObject(other));
               }
               else {
                 Policy::clearSlot(storage);
@@ -37,4 +34,4 @@ namespace sk {
   }
 }
 
-#endif /* _SK_UTIL_SLOT_POLICY_ACCEPTING_HXX_ */
+#endif /* _SK_UTIL_SLOT_POLICY_ACCEPTOR_HXX_ */

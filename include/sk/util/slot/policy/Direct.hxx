@@ -6,63 +6,54 @@
  *  You must read and accept the license prior to use.
 */
 
-#ifndef _SK_UTIL_SLOT_POLICY_STORING_HXX_
-#define _SK_UTIL_SLOT_POLICY_STORING_HXX_
+#ifndef _SK_UTIL_SLOT_POLICY_DIRECT_HXX_
+#define _SK_UTIL_SLOT_POLICY_DIRECT_HXX_
 
-#include <sk/util/Slot.hxx>
 #include <sk/util/MissingResourceException.h>
-#include <sk/util/slot/Reference.hxx>
-#include <sk/util/slot/Pointer.hxx>
+#include <sk/util/inspect.h>
 
 namespace sk {
   namespace util {
     namespace slot {
       namespace policy {
-        template<typename T, typename SlotMixin = slot::mixin::None>
-        class Storing
+        template<typename T>
+        class Direct
         {
           public: 
-            typedef sk::util::Slot<T, SlotMixin> slot_t;
+            typedef T slot_t;
             typedef slot_t* slot_storage_t;
 
             static const T& getObject(const slot_storage_t storage) {
-              return getSlot(storage).get();
+              return getSlot(storage);
             }
 
             static T& getMutableObject(const slot_storage_t storage) {
-              return getSlot(storage).getMutable();
+              return getSlot(storage);
             }
 
             static bool isObjectOwner(const slot_storage_t storage) {
-              return getSlot(storage).isOwner();
+              return true;
             }
 
-            static T* depriveObject(const slot_storage_t storage) {
-              return getSlot(storage).deprive();
+            static T* depriveObject(slot_storage_t storage) {
+              T& object = getSlot(storage);
+              storage = 0;
+
+              return &object;
             }
 
             static const sk::util::String inspectSlot(const slot_storage_t storage) {
-              return getSlot(storage).inspect();
+              return sk::util::inspect(getObject(storage));
             }
 
             static void setSlot(slot_storage_t& storage, slot_t* slot) {
               storage = slot;
             }
 
-            static void setObject(slot_storage_t& storage, const T& object) {
-              clearSlot(storage);
-              setSlot(storage, new slot::Reference<T, SlotMixin>(object));
-            }
-
-            static void setObject(slot_storage_t& storage, T& object) {
-              clearSlot(storage);
-              setSlot(storage, new slot::Reference<T, SlotMixin>(object));
-            }
-
             static void setObject(slot_storage_t& storage, T* object) {
               clearSlot(storage);
               if(object != 0) {
-                setSlot(storage, new slot::Pointer<T, SlotMixin>(object));
+                setSlot(storage, object);
               }
             }
 
@@ -77,17 +68,17 @@ namespace sk {
 
             static slot_t& getSlot(const slot_storage_t storage) {
               if(hasSlot(storage) == false) {
-                throw MissingResourceException("sk::util::slot::policy::Storing#getSlot()");
+                throw MissingResourceException("sk::util::slot::policy::Direct#getSlot()");
               }
               return *storage;
             }
 
           protected:
-            Storing();
+            Direct();
         };
       }
     }
   }
 }
 
-#endif /* _SK_UTIL_SLOT_POLICY_STORING_HXX_ */
+#endif /* _SK_UTIL_SLOT_POLICY_DIRECT_HXX_ */
