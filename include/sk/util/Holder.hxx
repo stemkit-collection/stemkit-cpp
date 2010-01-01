@@ -24,6 +24,7 @@ namespace sk {
     {
       public:
         typedef Holder<T, slot::policy::Storing<T> > Storing;
+        typedef Holder<T, slot::policy::Direct<T> > Direct;
         typedef Holder<T, slot::policy::Cloning<T> > Cloning;
         typedef Holder<T, slot::policy::Copying<T> > Copying;
         typedef Holder<T, slot::policy::Aliasing<T> > Aliasing;
@@ -32,6 +33,7 @@ namespace sk {
       public:
         Holder();
         Holder(const Storing& other);
+        Holder(const Direct& other);
         Holder(const Copying& other);
         Holder(const Cloning& other);
         Holder(const Aliasing& other);
@@ -43,6 +45,7 @@ namespace sk {
         virtual ~Holder();
 
         Holder<T, Policy>& operator=(const Storing& other);
+        Holder<T, Policy>& operator=(const Direct& other);
         Holder<T, Policy>& operator=(const Copying& other);
         Holder<T, Policy>& operator=(const Cloning& other);
         Holder<T, Policy>& operator=(const Aliasing& other);
@@ -71,6 +74,7 @@ namespace sk {
 
       private:
         friend class Holder<T, slot::policy::Storing<T> >;
+        friend class Holder<T, slot::policy::Direct<T> >;
         friend class Holder<T, slot::policy::Copying<T> >;
         friend class Holder<T, slot::policy::Cloning<T> >;
         friend class Holder<T, slot::policy::Aliasing<T> >;

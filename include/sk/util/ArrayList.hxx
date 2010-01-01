@@ -33,6 +33,7 @@ namespace sk {
 
       public:
         typedef ArrayList<T, slot::policy::Storing<T> > Storing;
+        typedef ArrayList<T, slot::policy::Direct<T> > Direct;
         typedef ArrayList<T, slot::policy::Cloning<T> > Cloning;
         typedef ArrayList<T, slot::policy::Copying<T> > Copying;
         typedef ArrayList<T, slot::policy::Aliasing<T> > Aliasing;

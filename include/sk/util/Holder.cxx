@@ -31,6 +31,14 @@ Holder(const Storing& other)
 
 template<typename T, typename Policy>
 sk::util::Holder<T, Policy>::
+Holder(const Direct& other)
+  : _storage(0)
+{
+  Policy::acceptSlot(_storage, other._storage);
+}
+
+template<typename T, typename Policy>
+sk::util::Holder<T, Policy>::
 Holder(const Copying& other)
   : _storage(0)
 {
@@ -96,6 +104,15 @@ template<typename T, typename Policy>
 sk::util::Holder<T, Policy>&
 sk::util::Holder<T, Policy>::
 operator=(const Storing& other)
+{
+  Policy::acceptSlot(_storage, other._storage);
+  return *this;
+}
+
+template<typename T, typename Policy>
+sk::util::Holder<T, Policy>&
+sk::util::Holder<T, Policy>::
+operator=(const Direct& other)
 {
   Policy::acceptSlot(_storage, other._storage);
   return *this;

@@ -33,6 +33,7 @@ namespace sk {
 
       public:
         typedef LinkedList<T, slot::policy::Storing<T> > Storing;
+        typedef LinkedList<T, slot::policy::Direct<T> > Direct;
         typedef LinkedList<T, slot::policy::Cloning<T> > Cloning;
         typedef LinkedList<T, slot::policy::Copying<T> > Copying;
         typedef LinkedList<T, slot::policy::Aliasing<T> > Aliasing;

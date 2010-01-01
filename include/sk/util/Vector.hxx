@@ -33,6 +33,7 @@ namespace sk {
 
       public:
         typedef Vector<T, slot::policy::Storing<T> > Storing;
+        typedef Vector<T, slot::policy::Direct<T> > Direct;
         typedef Vector<T, slot::policy::Cloning<T> > Cloning;
         typedef Vector<T, slot::policy::Copying<T> > Copying;
         typedef Vector<T, slot::policy::Aliasing<T> > Aliasing;
