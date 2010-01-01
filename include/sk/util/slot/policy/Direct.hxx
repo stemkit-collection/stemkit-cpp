@@ -43,7 +43,7 @@ namespace sk {
             }
 
             static const sk::util::String inspectSlot(const slot_storage_t storage) {
-              return sk::util::inspect(getObject(storage));
+              return '*' + sk::util::inspect(getObject(storage));
             }
 
             static void setSlot(slot_storage_t& storage, slot_t* slot) {

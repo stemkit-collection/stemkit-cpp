@@ -9,6 +9,7 @@
 #ifndef _SK_UTIL_SLOT_POLICY_COPYING_HXX_
 #define _SK_UTIL_SLOT_POLICY_COPYING_HXX_
 
+#include <sk/util/slot/policy/Direct.hxx>
 #include <sk/util/slot/policy/Storing.hxx>
 #include <sk/util/slot/policy/Acceptor.hxx>
 
@@ -18,10 +19,10 @@ namespace sk {
       namespace policy {
         template<typename T>
         struct Copying 
-          : public Storing<T>
+          : public Direct<T>
         {
           public:
-            typedef Storing<T> super_t;
+            typedef Direct<T> super_t;
             typedef typename super_t::slot_t slot_t;
             typedef typename super_t::slot_storage_t slot_storage_t;
 
@@ -39,6 +40,10 @@ namespace sk {
 
             static void acceptSlot(slot_storage_t& storage, slot_storage_t other) {
               Acceptor<T, Copying<T> >::acceptSlot(storage, other);
+            }
+
+            static void acceptSlot(slot_storage_t& storage, typename Storing<T>::slot_storage_t other) {
+              Acceptor<T, Copying<T>, Storing<T> >::acceptSlot(storage, other);
             }
 
           protected:
