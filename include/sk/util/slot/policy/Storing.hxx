@@ -66,6 +66,13 @@ namespace sk {
               }
             }
 
+            static bool hasObject(const slot_storage_t storage) {
+              if(hasSlot(storage) == true) {
+                return getSlot(storage).isEmpty() == false;
+              }
+              return false;
+            }
+
             static bool hasSlot(const slot_storage_t storage) {
               return storage != 0;
             }

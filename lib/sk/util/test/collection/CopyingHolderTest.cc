@@ -84,11 +84,11 @@ testAssignment()
   Holder<String>::Copying holder("abc");
   Holder<String>::Copying other("cba");
 
-  CPPUNIT_ASSERT_EQUAL(String("cba").inspect(), other.get().inspect());
+  CPPUNIT_ASSERT_EQUAL("cba", other.get());
   other = holder;
 
-  CPPUNIT_ASSERT_EQUAL(String("abc").inspect(), holder.get().inspect());
-  CPPUNIT_ASSERT_EQUAL(String("abc").inspect(), other.get().inspect());
+  CPPUNIT_ASSERT_EQUAL("abc", holder.get());
+  CPPUNIT_ASSERT_EQUAL("abc", other.get());
 
   CPPUNIT_ASSERT_EQUAL(true, holder.isOwner());
   CPPUNIT_ASSERT_EQUAL(true, other.isOwner());

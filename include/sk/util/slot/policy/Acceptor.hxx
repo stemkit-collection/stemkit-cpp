@@ -13,20 +13,22 @@ namespace sk {
   namespace util {
     namespace slot {
       namespace policy {
-        template<typename T, typename Policy>
+        template<typename T, typename Target, typename Source = Target>
         class Acceptor
         {
           public:
-            static void acceptSlot(typename Policy::slot_storage_t& storage, typename Policy::slot_storage_t other) {
-              if(storage == other) {
+            static void acceptSlot(typename Target::slot_storage_t& storage, typename Source::slot_storage_t other) {
+              if(Source::hasObject(other) == true) {
+                const T& object = Source::getObject(other);
+                if(Target::hasObject(storage) == true) {
+                  if(&Target::getObject(storage) == &object) {
+                    return;
+                  }
+                }
+                Target::setObject(storage, object);
                 return;
               }
-              if(Policy::hasSlot(other) == true) {
-                Policy::setObject(storage, Policy::getObject(other));
-              }
-              else {
-                Policy::clearSlot(storage);
-              }
+              Target::clearSlot(storage);
             }
         };
       }
