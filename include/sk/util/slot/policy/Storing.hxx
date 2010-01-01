@@ -73,6 +73,13 @@ namespace sk {
               return false;
             }
 
+            static bool hasMutableObject(const slot_storage_t storage) {
+              if(hasObject(storage) == true) {
+                return getSlot(storage).isMutable();
+              }
+              return false;
+            }
+
             static bool hasSlot(const slot_storage_t storage) {
               return storage != 0;
             }

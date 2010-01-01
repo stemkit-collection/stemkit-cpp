@@ -25,7 +25,12 @@ namespace sk {
                     return;
                   }
                 }
-                Target::setObject(storage, object);
+                if(Source::hasMutableObject(other) == true) {
+                  Target::setObject(storage, Source::getMutableObject(other));
+                }
+                else {
+                  Target::setObject(storage, object);
+                }
                 return;
               }
               Target::clearSlot(storage);
