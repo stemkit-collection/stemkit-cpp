@@ -105,13 +105,4 @@ replace(T* object)
   return original;
 }
 
-template<typename T, typename Mixin>
-const sk::util::String
-sk::util::Slot<T, Mixin>::
-inspect() const
-{
-  T* object = sk::util::Slot<T, Mixin>::_object;
-  return (isOwner() == true ? "*" : "&") + (object == 0 ? sk::util::inspect(object) : sk::util::inspect(*object));
-}
-
 #endif /* _SK_UTIL_SLOT_CXX_ */

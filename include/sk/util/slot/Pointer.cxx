@@ -24,8 +24,17 @@ sk::util::slot::Pointer<T, Mixin>::
 ~Pointer()
 {
   if(Slot<T, Mixin>::isEmpty() == false) {
-    delete Slot<T, Mixin>::deprive();
+    delete Slot<T, Mixin>::_object;
   }
+}
+
+template<typename T, typename Mixin>
+const sk::util::String
+sk::util::slot::Pointer<T, Mixin>::
+inspect() const
+{
+  T* object = sk::util::Slot<T, Mixin>::_object;
+  return "*" + (object == 0 ? sk::util::inspect(object) : sk::util::inspect(*object));
 }
 
 #endif /* _SK_UTIL_SLOT_POINTER_CXX_ */

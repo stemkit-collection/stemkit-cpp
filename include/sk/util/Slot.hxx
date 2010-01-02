@@ -34,12 +34,14 @@ namespace sk {
         T* deprive();
         T* replace(T* object);
 
-        const sk::util::String inspect() const;
+        virtual const sk::util::String inspect() const = 0;
 
       protected:
         Slot(const T& object);
         Slot(T& object);
         Slot(T* object);
+
+        T* _object;
 
       private:
         Slot<T, Mixin>& operator = (const Slot<T, Mixin>& other);
@@ -47,7 +49,6 @@ namespace sk {
         void setOwner(bool state);
         void setMutable(bool state);
 
-        T* _object;
         std::bitset<8> _traits;
     };
   }

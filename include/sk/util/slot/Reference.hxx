@@ -21,6 +21,8 @@ namespace sk {
         public:
           Reference(const T& object);
           Reference(T& object);
+
+          const sk::util::String inspect() const;
       };
     }
   }
