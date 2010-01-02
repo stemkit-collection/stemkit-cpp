@@ -21,6 +21,7 @@ namespace sk {
           CPPUNIT_TEST(testBasics);
           CPPUNIT_TEST(testAssignment);
           CPPUNIT_TEST(testAssignmentFromOther);
+          CPPUNIT_TEST(testAssignmentFromMutable);
         CPPUNIT_TEST_SUITE_END();
         
         public:
@@ -32,6 +33,7 @@ namespace sk {
           void testBasics();
           void testAssignment();
           void testAssignmentFromOther();
+          void testAssignmentFromMutable();
           
         private:
           AliasingHolderTest(const AliasingHolderTest& other);

@@ -221,6 +221,14 @@ isEmpty() const
 template<typename T, typename Policy>
 bool
 sk::util::Holder<T, Policy>::
+isMutable() const
+{
+  return Policy::hasMutableObject(_storage);
+}
+
+template<typename T, typename Policy>
+bool
+sk::util::Holder<T, Policy>::
 contains(const T& object) const
 {
   if(Policy::hasSlot(_storage) == false) {

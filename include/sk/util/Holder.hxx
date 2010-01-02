@@ -56,6 +56,8 @@ namespace sk {
         bool contains(const T& object) const;
         bool isEmpty() const;
         bool isOwner() const;
+        bool isMutable() const;
+
         const T& get() const;
         T& getMutable();
 

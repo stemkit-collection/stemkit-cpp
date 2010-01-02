@@ -9,6 +9,7 @@
 #ifndef _SK_UTIL_SLOT_POLICY_ALIASING_HXX_
 #define _SK_UTIL_SLOT_POLICY_ALIASING_HXX_
 
+#include <sk/util/slot/policy/Direct.hxx>
 #include <sk/util/slot/policy/Storing.hxx>
 #include <sk/util/slot/policy/Acceptor.hxx>
 
@@ -27,6 +28,10 @@ namespace sk {
 
             static void acceptSlot(slot_storage_t& storage, slot_storage_t other) {
               Acceptor<T, Aliasing<T> >::acceptSlot(storage, other);
+            }
+
+            static void acceptSlot(slot_storage_t& storage, typename Direct<T>::slot_storage_t other) {
+              Acceptor<T, Aliasing<T>, Direct<T> >::acceptSlot(storage, other);
             }
         };
       }
