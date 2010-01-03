@@ -55,7 +55,7 @@ sk::rt::scope::Aggregator::
 setArbitrator(scope::Arbitrator* arbitrator)
 {
   try {
-    _arbitratorHolder.get().reset();
+    _arbitratorHolder.getMutable().reset();
   }
   catch(...) {
     _arbitratorHolder.set(arbitrator);
@@ -68,14 +68,14 @@ sk::rt::scope::Arbitrator&
 sk::rt::scope::Aggregator::
 getArbitrator() const
 {
-  return _arbitratorHolder.get();
+  return _arbitratorHolder.getMutable();
 }
 
 sk::rt::scope::Aggregator&
 sk::rt::scope::Aggregator::
 obtain(const sk::util::String& name)
 {
-  sk::rt::Locker locker(_arbitratorHolder.get());
+  sk::rt::Locker locker(_arbitratorHolder.getMutable());
   registry::iterator iterator = _subordinates.find(name);
   if(iterator != _subordinates.end()) {
     return iterator->second;
@@ -98,7 +98,7 @@ sk::rt::scope::Aggregator::
 ensureOwnConfig()
 {
   if(_configHolderHolder.get().isOwner() == false) {
-    _configHolderHolder.get().set(new Config(_configHolderHolder.get().get()));
+    _configHolderHolder.getMutable().set(new Config(_configHolderHolder.get().get()));
   }
 }
 
@@ -116,7 +116,7 @@ getConfigForUpdate()
   ensureOwnConfigHolder();
   ensureOwnConfig();
 
-  return _configHolderHolder.get().get();
+  return _configHolderHolder.getMutable().getMutable();
 }
 
 int

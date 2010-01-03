@@ -72,7 +72,7 @@ sk::rt::logger::Destination&
 sk::rt::scope::Config::
 getLogDestination() const
 {
-  return _destinationHolder.get();
+  return _destinationHolder.getMutable();
 }
 
 bool

@@ -69,8 +69,8 @@ testEarlyMakeReady()
   CPPUNIT_ASSERT_EQUAL(false, File::exists("abc"));
   CPPUNIT_ASSERT_EQUAL(false, File::exists("abc-1"));
 
-  _fileHolder.get().makeReady();
-  _fileHolder.get().close();
+  _fileHolder.getMutable().makeReady();
+  _fileHolder.getMutable().close();
 
   File master("abc");
   File data("abc-1");
@@ -89,8 +89,8 @@ testDelayedDispatch()
   CPPUNIT_ASSERT_EQUAL(false, File::exists("abc"));
   CPPUNIT_ASSERT_EQUAL(false, File::exists("abc-1"));
 
-  _fileHolder.get().dispatch("hello, world!!!\n", 16);
-  _fileHolder.get().close();
+  _fileHolder.getMutable().dispatch("hello, world!!!\n", 16);
+  _fileHolder.getMutable().close();
 
   File master("abc");
   File data("abc-1");
@@ -107,43 +107,43 @@ void
 sk::rt::logger::test::PointingCyclerTest::
 testCycling()
 {
-  _fileHolder.get().getCycler().setChunks(2);
-  _fileHolder.get().getCycler().setSize(20);
+  _fileHolder.getMutable().getCycler().setChunks(2);
+  _fileHolder.getMutable().getCycler().setSize(20);
 
   CPPUNIT_ASSERT_EQUAL(false, File::exists("abc"));
   CPPUNIT_ASSERT_EQUAL(false, File::exists("abc-1"));
   CPPUNIT_ASSERT_EQUAL(false, File::exists("abc-2"));
 
-  _fileHolder.get().dispatch("aaaa\n", 5);
-  _fileHolder.get().close();
+  _fileHolder.getMutable().dispatch("aaaa\n", 5);
+  _fileHolder.getMutable().close();
 
   CPPUNIT_ASSERT_EQUAL("[abc 1 of 2]", File("abc").getLines());
   CPPUNIT_ASSERT_EQUAL("[abc 1 of 2]\naaaa", File("abc-1").getLines());
   CPPUNIT_ASSERT_EQUAL(false, File::exists("abc-2"));
 
-  _fileHolder.get().dispatch("bbbb\n", 5);
-  _fileHolder.get().close();
+  _fileHolder.getMutable().dispatch("bbbb\n", 5);
+  _fileHolder.getMutable().close();
 
   CPPUNIT_ASSERT_EQUAL("[abc 2 of 2]", File("abc").getLines());
   CPPUNIT_ASSERT_EQUAL("[abc 1 of 2]\naaaa\nbbbb\n[---Switched---]", File("abc-1").getLines());
   CPPUNIT_ASSERT_EQUAL("[abc 2 of 2]", File("abc-2").getLines());
 
-  _fileHolder.get().dispatch("cccc\n", 5);
-  _fileHolder.get().close();
+  _fileHolder.getMutable().dispatch("cccc\n", 5);
+  _fileHolder.getMutable().close();
 
   CPPUNIT_ASSERT_EQUAL("[abc 2 of 2]", File("abc").getLines());
   CPPUNIT_ASSERT_EQUAL("[abc 1 of 2]\naaaa\nbbbb\n[---Switched---]", File("abc-1").getLines());
   CPPUNIT_ASSERT_EQUAL("[abc 2 of 2]\ncccc", File("abc-2").getLines());
 
-  _fileHolder.get().dispatch("dddd\n", 5);
-  _fileHolder.get().close();
+  _fileHolder.getMutable().dispatch("dddd\n", 5);
+  _fileHolder.getMutable().close();
 
   CPPUNIT_ASSERT_EQUAL("[abc 1 of 2]", File("abc").getLines());
   CPPUNIT_ASSERT_EQUAL("[abc 1 of 2]", File("abc-1").getLines());
   CPPUNIT_ASSERT_EQUAL("[abc 2 of 2]\ncccc\ndddd\n[---Switched---]", File("abc-2").getLines());
 
-  _fileHolder.get().dispatch("eeee\n", 5);
-  _fileHolder.get().close();
+  _fileHolder.getMutable().dispatch("eeee\n", 5);
+  _fileHolder.getMutable().close();
 
   CPPUNIT_ASSERT_EQUAL("[abc 1 of 2]", File("abc").getLines());
   CPPUNIT_ASSERT_EQUAL("[abc 1 of 2]\neeee", File("abc-1").getLines());
@@ -154,14 +154,14 @@ void
 sk::rt::logger::test::PointingCyclerTest::
 testEnsureChunks()
 {
-  _fileHolder.get().getCycler().setChunks(2);
+  _fileHolder.getMutable().getCycler().setChunks(2);
 
   CPPUNIT_ASSERT_EQUAL(false, File::exists("abc"));
   CPPUNIT_ASSERT_EQUAL(false, File::exists("abc-1"));
   CPPUNIT_ASSERT_EQUAL(false, File::exists("abc-2"));
   CPPUNIT_ASSERT_EQUAL(false, File::exists("abc-3"));
 
-  _fileHolder.get().getCycler().ensureChunks();
+  _fileHolder.getMutable().getCycler().ensureChunks();
 
   CPPUNIT_ASSERT_EQUAL(true, File::exists("abc"));
   CPPUNIT_ASSERT_EQUAL(true, File::exists("abc-1"));

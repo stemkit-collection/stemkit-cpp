@@ -63,8 +63,8 @@ sk::rt::logger::test::StableHeadCyclerTest::
 testEarlyMakeReady()
 {
   CPPUNIT_ASSERT_EQUAL(false, std::ifstream("abc").good());
-  _fileHolder.get().makeReady();
-  _fileHolder.get().close();
+  _fileHolder.getMutable().makeReady();
+  _fileHolder.getMutable().close();
 
   std::ifstream stream("abc");
   std::string depot;
@@ -80,8 +80,8 @@ sk::rt::logger::test::StableHeadCyclerTest::
 testDelayedDispatch()
 {
   CPPUNIT_ASSERT_EQUAL(false, std::ifstream("abc").good());
-  _fileHolder.get().dispatch("hello, world!!!\n", 16);
-  _fileHolder.get().close();
+  _fileHolder.getMutable().dispatch("hello, world!!!\n", 16);
+  _fileHolder.getMutable().close();
 
   std::ifstream stream("abc");
   std::string depot;

@@ -60,7 +60,7 @@ sk::rt::logger::test::PipeDestinationTest::
 testEarlyMakeReady()
 {
   CPPUNIT_ASSERT_EQUAL(false, std::ifstream("abc").good());
-  _pipeHolder.get().makeReady();
+  _pipeHolder.getMutable().makeReady();
   sleep(1);
 
   std::ifstream stream("abc");
@@ -77,7 +77,7 @@ sk::rt::logger::test::PipeDestinationTest::
 testDelayedDispatch()
 {
   CPPUNIT_ASSERT_EQUAL(false, std::ifstream("abc").good());
-  _pipeHolder.get().dispatch("hello, world!!!\n", 16);
+  _pipeHolder.getMutable().dispatch("hello, world!!!\n", 16);
   sleep(1);
 
   std::ifstream stream("abc");
@@ -95,7 +95,7 @@ sk::rt::logger::test::PipeDestinationTest::
 testMessageOnExit()
 {
   CPPUNIT_ASSERT_EQUAL(false, std::ifstream("abc").good());
-  _pipeHolder.get().makeReady();
+  _pipeHolder.getMutable().makeReady();
   sleep(1);
 
   std::ifstream stream("abc");
@@ -107,7 +107,7 @@ testMessageOnExit()
   CPPUNIT_ASSERT_EQUAL(false, std::getline(stream, depot).good());
   
   stream.clear();
-  _pipeHolder.get().dispatch("hello, world!!!\n", 16);
+  _pipeHolder.getMutable().dispatch("hello, world!!!\n", 16);
   sleep(1);
 
   CPPUNIT_ASSERT_EQUAL(true, std::getline(stream, depot).good());
@@ -115,7 +115,7 @@ testMessageOnExit()
   CPPUNIT_ASSERT_EQUAL(false, std::getline(stream, depot).good());
 
   stream.clear();
-  _pipeHolder.get().close();
+  _pipeHolder.getMutable().close();
   sleep(1);
 
   CPPUNIT_ASSERT_EQUAL(true, std::getline(stream, depot).good());
@@ -128,12 +128,12 @@ void
 sk::rt::logger::test::PipeDestinationTest::
 testWriteErrorAfterClose()
 {
-  _pipeHolder.get().makeReady();
-  _pipeHolder.get().close();
+  _pipeHolder.getMutable().makeReady();
+  _pipeHolder.getMutable().close();
 
   for(int counter=3; counter ;--counter) {
     try {
-      _pipeHolder.get().dispatch("abc", 3);
+      _pipeHolder.getMutable().dispatch("abc", 3);
       CPPUNIT_FAIL("No expected exception, iteration=" + sk::util::Integer::toString(counter));
     }
     catch(const sk::util::SystemExit& exception) {}

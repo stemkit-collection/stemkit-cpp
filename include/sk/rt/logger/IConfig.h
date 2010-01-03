@@ -22,7 +22,7 @@ namespace sk {
       {
         public:
           virtual bool checkLogLevel(const Level& level) const = 0;
-          virtual const logger::Destination& getLogDestination() const = 0;
+          virtual logger::Destination& getLogDestination() const = 0;
           virtual const char* getTimeFormat() const = 0;
           virtual const char* getLineTerminator() const = 0;
           virtual bool isLogPid() const = 0;

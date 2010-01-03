@@ -77,7 +77,7 @@ testNoLeftovers()
   ProbeDestination probe(descriptors[0], descriptors[1]);
   sk::util::Holder<logger::PipeDestination> holder(new logger::PipeDestination(probe));
 
-  holder.get().makeReady();
+  holder.getMutable().makeReady();
   ::close(descriptors[0]);
 
   CPPUNIT_ASSERT_EQUAL(3, (int)::write(descriptors[1], "aaa", 3));
