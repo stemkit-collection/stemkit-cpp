@@ -62,8 +62,8 @@ write(const char* buffer, int offset, int length)
     guaranteed_length = std::min(uint64_t(length), _depotSize - _depotOffset);
   }
   if(_vectorHolder.isEmpty() == false) {
-      _vectorHolder.get().resize(_depotOffset + guaranteed_length);
-      _depot = &_vectorHolder.get().front();
+      _vectorHolder.getMutable().resize(_depotOffset + guaranteed_length);
+      _depot = &_vectorHolder.getMutable().front();
   }
   std::copy(buffer + offset, buffer + offset + guaranteed_length, _depot + _depotOffset);
   _depotOffset += guaranteed_length;

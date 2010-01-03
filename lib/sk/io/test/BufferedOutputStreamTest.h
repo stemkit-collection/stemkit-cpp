@@ -50,10 +50,10 @@ namespace sk {
           BufferedOutputStreamTest& operator = (const BufferedOutputStreamTest& other);
 
           MockOutputStream& mock() {
-            return _mockHolder.get();
+            return _mockHolder.getMutable();
           }
           sk::io::OutputStream& stream() {
-            return _streamHolder.get();
+            return _streamHolder.getMutable();
           }
           sk::util::Holder<MockOutputStream> _mockHolder;
           sk::util::Holder<sk::io::OutputStream> _streamHolder;

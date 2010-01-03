@@ -112,7 +112,7 @@ sk::sys::Process::Implementation&
 sk::sys::Process::
 process() const
 {
-  return _implementationHolder.get();
+  return _implementationHolder.getMutable();
 }
 
 const sk::util::Class
@@ -194,7 +194,7 @@ namespace {
     private:
       const sk::rt::Scope& _scope;
       sk::util::PropertyRegistry& _environment;
-      sk::util::ArrayList<const sk::io::Stream> _streams;
+      sk::util::ArrayList<sk::io::Stream> _streams;
   };
 }
 

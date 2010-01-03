@@ -36,10 +36,10 @@ namespace sk {
           FileDescriptorTest& operator = (const FileDescriptorTest& other);
 
           sk::io::FileDescriptor& input() {
-            return _readDescriptor.get();
+            return _readDescriptor.getMutable();
           }
           sk::io::FileDescriptor& output() {
-            return _writeDescriptor.get();
+            return _writeDescriptor.getMutable();
           }
           sk::util::Holder<FileDescriptor> _readDescriptor;
           sk::util::Holder<FileDescriptor> _writeDescriptor;

@@ -36,19 +36,19 @@ struct sk::sys::PipeProcess::Listener
 
 sk::sys::PipeProcess::
 PipeProcess(const sk::util::StringArray& cmdline)
-  : _listenerHolder(new Listener), _process(_listenerHolder.get().stdinPipe.inputStream(), cmdline, _listenerHolder.get())
+  : _listenerHolder(new Listener), _process(_listenerHolder.get().stdinPipe.inputStream(), cmdline, _listenerHolder.getMutable())
 {
-  _listenerHolder.get().stdoutPipe.closeOutput();
-  _listenerHolder.get().stderrPipe.closeOutput();
+  _listenerHolder.getMutable().stdoutPipe.closeOutput();
+  _listenerHolder.getMutable().stderrPipe.closeOutput();
 }
 
 sk::sys::PipeProcess::
 PipeProcess(sk::io::FileDescriptorInputStream& inputStream, const sk::util::StringArray& cmdline)
-  : _listenerHolder(new Listener), _process(inputStream, cmdline, _listenerHolder.get())
+  : _listenerHolder(new Listener), _process(inputStream, cmdline, _listenerHolder.getMutable())
 {
-  _listenerHolder.get().stdinPipe.close();
-  _listenerHolder.get().stdoutPipe.closeOutput();
-  _listenerHolder.get().stderrPipe.closeOutput();
+  _listenerHolder.getMutable().stdinPipe.close();
+  _listenerHolder.getMutable().stdoutPipe.closeOutput();
+  _listenerHolder.getMutable().stderrPipe.closeOutput();
 }
 
 sk::sys::PipeProcess::

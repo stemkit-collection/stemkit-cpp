@@ -69,22 +69,22 @@ close()
 {
   closeTty();
 
-  _masterSlavePipeHolder.get().close();
-  _slaveMasterPipeHolder.get().close();
+  _masterSlavePipeHolder.getMutable().close();
+  _slaveMasterPipeHolder.getMutable().close();
 }
 
 void
 sk::io::Pty::
 closeTty()
 {
-  _ttyHolder.get().close();
+  _ttyHolder.getMutable().close();
 }
 
 sk::io::Tty& 
 sk::io::Pty::
 getTty()
 {
-  return _ttyHolder.get();
+  return _ttyHolder.getMutable();
 }
 
 const sk::io::Tty& 
@@ -98,12 +98,12 @@ sk::io::FileDescriptorPipe&
 sk::io::Pty::
 getMasterSlavePipe()
 {
-  return _masterSlavePipeHolder.get();
+  return _masterSlavePipeHolder.getMutable();
 }
 
 sk::io::FileDescriptorPipe& 
 sk::io::Pty::
 getSlaveMasterPipe()
 {
-  return _slaveMasterPipeHolder.get();
+  return _slaveMasterPipeHolder.getMutable();
 }

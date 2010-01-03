@@ -39,28 +39,28 @@ sk::io::InputStream&
 sk::io::DelegatingInputStream::
 getInputStream() const
 {
-  return _streamHolder.get();
+  return _streamHolder.getMutable();
 }
 
 int 
 sk::io::DelegatingInputStream::
 read(char* buffer, int offset, int length)
 {
-  return _streamHolder.get().read(buffer, offset, length);
+  return _streamHolder.getMutable().read(buffer, offset, length);
 }
 
 void 
 sk::io::DelegatingInputStream::
 close()
 {
-  _streamHolder.get().close();
+  _streamHolder.getMutable().close();
 }
 
 int 
 sk::io::DelegatingInputStream::
 skip(int number)
 {
-  return _streamHolder.get().skip(number);
+  return _streamHolder.getMutable().skip(number);
 }
 
 uint64_t
@@ -81,19 +81,19 @@ void
 sk::io::DelegatingInputStream::
 mark(int readlimit)
 {
-  _streamHolder.get().mark(readlimit);
+  _streamHolder.getMutable().mark(readlimit);
 }
 
 void 
 sk::io::DelegatingInputStream::
 reset()
 {
-  _streamHolder.get().reset();
+  _streamHolder.getMutable().reset();
 }
 
 void 
 sk::io::DelegatingInputStream::
 inheritable(bool state)
 {
-  _streamHolder.get().inheritable(state);
+  _streamHolder.getMutable().inheritable(state);
 }

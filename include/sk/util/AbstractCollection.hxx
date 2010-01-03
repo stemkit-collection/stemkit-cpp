@@ -35,7 +35,7 @@ namespace sk {
         bool findMutable(sk::util::Holder<T>& holder, const Selector<T>& selector) const;
 
         void forEach(const Processor<const T>& processor) const;
-        void forEach(const Processor<T>& processor) const;
+        void forEach(const Processor<T>& processor);
 
         bool isEmpty() const;
         int size() const;

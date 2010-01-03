@@ -59,12 +59,12 @@ sk::io::FileDescriptor&
 sk::io::PtyImpl::
 getMaster()
 {
-  return _masterHolder.get();
+  return _masterHolder.getMutable();
 }
 
 sk::io::FileDescriptor&
 sk::io::PtyImpl::
 getSlave()
 {
-  return _slaveHolder.get();
+  return _slaveHolder.getMutable();
 }

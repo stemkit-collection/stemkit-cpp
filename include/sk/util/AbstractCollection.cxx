@@ -158,7 +158,7 @@ struct sk::util::AbstractCollection<T, Policy>::MutableInvocator : public virtua
 template<typename T, typename Policy>
 void 
 sk::util::AbstractCollection<T, Policy>::
-forEach(const Processor<T>& processor) const
+forEach(const Processor<T>& processor)
 {
   try {
     forEachSlot(MutableInvocator(processor));

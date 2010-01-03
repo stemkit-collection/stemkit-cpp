@@ -53,7 +53,7 @@ namespace sk {
         /// thrown. Iteration may be stopped by throwing sk::util::Break from
         /// the processor's method process().
         virtual void forEach(const Processor<const T>& processor) const = 0;
-        virtual void forEach(const Processor<T>& processor) const = 0;
+        virtual void forEach(const Processor<T>& processor) = 0;
         //@}
 
         /// Returns true if this collection contains no elements.

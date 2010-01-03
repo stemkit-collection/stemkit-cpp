@@ -34,14 +34,14 @@ sk::io::TtyFileDescriptor&
 sk::io::TtyDevice::
 getFileDescriptor() const
 {
-  return _descriptorHolder.get();
+  return _descriptorHolder.getMutable();
 }
 
 sk::io::Tty& 
 sk::io::TtyDevice::
 getTty() 
 {
-  return _descriptorHolder.get();
+  return _descriptorHolder.getMutable();
 }
 
 const sk::io::Tty& 
@@ -56,5 +56,5 @@ sk::io::TtyDevice::
 close()
 {
   sk::io::File::close();
-  _descriptorHolder.get().close();
+  _descriptorHolder.getMutable().close();
 }

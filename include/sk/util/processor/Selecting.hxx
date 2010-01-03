@@ -18,9 +18,9 @@ namespace sk {
   namespace util {
     namespace processor {
       template<typename T>
-      class SelectingProcessor : public virtual sk::util::Processor<T> {
+      class Selecting : public virtual sk::util::Processor<T> {
         public:
-          SelectingProcessor(const sk::util::Processor<T>& processor, const sk::util::Selector<T>& selector)
+          Selecting(const sk::util::Processor<T>& processor, const sk::util::Selector<T>& selector)
             : _processor(processor), _selector(selector) {}
       
           void process(T& object) const {
@@ -30,8 +30,8 @@ namespace sk {
           }
       
         private:
-          // SelectingProcessor(const SelectingProcessor<T>& other);
-          SelectingProcessor<T>& operator = (const SelectingProcessor<T>& other);
+          // Selecting(const Selecting<T>& other);
+          Selecting<T>& operator = (const Selecting<T>& other);
 
           const sk::util::Processor<T>& _processor;
           const sk::util::Selector<T>& _selector;

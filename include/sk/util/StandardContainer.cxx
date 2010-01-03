@@ -179,7 +179,7 @@ struct sk::util::StandardContainer<T, Policy, Type>::ProcessingFunctor : std::un
 template<typename T, typename Policy, typename Type>
 void 
 sk::util::StandardContainer<T, Policy, Type>::
-forEach(const Processor<T>& processor) const
+forEach(const Processor<T>& processor)
 {
   try {
     std::for_each(_container.begin(), _container.end(), ProcessingFunctor(processor));

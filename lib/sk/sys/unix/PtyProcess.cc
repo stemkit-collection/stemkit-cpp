@@ -34,7 +34,7 @@ struct sk::sys::PtyProcess::Listener
 sk::sys::PtyProcess::
 PtyProcess(const sk::util::StringArray& cmdline)
   : _scope(*this),
-    _listenerHolder(new Listener), _process(getPty().getMasterSlavePipe().inputStream(), cmdline, _listenerHolder.get())
+    _listenerHolder(new Listener), _process(getPty().getMasterSlavePipe().inputStream(), cmdline, _listenerHolder.getMutable())
 {
   getPty().getSlaveMasterPipe().closeOutput();
   getPty().closeTty();
@@ -71,28 +71,28 @@ sk::sys::PtyProcess::
 getPty()
 {
   const sk::rt::Scope scope = _scope.scope(__FUNCTION__);
-  return _listenerHolder.get().pty;
+  return _listenerHolder.getMutable().pty;
 }
 
 sk::io::InputStream& 
 sk::sys::PtyProcess::
 inputStream() const
 {
-  return _listenerHolder.get().pty.getSlaveMasterPipe().inputStream();
+  return _listenerHolder.getMutable().pty.getSlaveMasterPipe().inputStream();
 }
 
 sk::io::InputStream& 
 sk::sys::PtyProcess::
 inputErrorStream() const
 {
-  return _listenerHolder.get().pty.getSlaveMasterPipe().inputStream();
+  return _listenerHolder.getMutable().pty.getSlaveMasterPipe().inputStream();
 }
 
 sk::io::OutputStream&
 sk::sys::PtyProcess::
 outputStream() const
 {
-  return _listenerHolder.get().pty.getMasterSlavePipe().outputStream();
+  return _listenerHolder.getMutable().pty.getMasterSlavePipe().outputStream();
 }
 
 const sk::util::StringArray& 

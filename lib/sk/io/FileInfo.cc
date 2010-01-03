@@ -28,7 +28,7 @@ sk::io::FileInfo::
 FileInfo(const sk::util::Pathname& path)
   : _path(path), _dataHolder(new Data)
 {
-  if(::stat(_path.toString().getChars(), &_dataHolder.get().status) != 0) {
+  if(::stat(_path.toString().getChars(), &_dataHolder.getMutable().status) != 0) {
     throw sk::rt::SystemException("stat()");
   }
 }
@@ -37,7 +37,7 @@ sk::io::FileInfo::
 FileInfo(int descriptor)
   : _dataHolder(new Data), _path("")
 {
-  if(::fstat(descriptor, &_dataHolder.get().status) != 0) {
+  if(::fstat(descriptor, &_dataHolder.getMutable().status) != 0) {
     throw sk::rt::SystemException("fstat()");
   }
 }
