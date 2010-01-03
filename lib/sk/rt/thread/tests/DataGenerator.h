@@ -13,6 +13,7 @@
 
 #include <sk/util/Object.h>
 #include <sk/util/ArrayList.hxx>
+#include <sk/util/StandardContainer.cxx>
 #include <sk/rt/Thread.h>
 #include <vector>
 #include <sk/rt/Mutex.h>

@@ -42,7 +42,7 @@ void
 sk::rt::thread::AbstractLock::
 lock()
 {
-  _mutexHolder.get().lock();
+  _mutexHolder.getMutable().lock();
   registerOwnership();
 }
 
@@ -59,7 +59,7 @@ bool
 sk::rt::thread::AbstractLock::
 tryLock()
 {
-  if(_mutexHolder.get().tryLock() == true) {
+  if(_mutexHolder.getMutable().tryLock() == true) {
     registerOwnership();
     return true;
   }
@@ -70,22 +70,22 @@ void
 sk::rt::thread::AbstractLock::
 unlock()
 {
-  _mutexHolder.get().unlock();
+  _mutexHolder.getMutable().unlock();
 }
 
 void
 sk::rt::thread::AbstractLock::
 reset()
 {
-  _mutexHolder.get().reset();
+  _mutexHolder.getMutable().reset();
 }
 
 bool
 sk::rt::thread::AbstractLock::
 tryLockCheck() const
 {
-  if(_mutexHolder.get().tryLock() == true) {
-    _mutexHolder.get().unlock();
+  if(_mutexHolder.getMutable().tryLock() == true) {
+    _mutexHolder.getMutable().unlock();
     return false;
   }
   return true;

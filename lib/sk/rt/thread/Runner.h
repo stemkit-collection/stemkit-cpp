@@ -60,7 +60,7 @@ namespace sk {
           sk::rt::Runnable& _target;
           sk::rt::thread::Generic& _generic;
           sk::util::Holder<thread::abstract::Thread> _threadHolder;
-          sk::util::Holder<const sk::rt::thread::State> _stateHolder;
+          sk::util::Holder<sk::rt::thread::State> _stateHolder;
           Mutex _stateMutex;
           int _exitStatus;
           bool _detached;
