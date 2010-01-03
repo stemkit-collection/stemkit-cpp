@@ -44,7 +44,7 @@ void
 sk::rt::scope::test::XmlProcessorTest::
 testEmpty()
 {
-  XmlProcessor processor("", "a/b/c", _aggregatorHolder.get(), std::map<std::string, std::string>());
+  XmlProcessor processor("", "a/b/c", _aggregatorHolder.getMutable(), std::map<std::string, std::string>());
   CPPUNIT_ASSERT_EQUAL("a/b/c", processor.getLocation().toString());
   CPPUNIT_ASSERT(processor.findScopeElement(processor.getHandle()) == 0);
 }
@@ -53,7 +53,7 @@ void
 sk::rt::scope::test::XmlProcessorTest::
 testTopOnly()
 {
-  XmlProcessor processor("<scope id='a' /><scope name='aaa' id='b' />", "a/b/c", _aggregatorHolder.get(), std::map<std::string, std::string>());
+  XmlProcessor processor("<scope id='a' /><scope name='aaa' id='b' />", "a/b/c", _aggregatorHolder.getMutable(), std::map<std::string, std::string>());
   CPPUNIT_ASSERT_EQUAL("a/b/c", processor.getLocation().toString());
 
   TiXmlElement* unnamed_scope = processor.findScopeElement(processor.getHandle());
@@ -71,21 +71,21 @@ sk::rt::scope::test::XmlProcessorTest::
 testTopLogInfo()
 {
   CPPUNIT_ASSERT_EQUAL(false, _aggregatorHolder.get().getConfig().isLogObject());
-  CPPUNIT_ASSERT_EQUAL(false, _aggregatorHolder.get().obtain("aaa").getConfig().isLogTime());
+  CPPUNIT_ASSERT_EQUAL(false, _aggregatorHolder.getMutable().obtain("aaa").getConfig().isLogTime());
   CPPUNIT_ASSERT_EQUAL(false, _aggregatorHolder.get().getConfig().isLogPid());
   CPPUNIT_ASSERT_EQUAL(false, _aggregatorHolder.get().getConfig().checkLogLevel(logger::Level::SK_L_NOTICE));
   CPPUNIT_ASSERT_EQUAL(true, _aggregatorHolder.get().getConfig().checkLogLevel(logger::Level::SK_L_INFO));
   CPPUNIT_ASSERT_EQUAL(true, _aggregatorHolder.get().getConfig().checkLogLevel(logger::Level::SK_L_WARNING));
   CPPUNIT_ASSERT_EQUAL(true, _aggregatorHolder.get().getConfig().checkLogLevel(logger::Level::SK_L_ERROR));
 
-  XmlProcessor processor("<scope name='app'><log show-time='true'><level severity='warning'/></log></scope>", "a/b/c", _aggregatorHolder.get(), std::map<std::string, std::string>());
+  XmlProcessor processor("<scope name='app'><log show-time='true'><level severity='warning'/></log></scope>", "a/b/c", _aggregatorHolder.getMutable(), std::map<std::string, std::string>());
   processor.start(sk::util::StringArray("app"));
 
   CPPUNIT_ASSERT_EQUAL(false, _aggregatorHolder.get().getConfig().isLogObject());
-  CPPUNIT_ASSERT_EQUAL(true, _aggregatorHolder.get().obtain("aaa").getConfig().isLogTime());
+  CPPUNIT_ASSERT_EQUAL(true, _aggregatorHolder.getMutable().obtain("aaa").getConfig().isLogTime());
   CPPUNIT_ASSERT_EQUAL(false, _aggregatorHolder.get().getConfig().isLogPid());
-  CPPUNIT_ASSERT_EQUAL(true, _aggregatorHolder.get().obtain("bbb").getConfig().checkLogLevel(logger::Level::SK_L_WARNING));
-  CPPUNIT_ASSERT_EQUAL(true, _aggregatorHolder.get().obtain("bbb").getConfig().checkLogLevel(logger::Level::SK_L_ERROR));
+  CPPUNIT_ASSERT_EQUAL(true, _aggregatorHolder.getMutable().obtain("bbb").getConfig().checkLogLevel(logger::Level::SK_L_WARNING));
+  CPPUNIT_ASSERT_EQUAL(true, _aggregatorHolder.getMutable().obtain("bbb").getConfig().checkLogLevel(logger::Level::SK_L_ERROR));
   CPPUNIT_ASSERT_EQUAL(false, _aggregatorHolder.get().getConfig().checkLogLevel(logger::Level::SK_L_NOTICE));
   CPPUNIT_ASSERT_EQUAL(false, _aggregatorHolder.get().getConfig().checkLogLevel(logger::Level::SK_L_INFO));
 }
@@ -104,7 +104,7 @@ testValueSubstituion()
       <property name='name' value='zzz-#{aaa}-bbb' />\
       <property name='abc' value='uuu-#{scope}-ooo' />\
       <property name='multi' value='#{prefix}-v-#{port}-end' />\
-    ", "a/b/c", _aggregatorHolder.get(), values
+    ", "a/b/c", _aggregatorHolder.getMutable(), values
   );
   processor.start(sk::util::StringArray());
 

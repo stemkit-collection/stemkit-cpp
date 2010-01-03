@@ -44,7 +44,7 @@ sk::rt::scope::Aggregator&
 sk::rt::scope::test::XmlConfigLoaderTest::
 aggregator() 
 {
-  return _aggregatorHolder.get();
+  return _aggregatorHolder.getMutable();
 }
 
 void
