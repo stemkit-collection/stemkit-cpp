@@ -31,7 +31,7 @@ namespace sk {
         /// to true. Throws sk::util::NoSuchElementException if such an element 
         /// is not present in this collection. In case the found element is not
         /// mutalbe, exception sk::util::IllegalStateException is thrown.
-        virtual T& getMutable(const Selector<T>& selector) = 0;
+        virtual T& getMutable(const Selector<T>& selector) const = 0;
 
         /// Finds an immutable element for which the specified selector 
         /// assesses to true and places it into the specified holder. 
@@ -43,7 +43,7 @@ namespace sk {
         /// Returns true if such an element was found, false otherwise. 
         /// In case the found element is not mutalbe, exception 
         /// sk::util::IllegalStateException is thrown.
-        virtual bool findMutable(sk::util::Holder<T>& holder, const Selector<T>& selector) = 0;
+        virtual bool findMutable(sk::util::Holder<T>& holder, const Selector<T>& selector) const = 0;
 
         //@{
         /// Iterates over all the elements in this collection invoking the
@@ -53,7 +53,7 @@ namespace sk {
         /// thrown. Iteration may be stopped by throwing sk::util::Break from
         /// the processor's method process().
         virtual void forEach(const Processor<const T>& processor) const = 0;
-        virtual void forEach(const Processor<T>& processor) = 0;
+        virtual void forEach(const Processor<T>& processor) const = 0;
         //@}
 
         /// Returns true if this collection contains no elements.

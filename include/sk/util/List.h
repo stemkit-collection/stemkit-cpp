@@ -47,7 +47,7 @@ namespace sk {
         /// Returns the mutable element at the specified position in this 
         /// list. Throws sk::util::IndexOutOfBoundsException when a negative
         /// index or the one beyond the last element is specified.
-        virtual T& getMutable(int index) = 0;
+        virtual T& getMutable(int index) const = 0;
 
         using Collection<T>::getMutable;
 

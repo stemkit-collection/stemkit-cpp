@@ -28,13 +28,13 @@ namespace sk {
 
         // sk::util::Collection implementation.
         const T& get(const Selector<T>& selector) const;
-        T& getMutable(const Selector<T>& selector);
+        T& getMutable(const Selector<T>& selector) const;
 
         bool find(sk::util::Holder<T>& holder, const Selector<T>& selector) const;
-        bool findMutable(sk::util::Holder<T>& holder, const Selector<T>& selector);
+        bool findMutable(sk::util::Holder<T>& holder, const Selector<T>& selector) const;
 
         void forEach(const Processor<const T>& processor) const;
-        void forEach(const Processor<T>& processor);
+        void forEach(const Processor<T>& processor) const;
 
         bool isEmpty() const;
         int size() const;
@@ -71,7 +71,7 @@ namespace sk {
         void add(int index, T* object);
 
         const T& get(int index) const;
-        T& getMutable(int index);
+        T& getMutable(int index) const;
 
         int indexOf(const T& object) const;
         int indexOf(const Selector<T>& selector) const;

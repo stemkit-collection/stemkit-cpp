@@ -29,13 +29,13 @@ namespace sk {
         
         // sk::util::Collection<T> implementation.
         const T& get(const Selector<T>& selector) const;
-        T& getMutable(const Selector<T>& selector);
+        T& getMutable(const Selector<T>& selector) const;
 
         bool find(sk::util::Holder<T>& holder, const Selector<T>& selector) const;
-        bool findMutable(sk::util::Holder<T>& holder, const Selector<T>& selector);
+        bool findMutable(sk::util::Holder<T>& holder, const Selector<T>& selector) const;
 
         void forEach(const Processor<const T>& processor) const;
-        void forEach(const Processor<T>& processor);
+        void forEach(const Processor<T>& processor) const;
 
         bool isEmpty() const;
         int size() const;
@@ -68,7 +68,7 @@ namespace sk {
 
       protected:
         virtual void forEachSlot(const sk::util::Processor<const typename Policy::slot_t>& processor) const = 0;
-        virtual void forEachSlot(const sk::util::Processor<typename Policy::slot_t>& processor) = 0;
+        virtual void forEachSlot(const sk::util::Processor<typename Policy::slot_t>& processor) const = 0;
 
       private:
         AbstractCollection(const AbstractCollection<T, Policy>& other);

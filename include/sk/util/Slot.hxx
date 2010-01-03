@@ -29,7 +29,7 @@ namespace sk {
         inline bool isOwner() const;
 
         inline const T& get() const;
-        inline T& getMutable();
+        inline T& getMutable() const;
 
         T* deprive();
         T* replace(T* object);
@@ -92,7 +92,7 @@ get() const
 template<typename T, typename Mixin>
 inline T&
 sk::util::Slot<T, Mixin>::
-getMutable()
+getMutable() const
 {
   if(_object == 0) {
     throw sk::util::MissingResourceException("getMutable()");

@@ -28,7 +28,7 @@ namespace {
       }
     }
 
-    void forEachSlot(const sk::util::Processor<sk::util::Slot<sk::util::String> >& processor) {
+    void forEachSlot(const sk::util::Processor<sk::util::Slot<sk::util::String> >& processor) const {
       for(container::const_iterator iterator = _content.begin(); iterator != _content.end(); ++iterator) {
         sk::util::slot::Reference<sk::util::String> slot(*iterator);
         processor.process(slot);

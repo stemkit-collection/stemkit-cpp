@@ -111,7 +111,7 @@ get(int index) const
 template<typename T, typename Policy>
 T& 
 sk::util::AbstractList<T, Policy>::
-getMutable(int index) 
+getMutable(int index) const
 {
   return getMutable(IndexSelector(index, size()));
 }

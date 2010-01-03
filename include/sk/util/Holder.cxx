@@ -197,7 +197,7 @@ get() const
 template<typename T, typename Policy>
 T&
 sk::util::Holder<T, Policy>::
-getMutable()
+getMutable() const
 {
   return Policy::getMutableObject(_storage);
 }

@@ -107,7 +107,7 @@ get(const Selector<T>& selector) const
 template<typename T, typename Policy, typename Type>
 T& 
 sk::util::StandardContainer<T, Policy, Type>::
-getMutable(const Selector<T>& selector)
+getMutable(const Selector<T>& selector) const
 {
   typename Type::container_t::const_iterator iterator = std::find_if(_container.begin(), _container.end(), SelectingFunctor(selector));
   if(iterator == _container.end()) {
@@ -132,7 +132,7 @@ find(sk::util::Holder<T>& holder, const Selector<T>& selector) const
 template<typename T, typename Policy, typename Type>
 bool 
 sk::util::StandardContainer<T, Policy, Type>::
-findMutable(sk::util::Holder<T>& holder, const Selector<T>& selector)
+findMutable(sk::util::Holder<T>& holder, const Selector<T>& selector) const
 {
   typename Type::container_t::const_iterator iterator = std::find_if(_container.begin(), _container.end(), SelectingFunctor(selector));
   if(iterator == _container.end()) {
@@ -178,7 +178,7 @@ struct sk::util::StandardContainer<T, Policy, Type>::ProcessingFunctor : std::un
 template<typename T, typename Policy, typename Type>
 void 
 sk::util::StandardContainer<T, Policy, Type>::
-forEach(const Processor<T>& processor)
+forEach(const Processor<T>& processor) const
 {
   try {
     std::for_each(_container.begin(), _container.end(), ProcessingFunctor(processor));
@@ -460,7 +460,7 @@ get(int index) const
 template<typename T, typename Policy, typename Type>
 T& 
 sk::util::StandardContainer<T, Policy, Type>::
-getMutable(int index)
+getMutable(int index) const
 {
   return Policy::getMutableObject(*position(index, size()));
 }

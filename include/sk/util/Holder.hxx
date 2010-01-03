@@ -59,7 +59,7 @@ namespace sk {
         bool isMutable() const;
 
         const T& get() const;
-        T& getMutable();
+        T& getMutable() const;
 
         void set(T* object);
         void set(T& object);

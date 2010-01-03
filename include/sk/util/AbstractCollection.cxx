@@ -56,7 +56,7 @@ get(const Selector<T>& selector) const
 template<typename T, typename Policy>
 T& 
 sk::util::AbstractCollection<T, Policy>::
-getMutable(const Selector<T>& selector)
+getMutable(const Selector<T>& selector) const
 {
   sk::util::Holder<T> holder;
   if(findMutable(holder, selector) == true) {
@@ -112,7 +112,7 @@ struct sk::util::AbstractCollection<T, Policy>::MutableFinder : public virtual s
 template<typename T, typename Policy>
 bool 
 sk::util::AbstractCollection<T, Policy>::
-findMutable(sk::util::Holder<T>& holder, const Selector<T>& selector)
+findMutable(sk::util::Holder<T>& holder, const Selector<T>& selector) const
 {
   try {
     forEachSlot(MutableFinder(holder, selector));
@@ -158,7 +158,7 @@ struct sk::util::AbstractCollection<T, Policy>::MutableInvocator : public virtua
 template<typename T, typename Policy>
 void 
 sk::util::AbstractCollection<T, Policy>::
-forEach(const Processor<T>& processor) 
+forEach(const Processor<T>& processor) const
 {
   try {
     forEachSlot(MutableInvocator(processor));

@@ -39,7 +39,7 @@ namespace sk {
         using AbstractCollection<T, Policy>::add;
         
         const T& get(int index) const;
-        T& getMutable(int index);
+        T& getMutable(int index) const;
 
         using AbstractCollection<T, Policy>::get;
         using AbstractCollection<T, Policy>::getMutable;
