@@ -20,7 +20,7 @@ namespace sk {
       : public virtual sk::util::Object
     {
       public:
-        virtual T map(const F& object) const = 0;
+        virtual T map(F& object) const = 0;
     };
   }
 }

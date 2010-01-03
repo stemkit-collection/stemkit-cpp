@@ -13,6 +13,7 @@
 
 #include <sk/util/Class.h>
 #include <sk/util/StandardContainer.hxx>
+#include <sk/util/Holder.cxx>
 #include <sk/util/StreamLiner.h>
 #include <sk/util/StringArray.h>
 #include <sk/util/Break.h>

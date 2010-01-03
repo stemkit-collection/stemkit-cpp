@@ -46,5 +46,5 @@ sk::C::test::ProbeFactory::
 makeProbe(const sk::util::String& name) 
 {
   _probes.add(new sk::C::test::Probe(name));
-  return _probes.get(_probes.size() - 1);
+  return _probes.getMutable(_probes.size() - 1);
 }

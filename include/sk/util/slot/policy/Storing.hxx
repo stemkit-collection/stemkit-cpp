@@ -9,10 +9,10 @@
 #ifndef _SK_UTIL_SLOT_POLICY_STORING_HXX_
 #define _SK_UTIL_SLOT_POLICY_STORING_HXX_
 
-#include <sk/util/Slot.hxx>
+#include <sk/util/Slot.cxx>
 #include <sk/util/MissingResourceException.h>
-#include <sk/util/slot/Reference.hxx>
-#include <sk/util/slot/Pointer.hxx>
+#include <sk/util/slot/Reference.cxx>
+#include <sk/util/slot/Pointer.cxx>
 
 namespace sk {
   namespace util {

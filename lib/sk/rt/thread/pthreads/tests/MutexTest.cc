@@ -44,7 +44,7 @@ testUnlockFailsOnNonLocked()
 {
   sk::util::Holder<Mutex> _mutexHolder(pthreads::Mutex::makeSingular());
   try {
-    _mutexHolder.get().unlock();
+    _mutexHolder.getMutable().unlock();
     CPPUNIT_FAIL("No expected exception");
   }
   catch(const pthreads::Exception& exception) {

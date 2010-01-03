@@ -17,7 +17,7 @@ namespace sk {
   namespace util {
     namespace mapper {
       template<typename T>
-      class Inspecting : public virtual sk::util::Mapper<T, sk::util::String> {
+      class Inspecting : public virtual sk::util::Mapper<const T, sk::util::String> {
         public:
           sk::util::String map(const T& object) const {
             return object.inspect();

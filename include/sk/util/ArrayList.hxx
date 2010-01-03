@@ -44,6 +44,8 @@ namespace sk {
         ~ArrayList();
     
         void sort(const sk::util::BinaryAssessor<T>& assessor);
+        using super_t::sort;
+
         void shuffle();
 
         // sk::util::Object re-implementation.

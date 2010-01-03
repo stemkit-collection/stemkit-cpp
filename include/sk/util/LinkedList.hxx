@@ -40,6 +40,8 @@ namespace sk {
         typedef LinkedList<T, slot::policy::Sharing<T> > Sharing;
 
         void sort(const sk::util::BinaryAssessor<T>& assessor);
+        using super_t::sort;
+
         void shuffle();
 
       public:

@@ -87,18 +87,18 @@ join(const sk::util::String& prologue, const sk::util::String& separator, const 
 
 const sk::util::StringArray
 sk::util::StringArray::
-map(const sk::util::Mapper<sk::util::String>& mapper) const
+map(const sk::util::Mapper<const sk::util::String, sk::util::String>& mapper) const
 {
   sk::util::StringArray result;
   struct Mapper : public virtual sk::util::Processor<const sk::util::String> {
-    Mapper(sk::util::StringArray& array, const sk::util::Mapper<sk::util::String>& mapper)
+    Mapper(sk::util::StringArray& array, const sk::util::Mapper<const sk::util::String, sk::util::String>& mapper)
       : _array(array), _mapper(mapper) {}
 
     void process(const sk::util::String& item) const {
       _array << _mapper.map(item);
     }
     sk::util::StringArray& _array; 
-    const sk::util::Mapper<sk::util::String>& _mapper;
+    const sk::util::Mapper<const sk::util::String, sk::util::String>& _mapper;
   };
   forEach(Mapper(result, mapper));
 
