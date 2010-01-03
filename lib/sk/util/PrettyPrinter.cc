@@ -55,6 +55,6 @@ void
 sk::util::PrettyPrinter::
 setCompact(bool state) 
 {
-  _configuratorSlot.get().setCompact(state);
+  _configuratorSlot.getMutable().setCompact(state);
 }
 

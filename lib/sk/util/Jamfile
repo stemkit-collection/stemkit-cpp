@@ -31,15 +31,15 @@ objects =
   Properties.cc
   inspect.cc
   Break.cc
-  # PrettyPrinter.cc
+  PrettyPrinter.cc
   Bitset.cc
 ;
 
 make-library $(library) : $(objects) ;
-# add-project-library $(library) : $(library).pp ;
+add-project-library $(library) : $(library).pp ;
 
 make-subdir 
-  # pp 
+  pp 
   test 
   performance 
 ;
