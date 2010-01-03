@@ -10,7 +10,6 @@
 
 #include "ThreadTest.h"
 #include "DataGenerator.h"
-#include <sk/util/ArrayList.cxx>
 
 #include <sk/rt/Thread.h>
 #include <sk/util/IllegalStateException.h>
