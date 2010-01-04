@@ -142,8 +142,6 @@ namespace sk {
         static const sk::util::String valueOf(int value);
 
         // sk::util::Object re-implementation.
-        String& self();
-        const String& self() const;
         const sk::util::Class getClass() const;
         const String toString() const;
         const String inspect() const;

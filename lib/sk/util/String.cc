@@ -97,7 +97,7 @@ const sk::util::String
 sk::util::String::
 toString() const
 {
-  return self();
+  return *this;
 }
 
 bool
@@ -126,20 +126,6 @@ sk::util::String::
 getChars() const
 {
   return std::string::c_str();
-}
-
-sk::util::String&
-sk::util::String::
-self()
-{
-  return *this;
-}
-
-const sk::util::String&
-sk::util::String::
-self() const
-{
-  return *this;
 }
 
 const sk::util::String
