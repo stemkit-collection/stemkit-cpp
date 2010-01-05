@@ -100,8 +100,8 @@ namespace sk {
         StandardContainer(const StandardContainer<T, Policy, Type>& other);
         StandardContainer<T, Policy, Type>& operator = (const StandardContainer<T, Policy, Type>& other);
 
-        typename Type::container_t::iterator position(int index, int size);
-        typename Type::container_t::const_iterator position(int index, int size) const;
+        inline typename Type::container_t::iterator position(int index, int size);
+        inline typename Type::container_t::const_iterator position(int index, int size) const;
 
         struct Cleaner;
         struct SelectingFunctor;

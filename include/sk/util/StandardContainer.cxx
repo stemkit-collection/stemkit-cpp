@@ -386,7 +386,7 @@ retainAll(const Selector<T>& selector)
 }
 
 template<typename T, typename Policy, typename Type>
-typename Type::container_t::iterator
+inline typename Type::container_t::iterator
 sk::util::StandardContainer<T, Policy, Type>::
 position(int index, int size)
 {
@@ -399,7 +399,7 @@ position(int index, int size)
 }
 
 template<typename T, typename Policy, typename Type>
-typename Type::container_t::const_iterator
+inline typename Type::container_t::const_iterator
 sk::util::StandardContainer<T, Policy, Type>::
 position(int index, int size) const
 {
