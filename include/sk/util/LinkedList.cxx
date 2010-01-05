@@ -58,4 +58,12 @@ shuffle()
   std::copy(pot.begin(), pot.end(), super_t::_container.begin());
 }
 
+template<typename T, typename Policy>
+void 
+sk::util::LinkedList<T, Policy>::
+reverse()
+{
+  super_t::_container.reverse();
+}
+
 #endif /* _SK_UTIL_LINKEDLIST_CXX_ */

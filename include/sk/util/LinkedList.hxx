@@ -43,6 +43,7 @@ namespace sk {
         using super_t::sort;
 
         void shuffle();
+        void reverse();
 
       public:
         LinkedList();
