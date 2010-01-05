@@ -11,7 +11,7 @@
 #ifndef _SK_UTIL_VECTOR_HXX_
 #define _SK_UTIL_VECTOR_HXX_
 
-#include <sk/util/StandardContainer.hxx>
+#include <sk/util/RandomAccessContainer.hxx>
 #include <sk/util/slot/policy/Storing.hxx>
 #include <vector>
 
@@ -27,9 +27,9 @@ namespace sk {
 
     template<typename T, typename Policy = slot::policy::Storing<T> >
     class Vector 
-      : public sk::util::StandardContainer<T, Policy, type::vector<T, Policy> >
+      : public sk::util::RandomAccessContainer<T, Policy, type::vector<T, Policy> >
     {
-      typedef sk::util::StandardContainer<T, Policy, type::vector<T, Policy> > super_t;
+      typedef sk::util::RandomAccessContainer<T, Policy, type::vector<T, Policy> > super_t;
 
       public:
         typedef Vector<T, slot::policy::Storing<T> > Storing;
@@ -43,11 +43,6 @@ namespace sk {
         Vector();
         ~Vector();
     
-        void sort(const sk::util::BinaryAssessor<T>& assessor);
-        using super_t::sort;
-
-        void shuffle();
-
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
 

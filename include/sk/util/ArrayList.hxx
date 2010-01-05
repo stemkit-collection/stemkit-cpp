@@ -11,7 +11,7 @@
 #ifndef _SK_UTIL_ARRAYLIST_HXX_
 #define _SK_UTIL_ARRAYLIST_HXX_
 
-#include <sk/util/StandardContainer.hxx>
+#include <sk/util/RandomAccessContainer.hxx>
 #include <sk/util/slot/policy/Storing.hxx>
 #include <deque>
 
@@ -27,9 +27,9 @@ namespace sk {
 
     template<typename T, typename Policy = slot::policy::Storing<T> >
     class ArrayList 
-      : public sk::util::StandardContainer<T, Policy, type::deque<T, Policy> >
+      : public sk::util::RandomAccessContainer<T, Policy, type::deque<T, Policy> >
     {
-      typedef sk::util::StandardContainer<T, Policy, type::deque<T, Policy> > super_t;
+      typedef sk::util::RandomAccessContainer<T, Policy, type::deque<T, Policy> > super_t;
 
       public:
         typedef ArrayList<T, slot::policy::Storing<T> > Storing;
@@ -43,11 +43,6 @@ namespace sk {
         ArrayList();
         ~ArrayList();
     
-        void sort(const sk::util::BinaryAssessor<T>& assessor);
-        using super_t::sort;
-
-        void shuffle();
-
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
 

@@ -13,7 +13,7 @@
 
 #include <sk/util/Class.h>
 #include <sk/util/Vector.hxx>
-#include <sk/util/StandardContainer.cxx>
+#include <sk/util/RandomAccessContainer.cxx>
 
 template<typename T, typename Policy>
 sk::util::Vector<T, Policy>::
@@ -33,22 +33,6 @@ sk::util::Vector<T, Policy>::
 getClass() const
 {
   return sk::util::Class("sk::util::Vector");
-}
-
-template<typename T, typename Policy>
-void 
-sk::util::Vector<T, Policy>::
-sort(const sk::util::BinaryAssessor<T>& assessor)
-{
-  std::sort(super_t::_container.begin(), super_t::_container.end(), typename super_t::AssessingBinaryFunctor(assessor));
-}
-
-template<typename T, typename Policy>
-void 
-sk::util::Vector<T, Policy>::
-shuffle()
-{
-  std::random_shuffle(super_t::_container.begin(), super_t::_container.end());
 }
 
 #endif /* _SK_UTIL_VECTOR_CXX_ */
