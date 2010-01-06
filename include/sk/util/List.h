@@ -37,6 +37,22 @@ namespace sk {
 
         using Collection<T>::add;
         
+        //@{
+        /// Inserts the given element at the beginning of this list. When 
+        /// added as a pointer, the pointer ownership is assumed.
+        // TODO: virtual void addFirst(const T& object) = 0;
+        // TODO: virtual void addFirst(T& object) = 0;
+        // TODO: virtual void addFirst(T* object) = 0;
+        //@}
+
+        //@{
+        /// Appends the given element to the end of this list. When added as 
+        /// a pointer, the pointer ownership is assumed.
+        // TODO: virtual void addLast(const T& object) = 0;
+        // TODO: virtual void addLast(T& object) = 0;
+        // TODO: virtual void addLast(T* object) = 0;
+        //@}
+
         /// Returns the immutable element at the specified position in this 
         /// list. Throws sk::util::IndexOutOfBoundsException when a negative
         /// index or the one beyond the last element is specified.
@@ -44,12 +60,28 @@ namespace sk {
 
         using Collection<T>::get;
 
+        /// Returns the first element in this list as immutable. Throws 
+        /// sk::util::NoSuchElementException when the list is empty.
+        // TODO: virtual const T& getFirst() const = 0;
+
+        /// Returns the last element in this list as immutable. Throws 
+        /// sk::util::NoSuchElementException when the list is empty.
+        // TODO: virtual const T& getLast() const = 0;
+
         /// Returns the mutable element at the specified position in this 
         /// list. Throws sk::util::IndexOutOfBoundsException when a negative
         /// index or the one beyond the last element is specified.
         virtual T& getMutable(int index) const = 0;
 
         using Collection<T>::getMutable;
+
+        /// Returns the first element in this list as mutable. Throws 
+        /// sk::util::NoSuchElementException when the list is empty.
+        // TODO: virtual T& getMutableFirst() const = 0;
+
+        /// Returns the last element in this list as mutable. Throws 
+        /// sk::util::NoSuchElementException when the list is empty.
+        // TODO: virtual T& getMutableLast() const = 0;
 
         /// Returns the index in this list of the first occurrence of the
         /// specified element, or -1 if this list does not contain this 
@@ -79,19 +111,43 @@ namespace sk {
 
         using Collection<T>::remove;
 
+        /// Removes the first element from this list. The element is 
+        /// actually destroyed when added to this list as a pointer. 
+        /// Throws sk::util::NoSuchElementException when the list is 
+        /// empty.
+        // TODO: virtual void removeFirst() = 0;
+
+        /// Removes the last element from this list. The element is 
+        /// actually destroyed when added to this list as a pointer. 
+        /// Throws sk::util::NoSuchElementException when the list is
+        /// empty.
+        // TODO: virtual void removeLast() = 0;
+
         /// Removes the element at the specified position in this list.
         /// Shifts any subsequent elements to the left (subtracts one 
         /// from their indices). Throws an exception when the element 
         /// was not added as a pointer. Otherwise returns a pointer to
-        /// the element without destroying the latter.
+        /// the element without destroying it.
         virtual T* cutoff(int index) = 0;
 
         using Collection<T>::cutoff;
 
+        /// Removes the first element from this list. Throws an exception 
+        /// when the element was not added as a pointer. Otherwise returns 
+        /// a pointer to the element without destroying it. Throws 
+        /// sk::util::NoSuchElementException when the list is empty.
+        // TODO: virtual T* cutoffFirst() = 0;
+
+        /// Removes the last element from this list. Throws an exception 
+        /// when the element was not added as a pointer. Otherwise returns 
+        /// a pointer to the element without destroying it. Throws 
+        /// sk::util::NoSuchElementException when the list is empty.
+        // TODO: virtual T* cutoffLast() = 0;
+
         /// Same as for cutoff(), however the element is not removed from the
         /// collection, being replaced by a reference instead. It performs 
-        /// just the ownership release. Again, the caller is responsible for 
-        /// the actual poiner deletion.
+        /// just the ownership release. The caller is responsible for the 
+        /// actual pointer deletion.
         virtual T* release(int index) = 0;
 
         using Collection<T>::release;
