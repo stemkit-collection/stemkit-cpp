@@ -41,6 +41,8 @@ namespace sk {
           ObjectTest& operator = (const ObjectTest& other);
 
           const sk::util::Object& getObject() const;
+
+          struct SampleObject;
           std::auto_ptr<util::Object> _object;
       };
     }
