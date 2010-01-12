@@ -50,7 +50,7 @@ uint64_t
 sk::rt::ProcessInfo::
 virtualMemory() const
 {
-  return _dataHolder.get().numericEntryAt(22);
+  return _dataHolder.getMutable().numericEntryAt(22);
 }
 
 uint64_t
@@ -65,5 +65,5 @@ uint64_t
 sk::rt::ProcessInfo::
 residentMemory() const
 {
-  return _dataHolder.get().numericEntryAt(23);
+  return _dataHolder.getMutable().numericEntryAt(23);
 }
