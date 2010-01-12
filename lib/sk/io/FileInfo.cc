@@ -25,7 +25,8 @@ sk::io::FileInfo::
 FileInfo(const sk::util::Pathname& path)
   : _path(path), _dataHolder(new Data)
 {
-  if(::stat(_path.toString().getChars(), &_dataHolder.get().status) != 0) {
+  sk::util::String name = _path.toString();
+  if(::stat(name.getChars(), &_dataHolder.get().status) != 0) {
     throw sk::rt::SystemException("stat()");
   }
 }

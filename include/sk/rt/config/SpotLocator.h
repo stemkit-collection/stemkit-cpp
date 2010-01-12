@@ -46,7 +46,7 @@ namespace sk {
           SpotLocator& operator = (const SpotLocator& other);
 
           // sk::rt::config::NamedStreamOpener imlementation.
-          std::istream* openStream(const sk::util::Pathname& name) const;
+          std::istream* openStream(const sk::util::Pathname& pathname) const;
           
           void becomeDummy();
           bool isDummy() const;
