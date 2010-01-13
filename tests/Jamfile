@@ -4,6 +4,7 @@ local programs =
   test-covariants
   test-temporary-in-constructor-init-list
   yaml-producer
+  test-fstream-crash
 ;
 
 if linux in $(project.PLATFORM_SPECIFICS) {
