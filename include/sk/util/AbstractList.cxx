@@ -279,4 +279,28 @@ inspect() const
   return "[" + sk::util::String::valueOf(size()) + ": " + depot.join(", ") + " ]";
 }
 
+template<typename T, typename Policy>
+void 
+sk::util::AbstractList<T, Policy>::
+addFirst(const T& object)
+{
+  add(0, object);
+}
+
+template<typename T, typename Policy>
+void 
+sk::util::AbstractList<T, Policy>::
+addFirst(T& object)
+{
+  add(0, object);
+}
+
+template<typename T, typename Policy>
+void 
+sk::util::AbstractList<T, Policy>::
+addFirst(T* object)
+{
+  add(0, object);
+}
+
 #endif /* _SK_UTIL_ABSTRACTLIST_CXX_ */

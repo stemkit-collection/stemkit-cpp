@@ -648,4 +648,28 @@ toString() const
   return inspect();
 }
 
+template<typename T, typename Policy, typename Type>
+void 
+sk::util::StandardContainer<T, Policy, Type>::
+addFirst(const T& object)
+{
+  add(0, object);
+}
+
+template<typename T, typename Policy, typename Type>
+void 
+sk::util::StandardContainer<T, Policy, Type>::
+addFirst(T& object)
+{
+  add(0, object);
+}
+
+template<typename T, typename Policy, typename Type>
+void 
+sk::util::StandardContainer<T, Policy, Type>::
+addFirst(T* object)
+{
+  add(0, object);
+}
+
 #endif /* _SK_UTIL_STANDARDCONTAINER_CXX_ */

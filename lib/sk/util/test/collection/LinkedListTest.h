@@ -37,6 +37,7 @@ namespace sk {
             CPPUNIT_TEST(testListRemove);
             CPPUNIT_TEST(testListSet);
             // CPPUNIT_TEST(testListInspect);
+            CPPUNIT_TEST(testListAddFirst);
 
             CPPUNIT_TEST(testStandardContainerCreate);
             CPPUNIT_TEST(testStandardContainerAdd);

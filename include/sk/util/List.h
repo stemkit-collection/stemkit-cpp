@@ -40,9 +40,9 @@ namespace sk {
         //@{
         /// Inserts the given element at the beginning of this list. When 
         /// added as a pointer, the pointer ownership is assumed.
-        // TODO: virtual void addFirst(const T& object) = 0;
-        // TODO: virtual void addFirst(T& object) = 0;
-        // TODO: virtual void addFirst(T* object) = 0;
+        virtual void addFirst(const T& object) = 0;
+        virtual void addFirst(T& object) = 0;
+        virtual void addFirst(T* object) = 0;
         //@}
 
         //@{

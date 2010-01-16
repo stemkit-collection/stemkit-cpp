@@ -71,6 +71,10 @@ namespace sk {
         void shuffle();
         void reverse();
 
+        void addFirst(const T& object);
+        void addFirst(T& object);
+        void addFirst(T* object);
+
         using AbstractCollection<T, Policy>::forEach;
         using AbstractCollection<T, Policy>::size;
         using AbstractCollection<T, Policy>::isEmpty;

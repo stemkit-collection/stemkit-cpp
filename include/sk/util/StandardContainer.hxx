@@ -91,6 +91,10 @@ namespace sk {
         void shuffle();
         void reverse();
         
+        void addFirst(const T& object);
+        void addFirst(T& object);
+        void addFirst(T* object);
+
         // sk::util::Object implementation.
         const sk::util::Class getClass() const;
         const String inspect() const;

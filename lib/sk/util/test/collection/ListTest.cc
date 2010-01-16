@@ -189,3 +189,18 @@ testListInspect()
 
   CPPUNIT_ASSERT_EQUAL("[3: 0&\"a\", 1&\"b\", 2&\"c\" ]", list.get().inspect());
 }
+
+void
+sk::util::test::collection::ListTest::
+testListAddFirst()
+{
+  sk::util::Holder<List> list(makeCopyingList());
+  list.getMutable().addFirst("a");
+  list.getMutable().addFirst("b");
+  list.getMutable().addFirst("c");
+
+  CPPUNIT_ASSERT_EQUAL(3, list.get().size());
+  CPPUNIT_ASSERT_EQUAL("c", list.get().get(0));
+  CPPUNIT_ASSERT_EQUAL("b", list.get().get(1));
+  CPPUNIT_ASSERT_EQUAL("a", list.get().get(2));
+}
