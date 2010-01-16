@@ -75,6 +75,10 @@ namespace sk {
         void addFirst(T& object);
         void addFirst(T* object);
 
+        void addLast(const T& object);
+        void addLast(T& object);
+        void addLast(T* object);
+
         using AbstractCollection<T, Policy>::forEach;
         using AbstractCollection<T, Policy>::size;
         using AbstractCollection<T, Policy>::isEmpty;

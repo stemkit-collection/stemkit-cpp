@@ -204,3 +204,18 @@ testListAddFirst()
   CPPUNIT_ASSERT_EQUAL("b", list.get().get(1));
   CPPUNIT_ASSERT_EQUAL("a", list.get().get(2));
 }
+
+void
+sk::util::test::collection::ListTest::
+testListAddLast()
+{
+  sk::util::Holder<List> list(makeCopyingList());
+  list.getMutable().addLast("a");
+  list.getMutable().addLast("b");
+  list.getMutable().addLast("c");
+
+  CPPUNIT_ASSERT_EQUAL(3, list.get().size());
+  CPPUNIT_ASSERT_EQUAL("a", list.get().get(0));
+  CPPUNIT_ASSERT_EQUAL("b", list.get().get(1));
+  CPPUNIT_ASSERT_EQUAL("c", list.get().get(2));
+}

@@ -48,9 +48,9 @@ namespace sk {
         //@{
         /// Appends the given element to the end of this list. When added as 
         /// a pointer, the pointer ownership is assumed.
-        // TODO: virtual void addLast(const T& object) = 0;
-        // TODO: virtual void addLast(T& object) = 0;
-        // TODO: virtual void addLast(T* object) = 0;
+        virtual void addLast(const T& object) = 0;
+        virtual void addLast(T& object) = 0;
+        virtual void addLast(T* object) = 0;
         //@}
 
         /// Returns the immutable element at the specified position in this 

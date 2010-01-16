@@ -40,6 +40,7 @@ namespace sk {
             CPPUNIT_TEST(testListInspect);
 
             CPPUNIT_TEST(testListAddFirst);
+            CPPUNIT_TEST(testListAddLast);
           CPPUNIT_TEST_SUITE_END();
         
           public:
@@ -54,6 +55,7 @@ namespace sk {
             void testListInspect();
 
             void testListAddFirst();
+            void testListAddLast();
 
           protected:
             sk::util::Collection<sk::util::String>* makeCopyingCollection();

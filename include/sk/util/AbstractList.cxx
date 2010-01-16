@@ -303,4 +303,28 @@ addFirst(T* object)
   add(0, object);
 }
 
+template<typename T, typename Policy>
+void 
+sk::util::AbstractList<T, Policy>::
+addLast(const T& object)
+{
+  add(object);
+}
+
+template<typename T, typename Policy>
+void 
+sk::util::AbstractList<T, Policy>::
+addLast(T& object)
+{
+  add(object);
+}
+
+template<typename T, typename Policy>
+void 
+sk::util::AbstractList<T, Policy>::
+addLast(T* object)
+{
+  add(object);
+}
+
 #endif /* _SK_UTIL_ABSTRACTLIST_CXX_ */

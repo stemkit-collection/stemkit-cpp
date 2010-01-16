@@ -672,4 +672,28 @@ addFirst(T* object)
   add(0, object);
 }
 
+template<typename T, typename Policy, typename Type>
+void 
+sk::util::StandardContainer<T, Policy, Type>::
+addLast(const T& object)
+{
+  add(object);
+}
+
+template<typename T, typename Policy, typename Type>
+void 
+sk::util::StandardContainer<T, Policy, Type>::
+addLast(T& object)
+{
+  add(object);
+}
+
+template<typename T, typename Policy, typename Type>
+void 
+sk::util::StandardContainer<T, Policy, Type>::
+addLast(T* object)
+{
+  add(object);
+}
+
 #endif /* _SK_UTIL_STANDARDCONTAINER_CXX_ */

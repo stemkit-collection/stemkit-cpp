@@ -94,6 +94,10 @@ namespace sk {
         void addFirst(const T& object);
         void addFirst(T& object);
         void addFirst(T* object);
+        
+        void addLast(const T& object);
+        void addLast(T& object);
+        void addLast(T* object);
 
         // sk::util::Object implementation.
         const sk::util::Class getClass() const;
