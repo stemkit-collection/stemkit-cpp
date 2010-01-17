@@ -243,3 +243,25 @@ testListGetFirstLast()
   CPPUNIT_ASSERT_EQUAL("a", list.get().getFirst());
   CPPUNIT_ASSERT_EQUAL("c", list.get().getLast());
 }
+
+void
+sk::util::test::collection::ListTest::
+testListGetMutableFirstLast()
+{
+  sk::util::Holder<List> list(makeCopyingList());
+
+  CPPUNIT_ASSERT_THROW(list.getMutable().getMutableFirst(), sk::util::NoSuchElementException);
+  CPPUNIT_ASSERT_THROW(list.getMutable().getMutableLast(), sk::util::NoSuchElementException);
+
+  list.getMutable().add("a");
+  CPPUNIT_ASSERT_EQUAL("a", list.getMutable().getMutableFirst());
+  CPPUNIT_ASSERT_EQUAL("a", list.getMutable().getMutableLast());
+
+  list.getMutable().add("b");
+  CPPUNIT_ASSERT_EQUAL("a", list.getMutable().getMutableFirst());
+  CPPUNIT_ASSERT_EQUAL("b", list.getMutable().getMutableLast());
+
+  list.getMutable().add("c");
+  CPPUNIT_ASSERT_EQUAL("a", list.getMutable().getMutableFirst());
+  CPPUNIT_ASSERT_EQUAL("c", list.getMutable().getMutableLast());
+}
