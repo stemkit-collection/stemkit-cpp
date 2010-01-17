@@ -14,6 +14,7 @@
 #include <sk/util/String.h>
 #include <sk/util/Holder.cxx>
 #include <sk/util/selector/EqualValue.hxx>
+#include <sk/util/selector/Any.hxx>
 #include <sk/util/assessor/EqualValues.hxx>
 
 sk::util::test::collection::CollectionTest::
@@ -34,6 +35,8 @@ testCollectionBasics()
 {
   Holder<Collection> collection(makeCopyingCollection());
   CPPUNIT_ASSERT(collection.get().isEmpty() == true);
+
+  CPPUNIT_ASSERT_THROW(collection.get().get(sk::util::selector::Any<sk::util::String>()), sk::util::NoSuchElementException);
 
   collection.getMutable().add("aaa");
   collection.getMutable().add("bbb");

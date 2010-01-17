@@ -40,6 +40,7 @@ namespace sk {
 
             CPPUNIT_TEST(testListAddFirst);
             CPPUNIT_TEST(testListAddLast);
+            CPPUNIT_TEST(testListGetFirstLast);
           CPPUNIT_TEST_SUITE_END();
         
           public:

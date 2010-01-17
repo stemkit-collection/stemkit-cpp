@@ -62,11 +62,11 @@ namespace sk {
 
         /// Returns the first element in this list as immutable. Throws 
         /// sk::util::NoSuchElementException when the list is empty.
-        // TODO: virtual const T& getFirst() const = 0;
+        virtual const T& getFirst() const = 0;
 
         /// Returns the last element in this list as immutable. Throws 
         /// sk::util::NoSuchElementException when the list is empty.
-        // TODO: virtual const T& getLast() const = 0;
+        virtual const T& getLast() const = 0;
 
         /// Returns the mutable element at the specified position in this 
         /// list. Throws sk::util::IndexOutOfBoundsException when a negative
@@ -77,11 +77,11 @@ namespace sk {
 
         /// Returns the first element in this list as mutable. Throws 
         /// sk::util::NoSuchElementException when the list is empty.
-        // TODO: virtual T& getMutableFirst() const = 0;
+        virtual T& getMutableFirst() const = 0;
 
         /// Returns the last element in this list as mutable. Throws 
         /// sk::util::NoSuchElementException when the list is empty.
-        // TODO: virtual T& getMutableLast() const = 0;
+        virtual T& getMutableLast() const = 0;
 
         /// Returns the index in this list of the first occurrence of the
         /// specified element, or -1 if this list does not contain this 

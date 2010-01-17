@@ -327,4 +327,48 @@ addLast(T* object)
   add(object);
 }
 
+template<typename T, typename Policy>
+const T& 
+sk::util::AbstractList<T, Policy>::
+getFirst() const
+{
+  if(isEmpty() == true) {
+    throw sk::util::NoSuchElementException(SK_METHOD);
+  }
+  return get(0);
+}
+
+template<typename T, typename Policy>
+const T& 
+sk::util::AbstractList<T, Policy>::
+getLast() const
+{
+  if(isEmpty() == true) {
+    throw sk::util::NoSuchElementException(SK_METHOD);
+  }
+  return get(size() - 1);
+}
+
+template<typename T, typename Policy>
+T& 
+sk::util::AbstractList<T, Policy>::
+getMutableFirst() const
+{
+  if(isEmpty() == true) {
+    throw sk::util::NoSuchElementException(SK_METHOD);
+  }
+  return getMutable(0);
+}
+
+template<typename T, typename Policy>
+T& 
+sk::util::AbstractList<T, Policy>::
+getMutableLast() const
+{
+  if(isEmpty() == true) {
+    throw sk::util::NoSuchElementException(SK_METHOD);
+  }
+  return getMutable(size() - 1);
+}
+
 #endif /* _SK_UTIL_ABSTRACTLIST_CXX_ */

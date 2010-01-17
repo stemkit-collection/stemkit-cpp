@@ -79,6 +79,11 @@ namespace sk {
         void addLast(T& object);
         void addLast(T* object);
 
+        const T& getFirst() const;
+        const T& getLast() const;
+        T& getMutableFirst() const;
+        T& getMutableLast() const;
+
         using AbstractCollection<T, Policy>::forEach;
         using AbstractCollection<T, Policy>::size;
         using AbstractCollection<T, Policy>::isEmpty;

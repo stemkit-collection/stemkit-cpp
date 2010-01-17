@@ -99,6 +99,11 @@ namespace sk {
         void addLast(T& object);
         void addLast(T* object);
 
+        const T& getFirst() const;
+        const T& getLast() const;
+        T& getMutableFirst() const;
+        T& getMutableLast() const;
+
         // sk::util::Object implementation.
         const sk::util::Class getClass() const;
         const String inspect() const;

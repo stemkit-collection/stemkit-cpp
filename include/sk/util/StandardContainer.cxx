@@ -696,4 +696,36 @@ addLast(T* object)
   add(object);
 }
 
+template<typename T, typename Policy, typename Type>
+const T& 
+sk::util::StandardContainer<T, Policy, Type>::
+getFirst() const
+{
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
+}
+
+template<typename T, typename Policy, typename Type>
+const T& 
+sk::util::StandardContainer<T, Policy, Type>::
+getLast() const
+{
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
+}
+
+template<typename T, typename Policy, typename Type>
+T& 
+sk::util::StandardContainer<T, Policy, Type>::
+getMutableFirst() const
+{
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
+}
+
+template<typename T, typename Policy, typename Type>
+T& 
+sk::util::StandardContainer<T, Policy, Type>::
+getMutableLast() const
+{
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
+}
+
 #endif /* _SK_UTIL_STANDARDCONTAINER_CXX_ */
