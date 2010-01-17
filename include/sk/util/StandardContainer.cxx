@@ -701,7 +701,10 @@ const T&
 sk::util::StandardContainer<T, Policy, Type>::
 getFirst() const
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  if(_container.empty() == true) {
+    throw sk::util::NoSuchElementException(SK_METHOD);
+  }
+  return Policy::getObject(_container.front());
 }
 
 template<typename T, typename Policy, typename Type>
@@ -709,7 +712,10 @@ const T&
 sk::util::StandardContainer<T, Policy, Type>::
 getLast() const
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  if(_container.empty() == true) {
+    throw sk::util::NoSuchElementException(SK_METHOD);
+  }
+  return Policy::getObject(_container.back());
 }
 
 template<typename T, typename Policy, typename Type>
@@ -717,7 +723,10 @@ T&
 sk::util::StandardContainer<T, Policy, Type>::
 getMutableFirst() const
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  if(_container.empty() == true) {
+    throw sk::util::NoSuchElementException(SK_METHOD);
+  }
+  return Policy::getMutableObject(_container.front());
 }
 
 template<typename T, typename Policy, typename Type>
@@ -725,7 +734,10 @@ T&
 sk::util::StandardContainer<T, Policy, Type>::
 getMutableLast() const
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  if(_container.empty() == true) {
+    throw sk::util::NoSuchElementException(SK_METHOD);
+  }
+  return Policy::getMutableObject(_container.back());
 }
 
 #endif /* _SK_UTIL_STANDARDCONTAINER_CXX_ */
