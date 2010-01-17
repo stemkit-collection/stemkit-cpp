@@ -34,7 +34,7 @@ namespace sk {
 
             CPPUNIT_TEST(testListAdd);
             CPPUNIT_TEST(testListGet);
-            // CPPUNIT_TEST(testListGetMutable);
+            CPPUNIT_TEST(testListGetMutable);
             CPPUNIT_TEST(testListIndexOf);
             CPPUNIT_TEST(testListRemove);
             CPPUNIT_TEST(testListSet);

@@ -86,16 +86,18 @@ testListGetMutable()
 {
   sk::util::Holder<List> list(makeCopyingList());
 
-  CPPUNIT_ASSERT_THROW(list.get().get(0), sk::util::IndexOutOfBoundsException);
-  CPPUNIT_ASSERT_THROW(list.get().get(-1), sk::util::IndexOutOfBoundsException);
+  CPPUNIT_ASSERT_THROW(list.getMutable().getMutable(0), sk::util::IndexOutOfBoundsException);
 
   list.getMutable().add("aaa");
+  list.getMutable().add("bbb");
+  list.getMutable().add("ccc");
 
-  try {
-    list.getMutable().getMutable(0);
-    CPPUNIT_FAIL("No expected exception");
-  }
-  catch(const sk::util::ImmutableObjectException& exception) {}
+  CPPUNIT_ASSERT_EQUAL("aaa", list.getMutable().getMutable(0));
+  CPPUNIT_ASSERT_EQUAL("bbb", list.getMutable().getMutable(1));
+  CPPUNIT_ASSERT_EQUAL("ccc", list.getMutable().getMutable(2));
+
+  CPPUNIT_ASSERT_THROW(list.getMutable().getMutable(3), sk::util::IndexOutOfBoundsException);
+  CPPUNIT_ASSERT_THROW(list.getMutable().getMutable(-1), sk::util::IndexOutOfBoundsException);
 }
 
 void 
