@@ -26,6 +26,8 @@ namespace sk {
         {
           CPPUNIT_TEST_SUITE(sk::util::test::collection::CollectionTest);
             CPPUNIT_TEST(testCollectionBasics);
+            CPPUNIT_TEST(testCollectionGet);
+            CPPUNIT_TEST(testCollectionGetMutable);
             CPPUNIT_TEST(testCollectionContains);
             CPPUNIT_TEST(testCollectionContainsAll);
             CPPUNIT_TEST(testCollectionClear);
@@ -39,6 +41,8 @@ namespace sk {
             CollectionTest();
 
             void testCollectionBasics();
+            void testCollectionGet();
+            void testCollectionGetMutable();
             void testCollectionContains();
             void testCollectionContainsAll();
             void testCollectionClear();

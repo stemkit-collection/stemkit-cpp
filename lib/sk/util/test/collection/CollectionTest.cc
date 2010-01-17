@@ -54,6 +54,32 @@ testCollectionBasics()
 
 void
 sk::util::test::collection::CollectionTest::
+testCollectionGet()
+{
+  Holder<Collection> collection(makeCopyingCollection());
+  CPPUNIT_ASSERT_THROW(collection.get().get(sk::util::selector::Any<sk::util::String>()), sk::util::NoSuchElementException);
+
+  collection.getMutable().add("a");
+  collection.getMutable().add("b");
+
+  CPPUNIT_ASSERT_EQUAL("a", collection.get().get(sk::util::selector::Any<sk::util::String>()));
+}
+
+void
+sk::util::test::collection::CollectionTest::
+testCollectionGetMutable()
+{
+  Holder<Collection> collection(makeCopyingCollection());
+  CPPUNIT_ASSERT_THROW(collection.getMutable().getMutable(sk::util::selector::Any<sk::util::String>()), sk::util::NoSuchElementException);
+
+  collection.getMutable().add("a");
+  collection.getMutable().add("b");
+
+  CPPUNIT_ASSERT_EQUAL("a", collection.getMutable().getMutable(sk::util::selector::Any<sk::util::String>()));
+}
+
+void
+sk::util::test::collection::CollectionTest::
 testCollectionContains()
 {
   Holder<Collection> collection(makeCopyingCollection());
