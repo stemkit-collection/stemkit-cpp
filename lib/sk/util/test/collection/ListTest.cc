@@ -296,3 +296,40 @@ testListRemoveFirstLast()
   CPPUNIT_ASSERT_THROW(list.getMutable().removeFirst(), sk::util::NoSuchElementException);
   CPPUNIT_ASSERT_THROW(list.getMutable().removeLast(), sk::util::NoSuchElementException);
 }
+
+void 
+sk::util::test::collection::ListTest::
+testListCutoffFirstLast()
+{
+  sk::util::Holder<List> list(makeCopyingList());
+
+  CPPUNIT_ASSERT_THROW(list.getMutable().cutoffFirst(), sk::util::NoSuchElementException);
+  CPPUNIT_ASSERT_THROW(list.getMutable().cutoffLast(), sk::util::NoSuchElementException);
+
+  list.getMutable().add("a");
+  list.getMutable().add("b");
+  list.getMutable().add("c");
+
+  CPPUNIT_ASSERT_EQUAL(3, list.get().size());
+
+  const sk::util::String* item = list.getMutable().cutoffFirst();
+  CPPUNIT_ASSERT_EQUAL(2, list.get().size());
+  CPPUNIT_ASSERT_EQUAL("b", list.get().get(0));
+  CPPUNIT_ASSERT_EQUAL("c", list.get().get(1));
+  CPPUNIT_ASSERT_EQUAL("a", *item);
+  delete item;
+
+  item = list.getMutable().cutoffLast();
+  CPPUNIT_ASSERT_EQUAL(1, list.get().size());
+  CPPUNIT_ASSERT_EQUAL("b", list.get().get(0));
+  CPPUNIT_ASSERT_EQUAL("c", *item);
+  delete item;
+
+  item = list.getMutable().cutoffFirst();
+  CPPUNIT_ASSERT_EQUAL(0, list.get().size());
+  CPPUNIT_ASSERT_EQUAL("b", *item);
+  delete item;
+
+  CPPUNIT_ASSERT_THROW(list.getMutable().cutoffFirst(), sk::util::NoSuchElementException);
+  CPPUNIT_ASSERT_THROW(list.getMutable().cutoffLast(), sk::util::NoSuchElementException);
+}

@@ -106,6 +106,8 @@ namespace sk {
 
         void removeFirst();
         void removeLast();
+        T* cutoffFirst();
+        T* cutoffLast();
 
         // sk::util::Object implementation.
         const sk::util::Class getClass() const;

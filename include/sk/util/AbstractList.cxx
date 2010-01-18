@@ -393,4 +393,26 @@ removeLast()
   remove(size() - 1);
 }
 
+template<typename T, typename Policy>
+T*
+sk::util::AbstractList<T, Policy>::
+cutoffFirst()
+{
+  if(isEmpty() == true) {
+    throw sk::util::NoSuchElementException(SK_METHOD);
+  }
+  return cutoff(0);
+}
+
+template<typename T, typename Policy>
+T*
+sk::util::AbstractList<T, Policy>::
+cutoffLast()
+{
+  if(isEmpty() == true) {
+    throw sk::util::NoSuchElementException(SK_METHOD);
+  }
+  return cutoff(size() - 1);
+}
+
 #endif /* _SK_UTIL_ABSTRACTLIST_CXX_ */

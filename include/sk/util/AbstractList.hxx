@@ -86,6 +86,8 @@ namespace sk {
 
         void removeFirst();
         void removeLast();
+        T* cutoffFirst();
+        T* cutoffLast();
 
         using AbstractCollection<T, Policy>::forEach;
         using AbstractCollection<T, Policy>::size;

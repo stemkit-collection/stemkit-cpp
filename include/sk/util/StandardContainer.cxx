@@ -764,4 +764,32 @@ removeLast()
   _container.pop_back();
 }
 
+template<typename T, typename Policy, typename Type>
+T*
+sk::util::StandardContainer<T, Policy, Type>::
+cutoffFirst()
+{
+  if(_container.empty() == true) {
+    throw sk::util::NoSuchElementException(SK_METHOD);
+  }
+  T* object = Policy::depriveObject(_container.front());
+  _container.erase(_container.begin());
+
+  return object;
+}
+
+template<typename T, typename Policy, typename Type>
+T*
+sk::util::StandardContainer<T, Policy, Type>::
+cutoffLast()
+{
+  if(_container.empty() == true) {
+    throw sk::util::NoSuchElementException(SK_METHOD);
+  }
+  T* object = Policy::depriveObject(_container.back());
+  _container.pop_back();
+
+  return object;
+}
+
 #endif /* _SK_UTIL_STANDARDCONTAINER_CXX_ */

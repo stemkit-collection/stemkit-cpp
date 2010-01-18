@@ -136,13 +136,13 @@ namespace sk {
         /// when the element was not added as a pointer. Otherwise returns 
         /// a pointer to the element without destroying it. Throws 
         /// sk::util::NoSuchElementException when the list is empty.
-        // TODO: virtual T* cutoffFirst() = 0;
+        virtual T* cutoffFirst() = 0;
 
         /// Removes the last element from this list. Throws an exception 
         /// when the element was not added as a pointer. Otherwise returns 
         /// a pointer to the element without destroying it. Throws 
         /// sk::util::NoSuchElementException when the list is empty.
-        // TODO: virtual T* cutoffLast() = 0;
+        virtual T* cutoffLast() = 0;
 
         /// Same as for cutoff(), however the element is not removed from the
         /// collection, being replaced by a reference instead. It performs 
