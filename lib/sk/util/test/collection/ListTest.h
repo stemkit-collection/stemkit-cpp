@@ -45,6 +45,7 @@ namespace sk {
             CPPUNIT_TEST(testListAddLast);
             CPPUNIT_TEST(testListGetFirstLast);
             CPPUNIT_TEST(testListGetMutableFirstLast);
+            CPPUNIT_TEST(testListRemoveFirstLast);
           CPPUNIT_TEST_SUITE_END();
         
           public:
@@ -62,6 +63,7 @@ namespace sk {
             void testListAddLast();
             void testListGetFirstLast();
             void testListGetMutableFirstLast();
+            void testListRemoveFirstLast();
 
           protected:
             sk::util::Collection<sk::util::String>* makeCopyingCollection();

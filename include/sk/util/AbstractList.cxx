@@ -371,4 +371,26 @@ getMutableLast() const
   return getMutable(size() - 1);
 }
 
+template<typename T, typename Policy>
+void 
+sk::util::AbstractList<T, Policy>::
+removeFirst()
+{
+  if(isEmpty() == true) {
+    throw sk::util::NoSuchElementException(SK_METHOD);
+  }
+  remove(0);
+}
+
+template<typename T, typename Policy>
+void 
+sk::util::AbstractList<T, Policy>::
+removeLast()
+{
+  if(isEmpty() == true) {
+    throw sk::util::NoSuchElementException(SK_METHOD);
+  }
+  remove(size() - 1);
+}
+
 #endif /* _SK_UTIL_ABSTRACTLIST_CXX_ */

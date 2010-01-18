@@ -104,6 +104,9 @@ namespace sk {
         T& getMutableFirst() const;
         T& getMutableLast() const;
 
+        void removeFirst();
+        void removeLast();
+
         // sk::util::Object implementation.
         const sk::util::Class getClass() const;
         const String inspect() const;

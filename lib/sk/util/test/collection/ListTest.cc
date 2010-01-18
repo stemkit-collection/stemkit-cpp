@@ -265,3 +265,34 @@ testListGetMutableFirstLast()
   CPPUNIT_ASSERT_EQUAL("a", list.getMutable().getMutableFirst());
   CPPUNIT_ASSERT_EQUAL("c", list.getMutable().getMutableLast());
 }
+
+void 
+sk::util::test::collection::ListTest::
+testListRemoveFirstLast()
+{
+  sk::util::Holder<List> list(makeCopyingList());
+
+  CPPUNIT_ASSERT_THROW(list.getMutable().removeFirst(), sk::util::NoSuchElementException);
+  CPPUNIT_ASSERT_THROW(list.getMutable().removeLast(), sk::util::NoSuchElementException);
+
+  list.getMutable().add("a");
+  list.getMutable().add("b");
+  list.getMutable().add("c");
+
+  CPPUNIT_ASSERT_EQUAL(3, list.get().size());
+
+  list.getMutable().removeFirst();
+  CPPUNIT_ASSERT_EQUAL(2, list.get().size());
+  CPPUNIT_ASSERT_EQUAL("b", list.get().get(0));
+  CPPUNIT_ASSERT_EQUAL("c", list.get().get(1));
+
+  list.getMutable().removeLast();
+  CPPUNIT_ASSERT_EQUAL(1, list.get().size());
+  CPPUNIT_ASSERT_EQUAL("b", list.get().get(0));
+
+  list.getMutable().removeFirst();
+  CPPUNIT_ASSERT_EQUAL(0, list.get().size());
+
+  CPPUNIT_ASSERT_THROW(list.getMutable().removeFirst(), sk::util::NoSuchElementException);
+  CPPUNIT_ASSERT_THROW(list.getMutable().removeLast(), sk::util::NoSuchElementException);
+}

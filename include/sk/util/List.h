@@ -115,13 +115,13 @@ namespace sk {
         /// actually destroyed when added to this list as a pointer. 
         /// Throws sk::util::NoSuchElementException when the list is 
         /// empty.
-        // TODO: virtual void removeFirst() = 0;
+        virtual void removeFirst() = 0;
 
         /// Removes the last element from this list. The element is 
         /// actually destroyed when added to this list as a pointer. 
         /// Throws sk::util::NoSuchElementException when the list is
         /// empty.
-        // TODO: virtual void removeLast() = 0;
+        virtual void removeLast() = 0;
 
         /// Removes the element at the specified position in this list.
         /// Shifts any subsequent elements to the left (subtracts one 

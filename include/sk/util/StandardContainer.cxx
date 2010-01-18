@@ -740,4 +740,28 @@ getMutableLast() const
   return Policy::getMutableObject(_container.back());
 }
 
+template<typename T, typename Policy, typename Type>
+void 
+sk::util::StandardContainer<T, Policy, Type>::
+removeFirst()
+{
+  if(_container.empty() == true) {
+    throw sk::util::NoSuchElementException(SK_METHOD);
+  }
+  Policy::clearSlot(_container.front());
+  _container.erase(_container.begin());
+}
+
+template<typename T, typename Policy, typename Type>
+void
+sk::util::StandardContainer<T, Policy, Type>::
+removeLast()
+{
+  if(_container.empty() == true) {
+    throw sk::util::NoSuchElementException(SK_METHOD);
+  }
+  Policy::clearSlot(_container.back());
+  _container.pop_back();
+}
+
 #endif /* _SK_UTIL_STANDARDCONTAINER_CXX_ */

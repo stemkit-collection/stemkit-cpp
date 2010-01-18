@@ -84,6 +84,9 @@ namespace sk {
         T& getMutableFirst() const;
         T& getMutableLast() const;
 
+        void removeFirst();
+        void removeLast();
+
         using AbstractCollection<T, Policy>::forEach;
         using AbstractCollection<T, Policy>::size;
         using AbstractCollection<T, Policy>::isEmpty;
