@@ -12,6 +12,7 @@
 #define _SK_UTIL_MAPPER_INSPECTING_HXX_
 
 #include <sk/util/Mapper.h>
+#include <sk/util/inspect.h>
 
 namespace sk {
   namespace util {
@@ -20,7 +21,7 @@ namespace sk {
       class Inspecting : public virtual sk::util::Mapper<const T, sk::util::String> {
         public:
           sk::util::String map(const T& object) const {
-            return object.inspect();
+            return sk::util::inspect(object);
           }
       };
     }
