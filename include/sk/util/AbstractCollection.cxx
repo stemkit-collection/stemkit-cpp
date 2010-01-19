@@ -11,8 +11,8 @@
 
 #include <sk/util/AbstractCollection.hxx>
 #include <sk/util/Holder.cxx>
+#include <sk/util/Validator.h>
 #include <sk/util/UnsupportedOperationException.h>
-#include <sk/util/NoSuchElementException.h>
 #include <sk/util/selector/EqualPointer.hxx>
 #include <sk/util/selector/Any.hxx>
 #include <sk/util/selector/Not.hxx>
@@ -47,10 +47,8 @@ sk::util::AbstractCollection<T, Policy>::
 get(const Selector<T>& selector) const 
 {
   sk::util::Holder<T> holder;
-  if(find(holder, selector) == true) {
-    return holder.get();
-  }
-  throw sk::util::NoSuchElementException("get()");
+  sk::util::Validator::ensureElement(find(holder, selector));
+  return holder.get();
 }
 
 template<typename T, typename Policy>
@@ -59,10 +57,8 @@ sk::util::AbstractCollection<T, Policy>::
 getMutable(const Selector<T>& selector) const
 {
   sk::util::Holder<T> holder;
-  if(findMutable(holder, selector) == true) {
-    return holder.getMutable();
-  }
-  throw sk::util::NoSuchElementException("getMutable()");
+  sk::util::Validator::ensureElement(findMutable(holder, selector));
+  return holder.getMutable();
 }
 
 template<typename T, typename Policy>

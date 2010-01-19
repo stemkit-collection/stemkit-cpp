@@ -12,7 +12,6 @@
 #include <sk/util/AbstractList.hxx>
 #include <sk/util/AbstractCollection.cxx>
 #include <sk/util/UnsupportedOperationException.h>
-#include <sk/util/IndexOutOfBoundsException.h>
 #include <sk/util/StringArray.h>
 #include <sk/util/Validator.h>
 #include <sk/util/selector/EqualPointer.hxx>
