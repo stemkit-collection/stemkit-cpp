@@ -332,9 +332,7 @@ const T&
 sk::util::AbstractList<T, Policy>::
 getFirst() const
 {
-  if(isEmpty() == true) {
-    throw sk::util::NoSuchElementException(SK_METHOD);
-  }
+  sk::util::Validator::ensureNotEmpty(size());
   return get(0);
 }
 
@@ -343,9 +341,7 @@ const T&
 sk::util::AbstractList<T, Policy>::
 getLast() const
 {
-  if(isEmpty() == true) {
-    throw sk::util::NoSuchElementException(SK_METHOD);
-  }
+  sk::util::Validator::ensureNotEmpty(size());
   return get(size() - 1);
 }
 
@@ -354,9 +350,7 @@ T&
 sk::util::AbstractList<T, Policy>::
 getMutableFirst() const
 {
-  if(isEmpty() == true) {
-    throw sk::util::NoSuchElementException(SK_METHOD);
-  }
+  sk::util::Validator::ensureNotEmpty(size());
   return getMutable(0);
 }
 
@@ -365,9 +359,7 @@ T&
 sk::util::AbstractList<T, Policy>::
 getMutableLast() const
 {
-  if(isEmpty() == true) {
-    throw sk::util::NoSuchElementException(SK_METHOD);
-  }
+  sk::util::Validator::ensureNotEmpty(size());
   return getMutable(size() - 1);
 }
 
@@ -376,9 +368,7 @@ void
 sk::util::AbstractList<T, Policy>::
 removeFirst()
 {
-  if(isEmpty() == true) {
-    throw sk::util::NoSuchElementException(SK_METHOD);
-  }
+  sk::util::Validator::ensureNotEmpty(size());
   remove(0);
 }
 
@@ -387,9 +377,7 @@ void
 sk::util::AbstractList<T, Policy>::
 removeLast()
 {
-  if(isEmpty() == true) {
-    throw sk::util::NoSuchElementException(SK_METHOD);
-  }
+  sk::util::Validator::ensureNotEmpty(size());
   remove(size() - 1);
 }
 
@@ -398,9 +386,7 @@ T*
 sk::util::AbstractList<T, Policy>::
 cutoffFirst()
 {
-  if(isEmpty() == true) {
-    throw sk::util::NoSuchElementException(SK_METHOD);
-  }
+  sk::util::Validator::ensureNotEmpty(size());
   return cutoff(0);
 }
 
@@ -409,9 +395,7 @@ T*
 sk::util::AbstractList<T, Policy>::
 cutoffLast()
 {
-  if(isEmpty() == true) {
-    throw sk::util::NoSuchElementException(SK_METHOD);
-  }
+  sk::util::Validator::ensureNotEmpty(size());
   return cutoff(size() - 1);
 }
 

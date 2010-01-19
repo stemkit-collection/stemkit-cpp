@@ -18,7 +18,6 @@
 #include <sk/util/StringArray.h>
 #include <sk/util/Break.h>
 #include <sk/util/Validator.h>
-#include <sk/util/NoSuchElementException.h>
 #include <sk/util/UnsupportedOperationException.h>
 #include <sk/util/selector/EqualPointer.hxx>
 #include <sk/util/selector/Not.hxx>
@@ -99,9 +98,8 @@ sk::util::StandardContainer<T, Policy, Type>::
 get(const Selector<T>& selector) const
 {
   typename Type::container_t::const_iterator iterator = std::find_if(_container.begin(), _container.end(), SelectingFunctor(selector));
-  if(iterator == _container.end()) {
-    throw sk::util::NoSuchElementException(SK_METHOD);
-  }
+  sk::util::Validator::ensureElement(iterator != _container.end());
+
   return Policy::getObject(*iterator);
 }
 
@@ -111,9 +109,8 @@ sk::util::StandardContainer<T, Policy, Type>::
 getMutable(const Selector<T>& selector) const
 {
   typename Type::container_t::const_iterator iterator = std::find_if(_container.begin(), _container.end(), SelectingFunctor(selector));
-  if(iterator == _container.end()) {
-    throw sk::util::NoSuchElementException(SK_METHOD);
-  }
+  sk::util::Validator::ensureElement(iterator != _container.end());
+
   return Policy::getMutableObject(*iterator);
 }
 
@@ -292,9 +289,8 @@ sk::util::StandardContainer<T, Policy, Type>::
 cutoff(const Selector<T>& selector)
 {
   typename Type::container_t::iterator iterator = std::find_if(_container.begin(), _container.end(), SelectingFunctor(selector));
-  if(iterator == _container.end()) {
-    throw sk::util::NoSuchElementException(SK_METHOD);
-  }
+  sk::util::Validator::ensureElement(iterator != _container.end());
+
   T* object = Policy::depriveObject(*iterator);
   _container.erase(iterator);
 
@@ -315,9 +311,8 @@ sk::util::StandardContainer<T, Policy, Type>::
 release(const Selector<T>& selector)
 {
   typename Type::container_t::iterator iterator = std::find_if(_container.begin(), _container.end(), SelectingFunctor(selector));
-  if(iterator == _container.end()) {
-    throw sk::util::NoSuchElementException(SK_METHOD);
-  }
+  sk::util::Validator::ensureElement(iterator != _container.end());
+
   typename Type::item_t& item = *iterator;
   T* object = Policy::depriveObject(item);
   Policy::setObject(item, *object);
@@ -701,9 +696,7 @@ const T&
 sk::util::StandardContainer<T, Policy, Type>::
 getFirst() const
 {
-  if(_container.empty() == true) {
-    throw sk::util::NoSuchElementException(SK_METHOD);
-  }
+  sk::util::Validator::ensureNotEmpty(size());
   return Policy::getObject(_container.front());
 }
 
@@ -712,9 +705,7 @@ const T&
 sk::util::StandardContainer<T, Policy, Type>::
 getLast() const
 {
-  if(_container.empty() == true) {
-    throw sk::util::NoSuchElementException(SK_METHOD);
-  }
+  sk::util::Validator::ensureNotEmpty(size());
   return Policy::getObject(_container.back());
 }
 
@@ -723,9 +714,7 @@ T&
 sk::util::StandardContainer<T, Policy, Type>::
 getMutableFirst() const
 {
-  if(_container.empty() == true) {
-    throw sk::util::NoSuchElementException(SK_METHOD);
-  }
+  sk::util::Validator::ensureNotEmpty(size());
   return Policy::getMutableObject(_container.front());
 }
 
@@ -734,9 +723,7 @@ T&
 sk::util::StandardContainer<T, Policy, Type>::
 getMutableLast() const
 {
-  if(_container.empty() == true) {
-    throw sk::util::NoSuchElementException(SK_METHOD);
-  }
+  sk::util::Validator::ensureNotEmpty(size());
   return Policy::getMutableObject(_container.back());
 }
 
@@ -745,9 +732,7 @@ void
 sk::util::StandardContainer<T, Policy, Type>::
 removeFirst()
 {
-  if(_container.empty() == true) {
-    throw sk::util::NoSuchElementException(SK_METHOD);
-  }
+  sk::util::Validator::ensureNotEmpty(size());
   Policy::clearSlot(_container.front());
   _container.erase(_container.begin());
 }
@@ -757,9 +742,7 @@ void
 sk::util::StandardContainer<T, Policy, Type>::
 removeLast()
 {
-  if(_container.empty() == true) {
-    throw sk::util::NoSuchElementException(SK_METHOD);
-  }
+  sk::util::Validator::ensureNotEmpty(size());
   Policy::clearSlot(_container.back());
   _container.pop_back();
 }
@@ -769,9 +752,7 @@ T*
 sk::util::StandardContainer<T, Policy, Type>::
 cutoffFirst()
 {
-  if(_container.empty() == true) {
-    throw sk::util::NoSuchElementException(SK_METHOD);
-  }
+  sk::util::Validator::ensureNotEmpty(size());
   T* object = Policy::depriveObject(_container.front());
   _container.erase(_container.begin());
 
@@ -783,9 +764,7 @@ T*
 sk::util::StandardContainer<T, Policy, Type>::
 cutoffLast()
 {
-  if(_container.empty() == true) {
-    throw sk::util::NoSuchElementException(SK_METHOD);
-  }
+  sk::util::Validator::ensureNotEmpty(size());
   T* object = Policy::depriveObject(_container.back());
   _container.pop_back();
 

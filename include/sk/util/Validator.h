@@ -12,6 +12,7 @@
 #define _SK_UTIL_VALIDATOR_H_
 
 #include <sk/util/IndexOutOfBoundsException.h>
+#include <sk/util/NoSuchElementException.h>
 #include <sk/util/String.h>
 
 namespace sk {
@@ -22,6 +23,16 @@ namespace sk {
         inline static void ensureIndex(int index, int size) {
           if((index < 0) || (index >= size)) {
             throw sk::util::IndexOutOfBoundsException("index=" + sk::util::String::valueOf(index) + ", size=" + sk::util::String::valueOf(size));
+          }
+        }
+
+        inline static void ensureNotEmpty(int size) {
+          ensureElement(size != 0);
+        }
+
+        inline static void ensureElement(bool condition) {
+          if(condition == false) {
+            throw sk::util::NoSuchElementException("ensureCondition()");
           }
         }
 
