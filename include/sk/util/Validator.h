@@ -32,7 +32,7 @@ namespace sk {
 
         inline static void ensureElement(bool condition) {
           if(condition == false) {
-            throw sk::util::NoSuchElementException("ensureCondition()");
+            throw sk::util::NoSuchElementException("ensureElement()");
           }
         }
 
