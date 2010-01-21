@@ -11,13 +11,15 @@
 #ifndef _SK_UTIL_REDUCER_H_
 #define _SK_UTIL_REDUCER_H_
 
+#include <sk/util/Mapper.h>
+
 namespace sk {
   namespace util {
     template<typename F, typename T = F>
     class Reducer 
     {
       public:
-        virtual T reduce(T memo, F& object) const = 0;
+        virtual T reduce(T memo, const F& object, const sk::util::Mapper<F, T>& mapper) const = 0;
 
       private:
         struct Processor;

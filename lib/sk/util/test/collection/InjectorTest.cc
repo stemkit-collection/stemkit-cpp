@@ -39,7 +39,7 @@ tearDown()
 
 namespace {
   struct Adder : public virtual sk::util::Reducer<int> {
-    int reduce(int memo, int& item) const {
+    int reduce(int memo, const int& item, const sk::util::Mapper<int>& mapper) const {
       return memo + item;
     }
   };
