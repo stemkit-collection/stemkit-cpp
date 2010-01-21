@@ -24,6 +24,7 @@ test-objects =
   VectorTest.cc
   ArrayListTest.cc
   LinkedListTest.cc
+  InjectorTest.cc
 ;
 
 use-project-library $(test) : sk.util sk.cppunit ;

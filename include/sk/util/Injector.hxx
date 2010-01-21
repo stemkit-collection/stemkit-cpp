@@ -17,7 +17,7 @@
 
 namespace sk {
   namespace util {
-    template<typename F, typename T>
+    template<typename F, typename T = F>
     class Injector 
       : public virtual sk::util::Mapper<F, T>
     {
@@ -26,12 +26,16 @@ namespace sk {
         ~Injector();
     
         const T inject(const sk::util::Mapper<F, T>& mapper, const sk::util::Reducer<F, T>& reducer) const;
+        const T inject(const sk::util::Reducer<F, T>& reducer) const;
         const T inject(const T& initial, const sk::util::Mapper<F, T>& mapper, const sk::util::Reducer<F, T>& reducer) const;
         T& inject(T& memo, const sk::util::Mapper<F, T>& mapper, const sk::util::Reducer<F, T>& reducer) const;
 
         inline const T inject(const T& initial, const sk::util::Reducer<F, T>& reducer) const;
         inline T& inject(T& memo, const sk::util::Reducer<F, T>& reducer) const;
     
+        // sk::util::Object re-implementation.
+        const sk::util::Class getClass() const;
+
       protected:
         // sk::util::Mapper implementation.
         T map(F& object) const;
@@ -40,6 +44,7 @@ namespace sk {
         Injector(const Injector<F, T>& other);
         Injector<F, T>& operator = (const Injector<F, T>& other);
 
+        struct Processor;
         const sk::util::List<F>& _list;
     };
   }
@@ -48,15 +53,15 @@ namespace sk {
 template<typename F, typename T>
 inline const T
 sk::util::Injector<F, T>::
-inject(const T& initial, const sk::util::Reducer<T>& reducer)
+inject(const T& initial, const sk::util::Reducer<F, T>& reducer) const
 {
-  return inject(initial, *this, reducer)
+  return inject(initial, *this, reducer);
 }
 
 template<typename F, typename T>
 inline T&
 sk::util::Injector<F, T>::
-inject(T& memo, const sk::util::Reducer<T>& reducer)
+inject(T& memo, const sk::util::Reducer<F, T>& reducer) const
 {
   return inject(memo, *this, reducer);
 }

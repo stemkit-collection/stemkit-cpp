@@ -11,8 +11,9 @@
 #ifndef _SK_UTIL_INJECTOR_CXX_
 #define _SK_UTIL_INJECTOR_CXX_
 
+#include <sk/util/Class.h>
 #include <sk/util/Injector.hxx>
-#include <sk/util/UnsupportedOperationException.hxx>
+#include <sk/util/UnsupportedOperationException.h>
 
 template<typename F, typename T>
 sk::util::Injector<F, T>::
@@ -27,14 +28,22 @@ sk::util::Injector<F, T>::
 {
 }
 
-template<typename F, typename F>
-struct sk::util::Injector<F, T>::Processor : public virtual sk::util::Processor<F> {
+template<typename F, typename T>
+const sk::util::Class 
+sk::util::Injector<F, T>::
+getClass() const
+{
+  return sk::util::Class("sk::util::Injector");
+}
+
+template<typename F, typename T>
+struct sk::util::Injector<F, T>::Processor : public virtual sk::util::Processor<const F> {
   Processor(bool& skip, T& memo, const sk::util::Mapper<F, T>& mapper, const sk::util::Reducer<T>& reducer)
     : _skip(skip), _memo(memo), _mapper(mapper), _reducer(reducer) {}
 
-  void process(F& object) const {
+  void process(const F& object) const {
     if(_skip == false) {
-      _memo = _reducer(_memo, object, _mapper);
+      _memo = _reducer.reduce(_memo, object, _mapper);
     }
     _skip = false;
   }
@@ -42,13 +51,13 @@ struct sk::util::Injector<F, T>::Processor : public virtual sk::util::Processor<
   bool& _skip;
   T& _memo;
   const sk::util::Mapper<F, T>& _mapper;
-  const sk::util::Recuder<T>& _reducer;
+  const sk::util::Reducer<F, T>& _reducer;
 };
 
 template<typename F, typename T>
 const T
 sk::util::Injector<F, T>::
-inject(const sk::util::Mapper<F, T>& mapper, const sk::util::Reducer<T>& reducer)
+inject(const sk::util::Mapper<F, T>& mapper, const sk::util::Reducer<F, T>& reducer) const
 {
   if(_list.isEmpty() == true) {
     return T(mapper.map(F()));
@@ -61,9 +70,24 @@ inject(const sk::util::Mapper<F, T>& mapper, const sk::util::Reducer<T>& reducer
 }
 
 template<typename F, typename T>
+const T
+sk::util::Injector<F, T>::
+inject(const sk::util::Reducer<F, T>& reducer) const
+{
+  if(_list.isEmpty() == true) {
+    return T(F());
+  }
+  bool skip = true;
+  T memo(_list.get(0));
+  _list.forEach(Processor(skip, memo, *this, reducer));
+
+  return memo;
+}
+
+template<typename F, typename T>
 T&
 sk::util::Injector<F, T>::
-inject(T& memo, const sk::util::Mapper<F, T>& mapper, const sk::util::Reducer<T>& reducer)
+inject(T& memo, const sk::util::Mapper<F, T>& mapper, const sk::util::Reducer<F, T>& reducer) const
 {
   if(_list.isEmpty() == true) {
     return memo;
@@ -77,10 +101,10 @@ inject(T& memo, const sk::util::Mapper<F, T>& mapper, const sk::util::Reducer<T>
 template<typename F, typename T>
 const T
 sk::util::Injector<F, T>::
-inject(const T& initial, const sk::util::Mapper<F, T>& mapper, const sk::util::Reducer<T>& reducer)
+inject(const T& initial, const sk::util::Mapper<F, T>& mapper, const sk::util::Reducer<F, T>& reducer) const
 {
   if(_list.isEmpty() == true) {
-    return memo;
+    return initial;
   }
   T memo(initial);
   bool skip = false;
