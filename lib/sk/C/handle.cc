@@ -18,6 +18,10 @@ namespace {
     abort();
   }
 
+  void abort_on_not_valid_c_handle() {
+    abort();
+  }
+
   void abort_on_bad_copy_buffer() {
     abort();
   }
@@ -27,10 +31,36 @@ namespace {
   }
 }
 
+namespace {
+  const char* label = "*CREATED*";
+}
+
 sk_c_handle::
 sk_c_handle()
   : _error(false)
 {
+  _self = this;
+  ::strncpy(_label, label, sizeof(_label));
+}
+
+sk_c_handle::
+~sk_c_handle()
+{
+  _self = 0;
+  ::strncpy(_label, "", sizeof(_label));
+}
+
+bool
+sk_c_handle::
+isValid(const struct sk_c_handle* handle) const
+{
+  if(handle != this || _self != this) {
+    return false;
+  }
+  if(::strncmp(label, _label, sizeof(_label)) != 0) {
+    return false;
+  }
+  return true;
 }
 
 bool
@@ -68,9 +98,19 @@ ensure_not_null(const sk_c_handle* handle)
 
 void
 sk_c_handle::
-ensure_proper(const sk_c_handle* handle)
+ensure_valid(const sk_c_handle* handle)
 {
   ensure_not_null(handle);
+  if(handle->isValid(handle) == false) {
+    abort_on_not_valid_c_handle();
+  }
+}
+
+void
+sk_c_handle::
+ensure_proper(const sk_c_handle* handle)
+{
+  ensure_valid(handle);
 
   if(handle->isError() == true) {
     char error_type[128];
