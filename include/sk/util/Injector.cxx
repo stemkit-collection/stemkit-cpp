@@ -13,6 +13,7 @@
 
 #include <sk/util/Class.h>
 #include <sk/util/Injector.hxx>
+#include <sk/util/mapper/Coercing.hxx>
 #include <sk/util/UnsupportedOperationException.h>
 
 template<typename F, typename T>
@@ -38,7 +39,7 @@ getClass() const
 
 template<typename F, typename T>
 struct sk::util::Injector<F, T>::Processor : public virtual sk::util::Processor<const F> {
-  Processor(bool& skip, T& memo, const sk::util::Mapper<F, T>& mapper, const sk::util::Reducer<T>& reducer)
+  Processor(bool& skip, T& memo, const sk::util::Mapper<const F, const T>& mapper, const sk::util::Reducer<T>& reducer)
     : _skip(skip), _memo(memo), _mapper(mapper), _reducer(reducer) {}
 
   void process(const F& object) const {
@@ -50,14 +51,14 @@ struct sk::util::Injector<F, T>::Processor : public virtual sk::util::Processor<
 
   bool& _skip;
   T& _memo;
-  const sk::util::Mapper<F, T>& _mapper;
+  const sk::util::Mapper<const F, const T>& _mapper;
   const sk::util::Reducer<F, T>& _reducer;
 };
 
 template<typename F, typename T>
 const T
 sk::util::Injector<F, T>::
-inject(const sk::util::Mapper<F, T>& mapper, const sk::util::Reducer<F, T>& reducer) const
+inject(const sk::util::Mapper<const F, const T>& mapper, const sk::util::Reducer<F, T>& reducer) const
 {
   if(_list.isEmpty() == true) {
     return T(mapper.map(F()));
@@ -79,7 +80,7 @@ inject(const sk::util::Reducer<F, T>& reducer) const
   }
   bool skip = true;
   T memo(_list.get(0));
-  _list.forEach(Processor(skip, memo, *this, reducer));
+  _list.forEach(Processor(skip, memo, sk::util::mapper::Coercing<const F, const T>(), reducer));
 
   return memo;
 }
@@ -87,7 +88,7 @@ inject(const sk::util::Reducer<F, T>& reducer) const
 template<typename F, typename T>
 T&
 sk::util::Injector<F, T>::
-inject(T& memo, const sk::util::Mapper<F, T>& mapper, const sk::util::Reducer<F, T>& reducer) const
+inject(T& memo, const sk::util::Mapper<const F, const T>& mapper, const sk::util::Reducer<F, T>& reducer) const
 {
   if(_list.isEmpty() == true) {
     return memo;
@@ -101,7 +102,7 @@ inject(T& memo, const sk::util::Mapper<F, T>& mapper, const sk::util::Reducer<F,
 template<typename F, typename T>
 const T
 sk::util::Injector<F, T>::
-inject(const T& initial, const sk::util::Mapper<F, T>& mapper, const sk::util::Reducer<F, T>& reducer) const
+inject(const T& initial, const sk::util::Mapper<const F, const T>& mapper, const sk::util::Reducer<F, T>& reducer) const
 {
   if(_list.isEmpty() == true) {
     return initial;
@@ -114,11 +115,19 @@ inject(const T& initial, const sk::util::Mapper<F, T>& mapper, const sk::util::R
 }
 
 template<typename F, typename T>
-T 
+inline const T
 sk::util::Injector<F, T>::
-map(F& object) const
+inject(const T& initial, const sk::util::Reducer<F, T>& reducer) const
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  return inject(initial, sk::util::mapper::Coercing<const F, const T>(), reducer);
+}
+
+template<typename F, typename T>
+inline T&
+sk::util::Injector<F, T>::
+inject(T& memo, const sk::util::Reducer<F, T>& reducer) const
+{
+  return inject(memo, sk::util::mapper::Coercing<const F, const T>(), reducer);
 }
 
 #endif /* _SK_UTIL_INJECTOR_CXX_ */

@@ -19,10 +19,7 @@ namespace sk {
     class Reducer 
     {
       public:
-        virtual T reduce(T memo, const F& object, const sk::util::Mapper<F, T>& mapper) const = 0;
-
-      private:
-        struct Processor;
+        virtual T reduce(const T& memo, const F& object, const sk::util::Mapper<const F, const T>& mapper) const = 0;
     };
   }
 }

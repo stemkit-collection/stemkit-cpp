@@ -23,6 +23,7 @@ namespace sk {
         {
           CPPUNIT_TEST_SUITE(sk::util::test::collection::InjectorTest);
             CPPUNIT_TEST(testBasics);
+            CPPUNIT_TEST(testJoinStrings);
           CPPUNIT_TEST_SUITE_END();
         
           public:
@@ -32,6 +33,7 @@ namespace sk {
             void setUp();
             void tearDown();
             void testBasics();
+            void testJoinStrings();
         
           private:
             InjectorTest(const InjectorTest& other);
