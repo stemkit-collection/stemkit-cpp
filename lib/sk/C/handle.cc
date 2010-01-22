@@ -29,6 +29,11 @@ namespace {
   void abort_on_error_not_cleared() {
     abort();
   }
+
+  bool is_test_c_handle() {
+    static bool flag = (getenv("SK_TEST_C_HANDLE") != 0);
+    return flag;
+  }
 }
 
 namespace {
@@ -39,15 +44,19 @@ sk_c_handle::
 sk_c_handle()
   : _error(false)
 {
-  _self = this;
-  ::strncpy(_label, label, sizeof(_label));
+  if(is_test_c_handle() == true) {
+    _self = this;
+    ::strncpy(_label, label, sizeof(_label));
+  }
 }
 
 sk_c_handle::
 ~sk_c_handle()
 {
-  _self = 0;
-  ::strncpy(_label, "", sizeof(_label));
+  if(is_test_c_handle() == true) {
+    _self = 0;
+    ::strncpy(_label, "", sizeof(_label));
+  }
 }
 
 bool
@@ -101,8 +110,10 @@ sk_c_handle::
 ensure_valid(const sk_c_handle* handle)
 {
   ensure_not_null(handle);
-  if(handle->isValid(handle) == false) {
-    abort_on_not_valid_c_handle();
+  if(is_test_c_handle() == true) {
+    if(handle->isValid(handle) == false) {
+      abort_on_not_valid_c_handle();
+    }
   }
 }
 
