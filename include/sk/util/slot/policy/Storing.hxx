@@ -49,6 +49,10 @@ namespace sk {
               storage = slot;
             }
 
+            // Deliberately leaving this method here instead of moving it to
+            // the aliasing one even though it is dangerous in a way that it 
+            // allows adding references to temporaries. Otherwise it would
+            // require too many changes and interface adjustments.
             static void setObject(slot_storage_t& storage, const T& object) {
               clearSlot(storage);
               setSlot(storage, new slot::Reference<T, SlotMixin>(object));
