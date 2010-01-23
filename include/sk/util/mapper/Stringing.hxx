@@ -13,6 +13,7 @@
 
 #include <sk/util/Mapper.h>
 #include <sk/util/inspect.h>
+#include <sstream>
 
 namespace sk {
   namespace util {
@@ -21,7 +22,9 @@ namespace sk {
       class Stringing : public virtual sk::util::Mapper<const T, const sk::util::String> {
         public:
           const sk::util::String map(const T& object) const {
-            return object.toString();
+            std::ostringstream stream;
+            stream << object;
+            return stream.str();
           }
       };
     }

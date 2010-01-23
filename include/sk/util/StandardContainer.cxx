@@ -780,8 +780,7 @@ const sk::util::String
 sk::util::StandardContainer<T, Policy, Type>::
 join(const sk::util::String& separator, const sk::util::Mapper<const T, const sk::util::String>& mapper) const
 {
-  // return sk::util::Injector<T, sk::util::String>(*this).inject(mapper, sk::util::reducer::Join<T, sk::util::String>(separator));
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  return sk::util::Injector<T, sk::util::String>(*this).inject(mapper, sk::util::reducer::Join<T, sk::util::String>(separator));
 }
 
 template<typename T, typename Policy, typename Type>
@@ -789,8 +788,7 @@ const sk::util::String
 sk::util::StandardContainer<T, Policy, Type>::
 join(const sk::util::String& separator) const
 {
-  // return join(separator, sk::util::mapper::Stringing<T>());
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  return join(separator, sk::util::mapper::Stringing<T>());
 }
 
 template<typename T, typename Policy, typename Type>
@@ -798,8 +796,7 @@ const sk::util::String
 sk::util::StandardContainer<T, Policy, Type>::
 join() const
 {
-  // return join("", sk::util::mapper::Stringing<T>());
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  return join("", sk::util::mapper::Stringing<T>());
 }
 
 #endif /* _SK_UTIL_STANDARDCONTAINER_CXX_ */

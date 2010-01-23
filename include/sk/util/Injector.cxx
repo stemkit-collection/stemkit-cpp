@@ -39,7 +39,7 @@ getClass() const
 
 template<typename F, typename T>
 struct sk::util::Injector<F, T>::Processor : public virtual sk::util::Processor<const F> {
-  Processor(bool& skip, T& memo, const sk::util::Mapper<const F, const T>& mapper, const sk::util::Reducer<T>& reducer)
+  Processor(bool& skip, T& memo, const sk::util::Mapper<const F, const T>& mapper, const sk::util::Reducer<F, T>& reducer)
     : _skip(skip), _memo(memo), _mapper(mapper), _reducer(reducer) {}
 
   void process(const F& object) const {
@@ -61,7 +61,7 @@ sk::util::Injector<F, T>::
 inject(const sk::util::Mapper<const F, const T>& mapper, const sk::util::Reducer<F, T>& reducer) const
 {
   if(_list.isEmpty() == true) {
-    return T(mapper.map(F()));
+    return T();
   }
   bool skip = true;
   T memo = mapper.map(_list.get(0));
@@ -76,7 +76,7 @@ sk::util::Injector<F, T>::
 inject(const sk::util::Reducer<F, T>& reducer) const
 {
   if(_list.isEmpty() == true) {
-    return T(F());
+    return T();
   }
   bool skip = true;
   T memo(_list.get(0));
