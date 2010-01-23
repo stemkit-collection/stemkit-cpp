@@ -11,6 +11,7 @@
 
 #include <sk/util/Collection.h>
 #include <sk/util/Assessor.h>
+#include <sk/util/Mapper.h>
 
 namespace sk {
   namespace util {
@@ -174,6 +175,11 @@ namespace sk {
 
         /// Reverses the order of the elements in this list.
         virtual void reverse() = 0;
+
+        /// Joins list elements together.
+        virtual const sk::util::String join(const sk::util::String& separator, const sk::util::Mapper<const T, const sk::util::String>& mapper) const = 0;
+        virtual const sk::util::String join(const sk::util::String& separator) const = 0;
+        virtual const sk::util::String join() const = 0;
     };
   }
 }

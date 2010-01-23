@@ -46,6 +46,8 @@ namespace sk {
             CPPUNIT_TEST(testListRemoveFirstLast);
             CPPUNIT_TEST(testListCutoffFirstLast);
 
+            CPPUNIT_TEST(testListJoin);
+
             CPPUNIT_TEST(testStandardContainerCreate);
             CPPUNIT_TEST(testStandardContainerAdd);
             CPPUNIT_TEST(testStandardContainerGet);

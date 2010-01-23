@@ -8,8 +8,8 @@
  *  Author: Gennady Bystritsky (gennady.bystritsky@quest.com)
 */
 
-#ifndef _SK_UTIL_MAPPER_INSPECTING_HXX_
-#define _SK_UTIL_MAPPER_INSPECTING_HXX_
+#ifndef _SK_UTIL_MAPPER_STRINGING_HXX_
+#define _SK_UTIL_MAPPER_STRINGING_HXX_
 
 #include <sk/util/Mapper.h>
 #include <sk/util/inspect.h>
@@ -18,14 +18,14 @@ namespace sk {
   namespace util {
     namespace mapper {
       template<typename T>
-      class Inspecting : public virtual sk::util::Mapper<const T, const sk::util::String> {
+      class Stringing : public virtual sk::util::Mapper<const T, const sk::util::String> {
         public:
           const sk::util::String map(const T& object) const {
-            return sk::util::inspect(object);
+            return object.toString();
           }
       };
     }
   }
 }
 
-#endif /* _SK_UTIL_MAPPER_INSPECTING_HXX_ */
+#endif /* _SK_UTIL_MAPPER_STRINGING_HXX_ */

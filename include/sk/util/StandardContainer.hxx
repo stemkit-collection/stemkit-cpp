@@ -109,6 +109,10 @@ namespace sk {
         T* cutoffFirst();
         T* cutoffLast();
 
+        const sk::util::String join(const sk::util::String& separator, const sk::util::Mapper<const T, const sk::util::String>& mapper) const;
+        const sk::util::String join(const sk::util::String& separator) const;
+        const sk::util::String join() const;
+
         // sk::util::Object implementation.
         const sk::util::Class getClass() const;
         const String inspect() const;

@@ -17,6 +17,7 @@
 #include <sk/util/stl/VectorPopulator.hxx>
 #include <sk/util/selector/EqualValue.hxx>
 #include <sk/util/String.h>
+#include <sk/util/mapper/Inspecting.hxx>
 #include <list>
 
 sk::util::test::collection::ListTest::
@@ -332,4 +333,20 @@ testListCutoffFirstLast()
 
   CPPUNIT_ASSERT_THROW(list.getMutable().cutoffFirst(), sk::util::NoSuchElementException);
   CPPUNIT_ASSERT_THROW(list.getMutable().cutoffLast(), sk::util::NoSuchElementException);
+}
+
+void
+sk::util::test::collection::ListTest::
+testListJoin()
+{
+  sk::util::Holder<List> list(makeCopyingList());
+  CPPUNIT_ASSERT_EQUAL("", list.get().join(", "));
+
+  list.getMutable().add("a");
+  list.getMutable().add("b");
+  list.getMutable().add("c");
+
+  CPPUNIT_ASSERT_EQUAL("abc", list.get().join());
+  CPPUNIT_ASSERT_EQUAL("a, b, c", list.get().join(", "));
+  CPPUNIT_ASSERT_EQUAL("\"a\" - \"b\" - \"c\"", list.get().join(" - ", sk::util::mapper::Inspecting<sk::util::String>()));
 }

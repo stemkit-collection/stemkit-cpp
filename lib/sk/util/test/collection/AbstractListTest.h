@@ -46,6 +46,7 @@ namespace sk {
             // CPPUNIT_TEST(testListGetMutableFirstLast);
             CPPUNIT_TEST(testListRemoveFirstLast);
             // CPPUNIT_TEST(testListCutoffFirstLast);
+            CPPUNIT_TEST(testListJoin);
           CPPUNIT_TEST_SUITE_END();
         
           public:

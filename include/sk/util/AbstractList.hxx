@@ -89,6 +89,10 @@ namespace sk {
         T* cutoffFirst();
         T* cutoffLast();
 
+        const sk::util::String join(const sk::util::String& separator, const sk::util::Mapper<const T, const sk::util::String>& mapper) const;
+        const sk::util::String join(const sk::util::String& separator) const;
+        const sk::util::String join() const;
+
         using AbstractCollection<T, Policy>::forEach;
         using AbstractCollection<T, Policy>::size;
         using AbstractCollection<T, Policy>::isEmpty;
