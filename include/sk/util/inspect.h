@@ -12,17 +12,11 @@
 #include <sk/util/String.h>
 #include <sk/util/Container.h>
 #include <sk/util/Object.h>
-#include <vector>
-#include <deque>
-#include <list>
 
 namespace sk {
   namespace util {
     const sk::util::String inspect(const char* buffer, int size);
 
-    template<typename T> const sk::util::String inspect(const std::vector<T>& container);
-    template<typename T> const sk::util::String inspect(const std::deque<T>& container);
-    template<typename T> const sk::util::String inspect(const std::list<T>& container);
     template<typename T> const sk::util::String inspect(T* data);
     template<typename T> const sk::util::String inspect(const T* data);
     template<typename T> const sk::util::String inspect(const T& data);

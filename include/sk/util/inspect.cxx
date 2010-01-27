@@ -13,8 +13,6 @@
 
 #include <sstream>
 #include <sk/util/String.h>
-#include <sk/util/Lists.hxx>
-#include <sk/util/slot/policy/Value.hxx>
 
 template<typename T>
 const sk::util::String 
@@ -40,45 +38,6 @@ sk::util::inspect(const T& data)
   stream << data;
 
   return stream.str();
-}
-
-template<typename T> 
-const sk::util::String 
-sk::util::inspect(const std::vector<T>& container) 
-{
-  sk::util::String depot;
-  int index = 0;
-
-  typename sk::util::Lists<T, sk::util::slot::policy::Value<T> >::SlotInspector inspector(depot, index);
-  std::for_each(container.begin(), container.end(), inspector);
-
-  return inspector.collect();
-}
-
-template<typename T> 
-const sk::util::String 
-sk::util::inspect(const std::deque<T>& container) 
-{
-  sk::util::String depot;
-  int index = 0;
-
-  typename sk::util::Lists<T, sk::util::slot::policy::Value<T> >::SlotInspector inspector(depot, index);
-  std::for_each(container.begin(), container.end(), inspector);
-
-  return inspector.collect();
-}
-
-template<typename T> 
-const sk::util::String 
-sk::util::inspect(const std::list<T>& container) 
-{
-  sk::util::String depot;
-  int index = 0;
-
-  typename sk::util::Lists<T, sk::util::slot::policy::Value<T> >::SlotInspector inspector(depot, index);
-  std::for_each(container.begin(), container.end(), inspector);
-
-  return inspector.collect();
 }
 
 #endif /* _SK_UTIL_INSPECT_CXX_ */

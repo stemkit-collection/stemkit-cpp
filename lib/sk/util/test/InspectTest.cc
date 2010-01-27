@@ -10,6 +10,7 @@
 
 #include "InspectTest.h"
 #include <sk/util/inspect.h>
+#include <sk/util/stl/inspect.h>
 
 #include <vector>
 #include <deque>
