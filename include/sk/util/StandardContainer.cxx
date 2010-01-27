@@ -619,7 +619,7 @@ struct sk::util::StandardContainer<T, Policy, Type>::InspectingFunctor : std::un
   InspectingFunctor(sk::util::StringArray& depot)
     : _depot(depot), _index(0) {}
 
-  void operator()(const typename Policy::slot_storage_t& storage) const {
+  void operator()(const typename Policy::const_slot_storage_t& storage) const {
     _depot << (sk::util::String::valueOf(_index++) + Policy::inspectSlot(storage));
   }
   sk::util::StringArray& _depot;

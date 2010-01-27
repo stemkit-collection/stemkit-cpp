@@ -22,9 +22,10 @@ namespace sk {
           public: 
             typedef T slot_t;
             typedef slot_t* slot_storage_t;
+            typedef const slot_t* const_slot_storage_t;
 
-            static const T& getObject(const slot_storage_t storage) {
-              return getSlot(storage);
+            static const T& getObject(const const_slot_storage_t storage) {
+              return getConstSlot(storage);
             }
 
             static T& getMutableObject(const slot_storage_t storage) {
@@ -42,7 +43,7 @@ namespace sk {
               return &object;
             }
 
-            static const sk::util::String inspectSlot(const slot_storage_t storage) {
+            static const sk::util::String inspectSlot(const const_slot_storage_t storage) {
               return '*' + sk::util::inspect(getObject(storage));
             }
 
@@ -65,7 +66,7 @@ namespace sk {
               return hasSlot(storage);
             }
 
-            static bool hasSlot(const slot_storage_t storage) {
+            static bool hasSlot(const const_slot_storage_t storage) {
               return storage != 0;
             }
 
@@ -77,6 +78,13 @@ namespace sk {
             static slot_t& getSlot(const slot_storage_t storage) {
               if(hasSlot(storage) == false) {
                 throw MissingResourceException("sk::util::slot::policy::Direct#getSlot()");
+              }
+              return *storage;
+            }
+
+            static const slot_t& getConstSlot(const const_slot_storage_t storage) {
+              if(hasSlot(storage) == false) {
+                throw MissingResourceException("sk::util::slot::policy::Direct#getConstSlot()");
               }
               return *storage;
             }

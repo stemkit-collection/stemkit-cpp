@@ -24,9 +24,10 @@ namespace sk {
           public: 
             typedef sk::util::Slot<T, SlotMixin> slot_t;
             typedef slot_t* slot_storage_t;
+            typedef const slot_t* const_slot_storage_t;
 
-            static const T& getObject(const slot_storage_t storage) {
-              return getSlot(storage).get();
+            static const T& getObject(const const_slot_storage_t storage) {
+              return getConstSlot(storage).get();
             }
 
             static T& getMutableObject(const slot_storage_t storage) {
@@ -41,8 +42,8 @@ namespace sk {
               return getSlot(storage).deprive();
             }
 
-            static const sk::util::String inspectSlot(const slot_storage_t storage) {
-              return getSlot(storage).inspect();
+            static const sk::util::String inspectSlot(const const_slot_storage_t storage) {
+              return getConstSlot(storage).inspect();
             }
 
             static void setSlot(slot_storage_t& storage, slot_t* slot) {
@@ -84,7 +85,7 @@ namespace sk {
               return false;
             }
 
-            static bool hasSlot(const slot_storage_t storage) {
+            static bool hasSlot(const const_slot_storage_t storage) {
               return storage != 0;
             }
 
@@ -96,6 +97,13 @@ namespace sk {
             static slot_t& getSlot(const slot_storage_t storage) {
               if(hasSlot(storage) == false) {
                 throw MissingResourceException("sk::util::slot::policy::Storing#getSlot()");
+              }
+              return *storage;
+            }
+
+            static const slot_t& getConstSlot(const const_slot_storage_t storage) {
+              if(hasSlot(storage) == false) {
+                throw MissingResourceException("sk::util::slot::policy::Storing#getConstSlot()");
               }
               return *storage;
             }
