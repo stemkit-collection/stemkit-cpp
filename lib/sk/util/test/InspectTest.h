@@ -24,6 +24,8 @@ namespace sk {
           CPPUNIT_TEST(testCharBuffers);
           CPPUNIT_TEST(testStrings);
           CPPUNIT_TEST(testVectors);
+          CPPUNIT_TEST(testLists);
+          CPPUNIT_TEST(testDeques);
           CPPUNIT_TEST(testContent);
         CPPUNIT_TEST_SUITE_END();
       
@@ -36,6 +38,8 @@ namespace sk {
           void testCharBuffers();
           void testStrings();
           void testVectors();
+          void testLists();
+          void testDeques();
           void testContent();
       
         private:
