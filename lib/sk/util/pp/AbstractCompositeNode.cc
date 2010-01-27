@@ -11,6 +11,7 @@
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
 #include <sk/util/ArrayList.cxx>
+#include <sk/util/StringArray.h>
 
 #include "AbstractCompositeNode.h"
 #include "Configurator.h"

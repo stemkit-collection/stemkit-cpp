@@ -261,10 +261,7 @@ const sk::util::String
 sk::util::AbstractList<T, Policy>::
 inspect() const
 {
-  sk::util::String depot;
-  int index;
-
-  typename sk::util::Lists<T, Policy>::SlotInspector inspector(depot, index);
+  typename sk::util::Lists<T, Policy>::ProcessingSlotInspector inspector;
   forEachSlot(inspector);
 
   return inspector.collect();

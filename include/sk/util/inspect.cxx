@@ -12,7 +12,9 @@
 #define _SK_UTIL_INSPECT_CXX_
 
 #include <sstream>
-#include <sk/util/StringArray.h>
+#include <sk/util/String.h>
+#include <sk/util/Lists.hxx>
+#include <sk/util/slot/policy/Value.hxx>
 
 template<typename T>
 const sk::util::String 
@@ -44,15 +46,13 @@ template<typename T>
 const sk::util::String 
 sk::util::inspect(const std::vector<T>& container) 
 {
-  if(container.empty() == true) {
-    return "[]";
-  }
-  sk::util::StringArray depot;
+  sk::util::String depot;
   int index = 0;
-  for(typename std::vector<T>::const_iterator iterator = container.begin(); iterator != container.end(); ++iterator) {
-    depot << sk::util::String::valueOf(index++) + "=" + sk::util::inspect(*iterator);
-  }
-  return "[" + sk::util::String::valueOf(container.size()) + ": " + depot.join(", ") + " ]";
+
+  typename sk::util::Lists<T, sk::util::slot::policy::Value<T> >::SlotInspector inspector(depot, index);
+  std::for_each(container.begin(), container.end(), inspector);
+
+  return inspector.collect();
 }
 
 #endif /* _SK_UTIL_INSPECT_CXX_ */

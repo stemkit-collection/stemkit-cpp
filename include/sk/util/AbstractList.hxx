@@ -103,7 +103,6 @@ namespace sk {
 
         struct IndexSelector;
         struct IndexScanningSelector;
-        struct InspectingSlotProcessor;
     };
   }
 }

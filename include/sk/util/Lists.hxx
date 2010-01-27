@@ -21,24 +21,39 @@ namespace sk {
     {
       public:
         class SlotInspector 
-          : public virtual sk::util::Processor<const typename Policy::slot_t> 
         {
           public:
             SlotInspector(sk::util::String& depot, int& index);
 
             inline void operator()(const typename Policy::const_slot_storage_t& storage) const;
-            void process(const typename Policy::slot_t& slot) const;
-
             const sk::util::String collect() const;
 
           private:
             sk::util::String& _depot;
             int& _index;
         };
+
+        class ProcessingSlotInspector 
+          : public SlotInspector,
+            public virtual sk::util::Processor<const typename Policy::slot_t>
+        {
+          public:
+            ProcessingSlotInspector();
+
+            void process(const typename Policy::slot_t& slot) const;
+
+          private:
+            sk::util::String _depot;
+            int _index;
+        };
     };
   }
 }
 
+// We have to pass the external data references here because STL algorithms
+// make copies of passed functors (instance data would not be propagated back
+// otherwise).
+//
 template<typename T, typename Policy>
 sk::util::Lists<T, Policy>::SlotInspector::
 SlotInspector(sk::util::String& depot, int& index)
@@ -59,14 +74,6 @@ operator()(const typename Policy::const_slot_storage_t& storage) const
 }
 
 template<typename T, typename Policy>
-void 
-sk::util::Lists<T, Policy>::SlotInspector::
-process(const typename Policy::slot_t& slot) const 
-{
-  (*this)(&slot);
-}
-
-template<typename T, typename Policy>
 const sk::util::String
 sk::util::Lists<T, Policy>::SlotInspector::
 collect() const
@@ -75,6 +82,21 @@ collect() const
     return "[]";
   }
   return "[" + sk::util::String::valueOf(_index) + ": " + _depot + " ]";
+}
+
+template<typename T, typename Policy>
+sk::util::Lists<T, Policy>::ProcessingSlotInspector::
+ProcessingSlotInspector()
+  : SlotInspector(_depot, _index)
+{
+}
+
+template<typename T, typename Policy>
+void 
+sk::util::Lists<T, Policy>::ProcessingSlotInspector::
+process(const typename Policy::slot_t& slot) const 
+{
+  (*this)(&slot);
 }
 
 #endif /* _SK_UTIL_LISTS_HXX_ */

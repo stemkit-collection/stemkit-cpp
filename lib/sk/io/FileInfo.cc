@@ -11,6 +11,7 @@
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
 #include <sk/util/Holder.cxx>
+#include <sk/util/StringArray.h>
 #include <sk/util/MissingResourceException.h>
 
 #include <sk/io/FileInfo.h>

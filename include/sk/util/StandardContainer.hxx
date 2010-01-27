@@ -129,7 +129,6 @@ namespace sk {
         struct SelectingFunctor;
         struct ConstProcessingFunctor;
         struct ProcessingFunctor;
-        struct InspectingFunctor;
 
       protected:
         struct AssessingBinaryFunctor;
