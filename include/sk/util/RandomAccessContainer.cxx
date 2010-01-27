@@ -61,10 +61,10 @@ add(int index, const T& object)
 {
   typename Type::container_t::iterator iterator = position(index, super_t::size() + 1);
 
-  typename Type::item_t item = 0;
-  Policy::setObject(item, object);
+  typename Policy::slot_storage_t storage = 0;
+  Policy::setObject(storage, object);
 
-  super_t::_container.insert(iterator, item);
+  super_t::_container.insert(iterator, storage);
 }
 
 template<typename T, typename Policy, typename Type>
@@ -74,10 +74,10 @@ add(int index, T& object)
 {
   typename Type::container_t::iterator iterator = position(index, super_t::size() + 1);
 
-  typename Type::item_t item = 0;
-  Policy::setObject(item, object);
+  typename Policy::slot_storage_t storage = 0;
+  Policy::setObject(storage, object);
 
-  super_t::_container.insert(iterator, item);
+  super_t::_container.insert(iterator, storage);
 }
 
 template<typename T, typename Policy, typename Type>
@@ -87,10 +87,10 @@ add(int index, T* object)
 {
   typename Type::container_t::iterator iterator = position(index, super_t::size() + 1);
 
-  typename Type::item_t item = 0;
-  Policy::setObject(item, object);
+  typename Policy::slot_storage_t storage = 0;
+  Policy::setObject(storage, object);
 
-  super_t::_container.insert(iterator, item);
+  super_t::_container.insert(iterator, storage);
 }
 
 template<typename T, typename Policy, typename Type>
@@ -137,9 +137,9 @@ sk::util::RandomAccessContainer<T, Policy, Type>::
 release(int index)
 {
   typename Type::container_t::iterator iterator = position(index, super_t::size());
-  typename Type::item_t& item = *iterator;
-  T* object = Policy::depriveObject(item);
-  Policy::setObject(item, *object);
+  typename Policy::slot_storage_t& storage = *iterator;
+  T* object = Policy::depriveObject(storage);
+  Policy::setObject(storage, *object);
 
   return object;
 }

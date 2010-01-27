@@ -49,8 +49,8 @@ void
 sk::util::LinkedList<T, Policy>::
 shuffle()
 {
-  typedef typename type::list<T, Policy>::item_t item_t;
-  typedef std::deque<item_t, std::allocator<item_t> > deque_t;
+  typedef typename Policy::slot_storage_t slot_storage_t;
+  typedef std::deque<slot_storage_t, std::allocator<slot_storage_t> > deque_t;
 
   deque_t pot(super_t::_container.begin(), super_t::_container.end());
   std::random_shuffle(pot.begin(), pot.end());

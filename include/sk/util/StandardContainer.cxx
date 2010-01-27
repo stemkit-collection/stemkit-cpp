@@ -70,9 +70,9 @@ size() const
 }
 
 template<typename T, typename Policy, typename Type>
-struct sk::util::StandardContainer<T, Policy, Type>::Cleaner : std::unary_function<typename Type::item_t, void> {
-  void operator()(typename Type::item_t& item) {
-    Policy::clearSlot(item);
+struct sk::util::StandardContainer<T, Policy, Type>::Cleaner : std::unary_function<typename Policy::slot_storage_t, void> {
+  void operator()(typename Policy::slot_storage_t& storage) {
+    Policy::clearSlot(storage);
   }
 };
 
@@ -86,12 +86,12 @@ clear()
 }
 
 template<typename T, typename Policy, typename Type>
-struct sk::util::StandardContainer<T, Policy, Type>::SelectingFunctor : std::unary_function<typename Type::item_t, bool> {
+struct sk::util::StandardContainer<T, Policy, Type>::SelectingFunctor : std::unary_function<typename Policy::slot_storage_t, bool> {
   SelectingFunctor(const sk::util::Selector<T>& selector)
     : _selector(selector) {}
 
-  bool operator()(const typename Type::item_t& item) {
-    return _selector.assess(Policy::getObject(item));
+  bool operator()(const typename Policy::slot_storage_t& storage) {
+    return _selector.assess(Policy::getObject(storage));
   }
   const sk::util::Selector<T>& _selector;
 };
@@ -145,12 +145,12 @@ findMutable(sk::util::Holder<T>& holder, const Selector<T>& selector) const
 }
 
 template<typename T, typename Policy, typename Type>
-struct sk::util::StandardContainer<T, Policy, Type>::ConstProcessingFunctor : std::unary_function<typename Type::item_t, void> {
+struct sk::util::StandardContainer<T, Policy, Type>::ConstProcessingFunctor : std::unary_function<typename Policy::slot_storage_t, void> {
   ConstProcessingFunctor(const sk::util::Processor<const T>& processor)
     : _processor(processor) {}
 
-  void operator()(const typename Type::item_t& item) const {
-    _processor.process(Policy::getObject(item));
+  void operator()(const typename Policy::slot_storage_t& storage) const {
+    _processor.process(Policy::getObject(storage));
   }
   const sk::util::Processor<const T>& _processor;
 };
@@ -167,12 +167,12 @@ forEach(const Processor<const T>& processor) const
 }
 
 template<typename T, typename Policy, typename Type>
-struct sk::util::StandardContainer<T, Policy, Type>::ProcessingFunctor : std::unary_function<typename Type::item_t, void> {
+struct sk::util::StandardContainer<T, Policy, Type>::ProcessingFunctor : std::unary_function<typename Policy::slot_storage_t, void> {
   ProcessingFunctor(const sk::util::Processor<T>& processor)
     : _processor(processor) {}
 
-  void operator()(const typename Type::item_t& item) const {
-    _processor.process(Policy::getMutableObject(item));
+  void operator()(const typename Policy::slot_storage_t& storage) const {
+    _processor.process(Policy::getMutableObject(storage));
   }
   const sk::util::Processor<T>& _processor;
 };
@@ -225,10 +225,10 @@ bool
 sk::util::StandardContainer<T, Policy, Type>::
 add(const T& object) 
 {
-  typename Type::item_t item = 0;
-  Policy::setObject(item, object);
+  typename Policy::slot_storage_t storage = 0;
+  Policy::setObject(storage, object);
 
-  _container.push_back(item);
+  _container.push_back(storage);
   return true;
 }
 
@@ -237,10 +237,10 @@ bool
 sk::util::StandardContainer<T, Policy, Type>::
 add(T& object)
 {
-  typename Type::item_t item = 0;
-  Policy::setObject(item, object);
+  typename Policy::slot_storage_t storage = 0;
+  Policy::setObject(storage, object);
 
-  _container.push_back(item);
+  _container.push_back(storage);
   return true;
 }
 
@@ -249,10 +249,10 @@ bool
 sk::util::StandardContainer<T, Policy, Type>::
 add(T* object)
 {
-  typename Type::item_t item = 0;
-  Policy::setObject(item, object);
+  typename Policy::slot_storage_t storage = 0;
+  Policy::setObject(storage, object);
 
-  _container.push_back(item);
+  _container.push_back(storage);
   return true;
 }
 
@@ -317,9 +317,9 @@ release(const Selector<T>& selector)
   typename Type::container_t::iterator iterator = std::find_if(_container.begin(), _container.end(), SelectingFunctor(selector));
   sk::util::Validator::ensureElement(iterator != _container.end());
 
-  typename Type::item_t& item = *iterator;
-  T* object = Policy::depriveObject(item);
-  Policy::setObject(item, *object);
+  typename Policy::slot_storage_t& storage = *iterator;
+  T* object = Policy::depriveObject(storage);
+  Policy::setObject(storage, *object);
 
   return object;
 }
@@ -417,10 +417,10 @@ add(int index, const T& object)
 {
   typename Type::container_t::iterator iterator = position(index, size() + 1);
 
-  typename Type::item_t item = 0;
-  Policy::setObject(item, object);
+  typename Policy::slot_storage_t storage = 0;
+  Policy::setObject(storage, object);
 
-  _container.insert(iterator, item);
+  _container.insert(iterator, storage);
 }
 
 template<typename T, typename Policy, typename Type>
@@ -430,10 +430,10 @@ add(int index, T& object)
 {
   typename Type::container_t::iterator iterator = position(index, size() + 1);
 
-  typename Type::item_t item = 0;
-  Policy::setObject(item, object);
+  typename Policy::slot_storage_t storage = 0;
+  Policy::setObject(storage, object);
 
-  _container.insert(iterator, item);
+  _container.insert(iterator, storage);
 }
 
 template<typename T, typename Policy, typename Type>
@@ -443,10 +443,10 @@ add(int index, T* object)
 {
   typename Type::container_t::iterator iterator = position(index, size() + 1);
 
-  typename Type::item_t item = 0;
-  Policy::setObject(item, object);
+  typename Policy::slot_storage_t storage = 0;
+  Policy::setObject(storage, object);
 
-  _container.insert(iterator, item);
+  _container.insert(iterator, storage);
 }
 
 template<typename T, typename Policy, typename Type>
@@ -537,9 +537,9 @@ sk::util::StandardContainer<T, Policy, Type>::
 release(int index)
 {
   typename Type::container_t::iterator iterator = position(index, size());
-  typename Type::item_t& item = *iterator;
-  T* object = Policy::depriveObject(item);
-  Policy::setObject(item, *object);
+  typename Policy::slot_storage_t& storage = *iterator;
+  T* object = Policy::depriveObject(storage);
+  Policy::setObject(storage, *object);
 
   return object;
 }
@@ -572,11 +572,11 @@ set(int index, T* object)
 }
 
 template<typename T, typename Policy, typename Type>
-struct sk::util::StandardContainer<T, Policy, Type>::AssessingBinaryFunctor : std::binary_function<typename Type::item_t, typename Type::item_t, void> {
+struct sk::util::StandardContainer<T, Policy, Type>::AssessingBinaryFunctor : std::binary_function<typename Policy::slot_storage_t, typename Policy::slot_storage_t, void> {
   AssessingBinaryFunctor(const sk::util::BinaryAssessor<T>& assessor) 
     : _assessor(assessor) {}
 
-  bool operator()(const typename Type::item_t first, const typename Type::item_t second) const {
+  bool operator()(const typename Policy::slot_storage_t first, const typename Policy::slot_storage_t second) const {
     return _assessor.assess(Policy::getObject(first), Policy::getObject(second));
   }
   const sk::util::BinaryAssessor<T>& _assessor;
@@ -615,12 +615,12 @@ reverse()
 }
 
 template<typename T, typename Policy, typename Type>
-struct sk::util::StandardContainer<T, Policy, Type>::InspectingFunctor : std::unary_function<typename Type::item_t, void> {
+struct sk::util::StandardContainer<T, Policy, Type>::InspectingFunctor : std::unary_function<typename Policy::slot_storage_t, void> {
   InspectingFunctor(sk::util::StringArray& depot)
     : _depot(depot), _index(0) {}
 
-  void operator()(const typename Type::item_t& item) const {
-    _depot << (sk::util::String::valueOf(_index++) + Policy::inspectSlot(item));
+  void operator()(const typename Policy::slot_storage_t& storage) const {
+    _depot << (sk::util::String::valueOf(_index++) + Policy::inspectSlot(storage));
   }
   sk::util::StringArray& _depot;
   mutable int _index;
