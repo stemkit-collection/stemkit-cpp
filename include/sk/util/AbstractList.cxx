@@ -12,12 +12,12 @@
 #include <sk/util/AbstractList.hxx>
 #include <sk/util/AbstractCollection.cxx>
 #include <sk/util/UnsupportedOperationException.h>
-#include <sk/util/StringArray.h>
 #include <sk/util/Validator.h>
 #include <sk/util/selector/EqualPointer.hxx>
 #include <sk/util/mapper/Stringing.hxx>
 #include <sk/util/Injector.cxx>
 #include <sk/util/reducer/Join.hxx>
+#include <sk/util/Lists.hxx>
 
 template<typename T, typename Policy>
 sk::util::AbstractList<T, Policy>::
@@ -257,28 +257,17 @@ reverse()
 }
 
 template<typename T, typename Policy>
-struct sk::util::AbstractList<T, Policy>::InspectingSlotProcessor : public virtual sk::util::Processor<const typename Policy::slot_t> {
-  InspectingSlotProcessor(sk::util::StringArray& depot)
-    : _depot(depot), _index(0) {}
-
-  void process(const typename Policy::slot_t& slot) const {
-    _depot << (sk::util::String::valueOf(_index++) + slot.inspect());
-  }
-  sk::util::StringArray& _depot;
-  mutable int _index;
-};
-
-template<typename T, typename Policy>
 const sk::util::String 
 sk::util::AbstractList<T, Policy>::
 inspect() const
 {
-  if(isEmpty() == true) {
-    return "[]";
-  }
-  sk::util::StringArray depot;
-  forEachSlot(InspectingSlotProcessor(depot));
-  return "[" + sk::util::String::valueOf(size()) + ": " + depot.join(", ") + " ]";
+  sk::util::String depot;
+  int index;
+
+  typename sk::util::Lists<T, Policy>::SlotInspector inspector(depot, index);
+  forEachSlot(inspector);
+
+  return inspector.collect();
 }
 
 template<typename T, typename Policy>

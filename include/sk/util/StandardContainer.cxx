@@ -15,7 +15,6 @@
 #include <sk/util/StandardContainer.hxx>
 #include <sk/util/Holder.cxx>
 #include <sk/util/StreamLiner.h>
-#include <sk/util/StringArray.h>
 #include <sk/util/Break.h>
 #include <sk/util/Validator.h>
 #include <sk/util/UnsupportedOperationException.h>
@@ -24,6 +23,7 @@
 #include <sk/util/selector/Belongs.hxx>
 #include <sk/util/assessor/EqualPointers.hxx>
 #include <sk/util/assessor/LessValues.hxx>
+#include <sk/util/Lists.hxx>
 
 #include <sk/util/mapper/Stringing.hxx>
 #include <sk/util/Injector.cxx>
@@ -615,28 +615,17 @@ reverse()
 }
 
 template<typename T, typename Policy, typename Type>
-struct sk::util::StandardContainer<T, Policy, Type>::InspectingFunctor : std::unary_function<typename Policy::slot_storage_t, void> {
-  InspectingFunctor(sk::util::StringArray& depot)
-    : _depot(depot), _index(0) {}
-
-  void operator()(const typename Policy::const_slot_storage_t& storage) const {
-    _depot << (sk::util::String::valueOf(_index++) + Policy::inspectSlot(storage));
-  }
-  sk::util::StringArray& _depot;
-  mutable int _index;
-};
-
-template<typename T, typename Policy, typename Type>
 const sk::util::String 
 sk::util::StandardContainer<T, Policy, Type>::
 inspect() const
 {
-  if(isEmpty() == true) {
-    return "[]";
-  }
-  sk::util::StringArray depot;
-  std::for_each(_container.begin(), _container.end(), InspectingFunctor(depot));
-  return "[" + sk::util::String::valueOf(size()) + ": " + depot.join(", ") + " ]";
+  sk::util::String depot;
+  int index;
+
+  typename sk::util::Lists<T, Policy>::SlotInspector inspector(depot, index);
+  std::for_each(_container.begin(), _container.end(), inspector);
+
+  return inspector.collect();
 }
 
 template<typename T, typename Policy, typename Type>
