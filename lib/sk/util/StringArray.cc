@@ -8,11 +8,9 @@
 
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
-#include <sk/util/IndexOutOfBoundsException.h>
-#include <sk/util/NoSuchElementException.h>
-
 #include <sk/util/StringArray.h>
 #include <sk/util/mapper/Inspecting.hxx>
+#include <sk/util/ArrayList.cxx>
 
 static const char* __className = "sk::util::StringArray";
 
@@ -23,14 +21,14 @@ StringArray()
 
 sk::util::StringArray::
 StringArray(const sk::util::String& item)
-  : std::deque<sk::util::String>(1, item)
 {
+  add(item);
 }
 
 sk::util::StringArray::
 StringArray(const char* item)
-  : std::deque<sk::util::String>(1, item)
 {
+  add(item);
 }
 
 sk::util::StringArray::
@@ -49,14 +47,7 @@ const sk::util::String
 sk::util::StringArray::
 inspect() const
 {
-  return getClass().getName() + '[' + map(sk::util::mapper::Inspecting<sk::util::String>()).join(" ", ", ", " ") + ']';
-}
-
-const sk::util::String
-sk::util::StringArray::
-join(const sk::util::String& separator) const
-{
-  return join(sk::util::String::EMPTY, separator, sk::util::String::EMPTY);
+  return getClass().getName() + '[' + join(" ", ", ", " ", sk::util::mapper::Inspecting<String>()) + ']';
 }
 
 const sk::util::String
@@ -73,16 +64,7 @@ join(const sk::util::String& prologue, const sk::util::String& separator, const 
   if(isEmpty() == true) {
     return sk::util::String::EMPTY;
   }
-  sk::util::String joined;
-  const_iterator iterator = begin();
-
-  while(iterator != end() ) {
-    joined += (*iterator);
-    if(++iterator != end()) {
-      joined += separator;
-    }
-  }
-  return prologue + joined + epilogue;
+  return prologue + join(separator) + epilogue;
 }
 
 const sk::util::StringArray
@@ -103,31 +85,6 @@ map(const sk::util::Mapper<const sk::util::String>& mapper) const
   forEach(Mapper(result, mapper));
 
   return result;
-}
-
-int
-sk::util::StringArray::
-size() const
-{
-  return std::deque<sk::util::String>::size();
-}
-
-const sk::util::String&
-sk::util::StringArray::
-get(int index) const
-{
-  if(index<0 || index>=size()) {
-    throw sk::util::IndexOutOfBoundsException("get()");
-  }
-  const std::deque<sk::util::String>& self = *this;
-  return self[index];
-}
-
-bool
-sk::util::StringArray::
-isEmpty() const
-{
-  return empty();
 }
 
 sk::util::StringArray
@@ -159,20 +116,11 @@ operator + (const sk::util::StringArray& other) const
   return array;
 }
 
-void
-sk::util::StringArray::
-forEach(const sk::util::Processor<const sk::util::String>& processor) const
-{
-  for(const_iterator iterator=begin(); iterator != end() ;++iterator) {
-    processor.process(*iterator);
-  }
-}
-
 sk::util::StringArray&
 sk::util::StringArray::
 operator << (const sk::util::String& item) 
 {
-  push_back(item);
+  addLast(item);
   return *this;
 }
 
@@ -208,31 +156,22 @@ const sk::util::String&
 sk::util::StringArray::
 first() const
 {
-  if(isEmpty() == true) {
-    throw sk::util::NoSuchElementException("first");
-  }
-  return std::deque<sk::util::String>::front();
+  return getFirst();
 }
 
 const sk::util::String&
 sk::util::StringArray::
 last() const
 {
-  if(isEmpty() == true) {
-    throw sk::util::NoSuchElementException("last");
-  }
-  return std::deque<sk::util::String>::back();
+  return getLast();
 }
 
 const sk::util::String
 sk::util::StringArray::
 shift()
 {
-  if(isEmpty() == true) {
-    throw sk::util::NoSuchElementException("shift");
-  }
-  const sk::util::String item = std::deque<sk::util::String>::front();
-  pop_front();
+  sk::util::String item = getFirst();
+  removeFirst();
 
   return item;
 }
@@ -241,11 +180,8 @@ const sk::util::String
 sk::util::StringArray::
 pop()
 {
-  if(isEmpty() == true) {
-    throw sk::util::NoSuchElementException("pop");
-  }
-  const sk::util::String item = std::deque<sk::util::String>::back();
-  pop_back();
+  sk::util::String item = getLast();
+  removeLast();
 
   return item;
 }
