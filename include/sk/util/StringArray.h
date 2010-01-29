@@ -24,9 +24,6 @@ namespace sk {
         StringArray(const sk::util::StringArray& other);
         virtual ~StringArray();
 
-        static const sk::util::StringArray parse(const sk::util::String& specification);
-        static const sk::util::StringArray parse(const sk::util::String& specification, const sk::util::String& separator);
-
         const sk::util::String& first() const;
         const sk::util::String& last() const;
         const sk::util::String pop();

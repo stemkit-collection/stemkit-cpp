@@ -155,20 +155,6 @@ operator << (const sk::util::String& item)
   return *this;
 }
 
-const sk::util::StringArray 
-sk::util::StringArray::
-parse(const sk::util::String& specification)
-{
-  return specification.split();
-}
-
-const sk::util::StringArray 
-sk::util::StringArray::
-parse(const sk::util::String& specification, const sk::util::String& separator)
-{
-  return specification.split(separator);
-}
-
 const sk::util::String&
 sk::util::StringArray::
 first() const

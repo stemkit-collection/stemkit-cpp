@@ -82,7 +82,7 @@ const sk::util::StringArray
 sk::sys::StreamPortal::
 descriptors(const sk::util::PropertyRegistry& registry)
 {
-  return sk::util::StringArray::parse(registry.getProperty("SK_STREAMS", ""), "|");
+  return registry.getProperty("SK_STREAMS", "").split("|");
 }
 
 void 
