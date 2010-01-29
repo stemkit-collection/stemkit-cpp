@@ -18,12 +18,12 @@ namespace sk {
   namespace util {
     namespace processor {
       template<typename F, typename T = F>
-      class Copying : public virtual sk::util::Processor<F> {
+      class Copying : public virtual sk::util::Processor<const F> {
         public:
           Copying(sk::util::Collection<T>& depot) 
             : _depot(depot) {}
       
-          void process(F& object) const {
+          void process(const F& object) const {
             _depot.add(new T(object));
           }
       
