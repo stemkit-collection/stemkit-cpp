@@ -31,7 +31,8 @@ namespace sk {
         const sk::util::String& last() const;
         const sk::util::String pop();
         const sk::util::String shift();
-        const sk::util::StringArray slice(int number) const;
+        const sk::util::StringArray slice(int start, int end) const;
+        const sk::util::StringArray slice(int end) const;
         const sk::util::StringArray map(const sk::util::Mapper<const sk::util::String>& mapper) const;
 
         const sk::util::String join(const sk::util::String& prologue, const sk::util::String& separator) const;
@@ -43,10 +44,15 @@ namespace sk {
         sk::util::StringArray operator + (const sk::util::String& item) const;
         sk::util::StringArray operator + (const sk::util::StringArray& other) const;
         sk::util::StringArray& operator << (const sk::util::String& item);
+
+        sk::util::StringArray& operator = (const sk::util::StringArray& other);
         
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
         const sk::util::String inspect() const;
+
+      private:
+        void set(const sk::util::StringArray& other);
     };
   }
 }

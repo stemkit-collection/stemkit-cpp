@@ -248,7 +248,7 @@ start(sk::io::InputStream& inputStream, const sk::util::StringArray& cmdline)
       _listener.processStarting(pipe.outputStream());
       _scope.notice("start") << cmdline.inspect();
 
-      if(cmdline.empty() == false) {
+      if(cmdline.isEmpty() == false) {
         std::vector<char*> arguments;
         cmdline.forEach(ExecArgumentCollector(arguments));
         arguments.push_back(0);

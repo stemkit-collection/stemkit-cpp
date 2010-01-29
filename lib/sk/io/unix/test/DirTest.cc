@@ -46,7 +46,7 @@ testBasics()
   CPPUNIT_ASSERT_EQUAL(".", current.getPath().toString());
 
   sk::util::ArrayList<sk::util::Pathname> entries;
-  current.forEachEntry(sk::util::processor::Copying<const sk::util::Pathname, sk::util::Pathname>(entries));
+  current.forEachEntry(sk::util::processor::Copying<sk::util::Pathname>(entries));
 
   CPPUNIT_ASSERT(entries.size() > 0);
 }

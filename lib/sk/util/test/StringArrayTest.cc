@@ -11,6 +11,8 @@
 #include <sk/util/Class.h>
 #include <sk/util/IndexOutOfBoundsException.h>
 #include <sk/util/NoSuchElementException.h>
+#include <sk/util/mapper/Upcasing.h>
+#include <sk/util/mapper/Downcasing.h>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::util::test::StringArrayTest);
 
@@ -214,6 +216,7 @@ sk::util::test::StringArrayTest::
 testSlice()
 {
   sk::util::StringArray data = sk::util::StringArray::parse("aaa bbb ccc");
+  CPPUNIT_ASSERT_EQUAL(3, data.size());
   CPPUNIT_ASSERT_EQUAL(0, data.slice(0).size());
 
   sk::util::StringArray s1 = data.slice(1);
@@ -230,7 +233,16 @@ testSlice()
   CPPUNIT_ASSERT_EQUAL("aaa", s3.get(0));
   CPPUNIT_ASSERT_EQUAL("bbb", s3.get(1));
   CPPUNIT_ASSERT_EQUAL("ccc", s3.get(2));
+                       
+  CPPUNIT_ASSERT_EQUAL(3, data.slice(-1).size());
+  CPPUNIT_ASSERT_EQUAL(0, data.slice(3, 4).size());
+}
 
-  CPPUNIT_ASSERT_THROW(data.slice(-1), sk::util::NoSuchElementException);
-  CPPUNIT_ASSERT_THROW(data.slice(4), sk::util::NoSuchElementException);
+void
+sk::util::test::StringArrayTest::
+testMap()
+{
+  sk::util::StringArray data = sk::util::StringArray::parse("aaa BBB ccc");
+  CPPUNIT_ASSERT_EQUAL("AAA - BBB - CCC", data.map(sk::util::mapper::Upcasing()).join(" - "));
+  CPPUNIT_ASSERT_EQUAL("aaa/bbb/ccc", data.map(sk::util::mapper::Downcasing()).join("/"));
 }

@@ -10,6 +10,10 @@
 #include <sk/util/String.h>
 #include <sk/util/StringArray.h>
 #include <sk/util/mapper/Inspecting.hxx>
+#include <sk/util/mapper/Coercing.hxx>
+#include <sk/util/processor/Slicing.hxx>
+#include <sk/util/processor/Copying.hxx>
+#include <sk/util/processor/Mapping.hxx>
 #include <sk/util/ArrayList.cxx>
 
 static const char* __className = "sk::util::StringArray";
@@ -32,8 +36,31 @@ StringArray(const char* item)
 }
 
 sk::util::StringArray::
+StringArray(const sk::util::StringArray& other)
+{
+  set(other);
+}
+
+sk::util::StringArray::
 ~StringArray()
 {
+}
+
+sk::util::StringArray&
+sk::util::StringArray::
+operator = (const sk::util::StringArray& other)
+{
+  clear();
+  set(other);
+
+  return *this;
+}
+
+void
+sk::util::StringArray::
+set(const sk::util::StringArray& other)
+{
+  other.forEach(sk::util::processor::Copying<String>(*this));
 }
 
 const sk::util::Class
@@ -52,19 +79,33 @@ inspect() const
 
 const sk::util::String
 sk::util::StringArray::
-join(const sk::util::String& prologue, const sk::util::String& separator) const
+join(const sk::util::String& prologue, const sk::util::String& separator, const sk::util::String& epilogue, const sk::util::Mapper<const String>& mapper) const
 {
-  return join(prologue, separator, sk::util::String::EMPTY);
+  if(isEmpty() == true) {
+    return sk::util::String::EMPTY;
+  }
+  return prologue + join(separator, mapper) + epilogue;
+}
+
+const sk::util::String
+sk::util::StringArray::
+join(const sk::util::String& prologue, const sk::util::String& separator, const sk::util::Mapper<const String>& mapper) const
+{
+  return join(prologue, separator, sk::util::String::EMPTY, mapper);
 }
 
 const sk::util::String
 sk::util::StringArray::
 join(const sk::util::String& prologue, const sk::util::String& separator, const sk::util::String& epilogue) const
 {
-  if(isEmpty() == true) {
-    return sk::util::String::EMPTY;
-  }
-  return prologue + join(separator) + epilogue;
+  return join(prologue, separator, epilogue, sk::util::mapper::Coercing<const String>());
+}
+
+const sk::util::String
+sk::util::StringArray::
+join(const sk::util::String& prologue, const sk::util::String& separator) const
+{
+  return join(prologue, separator, sk::util::String::EMPTY);
 }
 
 const sk::util::StringArray
@@ -72,17 +113,7 @@ sk::util::StringArray::
 map(const sk::util::Mapper<const sk::util::String>& mapper) const
 {
   sk::util::StringArray result;
-  struct Mapper : public virtual sk::util::Processor<const sk::util::String> {
-    Mapper(sk::util::StringArray& array, const sk::util::Mapper<const sk::util::String>& mapper)
-      : _array(array), _mapper(mapper) {}
-
-    void process(const sk::util::String& item) const {
-      _array << _mapper.map(item);
-    }
-    sk::util::StringArray& _array; 
-    const sk::util::Mapper<const sk::util::String>& _mapper;
-  };
-  forEach(Mapper(result, mapper));
+  forEach(sk::util::processor::Mapping<const String>(sk::util::processor::Copying<String>(result), mapper));
 
   return result;
 }
@@ -188,15 +219,17 @@ pop()
 
 const sk::util::StringArray
 sk::util::StringArray::
-slice(int number) const
+slice(int start, int end) const
 {
   sk::util::StringArray result;
-  if(number<0 || number>size()) {
-    throw sk::util::NoSuchElementException("slice");
-  }
-  const std::deque<sk::util::String>& self = *this;
-  for(int index=0; index<number ;++index) {
-    result << self[index];
-  }
+  forEach(sk::util::processor::Slicing<const String>(start, end, sk::util::processor::Copying<String>(result)));
+
   return result;
+}
+
+const sk::util::StringArray
+sk::util::StringArray::
+slice(int end) const
+{
+  return slice(0, end);
 }
