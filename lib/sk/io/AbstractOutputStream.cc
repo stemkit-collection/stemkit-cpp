@@ -39,7 +39,11 @@ write(const std::vector<char>& data, int offset)
   if(offset < 0) {
     offset = 0;
   }
-  int n = write(&data.front(), offset, data.size()-offset);
+  int length = data.size() - offset;
+  if(length <= 0) {
+      return 0;
+  }
+  int n = write(&data.front(), offset, length);
   if(n < 0) {
     throw sk::io::IOException("sk::io::AbstractOutputStream::write(vector, offset)");
   }

@@ -95,7 +95,10 @@ void
 sk::io::DataOutputStream::
 writeFully(const std::vector<char>& value)
 {
-  writeFully(&value.front(), value.size());
+  int length = value.size();
+  if(length > 0) {
+    writeFully(&value.front(), length);
+  }
 }
 
 void 

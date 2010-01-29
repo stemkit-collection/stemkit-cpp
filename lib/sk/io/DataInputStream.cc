@@ -127,8 +127,9 @@ sk::io::DataInputStream::
 readFully(std::vector<char>& buffer, int number)
 {
   buffer.resize(number<0 ? 0 : number, 0);
-  readFully(&buffer.front(), number);
-
+  if(number > 0) {
+    readFully(&buffer.front(), number);
+  }
   return buffer;
 }
 
