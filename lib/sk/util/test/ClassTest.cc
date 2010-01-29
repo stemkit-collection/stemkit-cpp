@@ -59,3 +59,16 @@ testToString()
 {
   CPPUNIT_ASSERT_EQUAL(String("sk::util::Class<abc>#21"), klass.toString());
 }
+
+void
+sk::util::test::ClassTest::
+testMethodName()
+{
+  Class klass("abcd");
+
+  CPPUNIT_ASSERT_EQUAL("abcd#zzz()", klass.getMethod("zzz").getName());
+  CPPUNIT_ASSERT_EQUAL("abcd#zzz()", klass.getMethod("aaa::bbb::ccc::zzz").getName());
+
+  CPPUNIT_ASSERT_EQUAL("abcd.zzz()", klass.getClassMethod("zzz").getName());
+  CPPUNIT_ASSERT_EQUAL("abcd.zzz()", klass.getClassMethod("aaa::bbb::ccc::zzz").getName());
+}
