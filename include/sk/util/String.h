@@ -14,6 +14,8 @@
 
 namespace sk {
   namespace util {
+    class StringArray;
+
     class String
       : public virtual sk::util::Object,
         public std::string
@@ -137,6 +139,9 @@ namespace sk {
         /// Replaces each substring of this string that matches the literal
         /// target sequence with the specified literal replacement sequence.
         const sk::util::String replace(const sk::util::String& target, const sk::util::String& replacement) const;
+
+        const sk::util::StringArray split() const;
+        const sk::util::StringArray split(const sk::util::String& separator) const;
 
         /// Returns the string representation of the int argument.
         static const sk::util::String valueOf(int value);

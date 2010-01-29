@@ -10,6 +10,7 @@
 #include <sk/util/String.h>
 #include <sk/util/Integer.h>
 #include <sk/util/inspect.h>
+#include <sk/util/StringArray.h>
 #include <sk/util/IndexOutOfBoundsException.h>
 #include <sk/util/UnsupportedOperationException.h>
 #include <sk/util/IllegalArgumentException.h>
@@ -18,7 +19,14 @@
 
 const sk::util::String sk::util::String::EMPTY;
 
-static const char* __className("sk::util::String");
+static const sk::util::String __className("sk::util::String");
+
+namespace {
+  inline const sk::util::String& whitespace() {
+    static const sk::util::String whitespace(" \t\r\n\b\f");
+    return whitespace;
+  }
+}
 
 sk::util::String::
 String()
@@ -132,10 +140,9 @@ const sk::util::String
 sk::util::String::
 trim() const
 {
-  const std::string whitespace = " \t\r\n\b\f";
-  std::string::size_type start = find_first_not_of(whitespace);
+  std::string::size_type start = find_first_not_of(whitespace());
   if(start != std::string::npos) {
-    std::string::size_type end = find_last_not_of(whitespace);
+    std::string::size_type end = find_last_not_of(whitespace());
     return substr(start, end == std::string::npos ? end : end - start + 1);
   }
   return "";
@@ -494,6 +501,34 @@ times(int multiplier) const
     result.insert(result.end(), begin(), end());
   }
   return result;
+}
+
+const sk::util::StringArray 
+sk::util::String::
+split(const sk::util::String& separator) const
+{
+  sk::util::StringArray result;
+  if(isEmpty() == true) {
+    return result;
+  }
+  std::string::size_type head_index = 0;
+  while(true) {
+    std::string::size_type tail_index = find_first_of(separator, head_index);
+    if(tail_index == std::string::npos) {
+      result << substr(head_index);
+      break;
+    } 
+    result << substr(head_index, tail_index - head_index);
+    head_index = tail_index + 1;
+  }
+  return result;
+}
+
+const sk::util::StringArray 
+sk::util::String::
+split() const
+{
+  return split(whitespace());
 }
 
 const sk::util::String operator + (const sk::util::String& s1, const sk::util::String& s2)

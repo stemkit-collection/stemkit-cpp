@@ -159,28 +159,14 @@ const sk::util::StringArray
 sk::util::StringArray::
 parse(const sk::util::String& specification)
 {
-  return parse(specification, " ");
+  return specification.split();
 }
 
 const sk::util::StringArray 
 sk::util::StringArray::
 parse(const sk::util::String& specification, const sk::util::String& separator)
 {
-  sk::util::StringArray result;
-  if(specification.isEmpty() == true) {
-    return result;
-  }
-  std::string::size_type head_index = 0;
-  while(true) {
-    std::string::size_type tail_index = specification.find_first_of(separator, head_index);
-    if(tail_index == std::string::npos) {
-      result << specification.substr(head_index);
-      break;
-    } 
-    result << specification.substr(head_index, tail_index - head_index);
-    head_index = tail_index + 1;
-  }
-  return result;
+  return specification.split(separator);
 }
 
 const sk::util::String&
