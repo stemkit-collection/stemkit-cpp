@@ -16,7 +16,7 @@
 namespace sk {
   namespace util {
     namespace mapper {
-      template<typename F, typename T>
+      template<typename F, typename T = F>
       class Coercing : public virtual sk::util::Mapper<F, T> {
         public:
           T map(F& object) const {
