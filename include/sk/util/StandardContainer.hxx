@@ -117,7 +117,16 @@ namespace sk {
         const sk::util::Class getClass() const;
         const String inspect() const;
         const String toString() const;
+
+      protected:
+        struct AssessingBinaryFunctor;
+
+        static inline typename Policy::slot_storage_t makeStorage(const T& object);
+        static inline typename Policy::slot_storage_t makeStorage(T& object);
+        static inline typename Policy::slot_storage_t makeStorage(T* object);
     
+        typename Type::container_t _container;
+
       private:
         StandardContainer(const StandardContainer<T, Policy, Type>& other);
         StandardContainer<T, Policy, Type>& operator = (const StandardContainer<T, Policy, Type>& other);
@@ -129,10 +138,6 @@ namespace sk {
         struct SelectingFunctor;
         struct ConstProcessingFunctor;
         struct ProcessingFunctor;
-
-      protected:
-        struct AssessingBinaryFunctor;
-        typename Type::container_t _container;
     };
   }
 }

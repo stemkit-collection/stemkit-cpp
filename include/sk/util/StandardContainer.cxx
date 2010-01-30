@@ -50,6 +50,39 @@ getClass() const
 }
 
 template<typename T, typename Policy, typename Type>
+inline typename Policy::slot_storage_t
+sk::util::StandardContainer<T, Policy, Type>::
+makeStorage(const T& object)
+{
+  typename Policy::slot_storage_t storage = 0;
+  Policy::setObject(storage, object);
+
+  return storage;
+}
+
+template<typename T, typename Policy, typename Type>
+inline typename Policy::slot_storage_t
+sk::util::StandardContainer<T, Policy, Type>::
+makeStorage(T& object)
+{
+  typename Policy::slot_storage_t storage = 0;
+  Policy::setObject(storage, object);
+
+  return storage;
+}
+
+template<typename T, typename Policy, typename Type>
+inline typename Policy::slot_storage_t
+sk::util::StandardContainer<T, Policy, Type>::
+makeStorage(T* object)
+{
+  typename Policy::slot_storage_t storage = 0;
+  Policy::setObject(storage, object);
+
+  return storage;
+}
+
+template<typename T, typename Policy, typename Type>
 bool 
 sk::util::StandardContainer<T, Policy, Type>::
 isEmpty() const
@@ -221,10 +254,7 @@ bool
 sk::util::StandardContainer<T, Policy, Type>::
 add(const T& object) 
 {
-  typename Policy::slot_storage_t storage = 0;
-  Policy::setObject(storage, object);
-
-  _container.push_back(storage);
+  _container.push_back(makeStorage(object));
   return true;
 }
 
@@ -233,10 +263,7 @@ bool
 sk::util::StandardContainer<T, Policy, Type>::
 add(T& object)
 {
-  typename Policy::slot_storage_t storage = 0;
-  Policy::setObject(storage, object);
-
-  _container.push_back(storage);
+  _container.push_back(makeStorage(object));
   return true;
 }
 
@@ -245,10 +272,7 @@ bool
 sk::util::StandardContainer<T, Policy, Type>::
 add(T* object)
 {
-  typename Policy::slot_storage_t storage = 0;
-  Policy::setObject(storage, object);
-
-  _container.push_back(storage);
+  _container.push_back(makeStorage(object));
   return true;
 }
 
@@ -411,12 +435,7 @@ void
 sk::util::StandardContainer<T, Policy, Type>::
 add(int index, const T& object)
 {
-  typename Type::container_t::iterator iterator = position(index, 1);
-
-  typename Policy::slot_storage_t storage = 0;
-  Policy::setObject(storage, object);
-
-  _container.insert(iterator, storage);
+  _container.insert(position(index, 1), makeStorage(object));
 }
 
 template<typename T, typename Policy, typename Type>
@@ -424,12 +443,7 @@ void
 sk::util::StandardContainer<T, Policy, Type>::
 add(int index, T& object)
 {
-  typename Type::container_t::iterator iterator = position(index, 1);
-
-  typename Policy::slot_storage_t storage = 0;
-  Policy::setObject(storage, object);
-
-  _container.insert(iterator, storage);
+  _container.insert(position(index, 1), makeStorage(object));
 }
 
 template<typename T, typename Policy, typename Type>
@@ -437,12 +451,7 @@ void
 sk::util::StandardContainer<T, Policy, Type>::
 add(int index, T* object)
 {
-  typename Type::container_t::iterator iterator = position(index, 1);
-
-  typename Policy::slot_storage_t storage = 0;
-  Policy::setObject(storage, object);
-
-  _container.insert(iterator, storage);
+  _container.insert(position(index, 1), makeStorage(object));
 }
 
 template<typename T, typename Policy, typename Type>
@@ -545,8 +554,7 @@ void
 sk::util::StandardContainer<T, Policy, Type>::
 set(int index, const T& object)
 {
-  typename Type::container_t::iterator iterator = position(index, 0);
-  Policy::setObject(*iterator, object);
+  Policy::setObject(*position(index, 0) , object);
 }
 
 template<typename T, typename Policy, typename Type>
@@ -554,8 +562,7 @@ void
 sk::util::StandardContainer<T, Policy, Type>::
 set(int index, T& object)
 {
-  typename Type::container_t::iterator iterator = position(index, 0);
-  Policy::setObject(*iterator, object);
+  Policy::setObject(*position(index, 0) , object);
 }
 
 template<typename T, typename Policy, typename Type>
@@ -563,8 +570,7 @@ void
 sk::util::StandardContainer<T, Policy, Type>::
 set(int index, T* object)
 {
-  typename Type::container_t::iterator iterator = position(index, 0);
-  Policy::setObject(*iterator, object);
+  Policy::setObject(*position(index, 0) , object);
 }
 
 template<typename T, typename Policy, typename Type>
