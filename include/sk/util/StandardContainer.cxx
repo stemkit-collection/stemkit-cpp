@@ -383,9 +383,9 @@ retainAll(const Selector<T>& selector)
 template<typename T, typename Policy, typename Type>
 inline typename Type::container_t::iterator
 sk::util::StandardContainer<T, Policy, Type>::
-position(int index, int size)
+position(int index, int tailOffset)
 {
-  sk::util::Validator::ensureIndex(index, size);
+  sk::util::Validator::ensureIndex(index, _container.size() + tailOffset);
   typename Type::container_t::iterator iterator = _container.begin();
   while(index--) {
     ++iterator;
@@ -396,9 +396,9 @@ position(int index, int size)
 template<typename T, typename Policy, typename Type>
 inline typename Type::container_t::const_iterator
 sk::util::StandardContainer<T, Policy, Type>::
-position(int index, int size) const
+position(int index, int tailOffset) const
 {
-  sk::util::Validator::ensureIndex(index, size);
+  sk::util::Validator::ensureIndex(index, _container.size() + tailOffset);
   typename Type::container_t::const_iterator iterator = _container.begin();
   while(index--) {
     ++iterator;
@@ -411,7 +411,7 @@ void
 sk::util::StandardContainer<T, Policy, Type>::
 add(int index, const T& object)
 {
-  typename Type::container_t::iterator iterator = position(index, _container.size() + 1);
+  typename Type::container_t::iterator iterator = position(index, 1);
 
   typename Policy::slot_storage_t storage = 0;
   Policy::setObject(storage, object);
@@ -424,7 +424,7 @@ void
 sk::util::StandardContainer<T, Policy, Type>::
 add(int index, T& object)
 {
-  typename Type::container_t::iterator iterator = position(index, _container.size() + 1);
+  typename Type::container_t::iterator iterator = position(index, 1);
 
   typename Policy::slot_storage_t storage = 0;
   Policy::setObject(storage, object);
@@ -437,7 +437,7 @@ void
 sk::util::StandardContainer<T, Policy, Type>::
 add(int index, T* object)
 {
-  typename Type::container_t::iterator iterator = position(index, _container.size() + 1);
+  typename Type::container_t::iterator iterator = position(index, 1);
 
   typename Policy::slot_storage_t storage = 0;
   Policy::setObject(storage, object);
@@ -450,7 +450,7 @@ const T&
 sk::util::StandardContainer<T, Policy, Type>::
 get(int index) const
 {
-  return Policy::getObject(*position(index, _container.size()));
+  return Policy::getObject(*position(index, 0));
 }
 
 template<typename T, typename Policy, typename Type>
@@ -458,7 +458,7 @@ T&
 sk::util::StandardContainer<T, Policy, Type>::
 getMutable(int index) const
 {
-  return Policy::getMutableObject(*position(index, _container.size()));
+  return Policy::getMutableObject(*position(index, 0));
 }
 
 template<typename T, typename Policy, typename Type>
@@ -510,7 +510,7 @@ void
 sk::util::StandardContainer<T, Policy, Type>::
 remove(int index)
 {
-  typename Type::container_t::iterator iterator = position(index, _container.size());
+  typename Type::container_t::iterator iterator = position(index, 0);
   Policy::clearSlot(*iterator);
   _container.erase(iterator);
 }
@@ -520,7 +520,7 @@ T*
 sk::util::StandardContainer<T, Policy, Type>::
 cutoff(int index)
 {
-  typename Type::container_t::iterator iterator = position(index, _container.size());
+  typename Type::container_t::iterator iterator = position(index, 0);
   T* object = Policy::depriveObject(*iterator);
   _container.erase(iterator);
 
@@ -532,7 +532,7 @@ T*
 sk::util::StandardContainer<T, Policy, Type>::
 release(int index)
 {
-  typename Type::container_t::iterator iterator = position(index, _container.size());
+  typename Type::container_t::iterator iterator = position(index, 0);
   typename Policy::slot_storage_t& storage = *iterator;
   T* object = Policy::depriveObject(storage);
   Policy::setObject(storage, *object);
@@ -545,7 +545,7 @@ void
 sk::util::StandardContainer<T, Policy, Type>::
 set(int index, const T& object)
 {
-  typename Type::container_t::iterator iterator = position(index, _container.size());
+  typename Type::container_t::iterator iterator = position(index, 0);
   Policy::setObject(*iterator, object);
 }
 
@@ -554,7 +554,7 @@ void
 sk::util::StandardContainer<T, Policy, Type>::
 set(int index, T& object)
 {
-  typename Type::container_t::iterator iterator = position(index, _container.size());
+  typename Type::container_t::iterator iterator = position(index, 0);
   Policy::setObject(*iterator, object);
 }
 
@@ -563,7 +563,7 @@ void
 sk::util::StandardContainer<T, Policy, Type>::
 set(int index, T* object)
 {
-  typename Type::container_t::iterator iterator = position(index, _container.size());
+  typename Type::container_t::iterator iterator = position(index, 0);
   Policy::setObject(*iterator, object);
 }
 
