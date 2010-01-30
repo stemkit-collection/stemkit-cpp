@@ -411,7 +411,7 @@ void
 sk::util::StandardContainer<T, Policy, Type>::
 add(int index, const T& object)
 {
-  typename Type::container_t::iterator iterator = position(index, size() + 1);
+  typename Type::container_t::iterator iterator = position(index, _container.size() + 1);
 
   typename Policy::slot_storage_t storage = 0;
   Policy::setObject(storage, object);
@@ -424,7 +424,7 @@ void
 sk::util::StandardContainer<T, Policy, Type>::
 add(int index, T& object)
 {
-  typename Type::container_t::iterator iterator = position(index, size() + 1);
+  typename Type::container_t::iterator iterator = position(index, _container.size() + 1);
 
   typename Policy::slot_storage_t storage = 0;
   Policy::setObject(storage, object);
@@ -437,7 +437,7 @@ void
 sk::util::StandardContainer<T, Policy, Type>::
 add(int index, T* object)
 {
-  typename Type::container_t::iterator iterator = position(index, size() + 1);
+  typename Type::container_t::iterator iterator = position(index, _container.size() + 1);
 
   typename Policy::slot_storage_t storage = 0;
   Policy::setObject(storage, object);
@@ -450,7 +450,7 @@ const T&
 sk::util::StandardContainer<T, Policy, Type>::
 get(int index) const
 {
-  return Policy::getObject(*position(index, size()));
+  return Policy::getObject(*position(index, _container.size()));
 }
 
 template<typename T, typename Policy, typename Type>
@@ -458,7 +458,7 @@ T&
 sk::util::StandardContainer<T, Policy, Type>::
 getMutable(int index) const
 {
-  return Policy::getMutableObject(*position(index, size()));
+  return Policy::getMutableObject(*position(index, _container.size()));
 }
 
 template<typename T, typename Policy, typename Type>
@@ -499,7 +499,7 @@ lastIndexOf(const Selector<T>& selector) const
   typename Type::container_t::const_reverse_iterator iterator = _container.rbegin();
   for(int index=0; iterator != _container.rend(); ++index, ++iterator) {
     if(selector.assess(Policy::getObject(*iterator)) == true) {
-      return size() - index - 1;
+      return _container.size() - index - 1;
     }
   }
   return -1;
@@ -510,7 +510,7 @@ void
 sk::util::StandardContainer<T, Policy, Type>::
 remove(int index)
 {
-  typename Type::container_t::iterator iterator = position(index, size());
+  typename Type::container_t::iterator iterator = position(index, _container.size());
   Policy::clearSlot(*iterator);
   _container.erase(iterator);
 }
@@ -520,7 +520,7 @@ T*
 sk::util::StandardContainer<T, Policy, Type>::
 cutoff(int index)
 {
-  typename Type::container_t::iterator iterator = position(index, size());
+  typename Type::container_t::iterator iterator = position(index, _container.size());
   T* object = Policy::depriveObject(*iterator);
   _container.erase(iterator);
 
@@ -532,7 +532,7 @@ T*
 sk::util::StandardContainer<T, Policy, Type>::
 release(int index)
 {
-  typename Type::container_t::iterator iterator = position(index, size());
+  typename Type::container_t::iterator iterator = position(index, _container.size());
   typename Policy::slot_storage_t& storage = *iterator;
   T* object = Policy::depriveObject(storage);
   Policy::setObject(storage, *object);
@@ -545,7 +545,7 @@ void
 sk::util::StandardContainer<T, Policy, Type>::
 set(int index, const T& object)
 {
-  typename Type::container_t::iterator iterator = position(index, size());
+  typename Type::container_t::iterator iterator = position(index, _container.size());
   Policy::setObject(*iterator, object);
 }
 
@@ -554,7 +554,7 @@ void
 sk::util::StandardContainer<T, Policy, Type>::
 set(int index, T& object)
 {
-  typename Type::container_t::iterator iterator = position(index, size());
+  typename Type::container_t::iterator iterator = position(index, _container.size());
   Policy::setObject(*iterator, object);
 }
 
@@ -563,7 +563,7 @@ void
 sk::util::StandardContainer<T, Policy, Type>::
 set(int index, T* object)
 {
-  typename Type::container_t::iterator iterator = position(index, size());
+  typename Type::container_t::iterator iterator = position(index, _container.size());
   Policy::setObject(*iterator, object);
 }
 
@@ -685,7 +685,7 @@ const T&
 sk::util::StandardContainer<T, Policy, Type>::
 getFirst() const
 {
-  sk::util::Validator::ensureNotEmpty(size());
+  sk::util::Validator::ensureNotEmpty(_container.size());
   return Policy::getObject(_container.front());
 }
 
@@ -694,7 +694,7 @@ const T&
 sk::util::StandardContainer<T, Policy, Type>::
 getLast() const
 {
-  sk::util::Validator::ensureNotEmpty(size());
+  sk::util::Validator::ensureNotEmpty(_container.size());
   return Policy::getObject(_container.back());
 }
 
@@ -703,7 +703,7 @@ T&
 sk::util::StandardContainer<T, Policy, Type>::
 getMutableFirst() const
 {
-  sk::util::Validator::ensureNotEmpty(size());
+  sk::util::Validator::ensureNotEmpty(_container.size());
   return Policy::getMutableObject(_container.front());
 }
 
@@ -712,7 +712,7 @@ T&
 sk::util::StandardContainer<T, Policy, Type>::
 getMutableLast() const
 {
-  sk::util::Validator::ensureNotEmpty(size());
+  sk::util::Validator::ensureNotEmpty(_container.size());
   return Policy::getMutableObject(_container.back());
 }
 
@@ -721,7 +721,7 @@ void
 sk::util::StandardContainer<T, Policy, Type>::
 removeFirst()
 {
-  sk::util::Validator::ensureNotEmpty(size());
+  sk::util::Validator::ensureNotEmpty(_container.size());
   Policy::clearSlot(_container.front());
   _container.erase(_container.begin());
 }
@@ -731,7 +731,7 @@ void
 sk::util::StandardContainer<T, Policy, Type>::
 removeLast()
 {
-  sk::util::Validator::ensureNotEmpty(size());
+  sk::util::Validator::ensureNotEmpty(_container.size());
   Policy::clearSlot(_container.back());
   _container.pop_back();
 }
@@ -741,7 +741,7 @@ T*
 sk::util::StandardContainer<T, Policy, Type>::
 cutoffFirst()
 {
-  sk::util::Validator::ensureNotEmpty(size());
+  sk::util::Validator::ensureNotEmpty(_container.size());
   T* object = Policy::depriveObject(_container.front());
   _container.erase(_container.begin());
 
@@ -753,7 +753,7 @@ T*
 sk::util::StandardContainer<T, Policy, Type>::
 cutoffLast()
 {
-  sk::util::Validator::ensureNotEmpty(size());
+  sk::util::Validator::ensureNotEmpty(_container.size());
   T* object = Policy::depriveObject(_container.back());
   _container.pop_back();
 
