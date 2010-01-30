@@ -14,9 +14,6 @@
 #include <sk/util/UnsupportedOperationException.h>
 #include <sk/util/Validator.h>
 #include <sk/util/selector/EqualPointer.hxx>
-#include <sk/util/mapper/Stringing.hxx>
-#include <sk/util/Injector.cxx>
-#include <sk/util/reducer/Join.hxx>
 #include <sk/util/Lists.hxx>
 
 template<typename T, typename Policy>
@@ -392,7 +389,7 @@ const sk::util::String
 sk::util::AbstractList<T, Policy>::
 join(const sk::util::String& separator, const sk::util::Mapper<const T, const sk::util::String>& mapper) const
 {
-  return sk::util::Injector<T, sk::util::String>(*this).inject(mapper, sk::util::reducer::Join<T, sk::util::String>(separator));
+  return sk::util::Lists<T, Policy>::join(*this, separator, mapper);
 }
 
 template<typename T, typename Policy>
@@ -400,7 +397,7 @@ const sk::util::String
 sk::util::AbstractList<T, Policy>::
 join(const sk::util::String& separator) const
 {
-  return join(separator, sk::util::mapper::Stringing<T>());
+  return sk::util::Lists<T, Policy>::join(*this, separator);
 }
 
 template<typename T, typename Policy>
@@ -408,7 +405,7 @@ const sk::util::String
 sk::util::AbstractList<T, Policy>::
 join() const
 {
-  return join("", sk::util::mapper::Stringing<T>());
+  return sk::util::Lists<T, Policy>::join(*this);
 }
 
 #endif /* _SK_UTIL_ABSTRACTLIST_CXX_ */

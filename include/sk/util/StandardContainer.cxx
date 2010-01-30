@@ -25,10 +25,6 @@
 #include <sk/util/assessor/LessValues.hxx>
 #include <sk/util/Lists.hxx>
 
-#include <sk/util/mapper/Stringing.hxx>
-#include <sk/util/Injector.cxx>
-#include <sk/util/reducer/Join.hxx>
-
 #include <algorithm>
 #include <iostream>
 
@@ -769,7 +765,7 @@ const sk::util::String
 sk::util::StandardContainer<T, Policy, Type>::
 join(const sk::util::String& separator, const sk::util::Mapper<const T, const sk::util::String>& mapper) const
 {
-  return sk::util::Injector<T, sk::util::String>(*this).inject(mapper, sk::util::reducer::Join<T, sk::util::String>(separator));
+  return sk::util::Lists<T, Policy>::join(*this, separator, mapper);
 }
 
 template<typename T, typename Policy, typename Type>
@@ -777,7 +773,7 @@ const sk::util::String
 sk::util::StandardContainer<T, Policy, Type>::
 join(const sk::util::String& separator) const
 {
-  return join(separator, sk::util::mapper::Stringing<T>());
+  return sk::util::Lists<T, Policy>::join(*this, separator);
 }
 
 template<typename T, typename Policy, typename Type>
@@ -785,7 +781,7 @@ const sk::util::String
 sk::util::StandardContainer<T, Policy, Type>::
 join() const
 {
-  return join("", sk::util::mapper::Stringing<T>());
+  return sk::util::Lists<T, Policy>::join(*this);
 }
 
 #endif /* _SK_UTIL_STANDARDCONTAINER_CXX_ */

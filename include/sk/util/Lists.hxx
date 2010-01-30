@@ -12,7 +12,11 @@
 #define _SK_UTIL_LISTS_HXX_
 
 #include <sk/util/Processor.h>
+#include <sk/util/List.h>
 #include <sk/util/String.h>
+#include <sk/util/mapper/Stringing.hxx>
+#include <sk/util/Injector.cxx>
+#include <sk/util/reducer/Join.hxx>
 
 namespace sk {
   namespace util {
@@ -20,32 +24,41 @@ namespace sk {
     class Lists 
     {
       public:
-        class SlotInspector 
-        {
-          public:
-            SlotInspector(sk::util::String& depot, int& index);
+        class SlotInspector;
+        class ProcessingSlotInspector;
 
-            inline void operator()(const typename Policy::const_slot_storage_t& storage) const;
-            const sk::util::String collect() const;
+        static inline const sk::util::String join(const sk::util::List<T>& list, const sk::util::String& separator, const sk::util::Mapper<const T, const sk::util::String>& mapper);
+        static inline const sk::util::String join(const sk::util::List<T>& list, const sk::util::String& separator);
+        static inline const sk::util::String join(const sk::util::List<T>& list);
+    };
 
-          private:
-            sk::util::String& _depot;
-            int& _index;
-        };
+    template<typename T, typename Policy>
+    class Lists<T, Policy>::SlotInspector 
+    {
+      public:
+        SlotInspector(sk::util::String& depot, int& index);
 
-        class ProcessingSlotInspector 
-          : public SlotInspector,
-            public virtual sk::util::Processor<const typename Policy::slot_t>
-        {
-          public:
-            ProcessingSlotInspector();
+        inline void operator()(const typename Policy::const_slot_storage_t& storage) const;
+        inline const sk::util::String collect() const;
 
-            void process(const typename Policy::slot_t& slot) const;
+      private:
+        sk::util::String& _depot;
+        int& _index;
+    };
 
-          private:
-            sk::util::String _depot;
-            int _index;
-        };
+    template<typename T, typename Policy>
+    class Lists<T, Policy>::ProcessingSlotInspector 
+      : public Lists<T, Policy>::SlotInspector,
+        public virtual sk::util::Processor<const typename Policy::slot_t>
+    {
+      public:
+        ProcessingSlotInspector();
+
+        void process(const typename Policy::slot_t& slot) const;
+
+      private:
+        sk::util::String _depot;
+        int _index;
     };
   }
 }
@@ -74,7 +87,7 @@ operator()(const typename Policy::const_slot_storage_t& storage) const
 }
 
 template<typename T, typename Policy>
-const sk::util::String
+inline const sk::util::String
 sk::util::Lists<T, Policy>::SlotInspector::
 collect() const
 {
@@ -97,6 +110,30 @@ sk::util::Lists<T, Policy>::ProcessingSlotInspector::
 process(const typename Policy::slot_t& slot) const 
 {
   (*this)(&slot);
+}
+
+template<typename T, typename Policy>
+inline const sk::util::String 
+sk::util::Lists<T, Policy>::
+join(const sk::util::List<T>& list, const sk::util::String& separator, const sk::util::Mapper<const T, const sk::util::String>& mapper)
+{
+  return sk::util::Injector<T, sk::util::String>(list).inject(mapper, sk::util::reducer::Join<T, sk::util::String>(separator));
+}
+
+template<typename T, typename Policy>
+inline const sk::util::String 
+sk::util::Lists<T, Policy>::
+join(const sk::util::List<T>& list, const sk::util::String& separator)
+{
+  return join(list, separator, sk::util::mapper::Stringing<T>());
+}
+
+template<typename T, typename Policy>
+inline const sk::util::String 
+sk::util::Lists<T, Policy>::
+join(const sk::util::List<T>& list)
+{
+  return join(list, "", sk::util::mapper::Stringing<T>());
 }
 
 #endif /* _SK_UTIL_LISTS_HXX_ */
