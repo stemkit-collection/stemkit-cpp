@@ -43,6 +43,13 @@ namespace sk {
         ArrayList();
         ~ArrayList();
     
+        void addFirst(const T& object);
+        void addFirst(T& object);
+        void addFirst(T* object);
+
+        void removeFirst();
+        T* cutoffFirst();
+        
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
 

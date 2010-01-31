@@ -39,6 +39,10 @@ namespace sk {
         typedef LinkedList<T, slot::policy::Aliasing<T> > Aliasing;
         typedef LinkedList<T, slot::policy::Sharing<T> > Sharing;
 
+      public:
+        LinkedList();
+        ~LinkedList();
+    
         void sort(const sk::util::BinaryAssessor<T>& assessor);
         using super_t::sort;
 
@@ -52,10 +56,6 @@ namespace sk {
         void removeFirst();
         T* cutoffFirst();
         
-      public:
-        LinkedList();
-        ~LinkedList();
-    
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
 
