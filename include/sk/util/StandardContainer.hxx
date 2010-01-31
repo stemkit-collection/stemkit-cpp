@@ -124,6 +124,11 @@ namespace sk {
         static inline typename Policy::slot_storage_t makeStorage(const T& object);
         static inline typename Policy::slot_storage_t makeStorage(T& object);
         static inline typename Policy::slot_storage_t makeStorage(T* object);
+
+        inline void add(typename Type::container_t::iterator position, typename Policy::slot_storage_t storage);
+        inline typename Type::container_t::iterator remove(typename Type::container_t::iterator position);
+        inline T* cutoff(typename Type::container_t::iterator position);
+        inline T* release(typename Type::container_t::iterator position);
     
         typename Type::container_t _container;
 

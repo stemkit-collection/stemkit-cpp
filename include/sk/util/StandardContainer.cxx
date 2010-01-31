@@ -83,6 +83,45 @@ makeStorage(T* object)
 }
 
 template<typename T, typename Policy, typename Type>
+inline void 
+sk::util::StandardContainer<T, Policy, Type>::
+add(typename Type::container_t::iterator position, typename Policy::slot_storage_t storage)
+{
+  _container.insert(position, storage);
+}
+
+template<typename T, typename Policy, typename Type>
+inline typename Type::container_t::iterator
+sk::util::StandardContainer<T, Policy, Type>::
+remove(typename Type::container_t::iterator position)
+{
+  Policy::clearSlot(*position);
+  return _container.erase(position);
+}
+
+template<typename T, typename Policy, typename Type>
+inline T* 
+sk::util::StandardContainer<T, Policy, Type>::
+cutoff(typename Type::container_t::iterator position)
+{
+  T* object = Policy::depriveObject(*position);
+  _container.erase(position);
+
+  return object;
+}
+
+template<typename T, typename Policy, typename Type>
+inline T* 
+sk::util::StandardContainer<T, Policy, Type>::
+release(typename Type::container_t::iterator position)
+{
+  T* object = Policy::depriveObject(*position);
+  Policy::setObject(*position, *object);
+
+  return object;
+}
+
+template<typename T, typename Policy, typename Type>
 bool 
 sk::util::StandardContainer<T, Policy, Type>::
 isEmpty() const
@@ -293,9 +332,7 @@ remove(const Selector<T>& selector)
   if(iterator == _container.end()) {
     return false;
   }
-  Policy::clearSlot(*iterator);
-  _container.erase(iterator);
-
+  remove(iterator);
   return true;
 }
 
@@ -315,10 +352,7 @@ cutoff(const Selector<T>& selector)
   typename Type::container_t::iterator iterator = std::find_if(_container.begin(), _container.end(), SelectingFunctor(selector));
   sk::util::Validator::ensureElement(iterator != _container.end());
 
-  T* object = Policy::depriveObject(*iterator);
-  _container.erase(iterator);
-
-  return object;
+  return cutoff(iterator);
 }
 
 template<typename T, typename Policy, typename Type>
@@ -337,11 +371,7 @@ release(const Selector<T>& selector)
   typename Type::container_t::iterator iterator = std::find_if(_container.begin(), _container.end(), SelectingFunctor(selector));
   sk::util::Validator::ensureElement(iterator != _container.end());
 
-  typename Policy::slot_storage_t& storage = *iterator;
-  T* object = Policy::depriveObject(storage);
-  Policy::setObject(storage, *object);
-
-  return object;
+  return release(iterator);
 }
 
 template<typename T, typename Policy, typename Type>
@@ -369,8 +399,7 @@ removeAll(const Selector<T>& selector)
   typename Type::container_t::iterator iterator = _container.begin(); 
   while(iterator != _container.end()) {
     if(selector.assess(Policy::getObject(*iterator)) == true) {
-      Policy::clearSlot(*iterator);
-      iterator = _container.erase(iterator);
+      iterator = remove(iterator);
       modified = true;
     }
     else {
@@ -435,7 +464,7 @@ void
 sk::util::StandardContainer<T, Policy, Type>::
 add(int index, const T& object)
 {
-  _container.insert(position(index, 1), makeStorage(object));
+  add(position(index, 1), makeStorage(object));
 }
 
 template<typename T, typename Policy, typename Type>
@@ -443,7 +472,7 @@ void
 sk::util::StandardContainer<T, Policy, Type>::
 add(int index, T& object)
 {
-  _container.insert(position(index, 1), makeStorage(object));
+  add(position(index, 1), makeStorage(object));
 }
 
 template<typename T, typename Policy, typename Type>
@@ -451,7 +480,7 @@ void
 sk::util::StandardContainer<T, Policy, Type>::
 add(int index, T* object)
 {
-  _container.insert(position(index, 1), makeStorage(object));
+  add(position(index, 1), makeStorage(object));
 }
 
 template<typename T, typename Policy, typename Type>
@@ -519,9 +548,7 @@ void
 sk::util::StandardContainer<T, Policy, Type>::
 remove(int index)
 {
-  typename Type::container_t::iterator iterator = position(index, 0);
-  Policy::clearSlot(*iterator);
-  _container.erase(iterator);
+  remove(position(index, 0));
 }
 
 template<typename T, typename Policy, typename Type>
@@ -529,11 +556,7 @@ T*
 sk::util::StandardContainer<T, Policy, Type>::
 cutoff(int index)
 {
-  typename Type::container_t::iterator iterator = position(index, 0);
-  T* object = Policy::depriveObject(*iterator);
-  _container.erase(iterator);
-
-  return object;
+  return cutoff(position(index, 0));
 }
 
 template<typename T, typename Policy, typename Type>
@@ -541,12 +564,7 @@ T*
 sk::util::StandardContainer<T, Policy, Type>::
 release(int index)
 {
-  typename Type::container_t::iterator iterator = position(index, 0);
-  typename Policy::slot_storage_t& storage = *iterator;
-  T* object = Policy::depriveObject(storage);
-  Policy::setObject(storage, *object);
-
-  return object;
+  return release(position(index, 0));
 }
 
 template<typename T, typename Policy, typename Type>
