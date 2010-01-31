@@ -90,4 +90,26 @@ addFirst(T* object)
   super_t::_container.push_front(makeStorage(object));
 }
 
+template<typename T, typename Policy>
+void 
+sk::util::LinkedList<T, Policy>::
+removeFirst()
+{
+  sk::util::Validator::ensureNotEmpty(super_t::_container.size());
+  Policy::clearSlot(super_t::_container.front());
+  super_t::_container.pop_front();
+}
+
+template<typename T, typename Policy>
+T*
+sk::util::LinkedList<T, Policy>::
+cutoffFirst()
+{
+  sk::util::Validator::ensureNotEmpty(super_t::_container.size());
+  T* object = Policy::depriveObject(super_t::_container.front());
+  super_t::_container.pop_front();
+
+  return object;
+}
+
 #endif /* _SK_UTIL_LINKEDLIST_CXX_ */

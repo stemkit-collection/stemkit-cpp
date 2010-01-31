@@ -48,6 +48,9 @@ namespace sk {
         void addFirst(const T& object);
         void addFirst(T& object);
         void addFirst(T* object);
+
+        void removeFirst();
+        T* cutoffFirst();
         
       public:
         LinkedList();
