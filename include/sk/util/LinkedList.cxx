@@ -66,4 +66,28 @@ reverse()
   super_t::_container.reverse();
 }
 
+template<typename T, typename Policy>
+void 
+sk::util::LinkedList<T, Policy>::
+addFirst(const T& object)
+{
+  super_t::_container.push_front(makeStorage(object));
+}
+
+template<typename T, typename Policy>
+void 
+sk::util::LinkedList<T, Policy>::
+addFirst(T& object)
+{
+  super_t::_container.push_front(makeStorage(object));
+}
+
+template<typename T, typename Policy>
+void 
+sk::util::LinkedList<T, Policy>::
+addFirst(T* object)
+{
+  super_t::_container.push_front(makeStorage(object));
+}
+
 #endif /* _SK_UTIL_LINKEDLIST_CXX_ */

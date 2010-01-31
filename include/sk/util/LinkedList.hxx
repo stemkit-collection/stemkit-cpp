@@ -45,6 +45,10 @@ namespace sk {
         void shuffle();
         void reverse();
 
+        void addFirst(const T& object);
+        void addFirst(T& object);
+        void addFirst(T* object);
+        
       public:
         LinkedList();
         ~LinkedList();
