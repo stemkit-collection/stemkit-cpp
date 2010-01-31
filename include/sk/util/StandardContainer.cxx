@@ -685,7 +685,7 @@ void
 sk::util::StandardContainer<T, Policy, Type>::
 addLast(const T& object)
 {
-  add(object);
+  _container.push_back(makeStorage(object));
 }
 
 template<typename T, typename Policy, typename Type>
@@ -693,7 +693,7 @@ void
 sk::util::StandardContainer<T, Policy, Type>::
 addLast(T& object)
 {
-  add(object);
+  _container.push_back(makeStorage(object));
 }
 
 template<typename T, typename Policy, typename Type>
@@ -701,7 +701,7 @@ void
 sk::util::StandardContainer<T, Policy, Type>::
 addLast(T* object)
 {
-  add(object);
+  _container.push_back(makeStorage(object));
 }
 
 template<typename T, typename Policy, typename Type>
