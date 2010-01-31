@@ -37,141 +37,6 @@ getClass() const
 }
 
 template<typename T, typename Policy, typename Type>
-inline typename Type::container_t::iterator
-sk::util::RandomAccessContainer<T, Policy, Type>::
-position(int index, int size)
-{
-  sk::util::Validator::ensureIndex(index, size);
-  return super_t::_container.begin() + index;
-}
-
-template<typename T, typename Policy, typename Type>
-inline typename Type::container_t::const_iterator
-sk::util::RandomAccessContainer<T, Policy, Type>::
-position(int index, int size) const
-{
-  sk::util::Validator::ensureIndex(index, size);
-  return super_t::_container.begin() + index;
-}
-
-template<typename T, typename Policy, typename Type>
-void 
-sk::util::RandomAccessContainer<T, Policy, Type>::
-add(int index, const T& object)
-{
-  typename Type::container_t::iterator iterator = position(index, super_t::size() + 1);
-
-  typename Policy::slot_storage_t storage = 0;
-  Policy::setObject(storage, object);
-
-  super_t::_container.insert(iterator, storage);
-}
-
-template<typename T, typename Policy, typename Type>
-void 
-sk::util::RandomAccessContainer<T, Policy, Type>::
-add(int index, T& object)
-{
-  typename Type::container_t::iterator iterator = position(index, super_t::size() + 1);
-
-  typename Policy::slot_storage_t storage = 0;
-  Policy::setObject(storage, object);
-
-  super_t::_container.insert(iterator, storage);
-}
-
-template<typename T, typename Policy, typename Type>
-void 
-sk::util::RandomAccessContainer<T, Policy, Type>::
-add(int index, T* object)
-{
-  typename Type::container_t::iterator iterator = position(index, super_t::size() + 1);
-
-  typename Policy::slot_storage_t storage = 0;
-  Policy::setObject(storage, object);
-
-  super_t::_container.insert(iterator, storage);
-}
-
-template<typename T, typename Policy, typename Type>
-const T& 
-sk::util::RandomAccessContainer<T, Policy, Type>::
-get(int index) const
-{
-  return Policy::getObject(*position(index, super_t::size()));
-}
-
-template<typename T, typename Policy, typename Type>
-T& 
-sk::util::RandomAccessContainer<T, Policy, Type>::
-getMutable(int index) const
-{
-  return Policy::getMutableObject(*position(index, super_t::size()));
-}
-
-template<typename T, typename Policy, typename Type>
-void 
-sk::util::RandomAccessContainer<T, Policy, Type>::
-remove(int index)
-{
-  typename Type::container_t::iterator iterator = position(index, super_t::size());
-  Policy::clearSlot(*iterator);
-  super_t::_container.erase(iterator);
-}
-
-template<typename T, typename Policy, typename Type>
-T* 
-sk::util::RandomAccessContainer<T, Policy, Type>::
-cutoff(int index)
-{
-  typename Type::container_t::iterator iterator = position(index, super_t::size());
-  T* object = Policy::depriveObject(*iterator);
-  super_t::_container.erase(iterator);
-
-  return object;
-}
-
-template<typename T, typename Policy, typename Type>
-T* 
-sk::util::RandomAccessContainer<T, Policy, Type>::
-release(int index)
-{
-  typename Type::container_t::iterator iterator = position(index, super_t::size());
-  typename Policy::slot_storage_t& storage = *iterator;
-  T* object = Policy::depriveObject(storage);
-  Policy::setObject(storage, *object);
-
-  return object;
-}
-
-template<typename T, typename Policy, typename Type>
-void 
-sk::util::RandomAccessContainer<T, Policy, Type>::
-set(int index, const T& object)
-{
-  typename Type::container_t::iterator iterator = position(index, super_t::size());
-  Policy::setObject(*iterator, object);
-}
-
-template<typename T, typename Policy, typename Type>
-void 
-sk::util::RandomAccessContainer<T, Policy, Type>::
-set(int index, T& object)
-{
-  typename Type::container_t::iterator iterator = position(index, super_t::size());
-  Policy::setObject(*iterator, object);
-}
-
-template<typename T, typename Policy, typename Type>
-void 
-sk::util::RandomAccessContainer<T, Policy, Type>::
-set(int index, T* object)
-{
-  typename Type::container_t::iterator iterator = position(index, super_t::size());
-  Policy::setObject(*iterator, object);
-}
-
-template<typename T, typename Policy, typename Type>
 void 
 sk::util::RandomAccessContainer<T, Policy, Type>::
 sort(const sk::util::BinaryAssessor<T>& assessor)
@@ -185,6 +50,112 @@ sk::util::RandomAccessContainer<T, Policy, Type>::
 shuffle()
 {
   std::random_shuffle(super_t::_container.begin(), super_t::_container.end());
+}
+
+template<typename T, typename Policy, typename Type>
+inline typename Type::container_t::iterator
+sk::util::RandomAccessContainer<T, Policy, Type>::
+position(int index, int tailOffset)
+{
+  sk::util::Validator::ensureIndex(index, super_t::_container.size() + tailOffset);
+  return super_t::_container.begin() + index;
+}
+
+template<typename T, typename Policy, typename Type>
+inline typename Type::container_t::const_iterator
+sk::util::RandomAccessContainer<T, Policy, Type>::
+position(int index, int tailOffset) const
+{
+  sk::util::Validator::ensureIndex(index, super_t::_container.size() + tailOffset);
+  return super_t::_container.begin() + index;
+}
+
+template<typename T, typename Policy, typename Type>
+void 
+sk::util::RandomAccessContainer<T, Policy, Type>::
+add(int index, const T& object)
+{
+  add(position(index, 1), makeStorage(object));
+}
+
+template<typename T, typename Policy, typename Type>
+void 
+sk::util::RandomAccessContainer<T, Policy, Type>::
+add(int index, T& object)
+{
+  add(position(index, 1), makeStorage(object));
+}
+
+template<typename T, typename Policy, typename Type>
+void 
+sk::util::RandomAccessContainer<T, Policy, Type>::
+add(int index, T* object)
+{
+  add(position(index, 1), makeStorage(object));
+}
+
+template<typename T, typename Policy, typename Type>
+const T& 
+sk::util::RandomAccessContainer<T, Policy, Type>::
+get(int index) const
+{
+  return Policy::getObject(*position(index, 0));
+}
+
+template<typename T, typename Policy, typename Type>
+T& 
+sk::util::RandomAccessContainer<T, Policy, Type>::
+getMutable(int index) const
+{
+  return Policy::getMutableObject(*position(index, 0));
+}
+
+template<typename T, typename Policy, typename Type>
+void 
+sk::util::RandomAccessContainer<T, Policy, Type>::
+remove(int index)
+{
+  remove(position(index, 0));
+}
+
+template<typename T, typename Policy, typename Type>
+T* 
+sk::util::RandomAccessContainer<T, Policy, Type>::
+cutoff(int index)
+{
+  return cutoff(position(index, 0));
+}
+
+template<typename T, typename Policy, typename Type>
+T* 
+sk::util::RandomAccessContainer<T, Policy, Type>::
+release(int index)
+{
+  return release(position(index, 0));
+}
+
+template<typename T, typename Policy, typename Type>
+void 
+sk::util::RandomAccessContainer<T, Policy, Type>::
+set(int index, const T& object)
+{
+  Policy::setObject(*position(index, 0) , object);
+}
+
+template<typename T, typename Policy, typename Type>
+void 
+sk::util::RandomAccessContainer<T, Policy, Type>::
+set(int index, T& object)
+{
+  Policy::setObject(*position(index, 0) , object);
+}
+
+template<typename T, typename Policy, typename Type>
+void 
+sk::util::RandomAccessContainer<T, Policy, Type>::
+set(int index, T* object)
+{
+  Policy::setObject(*position(index, 0) , object);
 }
 
 #endif /* _SK_UTIL_RANDOMACCESSCONTAINER_CXX_ */

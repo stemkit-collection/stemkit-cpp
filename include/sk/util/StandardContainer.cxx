@@ -434,6 +434,50 @@ retainAll(const Selector<T>& selector)
 }
 
 template<typename T, typename Policy, typename Type>
+int 
+sk::util::StandardContainer<T, Policy, Type>::
+indexOf(const T& object) const
+{
+  return indexOf(sk::util::selector::EqualPointer<T>(object));
+}
+
+template<typename T, typename Policy, typename Type>
+int 
+sk::util::StandardContainer<T, Policy, Type>::
+indexOf(const Selector<T>& selector) const
+{
+  typename Type::container_t::const_iterator iterator = _container.begin();
+  for(int index=0; iterator != _container.end(); ++index, ++iterator) {
+    if(selector.assess(Policy::getObject(*iterator)) == true) {
+      return index;
+    }
+  }
+  return -1;
+}
+
+template<typename T, typename Policy, typename Type>
+int 
+sk::util::StandardContainer<T, Policy, Type>::
+lastIndexOf(const T& object) const
+{
+  return lastIndexOf(sk::util::selector::EqualPointer<T>(object));
+}
+
+template<typename T, typename Policy, typename Type>
+int 
+sk::util::StandardContainer<T, Policy, Type>::
+lastIndexOf(const Selector<T>& selector) const
+{
+  typename Type::container_t::const_reverse_iterator iterator = _container.rbegin();
+  for(int index=0; iterator != _container.rend(); ++index, ++iterator) {
+    if(selector.assess(Policy::getObject(*iterator)) == true) {
+      return _container.size() - index - 1;
+    }
+  }
+  return -1;
+}
+
+template<typename T, typename Policy, typename Type>
 inline typename Type::container_t::iterator
 sk::util::StandardContainer<T, Policy, Type>::
 position(int index, int tailOffset)
@@ -497,50 +541,6 @@ sk::util::StandardContainer<T, Policy, Type>::
 getMutable(int index) const
 {
   return Policy::getMutableObject(*position(index, 0));
-}
-
-template<typename T, typename Policy, typename Type>
-int 
-sk::util::StandardContainer<T, Policy, Type>::
-indexOf(const T& object) const
-{
-  return indexOf(sk::util::selector::EqualPointer<T>(object));
-}
-
-template<typename T, typename Policy, typename Type>
-int 
-sk::util::StandardContainer<T, Policy, Type>::
-indexOf(const Selector<T>& selector) const
-{
-  typename Type::container_t::const_iterator iterator = _container.begin();
-  for(int index=0; iterator != _container.end(); ++index, ++iterator) {
-    if(selector.assess(Policy::getObject(*iterator)) == true) {
-      return index;
-    }
-  }
-  return -1;
-}
-
-template<typename T, typename Policy, typename Type>
-int 
-sk::util::StandardContainer<T, Policy, Type>::
-lastIndexOf(const T& object) const
-{
-  return lastIndexOf(sk::util::selector::EqualPointer<T>(object));
-}
-
-template<typename T, typename Policy, typename Type>
-int 
-sk::util::StandardContainer<T, Policy, Type>::
-lastIndexOf(const Selector<T>& selector) const
-{
-  typename Type::container_t::const_reverse_iterator iterator = _container.rbegin();
-  for(int index=0; iterator != _container.rend(); ++index, ++iterator) {
-    if(selector.assess(Policy::getObject(*iterator)) == true) {
-      return _container.size() - index - 1;
-    }
-  }
-  return -1;
 }
 
 template<typename T, typename Policy, typename Type>

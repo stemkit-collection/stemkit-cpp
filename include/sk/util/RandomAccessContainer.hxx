@@ -63,8 +63,8 @@ namespace sk {
         RandomAccessContainer(const RandomAccessContainer<T, Policy, Type>& other);
         RandomAccessContainer<T, Policy, Type>& operator = (const RandomAccessContainer<T, Policy, Type>& other);
 
-        inline typename Type::container_t::iterator position(int index, int size);
-        inline typename Type::container_t::const_iterator position(int index, int size) const;
+        inline typename Type::container_t::iterator position(int index, int tailOffset);
+        inline typename Type::container_t::const_iterator position(int index, int tailOffset) const;
     };
   }
 }
