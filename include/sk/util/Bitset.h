@@ -66,6 +66,20 @@ namespace sk {
   }
 }
 
+inline uint32_t
+sk::util::Bitset::
+block(uint32_t index)
+{
+  return index >> 5;
+}
+
+inline uint32_t
+sk::util::Bitset::
+bit(uint32_t index)
+{
+  return 1 << (index & 0x1f);
+}
+
 inline bool
 sk::util::Bitset::
 isOn(uint32_t index) const
@@ -110,20 +124,6 @@ set(uint32_t index)
     return false;
   }
   return true;
-}
-
-inline uint32_t
-sk::util::Bitset::
-block(uint32_t index)
-{
-  return index >> 5;
-}
-
-inline uint32_t
-sk::util::Bitset::
-bit(uint32_t index)
-{
-  return 1 << (index & 0x1f);
 }
 
 #endif /* _SK_UTIL_BITSET_H_ */
