@@ -24,6 +24,7 @@
 #include <sk/util/assessor/EqualPointers.hxx>
 #include <sk/util/assessor/LessValues.hxx>
 #include <sk/util/Lists.hxx>
+#include <sk/util/Collections.hxx>
 
 #include <algorithm>
 #include <iostream>
@@ -47,39 +48,6 @@ sk::util::StandardContainer<T, Policy, Type>::
 getClass() const
 {
   return sk::util::Class("sk::util::StandardContainer");
-}
-
-template<typename T, typename Policy, typename Type>
-inline typename Policy::slot_storage_t
-sk::util::StandardContainer<T, Policy, Type>::
-makeStorage(const T& object)
-{
-  typename Policy::slot_storage_t storage = 0;
-  Policy::setObject(storage, object);
-
-  return storage;
-}
-
-template<typename T, typename Policy, typename Type>
-inline typename Policy::slot_storage_t
-sk::util::StandardContainer<T, Policy, Type>::
-makeStorage(T& object)
-{
-  typename Policy::slot_storage_t storage = 0;
-  Policy::setObject(storage, object);
-
-  return storage;
-}
-
-template<typename T, typename Policy, typename Type>
-inline typename Policy::slot_storage_t
-sk::util::StandardContainer<T, Policy, Type>::
-makeStorage(T* object)
-{
-  typename Policy::slot_storage_t storage = 0;
-  Policy::setObject(storage, object);
-
-  return storage;
 }
 
 template<typename T, typename Policy, typename Type>
@@ -293,7 +261,7 @@ bool
 sk::util::StandardContainer<T, Policy, Type>::
 add(const T& object) 
 {
-  _container.push_back(makeStorage(object));
+  _container.push_back(Collections<T, Policy>::makeStorage(object));
   return true;
 }
 
@@ -302,7 +270,7 @@ bool
 sk::util::StandardContainer<T, Policy, Type>::
 add(T& object)
 {
-  _container.push_back(makeStorage(object));
+  _container.push_back(Collections<T, Policy>::makeStorage(object));
   return true;
 }
 
@@ -311,7 +279,7 @@ bool
 sk::util::StandardContainer<T, Policy, Type>::
 add(T* object)
 {
-  _container.push_back(makeStorage(object));
+  _container.push_back(Collections<T, Policy>::makeStorage(object));
   return true;
 }
 
@@ -508,7 +476,7 @@ void
 sk::util::StandardContainer<T, Policy, Type>::
 add(int index, const T& object)
 {
-  add(position(index, 1), makeStorage(object));
+  add(position(index, 1), Collections<T, Policy>::makeStorage(object));
 }
 
 template<typename T, typename Policy, typename Type>
@@ -516,7 +484,7 @@ void
 sk::util::StandardContainer<T, Policy, Type>::
 add(int index, T& object)
 {
-  add(position(index, 1), makeStorage(object));
+  add(position(index, 1), Collections<T, Policy>::makeStorage(object));
 }
 
 template<typename T, typename Policy, typename Type>
@@ -524,7 +492,7 @@ void
 sk::util::StandardContainer<T, Policy, Type>::
 add(int index, T* object)
 {
-  add(position(index, 1), makeStorage(object));
+  add(position(index, 1), Collections<T, Policy>::makeStorage(object));
 }
 
 template<typename T, typename Policy, typename Type>
@@ -685,7 +653,7 @@ void
 sk::util::StandardContainer<T, Policy, Type>::
 addLast(const T& object)
 {
-  _container.push_back(makeStorage(object));
+  _container.push_back(Collections<T, Policy>::makeStorage(object));
 }
 
 template<typename T, typename Policy, typename Type>
@@ -693,7 +661,7 @@ void
 sk::util::StandardContainer<T, Policy, Type>::
 addLast(T& object)
 {
-  _container.push_back(makeStorage(object));
+  _container.push_back(Collections<T, Policy>::makeStorage(object));
 }
 
 template<typename T, typename Policy, typename Type>
@@ -701,7 +669,7 @@ void
 sk::util::StandardContainer<T, Policy, Type>::
 addLast(T* object)
 {
-  _container.push_back(makeStorage(object));
+  _container.push_back(Collections<T, Policy>::makeStorage(object));
 }
 
 template<typename T, typename Policy, typename Type>

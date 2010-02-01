@@ -14,6 +14,7 @@
 #include <sk/util/Class.h>
 #include <sk/util/LinkedList.hxx>
 #include <sk/util/StandardContainer.cxx>
+#include <sk/util/Collections.hxx>
 #include <deque>
 
 template<typename T, typename Policy>
@@ -71,7 +72,7 @@ void
 sk::util::LinkedList<T, Policy>::
 addFirst(const T& object)
 {
-  super_t::_container.push_front(makeStorage(object));
+  super_t::_container.push_front(Collections<T, Policy>::makeStorage(object));
 }
 
 template<typename T, typename Policy>
@@ -79,7 +80,7 @@ void
 sk::util::LinkedList<T, Policy>::
 addFirst(T& object)
 {
-  super_t::_container.push_front(makeStorage(object));
+  super_t::_container.push_front(Collections<T, Policy>::makeStorage(object));
 }
 
 template<typename T, typename Policy>
@@ -87,7 +88,7 @@ void
 sk::util::LinkedList<T, Policy>::
 addFirst(T* object)
 {
-  super_t::_container.push_front(makeStorage(object));
+  super_t::_container.push_front(Collections<T, Policy>::makeStorage(object));
 }
 
 template<typename T, typename Policy>

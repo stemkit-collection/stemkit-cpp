@@ -14,6 +14,7 @@
 #include <sk/util/Class.h>
 #include <sk/util/RandomAccessContainer.hxx>
 #include <sk/util/StandardContainer.cxx>
+#include <sk/util/Collections.hxx>
 #include <sk/util/Validator.h>
 
 template<typename T, typename Policy, typename Type>
@@ -75,7 +76,7 @@ void
 sk::util::RandomAccessContainer<T, Policy, Type>::
 add(int index, const T& object)
 {
-  add(position(index, 1), makeStorage(object));
+  add(position(index, 1), Collections<T, Policy>::makeStorage(object));
 }
 
 template<typename T, typename Policy, typename Type>
@@ -83,7 +84,7 @@ void
 sk::util::RandomAccessContainer<T, Policy, Type>::
 add(int index, T& object)
 {
-  add(position(index, 1), makeStorage(object));
+  add(position(index, 1), Collections<T, Policy>::makeStorage(object));
 }
 
 template<typename T, typename Policy, typename Type>
@@ -91,7 +92,7 @@ void
 sk::util::RandomAccessContainer<T, Policy, Type>::
 add(int index, T* object)
 {
-  add(position(index, 1), makeStorage(object));
+  add(position(index, 1), Collections<T, Policy>::makeStorage(object));
 }
 
 template<typename T, typename Policy, typename Type>
