@@ -15,6 +15,7 @@
 #include <sk/util/LinkedList.hxx>
 #include <sk/util/StandardContainer.cxx>
 #include <sk/util/Collections.hxx>
+#include <sk/util/OpenEndedLists.hxx>
 #include <deque>
 
 template<typename T, typename Policy>
@@ -72,7 +73,7 @@ void
 sk::util::LinkedList<T, Policy>::
 addFirst(const T& object)
 {
-  super_t::_container.push_front(Collections<T, Policy>::makeStorage(object));
+  OpenEndedLists<T, Policy, type_t>::addFirst(super_t::_container, Collections<T, Policy>::makeStorage(object));
 }
 
 template<typename T, typename Policy>
@@ -80,7 +81,7 @@ void
 sk::util::LinkedList<T, Policy>::
 addFirst(T& object)
 {
-  super_t::_container.push_front(Collections<T, Policy>::makeStorage(object));
+  OpenEndedLists<T, Policy, type_t>::addFirst(super_t::_container, Collections<T, Policy>::makeStorage(object));
 }
 
 template<typename T, typename Policy>
@@ -88,7 +89,7 @@ void
 sk::util::LinkedList<T, Policy>::
 addFirst(T* object)
 {
-  super_t::_container.push_front(Collections<T, Policy>::makeStorage(object));
+  OpenEndedLists<T, Policy, type_t>::addFirst(super_t::_container, Collections<T, Policy>::makeStorage(object));
 }
 
 template<typename T, typename Policy>
@@ -96,9 +97,7 @@ void
 sk::util::LinkedList<T, Policy>::
 removeFirst()
 {
-  sk::util::Validator::ensureNotEmpty(super_t::_container.size());
-  Policy::clearSlot(super_t::_container.front());
-  super_t::_container.pop_front();
+  OpenEndedLists<T, Policy, type_t>::removeFirst(super_t::_container);
 }
 
 template<typename T, typename Policy>
@@ -106,11 +105,7 @@ T*
 sk::util::LinkedList<T, Policy>::
 cutoffFirst()
 {
-  sk::util::Validator::ensureNotEmpty(super_t::_container.size());
-  T* object = Policy::depriveObject(super_t::_container.front());
-  super_t::_container.pop_front();
-
-  return object;
+  return OpenEndedLists<T, Policy, type_t>::cutoffFirst(super_t::_container);
 }
 
 #endif /* _SK_UTIL_LINKEDLIST_CXX_ */

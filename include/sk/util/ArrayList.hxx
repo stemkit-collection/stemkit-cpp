@@ -29,7 +29,8 @@ namespace sk {
     class ArrayList 
       : public sk::util::RandomAccessContainer<T, Policy, type::deque<T, Policy> >
     {
-      typedef sk::util::RandomAccessContainer<T, Policy, type::deque<T, Policy> > super_t;
+      typedef type::deque<T, Policy> type_t;
+      typedef sk::util::RandomAccessContainer<T, Policy, type_t> super_t;
 
       public:
         typedef ArrayList<T, slot::policy::Storing<T> > Storing;

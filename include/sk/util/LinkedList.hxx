@@ -29,7 +29,8 @@ namespace sk {
     class LinkedList 
       : public sk::util::StandardContainer<T, Policy, type::list<T, Policy> >
     {
-      typedef sk::util::StandardContainer<T, Policy, type::list<T, Policy> > super_t;
+      typedef type::list<T, Policy> type_t;
+      typedef sk::util::StandardContainer<T, Policy, type_t> super_t;
 
       public:
         typedef LinkedList<T, slot::policy::Storing<T> > Storing;

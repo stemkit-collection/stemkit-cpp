@@ -25,6 +25,7 @@
 #include <sk/util/assessor/LessValues.hxx>
 #include <sk/util/Lists.hxx>
 #include <sk/util/Collections.hxx>
+#include <sk/util/OpenEndedLists.hxx>
 
 #include <algorithm>
 #include <iostream>
@@ -261,7 +262,7 @@ bool
 sk::util::StandardContainer<T, Policy, Type>::
 add(const T& object) 
 {
-  _container.push_back(Collections<T, Policy>::makeStorage(object));
+  OpenEndedLists<T, Policy, Type>::addLast(_container, Collections<T, Policy>::makeStorage(object));
   return true;
 }
 
@@ -270,7 +271,7 @@ bool
 sk::util::StandardContainer<T, Policy, Type>::
 add(T& object)
 {
-  _container.push_back(Collections<T, Policy>::makeStorage(object));
+  OpenEndedLists<T, Policy, Type>::addLast(_container, Collections<T, Policy>::makeStorage(object));
   return true;
 }
 
@@ -279,7 +280,7 @@ bool
 sk::util::StandardContainer<T, Policy, Type>::
 add(T* object)
 {
-  _container.push_back(Collections<T, Policy>::makeStorage(object));
+  OpenEndedLists<T, Policy, Type>::addLast(_container, Collections<T, Policy>::makeStorage(object));
   return true;
 }
 
@@ -653,7 +654,7 @@ void
 sk::util::StandardContainer<T, Policy, Type>::
 addLast(const T& object)
 {
-  _container.push_back(Collections<T, Policy>::makeStorage(object));
+  OpenEndedLists<T, Policy, Type>::addLast(_container, Collections<T, Policy>::makeStorage(object));
 }
 
 template<typename T, typename Policy, typename Type>
@@ -661,7 +662,7 @@ void
 sk::util::StandardContainer<T, Policy, Type>::
 addLast(T& object)
 {
-  _container.push_back(Collections<T, Policy>::makeStorage(object));
+  OpenEndedLists<T, Policy, Type>::addLast(_container, Collections<T, Policy>::makeStorage(object));
 }
 
 template<typename T, typename Policy, typename Type>
@@ -669,7 +670,7 @@ void
 sk::util::StandardContainer<T, Policy, Type>::
 addLast(T* object)
 {
-  _container.push_back(Collections<T, Policy>::makeStorage(object));
+  OpenEndedLists<T, Policy, Type>::addLast(_container, Collections<T, Policy>::makeStorage(object));
 }
 
 template<typename T, typename Policy, typename Type>
@@ -713,9 +714,7 @@ void
 sk::util::StandardContainer<T, Policy, Type>::
 removeFirst()
 {
-  sk::util::Validator::ensureNotEmpty(_container.size());
-  Policy::clearSlot(_container.front());
-  _container.erase(_container.begin());
+  OpenEndedLists<T, Policy, Type>::removeFirstGeneric(_container);
 }
 
 template<typename T, typename Policy, typename Type>
@@ -723,9 +722,7 @@ void
 sk::util::StandardContainer<T, Policy, Type>::
 removeLast()
 {
-  sk::util::Validator::ensureNotEmpty(_container.size());
-  Policy::clearSlot(_container.back());
-  _container.pop_back();
+  OpenEndedLists<T, Policy, Type>::removeLast(_container);
 }
 
 template<typename T, typename Policy, typename Type>
@@ -733,11 +730,7 @@ T*
 sk::util::StandardContainer<T, Policy, Type>::
 cutoffFirst()
 {
-  sk::util::Validator::ensureNotEmpty(_container.size());
-  T* object = Policy::depriveObject(_container.front());
-  _container.erase(_container.begin());
-
-  return object;
+  return OpenEndedLists<T, Policy, Type>::cutoffFirstGeneric(_container);
 }
 
 template<typename T, typename Policy, typename Type>
@@ -745,11 +738,7 @@ T*
 sk::util::StandardContainer<T, Policy, Type>::
 cutoffLast()
 {
-  sk::util::Validator::ensureNotEmpty(_container.size());
-  T* object = Policy::depriveObject(_container.back());
-  _container.pop_back();
-
-  return object;
+  return OpenEndedLists<T, Policy, Type>::cutoffLast(_container);
 }
 
 template<typename T, typename Policy, typename Type>
