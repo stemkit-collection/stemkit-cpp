@@ -29,7 +29,8 @@ namespace sk {
     class Vector 
       : public sk::util::RandomAccessContainer<T, Policy, type::vector<T, Policy> >
     {
-      typedef sk::util::RandomAccessContainer<T, Policy, type::vector<T, Policy> > super_t;
+      typedef type::vector<T, Policy> type_t;
+      typedef sk::util::RandomAccessContainer<T, Policy, type_t> super_t;
 
       public:
         typedef Vector<T, slot::policy::Storing<T> > Storing;
