@@ -204,29 +204,11 @@ containsAll(const Collection<T>& other) const
 }
 
 template<typename T, typename Policy>
-struct sk::util::AbstractCollection<T, Policy>::Checker : public virtual sk::util::Processor<const T> {
-  Checker(const sk::util::Collection<T>& collection, const sk::util::BinaryAssessor<T>& assessor, bool& result)
-    : _collection(collection), _assessor(assessor), _result(result) {}
-
-  void process(const T& item) const {
-    if(_collection.contains(sk::util::assessor::Binding<T>(item, _assessor)) == false) {
-      _result = false;
-      throw sk::util::Break();
-    }
-  }
-  const sk::util::Collection<T>& _collection;
-  const sk::util::BinaryAssessor<T>& _assessor;
-  bool& _result;
-};
-
-template<typename T, typename Policy>
 bool 
 sk::util::AbstractCollection<T, Policy>::
 containsAll(const Collection<T>& other, const sk::util::BinaryAssessor<T>& assessor) const 
 {
-  bool result = true;
-  other.forEach(Checker(*this, assessor, result));
-  return result;
+  return other.contains(selector::Not<T>(selector::Belongs<T>(*this, assessor))) == false;
 }
 
 template<typename T, typename Policy>
