@@ -74,7 +74,6 @@ namespace sk {
         AbstractCollection(const AbstractCollection<T, Policy>& other);
         AbstractCollection<T, Policy>& operator = (const AbstractCollection<T, Policy>& other);
 
-        struct Checker;
         struct Finder;
         struct MutableFinder;
         struct Invocator;
