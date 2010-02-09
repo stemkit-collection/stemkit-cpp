@@ -53,7 +53,7 @@ const char* test_probe_factory(char* error_buffer, int error_buffer_size)
     }
 
     sk_c_handle_errorMessage(sk_c_test_ProbeHandle_toHandle(probe), error_buffer, error_buffer_size);
-    if(strcmp("ERROR: UUU => abc", error_buffer) != 0) {
+    if(strcmp("UUU => abc", error_buffer) != 0) {
       strcat(error_buffer, " - ");
       strcat(error_buffer, "Error message mismatch");
 

@@ -41,7 +41,7 @@ testThrow()
     throw NullPointerException("zzz");
   }
   catch(const Exception& exception) {
-    CPPUNIT_ASSERT_EQUAL("ERROR: Null pointer: zzz", exception.getMessage());
+    CPPUNIT_ASSERT_EQUAL("ERROR: Null pointer: zzz", exception.what());
     CPPUNIT_ASSERT_EQUAL("sk::util::NullPointerException", exception.getClass().getName());
   }
 }

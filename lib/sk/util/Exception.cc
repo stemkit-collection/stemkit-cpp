@@ -27,7 +27,7 @@ const sk::util::String
 sk::util::Exception::
 getMessage() const
 {
-  return _message;
+  return _message.substring(_message.indexOf(' ') + 1);
 }
 
 const sk::util::Class

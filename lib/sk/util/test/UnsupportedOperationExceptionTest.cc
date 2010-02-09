@@ -41,7 +41,7 @@ testThrow()
     throw UnsupportedOperationException("zzz");
   }
   catch(const Exception& exception) {
-    CPPUNIT_ASSERT_EQUAL("ERROR: Unsupported operation: zzz", exception.getMessage());
+    CPPUNIT_ASSERT_EQUAL("ERROR: Unsupported operation: zzz", exception.what());
     CPPUNIT_ASSERT_EQUAL("sk::util::UnsupportedOperationException", exception.getClass().getName());
   }
 }
