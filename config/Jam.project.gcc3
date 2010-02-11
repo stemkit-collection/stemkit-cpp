@@ -349,6 +349,7 @@ switch $(PRODUCT_PLATFORM) {
   case mac-10.4-x86 : platform-macos-tiger ;
   case mac-10.5-ppc : platform-macos-leopard ;
   case mac-10.5-x86 : platform-macos-leopard ;
+  case mac-10.6-x86 : platform-macos-leopard ;
   case windows-x86 : platform-nt-x86 ;
   case * : exit Unknown platform $(PRODUCT_PLATFORM) ;
 }
