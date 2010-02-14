@@ -4,4 +4,4 @@ name: stemkit-cpp
 release: 0.50.0
 build: 1
 library-prefix: sk
-library-major: 50
+library-major: 1
