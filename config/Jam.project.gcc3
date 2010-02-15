@@ -184,13 +184,15 @@ rule platform-osf-alpha
 rule platform-aix-ppc
 {
   project.MAKE_DLL = false ;
-  CCOFLAGS ?= -O0 -fno-guess-branch-probability ;
 
   C++LDFLAGS =
     -Wl,-bmaxdata:0x50000000
+    -Wl,-brtl
     -Wl,-u__TSC_BUILD__
   ;
-  # DEFINES += _POSIX_PTHREAD_SEMANTICS _FILE_OFFSET_BITS=64 _LARGE_FILES ;
+  CC_SONAME_FLAG = ;
+  DLLFLAGS += -Wl,-G -Wl,-bnoentry -Wl,-bexpall ;
+
   DEFINES += _POSIX_PTHREAD_SEMANTICS _FILE_OFFSET_BITS=64 ;
   INCLUDES += [ util.make-path $(system.SRCTOP) platform include aix ] ;
   SYSLIBS = crypt dl ;
