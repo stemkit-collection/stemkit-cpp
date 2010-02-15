@@ -222,7 +222,7 @@ rule platform-macos
   INCLUDES += ;
   SYSLIBS = ;
 
-  DLLFLAGS = -dynamiclib -Wl,-undefined,dynamic_lookup,-compatibility_version,1.0,-current_version,1.0 ;
+  DLLFLAGS = -dynamiclib -Wl,-undefined,dynamic_lookup ;
   CC_SONAME_FLAG = -Wl,-headerpad_max_install_names,-install_name, ;
   jam.DSO_EXTENTION = dylib ;
 
