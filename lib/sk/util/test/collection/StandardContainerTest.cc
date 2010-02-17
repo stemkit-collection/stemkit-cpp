@@ -10,7 +10,7 @@
 #include <sk/util/Holder.cxx>
 #include <sk/util/IndexOutOfBoundsException.h>
 #include <sk/util/processor/Copying.hxx>
-#include <sk/util/test/Probe.cxx>
+#include <sk/util/test/Probe.hxx>
 #include <sk/util/selector/EqualValue.hxx>
 
 sk::util::test::collection::StandardContainerTest::
