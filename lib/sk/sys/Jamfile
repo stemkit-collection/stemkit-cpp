@@ -13,7 +13,7 @@ local objects =
   StreamPortal.cc
 ;
 
-make-library $(library) : $(objects) ;
+make-shared-library $(library) : $(objects) ;
 make-subdir test ;
 
 local PLATFORM_IMPLEMENTATION = $(PLATFORM_IMPLEMENTATION) ;

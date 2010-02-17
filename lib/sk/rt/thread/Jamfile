@@ -20,7 +20,7 @@ local objects =
   ../ReentrantLock.cc
 ;
 
-make-library $(library) : $(objects) ;
+make-shared-library $(library) : $(objects) ;
 make-subdirs tests abstract mock ;
 
 if windows in $(project.PLATFORM_SPECIFICS) {

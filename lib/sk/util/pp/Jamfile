@@ -16,5 +16,5 @@ local objects =
     TextNode.cc
 ;
 
-make-static-library $(library) : $(objects) ;
+make-library $(library) : $(objects) ;
 make-subdirs test ;

@@ -36,7 +36,7 @@ objects =
   DelegatingTty.cc
 ;
 
-make-library $(library) : $(objects) ;
+make-shared-library $(library) : $(objects) ;
 make-subdir test ;
 
 make-subdir $(PLATFORM_IMPLEMENTATION) ;

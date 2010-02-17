@@ -2,7 +2,7 @@
 
 local library = sk.rt.bundle ;
 
-make-library $(library) ;
+make-shared-library $(library) ;
 
 add-project-libraries $(library) :
   sk.rt sk.rt.logger 

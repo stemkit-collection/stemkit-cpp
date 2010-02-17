@@ -6,4 +6,4 @@ local objects =
   Executor.cc
 ;
 
-make-static-library $(library) : $(objects) ;
+make-library $(library) : $(objects) ;

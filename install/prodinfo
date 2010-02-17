@@ -48,15 +48,10 @@ fileset {
   install.as('include/sk/C').source.tree 'include/sk/C', :follow => true
 
   install.into(cache.lib).binary {
-    list = %w{
+    library 'lib' => %w{
       sk.util
       sk.C
     }
-    if ENV['MAKE_DLL'] == 'true'
-      library 'lib' => list
-    else
-      static_library 'lib' => list
-    end
   }
 }
 
@@ -70,14 +65,9 @@ fileset {
   install.as('include/sk/io').source.tree 'include/sk/io', :follow => true
 
   install.into(cache.lib).binary {
-    list = %w{
+    library 'lib' => %w{
       sk.io
     }
-    if ENV['MAKE_DLL'] == 'true'
-      library 'lib' => list
-    else
-      static_library 'lib' => list
-    end
   }
 }
 
@@ -91,14 +81,9 @@ fileset {
   install.as('include/sk/net').source.tree 'include/sk/net', :follow => true
 
   install.into(cache.lib).binary {
-    list = %w{
+    library 'lib' => %w{
       sk.net
     }
-    if ENV['MAKE_DLL'] == 'true'
-      library 'lib' => list
-    else
-      static_library 'lib' => list
-    end
   }
 }
 
@@ -109,12 +94,10 @@ fileset {
     cache.lib
   ]
   install.into(cache.lib).binary {
-    if ENV['MAKE_DLL'] == 'true'
-      program 'lib/sk/preload' => [
-        "sk.preload.control.#{Module.library_extension}",
-        "sk.preload.print.#{Module.library_extension}"
-      ]
-    end
+    program 'lib/sk/preload' => [
+      "sk.preload.control.#{Module.library_extension}",
+      "sk.preload.print.#{Module.library_extension}"
+    ]
   }
 }
 
@@ -165,16 +148,11 @@ fileset {
   install.as('include/sk/rt').source.tree 'include/sk/rt', :follow => true
 
   install.into(cache.lib).binary {
-    list = %w{
+    library 'lib' => %w{
       sk.rt.bundle
       sk.rt.thread
       sk.rt.thread.pthreads
     }
-    if ENV['MAKE_DLL'] == 'true'
-      library 'lib' => list
-    else
-      static_library 'lib' => list
-    end
   }
 }
 
@@ -192,15 +170,10 @@ fileset {
   install.as('include/sk/other').source.tree 'include/sk/other', :follow => true
 
   install.into(cache.lib).binary {
-    list = %w{
+    static_library 'lib' => %w{
       sk.other.tinyxml
       sk.other.yaml-cpp
     }
-    if ENV['MAKE_DLL'] == 'true'
-      library 'lib' => list
-    else
-      static_library 'lib' => list
-    end
   }
 }
 
@@ -214,14 +187,9 @@ fileset {
   install.as('include/sk/sys').source.tree 'include/sk/sys', :follow => true
 
   install.into(cache.lib).binary {
-    list = %w{
+    library 'lib' => %w{
       sk.sys
     }
-    if ENV['MAKE_DLL'] == 'true'
-      library 'lib' => list
-    else
-      static_library 'lib' => list
-    end
   }
 }
 
@@ -239,14 +207,9 @@ fileset {
   install.as('include/hooks/cppunit').source.tree 'include/hooks/cppunit', :follow => true
 
   install.into(cache.lib).binary {
-    list = %w{
+    static_library 'lib' => %w{
       sk.cppunit
     }
-    if ENV['MAKE_DLL'] == 'true'
-      library 'lib' => list
-    else
-      static_library 'lib' => list
-    end
   }
 }
 

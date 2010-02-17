@@ -15,7 +15,7 @@ local objects =
   URI.cc
 ;
 
-make-library $(library) : $(objects) ;
+make-shared-library $(library) : $(objects) ;
 add-project-library $(library) : $(library).ip4 ;
 add-project-library $(library) : $(library).ip6 ;
 

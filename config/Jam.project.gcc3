@@ -1,6 +1,6 @@
 # vim: ft=jam: sw=2:
 
-project.MAKE_DLL = true ;
+project.MAKE_LIBRARY_DEFAULT = static ;
 
 # project.LIB_PREFIX = $(JAMCONFIG_LIBRARY_PREFIX) ;
 project.LIB_MAJOR = $(JAMCONFIG_LIBRARY_MAJOR) ;
@@ -85,7 +85,7 @@ rule platform-nt-x86
 {
   core.load-config Jam.windows ;
 
-  project.MAKE_DLL = false ;
+  project.PROHIBIT_SHARED = true ;
   project.DO_NOT_USE_LIBRARY_MAJOR = true ;
   project.CURSES_LIBS = ;
 
@@ -183,8 +183,6 @@ rule platform-osf-alpha
 
 rule platform-aix-ppc
 {
-  project.MAKE_DLL = false ;
-
   C++LDFLAGS =
     -Wl,-bmaxdata:0x50000000
     -Wl,-brtl
@@ -205,8 +203,6 @@ rule platform-macos
   project.DO_ABORT_TEST = true ;
 
   UNIX_FLAVOR = macosx ;
-  project.MAKE_DLL = true ;
-
   TOOLS_HOME = /opt/sk/platform/$(JAMCONFIG_PRODUCT_PLATFORM) ;
 
   GCC_VERSION = 4.2 ;
@@ -282,8 +278,6 @@ rule platform-solaris-x86
 
 rule platform-hpux-pa
 {
-  project.MAKE_DLL = true ;
-
   C++FLAGS += -fPIC ;
   CCFLAGS += -fPIC ;
   DEFINES += _FILE_OFFSET_BITS=64 _LARGEFILE64_SOURCE _REENTRANT ;
@@ -300,8 +294,6 @@ rule platform-hpux-pa
 
 rule platform-hpux-ia64
 {
-  project.MAKE_DLL = true ;
-
   switch $(BUILD_ABI) {
     case 32 : CC_ABI_FLAGS = ;
     case 64 : CC_ABI_FLAGS = -mlp64 ; BUILD_ABILIB = lib64 ;
@@ -392,6 +384,5 @@ C++LDALLFLAGS = $(CCFLAGS) $(CCDFLAGS) $(CCOFLAGS) $(C++LDFLAGS) ;
 
 system.export-to-env GCC_LIB_PATHLIST : $(GCC_ROOT)/lib/$(GCC_STDLIBS) ;
 system.export-to-env CONTRIB_ROOT : $(CONTRIB_ROOT) ;
-system.export-to-env MAKE_DLL : $(project.MAKE_DLL) ;
 system.export-to-env BUILD_ABILIB : $(BUILD_ABILIB) ;
 system.export-to-env DO_NOT_BUILD : $(project.DO_NOT_BUILD) ;
