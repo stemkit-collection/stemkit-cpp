@@ -1,3 +1,12 @@
+# vim: ft=jam: sw=2:
 
-components = sk.rt sk.rt.logger sk.rt.config sk.rt.scope sk.other.tinyxml ;
-make-merged-library sk.rt.bundle : lib$(jam.SEPARATOR)$(components) ;
+local library = sk.rt.bundle ;
+
+make-library $(library) ;
+
+add-project-libraries $(library) :
+  sk.rt sk.rt.logger 
+  sk.rt.config 
+  sk.rt.scope 
+  sk.other.tinyxml 
+;
