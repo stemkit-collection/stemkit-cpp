@@ -21,7 +21,7 @@ struct sk::sys::PtyProcess::Listener
 sk::sys::PtyProcess::
 PtyProcess(const sk::util::StringArray& cmdline)
   : _scope(*this),
-    _listenerHolder(new Listener), _process(getPty().getMasterSlavePipe().inputStream(), cmdline, _listenerHolder.get())
+    _listenerHolder(new Listener), _process(getPty().getMasterSlavePipe().inputStream(), cmdline, _listenerHolder.getMutable())
 {
   throw sk::util::UnsupportedOperationException(SK_METHOD);
 }

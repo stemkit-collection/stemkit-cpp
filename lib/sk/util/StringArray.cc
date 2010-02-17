@@ -38,7 +38,7 @@ StringArray(const char* item)
 sk::util::StringArray::
 StringArray(const sk::util::StringArray& other)
 {
-  set(other);
+  copy(other);
 }
 
 sk::util::StringArray::
@@ -51,14 +51,14 @@ sk::util::StringArray::
 operator = (const sk::util::StringArray& other)
 {
   clear();
-  set(other);
+  copy(other);
 
   return *this;
 }
 
 void
 sk::util::StringArray::
-set(const sk::util::StringArray& other)
+copy(const sk::util::StringArray& other)
 {
   other.forEach(sk::util::processor::Copying<String>(*this));
 }

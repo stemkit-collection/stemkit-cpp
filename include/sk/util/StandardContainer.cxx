@@ -29,6 +29,7 @@
 
 #include <algorithm>
 #include <iostream>
+#include <functional>
 
 template<typename T, typename Policy, typename Type>
 sk::util::StandardContainer<T, Policy, Type>::

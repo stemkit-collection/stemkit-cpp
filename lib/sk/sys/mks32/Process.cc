@@ -174,7 +174,7 @@ namespace {
     private:
       const sk::rt::Scope& _scope;
       sk::util::PropertyRegistry& _environment;
-      sk::util::ArrayList<const sk::io::Stream> _streams;
+      sk::util::ArrayList<sk::io::Stream> _streams;
   };
 
   struct ExecArgumentCollector : public virtual sk::util::Processor<const sk::util::String> {
@@ -188,7 +188,7 @@ namespace {
   };
 
   int start_process_with_redirect(const Configurator& configurator, const sk::rt::Environment& environment, const sk::util::StringArray& cmdline) {
-    sk::rt::Locker locker(__mutexHolder.get());
+    sk::rt::Locker locker(__mutexHolder.getMutable());
 
     std::vector<char*> arguments;
     cmdline.forEach(ExecArgumentCollector(arguments));
@@ -229,7 +229,7 @@ sk::sys::Process::Implementation&
 sk::sys::Process::
 process() const
 {
-  return _implementationHolder.get();
+  return _implementationHolder.getMutable();
 }
 
 void
@@ -248,7 +248,7 @@ start(sk::io::InputStream& inputStream, const sk::util::StringArray& args)
     throw sk::util::UnsupportedOperationException("Non-exec processes not supported on Windowns");
   }
   sk::util::StringArray cmdline = args;
-  cmdline.at(0) = sk::util::Pathname(cmdline.at(0), "exe").toString();
+  cmdline.set(0, sk::util::Pathname(cmdline.get(0), "exe").toString());
   _implementationHolder.set(new Implementation);
   _scope.notice("start") << cmdline.inspect();
 

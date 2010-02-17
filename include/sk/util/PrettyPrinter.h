@@ -12,7 +12,7 @@
 #define _SK_UTIL_PRETTYPRINTER_H_
 
 #include <sk/util/Object.h>
-#include <sk/util/slot/Pointer.hxx>
+#include <sk/util/Holder.hxx>
 #include <ostream>
 
 namespace sk {
@@ -38,7 +38,7 @@ namespace sk {
         PrettyPrinter& operator = (const PrettyPrinter& other);
 
         std::ostream& _stream;
-        sk::util::slot::Pointer<pp::Configurator> _configuratorSlot;
+        sk::util::Holder<pp::Configurator> _configuratorHolder;
     };
   }
 }

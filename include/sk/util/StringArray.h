@@ -49,7 +49,7 @@ namespace sk {
         const sk::util::String inspect() const;
 
       private:
-        void set(const sk::util::StringArray& other);
+        void copy(const sk::util::StringArray& other);
     };
   }
 }

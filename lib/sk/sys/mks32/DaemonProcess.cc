@@ -75,7 +75,7 @@ start()
     throw sk::util::IllegalStateException("Process already started");
   }
   _executableHolder.set(new sk::sys::Process(_cmdline, *this));
-  _executableHolder.get().detach();
+  _executableHolder.getMutable().detach();
   _pipe.close();
 }
 
@@ -93,7 +93,7 @@ getExecutable()
   if(_executableHolder.isEmpty() == true) {
     throw sk::util::IllegalStateException("Process not started");
   }
-  return _executableHolder.get();
+  return _executableHolder.getMutable();
 }
 
 const sk::sys::Executable& 

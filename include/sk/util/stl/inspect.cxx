@@ -13,6 +13,7 @@
 
 #include <sk/util/Lists.hxx>
 #include <sk/util/slot/policy/Value.hxx>
+#include <algorithm>
 
 template<typename T> 
 const sk::util::String 

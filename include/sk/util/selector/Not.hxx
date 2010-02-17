@@ -23,7 +23,7 @@ namespace sk {
             : _selector(selector) {}
 
           bool assess(const T& object) const {
-            return not _selector.assess(object);
+            return _selector.assess(object) == false;
           }
 
         private:
