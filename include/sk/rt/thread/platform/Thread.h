@@ -8,30 +8,28 @@
  *  Author: Gennady Bystritsky (gennady.bystritsky@quest.com)
 */
 
-#ifndef _SK_RT_THREAD_ABSTRACT_MUTEX_H_
-#define _SK_RT_THREAD_ABSTRACT_MUTEX_H_
+#ifndef _SK_RT_THREAD_PLATFORM_THREAD_H_
+#define _SK_RT_THREAD_PLATFORM_THREAD_H_
 
 #include <sk/util/Object.h>
 
 namespace sk {
   namespace rt {
     namespace thread {
-      namespace abstract {
-        class Mutex 
+      namespace platform {
+        class Thread 
           : public virtual sk::util::Object
         {
           public:
-            virtual void lock() = 0;
-            virtual void unlock() = 0;
-            virtual bool tryLock() = 0;
-            virtual void reset() = 0;
-
-            virtual bool hasEnterCount() const = 0;
-            virtual int getEnterCount() const = 0;
+            virtual void start() = 0;
+            virtual void stop() = 0;
+            virtual void interrupt() = 0;
+            virtual void join() = 0;
+            virtual void detach() = 0;
         };
       }
     }
   }
 }
 
-#endif /* _SK_RT_THREAD_ABSTRACT_MUTEX_H_ */
+#endif /* _SK_RT_THREAD_PLATFORM_THREAD_H_ */

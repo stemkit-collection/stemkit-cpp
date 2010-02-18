@@ -12,7 +12,7 @@
 #define _SK_RT_THREAD_IMPLEMENTATION_H_
 
 #include <sk/util/Object.h>
-#include <sk/rt/thread/abstract/Implementation.h>
+#include <sk/rt/thread/platform/Implementation.h>
 
 namespace sk {
   namespace rt {
@@ -24,7 +24,7 @@ namespace sk {
           Implementation();
           virtual ~Implementation();
 
-          static abstract::Implementation& instance();
+          static platform::Implementation& instance();
           static void reset();
       
           // sk::util::Object re-implementation.
@@ -34,7 +34,7 @@ namespace sk {
           Implementation(const Implementation& other);
           Implementation& operator = (const Implementation& other);
 
-          static abstract::Implementation* _implementation;
+          static platform::Implementation* _implementation;
       };
     }
   }

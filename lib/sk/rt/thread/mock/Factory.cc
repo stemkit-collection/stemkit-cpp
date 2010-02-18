@@ -11,20 +11,20 @@
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
 
-#include <sk/rt/thread/abstract/Factory.h>
+#include <sk/rt/thread/platform/Factory.h>
 #include "Implementation.h"
 
 static const char* __className("sk::rt::thread::mock::Factory");
 
 const sk::util::Class
-sk::rt::thread::abstract::Factory::
+sk::rt::thread::platform::Factory::
 getClass() const
 {
   return sk::util::Class(__className);
 }
 
-sk::rt::thread::abstract::Implementation* 
-sk::rt::thread::abstract::Factory::
+sk::rt::thread::platform::Implementation* 
+sk::rt::thread::platform::Factory::
 makeImplementation() const
 {
   return new mock::Implementation;

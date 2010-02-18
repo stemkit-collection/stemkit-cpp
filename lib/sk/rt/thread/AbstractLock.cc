@@ -21,7 +21,7 @@
 static const char* __className("sk::rt::thread::AbstractLock");
 
 sk::rt::thread::AbstractLock::
-AbstractLock(abstract::Mutex* mutex, bool ownership)
+AbstractLock(platform::Mutex* mutex, bool ownership)
   : _mutexHolder(mutex), _lastOwner(0), _ownership(ownership)
 {
 }

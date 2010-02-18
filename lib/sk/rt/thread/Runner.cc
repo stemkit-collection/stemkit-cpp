@@ -63,7 +63,7 @@ getScope()
   return _scope;
 }
 
-sk::rt::thread::abstract::Thread&
+sk::rt::thread::platform::Thread&
 sk::rt::thread::Runner::
 getThreadImplementation() const
 {

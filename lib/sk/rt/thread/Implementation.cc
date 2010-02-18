@@ -11,10 +11,10 @@
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
 
-#include <sk/rt/thread/abstract/Factory.h>
+#include <sk/rt/thread/platform/Factory.h>
 #include "Implementation.h"
 
-sk::rt::thread::abstract::Implementation* sk::rt::thread::Implementation::_implementation = 0;
+sk::rt::thread::platform::Implementation* sk::rt::thread::Implementation::_implementation = 0;
 
 sk::rt::thread::Implementation::
 Implementation()
@@ -33,12 +33,12 @@ getClass() const
   return sk::util::Class("sk::rt::thread::Implementation");
 }
 
-sk::rt::thread::abstract::Implementation&
+sk::rt::thread::platform::Implementation&
 sk::rt::thread::Implementation::
 instance() 
 {
   if(_implementation == 0) {
-    _implementation = abstract::Factory().makeImplementation();
+    _implementation = platform::Factory().makeImplementation();
   }
   return *_implementation;
 }

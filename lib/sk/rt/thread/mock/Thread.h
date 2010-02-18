@@ -11,7 +11,7 @@
 #ifndef _SK_RT_THREAD_MOCK_THREAD_H_
 #define _SK_RT_THREAD_MOCK_THREAD_H_
 
-#include <sk/rt/thread/abstract/Thread.h>
+#include <sk/rt/thread/platform/Thread.h>
 #include <sk/rt/Runnable.h>
 
 namespace sk {
@@ -19,7 +19,7 @@ namespace sk {
     namespace thread {
       namespace mock {
         class Thread 
-          : public virtual sk::rt::thread::abstract::Thread
+          : public virtual sk::rt::thread::platform::Thread
         {
           public:
             Thread();

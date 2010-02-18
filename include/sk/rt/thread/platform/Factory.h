@@ -8,28 +8,28 @@
  *  Author: Gennady Bystritsky (gennady.bystritsky@quest.com)
 */
 
-#ifndef _SK_RT_THREAD_ABSTRACT_THREAD_H_
-#define _SK_RT_THREAD_ABSTRACT_THREAD_H_
+#ifndef _SK_RT_THREAD_PLATFORM_FACTORY_H_
+#define _SK_RT_THREAD_PLATFORM_FACTORY_H_
 
 #include <sk/util/Object.h>
+#include <sk/rt/thread/platform/Implementation.h>
 
 namespace sk {
   namespace rt {
     namespace thread {
-      namespace abstract {
-        class Thread 
+      namespace platform {
+        class Factory 
           : public virtual sk::util::Object
         {
           public:
-            virtual void start() = 0;
-            virtual void stop() = 0;
-            virtual void interrupt() = 0;
-            virtual void join() = 0;
-            virtual void detach() = 0;
+            platform::Implementation* makeImplementation() const;
+        
+            // sk::util::Object re-implementation.
+            const sk::util::Class getClass() const;
         };
       }
     }
   }
 }
 
-#endif /* _SK_RT_THREAD_ABSTRACT_THREAD_H_ */
+#endif /* _SK_RT_THREAD_PLATFORM_FACTORY_H_ */

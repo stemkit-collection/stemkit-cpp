@@ -11,7 +11,7 @@
 #ifndef _SK_RT_THREAD_PTHREADS_IMPLEMENTATION_H_
 #define _SK_RT_THREAD_PTHREADS_IMPLEMENTATION_H_
 
-#include <sk/rt/thread/abstract/Implementation.h>
+#include <sk/rt/thread/platform/Implementation.h>
 #include <sk/rt/Scope.h>
 
 #include "Mutex.h"
@@ -23,14 +23,14 @@ namespace sk {
     namespace thread {
       namespace pthreads {
         class Implementation 
-          : public virtual sk::rt::thread::abstract::Implementation,
+          : public virtual sk::rt::thread::platform::Implementation,
             public virtual Provider
         {
           public:
             Implementation();
             virtual ~Implementation();
 
-            // sk::rt::thread::abstract::Implementation implmentation.
+            // sk::rt::thread::platform::Implementation implmentation.
             pthreads::Mutex* makeSimpleMutex() const;
             pthreads::Mutex* makeRecursiveMutex() const;
             pthreads::Thread* makeThread(sk::rt::Runnable& target, sk::rt::thread::Generic& handle) const;

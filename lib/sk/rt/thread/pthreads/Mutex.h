@@ -11,7 +11,7 @@
 #ifndef _SK_RT_THREAD_PTHREADS_MUTEX_H_
 #define _SK_RT_THREAD_PTHREADS_MUTEX_H_
 
-#include <sk/rt/thread/abstract/Mutex.h>
+#include <sk/rt/thread/platform/Mutex.h>
 #include <sk/rt/Scope.h>
 #include <pthread.h>
 
@@ -20,12 +20,12 @@ namespace sk {
     namespace thread {
       namespace pthreads {
         class Mutex 
-          : public virtual sk::rt::thread::abstract::Mutex
+          : public virtual sk::rt::thread::platform::Mutex
         {
           public:
             virtual ~Mutex();
 
-            // sk::rt::thread::abstract::Mutex implementation
+            // sk::rt::thread::platform::Mutex implementation
             void lock();
             void unlock();
             bool tryLock();

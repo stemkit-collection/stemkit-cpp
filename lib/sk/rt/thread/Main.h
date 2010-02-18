@@ -13,7 +13,7 @@
 
 #include <sk/util/Holder.hxx>
 #include <sk/rt/thread/Generic.h>
-#include <sk/rt/thread/abstract/Thread.h>
+#include <sk/rt/thread/platform/Thread.h>
 
 namespace sk {
   namespace rt {
@@ -58,7 +58,7 @@ namespace sk {
           Main(const Main& other);
           Main& operator = (const Main& other);
 
-          sk::util::Holder<abstract::Thread> _threadHolder;
+          sk::util::Holder<platform::Thread> _threadHolder;
       };
     }
   }

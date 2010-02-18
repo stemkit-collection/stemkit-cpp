@@ -11,7 +11,7 @@
 #ifndef _SK_RT_THREAD_MOCK_IMPLEMENTATION_H_
 #define _SK_RT_THREAD_MOCK_IMPLEMENTATION_H_
 
-#include <sk/rt/thread/abstract/Implementation.h>
+#include <sk/rt/thread/platform/Implementation.h>
 #include "Mutex.h"
 #include "Thread.h"
 
@@ -20,13 +20,13 @@ namespace sk {
     namespace thread {
       namespace mock {
         class Implementation 
-          : public virtual sk::rt::thread::abstract::Implementation
+          : public virtual sk::rt::thread::platform::Implementation
         {
           public:
             Implementation();
             virtual ~Implementation();
 
-            // sk::rt::thread::abstract::Implementation implementation.
+            // sk::rt::thread::platform::Implementation implementation.
             mock::Mutex* makeSimpleMutex() const;
             mock::Mutex* makeRecursiveMutex() const;
             mock::Thread* makeThread(sk::rt::Runnable& target, sk::rt::thread::Generic& handle) const;

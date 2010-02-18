@@ -8,27 +8,27 @@
  *  Author: Gennady Bystritsky
 */
 
-#ifndef _SK_RT_THREAD_ABSTRACT_IMPLEMENTATION_H_
-#define _SK_RT_THREAD_ABSTRACT_IMPLEMENTATION_H_
+#ifndef _SK_RT_THREAD_PLATFORM_IMPLEMENTATION_H_
+#define _SK_RT_THREAD_PLATFORM_IMPLEMENTATION_H_
 
 #include <sk/util/Object.h>
-#include <sk/rt/thread/abstract/Mutex.h>
-#include <sk/rt/thread/abstract/Thread.h>
+#include <sk/rt/thread/platform/Mutex.h>
+#include <sk/rt/thread/platform/Thread.h>
 #include <sk/rt/Runnable.h>
 #include <sk/rt/thread/Generic.h>
 
 namespace sk {
   namespace rt {
     namespace thread {
-      namespace abstract {
+      namespace platform {
         class Implementation 
           : public virtual sk::util::Object
         {
           public:
-            virtual abstract::Mutex* makeSimpleMutex() const = 0;
-            virtual abstract::Mutex* makeRecursiveMutex() const = 0;
-            virtual abstract::Thread* makeThread(sk::rt::Runnable& target, sk::rt::thread::Generic& handle) const = 0;
-            virtual abstract::Thread* wrapCurrentThread(sk::rt::thread::Generic& handle) const = 0;
+            virtual platform::Mutex* makeSimpleMutex() const = 0;
+            virtual platform::Mutex* makeRecursiveMutex() const = 0;
+            virtual platform::Thread* makeThread(sk::rt::Runnable& target, sk::rt::thread::Generic& handle) const = 0;
+            virtual platform::Thread* wrapCurrentThread(sk::rt::thread::Generic& handle) const = 0;
             virtual sk::rt::thread::Generic& getGeneric() const = 0;
             virtual void sleep(uint64_t milliseconds) const = 0;
             virtual void yield() const = 0;
@@ -38,4 +38,4 @@ namespace sk {
   }
 }
 
-#endif /* _SK_RT_THREAD_ABSTRACT_IMPLEMENTATION_H_ */
+#endif /* _SK_RT_THREAD_PLATFORM_IMPLEMENTATION_H_ */

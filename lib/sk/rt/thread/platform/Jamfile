@@ -1,5 +1,5 @@
 
-local library = sk.rt.thread.abstract ;
+local library = sk.rt.thread.platform ;
 local objects = 
   Factory.cc
 ;

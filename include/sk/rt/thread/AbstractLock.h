@@ -14,7 +14,7 @@
 #include <sk/util/Holder.hxx>
 
 #include <sk/rt/Lock.h>
-#include <sk/rt/thread/abstract/Mutex.h>
+#include <sk/rt/thread/platform/Mutex.h>
 
 #include <ostream>
 
@@ -38,7 +38,7 @@ namespace sk {
           const sk::util::String inspect() const;
 
         protected:
-          AbstractLock(abstract::Mutex* mutex, bool ownership);
+          AbstractLock(platform::Mutex* mutex, bool ownership);
 
           bool tryLockCheck() const;
           virtual void collectInspectInfo(std::ostream& stream) const;
@@ -49,7 +49,7 @@ namespace sk {
 
           void registerOwnership();
 
-          sk::util::Holder<abstract::Mutex> _mutexHolder;
+          sk::util::Holder<platform::Mutex> _mutexHolder;
           uint64_t _lastOwner;
           bool _ownership;
       };

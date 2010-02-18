@@ -21,7 +21,7 @@ local objects =
 ;
 
 make-shared-library $(library) : $(objects) ;
-make-subdirs tests abstract mock ;
+make-subdirs tests platform mock ;
 
 if windows in $(project.PLATFORM_SPECIFICS) {
   make-subdirs win32 ;

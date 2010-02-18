@@ -12,19 +12,19 @@
 #include <sk/util/String.h>
 #include <sk/util/UnsupportedOperationException.h>
 
-#include <sk/rt/thread/abstract/Factory.h>
+#include <sk/rt/thread/platform/Factory.h>
 
-static const char* __className("sk::rt::thread::abstract::Factory");
+static const sk::util::String __className("sk::rt::thread::platform::Factory");
 
 const sk::util::Class
-sk::rt::thread::abstract::Factory::
+sk::rt::thread::platform::Factory::
 getClass() const
 {
   return sk::util::Class(__className);
 }
 
-sk::rt::thread::abstract::Implementation* 
-sk::rt::thread::abstract::Factory::
+sk::rt::thread::platform::Implementation* 
+sk::rt::thread::platform::Factory::
 makeImplementation() const
 {
   throw sk::util::UnsupportedOperationException(SK_METHOD);
