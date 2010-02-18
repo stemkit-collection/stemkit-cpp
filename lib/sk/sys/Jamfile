@@ -13,7 +13,7 @@ local objects =
   StreamPortal.cc
 ;
 
-use-project-libraries $(library) : sk.rt.thread sk.rt.bundle sk.io sk.util ;
+use-project-libraries $(library) : sk.rt.thread.platform sk.rt.thread sk.rt.bundle sk.io sk.util ;
 make-shared-library $(library) : $(objects) ;
 make-subdir test ;
 

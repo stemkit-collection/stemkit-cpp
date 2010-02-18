@@ -10,7 +10,11 @@ local objects =
 
 if ! windows in $(project.PLATFORM_SPECIFICS) {
   use-pthreads $(test) ;
-  use-project-libraries $(test) : sk.rt.thread sk.rt.thread.pthreads sk.rt.bundle sk.util sk.cppunit ;
+  use-project-libraries $(test) : 
+    sk.rt.thread.pthreads 
+    sk.rt.thread 
+    sk.rt.bundle sk.util sk.cppunit 
+  ;
 }
 else use-project-libraries $(test) : sk.rt.thread sk.rt.thread.win32 sk.rt.bundle sk.util sk.cppunit ;
 

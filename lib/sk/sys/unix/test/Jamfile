@@ -13,11 +13,11 @@ local objects =
 ;
 
 use-project-library $(test) : 
+  sk.rt.thread.pthreads
   sk.cppunit 
   sk.sys 
   sk.io 
   sk.rt.thread
-  sk.rt.thread.pthreads
   sk.rt.bundle 
   sk.util 
 ;
