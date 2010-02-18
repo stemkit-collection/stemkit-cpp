@@ -1,7 +1,9 @@
+# vim: ft=jam: sw=2:
 
 local library = sk.rt.thread.platform ;
 local objects = 
   Factory.cc
 ;
 
-make-library $(library) : $(objects) : sk.rt.thread.platform ;
+use-project-library $(library). : sk.util ;
+make-shared-library $(library) : $(objects) ;

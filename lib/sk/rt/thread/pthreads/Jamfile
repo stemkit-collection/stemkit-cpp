@@ -9,6 +9,7 @@ local objects =
 ;
 
 use-pthreads $(library) ;
+use-project-libraries $(library) : sk.rt.bundle sk.util ;
 make-shared-library $(library) : $(objects) : sk.rt.thread.platform ;
 
 make-subdirs tests ;

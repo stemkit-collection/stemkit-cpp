@@ -1,9 +1,11 @@
+# vim: ft=jam: sw=2:
 
-local library = sk.C ;
+local library = sk.C. ;
 
 local objects = 
   handle.cc
 ;
 
+use-project-library $(library) : sk.util ;
 make-shared-library $(library) : $(objects) ;
 make-subdirs test ;

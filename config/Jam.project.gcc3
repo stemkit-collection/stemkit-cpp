@@ -183,13 +183,18 @@ rule platform-osf-alpha
 
 rule platform-aix-ppc
 {
+  core.load-config Jam.action.aix ;
+  # project.PROHIBIT_SHARED = true ;
+
+  C++FLAGS += -fPIC -pthread ;
+  CCFLAGS += -fPIC ;
+
   C++LDFLAGS =
     -Wl,-bmaxdata:0x50000000
-    -Wl,-brtl
     -Wl,-u__TSC_BUILD__
   ;
   CC_SONAME_FLAG = ;
-  DLLFLAGS += -Wl,-G -Wl,-bnoentry -Wl,-bexpall ;
+  DLLFLAGS += -shared -Wl,-bexpfull ;
 
   DEFINES += _POSIX_PTHREAD_SEMANTICS _FILE_OFFSET_BITS=64 ;
   INCLUDES += [ util.make-path $(system.SRCTOP) platform include aix ] ;

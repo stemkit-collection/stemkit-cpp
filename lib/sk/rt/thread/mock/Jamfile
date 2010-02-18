@@ -1,5 +1,5 @@
 
-local library = sk.rt.thread.mock ;
+local library = sk.rt.thread.mock. ;
 local objects = 
   Factory.cc
   Implementation.cc
@@ -7,4 +7,5 @@ local objects =
   Thread.cc
 ;
 
-make-library $(library) : $(objects) : sk.rt.thread.platform ;
+use-project-libraries $(library) : sk.util ;
+make-shared-library $(library) : $(objects) : sk.rt.thread.platform ;

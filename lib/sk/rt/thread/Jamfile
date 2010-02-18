@@ -20,6 +20,7 @@ local objects =
   ../ReentrantLock.cc
 ;
 
+use-project-libraries $(library). : sk.rt.thread.platform sk.rt.bundle sk.util ;
 make-shared-library $(library) : $(objects) ;
 make-subdirs tests platform mock ;
 

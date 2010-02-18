@@ -1,11 +1,13 @@
 # vim: ft=jam: sw=2:
 
-local library = sk.rt.bundle ;
+local library = sk.rt.bundle. ;
 
+use-project-library $(library) : sk.util ;
 make-shared-library $(library) ;
 
 add-project-libraries $(library) :
-  sk.rt sk.rt.logger 
+  sk.rt 
+  sk.rt.logger 
   sk.rt.config 
   sk.rt.scope 
   sk.other.tinyxml 
