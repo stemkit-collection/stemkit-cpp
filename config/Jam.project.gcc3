@@ -183,7 +183,7 @@ rule platform-osf-alpha
 
 rule platform-aix-ppc
 {
-  core.load-config Jam.action.aix ;
+  core.load-config Jam.aix ;
   # project.PROHIBIT_SHARED = true ;
 
   C++FLAGS += -fPIC -pthread ;
