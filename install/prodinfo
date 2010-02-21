@@ -1,8 +1,12 @@
 # vim: set ft=ruby sw=2:
 
-cache.platform = TSC::Platform.current.name
+platform = TSC::Platform.current
+ 
+cache.platform = platform.name
 cache.os = TSC::Platform.current.driver
 cache.lib = Pathname.new ENV['BUILD_ABILIB'] || 'lib'
+
+Module.library_archive = true if platform.os == 'aix'
 
 product {
   name 'SK'
