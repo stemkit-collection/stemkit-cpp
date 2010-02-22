@@ -6,13 +6,13 @@ cache.platform = platform.name
 cache.os = TSC::Platform.current.driver
 cache.lib = Pathname.new ENV['BUILD_ABILIB'] || 'lib'
 
-Module.library_archive = true if platform.os == 'aix'
+Module.library_archive_append = false if platform.os == 'aix'
 
 product {
   name 'SK'
   description 'Stemkit'
 
-  top ENV['CONTRIB_ROOT'] || '/usr/local'
+  top ENV['STEMKIT_INSTALL_ROOT'] || '/usr/local'
   base "stemkit-0.50.0"
 
   package {
