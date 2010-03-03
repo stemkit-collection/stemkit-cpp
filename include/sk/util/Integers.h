@@ -22,8 +22,7 @@ namespace sk {
         Integers();
         Integers(const Integers& other);
         Integers(const super_t& other);
-
-        explicit Integers(const uint32_t& item);
+        Integers(const uint32_t& item);
 
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;

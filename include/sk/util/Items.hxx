@@ -23,8 +23,8 @@ namespace sk {
     {
       public:
         Items();
-        explicit Items(const T& item);
         Items(const sk::util::Items<T>& other);
+        explicit Items(const T& item);
         virtual ~Items();
 
         const T& first() const;
