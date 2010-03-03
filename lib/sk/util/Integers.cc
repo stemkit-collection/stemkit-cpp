@@ -10,7 +10,7 @@
 #include <sk/util/Integers.h>
 #include <sk/util/mapper/Inspecting.hxx>
 
-template class sk::util::Items<int>;
+template class sk::util::Items<uint32_t>;
 
 sk::util::Integers::
 Integers()
@@ -30,7 +30,7 @@ Integers(const super_t& other)
 }
 
 sk::util::Integers::
-Integers(const int& item)
+Integers(const uint32_t& item)
   : super_t(item)
 {
 }

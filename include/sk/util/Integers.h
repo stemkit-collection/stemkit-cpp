@@ -15,15 +15,15 @@
 namespace sk {
   namespace util {
     class Integers
-      : public sk::util::Items<int>
+      : public sk::util::Items<uint32_t>
     {
-      typedef sk::util::Items<int> super_t;
+      typedef sk::util::Items<uint32_t> super_t;
       public:
         Integers();
         Integers(const Integers& other);
         Integers(const super_t& other);
 
-        explicit Integers(const int& item);
+        explicit Integers(const uint32_t& item);
 
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
