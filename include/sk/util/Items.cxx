@@ -17,7 +17,7 @@
 #include <sk/util/processor/Mapping.hxx>
 #include <sk/util/processor/Slicing.hxx>
 #include <sk/util/mapper/Inspecting.hxx>
-#include <sk/util/mapper/Coercing.hxx>
+#include <sk/util/mapper/Stringing.hxx>
 
 template<typename T>
 sk::util::Items<T>::
@@ -112,7 +112,7 @@ const sk::util::String
 sk::util::Items<T>::
 join(const sk::util::String& prologue, const sk::util::String& separator, const sk::util::String& epilogue) const
 {
-  return join(prologue, separator, epilogue, sk::util::mapper::Coercing<const T, const String>());
+  return join(prologue, separator, epilogue, sk::util::mapper::Stringing<const T>());
 }
 
 template<typename T>

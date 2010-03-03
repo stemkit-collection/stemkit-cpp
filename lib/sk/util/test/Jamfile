@@ -6,11 +6,12 @@ test-objects =
   ObjectTest.cc
   ClassTest.cc
   StringTest.cc
+  StringsTest.cc
   ContainerTest.cc
   IntegerTest.cc
+  IntegersTest.cc
   BooleanTest.cc
   PathnameTest.cc
-  StringsTest.cc
   StringHashTest.cc
   TestSuite.cc
   ExceptionTest.cc
@@ -28,7 +29,7 @@ test-objects =
   CovariantWorkaroundTest.cc
   PropertiesTest.cc
   InspectTest.cc
-  # PrettyPrinterTest.cc
+  PrettyPrinterTest.cc
   BitsetTest.cc
 ;
 

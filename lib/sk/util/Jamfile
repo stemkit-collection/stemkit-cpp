@@ -6,10 +6,11 @@ objects =
   Class.cc
   Method.cc
   String.cc
+  Strings.cc
   Container.cc
   Integer.cc
+  Integers.cc
   Boolean.cc
-  Strings.cc
   StringHash.cc
   Pathname.cc
   Exception.cc
