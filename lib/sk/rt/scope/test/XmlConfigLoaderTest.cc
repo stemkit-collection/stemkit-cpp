@@ -51,7 +51,7 @@ void
 sk::rt::scope::test::XmlConfigLoaderTest::
 testBigPicture()
 {
-  XmlConfigLoader loader(sk::util::StringArray("app"), aggregator(), std::map<std::string, std::string>());
+  XmlConfigLoader loader(sk::util::Strings("app"), aggregator(), std::map<std::string, std::string>());
   std::istringstream stream(
     "<scope name='app'>\n" 
     "  <log show-pid='true'>\n"
@@ -99,7 +99,7 @@ void
 sk::rt::scope::test::XmlConfigLoaderTest::
 testSubScopes()
 {
-  XmlConfigLoader loader(sk::util::StringArray("app") + "a1", aggregator(), std::map<std::string, std::string>());
+  XmlConfigLoader loader(sk::util::Strings("app") + "a1", aggregator(), std::map<std::string, std::string>());
   std::istringstream stream(
     "<scope name='app'>\n" 
     "  <log show-pid='true'>\n"

@@ -23,7 +23,7 @@ namespace sk {
       : public virtual sk::sys::DelegatingExecutable
     {
       public:
-        PtyProcess(const sk::util::StringArray& cmdline);
+        PtyProcess(const sk::util::Strings& cmdline);
         virtual ~PtyProcess();
 
         sk::io::Pty& getPty();
@@ -32,7 +32,7 @@ namespace sk {
         sk::io::InputStream& inputErrorStream() const;
         sk::io::OutputStream& outputStream() const;
 
-        const sk::util::StringArray& errors() const;
+        const sk::util::Strings& errors() const;
         
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;

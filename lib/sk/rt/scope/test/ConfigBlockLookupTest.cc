@@ -68,7 +68,7 @@ void
 sk::rt::scope::test::ConfigBlockLookupTest::
 testExactMatch()
 {
-  processor().start(sk::util::StringArray("aaa"));
+  processor().start(sk::util::Strings("aaa"));
   CPPUNIT_ASSERT_EQUAL("zzz-aaa", _aggregatorHolder.get().getConfig().getProperty("attr", "ddd"));
 }
 
@@ -76,7 +76,7 @@ void
 sk::rt::scope::test::ConfigBlockLookupTest::
 testRequestingEmptyGetsFirst()
 {
-  processor().start(sk::util::StringArray());
+  processor().start(sk::util::Strings());
   CPPUNIT_ASSERT_EQUAL("zzz-aaa", _aggregatorHolder.get().getConfig().getProperty("attr", "ddd"));
 }
 
@@ -84,7 +84,7 @@ void
 sk::rt::scope::test::ConfigBlockLookupTest::
 testNonExistentGetsDefault()
 {
-  processor().start(sk::util::StringArray("s1"));
+  processor().start(sk::util::Strings("s1"));
   CPPUNIT_ASSERT_EQUAL("uuu-s1", _aggregatorHolder.get().getConfig().getProperty("attr", "ddd"));
 }
 
@@ -102,6 +102,6 @@ testNonExistentAndNoDefault()
     _aggregatorHolder.getMutable(), 
     std::map<std::string, std::string>())
   );
-  processor().start(sk::util::StringArray("some"));
+  processor().start(sk::util::Strings("some"));
   CPPUNIT_ASSERT_EQUAL("none", _aggregatorHolder.get().getConfig().getProperty("attr", "none"));
 }

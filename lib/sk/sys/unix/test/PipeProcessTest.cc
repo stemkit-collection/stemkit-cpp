@@ -43,7 +43,7 @@ void
 sk::sys::test::PipeProcessTest::
 testTranslate()
 {
-  PipeProcess process(sk::util::StringArray("tr") + "a" + "A");
+  PipeProcess process(sk::util::Strings("tr") + "a" + "A");
   sk::io::DataInputStream data(process.inputStream());
 
   CPPUNIT_ASSERT_EQUAL(true, process.isAlive());
@@ -62,7 +62,7 @@ void
 sk::sys::test::PipeProcessTest::
 testDataNoErrors()
 {
-  PipeProcess process(sk::util::StringArray("echo") + "it's" + "a" + "world");
+  PipeProcess process(sk::util::Strings("echo") + "it's" + "a" + "world");
   sk::io::DataInputStream data(process.inputStream());
   CPPUNIT_ASSERT_EQUAL(true, process.isAlive());
 
@@ -80,7 +80,7 @@ void
 sk::sys::test::PipeProcessTest::
 testErrorsNoData()
 {
-  PipeProcess process(sk::util::StringArray("sh") + "-c" + "echo 'some error' 1>&2");
+  PipeProcess process(sk::util::Strings("sh") + "-c" + "echo 'some error' 1>&2");
   sk::io::DataInputStream errors(process.inputErrorStream());
   CPPUNIT_ASSERT_EQUAL(true, process.isAlive());
 
@@ -98,7 +98,7 @@ void
 sk::sys::test::PipeProcessTest::
 testArguments()
 {
-  PipeProcess process(sk::util::StringArray("printf") + "1: '%s', 2: '%s'" + "aaa" + "bbb ccc");
+  PipeProcess process(sk::util::Strings("printf") + "1: '%s', 2: '%s'" + "aaa" + "bbb ccc");
   sk::io::DataInputStream data(process.inputStream());
   CPPUNIT_ASSERT_EQUAL(true, process.isAlive());
 
@@ -112,7 +112,7 @@ void
 sk::sys::test::PipeProcessTest::
 testErrorsAfterJoin()
 {
-  PipeProcess process(sk::util::StringArray("sh") + "-c" + "exec 1>&2; echo Error1; echo Error2");
+  PipeProcess process(sk::util::Strings("sh") + "-c" + "exec 1>&2; echo Error1; echo Error2");
   process.join();
 
   CPPUNIT_ASSERT_EQUAL(2, process.errors().size());
@@ -125,7 +125,7 @@ sk::sys::test::PipeProcessTest::
 testAlltogether()
 {
   PipeProcess process(
-    sk::util::StringArray("sh") + "-c" + "while read line; do echo GOOD: ${line}; echo BAD: ${line} 1>&2; done"
+    sk::util::Strings("sh") + "-c" + "while read line; do echo GOOD: ${line}; echo BAD: ${line} 1>&2; done"
   );
   sk::io::DataInputStream data(process.inputStream());
   sk::io::DataInputStream errors(process.inputErrorStream());
@@ -152,7 +152,7 @@ sk::sys::test::PipeProcessTest::
 testInputRedirect()
 {
   sk::io::FileInputStream input(sk::cppunit::SourcePath::make("test-data"));
-  PipeProcess process(input, sk::util::StringArray("tr") + "a" + "A");
+  PipeProcess process(input, sk::util::Strings("tr") + "a" + "A");
   sk::io::DataInputStream data(process.inputStream());
 
   CPPUNIT_ASSERT_THROW(process.outputStream().write('a'), sk::io::ClosedChannelException);

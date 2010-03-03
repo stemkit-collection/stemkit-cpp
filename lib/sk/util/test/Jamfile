@@ -10,7 +10,7 @@ test-objects =
   IntegerTest.cc
   BooleanTest.cc
   PathnameTest.cc
-  StringArrayTest.cc
+  StringsTest.cc
   StringHashTest.cc
   TestSuite.cc
   ExceptionTest.cc

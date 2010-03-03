@@ -10,7 +10,7 @@
 #include <sk/util/String.h>
 #include <sk/util/Integer.h>
 #include <sk/util/inspect.h>
-#include <sk/util/StringArray.h>
+#include <sk/util/Strings.h>
 #include <sk/util/IndexOutOfBoundsException.h>
 #include <sk/util/UnsupportedOperationException.h>
 #include <sk/util/IllegalArgumentException.h>
@@ -507,11 +507,11 @@ times(int multiplier) const
   return result;
 }
 
-const sk::util::StringArray 
+const sk::util::Strings
 sk::util::String::
 split(const sk::util::String& separator) const
 {
-  sk::util::StringArray result;
+  sk::util::Strings result;
   if(isEmpty() == true) {
     return result;
   }
@@ -528,7 +528,7 @@ split(const sk::util::String& separator) const
   return result;
 }
 
-const sk::util::StringArray 
+const sk::util::Strings
 sk::util::String::
 split() const
 {

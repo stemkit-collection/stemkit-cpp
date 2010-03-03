@@ -13,7 +13,7 @@
 
 #include <sk/util/Exception.h>
 #include <sk/util/String.h>
-#include <sk/util/StringArray.h>
+#include <sk/util/Strings.h>
 
 namespace sk {
   namespace sys {
@@ -21,7 +21,7 @@ namespace sk {
       : public sk::util::Exception
     {
       public:
-        ProcessLaunchException(const sk::util::String& message, const sk::util::StringArray& cmdline);
+        ProcessLaunchException(const sk::util::String& message, const sk::util::Strings& cmdline);
     
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;

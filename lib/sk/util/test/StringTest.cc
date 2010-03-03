@@ -11,7 +11,7 @@
 #include <sk/util/IndexOutOfBoundsException.h>
 #include <sk/util/IllegalArgumentException.h>
 #include <sk/util/Class.h>
-#include <sk/util/StringArray.h>
+#include <sk/util/Strings.h>
 #include <string.h>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::util::test::StringTest);
@@ -450,7 +450,7 @@ void
 sk::util::test::StringTest::
 testSplit()
 {
-  sk::util::StringArray data;
+  sk::util::Strings data;
   data = sk::util::String("aaa bbb ccc").split();
 
   CPPUNIT_ASSERT_EQUAL(3, data.size());

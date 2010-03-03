@@ -11,7 +11,7 @@
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
 #include <sk/util/Holder.cxx>
-#include <sk/util/StringArray.h>
+#include <sk/util/Strings.h>
 #include <sk/util/MissingResourceException.h>
 
 #include <sk/io/FileInfo.h>
@@ -139,7 +139,7 @@ const sk::util::String
 sk::io::FileInfo::
 inspect() const
 {
-  sk::util::StringArray depot;
+  sk::util::Strings depot;
 
   depot << getType() + '=' + _path.inspect();
   {

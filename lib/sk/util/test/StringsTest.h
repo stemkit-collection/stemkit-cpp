@@ -5,8 +5,8 @@
  *  You must read and accept the license prior to use.
 */
 
-#ifndef _SK_UTIL_TEST_STRINGARRAYTEST_
-#define _SK_UTIL_TEST_STRINGARRAYTEST_
+#ifndef _SK_UTIL_TEST_STRINGSTEST_
+#define _SK_UTIL_TEST_STRINGSTEST_
 
 #include <cppunit/TestFixture.h>
 #include <cppunit/extensions/HelperMacros.h>
@@ -14,10 +14,10 @@
 namespace sk {
   namespace util {
     namespace test {
-      class StringArrayTest
+      class StringsTest
         : public CppUnit::TestFixture
       {
-        CPPUNIT_TEST_SUITE(sk::util::test::StringArrayTest);
+        CPPUNIT_TEST_SUITE(sk::util::test::StringsTest);
           CPPUNIT_TEST(testEmpty);
           CPPUNIT_TEST(testOne);
           CPPUNIT_TEST(testPlusString);
@@ -35,8 +35,8 @@ namespace sk {
         CPPUNIT_TEST_SUITE_END();
         
         public:
-          StringArrayTest();
-          virtual ~StringArrayTest();
+          StringsTest();
+          virtual ~StringsTest();
           
           void setUp();
           void tearDown();
@@ -56,11 +56,11 @@ namespace sk {
           void testMap();
           
         private:
-          StringArrayTest(const StringArrayTest& other);
-          StringArrayTest& operator = (const StringArrayTest& other);
+          StringsTest(const StringsTest& other);
+          StringsTest& operator = (const StringsTest& other);
       };
     }
   }
 }
 
-#endif /* _SK_UTIL_TEST_STRINGARRAYTEST_ */
+#endif /* _SK_UTIL_TEST_STRINGSTEST_ */

@@ -8,7 +8,7 @@
 int main()
 {
   try {
-    sk::rt::Scope::controller().loadXmlConfig(sk::util::StringArray("pty"), sk::rt::config::CwdUprootLocator("src/config/probe.xml"));
+    sk::rt::Scope::controller().loadXmlConfig(sk::util::Strings("pty"), sk::rt::config::CwdUprootLocator("src/config/probe.xml"));
     sk::rt::Scope scope("main()");
 
     int uid = getuid();

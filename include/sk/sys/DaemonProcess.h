@@ -13,7 +13,7 @@
 
 #include <sk/util/Object.h>
 #include <sk/util/Holder.hxx>
-#include <sk/util/StringArray.h>
+#include <sk/util/Strings.h>
 #include <sk/sys/DelegatingExecutable.h>
 #include <sk/sys/ProcessListener.h>
 #include <sk/io/AnonymousPipe.h>
@@ -26,7 +26,7 @@ namespace sk {
         public virtual sk::sys::ProcessListener
     {
       public:
-        DaemonProcess(const sk::util::StringArray& cmdline);
+        DaemonProcess(const sk::util::Strings& cmdline);
         virtual ~DaemonProcess();
 
         void start();
@@ -57,7 +57,7 @@ namespace sk {
 
         const sk::rt::Scope _scope;
         sk::util::Holder<sk::sys::Executable>  _executableHolder;
-        const sk::util::StringArray _cmdline;
+        const sk::util::Strings _cmdline;
         sk::io::AnonymousPipe _pipe;
         bool _detached;
     };

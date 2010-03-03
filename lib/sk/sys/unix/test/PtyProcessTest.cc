@@ -41,7 +41,7 @@ void
 sk::sys::test::PtyProcessTest::
 testTranslate()
 {
-  PtyProcess process(sk::util::StringArray("tr") + "a" + "A");
+  PtyProcess process(sk::util::Strings("tr") + "a" + "A");
   sk::io::DataInputStream data(process.inputStream());
 
   CPPUNIT_ASSERT_EQUAL(true, process.isAlive());
@@ -72,7 +72,7 @@ void
 sk::sys::test::PtyProcessTest::
 testTty()
 {
-  PtyProcess process(sk::util::StringArray("tty"));
+  PtyProcess process(sk::util::Strings("tty"));
   sk::io::DataInputStream data(process.inputStream());
   CPPUNIT_ASSERT_EQUAL(true, process.isAlive());
   CPPUNIT_ASSERT_EQUAL(true, data.readLine().trim().endsWith(process.getPty().getName()));
@@ -86,7 +86,7 @@ void
 sk::sys::test::PtyProcessTest::
 testSu()
 {
-  PtyProcess process(sk::util::StringArray("su") + "root" + "-c" + "id");
+  PtyProcess process(sk::util::Strings("su") + "root" + "-c" + "id");
   sk::io::DataInputStream data(process.inputStream());
   CPPUNIT_ASSERT_EQUAL(true, process.isAlive());
 

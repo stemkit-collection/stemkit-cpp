@@ -30,7 +30,7 @@ namespace {
 }
 
 sk::sys::ProcessLaunchException::
-ProcessLaunchException(const sk::util::String& message, const sk::util::StringArray& cmdline)
+ProcessLaunchException(const sk::util::String& message, const sk::util::Strings& cmdline)
   : Exception(join(tweak_message(message), tweak_cmdline(cmdline.inspect())))
 {
 }

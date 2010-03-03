@@ -64,7 +64,7 @@ namespace {
 
   struct Block : public virtual sk::rt::Runnable {
     Block(sk::io::Pipe& pipe) 
-      : _scope("Block"), _configurator(pipe), _process(sk::util::StringArray("date"), _configurator) {}
+      : _scope("Block"), _configurator(pipe), _process(sk::util::Strings("date"), _configurator) {}
 
     void run() {
       _process.join();

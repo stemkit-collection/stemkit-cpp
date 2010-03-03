@@ -7,7 +7,7 @@
 */
 
 #include <sk/util/Class.h>
-#include <sk/util/StringArray.h>
+#include <sk/util/Strings.h>
 #include <sk/util/PropertyRegistry.h>
 #include <sk/util/Holder.cxx>
 #include <sk/util/ArrayList.cxx>
@@ -47,7 +47,7 @@ struct sk::sys::Process::Implementation
 };
 
 sk::sys::Process::
-Process(sk::io::InputStream& inputStream, const sk::util::StringArray& cmdline, ProcessListener& listener)
+Process(sk::io::InputStream& inputStream, const sk::util::Strings& cmdline, ProcessListener& listener)
   : _scope(*this), _listener(listener)
 {
   start(inputStream, cmdline);
@@ -57,18 +57,18 @@ sk::sys::Process::
 Process(sk::io::InputStream& inputStream, ProcessListener& listener)
   : _scope(*this), _listener(listener)
 {
-  start(inputStream, sk::util::StringArray());
+  start(inputStream, sk::util::Strings());
 }
 
 sk::sys::Process::
-Process(sk::io::InputStream& inputStream, const sk::util::StringArray& cmdline)
+Process(sk::io::InputStream& inputStream, const sk::util::Strings& cmdline)
   : _scope(*this), _listener(*this)
 {
   start(inputStream, cmdline);
 }
 
 sk::sys::Process::
-Process(const sk::util::StringArray& cmdline, ProcessListener& listener)
+Process(const sk::util::Strings& cmdline, ProcessListener& listener)
   : _scope(*this), _listener(listener)
 {
   start(cmdline);
@@ -78,11 +78,11 @@ sk::sys::Process::
 Process(ProcessListener& listener)
   : _scope(*this), _listener(listener)
 {
-  start(sk::util::StringArray());
+  start(sk::util::Strings());
 }
 
 sk::sys::Process::
-Process(const sk::util::StringArray& cmdline)
+Process(const sk::util::Strings& cmdline)
   : _scope(*this), _listener(*this)
 {
   start(cmdline);
@@ -200,7 +200,7 @@ namespace {
 
 void
 sk::sys::Process::
-start(const sk::util::StringArray& cmdline)
+start(const sk::util::Strings& cmdline)
 {
   sk::io::NullDevice null;
   start(null.inputStream(), cmdline);
@@ -208,7 +208,7 @@ start(const sk::util::StringArray& cmdline)
 
 void
 sk::sys::Process::
-start(sk::io::InputStream& inputStream, const sk::util::StringArray& cmdline)
+start(sk::io::InputStream& inputStream, const sk::util::Strings& cmdline)
 {
   _implementationHolder.set(new Implementation);
 

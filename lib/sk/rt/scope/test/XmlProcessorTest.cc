@@ -79,7 +79,7 @@ testTopLogInfo()
   CPPUNIT_ASSERT_EQUAL(true, _aggregatorHolder.get().getConfig().checkLogLevel(logger::Level::SK_L_ERROR));
 
   XmlProcessor processor("<scope name='app'><log show-time='true'><level severity='warning'/></log></scope>", "a/b/c", _aggregatorHolder.getMutable(), std::map<std::string, std::string>());
-  processor.start(sk::util::StringArray("app"));
+  processor.start(sk::util::Strings("app"));
 
   CPPUNIT_ASSERT_EQUAL(false, _aggregatorHolder.get().getConfig().isLogObject());
   CPPUNIT_ASSERT_EQUAL(true, _aggregatorHolder.getMutable().obtain("aaa").getConfig().isLogTime());
@@ -106,7 +106,7 @@ testValueSubstituion()
       <property name='multi' value='#{prefix}-v-#{port}-end' />\
     ", "a/b/c", _aggregatorHolder.getMutable(), values
   );
-  processor.start(sk::util::StringArray());
+  processor.start(sk::util::Strings());
 
   CPPUNIT_ASSERT_EQUAL("log-2222", _aggregatorHolder.get().getConfig().getProperty("my-location"));
   CPPUNIT_ASSERT_EQUAL("zzz--bbb", _aggregatorHolder.get().getConfig().getProperty("name"));

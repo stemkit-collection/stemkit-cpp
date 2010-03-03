@@ -11,7 +11,7 @@ int main(int argc, char* argv[])
     return 2;
   }
   try {
-    sk::rt::Scope::controller().loadXmlConfig(sk::util::StringArray("user"), sk::rt::config::CwdUprootLocator("src/config/probe.xml"));
+    sk::rt::Scope::controller().loadXmlConfig(sk::util::Strings("user"), sk::rt::config::CwdUprootLocator("src/config/probe.xml"));
 
     bool result = sk::sys::User::find(argv[1]).authenticate(argv[2]);
     std::cerr << "RESULT: " << sk::util::Boolean(result) << std::endl;

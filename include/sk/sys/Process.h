@@ -10,7 +10,7 @@
 #define _SK_SYS_PROCESS_
 
 #include <sk/util/Object.h>
-#include <sk/util/StringArray.h>
+#include <sk/util/Strings.h>
 #include <sk/util/Holder.hxx>
 #include <sk/io/FileDescriptorInputStream.h>
 #include <sk/sys/Executable.h>
@@ -27,11 +27,11 @@ namespace sk {
         public sk::sys::AbstractProcessListener
     {
       public:
-        Process(sk::io::InputStream& inputStream, const sk::util::StringArray& cmdline, ProcessListener& listener);
-        Process(sk::io::InputStream& inputStream, const sk::util::StringArray& cmdline);
+        Process(sk::io::InputStream& inputStream, const sk::util::Strings& cmdline, ProcessListener& listener);
+        Process(sk::io::InputStream& inputStream, const sk::util::Strings& cmdline);
         Process(sk::io::InputStream& inputStream, ProcessListener& listener);
-        Process(const sk::util::StringArray& cmdline, ProcessListener& listener);
-        Process(const sk::util::StringArray& cmdline);
+        Process(const sk::util::Strings& cmdline, ProcessListener& listener);
+        Process(const sk::util::Strings& cmdline);
         Process(ProcessListener& listener);
         virtual ~Process();
 
@@ -68,8 +68,8 @@ namespace sk {
         struct Implementation;
         Implementation& process() const;
 
-        void start(sk::io::InputStream& inputStream, const sk::util::StringArray& cmdline);
-        void start(const sk::util::StringArray& cmdline);
+        void start(sk::io::InputStream& inputStream, const sk::util::Strings& cmdline);
+        void start(const sk::util::Strings& cmdline);
         void ensureNotRunning() const;
 
         const sk::rt::Scope _scope;

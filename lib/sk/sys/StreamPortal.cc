@@ -78,7 +78,7 @@ importStreams(const sk::util::PropertyRegistry& registry)
   descriptors(registry).forEach(StreamPortalImporter(_streams));
 }
 
-const sk::util::StringArray 
+const sk::util::Strings 
 sk::sys::StreamPortal::
 descriptors(const sk::util::PropertyRegistry& registry)
 {
@@ -90,7 +90,7 @@ sk::sys::StreamPortal::
 exportStreams(const sk::util::List<sk::io::Stream>& streams, sk::util::PropertyRegistry& registry)
 {
   if(streams.isEmpty() == false) {
-    sk::util::StringArray descriptors;
+    sk::util::Strings descriptors;
     streams.forEach(StreamPortalExporter(descriptors));
     registry.setProperty("SK_STREAMS", descriptors.join("|"));
     scope().detail(__FUNCTION__) << "Setting SK_STREAMS: " << registry.getProperty("SK_STREAMS", "").inspect();

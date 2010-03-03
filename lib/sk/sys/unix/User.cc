@@ -103,7 +103,7 @@ namespace {
       sk::io::AnonymousPipe p1;
       sk::io::AnonymousPipe p2;
 
-      sk::sys::PtyProcess process(sk::util::StringArray("su") + _user.getName() + "-c" + "true");
+      sk::sys::PtyProcess process(sk::util::Strings("su") + _user.getName() + "-c" + "true");
 
       while(true) {
         char c = process.inputStream().read();

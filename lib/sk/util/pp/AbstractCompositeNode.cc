@@ -11,7 +11,7 @@
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
 #include <sk/util/ArrayList.cxx>
-#include <sk/util/StringArray.h>
+#include <sk/util/Strings.h>
 
 #include "AbstractCompositeNode.h"
 #include "Configurator.h"
@@ -82,15 +82,15 @@ inspect() const
   if(_nodes.isEmpty() == true) {
     return "empty";
   }
-  sk::util::StringArray depot;
+  sk::util::Strings depot;
   struct InspectingProcessor : public virtual sk::util::Processor<const Node> {
-    InspectingProcessor(sk::util::StringArray& depot)
+    InspectingProcessor(sk::util::Strings& depot)
       : _depot(depot) {}
 
     void process(const Node& node) const {
       _depot << node.inspect();
     }
-    sk::util::StringArray& _depot;
+    sk::util::Strings& _depot;
   };
   _nodes.forEach(InspectingProcessor(depot));
   return depot.join(", ");

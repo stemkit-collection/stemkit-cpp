@@ -21,15 +21,15 @@ namespace sk {
       : public virtual sk::sys::DelegatingExecutable
     {
       public:
-        PipeProcess(const sk::util::StringArray& cmdline);
-        PipeProcess(sk::io::FileDescriptorInputStream& inputStream, const sk::util::StringArray& cmdline);
+        PipeProcess(const sk::util::Strings& cmdline);
+        PipeProcess(sk::io::FileDescriptorInputStream& inputStream, const sk::util::Strings& cmdline);
         virtual ~PipeProcess();
 
         sk::io::InputStream& inputStream() const;
         sk::io::InputStream& inputErrorStream() const;
         sk::io::OutputStream& outputStream() const;
 
-        const sk::util::StringArray& errors() const;
+        const sk::util::Strings& errors() const;
         
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;

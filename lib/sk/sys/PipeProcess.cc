@@ -31,11 +31,11 @@ struct sk::sys::PipeProcess::Listener
     sk::io::AnonymousPipe stdoutPipe;
     sk::io::AnonymousPipe stderrPipe;
 
-    sk::util::StringArray errors;
+    sk::util::Strings errors;
 };
 
 sk::sys::PipeProcess::
-PipeProcess(const sk::util::StringArray& cmdline)
+PipeProcess(const sk::util::Strings& cmdline)
   : _listenerHolder(new Listener), _process(_listenerHolder.get().stdinPipe.inputStream(), cmdline, _listenerHolder.getMutable())
 {
   _listenerHolder.getMutable().stdoutPipe.closeOutput();
@@ -43,7 +43,7 @@ PipeProcess(const sk::util::StringArray& cmdline)
 }
 
 sk::sys::PipeProcess::
-PipeProcess(sk::io::FileDescriptorInputStream& inputStream, const sk::util::StringArray& cmdline)
+PipeProcess(sk::io::FileDescriptorInputStream& inputStream, const sk::util::Strings& cmdline)
   : _listenerHolder(new Listener), _process(inputStream, cmdline, _listenerHolder.getMutable())
 {
   _listenerHolder.getMutable().stdinPipe.close();
@@ -98,7 +98,7 @@ outputStream() const
   return _listenerHolder.get().stdinPipe.outputStream();
 }
 
-const sk::util::StringArray& 
+const sk::util::Strings& 
 sk::sys::PipeProcess::
 errors() const
 {

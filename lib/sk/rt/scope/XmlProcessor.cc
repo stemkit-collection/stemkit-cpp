@@ -62,9 +62,9 @@ getLocation() const
 
 void
 sk::rt::scope::XmlProcessor::
-start(const sk::util::StringArray& top)
+start(const sk::util::Strings& top)
 {
-  sk::util::StringArray array(top);
+  sk::util::Strings array(top);
   sk::util::String name(array.isEmpty() == true ? sk::util::String::EMPTY : array.shift());
 
   TiXmlElement* item = findScopeElement(getHandle(), name);
@@ -94,7 +94,7 @@ findScopeElement(const TiXmlHandle& handle, const sk::util::String& name)
 
 void
 sk::rt::scope::XmlProcessor::
-process(const TiXmlHandle& handle, const sk::util::String& scopeBuffer, const sk::util::StringArray& array, scope::Aggregator& aggregator) 
+process(const TiXmlHandle& handle, const sk::util::String& scopeBuffer, const sk::util::Strings& array, scope::Aggregator& aggregator) 
 {
   _scopeBuffer = scopeBuffer;
   _values["scope"] = _scopeBuffer;
@@ -107,13 +107,13 @@ process(const TiXmlHandle& handle, const sk::util::String& scopeBuffer, const sk
       continue;
     }
     if(array.isEmpty() == false) {
-      sk::util::StringArray subarray(array);
+      sk::util::Strings subarray(array);
       if(subarray.shift() == name) {
         process(item, scopeBuffer, subarray, aggregator);
         continue;
       }
     }
-    process(item, scopeBuffer + '-' + name, sk::util::StringArray(), aggregator.obtain(name));
+    process(item, scopeBuffer + '-' + name, sk::util::Strings(), aggregator.obtain(name));
   }
 }
 

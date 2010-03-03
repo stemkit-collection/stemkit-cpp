@@ -9,7 +9,7 @@ objects =
   Container.cc
   Integer.cc
   Boolean.cc
-  StringArray.cc
+  Strings.cc
   StringHash.cc
   Pathname.cc
   Exception.cc

@@ -15,7 +15,7 @@
 #include <sk/util/NoSuchElementException.h>
 #include <sk/util/NumberFormatException.h>
 #include <sk/util/Integer.h>
-#include <sk/util/StringArray.h>
+#include <sk/util/Strings.h>
 
 #include <sk/util/Properties.h>
 
@@ -195,7 +195,7 @@ const sk::util::String
 sk::util::Properties::
 inspect() const
 {
-  sk::util::StringArray result;
+  sk::util::Strings result;
   for(container::const_iterator iterator=_depot.begin(); iterator != _depot.end() ;++iterator) {
     result << (iterator->first + " => " + iterator->second.inspect());
   }

@@ -13,7 +13,7 @@
 #include <sk/util/String.h>
 #include <sk/util/Pathname.h>
 #include <sk/util/Holder.hxx>
-#include <sk/util/StringArray.h>
+#include <sk/util/Strings.h>
 #include <map>
 
 class TiXmlDocument;
@@ -33,7 +33,7 @@ namespace sk {
           XmlProcessor(const std::string& xml, const sk::util::Pathname& location, scope::Aggregator& aggregator, const std::map<std::string, std::string>& values);
           virtual ~XmlProcessor();
 
-          void start(const sk::util::StringArray& top);
+          void start(const sk::util::Strings& top);
 
           const TiXmlHandle& getHandle() const;
           const sk::util::Pathname& getLocation() const;
@@ -46,7 +46,7 @@ namespace sk {
           XmlProcessor(const XmlProcessor& other);
           XmlProcessor& operator = (const XmlProcessor& other);
 
-          void process(const TiXmlHandle& handle, const sk::util::String& scopeBuffer, const sk::util::StringArray& array, scope::Aggregator& aggregator);
+          void process(const TiXmlHandle& handle, const sk::util::String& scopeBuffer, const sk::util::Strings& array, scope::Aggregator& aggregator);
           void updateConfig(const TiXmlHandle& handle, scope::IConfig& config);
           void updateLogInfo(const TiXmlHandle& handle, scope::IConfig& config);
           void updateFileDestination(const TiXmlHandle& handle, scope::IConfig& config);

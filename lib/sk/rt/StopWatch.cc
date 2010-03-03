@@ -10,7 +10,7 @@
 
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
-#include <sk/util/StringArray.h>
+#include <sk/util/Strings.h>
 
 #include <sk/rt/StopWatch.h>
 #include <sk/rt/Time.h>
@@ -116,7 +116,7 @@ const sk::util::String
 sk::rt::StopWatch::
 inspect() const
 {
-  sk::util::StringArray depot;
+  sk::util::Strings depot;
   if(_started == false) {
     depot << "not started";
   }

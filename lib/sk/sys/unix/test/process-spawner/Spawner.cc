@@ -63,7 +63,7 @@ namespace {
 
   struct Block : public virtual sk::rt::Runnable {
     Block(int id, sk::io::Pipe& pipe) 
-      : _configurator(pipe), _process(sk::util::StringArray("ksh") + "-c" + figureScript(id), _configurator) {}
+      : _configurator(pipe), _process(sk::util::Strings("ksh") + "-c" + figureScript(id), _configurator) {}
 
     static const sk::util::String figureScript(int id) {                                   
       sk::util::String location(getenv("JAM_SRCDIR"));

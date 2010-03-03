@@ -7,7 +7,7 @@
  *  Author: Gennady Bystritsky
 */
 
-#include <sk/util/StringArray.h>
+#include <sk/util/Strings.h>
 #include <sk/util/File.h>
 #include <unistd.h>
 
@@ -39,7 +39,7 @@ const sk::util::String
 sk::util::File::
 getLines(int number) 
 {
-  sk::util::StringArray depot;
+  sk::util::Strings depot;
   while(number-- > 0) {
     depot << getLine();
   }
@@ -50,7 +50,7 @@ const sk::util::String
 sk::util::File::
 getLines() 
 {
-  sk::util::StringArray depot;
+  sk::util::Strings depot;
 
   try {
     while(true) {

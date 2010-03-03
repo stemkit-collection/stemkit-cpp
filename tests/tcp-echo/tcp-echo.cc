@@ -163,7 +163,7 @@ void process_request(int fd) {
   Configurator configurator(scope, outPipe.inputStream(), inPipe.outputStream());
   */
   
-  sk::sys::Process process(sk::util::StringArray("tcp-echo-client"), configurator);
+  sk::sys::Process process(sk::util::Strings("tcp-echo-client"), configurator);
   
   inputStream.close();
   outputStream.close();

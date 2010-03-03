@@ -8,7 +8,7 @@
 #ifndef _SK_RT_SCOPE_XMLCONFIGLOADER_
 #define _SK_RT_SCOPE_XMLCONFIGLOADER_
 
-#include <sk/util/StringArray.h>
+#include <sk/util/Strings.h>
 #include <sk/rt/config/StreamProcessor.h>
 #include <map>
 
@@ -21,7 +21,7 @@ namespace sk {
         : public virtual config::StreamProcessor
       {
         public:
-          XmlConfigLoader(const sk::util::StringArray& top, scope::Aggregator& aggregator, const std::map<std::string, std::string>& values);
+          XmlConfigLoader(const sk::util::Strings& top, scope::Aggregator& aggregator, const std::map<std::string, std::string>& values);
           virtual ~XmlConfigLoader();
 
           void process(std::istream& stream, const sk::util::Pathname& location) const;
@@ -33,7 +33,7 @@ namespace sk {
           XmlConfigLoader& operator = (const XmlConfigLoader& other);
 
           scope::Aggregator& _aggregator;
-          const sk::util::StringArray _top;
+          const sk::util::Strings _top;
           const std::map<std::string, std::string> _values;
       };
     }
