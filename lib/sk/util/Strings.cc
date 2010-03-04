@@ -35,6 +35,12 @@ Strings(const sk::util::String& item)
 {
 }
 
+sk::util::Strings::
+Strings(const char* item)
+  : super_t(item)
+{
+}
+
 const sk::util::Class
 sk::util::Strings::
 getClass() const

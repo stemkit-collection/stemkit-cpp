@@ -23,6 +23,7 @@ namespace sk {
         Strings(const Strings& other);
         Strings(const super_t& other);
         Strings(const sk::util::String& item);
+        Strings(const char* item);
 
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
