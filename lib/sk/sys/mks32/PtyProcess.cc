@@ -28,11 +28,11 @@ struct sk::sys::PtyProcess::Listener
     void processJoining();
 
     sk::io::Pty pty;
-    sk::util::StringArray errors;
+    sk::util::Strings errors;
 };
 
 sk::sys::PtyProcess::
-PtyProcess(const sk::util::StringArray& cmdline)
+PtyProcess(const sk::util::Strings& cmdline)
   : _scope(*this),
     _listenerHolder(new Listener), _process(getPty().getMasterSlavePipe().inputStream(), cmdline, _listenerHolder.get())
 {
@@ -95,7 +95,7 @@ outputStream() const
   return _listenerHolder.get().pty.getMasterSlavePipe().outputStream();
 }
 
-const sk::util::StringArray& 
+const sk::util::Strings& 
 sk::sys::PtyProcess::
 errors() const
 {

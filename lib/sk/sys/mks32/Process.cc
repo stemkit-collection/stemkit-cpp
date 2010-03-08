@@ -7,7 +7,7 @@
 */
 
 #include <sk/util/Class.h>
-#include <sk/util/StringArray.h>
+#include <sk/util/Strings.h>
 #include <sk/util/Container.h>
 #include <sk/util/Pathname.h>
 #include <sk/util/PropertyRegistry.h>
@@ -48,7 +48,7 @@ struct sk::sys::Process::Implementation
 };
 
 sk::sys::Process::
-Process(sk::io::InputStream& inputStream, const sk::util::StringArray& cmdline, ProcessListener& listener)
+Process(sk::io::InputStream& inputStream, const sk::util::Strings& cmdline, ProcessListener& listener)
   : _scope(*this), _listener(listener)
 {
   start(inputStream, cmdline);
@@ -58,18 +58,18 @@ sk::sys::Process::
 Process(sk::io::InputStream& inputStream, ProcessListener& listener)
   : _scope(*this), _listener(listener)
 {
-  start(inputStream, sk::util::StringArray());
+  start(inputStream, sk::util::Strings());
 }
 
 sk::sys::Process::
-Process(sk::io::InputStream& inputStream, const sk::util::StringArray& cmdline)
+Process(sk::io::InputStream& inputStream, const sk::util::Strings& cmdline)
   : _scope(*this), _listener(*this)
 {
   start(inputStream, cmdline);
 }
 
 sk::sys::Process::
-Process(const sk::util::StringArray& cmdline, ProcessListener& listener)
+Process(const sk::util::Strings& cmdline, ProcessListener& listener)
   : _scope(*this), _listener(listener)
 {
   start(cmdline);
@@ -79,11 +79,11 @@ sk::sys::Process::
 Process(ProcessListener& listener)
   : _scope(*this), _listener(listener)
 {
-  start(sk::util::StringArray());
+  start(sk::util::Strings());
 }
 
 sk::sys::Process::
-Process(const sk::util::StringArray& cmdline)
+Process(const sk::util::Strings& cmdline)
   : _scope(*this), _listener(*this)
 {
   start(cmdline);
@@ -187,7 +187,7 @@ namespace {
     std::vector<char*>& _arguments;
   };
 
-  int start_process_with_redirect(const Configurator& configurator, const sk::rt::Environment& environment, const sk::util::StringArray& cmdline) {
+  int start_process_with_redirect(const Configurator& configurator, const sk::rt::Environment& environment, const sk::util::Strings& cmdline) {
     sk::rt::Locker locker(__mutexHolder.getMutable());
 
     std::vector<char*> arguments;
@@ -234,7 +234,7 @@ process() const
 
 void
 sk::sys::Process::
-start(const sk::util::StringArray& args)
+start(const sk::util::Strings& args)
 {
   sk::io::NullDevice null;
   start(null.inputStream(), args);
@@ -242,12 +242,12 @@ start(const sk::util::StringArray& args)
 
 void
 sk::sys::Process::
-start(sk::io::InputStream& inputStream, const sk::util::StringArray& args)
+start(sk::io::InputStream& inputStream, const sk::util::Strings& args)
 {
   if(args.isEmpty() == true) {
     throw sk::util::UnsupportedOperationException("Non-exec processes not supported on Windowns");
   }
-  sk::util::StringArray cmdline = args;
+  sk::util::Strings cmdline = args;
   cmdline.set(0, sk::util::Pathname(cmdline.get(0), "exe").toString());
   _implementationHolder.set(new Implementation);
   _scope.notice("start") << cmdline.inspect();

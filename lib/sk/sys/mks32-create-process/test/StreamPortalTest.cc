@@ -49,7 +49,7 @@ testStreams()
   CPPUNIT_ASSERT_EQUAL(65, ::dup2(1, 65));
 
   {
-    sk::util::StringArray depot;
+    sk::util::Strings depot;
 
     depot << sk::util::String::valueOf(uint32_t(::_NutFdToHandle(45)));
     depot << sk::util::String::valueOf(uint32_t(::_NutFdToHandle(55)));

@@ -46,7 +46,7 @@ void
 sk::sys::test::DaemonProcessTest::
 testStartStop()
 {
-  sk::sys::DaemonProcess process(sk::util::StringArray("sleep") << "3600");
+  sk::sys::DaemonProcess process(sk::util::Strings("sleep") << "3600");
   CPPUNIT_ASSERT_EQUAL(false, process.isAlive());
 
   process.start();
@@ -62,7 +62,7 @@ testDestroyKillsProcess()
 {
   int pid;
   {
-    sk::sys::DaemonProcess process(sk::util::StringArray("sleep") << "3600");
+    sk::sys::DaemonProcess process(sk::util::Strings("sleep") << "3600");
     CPPUNIT_ASSERT_EQUAL(false, process.isAlive());
     process.start();
 
@@ -80,7 +80,7 @@ testDestroyLeavesProcessWhenStartedDetached()
 {
   int pid;
   {
-    sk::sys::DaemonProcess process(sk::util::StringArray("sleep") << "3600");
+    sk::sys::DaemonProcess process(sk::util::Strings("sleep") << "3600");
     CPPUNIT_ASSERT_EQUAL(false, process.isAlive());
     process.startDetached();
 
@@ -107,7 +107,7 @@ testDestroyLeavesProcessWhenExplicitlyDetached()
 {
   int pid;
   {
-    sk::sys::DaemonProcess process(sk::util::StringArray("sleep") << "3600");
+    sk::sys::DaemonProcess process(sk::util::Strings("sleep") << "3600");
     CPPUNIT_ASSERT_EQUAL(false, process.isAlive());
     process.start();
 
@@ -133,13 +133,13 @@ void
 sk::sys::test::DaemonProcessTest::
 testFailedCommand()
 {
-  sk::sys::DaemonProcess process(sk::util::StringArray("/zzz/bbb"));
+  sk::sys::DaemonProcess process(sk::util::Strings("/zzz/bbb"));
   CPPUNIT_ASSERT_THROW(process.start(), sk::sys::ProcessLaunchException);
 }
 
 namespace {
   struct TalkingDaemonProcess : public sk::sys::DaemonProcess {
-    TalkingDaemonProcess(const sk::util::StringArray& cmdline)
+    TalkingDaemonProcess(const sk::util::Strings& cmdline)
       : sk::sys::DaemonProcess(cmdline) {}
 
     void processConfiguring(sk::sys::ProcessConfigurator& configurator) {
@@ -154,7 +154,7 @@ void
 sk::sys::test::DaemonProcessTest::
 testStreamCommunication()
 {
-  TalkingDaemonProcess process(sk::util::StringArray("write-to-stream") + "he-he-he");
+  TalkingDaemonProcess process(sk::util::Strings("write-to-stream") + "he-he-he");
   process.start();
 
   process.pipe.outputStream().close();

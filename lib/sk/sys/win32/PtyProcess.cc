@@ -19,7 +19,7 @@ struct sk::sys::PtyProcess::Listener
 };
 
 sk::sys::PtyProcess::
-PtyProcess(const sk::util::StringArray& cmdline)
+PtyProcess(const sk::util::Strings& cmdline)
   : _scope(*this),
     _listenerHolder(new Listener), _process(getPty().getMasterSlavePipe().inputStream(), cmdline, _listenerHolder.getMutable())
 {
@@ -80,7 +80,7 @@ outputStream() const
   throw sk::util::UnsupportedOperationException(SK_METHOD);
 }
 
-const sk::util::StringArray& 
+const sk::util::Strings& 
 sk::sys::PtyProcess::
 errors() const
 {

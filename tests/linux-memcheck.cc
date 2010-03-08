@@ -11,7 +11,7 @@
 #include <sk/util/String.h>
 #include <sk/util/Integer.h>
 #include <sk/util/File.h>
-#include <sk/util/StringArray.h>
+#include <sk/util/Strings.h>
 
 #include <iostream>
 

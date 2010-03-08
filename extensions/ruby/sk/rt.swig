@@ -100,10 +100,10 @@ namespace sk
 
 %extend sk::rt::scope::Controller {
   void loadXmlConfig(const sk::util::String& top, const config::Locator& locator) {
-    self->loadXmlConfig(sk::util::StringArray(top), locator);
+    self->loadXmlConfig(sk::util::Strings(top), locator);
   }
 
   void loadXmlConfig(const sk::util::String& top, const config::Locator& locator, const std::map<std::string, std::string>& values) {
-    self->loadXmlConfig(sk::util::StringArray(top), locator, values);
+    self->loadXmlConfig(sk::util::Strings(top), locator, values);
   }
 }

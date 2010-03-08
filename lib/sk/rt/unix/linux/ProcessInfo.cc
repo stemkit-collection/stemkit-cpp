@@ -12,7 +12,7 @@
 #include <sk/util/Integer.h>
 #include <sk/util/Holder.cxx>
 #include <sk/util/File.h>
-#include <sk/util/StringArray.h>
+#include <sk/util/Strings.h>
 #include <sk/rt/ProcessInfo.h>
 #include <sk/rt/Locker.h>
 

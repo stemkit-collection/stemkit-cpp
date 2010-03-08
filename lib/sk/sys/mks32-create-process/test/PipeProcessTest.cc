@@ -44,7 +44,7 @@ void
 sk::sys::test::PipeProcessTest::
 testTranslate()
 {
-  PipeProcess process(sk::util::StringArray("ruby") + "-e" + "puts readline.tr('a', 'A')");
+  PipeProcess process(sk::util::Strings("ruby") + "-e" + "puts readline.tr('a', 'A')");
   CPPUNIT_ASSERT_EQUAL(true, process.isAlive());
 
   process.outputStream().write(sk::util::Container("abcdaaa\n"));
@@ -62,7 +62,7 @@ void
 sk::sys::test::PipeProcessTest::
 testDataNoErrors()
 {
-  PipeProcess process(sk::util::StringArray("ruby") + "-e" + "puts 'Hello, world'");
+  PipeProcess process(sk::util::Strings("ruby") + "-e" + "puts 'Hello, world'");
   CPPUNIT_ASSERT_EQUAL(true, process.isAlive());
 
   sk::io::DataInputStream data(process.inputStream());
@@ -80,7 +80,7 @@ void
 sk::sys::test::PipeProcessTest::
 testErrorsNoData()
 {
-  PipeProcess process(sk::util::StringArray("ruby") + "-e" + "$stderr.puts 'some error'");
+  PipeProcess process(sk::util::Strings("ruby") + "-e" + "$stderr.puts 'some error'");
   CPPUNIT_ASSERT_EQUAL(true, process.isAlive());
 
   sk::io::DataInputStream errors(process.inputErrorStream());
@@ -98,7 +98,7 @@ void
 sk::sys::test::PipeProcessTest::
 testArguments()
 {
-  PipeProcess process(sk::util::StringArray("ruby") + "-e" + "puts ARGV.inspect" + "aaa" + "bbb ccc");
+  PipeProcess process(sk::util::Strings("ruby") + "-e" + "puts ARGV.inspect" + "aaa" + "bbb ccc");
   sk::io::DataInputStream data(process.inputStream());
   CPPUNIT_ASSERT_EQUAL(true, process.isAlive());
 
@@ -112,7 +112,7 @@ void
 sk::sys::test::PipeProcessTest::
 testErrorsAfterJoin()
 {
-  PipeProcess process(sk::util::StringArray("ruby") + "-e" + "$stderr.puts :Error1, :Error2");
+  PipeProcess process(sk::util::Strings("ruby") + "-e" + "$stderr.puts :Error1, :Error2");
   process.join();
 
   CPPUNIT_ASSERT_EQUAL(2, process.errors().size());
@@ -124,7 +124,7 @@ void
 sk::sys::test::PipeProcessTest::
 testAlltogether()
 {
-  PipeProcess process(sk::util::StringArray("ruby") + "-ne" + "$stdout.puts 'GOOD: ' + $_; $stderr.puts 'BAD: ' + $_");
+  PipeProcess process(sk::util::Strings("ruby") + "-ne" + "$stdout.puts 'GOOD: ' + $_; $stderr.puts 'BAD: ' + $_");
 
   sk::io::DataInputStream data(process.inputStream());
   sk::io::DataInputStream errors(process.inputErrorStream());
@@ -151,7 +151,7 @@ sk::sys::test::PipeProcessTest::
 testInputRedirect()
 {
   sk::io::FileInputStream input(sk::cppunit::SourcePath::make("test-data"));
-  PipeProcess process(input, sk::util::StringArray("ruby") + "-ne" + "puts $_.tr('a', 'A')");
+  PipeProcess process(input, sk::util::Strings("ruby") + "-ne" + "puts $_.tr('a', 'A')");
   sk::io::DataInputStream data(process.inputStream());
 
   CPPUNIT_ASSERT_THROW(process.outputStream().write('a'), sk::io::ClosedChannelException);

@@ -30,7 +30,7 @@
 static const char* __className("sk::sys::DaemonProcess");
 
 sk::sys::DaemonProcess::
-DaemonProcess(const sk::util::StringArray& cmdline)
+DaemonProcess(const sk::util::Strings& cmdline)
   : _scope(__className), _cmdline(cmdline), _detached(false)
 {
 }

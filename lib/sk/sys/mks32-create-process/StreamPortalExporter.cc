@@ -20,7 +20,7 @@
 static const char* __className("sk::sys::StreamPortalExporter");
 
 sk::sys::StreamPortalExporter::
-StreamPortalExporter(sk::util::StringArray& descriptors)
+StreamPortalExporter(sk::util::Strings& descriptors)
   : _descriptors(descriptors) 
 {
 }
