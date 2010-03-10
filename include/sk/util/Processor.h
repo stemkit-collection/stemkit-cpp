@@ -20,7 +20,7 @@ namespace sk {
         virtual void process(T& o) const = 0;
     };
 
-    template<typename T1, typename T2>
+    template<typename T1, typename T2 = T1>
     class BinaryProcessor
       : public virtual sk::util::Object 
     {

@@ -44,7 +44,7 @@ Scope(const sk::util::String& name)
 
 sk::rt::Scope::
 Scope(const Scope& parent, const sk::util::String& name)
-  : _parent(parent), _object(parent.getObject()), _name(name), _aggregator(parent.getAggregator().obtain(name))
+  : _parent(parent), _object(*this), _name(name), _aggregator(parent.getAggregator().obtain(name))
 {
   detail().memory() << "Enter (scope)";
 }
