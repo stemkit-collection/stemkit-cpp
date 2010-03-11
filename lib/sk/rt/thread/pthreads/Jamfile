@@ -1,5 +1,7 @@
+# vim: ft=jam: sw=2:
 
 local library = sk.rt.thread.pthreads. ;
+
 local objects = 
   Factory.cc
   Exception.cc

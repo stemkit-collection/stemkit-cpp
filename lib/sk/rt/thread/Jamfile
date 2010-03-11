@@ -20,11 +20,19 @@ local objects =
   ../ReentrantLock.cc
 ;
 
-use-project-libraries $(library). : sk.rt.thread.platform sk.rt.bundle sk.util ;
+local implementation ;
+if windows in $(project.PLATFORM_SPECIFICS) {
+  implementation = win32 ;
+}
+else implementation = pthreads ;
+
+use-project-libraries $(library). : 
+  sk.rt.thread.$(implementation) 
+  sk.rt.bundle 
+  sk.util 
+;
+
 make-shared-library $(library) : $(objects) ;
 make-subdirs tests platform mock ;
 
-if windows in $(project.PLATFORM_SPECIFICS) {
-  make-subdirs win32 ;
-}
-else make-subdirs pthreads ;
+make-subdirs $(implementation) ;

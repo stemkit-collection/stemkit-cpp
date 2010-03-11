@@ -1,5 +1,7 @@
+# vim: ft=jam: sw=2:
 
 local library = sk.rt.thread.win32 ;
+
 local objects = 
   Factory.cc
   Implementation.cc

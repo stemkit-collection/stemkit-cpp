@@ -15,14 +15,12 @@ use-project-library $(test) write-to-stream :
   sk.sys 
   sk.io 
   sk.rt.thread
-  sk.rt.thread.pthreads
   sk.rt.bundle 
   sk.util 
 ;
 
 make-program write-to-stream : write-to-stream.cc ;
 
-use-pthreads $(test) ;
 use-unit-test $(test) $(objects) ;
 make-cpp-test $(test) : $(objects) ;
 

@@ -7,20 +7,10 @@ local tests =
   mass-threads
 ;
 
-local implementation ;
-if ! windows in $(project.PLATFORM_SPECIFICS) {
-  implementation = pthreads ;
-  use-pthreads $(tests) ;
-}
-else implementation = win32 ;
-
-
 local test ;
 for test in $(tests) {
   local program = $(test) ;
 
   use-project-libraries $(program) : sk.rt.bundle sk.util sk.rt.thread ;
-  use-project-libraries $(program) : sk.rt.thread.$(implementation) ;
-
   make-program $(program) : $(test).cc ;
 }

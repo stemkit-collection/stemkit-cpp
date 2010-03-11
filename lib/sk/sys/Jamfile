@@ -1,6 +1,6 @@
 # vim: ft=jam: sw=2:
 
-local library = sk.sys. ;
+local library = sk.sys ;
 
 local objects = 
   ProcessLaunchException.cc
@@ -13,7 +13,7 @@ local objects =
   StreamPortal.cc
 ;
 
-use-project-libraries $(library) : sk.rt.thread.platform sk.rt.thread sk.rt.bundle sk.io sk.util ;
+use-project-libraries $(library). : sk.rt.thread sk.rt.bundle sk.io sk.util ;
 make-shared-library $(library) : $(objects) ;
 make-subdir test ;
 
@@ -23,30 +23,18 @@ if $(PLATFORM_IMPLEMENTATION) = "unix" && mks32 in $(project.PLATFORM_SPECIFICS)
 }
 
 make-subdirs $(PLATFORM_IMPLEMENTATION) ;
-add-project-library $(library) : $(library)$(PLATFORM_IMPLEMENTATION) ;
+add-project-library $(library) : $(library).$(PLATFORM_IMPLEMENTATION) ;
 
 local probes = 
   user-probe
 ;
 
-if ! windows in $(project.PLATFORM_SPECIFICS) {
-  use-project-library $(probes) : 
-    sk.sys 
-    sk.rt.thread
-    sk.rt.thread.pthreads
-    sk.rt.bundle 
-    sk.io 
-    sk.util 
-  ;
-  use-pthreads $(probes) ;
-}
-else use-project-library $(probes) : 
-    sk.sys 
-    sk.rt.thread
-    sk.rt.thread.win32
-    sk.rt.bundle 
-    sk.io 
-    sk.util 
+use-project-library $(probes) : 
+  sk.sys 
+  sk.io 
+  sk.rt.thread
+  sk.rt.bundle 
+  sk.util 
 ;
 
 local _probe ;

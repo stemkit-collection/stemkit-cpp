@@ -1,6 +1,6 @@
 # vim: ft=jam: sw=2:
 
-local library = sk.io. ;
+local library = sk.io ;
 
 local objects = 
   AbstractInputStream.cc
@@ -36,12 +36,12 @@ local objects =
   DelegatingTty.cc
 ;
 
-use-project-libraries $(library) : sk.rt.bundle sk.util ;
+use-project-libraries $(library). : sk.rt.bundle sk.util ;
 make-shared-library $(library) : $(objects) ;
 make-subdir test ;
 
 make-subdir $(PLATFORM_IMPLEMENTATION) ;
-add-project-library $(library) : $(library)$(PLATFORM_IMPLEMENTATION) ;
+add-project-library $(library) : $(library).$(PLATFORM_IMPLEMENTATION) ;
 
 use-project-libraries show-dir : sk.io sk.rt.bundle sk.util ;
 make-program show-dir : show-dir.cc ;

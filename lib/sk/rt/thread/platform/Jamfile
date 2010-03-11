@@ -1,6 +1,7 @@
 # vim: ft=jam: sw=2:
 
 local library = sk.rt.thread.platform ;
+
 local objects = 
   Factory.cc
 ;

@@ -1,3 +1,4 @@
+# vim: ft=jam: sw=2:
 
 local test = sk-rt-pthreads-test ;
 
@@ -5,8 +6,6 @@ local objects =
   TestSuite.cc
   MutexTest.cc
 ;
-
-use-pthreads $(test) ;
 
 use-project-libraries $(test) : sk.rt.bundle sk.util sk.cppunit ;
 use-project-libraries $(test) : sk.rt.thread.pthreads ;

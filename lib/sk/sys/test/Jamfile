@@ -8,24 +8,13 @@ test-objects =
   TestSuite.cc
 ;
 
-if ! windows in $(project.PLATFORM_SPECIFICS) {
-  use-project-library $(test) : 
-    sk.cppunit sk.sys 
-    sk.rt.thread
-    sk.rt.thread.pthreads 
-    sk.rt.bundle 
-    sk.io 
-    sk.util 
-  ;
-  use-pthreads $(test) ;
-}
-else use-project-library $(test) : 
-    sk.cppunit sk.sys 
-    sk.rt.thread
-    sk.rt.thread.win32
-    sk.rt.bundle 
-    sk.io 
-    sk.util 
+use-project-library $(test) : 
+  sk.sys 
+  sk.io 
+  sk.rt.bundle 
+  sk.rt.thread
+  sk.cppunit 
+  sk.util 
 ;
 
 use-unit-test $(test) $(test-objects) ;

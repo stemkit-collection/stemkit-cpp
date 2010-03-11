@@ -1,5 +1,7 @@
+# vim: ft=jam: sw=2:
 
-local library = sk.rt.thread.mock. ;
+local library = sk.rt.thread.mock ;
+
 local objects = 
   Factory.cc
   Implementation.cc
@@ -7,5 +9,5 @@ local objects =
   Thread.cc
 ;
 
-use-project-libraries $(library) : sk.util ;
+use-project-libraries $(library). : sk.util ;
 make-shared-library $(library) : $(objects) : sk.rt.thread.platform ;

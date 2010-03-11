@@ -13,7 +13,6 @@ local objects =
 ;
 
 use-project-library $(test) : 
-  sk.rt.thread.pthreads
   sk.cppunit 
   sk.sys 
   sk.io 
@@ -22,7 +21,6 @@ use-project-library $(test) :
   sk.util 
 ;
 
-use-pthreads $(test) ;
 use-unit-test $(test) $(objects) ;
 make-cpp-test $(test) : $(objects) ;
 

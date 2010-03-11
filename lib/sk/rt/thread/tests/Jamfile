@@ -34,12 +34,9 @@ for area in $(test-areas) {
   local test = sk-rt-$(area) ;
   local program = $(test)-$(implementation) ;
 
-  use-project-libraries $(program) : sk.rt.thread.$(implementation) ;
   use-project-libraries $(program) : sk.rt.bundle sk.util sk.cppunit sk.rt.thread ;
 
   use-unit-test $(program) $($(area)-objects) ;
-  use-pthreads $(test)-pthreads ;
-
   make-cpp-test $(program) : $($(area)-objects) $($(area)-helper-objects) ;
 }
 

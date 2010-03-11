@@ -1,5 +1,6 @@
+# vim: ft=jam: sw=2:
 
-local test = sk-rt-pthreads-test ;
+local test = sk-rt-thread-win32-test ;
 
 local objects = 
   TestSuite.cc
