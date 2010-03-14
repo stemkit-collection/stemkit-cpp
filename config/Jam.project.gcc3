@@ -188,6 +188,7 @@ rule platform-aix-ppc
 
   C++FLAGS += -fPIC -pthread ;
   CCFLAGS += -fPIC ;
+  CCOFLAGS ?= -O0 -fno-guess-branch-probability ;
 
   C++LDFLAGS =
     -Wl,-bmaxdata:0x50000000
