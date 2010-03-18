@@ -34,10 +34,17 @@ namespace {
     static bool flag = (getenv("SK_TEST_C_HANDLE") != 0);
     return flag;
   }
+
+  const char* label = "*CREATED*";
 }
 
-namespace {
-  const char* label = "*CREATED*";
+namespace sk {
+  namespace C {
+    namespace debug {
+      const char* error_message = 0;
+      const char* error_type = 0;
+    }
+  }
 }
 
 sk_c_handle::
@@ -124,11 +131,8 @@ ensure_proper(const sk_c_handle* handle)
   ensure_valid(handle);
 
   if(handle->isError() == true) {
-    char error_type[128];
-    char error_message[128];
-
-    copy(handle->errorType(), error_type, sizeof(error_type));
-    copy(handle->errorMessage(), error_message, sizeof(error_message));
+    sk::C::debug::error_type = handle->errorType().getChars();
+    sk::C::debug::error_message = handle->errorMessage().getChars();
 
     abort_on_error_not_cleared();
   }
