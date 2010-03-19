@@ -52,7 +52,7 @@ getClass() const
   return sk::util::Class(__className);
 }
 
-sk::rt::thread::abstract::Mutex* 
+sk::rt::thread::platform::Mutex* 
 sk::rt::thread::win32::Implementation::
 makeSimpleMutex() const
 {
@@ -62,7 +62,7 @@ makeSimpleMutex() const
   return section;
 }
 
-sk::rt::thread::abstract::Mutex* 
+sk::rt::thread::platform::Mutex* 
 sk::rt::thread::win32::Implementation::
 makeRecursiveMutex() const
 {

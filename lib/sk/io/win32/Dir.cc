@@ -11,8 +11,8 @@
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
 #include <sk/util/Holder.cxx>
-#include <sk/util/MappingProcessor.cxx>
-#include <sk/util/SelectingProcessor.cxx>
+#include <sk/util/processor/Mapping.hxx>
+#include <sk/util/processor/Selecting.hxx>
 #include <sk/util/MissingResourceException.h>
 #include <sk/io/ClosedChannelException.h>
 #include <sk/rt/SystemException.h>

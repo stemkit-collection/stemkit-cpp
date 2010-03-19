@@ -11,7 +11,7 @@
 #ifndef _SK_RT_THREAD_WIN32_IMPLEMENTATION_H_
 #define _SK_RT_THREAD_WIN32_IMPLEMENTATION_H_
 
-#include <sk/rt/thread/abstract/Implementation.h>
+#include <sk/rt/thread/platform/Implementation.h>
 #include <sk/rt/Scope.h>
 
 #include "Thread.h"
@@ -24,16 +24,16 @@ namespace sk {
     namespace thread {
       namespace win32 {
         class Implementation 
-          : public virtual sk::rt::thread::abstract::Implementation,
+          : public virtual sk::rt::thread::platform::Implementation,
             public virtual Provider
         {
           public:
             Implementation();
             virtual ~Implementation();
         
-            // sk::rt::thread::abstract::Implementation implementation.
-            abstract::Mutex* makeSimpleMutex() const;
-            abstract::Mutex* makeRecursiveMutex() const;
+            // sk::rt::thread::platform::Implementation implementation.
+            platform::Mutex* makeSimpleMutex() const;
+            platform::Mutex* makeRecursiveMutex() const;
             win32::Thread* makeThread(sk::rt::Runnable& target, sk::rt::thread::Generic& handle) const;
             win32::Thread* wrapCurrentThread(sk::rt::thread::Generic& handle) const;
             sk::rt::thread::Generic& getGeneric() const;
