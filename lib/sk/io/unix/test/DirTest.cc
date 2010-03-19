@@ -8,6 +8,8 @@
  *  Author: Gennady Bystritsky (gennady.bystritsky@quest.com)
 */
 
+#include <sk/io/FileInfo.h>
+
 #include "DirTest.h"
 #include <sk/io/Dir.h>
 #include <sk/util/Pathname.h>
@@ -40,13 +42,26 @@ tearDown()
 
 void
 sk::io::test::DirTest::
-testBasics()
+testEachEntry()
 {
   sk::io::Dir current(".");
   CPPUNIT_ASSERT_EQUAL(".", current.getPath().toString());
 
   sk::util::ArrayList<sk::util::Pathname> entries;
   current.forEachEntry(sk::util::processor::Copying<sk::util::Pathname>(entries));
+
+  CPPUNIT_ASSERT(entries.size() > 0);
+}
+
+void
+sk::io::test::DirTest::
+testEachRegularFile()
+{
+  sk::io::Dir current(".");
+  CPPUNIT_ASSERT_EQUAL(".", current.getPath().toString());
+
+  sk::util::ArrayList<sk::io::FileInfo> entries;
+  current.forEachRegularFile(sk::util::processor::Copying<const sk::io::FileInfo, sk::io::FileInfo>(entries));
 
   CPPUNIT_ASSERT(entries.size() > 0);
 }

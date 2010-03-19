@@ -21,7 +21,8 @@ namespace sk {
         : public CppUnit::TestFixture
       {
         CPPUNIT_TEST_SUITE(sk::io::test::DirTest);
-          CPPUNIT_TEST(testBasics);
+          CPPUNIT_TEST(testEachEntry);
+          CPPUNIT_TEST(testEachRegularFile);
         CPPUNIT_TEST_SUITE_END();
       
         public:
@@ -30,7 +31,8 @@ namespace sk {
       
           void setUp();
           void tearDown();
-          void testBasics();
+          void testEachEntry();
+          void testEachRegularFile();
       
         private:
           DirTest(const DirTest& other);
