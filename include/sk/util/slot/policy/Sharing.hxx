@@ -33,7 +33,7 @@ namespace sk {
               }
               else {
                 Super::setObject(storage, object);
-                getSlot(storage).link();
+                getSlot(storage).linkUp();
               }
             }
             
@@ -43,7 +43,7 @@ namespace sk {
               }
               else {
                 Super::setObject(storage, object);
-                getSlot(storage).link();
+                getSlot(storage).linkUp();
               }
             }
 
@@ -53,13 +53,13 @@ namespace sk {
               }
               else {
                 Super::setObject(storage, object);
-                getSlot(storage).link();
+                getSlot(storage).linkUp();
               }
             }
             
             static void clearSlot(typename Super::slot_storage_t& storage) {
               if(hasSlot(storage) == true) {
-                if(getSlot(storage).unlink() == true) {
+                if(getSlot(storage).linkDown() == true) {
                   Super::clearSlot(storage);
                 }
                 else {
@@ -74,7 +74,7 @@ namespace sk {
               }
               if(hasSlot(other) == true) {
                 setSlot(storage, &getSlot(other));
-                getSlot(storage).link();
+                getSlot(storage).linkUp();
               }
               else {
                 clearSlot(storage);

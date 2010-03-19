@@ -19,11 +19,11 @@ namespace sk {
             LinkCounter() 
               : _counter(0) {}
 
-            bool link() {
+            bool linkUp() {
               return _counter++ == 0;
             }
             
-            bool unlink() {
+            bool linkDown() {
               return _counter > 0 ? --_counter == 0 : true;
             }
 
