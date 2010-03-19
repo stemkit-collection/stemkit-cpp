@@ -187,16 +187,19 @@ rule platform-aix-ppc
   # project.PROHIBIT_SHARED = true ;
 
   C++FLAGS += -fPIC -pthread ;
-  CCFLAGS += -fPIC ;
-  CCOFLAGS ?= -O0 -fno-guess-branch-probability ;
+  CCFLAGS += -fPIC -pthread ;
 
   C++LDFLAGS =
     -Wl,-bmaxdata:0x50000000
-    -Wl,-u__TSC_BUILD__
+    -Wl,-u__TSC_BUILD__    
+    -pthread 
   ;
   CC_SONAME_FLAG = ;
   DLLFLAGS += -shared -Wl,-bexpfull ;
 
+  BUILD_ABILIB = lib/pthread ;
+
+  LIBDIRS += /usr/lib/threads ;
   DEFINES += _POSIX_PTHREAD_SEMANTICS _FILE_OFFSET_BITS=64 ;
   INCLUDES += [ util.make-path $(system.SRCTOP) platform include aix ] ;
   SYSLIBS = crypt dl ;
@@ -359,8 +362,6 @@ switch $(PRODUCT_PLATFORM) {
   case * : exit Unknown platform $(PRODUCT_PLATFORM) ;
 }
 
-BUILD_ABILIB ?= lib ;
-
 INCLUDES += [ util.make-path $(system.SRCTOP) platform include generic ] ;
 INCLUDES += [ util.make-path $(system.SRCTOP) include hooks ] ;
 INCLUDES += [ util.make-path $(system.GENTOP) include ] ;
@@ -376,7 +377,12 @@ CC ?= $(GCC_ROOT)/bin/gcc ;
 
 SWIG ?= $(TOOLS_HOME)/swig-$(SWIG_VERSION)/bin/swig ;
 
-LIBDIRS += $(GCC_ROOT)/lib ;
+BUILD_ABILIB ?= lib ;
+LIBDIRS += $(GCC_ROOT)/$(BUILD_ABILIB) ;
+
+if $(BUILD_ABI) != lib {
+  LIBDIRS += $(GCC_ROOT)/lib ;
+}
 
 CCOFLAGS ?= -O2 -fno-guess-branch-probability ;
 DLLFLAGS ?= -shared ;
