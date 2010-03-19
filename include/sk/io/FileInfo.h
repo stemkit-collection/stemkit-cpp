@@ -23,6 +23,7 @@ namespace sk {
     {
       public:
         FileInfo(const sk::util::Pathname& path);
+        FileInfo(const FileInfo& other);
         FileInfo(int descriptor);
         virtual ~FileInfo();
 
@@ -45,11 +46,10 @@ namespace sk {
     
       private:
         // Using default copying facilities here.
-        // FileInfo(const FileInfo& other);
         // FileInfo& operator = (const FileInfo& other);
 
         struct Data;
-        sk::util::Holder<Data>::Sharing _dataHolder;
+        sk::util::Holder<Data> _dataHolder;
         const sk::util::Pathname _path;
     };
   }

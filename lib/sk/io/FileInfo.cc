@@ -41,6 +41,12 @@ FileInfo(int descriptor)
 }
 
 sk::io::FileInfo::
+FileInfo(const sk::io::FileInfo& other)
+  : _path(other.getPath()), _dataHolder(new Data(other._dataHolder.get()))
+{
+}
+
+sk::io::FileInfo::
 ~FileInfo()
 {
 }
