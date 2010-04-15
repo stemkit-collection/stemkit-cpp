@@ -43,4 +43,9 @@ testBasics()
   array << 1 << 2 << 3;
   CPPUNIT_ASSERT_EQUAL("sk::util::Integers[ 1, 2, 3 ]", array.inspect());
   CPPUNIT_ASSERT_EQUAL("123", array.toString());
+
+  CPPUNIT_ASSERT(array.contains(1) == true);
+  CPPUNIT_ASSERT(array.contains(2) == true);
+  CPPUNIT_ASSERT(array.contains(3) == true);
+  CPPUNIT_ASSERT(array.contains(4) == false);
 }

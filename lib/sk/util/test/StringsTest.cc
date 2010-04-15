@@ -116,6 +116,11 @@ testAddString()
   CPPUNIT_ASSERT_EQUAL(sk::util::String("bbb"), strings.get(1));
   CPPUNIT_ASSERT_EQUAL(sk::util::String("ccc"), strings.get(2));
 
+  CPPUNIT_ASSERT(strings.contains("aaa") == true);
+  CPPUNIT_ASSERT(strings.contains("bbb") == true);
+  CPPUNIT_ASSERT(strings.contains("ccc") == true);
+  CPPUNIT_ASSERT(strings.contains("ddd") == false);
+
   CPPUNIT_ASSERT_THROW(strings.get(3), sk::util::IndexOutOfBoundsException);
 }
 
