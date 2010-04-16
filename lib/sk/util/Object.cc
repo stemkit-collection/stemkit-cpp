@@ -49,7 +49,7 @@ sk::util::Object::
 toString() const
 {
   std::stringstream stream;
-  stream << '<' << getClass().getName() << '#' << getId() << '>';
+  stream << '<' << getClass().getName() << '#' << std::hex << getId() << '>';
 
   return stream.str();
 }

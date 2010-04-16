@@ -87,7 +87,7 @@ join(const sk::util::Pathname& other) const
     return other;
   }
   Pathname result(*this);
-  if(_path.endsWith("/") == false) {
+  if(_path.isEmpty() == false && _path.endsWith("/") == false) {
     result._path += '/';
   }
   result._path += other._path;

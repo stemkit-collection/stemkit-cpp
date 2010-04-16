@@ -66,7 +66,7 @@ makeHeader(std::ostream& stream) const
   _scope.aggregateScopeName(stream);
 
   if(_config.isLogObject() == true) {
-    stream << ':' << &_scope.getObject();
+    stream << ':' << std::hex << _scope.getObject().getId() << std::dec;
   }
   if(_config.isLogThread() == true) {
     stream << ':' << _scope.currentThreadId();

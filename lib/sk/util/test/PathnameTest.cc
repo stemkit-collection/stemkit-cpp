@@ -75,6 +75,14 @@ void
 sk::util::test::PathnameTest::
 testJoinString()
 {
+  CPPUNIT_ASSERT_EQUAL("/b", Pathname("/").join("b").toString());
+  CPPUNIT_ASSERT_EQUAL("/a/b", Pathname("/a").join("b").toString());
+  CPPUNIT_ASSERT_EQUAL("/a/b", Pathname("/a//").join("b").toString());
+  CPPUNIT_ASSERT_EQUAL("/b", Pathname("/a//").join("/b").toString());
+
+  CPPUNIT_ASSERT_EQUAL("C:/b", Pathname("C:/").join("b").toString());
+  CPPUNIT_ASSERT_EQUAL("D:b", Pathname("C:/").join("D:b").toString());
+
   CPPUNIT_ASSERT_EQUAL("a/b", Pathname("a").join("b").toString());
   CPPUNIT_ASSERT_EQUAL("a/b/c/d", Pathname("a/b/").join("c/d").toString());
   CPPUNIT_ASSERT_EQUAL("/c/d", Pathname("a/b/").join("/c/d").toString());
