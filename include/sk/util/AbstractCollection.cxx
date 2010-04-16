@@ -13,7 +13,6 @@
 #include <sk/util/Holder.cxx>
 #include <sk/util/Validator.h>
 #include <sk/util/UnsupportedOperationException.h>
-#include <sk/util/selector/EqualPointer.hxx>
 #include <sk/util/selector/Any.hxx>
 #include <sk/util/selector/Not.hxx>
 #include <sk/util/selector/Belongs.hxx>
@@ -183,7 +182,7 @@ bool
 sk::util::AbstractCollection<T, Policy>::
 contains(const T& object) const 
 {
-  return contains(selector::EqualPointer<T>(object));
+  return contains(typename Policy::equal_selector_t(object));
 }
 
 template<typename T, typename Policy>
@@ -248,7 +247,7 @@ bool
 sk::util::AbstractCollection<T, Policy>::
 remove(const T& object) 
 {
-  return remove(selector::EqualPointer<T>(object));
+  return remove(typename Policy::equal_selector_t(object));
 }
 
 template<typename T, typename Policy>
@@ -264,7 +263,7 @@ T*
 sk::util::AbstractCollection<T, Policy>::
 cutoff(const T& object) 
 {
-  return cutoff(selector::EqualPointer<T>(object));
+  return cutoff(typename Policy::equal_selector_t(object));
 }
 
 template<typename T, typename Policy>
@@ -280,7 +279,7 @@ T*
 sk::util::AbstractCollection<T, Policy>::
 release(const T& object) 
 {
-  return release(selector::EqualPointer<T>(object));
+  return release(typename Policy::equal_selector_t(object));
 }
 
 template<typename T, typename Policy>

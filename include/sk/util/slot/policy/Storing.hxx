@@ -13,6 +13,7 @@
 #include <sk/util/MissingResourceException.h>
 #include <sk/util/slot/Reference.cxx>
 #include <sk/util/slot/Pointer.cxx>
+#include <sk/util/selector/EqualPointer.hxx>
 
 namespace sk {
   namespace util {
@@ -25,6 +26,7 @@ namespace sk {
             typedef sk::util::Slot<T, SlotMixin> slot_t;
             typedef slot_t* slot_storage_t;
             typedef const slot_t* const_slot_storage_t;
+            typedef sk::util::selector::EqualPointer<T> equal_selector_t;
 
             static const T& getObject(const const_slot_storage_t storage) {
               return getConstSlot(storage).get();

@@ -13,7 +13,6 @@
 #include <sk/util/AbstractCollection.cxx>
 #include <sk/util/UnsupportedOperationException.h>
 #include <sk/util/Validator.h>
-#include <sk/util/selector/EqualPointer.hxx>
 #include <sk/util/Lists.hxx>
 
 template<typename T, typename Policy>
@@ -120,7 +119,7 @@ int
 sk::util::AbstractList<T, Policy>::
 indexOf(const T& object) const 
 {
-  return indexOf(sk::util::selector::EqualPointer<T>(object));
+  return indexOf(typename Policy::equal_selector_t(object));
 }
 
 template<typename T, typename Policy>
@@ -157,7 +156,7 @@ int
 sk::util::AbstractList<T, Policy>::
 lastIndexOf(const T& object) const 
 {
-  return lastIndexOf(sk::util::selector::EqualPointer<T>(object));
+  return lastIndexOf(typename Policy::equal_selector_t(object));
 }
 
 template<typename T, typename Policy>

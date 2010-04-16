@@ -18,7 +18,6 @@
 #include <sk/util/Break.h>
 #include <sk/util/Validator.h>
 #include <sk/util/UnsupportedOperationException.h>
-#include <sk/util/selector/EqualPointer.hxx>
 #include <sk/util/selector/Not.hxx>
 #include <sk/util/selector/Belongs.hxx>
 #include <sk/util/assessor/EqualPointers.hxx>
@@ -231,7 +230,7 @@ bool
 sk::util::StandardContainer<T, Policy, Type>::
 contains(const T& object) const
 {
-  return std::find_if(_container.begin(), _container.end(), SelectingFunctor(selector::EqualPointer<T>(object))) != _container.end();
+  return std::find_if(_container.begin(), _container.end(), SelectingFunctor(typename Policy::equal_selector_t(object))) != _container.end();
 }
 
 template<typename T, typename Policy, typename Type>
@@ -290,7 +289,7 @@ bool
 sk::util::StandardContainer<T, Policy, Type>::
 remove(const T& object)
 {
-  return remove(sk::util::selector::EqualPointer<T>(object));
+  return remove(typename Policy::equal_selector_t(object));
 }
 
 template<typename T, typename Policy, typename Type>
@@ -311,7 +310,7 @@ T*
 sk::util::StandardContainer<T, Policy, Type>::
 cutoff(const T& object)
 {
-  return cutoff(sk::util::selector::EqualPointer<T>(object));
+  return cutoff(typename Policy::equal_selector_t(object));
 }
 
 template<typename T, typename Policy, typename Type>
@@ -330,7 +329,7 @@ T*
 sk::util::StandardContainer<T, Policy, Type>::
 release(const T& object)
 {
-  return release(sk::util::selector::EqualPointer<T>(object));
+  return release(typename Policy::equal_selector_t(object));
 }
 
 template<typename T, typename Policy, typename Type>
@@ -408,7 +407,7 @@ int
 sk::util::StandardContainer<T, Policy, Type>::
 indexOf(const T& object) const
 {
-  return indexOf(sk::util::selector::EqualPointer<T>(object));
+  return indexOf(typename Policy::equal_selector_t(object));
 }
 
 template<typename T, typename Policy, typename Type>
@@ -430,7 +429,7 @@ int
 sk::util::StandardContainer<T, Policy, Type>::
 lastIndexOf(const T& object) const
 {
-  return lastIndexOf(sk::util::selector::EqualPointer<T>(object));
+  return lastIndexOf(typename Policy::equal_selector_t(object));
 }
 
 template<typename T, typename Policy, typename Type>
