@@ -1,4 +1,5 @@
-/*  Copyright (c) 2007, Gennady Bystritsky <bystr@mac.com>
+/*  vi: sw=2:
+ *  Copyright (c) 2007, Gennady Bystritsky <bystr@mac.com>
  *  
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
@@ -114,4 +115,14 @@ testAssignmentFromOther()
   CPPUNIT_ASSERT_EQUAL(true, other.isOwner());
   CPPUNIT_ASSERT(&holder.get() != &other.get());
   CPPUNIT_ASSERT(&alias.get() != &other.get());
+}
+
+void
+sk::util::test::CopyingHolderTest::
+testContains()
+{
+  Holder<String>::Copying holder("abc");
+
+  CPPUNIT_ASSERT(holder.contains("abc") == true);
+  CPPUNIT_ASSERT(holder.contains("zzz") == false);
 }

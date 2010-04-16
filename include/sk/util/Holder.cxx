@@ -234,7 +234,7 @@ contains(const T& object) const
   if(Policy::hasSlot(_storage) == false) {
     return false;
   }
-  return &Policy::getObject(_storage) == &object ? true : false;
+  return typename Policy::equal_selector_t(object).assess(Policy::getObject(_storage));
 }
 
 template<typename T, typename Policy>

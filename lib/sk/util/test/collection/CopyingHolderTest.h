@@ -1,4 +1,5 @@
-/*  Copyright (c) 2007, Gennady Bystritsky <bystr@mac.com>
+/*  vi: sw=2:
+ *  Copyright (c) 2007, Gennady Bystritsky <bystr@mac.com>
  *  
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
@@ -24,6 +25,7 @@ namespace sk {
           CPPUNIT_TEST(testStringLiteral);
           CPPUNIT_TEST(testAssignment);
           CPPUNIT_TEST(testAssignmentFromOther);
+          CPPUNIT_TEST(testContains);
         CPPUNIT_TEST_SUITE_END();
         
         public:
@@ -38,6 +40,7 @@ namespace sk {
           void testStringLiteral();
           void testAssignment();
           void testAssignmentFromOther();
+          void testContains();
           
         private:
           CopyingHolderTest(const CopyingHolderTest& other);
