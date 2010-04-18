@@ -59,10 +59,6 @@ namespace sk {
         
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
-
-      private:
-        LinkedList(const LinkedList<T, Policy>& other);
-        LinkedList<T, Policy>& operator = (const LinkedList<T, Policy>& other);
     };
   }
 }

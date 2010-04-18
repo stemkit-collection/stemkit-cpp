@@ -60,6 +60,8 @@ namespace sk {
             CPPUNIT_TEST(testStandardContainerRemoveAll);
             CPPUNIT_TEST(testStandardContainerShuffle);
             CPPUNIT_TEST(testStandardContainerReverse);
+
+            CPPUNIT_TEST(testCopying);
           CPPUNIT_TEST_SUITE_END();
         
           public:
@@ -69,6 +71,8 @@ namespace sk {
           protected:
             sk::util::List<sk::util::String>* makeCopyingList();
             sk::util::List<sk::util::String>* makeStoringList();
+
+            void testCopying();
 
           private:
             ArrayListTest(const ArrayListTest& other);

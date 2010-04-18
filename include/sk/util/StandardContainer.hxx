@@ -24,7 +24,10 @@ namespace sk {
     {
       public:
         StandardContainer();
+        StandardContainer(const StandardContainer<T, Policy, Type>& other);
         ~StandardContainer();
+
+        StandardContainer<T, Policy, Type>& operator = (const StandardContainer<T, Policy, Type>& other);
 
         // sk::util::Collection implementation.
         const T& get(const Selector<T>& selector) const;
@@ -129,9 +132,6 @@ namespace sk {
         typename Type::container_t _container;
 
       private:
-        StandardContainer(const StandardContainer<T, Policy, Type>& other);
-        StandardContainer<T, Policy, Type>& operator = (const StandardContainer<T, Policy, Type>& other);
-
         inline typename Type::container_t::iterator position(int index, int tailOffset);
         inline typename Type::container_t::const_iterator position(int index, int tailOffset) const;
 

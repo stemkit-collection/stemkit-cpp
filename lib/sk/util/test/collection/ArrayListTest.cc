@@ -39,3 +39,21 @@ makeStoringList()
   return new sk::util::ArrayList<sk::util::String>::Storing();
 }
 
+void
+sk::util::test::collection::ArrayListTest::
+testCopying()
+{
+  sk::util::ArrayList<sk::util::String>::Copying data;
+  data.add("aaa");
+  data.add("zzz");
+
+  sk::util::ArrayList<sk::util::String>::Copying other(data);
+  CPPUNIT_ASSERT_EQUAL(2, other.size());
+
+  CPPUNIT_ASSERT_EQUAL("aaa, zzz", other.join(", "));
+  other.clear();
+  CPPUNIT_ASSERT_EQUAL(0, other.size());
+
+  other = data;
+  CPPUNIT_ASSERT_EQUAL("aaa, zzz", other.join(", "));
+}

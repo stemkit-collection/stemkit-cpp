@@ -38,9 +38,26 @@ StandardContainer()
 
 template<typename T, typename Policy, typename Type>
 sk::util::StandardContainer<T, Policy, Type>::
+StandardContainer(const sk::util::StandardContainer<T, Policy, Type>& other)
+{
+  Policy::copyCollection(*this, other);
+}
+
+template<typename T, typename Policy, typename Type>
+sk::util::StandardContainer<T, Policy, Type>::
 ~StandardContainer()
 {
   sk::util::Exception::guard(StreamLiner(std::cerr), *this, &StandardContainer<T, Policy, Type>::clear, __FUNCTION__);
+}
+
+template<typename T, typename Policy, typename Type>
+sk::util::StandardContainer<T, Policy, Type>& 
+sk::util::StandardContainer<T, Policy, Type>::
+operator = (const sk::util::StandardContainer<T, Policy, Type>& other)
+{
+  clear();
+  Policy::copyCollection(*this, other);
+  return *this;
 }
 
 template<typename T, typename Policy, typename Type>

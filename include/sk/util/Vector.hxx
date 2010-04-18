@@ -46,10 +46,6 @@ namespace sk {
     
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
-
-      private:
-        Vector(const Vector<T, Policy>& other);
-        Vector<T, Policy>& operator = (const Vector<T, Policy>& other);
     };
   }
 }

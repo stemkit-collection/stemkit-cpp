@@ -32,6 +32,7 @@ namespace sk {
           CPPUNIT_TEST(testPopShift);
           CPPUNIT_TEST(testSlice);
           CPPUNIT_TEST(testMap);
+          CPPUNIT_TEST(testCopy);
         CPPUNIT_TEST_SUITE_END();
         
         public:
@@ -54,6 +55,7 @@ namespace sk {
           void testPopShift();
           void testSlice();
           void testMap();
+          void testCopy();
           
         private:
           StringsTest(const StringsTest& other);

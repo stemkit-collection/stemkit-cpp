@@ -53,10 +53,6 @@ namespace sk {
         
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
-
-      private:
-        ArrayList(const ArrayList<T, Policy>& other);
-        ArrayList<T, Policy>& operator = (const ArrayList<T, Policy>& other);
     };
   }
 }

@@ -12,10 +12,11 @@
 #define _SK_UTIL_PROCESSOR_COPYING_HXX_
 
 #include <sk/util/Processor.h>
-#include <sk/util/Collection.h>
 
 namespace sk {
   namespace util {
+    template<typename T> class Collection;
+
     namespace processor {
       template<typename F, typename T = F>
       class Copying : public virtual sk::util::Processor<const F> {

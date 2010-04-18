@@ -12,9 +12,12 @@
 #include <sk/util/slot/policy/Direct.hxx>
 #include <sk/util/slot/policy/Storing.hxx>
 #include <sk/util/slot/policy/Acceptor.hxx>
+#include <sk/util/processor/Copying.hxx>
 
 namespace sk {
   namespace util {
+    template<typename T> class Collection;
+
     namespace slot {
       namespace policy {
         template<typename T>
@@ -44,6 +47,10 @@ namespace sk {
 
             static void acceptSlot(slot_storage_t& storage, typename Storing<T>::slot_storage_t other) {
               Acceptor<T, Copying<T>, Storing<T> >::acceptSlot(storage, other);
+            }
+
+            static void copyCollection(sk::util::Collection<T>& dest, const sk::util::Collection<T>& source) {
+              source.forEach(sk::util::processor::Copying<T>(dest));
             }
 
           protected:

@@ -53,8 +53,6 @@ namespace sk {
         const sk::util::String inspect() const;
 
       private:
-        void copy(const sk::util::Items<T>& other);
-
         typedef typename sk::util::ArrayList<T>::Copying super_t;
         struct Propagator;
     };

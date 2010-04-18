@@ -35,8 +35,8 @@ Items(const T& item)
 template<typename T>
 sk::util::Items<T>::
 Items(const sk::util::Items<T>& other)
+  : super_t(other)
 {
-  copy(other);
 }
 
 template<typename T>
@@ -50,18 +50,10 @@ sk::util::Items<T>&
 sk::util::Items<T>::
 operator = (const sk::util::Items<T>& other)
 {
-  super_t::clear();
-  copy(other);
+  super_t& item = *this;
+  item = other;
 
   return *this;
-}
-
-template<typename T>
-void
-sk::util::Items<T>::
-copy(const sk::util::Items<T>& other)
-{
-  other.forEach(sk::util::processor::Copying<T>(*this));
 }
 
 template<typename T>
@@ -77,7 +69,7 @@ const sk::util::String
 sk::util::Items<T>::
 toString() const
 {
-  return join("");
+  return join();
 }
 
 template<typename T>

@@ -17,7 +17,7 @@
 
 namespace sk {
   namespace util {
-    template<class T>
+    template<typename T>
     class Collection
       : public virtual sk::util::Object 
     {

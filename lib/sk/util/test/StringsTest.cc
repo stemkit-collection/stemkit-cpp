@@ -251,3 +251,22 @@ testMap()
   CPPUNIT_ASSERT_EQUAL("AAA - BBB - CCC", data.map(sk::util::mapper::Upcasing()).join(" - "));
   CPPUNIT_ASSERT_EQUAL("aaa/bbb/ccc", data.map(sk::util::mapper::Downcasing()).join("/"));
 }
+
+void 
+sk::util::test::StringsTest::
+testCopy()
+{
+  const sk::util::Strings data = sk::util::String("a b c d").split();
+  CPPUNIT_ASSERT_EQUAL(4, data.size());
+
+  sk::util::Strings other = data;
+  CPPUNIT_ASSERT_EQUAL(4, other.size());
+  CPPUNIT_ASSERT_EQUAL("abcd", other.join());
+
+  other.clear();
+  CPPUNIT_ASSERT_EQUAL(0, other.size());
+
+  other = data;
+  CPPUNIT_ASSERT_EQUAL(4, other.size());
+  CPPUNIT_ASSERT_EQUAL("abcd", other.join());
+}
