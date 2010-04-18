@@ -13,6 +13,8 @@
 #include <sk/util/Injector.cxx>
 #include <sk/util/Reducer.h>
 #include <sk/util/reducer/Plus.hxx>
+#include <sk/util/reducer/Max.hxx>
+#include <sk/util/reducer/Min.hxx>
 #include <sk/util/reducer/Multiply.hxx>
 #include <sk/util/reducer/Join.hxx>
 
@@ -63,6 +65,9 @@ testBasics()
 
   CPPUNIT_ASSERT_EQUAL(15, injector.inject(9, sk::util::reducer::Plus<int>()));
   CPPUNIT_ASSERT_EQUAL(12, injector.inject(2, sk::util::reducer::Multiply<int>()));
+
+  CPPUNIT_ASSERT_EQUAL(3, injector.inject(sk::util::reducer::Max<int>()));
+  CPPUNIT_ASSERT_EQUAL(1, injector.inject(sk::util::reducer::Min<int>()));
 
   CPPUNIT_ASSERT_EQUAL(15, injector.inject(9, sk::util::reducer::Join<int>()));
   CPPUNIT_ASSERT_EQUAL(14, injector.inject(sk::util::reducer::Join<int>(4))); // 1 + (4) + 2 + (4) + 3
