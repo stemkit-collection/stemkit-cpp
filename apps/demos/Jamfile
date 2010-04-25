@@ -1,10 +1,10 @@
 # vim: set sw=2:
 
 local tests = 
-  ticker 
-  scope-logging 
-  static-init
-  mass-threads
+  thread-demo
+  scope-demo
+  util-demo
+  io-stream-demo
 ;
 
 local test ;
