@@ -7,12 +7,14 @@ local tests =
   mass-threads
   thread-demo
   scope-demo
+  util-demo
+  io-demo
 ;
 
 local test ;
 for test in $(tests) {
   local program = $(test) ;
 
-  use-project-libraries $(program) : sk.rt.bundle sk.util sk.rt.thread ;
+  use-project-libraries $(program) : sk.rt.bundle sk.net sk.io sk.util sk.rt.thread ;
   make-program $(program) : $(test).cc ;
 }
