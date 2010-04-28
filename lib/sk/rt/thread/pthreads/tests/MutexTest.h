@@ -24,6 +24,8 @@ namespace sk {
           {
             CPPUNIT_TEST_SUITE(sk::rt::thread::pthreads::tests::MutexTest);
               CPPUNIT_TEST(testUnlockFailsOnNonLocked);
+              CPPUNIT_TEST(testLockUnlock);
+              CPPUNIT_TEST(testTryLock);
             CPPUNIT_TEST_SUITE_END();
           
             public:
@@ -33,6 +35,8 @@ namespace sk {
               void setUp();
               void tearDown();
               void testUnlockFailsOnNonLocked();
+              void testLockUnlock();
+              void testTryLock();
           
             private:
               MutexTest(const MutexTest& other);

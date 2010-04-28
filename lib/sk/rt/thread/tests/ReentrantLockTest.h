@@ -25,15 +25,15 @@ namespace sk {
           : public CppUnit::TestFixture
         {
           CPPUNIT_TEST_SUITE(sk::rt::thread::tests::ReentrantLockTest);
-             CPPUNIT_TEST(testBasics);
+             // CPPUNIT_TEST(testBasics);
              CPPUNIT_TEST(testLocking);
-             CPPUNIT_TEST(testSynchronizeFunctionObject);
-             CPPUNIT_TEST(testSynchronizeMethodWithoutParam);
-             CPPUNIT_TEST(testSynchronizeConstMethodWithoutParam);
-             CPPUNIT_TEST(testSynchronizeMethodWithParam);
-             CPPUNIT_TEST(testSynchronizeConstMethodWithParam);
-             CPPUNIT_TEST(testSynchronizeFunctionNamespace);
-             CPPUNIT_TEST(testSynchronizeFunctionExternC);
+             // CPPUNIT_TEST(testSynchronizeFunctionObject);
+             // CPPUNIT_TEST(testSynchronizeMethodWithoutParam);
+             // CPPUNIT_TEST(testSynchronizeConstMethodWithoutParam);
+             // CPPUNIT_TEST(testSynchronizeMethodWithParam);
+             // CPPUNIT_TEST(testSynchronizeConstMethodWithParam);
+             // CPPUNIT_TEST(testSynchronizeFunctionNamespace);
+             // CPPUNIT_TEST(testSynchronizeFunctionExternC);
           CPPUNIT_TEST_SUITE_END();
         
           public:

@@ -98,11 +98,18 @@ reset()
   SK_PTHREAD_RAISE_UNLESS_SUCCESS(pthread_mutex_init(&_mutex, &_attributes));
 }
 
+#include <iostream>
+
 bool
 sk::rt::thread::pthreads::Mutex::
 tryLock()
 {
-  return SK_PTHREAD_RAISE_UNLESS_SUCCESS_OR(EBUSY, pthread_mutex_trylock(&_mutex));
+  std::cerr << ">>> pthread::Mutex: tryLock() in" << std::endl;
+  // bool status = SK_PTHREAD_RAISE_UNLESS_SUCCESS_OR(sk::util::Integers() << EBUSY << EDEADLK, pthread_mutex_trylock(&_mutex));
+
+  int status =  pthread_mutex_trylock(&_mutex);
+  std::cerr << ">>> pthread::Mutex: tryLock() out, status=" << status << std::endl;
+  return status == 0;
 }
 
 bool

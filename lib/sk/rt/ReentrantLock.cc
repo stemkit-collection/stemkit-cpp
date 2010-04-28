@@ -42,18 +42,22 @@ getClass() const
   return sk::util::Class(__className);
 }
 
+#include <iostream>
+
 void
 sk::rt::ReentrantLock::
 lock()
 {
   thread::AbstractLock::lock();
   processLocked();
+  std::cerr << ">>> lock(), counter=" << _counter << std::endl;
 }
 
 bool
 sk::rt::ReentrantLock::
 tryLock()
 {
+  std::cerr << ">>> tryLock(), counter=" << _counter << std::endl;
   if(thread::AbstractLock::tryLock() == true) {
     processLocked();
     return true;
@@ -65,6 +69,7 @@ void
 sk::rt::ReentrantLock::
 processLocked()
 {
+  std::cerr << ">>> processLocked(), counter=" << _counter << std::endl;
   ++_counter;
 }
 
@@ -72,9 +77,11 @@ void
 sk::rt::ReentrantLock::
 processUnlocked()
 {
+  std::cerr << ">>> processUnlocked(in), counter=" << _counter << std::endl;
   if(_counter > 0) {
     --_counter;
   }
+  std::cerr << ">>> processUnlocked(out), counter=" << _counter << std::endl;
 }
 
 void
@@ -82,10 +89,15 @@ sk::rt::ReentrantLock::
 unlock()
 {
   if(thread::AbstractLock::tryLock() == true) {
+    std::cerr << ">>> tryLock() successful" << std::endl;
     processUnlocked();
     thread::AbstractLock::unlock();
   }
+  else {
+    std::cerr << ">>> tryLock() failed" << std::endl;
+  }
   thread::AbstractLock::unlock();
+  std::cerr << ">>> unlock(), counter=" << _counter << std::endl;
 }
 
 bool

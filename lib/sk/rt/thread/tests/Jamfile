@@ -7,11 +7,11 @@ local test-areas =
 
 local general-objects = 
   TestSuite.cc
-  ThreadTest.cc
-  DispatcherTest.cc
-  MutexTest.cc
+  # ThreadTest.cc
+  # DispatcherTest.cc
+  # MutexTest.cc
   ReentrantLockTest.cc
-  LockerTest.cc
+  # LockerTest.cc
 ;
 
 local static-objects =

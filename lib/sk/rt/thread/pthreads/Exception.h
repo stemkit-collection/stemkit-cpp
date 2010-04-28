@@ -12,6 +12,7 @@
 #define _SK_RT_THREAD_PTHREADS_EXCEPTION_H_
 
 #include <sk/rt/SystemException.h>
+#include <sk/util/Integers.h>
 
 namespace sk {
   namespace rt {
@@ -24,7 +25,8 @@ namespace sk {
             Exception(const sk::util::String& function, int code);
             virtual ~Exception() throw();
         
-            static bool raiseUnlessSuccess(const sk::util::String& statement, int status, int other = 0);
+            static bool raiseUnlessSuccess(const sk::util::String& statement, int status);
+            static bool raiseUnlessSuccess(const sk::util::String& statement, int status, const sk::util::Integers& others);
             const sk::util::String getFunctionName() const;
 
             // sk::util::Object re-implementation.
