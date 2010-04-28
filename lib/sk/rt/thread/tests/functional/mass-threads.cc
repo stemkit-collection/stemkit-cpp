@@ -57,6 +57,4 @@ void perform()
   thread.detach();
 
   sk::rt::Thread::sleep(10);
-
-  // thread.join();
 }

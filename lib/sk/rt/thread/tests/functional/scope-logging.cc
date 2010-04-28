@@ -61,6 +61,11 @@ namespace {
       thread.start();
     }
   };
+  struct Stopper : public virtual sk::util::Processor<sk::rt::Thread> {
+    void process(sk::rt::Thread& thread) const {
+      thread.stop();
+    }
+  };
   struct Joiner : public virtual sk::util::Processor<sk::rt::Thread> {
     void process(sk::rt::Thread& thread) const {
       thread.join();
@@ -91,5 +96,9 @@ void perform()
   threads.add(new sk::rt::Thread(new Block("eee")));
 
   threads.forEach(Starter());
-  threads.forEach(Joiner());
+
+  sk::rt::Thread::sleep(10000);
+  threads.forEach(Stopper());
+
+  // threads.forEach(Joiner());
 }
