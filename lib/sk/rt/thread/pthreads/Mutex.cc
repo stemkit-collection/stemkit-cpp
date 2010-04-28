@@ -102,7 +102,7 @@ bool
 sk::rt::thread::pthreads::Mutex::
 tryLock()
 {
-  return SK_PTHREAD_RAISE_UNLESS_SUCCESS_OR(EBUSY, pthread_mutex_trylock(&_mutex));
+  return SK_PTHREAD_RAISE_UNLESS_SUCCESS_OR(sk::util::Integers() << EBUSY << EDEADLK, pthread_mutex_trylock(&_mutex));
 }
 
 bool
