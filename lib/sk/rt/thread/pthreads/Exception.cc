@@ -35,25 +35,15 @@ getClass() const
 
 bool
 sk::rt::thread::pthreads::Exception::
-raiseUnlessSuccess(const sk::util::String& statement, int status)
+raiseUnlessSuccess(const sk::util::String& statement, int status, int other)
 {
-  if(status == 0) {
-    return true;
+  if(status != 0) {
+    if(status == other) {
+      return false;
+    }
+    throw Exception(statement.substring(0, statement.indexOf('(')).trim(), status);
   }
-  throw Exception(statement.substring(0, statement.indexOf('(')).trim(), status);
-}
-
-bool
-sk::rt::thread::pthreads::Exception::
-raiseUnlessSuccess(const sk::util::String& statement, int status, const sk::util::Integers& others)
-{
-  if(status == 0) {
-    return true;
-  }
-  if(others.contains(status)) {
-    return false;
-  }
-  return raiseUnlessSuccess(statement, status);
+  return true;
 }
 
 const sk::util::String

@@ -188,7 +188,6 @@ namespace {
   };
 
   int start_process_with_redirect(const Configurator& configurator, const sk::rt::Environment& environment, const sk::util::Strings& cmdline) {
-    sk::rt::Scope scope(__FUNCTION__);
     sk::rt::Locker locker(__mutexHolder.getMutable());
 
     std::vector<char*> arguments;
@@ -216,9 +215,7 @@ namespace {
       stderrDescriptor.reopen(configurator.errorStreamHolder.get().getFileDescriptor());
     }
 
-    scope.notice() << "_NutForkExecvpe()";
     int pid = ::_NutForkExecvpe(arguments[0], &arguments[0], &environment_references[0]);
-    scope.notice() << "_NutForkExecvpe() done";
 
     stdinDescriptor.reopen(savedStdinDescriptor);
     stdoutDescriptor.reopen(savedStdoutDescriptor);

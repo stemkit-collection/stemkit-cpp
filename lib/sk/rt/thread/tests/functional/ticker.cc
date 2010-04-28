@@ -13,7 +13,6 @@
 #include <sk/rt/Thread.h>
 
 #include <sk/rt/ReentrantLock.h>
-#include <sk/rt/Mutex.h>
 #include <sk/util/ArrayList.cxx>
 
 #include <unistd.h>
@@ -23,8 +22,6 @@ void perform();
 
 int main(int /*argc*/, const char* /*argv*/[])
 {
-  sk::rt::Thread::setup();
-
   sk::rt::Scope::controller().loadXmlConfig(
     sk::rt::config::InlineLocator("\n\
       <scope name='app'>\n\
@@ -37,13 +34,10 @@ int main(int /*argc*/, const char* /*argv*/[])
       </scope>\n\
     ")
   );
-  sk::rt::Scope scope("main");
 
   perform();
 
-  scope.info() << "DONE";
   sk::rt::Thread::reset();
-  scope.info() << "RESET";
 }
 
 namespace {
@@ -77,11 +71,6 @@ namespace {
       sk::rt::Thread::sleep(1000);
     }
   };
-  struct Stopper : public virtual sk::util::Processor<sk::rt::Thread> {
-    void process(sk::rt::Thread& thread) const {
-      thread.stop();
-    }
-  };
   struct Joiner : public virtual sk::util::Processor<sk::rt::Thread> {
     void process(sk::rt::Thread& thread) const {
       thread.join();
@@ -102,9 +91,6 @@ void perform()
   threads.add(new sk::rt::Thread(new Block("ccc", lock)));
 
   threads.forEach(Starter());
-  // threads.forEach(Joiner());
-
-  sleep(10);
-  threads.forEach(Stopper());
+  threads.forEach(Joiner());
 }
 
