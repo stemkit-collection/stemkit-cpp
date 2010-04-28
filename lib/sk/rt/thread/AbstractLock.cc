@@ -57,6 +57,13 @@ registerOwnership()
 
 bool
 sk::rt::thread::AbstractLock::
+isLastOwner() const
+{
+  return _lastOwner == sk::rt::Thread::currentThread().getId();
+}
+
+bool
+sk::rt::thread::AbstractLock::
 tryLock()
 {
   if(_mutexHolder.getMutable().tryLock() == true) {
@@ -82,13 +89,13 @@ reset()
 
 bool
 sk::rt::thread::AbstractLock::
-tryLockCheck() const
+canLock() const
 {
   if(_mutexHolder.getMutable().tryLock() == true) {
     _mutexHolder.getMutable().unlock();
-    return false;
+    return true;
   }
-  return true;
+  return false;
 }
 
 void

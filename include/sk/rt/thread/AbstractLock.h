@@ -40,7 +40,9 @@ namespace sk {
         protected:
           AbstractLock(platform::Mutex* mutex, bool ownership);
 
-          bool tryLockCheck() const;
+          bool canLock() const;
+          bool isLastOwner() const;
+
           virtual void collectInspectInfo(std::ostream& stream) const;
 
         private:

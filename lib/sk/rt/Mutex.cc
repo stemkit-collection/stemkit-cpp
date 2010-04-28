@@ -44,5 +44,5 @@ bool
 sk::rt::Mutex::
 isLocked() const
 {
-  return tryLockCheck();
+  return canLock() ? false : true;
 }
