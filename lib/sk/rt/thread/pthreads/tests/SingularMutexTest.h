@@ -8,8 +8,8 @@
  *  Author: Gennady Bystritsky
 */
 
-#ifndef _SK_RT_THREAD_PTHREADS_TESTS_MUTEXTEST_H_
-#define _SK_RT_THREAD_PTHREADS_TESTS_MUTEXTEST_H_
+#ifndef _SK_RT_THREAD_PTHREADS_TESTS_SINGULARMUTEXTEST_H_
+#define _SK_RT_THREAD_PTHREADS_TESTS_SINGULARMUTEXTEST_H_
 
 #include <cppunit/TestFixture.h>
 #include <cppunit/extensions/HelperMacros.h>
@@ -19,18 +19,18 @@ namespace sk {
     namespace thread {
       namespace pthreads {
         namespace tests {
-          class MutexTest
+          class SingularMutexTest
             : public CppUnit::TestFixture
           {
-            CPPUNIT_TEST_SUITE(sk::rt::thread::pthreads::tests::MutexTest);
+            CPPUNIT_TEST_SUITE(sk::rt::thread::pthreads::tests::SingularMutexTest);
               CPPUNIT_TEST(testUnlockFailsOnNonLocked);
               CPPUNIT_TEST(testLockUnlock);
               CPPUNIT_TEST(testTryLock);
             CPPUNIT_TEST_SUITE_END();
           
             public:
-              MutexTest();
-              virtual ~MutexTest();
+              SingularMutexTest();
+              virtual ~SingularMutexTest();
           
               void setUp();
               void tearDown();
@@ -39,8 +39,8 @@ namespace sk {
               void testTryLock();
           
             private:
-              MutexTest(const MutexTest& other);
-              MutexTest& operator = (const MutexTest& other);
+              SingularMutexTest(const SingularMutexTest& other);
+              SingularMutexTest& operator = (const SingularMutexTest& other);
           };
         }
       }
@@ -48,4 +48,4 @@ namespace sk {
   }
 }
 
-#endif /* _SK_RT_THREAD_PTHREADS_TESTS_MUTEXTEST_H_ */
+#endif /* _SK_RT_THREAD_PTHREADS_TESTS_SINGULARMUTEXTEST_H_ */

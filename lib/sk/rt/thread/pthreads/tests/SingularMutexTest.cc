@@ -8,38 +8,38 @@
  *  Author: Gennady Bystritsky
 */
 
-#include "MutexTest.h"
+#include "SingularMutexTest.h"
 #include "../Mutex.h"
 #include "../Exception.h"
 #include <sk/util/Holder.cxx>
 #include <errno.h>
 
-CPPUNIT_TEST_SUITE_REGISTRATION(sk::rt::thread::pthreads::tests::MutexTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(sk::rt::thread::pthreads::tests::SingularMutexTest);
 
-sk::rt::thread::pthreads::tests::MutexTest::
-MutexTest()
+sk::rt::thread::pthreads::tests::SingularMutexTest::
+SingularMutexTest()
 {
 }
 
-sk::rt::thread::pthreads::tests::MutexTest::
-~MutexTest()
+sk::rt::thread::pthreads::tests::SingularMutexTest::
+~SingularMutexTest()
 {
 }
 
 void
-sk::rt::thread::pthreads::tests::MutexTest::
+sk::rt::thread::pthreads::tests::SingularMutexTest::
 setUp()
 {
 }
 
 void
-sk::rt::thread::pthreads::tests::MutexTest::
+sk::rt::thread::pthreads::tests::SingularMutexTest::
 tearDown()
 {
 }
 
 void
-sk::rt::thread::pthreads::tests::MutexTest::
+sk::rt::thread::pthreads::tests::SingularMutexTest::
 testUnlockFailsOnNonLocked()
 {
   sk::util::Holder<Mutex> _mutexHolder(pthreads::Mutex::makeSingular());
@@ -54,7 +54,7 @@ testUnlockFailsOnNonLocked()
 }
 
 void
-sk::rt::thread::pthreads::tests::MutexTest::
+sk::rt::thread::pthreads::tests::SingularMutexTest::
 testLockUnlock()
 {
   sk::util::Holder<Mutex> _mutexHolder(pthreads::Mutex::makeSingular());
@@ -68,7 +68,7 @@ testLockUnlock()
 }
 
 void 
-sk::rt::thread::pthreads::tests::MutexTest::
+sk::rt::thread::pthreads::tests::SingularMutexTest::
 testTryLock()
 {
   sk::util::Holder<Mutex> _mutexHolder(pthreads::Mutex::makeSingular());

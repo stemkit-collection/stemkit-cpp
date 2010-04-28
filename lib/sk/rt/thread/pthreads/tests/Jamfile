@@ -4,7 +4,8 @@ local test = sk-rt-pthreads-test ;
 
 local objects = 
   TestSuite.cc
-  MutexTest.cc
+  SingularMutexTest.cc
+  RecursiveMutexTest.cc
 ;
 
 use-project-libraries $(test) : sk.rt.bundle sk.util sk.cppunit ;
