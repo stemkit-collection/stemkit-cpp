@@ -102,6 +102,10 @@ bool
 sk::rt::thread::pthreads::Mutex::
 tryLock()
 {
+  // 2010-04-28 ATTENTION: pthread_mutex_trylock() is broken under MKS Toolkit
+  // on Windows - on recursive locks it returns EDEADLK on all invocations
+  // with the mutex already locked by the current thread.
+  //
   return SK_PTHREAD_RAISE_UNLESS_SUCCESS_OR(sk::util::Integers() << EBUSY << EDEADLK, pthread_mutex_trylock(&_mutex));
 }
 
