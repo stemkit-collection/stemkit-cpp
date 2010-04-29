@@ -20,7 +20,6 @@ namespace sk {
     {
       public:
         ReentrantLock();
-        ReentrantLock(bool ownership);
         virtual ~ReentrantLock();
 
         bool isLocked() const;
@@ -42,7 +41,6 @@ namespace sk {
         ReentrantLock& operator = (const ReentrantLock& other);
 
         void processLocked();
-        void processUnlocked();
 
         int _counter;
     };

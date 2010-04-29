@@ -29,4 +29,4 @@ add-project-library $(library) : $(library).$(PLATFORM_IMPLEMENTATION) ;
 add-project-library $(library) : $(library).bm ;
 
 make-subdirs scope logger config bundle tests ;
-make-subdirs thread bm test ;
+make-subdirs thread bm test performance ;

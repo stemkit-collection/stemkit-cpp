@@ -24,13 +24,6 @@ ReentrantLock()
 }
 
 sk::rt::ReentrantLock::
-ReentrantLock(bool ownership)
-  : thread::AbstractLock(thread::Implementation::instance().makeRecursiveMutex(), ownership),
-    _counter(0)
-{
-}
-
-sk::rt::ReentrantLock::
 ~ReentrantLock()
 {
 }
@@ -54,6 +47,10 @@ bool
 sk::rt::ReentrantLock::
 tryLock()
 {
+  if(isLastOwner() && _counter > 0) {
+    lock();
+    return true;
+  }
   if(thread::AbstractLock::tryLock() == true) {
     processLocked();
     return true;
@@ -70,20 +67,10 @@ processLocked()
 
 void
 sk::rt::ReentrantLock::
-processUnlocked()
-{
-  if(_counter > 0) {
-    --_counter;
-  }
-}
-
-void
-sk::rt::ReentrantLock::
 unlock()
 {
-  if(thread::AbstractLock::tryLock() == true) {
-    processUnlocked();
-    thread::AbstractLock::unlock();
+  if(isLastOwner() && _counter > 0) {
+    --_counter;
   }
   thread::AbstractLock::unlock();
 }
