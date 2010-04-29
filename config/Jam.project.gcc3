@@ -66,6 +66,8 @@ rule platform-nt-x86-win32
   JAVAC = [ util.make-path $(project.JAVA_HOME) bin javac.exe ] ;
   JAR = [ util.make-path $(project.JAVA_HOME) bin jar.exe ] ;
   SWIG = [ util.make-path $(TOOLS_HOME) swigwin-1.3.35 swig.exe ] ;
+
+  windows.EXTRA_SYSLIBS = ws2_32 ;
 }
 
 rule platform-nt-x86-mks32
@@ -119,7 +121,7 @@ rule platform-nt-x86
 
   LINKER_FLAGS += /STACK:9000000 /MACHINE:X86 /NODEFAULTLIB:LIBCMT.LIB /NODEFAULTLIB:LIBCP.LIB /DEBUG ;
   DEFINES += NDEBUG WINVER=0x0501 _WIN32_WINNT=0x0501 _USE_32BIT_TIME_T _LARGEFILE64_SOURCE ;
-  SYSLIBS = shlwapi advapi32 user32 psapi ;
+  SYSLIBS = shlwapi advapi32 user32 psapi $(windows.EXTRA_SYSLIBS) ;
 }
 
 rule platform-linux-x86
