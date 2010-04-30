@@ -17,19 +17,25 @@
 #include <sk/rt/Scope.h>
 #include <sk/rt/config/InlineLocator.h>
 
+#include <sk/rt/Thread.h>
+#include <sk/sys/Process.h>
+
 int main(int argc, const char* argv[])
 {
   try {
     sk::rt::Scope::controller().loadXmlConfig(
       sk::rt::config::InlineLocator("\n\
         <scope>\n\
-          <log destination='std::cerr' level='info' />\n\
+          <log destination='std::cerr' level='debug' />\n\
           <scope name='thread-exception-handler'>\n\
             <property name='abort-on-exception' value='true' />\n\
           </scope>\n\
         </scope>\n\
       ")
     );
+    sk::rt::Thread::setup();
+    sk::sys::Process::setup();
+
     test::Spawner app(argc, argv);
     app.start();
   }
@@ -42,4 +48,6 @@ int main(int argc, const char* argv[])
   catch(...) {
     std::cerr << "Unknown error" << std::endl;
   }
+  sk::sys::Process::reset();
+  sk::rt::Thread::reset();
 }

@@ -24,4 +24,4 @@ make-program write-to-stream : write-to-stream.cc ;
 use-unit-test $(test) $(objects) ;
 make-cpp-test $(test) : $(objects) ;
 
-make-subdirs process-spawner process-keeper ;
+make-subdirs process-spawner process-keeper process-handler ;
