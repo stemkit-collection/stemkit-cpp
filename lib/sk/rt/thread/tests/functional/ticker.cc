@@ -48,7 +48,7 @@ namespace {
     void run() {
       while(true) {
         _lock.synchronize(*this, &Block::tick);
-        sk::rt::Thread::sleep(2000);
+        sk::rt::Thread::sleep(1000);
       }
     }
 
@@ -68,7 +68,6 @@ namespace {
   struct Starter : public virtual sk::util::Processor<sk::rt::Thread> {
     void process(sk::rt::Thread& thread) const {
       thread.start();
-      sk::rt::Thread::sleep(1000);
     }
   };
   struct Stopper : public virtual sk::util::Processor<sk::rt::Thread> {
@@ -88,12 +87,9 @@ void perform()
   sk::rt::ReentrantLock lock;
   sk::util::ArrayList<sk::rt::Thread> threads;
 
-  threads.add(new sk::rt::Thread(new Block("aaa", lock)));
-  threads.add(new sk::rt::Thread(new Block("bbb", lock)));
-  threads.add(new sk::rt::Thread(new Block("ccc", lock)));
-  threads.add(new sk::rt::Thread(new Block("ccc", lock)));
-  threads.add(new sk::rt::Thread(new Block("ccc", lock)));
-  threads.add(new sk::rt::Thread(new Block("ccc", lock)));
+  for(int counter=50; counter; --counter) {
+    threads.add(new sk::rt::Thread(new Block("t" + sk::util::String::valueOf(counter), lock)));
+  }
 
   threads.forEach(Starter());
   sk::rt::Thread::sleep(10000);
