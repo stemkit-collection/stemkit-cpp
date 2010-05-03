@@ -30,3 +30,5 @@ for _program in $(programs) {
   make-program $(_program) : $(_program).cc ;
 }
 
+make-program printcmd : print-command-line.c ;
+
