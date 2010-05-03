@@ -1,0 +1,2 @@
+
+make-program direct-fork : direct-fork.cc ;
