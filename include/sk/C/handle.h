@@ -50,6 +50,9 @@ class sk_c_handle
     static void ensure_proper(const struct sk_c_handle* handle);
     static void ensure_not_null(const struct sk_c_handle* handle);
 
+  protected:
+    virtual bool hasObject() const = 0;
+
   private:
     bool isValid(const struct sk_c_handle* handle) const;
     static void ensure_valid(const struct sk_c_handle* handle);

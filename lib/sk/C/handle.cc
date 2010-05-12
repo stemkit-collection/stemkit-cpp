@@ -30,6 +30,10 @@ namespace {
     abort();
   }
 
+  void abort_on_object_not_available() {
+    abort();
+  }
+
   bool is_test_c_handle() {
     static bool flag = (getenv("SK_TEST_C_HANDLE") != 0);
     return flag;
@@ -135,6 +139,9 @@ ensure_proper(const sk_c_handle* handle)
     sk::C::debug::error_message = handle->errorMessage().getChars();
 
     abort_on_error_not_cleared();
+  }
+  if(handle->hasObject() == false) {
+    abort_on_object_not_available();
   }
 }
 

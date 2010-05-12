@@ -32,6 +32,9 @@ namespace sk {
         template<typename F, typename R>
         R invoke(const sk::util::Mapper<F, R>& mapper) const;
         
+      protected:
+        bool hasObject() const;
+
       private:
         abstract_handle(const abstract_handle<T>& other);
         abstract_handle& operator = (const abstract_handle<T>& other);

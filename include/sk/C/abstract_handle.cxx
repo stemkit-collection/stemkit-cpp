@@ -62,10 +62,19 @@ clear()
 {
   if(_object != 0 && _owner == true) {
     delete _object;
-    _object = 0;
   }
+  _owner = false;
+  _object = 0;
 }
   
+template<class T>
+bool
+sk::C::abstract_handle<T>::
+hasObject() const
+{
+  return _object != 0;
+}
+
 template<class T>
 T&
 sk::C::abstract_handle<T>::
