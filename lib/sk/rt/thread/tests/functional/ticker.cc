@@ -22,6 +22,8 @@ void perform();
 
 int main(int /*argc*/, const char* /*argv*/[])
 {
+  sk::rt::Thread::setup();
+
   sk::rt::Scope::controller().loadXmlConfig(
     sk::rt::config::InlineLocator("\n\
       <scope name='app'>\n\
