@@ -257,10 +257,15 @@ rule platform-macos-leopard
 
 rule platform-solaris-sparc
 {
+  switch $(BUILD_ABI) {
+    case 32 : CC_ABI_FLAGS = ;
+    case 64 : CC_ABI_FLAGS = -m64 ; BUILD_ABILIB = lib64 ;
+    case * : exit Please set BUILD_ABI to either 32 or 64 ;
+  }
   util.delete-from project.DO_NOT_BUILD : ruby java ;
 
-  C++FLAGS += -fPIC ;
-  CCFLAGS += -fPIC ;
+  C++FLAGS += $(CC_ABI_FLAGS) -fPIC ;
+  CCFLAGS += $(CC_ABI_FLAGS) -fPIC ;
   DEFINES += _FILE_OFFSET_BITS=64 _POSIX_PTHREAD_SEMANTICS ;
   INCLUDES += [ util.make-path $(system.SRCTOP) platform include solaris ] ;
   SYSLIBS = socket nsl gen rt ;
