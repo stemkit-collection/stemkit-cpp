@@ -63,11 +63,16 @@ collect(const char* buffer, size_t length)
   if(amount > length) {
     amount = length;
   }
-  std::copy(buffer, buffer + amount, &_buffer[_amount]);
-  _amount += amount;
+  if(amount == _size) {
+    writeFully(buffer, amount);
+  }
+  else {
+    std::copy(buffer, buffer + amount, &_buffer[_amount]);
+    _amount += amount;
 
-  if(_amount == _size) {
-    flushBuffer();
+    if(_amount == _size) {
+      flushBuffer();
+    }
   }
   return amount;
 }
@@ -76,8 +81,15 @@ void
 sk::io::BufferedOutputStream::
 flushBuffer()
 {
-  for(int index = 0; index < _amount; index += _stream.write(&_buffer[0], index, _amount - index));
+  writeFully(&_buffer[0], _amount);
   _amount = 0;
+}
+
+void
+sk::io::BufferedOutputStream::
+writeFully(const char* buffer, size_t length)
+{
+  for(int index = 0; index < length; index += _stream.write(buffer, index, length - index));
 }
 
 void 

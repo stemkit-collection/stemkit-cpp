@@ -27,6 +27,7 @@ namespace sk {
           CPPUNIT_TEST(testBuffer);
           CPPUNIT_TEST(testFlushOnClose);
           CPPUNIT_TEST(testWriteLargerChunk);
+          CPPUNIT_TEST(testWriteLargerChunkAfterSmall);
           CPPUNIT_TEST(testNoBuffer);
           CPPUNIT_TEST(testBufferLimitedWrite);
           CPPUNIT_TEST(testZeroWrite);
@@ -41,6 +42,7 @@ namespace sk {
           void testBuffer();
           void testFlushOnClose();
           void testWriteLargerChunk();
+          void testWriteLargerChunkAfterSmall();
           void testNoBuffer();
           void testBufferLimitedWrite();
           void testZeroWrite();

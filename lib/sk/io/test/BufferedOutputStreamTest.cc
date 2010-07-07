@@ -98,6 +98,24 @@ testWriteLargerChunk()
   CPPUNIT_ASSERT_EQUAL(sk::util::String("90").inspect(), mock().chunk(2).inspect());
 }
 
+void
+sk::io::test::BufferedOutputStreamTest::
+testWriteLargerChunkAfterSmall()
+{
+  _streamHolder.set(new BufferedOutputStream(mock(), 4));
+
+  CPPUNIT_ASSERT_EQUAL(2, stream().write(sk::util::Container("aa")));
+  CPPUNIT_ASSERT_EQUAL(12, stream().write(sk::util::Container("1234567890zz")));
+  CPPUNIT_ASSERT_EQUAL(3, mock().chunks());
+  CPPUNIT_ASSERT_EQUAL(12, mock().dataSize());
+  stream().flush();
+  CPPUNIT_ASSERT_EQUAL(4, mock().chunks());
+  CPPUNIT_ASSERT_EQUAL(sk::util::String("aa12").inspect(), mock().chunk(0).inspect());
+  CPPUNIT_ASSERT_EQUAL(sk::util::String("3456").inspect(), mock().chunk(1).inspect());
+  CPPUNIT_ASSERT_EQUAL(sk::util::String("7890").inspect(), mock().chunk(2).inspect());
+  CPPUNIT_ASSERT_EQUAL(sk::util::String("zz").inspect(), mock().chunk(3).inspect());
+}
+
 void 
 sk::io::test::BufferedOutputStreamTest::
 testNoBuffer()

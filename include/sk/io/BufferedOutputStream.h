@@ -35,6 +35,7 @@ namespace sk {
         BufferedOutputStream& operator = (const BufferedOutputStream& other);
 
         void flushBuffer();
+        void writeFully(const char* buffer, size_t length);
         int collect(const char* buffer, size_t length);
 
         size_t _size;
