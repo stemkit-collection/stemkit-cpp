@@ -102,15 +102,15 @@ void
 sk::io::test::BufferedOutputStreamTest::
 testNoBuffer()
 {
-  _streamHolder.set(new BufferedOutputStream(mock(), 0));
+  _streamHolder.set(new BufferedOutputStream(mock(), 1));
   mock().setDataLimit(3);
 
   CPPUNIT_ASSERT_EQUAL(7, stream().write(sk::util::Container("abcdefg")));
-  CPPUNIT_ASSERT_EQUAL(3, mock().chunks());
+  CPPUNIT_ASSERT_EQUAL(7, mock().chunks());
   CPPUNIT_ASSERT_EQUAL(sk::util::String("abcdefg").inspect(), mock().data().inspect());
 
   stream().flush();
-  CPPUNIT_ASSERT_EQUAL(3, mock().chunks());
+  CPPUNIT_ASSERT_EQUAL(7, mock().chunks());
 }
 
 void
@@ -121,19 +121,20 @@ testBufferLimitedWrite()
   mock().setDataLimit(3);
 
   CPPUNIT_ASSERT_EQUAL(7, stream().write(sk::util::Container("abcdefg")));
-  CPPUNIT_ASSERT_EQUAL(1, mock().chunks());
+  CPPUNIT_ASSERT_EQUAL(2, mock().chunks());
   CPPUNIT_ASSERT_EQUAL(3, mock().chunk(0).size());
+  CPPUNIT_ASSERT_EQUAL(2, mock().chunk(1).size());
 
   stream().write('z');
   CPPUNIT_ASSERT_EQUAL(2, mock().chunks());
   stream().flush();
   CPPUNIT_ASSERT_EQUAL(3, mock().chunks());
-  CPPUNIT_ASSERT_EQUAL(3, mock().chunk(1).size());
-  CPPUNIT_ASSERT_EQUAL(2, mock().chunk(2).size());
+  CPPUNIT_ASSERT_EQUAL(2, mock().chunk(1).size());
+  CPPUNIT_ASSERT_EQUAL(3, mock().chunk(2).size());
 
   CPPUNIT_ASSERT_EQUAL(sk::util::String("abc").inspect(), mock().chunk(0).inspect());
-  CPPUNIT_ASSERT_EQUAL(sk::util::String("def").inspect(), mock().chunk(1).inspect());
-  CPPUNIT_ASSERT_EQUAL(sk::util::String("gz").inspect(), mock().chunk(2).inspect());
+  CPPUNIT_ASSERT_EQUAL(sk::util::String("de").inspect(), mock().chunk(1).inspect());
+  CPPUNIT_ASSERT_EQUAL(sk::util::String("fgz").inspect(), mock().chunk(2).inspect());
 }
 
 void

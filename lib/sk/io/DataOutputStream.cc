@@ -112,9 +112,5 @@ writeFully(const char* buffer, int length)
     throw sk::util::NullPointerException(SK_METHOD);
   }
   sk::io::OutputStream& stream = getOutputStream();
-  int offset = 0;
-
-  while(offset < length) {
-    offset += stream.write(buffer, offset, length - offset);
-  }
+  for(int offset = 0; offset < length; offset += stream.write(buffer, offset, length - offset));
 }
