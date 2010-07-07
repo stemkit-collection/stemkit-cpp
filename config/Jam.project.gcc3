@@ -385,12 +385,6 @@ CC ?= $(GCC_ROOT)/bin/gcc ;
 SWIG ?= $(TOOLS_HOME)/swig-$(SWIG_VERSION)/bin/swig ;
 
 BUILD_ABILIB ?= lib ;
-LIBDIRS += $(GCC_ROOT)/$(BUILD_ABILIB) ;
-
-if $(BUILD_ABI) != lib {
-  LIBDIRS += $(GCC_ROOT)/lib ;
-}
-
 CCOFLAGS ?= -O2 -fno-guess-branch-probability ;
 DLLFLAGS ?= -shared ;
 
