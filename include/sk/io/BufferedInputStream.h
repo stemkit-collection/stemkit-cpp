@@ -9,7 +9,7 @@
 #define _SK_IO_BUFFEREDINPUTSTREAM_
 
 #include <sk/io/DelegatingInputStream.h>
-#include <sk/util/Container.h>
+#include <vector>
 
 namespace sk {
   namespace io {
@@ -33,7 +33,10 @@ namespace sk {
         BufferedInputStream& operator = (const BufferedInputStream& other);
 
         int _size;
-        sk::util::Container _container;
+        int _amount;
+        int _offset;
+        std::vector<char> _buffer;
+        sk::io::InputStream& _stream;
     };
   }
 }

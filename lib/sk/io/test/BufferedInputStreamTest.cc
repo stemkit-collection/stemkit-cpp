@@ -61,6 +61,7 @@ testBuffer()
   CPPUNIT_ASSERT_EQUAL(2, mock().chunks());
   CPPUNIT_ASSERT_EQUAL(4, mock().chunk(1).size());
 
-  CPPUNIT_ASSERT_EQUAL(sk::util::Container("67890").inspect(), sk::util::Container(stream().read(10)).inspect());
+  CPPUNIT_ASSERT_EQUAL(sk::util::Container("678").inspect(), sk::util::Container(stream().read(10)).inspect());
+  CPPUNIT_ASSERT_EQUAL(sk::util::Container("90").inspect(), sk::util::Container(stream().read(10)).inspect());
   CPPUNIT_ASSERT_THROW(stream().read(), sk::io::EOFException);
 }

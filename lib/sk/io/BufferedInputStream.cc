@@ -1,4 +1,5 @@
-/*  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
+/*  vi: sw=2:
+ *  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
  *  
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
@@ -10,17 +11,16 @@
 
 #include <sk/io/BufferedInputStream.h>
 #include <sk/io/EOFException.h>
-#include <iostream>
 
 sk::io::BufferedInputStream::
 BufferedInputStream(sk::io::InputStream& stream)
-  : DelegatingInputStream(stream), _size(1024)
+  : DelegatingInputStream(stream), _size(1024), _amount(0), _offset(0), _buffer(_size, 0), _stream(getInputStream())
 {
 }
 
 sk::io::BufferedInputStream::
 BufferedInputStream(sk::io::InputStream& stream, int size)
-  : DelegatingInputStream(stream), _size(std::max(0, size))
+  : DelegatingInputStream(stream), _size(std::max(1, size)), _amount(0), _offset(0), _buffer(_size, 0), _stream(getInputStream())
 {
 }
 
@@ -43,23 +43,23 @@ read(char* buffer, int offset, int size)
   if(size <= 0) {
     return 0;
   }
-  try {
-    std::vector<char> depot(_size, 0);
-
-    while(_container.size() < size) {
-      int n = filterReadEvents(DelegatingInputStream::read(&depot[0], 0, _size));
-      _container.insert(_container.end(), depot.begin(), depot.begin() + n);
-    }
+  if(buffer == 0) {
+    throw sk::util::NullPointerException(SK_METHOD);
   }
-  catch(const sk::io::EOFException& excepion) {}
-
-  if(_container.isEmpty() == true) {
-    return filterReadEvents(0);
+  if(offset < 0) {
+    offset = 0;
   }
-  int outstanding = std::min(_container.size(), size);
 
-  std::copy(_container.begin(), _container.begin() + outstanding, buffer + offset);
-  _container.erase(_container.begin(), _container.begin() + outstanding);
+  int available = _amount - _offset;
+  if(available == 0) {
+    _amount = filterReadEvents(_stream.read(&_buffer[0], 0, _size));
+    _offset = 0;
+    available = _amount;
+  }
+  int amount = std::min(available, size);
 
-  return outstanding;
+  std::copy(_buffer.begin() + _offset, _buffer.begin() + _offset + amount, buffer + offset);
+  _offset += amount;
+
+  return amount;
 }
