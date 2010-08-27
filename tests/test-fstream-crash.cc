@@ -7,8 +7,6 @@
 */
 
 #include <iostream>
- 
-#include <sk/util/Pathname.h>
 #include <fstream>
 #include <memory>
 

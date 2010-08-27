@@ -4,7 +4,6 @@ local programs =
   test-covariants
   test-temporary-in-constructor-init-list
   yaml-producer
-  test-fstream-crash
 ;
 
 if linux in $(project.PLATFORM_SPECIFICS) {
@@ -30,5 +29,6 @@ for _program in $(programs) {
   make-program $(_program) : $(_program).cc ;
 }
 
+make-program test-fstream-crash : test-fstream-crash.cc ;
 make-program printcmd : print-command-line.c ;
 
