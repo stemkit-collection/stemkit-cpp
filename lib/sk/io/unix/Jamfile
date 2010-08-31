@@ -11,12 +11,13 @@ objects =
 if mks32 in $(project.PLATFORM_SPECIFICS) {
   objects += 
     [ util.make-path .. win32 TtyDevice.cc ] 
+    [ util.make-path .. win32 TtyFileDescriptor.cc ] 
     [ util.make-path .. win32 Pty.cc ] 
   ;
 }
-
 else objects += 
   TtyDevice.cc
+  TtyFileDescriptor.cc
   PtyImpl.cc
   PtySpecifics-$(project.PTY_SPECIFICS).cc
   Pty.cc
