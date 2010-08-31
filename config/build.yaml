@@ -2,6 +2,7 @@
 product: sk
 name: stemkit-cpp
 release: 0.50.1
-build: 1
+build: 2
 library-prefix: sk
 library-major: 1
+tag: ttyhpfix
