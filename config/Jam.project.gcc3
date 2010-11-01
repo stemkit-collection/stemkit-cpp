@@ -149,17 +149,22 @@ rule platform-linux-ia64
 
 rule platform-linux-amd64
 {
+  switch $(BUILD_ABI) {
+    case 32 : CC_ABI_FLAGS = -m32 ; LD_ABI_FLAGS = -melf_i386 ;
+    case 64 : CC_ABI_FLAGS = -m64 ; BUILD_ABILIB = lib64 ;
+    case * : exit Please set BUILD_ABI to either 32 or 64 ;
+  }
   UNIX_FLAVOR = linux ;
 
-  C++FLAGS += -fPIC -m32 ;
-  CCFLAGS += -fPIC -m32 ;
+  C++FLAGS += $(CC_ABI_FLAGS) -fPIC ;
+  CCFLAGS += $(CC_ABI_FLAGS) -fPIC ;
   DEFINES += ;
 
   INCLUDES += [ util.make-path $(system.SRCTOP) platform include linux ] ;
   project.JAVA_INCLUDES += $(project.JAVA_HOME)/include/linux ;
 
   SYSLIBS = crypt dl ;
-  LDFLAGS += -m elf_i386 ;
+  LDFLAGS += $(LD_ABI_FLAGS) ;
 
   project.PLATFORM_SPECIFICS = linux ;
   project.PTY_SPECIFICS = linux ;
@@ -399,3 +404,5 @@ system.export-to-env GCC_LIB_PATHLIST : $(GCC_ROOT)/lib/$(GCC_STDLIBS) ;
 system.export-to-env STEMKIT_INSTALL_ROOT : $(install.top:E=$(CONTRIB_ROOT)) ;
 system.export-to-env BUILD_ABILIB : $(BUILD_ABILIB) ;
 system.export-to-env DO_NOT_BUILD : $(project.DO_NOT_BUILD) ;
+
+PRODUCT_ABI = $(BUILD_ABI) ;
