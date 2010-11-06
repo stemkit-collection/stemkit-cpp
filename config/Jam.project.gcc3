@@ -299,6 +299,16 @@ rule platform-solaris-x86
 
 rule platform-hpux-pa
 {
+  switch $(BUILD_ABI) {
+    case 32 : if true {
+      BUILD_ABILIB = lib ;
+    }
+    case 64 : if true { 
+      GCC_ABI = 64 ;
+      BUILD_ABILIB = lib64 ;
+    }
+    case * : exit Please set BUILD_ABI to either 32 or 64 ;
+  }
   C++FLAGS += -fPIC ;
   CCFLAGS += -fPIC ;
   DEFINES += _FILE_OFFSET_BITS=64 _LARGEFILE64_SOURCE _REENTRANT ;
@@ -379,13 +389,14 @@ INCLUDES += [ util.make-path $(system.SRCTOP) include hooks ] ;
 INCLUDES += [ util.make-path $(system.GENTOP) include ] ;
 INCLUDES += [ util.make-path $(system.SRCTOP) include ] ;
 
-GCC_ROOT ?= $(TOOLS_HOME)/gcc-$(GCC_VERSION) ;
+GCC_ROOT ?= $(TOOLS_HOME)/gcc$(GCC_ABI)-$(GCC_VERSION) ;
 
 GCC_STDLIBS ?= libstdc++.so libgcc_s.so ;
 CONTRIB_ROOT ?= $(GCC_ROOT)/contrib ;
 
 C++ ?= $(GCC_ROOT)/bin/g++ ;
 CC ?= $(GCC_ROOT)/bin/gcc ;
+AR = ar$(GCC_ABI) -cq ;
 
 SWIG ?= $(TOOLS_HOME)/swig-$(SWIG_VERSION)/bin/swig ;
 
