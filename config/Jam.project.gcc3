@@ -389,14 +389,14 @@ INCLUDES += [ util.make-path $(system.SRCTOP) include hooks ] ;
 INCLUDES += [ util.make-path $(system.GENTOP) include ] ;
 INCLUDES += [ util.make-path $(system.SRCTOP) include ] ;
 
-GCC_ROOT ?= $(TOOLS_HOME)/gcc$(GCC_ABI)-$(GCC_VERSION) ;
+GCC_ROOT ?= $(TOOLS_HOME)/gcc$(GCC_ABI:E=)-$(GCC_VERSION) ;
 
 GCC_STDLIBS ?= libstdc++.so libgcc_s.so ;
 CONTRIB_ROOT ?= $(GCC_ROOT)/contrib ;
 
 C++ ?= $(GCC_ROOT)/bin/g++ ;
 CC ?= $(GCC_ROOT)/bin/gcc ;
-AR = ar$(GCC_ABI) -cq ;
+AR = ar$(GCC_ABI:E=) -cq ;
 
 SWIG ?= $(TOOLS_HOME)/swig-$(SWIG_VERSION)/bin/swig ;
 
