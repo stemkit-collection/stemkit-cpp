@@ -13,6 +13,8 @@
 #include <sk/util/InsufficientMemoryException.h>
 #include <sk/rt/Benchmark.h>
 #include <memory.h>
+#include <stdlib.h>
+#include <strings.h>
 
 #include "StringBenchmarker.h"
 

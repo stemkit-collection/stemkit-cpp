@@ -18,6 +18,7 @@
 
 #include <signal.h>
 #include <unistd.h>
+#include <stdlib.h>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::sys::test::ProcessTest);
 

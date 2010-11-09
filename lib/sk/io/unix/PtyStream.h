@@ -17,6 +17,7 @@
 #include <sk/io/File.h>
 
 #include <unistd.h>
+#include <stdlib.h>
 #include <sys/stropts.h>
 
 namespace sk {

@@ -16,6 +16,7 @@
 #include <sk/util/IllegalArgumentException.h>
 #include <algorithm>
 #include <functional>
+#include <strings.h>
 
 const sk::util::String sk::util::String::EMPTY;
 

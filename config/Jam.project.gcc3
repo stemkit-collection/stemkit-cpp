@@ -46,6 +46,12 @@ if $(JAM_OFFSET_PLATFORM) = true {
   system.setup-artifact-offsets : : $(PRODUCT_PLATFORM) ;
 }
 
+if $(JAM_OFFSET_ABI) = true {
+  if $(BUILD_ABI) {
+    system.setup-artifact-offsets : : $(BUILD_ABI) ;
+  }
+}
+
 PLATFORM_IMPLEMENTATION = unix ;
 
 project.DO_ABORT_TEST = false ;
@@ -288,8 +294,18 @@ rule platform-solaris6-sparc
 
 rule platform-solaris-x86
 {
-  C++FLAGS += -fpic ;
-  CCFLAGS += -fpic ;
+  switch $(BUILD_ABI) {
+    case 32 : if true {
+      CC_ABI_FLAGS = -m32 ;
+    }
+    case 64 : if true {
+      CC_ABI_FLAGS = -m64 ; 
+      BUILD_ABILIB = lib64 ;
+    }
+    case * : exit Please set BUILD_ABI to either 32 or 64 ;
+  }
+  C++FLAGS += $(CC_ABI_FLAGS) -fpic ;
+  CCFLAGS += $(CC_ABI_FLAGS) -fpic ;
   DEFINES += _FILE_OFFSET_BITS=64 _POSIX_PTHREAD_SEMANTICS ;
   INCLUDES += [ util.make-path $(system.SRCTOP) platform include solaris ] ;
   SYSLIBS = socket nsl gen rt ;

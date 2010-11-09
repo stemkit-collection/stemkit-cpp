@@ -11,8 +11,9 @@
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
 #include <sk/util/IllegalArgumentException.h>
-
 #include <sk/rt/Environment.h>
+
+#include <strings.h>
 #include <algorithm>
 
 #include "foreach_environment_item.h"

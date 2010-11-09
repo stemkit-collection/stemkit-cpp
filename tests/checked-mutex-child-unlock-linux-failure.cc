@@ -39,6 +39,7 @@
 
 #include <pthread.h>
 #include <unistd.h>
+#include <stdlib.h>
 
 pthread_mutex_t mutex;
 pthread_mutexattr_t mattr;

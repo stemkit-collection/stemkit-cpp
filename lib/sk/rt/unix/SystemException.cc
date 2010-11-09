@@ -13,6 +13,7 @@
 
 #include <sk/rt/SystemException.h>
 #include <errno.h>
+#include <string.h>
 
 static const char* __className("sk::rt::SystemException");
 

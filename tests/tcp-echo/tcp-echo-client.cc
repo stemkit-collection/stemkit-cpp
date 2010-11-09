@@ -28,6 +28,7 @@
 #include <sys/socket.h>
 #include <unistd.h>
 #include <errno.h>
+#include <strings.h>
 
 void start(int argc, const char* argv[]);
 void set_so_rcvbuf(int fd, int size);

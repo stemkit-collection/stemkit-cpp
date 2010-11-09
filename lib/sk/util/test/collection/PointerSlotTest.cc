@@ -11,7 +11,7 @@
 #include <sk/util/MissingResourceException.h>
 #include <sk/util/NullPointerException.h>
 #include <sk/util/String.h>
-#include <sk/util/test/Probe.hxx>
+#include <sk/util/test/Probe.cxx>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::util::test::PointerSlotTest);
 

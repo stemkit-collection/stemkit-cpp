@@ -13,6 +13,7 @@
 #include <sk/util/Boolean.h>
 
 #include <sk/util/inspect.h>
+#include <strings.h>
 
 #include <algorithm>
 #include <functional>

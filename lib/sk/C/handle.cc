@@ -12,6 +12,7 @@
 #include <sk/util/Exception.h>
 #include <sk/util/Class.h>
 #include <string.h>
+#include <stdlib.h>
 
 namespace {
   void abort_on_null_c_handle() {
