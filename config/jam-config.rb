@@ -11,8 +11,4 @@ class JamConfig < TSC::Jam::Config
   def config_path
     __FILE__
   end
-
-  def add_platform_parameter
-    # Relying on stardard platform determination.
-  end
 end

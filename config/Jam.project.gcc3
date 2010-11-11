@@ -1,5 +1,8 @@
 # vim: ft=jam: sw=2:
 
+core.load-plugin platform ;
+core.load-plugin gcc ;
+
 project.MAKE_LIBRARY_DEFAULT = static ;
 
 # project.LIB_PREFIX = $(JAMCONFIG_LIBRARY_PREFIX) ;
@@ -41,16 +44,6 @@ C++FLAGS = -Werror -Wreturn-type -Wno-ctor-dtor-privacy ;
 CCFLAGS = -Werror -Wreturn-type ;
 
 DEFINES  = _REENTRANT _THREAD_SAFE ;
-
-if $(JAM_OFFSET_PLATFORM) = true {
-  system.setup-artifact-offsets : : $(PRODUCT_PLATFORM) ;
-}
-
-if $(JAM_OFFSET_ABI) = true {
-  if $(BUILD_ABI) {
-    system.setup-artifact-offsets : : $(BUILD_ABI) ;
-  }
-}
 
 PLATFORM_IMPLEMENTATION = unix ;
 
@@ -369,34 +362,15 @@ rule platform-rh21-unsupported
   ;
 }
 
-switch $(PRODUCT_PLATFORM) {
-  case rh-30-x86 : platform-linux-x86 ;
-  case rh-40-x86 : platform-linux-x86 ;
-  case rh-40-amd64 : platform-linux-amd64 ;
-  case rh-40-ia64 : platform-linux-ia64 ;
-  case rh-21-x86 : platform-rh21-unsupported $(PRODUCT_PLATFORM) ;
-  case aix-51-ppc : platform-aix-ppc ;
-  case aix-52-ppc : platform-aix-ppc ;
-  case aix-53-ppc : platform-aix-ppc ;
-  case osf-51-alpha : platform-osf-alpha ;
-  case osf-40-alpha : platform-osf-alpha ;
-  case sun-10-x86 : platform-solaris-x86 ;
-  case sun-10-sparc : platform-solaris-sparc ;
-  case sun-9-sparc : platform-solaris-sparc ;
-  case sun-8-sparc : platform-solaris-sparc ;
-  case sun-6-sparc : platform-solaris6-sparc ;
-  case hp11-23-pa : platform-hpux-pa ;
-  case hp11-00-pa : platform-hpux-pa ;
-  case hp11-11-pa : platform-hpux-pa ;
-  case hp11-23-ia64 : platform-hpux-ia64 ;
-  case mac-10.4-ppc : platform-macos-tiger ;
-  case mac-10.4-x86 : platform-macos-tiger ;
-  case mac-10.5-ppc : platform-macos-leopard ;
-  case mac-10.5-x86 : platform-macos-leopard ;
-  case mac-10.6-x86 : platform-macos-leopard ;
-  case windows-x86 : platform-nt-x86 ;
-  case * : exit Unknown platform $(PRODUCT_PLATFORM) ;
-}
+platform.support-all-known ;
+platform.register-unsupported-name rh-21-x86 ;
+platform.select $(BUILD_ABI) : true ;
+
+platform.offset-name $(JAM_OFFSET_PLATFORM) ;
+platform.offset-abi $(JAM_OFFSET_ABI) ;
+
+BUILD_ABI = $(platform.ABI) ;
+BUILD_ABILIB = $(platform.ABILIB) ;
 
 INCLUDES += [ util.make-path $(system.SRCTOP) platform include generic ] ;
 INCLUDES += [ util.make-path $(system.SRCTOP) include hooks ] ;
