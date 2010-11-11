@@ -123,50 +123,40 @@ rule platform-nt-x86
   SYSLIBS = shlwapi advapi32 user32 psapi $(windows.EXTRA_SYSLIBS) ;
 }
 
+rule platform-linux-x86-m32
+{
+  ABI_CC_FLAGS = -m32 ; 
+  ABI_LD_FLAGS = -melf_i386 ;
+  C++FLAGS += -fpic ;
+  CCFLAGS += -fpic ;
+
+  util.delete-from project.DO_NOT_BUILD : ruby java ;
+}
+
+rule platform-linux-x86-m64
+{
+  ABI_CC_FLAGS = -m64 ; 
+  C++FLAGS += -fPIC ;
+  CCFLAGS += -fPIC ;
+}
+
 rule platform-linux-x86
 {
   UNIX_FLAVOR = linux ;
-  util.delete-from project.DO_NOT_BUILD : ruby java ;
+  project.PTY_SPECIFICS = linux ;
   project.PLATFORM_SPECIFICS = linux ;
 
-  C++FLAGS += -fpic ;
-  CCFLAGS += -fpic ;
   DEFINES += ;
   INCLUDES += [ util.make-path $(system.SRCTOP) platform include linux ] ;
   project.JAVA_INCLUDES += $(project.JAVA_HOME)/include/linux ;
 
   SYSLIBS = crypt dl ;
-
-  project.PTY_SPECIFICS = linux ;
 }
 
 rule platform-linux-ia64
 {
   platform-linux-x86 ;
   project.DO_NOT_BUILD += ruby java ;
-}
-
-rule platform-linux-amd64
-{
-  switch $(BUILD_ABI) {
-    case 32 : CC_ABI_FLAGS = -m32 ; LD_ABI_FLAGS = -melf_i386 ;
-    case 64 : CC_ABI_FLAGS = -m64 ; BUILD_ABILIB = lib64 ;
-    case * : exit Please set BUILD_ABI to either 32 or 64 ;
-  }
-  UNIX_FLAVOR = linux ;
-
-  C++FLAGS += $(CC_ABI_FLAGS) -fPIC ;
-  CCFLAGS += $(CC_ABI_FLAGS) -fPIC ;
-  DEFINES += ;
-
-  INCLUDES += [ util.make-path $(system.SRCTOP) platform include linux ] ;
-  project.JAVA_INCLUDES += $(project.JAVA_HOME)/include/linux ;
-
-  SYSLIBS = crypt dl ;
-  LDFLAGS += $(LD_ABI_FLAGS) ;
-
-  project.PLATFORM_SPECIFICS = linux ;
-  project.PTY_SPECIFICS = linux ;
 }
 
 rule platform-osf-alpha
@@ -256,47 +246,50 @@ rule platform-macos-leopard
   INCLUDES += [ util.make-path $(system.SRCTOP) platform include macos-leopard ] ;
 }
 
+rule platform-solaris-sparc-m32
+{
+  ABI_CC_FLAGS = -m32 ; 
+}
+
+rule platform-solaris-sparc-m64
+{
+  ABI_CC_FLAGS = -m64 ; 
+}
 
 rule platform-solaris-sparc
 {
-  switch $(BUILD_ABI) {
-    case 32 : CC_ABI_FLAGS = ;
-    case 64 : CC_ABI_FLAGS = -m64 ; BUILD_ABILIB = lib64 ;
-    case * : exit Please set BUILD_ABI to either 32 or 64 ;
-  }
   util.delete-from project.DO_NOT_BUILD : ruby java ;
 
-  C++FLAGS += $(CC_ABI_FLAGS) -fPIC ;
-  CCFLAGS += $(CC_ABI_FLAGS) -fPIC ;
+  C++FLAGS += -fPIC ;
+  CCFLAGS += -fPIC ;
   DEFINES += _FILE_OFFSET_BITS=64 _POSIX_PTHREAD_SEMANTICS ;
-  INCLUDES += [ util.make-path $(system.SRCTOP) platform include solaris ] ;
+
   SYSLIBS = socket nsl gen rt ;
+
+  if $(platform.NAME) = "sun-6-sparc" {
+    INCLUDES += [ util.make-path $(system.SRCTOP) platform include solaris6 ] ;
+  }
+  else SYSLIBS += rt ;
+  INCLUDES += [ util.make-path $(system.SRCTOP) platform include solaris ] ;
 
   project.JAVA_INCLUDES += $(project.JAVA_HOME)/include/solaris ;
   project.PTY_SPECIFICS = streams ;
 }
 
-rule platform-solaris6-sparc
+rule platform-solaris-x86-m32
 {
-  INCLUDES += [ util.make-path $(system.SRCTOP) platform include solaris6 ] ;
-  platform-solaris-sparc ;
-  SYSLIBS = socket nsl gen ;
+  ABI_CC_FLAGS = -m32 ; 
+}
+
+rule platform-solaris-x86-m64
+{
+  ABI_CC_FLAGS = -m64 ; 
 }
 
 rule platform-solaris-x86
 {
-  switch $(BUILD_ABI) {
-    case 32 : if true {
-      CC_ABI_FLAGS = -m32 ;
-    }
-    case 64 : if true {
-      CC_ABI_FLAGS = -m64 ; 
-      BUILD_ABILIB = lib64 ;
-    }
-    case * : exit Please set BUILD_ABI to either 32 or 64 ;
-  }
-  C++FLAGS += $(CC_ABI_FLAGS) -fpic ;
-  CCFLAGS += $(CC_ABI_FLAGS) -fpic ;
+  C++FLAGS += -fpic ;
+  CCFLAGS += -fpic ;
   DEFINES += _FILE_OFFSET_BITS=64 _POSIX_PTHREAD_SEMANTICS ;
   INCLUDES += [ util.make-path $(system.SRCTOP) platform include solaris ] ;
   SYSLIBS = socket nsl gen rt ;
@@ -304,18 +297,17 @@ rule platform-solaris-x86
   project.PTY_SPECIFICS = streams ;
 }
 
+rule platform-hpux-pa-m32
+{
+}
+
+rule platform-hpux-pa-m64
+{
+  GCC_ABI = 64 ;
+}
+
 rule platform-hpux-pa
 {
-  switch $(BUILD_ABI) {
-    case 32 : if true {
-      BUILD_ABILIB = lib ;
-    }
-    case 64 : if true { 
-      GCC_ABI = 64 ;
-      BUILD_ABILIB = lib64 ;
-    }
-    case * : exit Please set BUILD_ABI to either 32 or 64 ;
-  }
   C++FLAGS += -fPIC ;
   CCFLAGS += -fPIC ;
   DEFINES += _FILE_OFFSET_BITS=64 _LARGEFILE64_SOURCE _REENTRANT ;
@@ -330,15 +322,19 @@ rule platform-hpux-pa
   project.PTY_SPECIFICS = streams-hp ;
 }
 
+rule platform-hpux-ia64-m32
+{
+}
+
+rule platform-hpux-ia64-m64
+{
+  ABI_CC_FLAGS = -mlp64 ; 
+}
+
 rule platform-hpux-ia64
 {
-  switch $(BUILD_ABI) {
-    case 32 : CC_ABI_FLAGS = ;
-    case 64 : CC_ABI_FLAGS = -mlp64 ; BUILD_ABILIB = lib64 ;
-    case * : exit Please set BUILD_ABI to either 32 or 64 ;
-  }
-  C++FLAGS += $(CC_ABI_FLAGS) -fPIC ;
-  CCFLAGS += $(CC_ABI_FLAGS) -fPIC ;
+  C++FLAGS += -fPIC ;
+  CCFLAGS += -fPIC ;
   DEFINES += _FILE_OFFSET_BITS=64 _LARGEFILE64_SOURCE _REENTRANT ;
   DEFINES += _XOPEN_SOURCE _XOPEN_SOURCE_EXTENDED=1 ;
   INCLUDES += [ util.make-path $(system.SRCTOP) platform include hpux ] ;
@@ -348,18 +344,6 @@ rule platform-hpux-ia64
   CC_SONAME_FLAG = -Wl,+h ;
 
   project.PTY_SPECIFICS = streams-hp ;
-}
-
-rule platform-rh21-unsupported
-{
-  exit 
-    Platform $(1) unsupported because of faulty thread implementation -- when
-    combined with process handling, the background manager thread often dies
-    without any chance to be recovered from the application itself. This is 
-    one of "expected" side effects of old LixuxThreads implementation. The 
-    newer one based on NPTL is free from this problem (no extra manager thread
-    there).
-  ;
 }
 
 platform.support-all-known ;
@@ -394,6 +378,10 @@ DLLFLAGS ?= -shared ;
 
 UNITTEST_DIRS ?= $(CONTRIB_ROOT)/cppunit-$(CPPUNIT_VERSION) ;
 UNITTEST_LIBS ?= cppunit ;
+
+C++FLAGS += $(ABI_CC_FLAGS) ;
+CCFLAGS += $(ABI_CC_FLAGS) ;
+LDFLAGS += $(ABI_LD_FLAGS) ;
 
 C++ALLFLAGS = $(C++FLAGS) $(CCDFLAGS) $(CCOFLAGS) ;
 CCALLFLAGS = $(CCFLAGS) $(CCDFLAGS) $(CCOFLAGS) ;
