@@ -9,13 +9,13 @@ PRODUCT_NAME = $(JAMCONFIG_PRODUCT_NAME) ;
 PRODUCT_RELEASE = $(JAMCONFIG_PRODUCT_RELEASE) ;
 PRODUCT_BUILD = $(JAMCONFIG_PRODUCT_BUILD) ;
 PRODUCT_TAG = $(JAMCONFIG_PRODUCT_TAG) ;
-PRODUCT_PLATFORM = $(JAMCONFIG_PRODUCT_PLATFORM) ;
+PRODUCT_PLATFORM = $(platform.NAME) ;
 
 # project.DISTRIB_ENV = $(SRCTOP:J=/)/project/config/environment ;
 project.DISTRIB_PRODINFO = $(SRCTOP:J=/)/install/prodinfo ;
 project.DO_NOT_BUILD = ruby java ;
 
-TOOLS_HOME = /opt/quest/platform/$(JAMCONFIG_PRODUCT_PLATFORM) ;
+TOOLS_HOME = /opt/quest/platform/$(platform.NAME) ;
 
 GCC_VERSION ?= 3.4 ;
 SWIG_VERSION = 1.3 ;
@@ -178,8 +178,6 @@ rule platform-linux-amd64
 
 rule platform-osf-alpha
 {
-  TOOLS_HOME = /opt/quest/platform/$(JAMCONFIG_PRODUCT_PLATFORM) ;
-  GCC_ROOT = $(TOOLS_HOME)/gcc-$(GCC_VERSION) ;
   CPPUNIT_VERSION = 1.12 ;
 
   C++FLAGS += -fPIC ;
@@ -225,7 +223,7 @@ rule platform-macos
   project.DO_ABORT_TEST = true ;
 
   UNIX_FLAVOR = macosx ;
-  TOOLS_HOME = /opt/sk/platform/$(JAMCONFIG_PRODUCT_PLATFORM) ;
+  TOOLS_HOME = /opt/sk/platform/$(platform.NAME) ;
 
   GCC_VERSION = 4.2 ;
   CPPUNIT_VERSION = 1.12 ;
