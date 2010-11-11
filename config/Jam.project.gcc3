@@ -175,10 +175,23 @@ rule platform-osf-alpha
   project.PTY_SPECIFICS = streams-hp ;
 }
 
+rule platform-aix-ppc-m32
+{
+  ABI_CC_FLAGS = -maix32 ; 
+  ABI_AR_FLAGS = -X32 ;
+  platform.setup-abi-lib lib/pthread ;
+}
+
+rule platform-aix-ppc-m64
+{
+  ABI_CC_FLAGS = -maix64 ; 
+  ABI_AR_FLAGS = -X64 ;
+  platform.setup-abi-lib lib64/pthread ;
+}
+
 rule platform-aix-ppc
 {
   core.load-config Jam.aix ;
-  # project.PROHIBIT_SHARED = true ;
 
   C++FLAGS += -fPIC -pthread ;
   CCFLAGS += -fPIC -pthread ;
@@ -190,8 +203,6 @@ rule platform-aix-ppc
   ;
   CC_SONAME_FLAG = ;
   DLLFLAGS += -shared -Wl,-bexpfull ;
-
-  BUILD_ABILIB = lib/pthread ;
 
   LIBDIRS += /usr/lib/threads ;
   DEFINES += _POSIX_PTHREAD_SEMANTICS _FILE_OFFSET_BITS=64 ;
@@ -368,7 +379,7 @@ CONTRIB_ROOT ?= $(GCC_ROOT)/contrib ;
 
 C++ ?= $(GCC_ROOT)/bin/g++ ;
 CC ?= $(GCC_ROOT)/bin/gcc ;
-AR = ar$(GCC_ABI:E=) -cq ;
+AR = ar$(GCC_ABI:E=) -cq $(ABI_AR_FLAGS) ;
 
 SWIG ?= $(TOOLS_HOME)/swig-$(SWIG_VERSION)/bin/swig ;
 
