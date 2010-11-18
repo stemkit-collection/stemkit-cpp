@@ -198,6 +198,7 @@ rule platform-aix-ppc
 
   C++LDFLAGS =
     -Wl,-bmaxdata:0x50000000
+    -Wl,-bh:5
     -Wl,-u__TSC_BUILD__    
     -pthread 
   ;
