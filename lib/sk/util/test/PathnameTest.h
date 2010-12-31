@@ -24,10 +24,11 @@ namespace sk {
           CPPUNIT_TEST(testPlus);
           CPPUNIT_TEST(testExtension);
           CPPUNIT_TEST(testIsAbsolute);
-          CPPUNIT_TEST(testIsTerminal);
+          // CPPUNIT_TEST(testIsTerminal);
           CPPUNIT_TEST(testDirname);
           CPPUNIT_TEST(testBasename);
           CPPUNIT_TEST(testLocation);
+          CPPUNIT_TEST(testWindowsResourcePath);
         CPPUNIT_TEST_SUITE_END();
         
         public:
@@ -46,6 +47,7 @@ namespace sk {
           void testDirname();
           void testBasename();
           void testLocation();
+          void testWindowsResourcePath();
           
         private:
           PathnameTest(const PathnameTest& other);
