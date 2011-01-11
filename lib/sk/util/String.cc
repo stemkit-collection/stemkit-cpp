@@ -71,9 +71,19 @@ String(const char* buffer, int size)
   std::string::assign(buffer, buffer + index);
 }
 
+namespace {
+  int figure_size(const char* s, int s1, int s2) {
+    int index = 0;
+    while((index < s1) && (index < s2) && (s[index] != 0)) {
+      ++index;
+    }
+    return index;
+  }
+}
+
 sk::util::String::
 String(const std::string& string, int size)
-  : std::string(string, 0, std::min(int(strlen(string.c_str())), size))
+  : std::string(string, 0, figure_size(string.c_str(), string.size(), size))
 {
 }
 
