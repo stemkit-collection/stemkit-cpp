@@ -158,6 +158,10 @@ rule platform-linux-x86
 rule platform-linux-ia64
 {
   platform-linux-x86 ;
+
+  C++FLAGS += -fPIC ;
+  CCFLAGS += -fPIC ;
+
   project.DO_NOT_BUILD += ruby java ;
 }
 
@@ -297,6 +301,7 @@ rule platform-solaris-x86-m32
 
 rule platform-solaris-x86-m64
 {
+  GCC_VERSION = 4.3 ;
   ABI_CC_FLAGS = -m64 ; 
 }
 
