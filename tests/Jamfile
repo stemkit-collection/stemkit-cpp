@@ -32,3 +32,4 @@ for _program in $(programs) {
 make-program test-fstream-crash : test-fstream-crash.cc ;
 make-program printcmd : print-command-line.c ;
 
+make-subdirs generators ;
