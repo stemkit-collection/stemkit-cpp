@@ -213,7 +213,15 @@ rule platform-aix-ppc
   project.PTY_SPECIFICS = aix ;
 }
 
-rule platform-macos
+rule platform-darwin-x86-m64
+{
+}
+
+rule platform-darwin-x86-m32
+{
+}
+
+rule platform-darwin-x86
 {
   project.DO_ABORT_TEST = true ;
 
@@ -235,6 +243,8 @@ rule platform-macos
   INCLUDES += ;
   SYSLIBS = ;
 
+  INCLUDES += [ util.make-path $(system.SRCTOP) platform include macos-leopard ] ;
+
   DLLFLAGS = -dynamiclib -Wl,-undefined,dynamic_lookup ;
   CC_SONAME_FLAG = -Wl,-headerpad_max_install_names,-install_name, ;
   jam.DSO_EXTENTION = dylib ;
@@ -244,18 +254,6 @@ rule platform-macos
   project.PTY_SPECIFICS = posix ;
   project.RUBY_DIR = ;
   project.JAVA_HOME = ;
-}
-
-rule platform-macos-tiger
-{
-  platform-macos ;
-  INCLUDES += [ util.make-path $(system.SRCTOP) platform include macos-tiger ] ;
-}
-
-rule platform-macos-leopard
-{
-  platform-macos ;
-  INCLUDES += [ util.make-path $(system.SRCTOP) platform include macos-leopard ] ;
 }
 
 rule platform-solaris-sparc-m32
