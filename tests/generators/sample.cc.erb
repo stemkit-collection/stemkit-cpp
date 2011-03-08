@@ -16,7 +16,7 @@
 int main(int argc, const char* const argv[])
 {
   try {
-    throw std::string("Hello, world!!!");
+    throw std::string(<%= Time.now.to_s.inspect %>);
   }
   catch(const std::exception& exception) {
     std::cerr << "E: " << exception.what() << std::endl;
