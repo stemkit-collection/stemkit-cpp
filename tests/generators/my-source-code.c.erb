@@ -12,6 +12,6 @@
 
 int main(int argc, const char* const argv[])
 {
-    printf("My source code:\n===============\n%s", <%= IO.readlines(current_full_path).join.inspect %>);
+    printf("=== %s\n%s", "<%= current_full_path %>", <%= IO.readlines(current_full_path).join.inspect %>);
     return 0;
 }
