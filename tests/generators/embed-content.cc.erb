@@ -15,16 +15,8 @@
 
 int main(int argc, const char* const argv[])
 {
-  try {
-    throw std::string(<%= IO.readlines("content.txt").join.inspect %>);
-  }
-  catch(const std::exception& exception) {
-    std::cerr << "E: " << exception.what() << std::endl;
-  }
-  catch(const std::string& message) {
-    std::cout << message << std::endl;
-  }
-  catch(...) {
-    std::cerr << "Unknown error" << std::endl;
-  }
+  const char* data = <%= IO.readlines("content.txt").join.inspect %>;
+  std::cout << data << std::endl;
+
+  return 0;
 }
