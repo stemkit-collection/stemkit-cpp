@@ -5,3 +5,5 @@ local objects =
 ;
 
 make-program sample : $(objects) ;
+make-program compile-time : compile-time.c.erb ;
+make-program my-source-code : my-source-code.c.erb ;
