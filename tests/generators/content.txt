@@ -1,0 +1,4 @@
+Hello, there!!!
+
+This is a sample content to be embeded into a 
+compiled exexutable.
