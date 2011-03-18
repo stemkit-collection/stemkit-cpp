@@ -20,7 +20,7 @@ namespace sk {
         : public virtual sk::util::Object
       {
         public:
-          virtual void ensure(bool expression, int timeout) = 0;
+          virtual void ensure(bool expression, uint64_t timeout = 0) = 0;
           virtual void announce() = 0;
       };
     }

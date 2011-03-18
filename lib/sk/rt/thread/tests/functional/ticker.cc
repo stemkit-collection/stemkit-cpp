@@ -11,6 +11,9 @@
 #include <sk/rt/Scope.h>
 #include <sk/rt/config/InlineLocator.h>
 #include <sk/rt/Thread.h>
+#include <sk/rt/thread/Starter.h>
+#include <sk/rt/thread/Stopper.h>
+#include <sk/rt/thread/Joiner.h>
 
 #include <sk/rt/ReentrantLock.h>
 #include <sk/util/ArrayList.cxx>
@@ -66,24 +69,6 @@ namespace {
   };
 }
 
-namespace {
-  struct Starter : public virtual sk::util::Processor<sk::rt::Thread> {
-    void process(sk::rt::Thread& thread) const {
-      thread.start();
-    }
-  };
-  struct Stopper : public virtual sk::util::Processor<sk::rt::Thread> {
-    void process(sk::rt::Thread& thread) const {
-      thread.stop();
-    }
-  };
-  struct Joiner : public virtual sk::util::Processor<sk::rt::Thread> {
-    void process(sk::rt::Thread& thread) const {
-      thread.join();
-    }
-  };
-}
-
 void perform() 
 {
   sk::rt::ReentrantLock lock;
@@ -93,10 +78,10 @@ void perform()
     threads.add(new sk::rt::Thread(new Block("t" + sk::util::String::valueOf(counter), lock)));
   }
 
-  threads.forEach(Starter());
+  threads.forEach(sk::rt::thread::Starter());
   sk::rt::Thread::sleep(10000);
-  threads.forEach(Stopper());
+  threads.forEach(sk::rt::thread::Stopper());
   
-  // threads.forEach(Joiner());
+  // threads.forEach(sk::rt::thread::Joiner());
 }
 

@@ -40,7 +40,7 @@ namespace sk {
           ConditionMediator& operator = (const ConditionMediator& other);
 
           // sk::rt::thread::Condition implementation.
-          void ensure(bool expression, uint64_t timeout = 0);
+          void ensure(bool expression, uint64_t timeout);
           void announce();
 
           void lock();
