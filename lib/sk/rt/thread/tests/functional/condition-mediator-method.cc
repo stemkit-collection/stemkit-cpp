@@ -51,64 +51,74 @@ int main(int argc, const char* const argv[])
 }
 
 namespace {
-  struct Consumer : public virtual sk::rt::Runnable, public virtual sk::rt::thread::Conditional {
-    Consumer(sk::rt::thread::ConditionMediator& mediator, sk::util::Integers& depot) 
-      : _scope("Consumer"), _mediator(mediator), _depot(depot) {}
+  class Workshop {
+    public: 
+      Workshop()
+        : _scope("Workshop"), _mediator(_mutex) {}
 
-    void process(sk::rt::thread::Condition& condition) {
-      _scope.info() << "Checking for a bunch";
-      condition.ensure(_depot.size() >= 10);
-      _scope.info() << "Got a bunch of 10: " << _depot.inspect();
-      _depot.clear();
-      sk::rt::Thread::sleep(5000);
-    }
+      void printBunch(sk::rt::thread::Condition& condition) {
+        _scope.info() << "Checking for a bunch";
+        condition.ensure(_depot.size() >= 10);
 
-    void run() {
-      _scope.info() << sk::rt::Thread::currentThread().inspect();
-      while(true) {
-        _mediator.synchronize(*this);
+        _scope.info() << "Got a bunch of 10: " << _depot.inspect();
+        _depot.clear();
+        sk::rt::Thread::sleep(5000);
       }
-    }
-    sk::rt::Scope _scope;
-    sk::rt::thread::ConditionMediator& _mediator;
-    sk::util::Integers& _depot;
+
+      void pushValue(sk::rt::thread::Condition& condition, int value) {
+        _scope.info() << "...Pushing " << value;
+        _depot.add(value);
+        condition.announce(_depot.size() >= 10);
+      }
+
+      sk::rt::thread::ConditionMediator& mediator() {
+        return _mediator;
+      }
+
+    private:
+      sk::rt::Mutex _mutex;
+      sk::rt::thread::ConditionMediator _mediator;
+      sk::util::Integers _depot;
+      sk::rt::Scope _scope;
   };
 
-  struct Supplier : public virtual sk::rt::Runnable, public virtual sk::rt::thread::Conditional {
-    Supplier(sk::rt::thread::ConditionMediator& mediator, sk::util::Integers& depot) 
-      : _scope("Supplier"), _mediator(mediator), _depot(depot), _counter(0) {}
-
-    void process(sk::rt::thread::Condition& condition) {
-      _scope.info() << "...Pushing " << _counter;
-      _depot.add(_counter);
-      if(_depot.size() >= 10) {
-        condition.announce();
-      }
-    }
+  struct Consumer : public virtual sk::rt::Runnable {
+    Consumer(Workshop& workshop) 
+      : _scope("Consumer"), _workshop(workshop) {}
 
     void run() {
       _scope.info() << sk::rt::Thread::currentThread().inspect();
       while(true) {
-        _mediator.synchronize(*this);
-        sk::rt::Thread::sleep(1000);
-        _counter++;
+        _workshop.mediator().synchronize(_workshop, &Workshop::printBunch);
       }
     }
     sk::rt::Scope _scope;
-    sk::rt::thread::ConditionMediator& _mediator;
-    sk::util::Integers& _depot;
+    Workshop& _workshop;
+  };
+
+  struct Supplier : public virtual sk::rt::Runnable {
+    Supplier(Workshop& workshop) 
+      : _scope("Supplier"), _workshop(workshop), _counter(0) {}
+
+    void run() {
+      _scope.info() << sk::rt::Thread::currentThread().inspect();
+      while(true) {
+        _workshop.mediator().synchronize(_workshop, &Workshop::pushValue, _counter++);
+        sk::rt::Thread::sleep(1000);
+      }
+    }
+    sk::rt::Scope _scope;
+    Workshop& _workshop;
     int _counter;
   };
 }
 
 void perform()
 {
-  sk::rt::Mutex mutex;
-  sk::rt::thread::ConditionMediator mediator(mutex);
-  sk::util::Integers depot;
+  Workshop workshop;
 
-  Consumer consumer(mediator, depot);
-  Supplier supplier(mediator, depot);
+  Consumer consumer(workshop);
+  Supplier supplier(workshop);
 
   sk::util::ArrayList<sk::rt::Thread> threads;
   threads.add(new sk::rt::Thread(consumer));

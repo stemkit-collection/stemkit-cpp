@@ -49,7 +49,7 @@ getClass() const
 
 void
 sk::rt::thread::ConditionMediator::
-synchronize(sk::rt::thread::Conditional& block)
+invoke(const sk::rt::thread::Conditional& block)
 {
   while(true) {
     lock();
@@ -101,8 +101,11 @@ ensure(bool expression, uint64_t timeout)
 
 void
 sk::rt::thread::ConditionMediator::
-announce()
+announce(bool expression)
 {
+  if(expression == false) {
+    return;
+  }
   ensureLockOwner();
   sk::rt::Locker locker(_mutex);
 

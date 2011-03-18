@@ -21,7 +21,7 @@ namespace sk {
       {
         public:
           virtual void ensure(bool expression, uint64_t timeout = 0) = 0;
-          virtual void announce() = 0;
+          virtual void announce(bool expression) = 0;
       };
     }
   }

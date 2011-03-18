@@ -30,7 +30,14 @@ namespace sk {
           ConditionMediator(sk::rt::Lock& lock);
           virtual ~ConditionMediator();
 
-          void synchronize(sk::rt::thread::Conditional& block);
+          template<typename T>
+          void synchronize(T& block);
+
+          template<typename T, typename TMF> 
+          void synchronize(T& target, TMF method);
+      
+          template<typename T, typename TMF, typename P> 
+          void synchronize(T& target, TMF method, P param);
       
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
@@ -41,7 +48,9 @@ namespace sk {
 
           // sk::rt::thread::Condition implementation.
           void ensure(bool expression, uint64_t timeout);
-          void announce();
+          void announce(bool expression);
+
+          void invoke(const sk::rt::thread::Conditional& block);
 
           void lock();
           void unlock();
@@ -54,9 +63,64 @@ namespace sk {
           sk::rt::Mutex _mutex;
 
           struct WaitRequest;
+
+          template<typename T, typename TMF> 
+          struct MemberFunctionInvocator;
+
+          template<typename T, typename TMF, typename P> 
+          struct MemberFunctionWithParamInvocator;
       };
     }
   }
+}
+
+template<typename T>
+void
+sk::rt::thread::ConditionMediator::
+synchronize(T& block)
+{
+  invoke(block);
+}
+
+template<typename T, typename TMF>
+struct sk::rt::thread::ConditionMediator::MemberFunctionInvocator : public virtual sk::rt::thread::Conditional {
+  MemberFunctionInvocator(T& target, TMF method)
+    : _target(target), _method(method) {}
+
+  void process(sk::rt::thread::Condition& condition) const {
+    (_target.*_method)(condition);
+  }
+  T& _target;
+  TMF _method;
+};
+
+template<typename T, typename TMF>
+void
+sk::rt::thread::ConditionMediator::
+synchronize(T& target, TMF method)
+{
+  invoke(MemberFunctionInvocator<T, TMF>(target, method));
+}
+
+template<typename T, typename TMF, typename P>
+struct sk::rt::thread::ConditionMediator::MemberFunctionWithParamInvocator : public virtual sk::rt::thread::Conditional {
+  MemberFunctionWithParamInvocator(T& target, TMF method, P param)
+    : _target(target), _method(method), _param(param) {}
+
+  void process(sk::rt::thread::Condition& condition) const {
+    (_target.*_method)(condition, _param);
+  }
+  T& _target;
+  TMF _method;
+  P _param;
+};
+
+template<typename T, typename TMF, typename P>
+void
+sk::rt::thread::ConditionMediator::
+synchronize(T& target, TMF method, P param)
+{
+  invoke(MemberFunctionWithParamInvocator<T, TMF, P>(target, method, param));
 }
 
 #endif /* _SK_RT_THREAD_CONDITIONMEDIATOR_H_ */

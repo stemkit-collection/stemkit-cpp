@@ -21,7 +21,7 @@ namespace sk {
         : public virtual sk::util::Object
       {
         public:
-          virtual void process(sk::rt::thread::Condition& condition) = 0;
+          virtual void process(sk::rt::thread::Condition& condition) const = 0;
       };
     }
   }

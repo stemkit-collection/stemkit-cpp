@@ -5,7 +5,8 @@ local tests =
   scope-logging 
   static-init
   mass-threads
-  condition-mediator
+  condition-mediator-block
+  condition-mediator-method
 ;
 
 local test ;
