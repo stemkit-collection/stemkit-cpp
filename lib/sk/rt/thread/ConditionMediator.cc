@@ -10,6 +10,7 @@
 
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
+#include <sk/util/IllegalStateException.h>
 
 #include <sk/rt/Thread.h>
 #include <sk/rt/thread/ConditionMediator.h>
@@ -29,7 +30,7 @@ struct sk::rt::thread::ConditionMediator::WaitRequest : public virtual sk::util:
 
 sk::rt::thread::ConditionMediator::
 ConditionMediator(sk::rt::Lock& lock)
-  : _lock(lock)
+  : _lock(lock), _locked(false)
 {
 }
 
@@ -49,8 +50,6 @@ void
 sk::rt::thread::ConditionMediator::
 synchronize(sk::rt::thread::Conditional& block)
 {
-  sk::rt::thread::Generic& currentThread = sk::rt::Thread::currentThread();
-
   while(true) {
     lock();
 
@@ -62,9 +61,10 @@ synchronize(sk::rt::thread::Conditional& block)
     catch(const sk::rt::thread::ConditionMediator::WaitRequest& request) {
       unlock();
 
+      sk::rt::thread::Generic& currentThread = sk::rt::Thread::currentThread();
       uint64_t remaining = request.waitMilliseconds();
       bool forever = (remaining > 0 ? false : true);
-      int span = 100;
+      uint64_t span = 100;
 
       while(currentThread.isInterrupted() == false) {
         sk::rt::Thread::sleep(span);
@@ -101,16 +101,24 @@ void
 sk::rt::thread::ConditionMediator::
 lock()
 {
+  _lock.lock();
+  _locked = true;
+  _lockOwnerId = sk::rt::Thread::currentThread().getId();
 }
 
 void
 sk::rt::thread::ConditionMediator::
 unlock()
 {
+  _locked = false;
+  _lock.unlock();
 }
 
 void
 sk::rt::thread::ConditionMediator::
 ensureLockOwner()
 {
+  if(!_locked || _lockOwnerId != sk::rt::Thread::currentThread().getId()) {
+    throw sk::util::IllegalStateException("Not a lock owner");
+  }
 }

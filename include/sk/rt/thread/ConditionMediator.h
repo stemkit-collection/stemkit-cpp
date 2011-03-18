@@ -44,6 +44,8 @@ namespace sk {
           void ensureLockOwner();
 
           sk::rt::Lock& _lock;
+          uint64_t _lockOwnerId;
+          bool _locked;
 
           struct WaitRequest;
       };
