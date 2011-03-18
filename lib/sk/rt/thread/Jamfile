@@ -14,6 +14,7 @@ local objects =
   Inspector.cc
   Exit.cc
   ScopeArbitrator.cc
+  ConditionMediator.cc
 
   ../Thread.cc
   ../Mutex.cc
