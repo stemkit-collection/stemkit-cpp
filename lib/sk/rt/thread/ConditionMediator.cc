@@ -19,7 +19,7 @@
 
 static const sk::util::String __className("sk::rt::thread::ConditionMediator");
 
-struct sk::rt::thread::ConditionMediator::WaitRequest : public virtual sk::util::Object {
+struct sk::rt::thread::ConditionMediator::WaitRequest {
   WaitRequest(uint64_t milliseconds)
     : _milliseconds(milliseconds) {}
 
