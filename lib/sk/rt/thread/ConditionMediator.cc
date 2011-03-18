@@ -31,7 +31,7 @@ struct sk::rt::thread::ConditionMediator::WaitRequest : public virtual sk::util:
 
 sk::rt::thread::ConditionMediator::
 ConditionMediator(sk::rt::Lock& lock)
-  : _lock(lock), _locked(false)
+  : _lock(lock)
 {
 }
 
@@ -52,18 +52,18 @@ sk::rt::thread::ConditionMediator::
 invoke(const sk::rt::thread::Conditional& block)
 {
   while(true) {
-    lock();
+    _lock.lock();
 
     try {
       block.process(*this);
-      unlock();
+      _lock.unlock();
       break;
     }
     catch(const sk::rt::thread::ConditionMediator::WaitRequest& request) {
       sk::rt::thread::Generic& currentThread = sk::rt::Thread::currentThread();
       (sk::rt::Locker(_mutex), _waiters.add(currentThread));
 
-      unlock();
+      _lock.unlock();
 
       uint64_t remaining = request.waitMilliseconds();
       bool forever = (remaining > 0 ? false : true);
@@ -81,7 +81,7 @@ invoke(const sk::rt::thread::Conditional& block)
       }
     }
     catch(...) {
-      unlock();
+      _lock.unlock();
       throw;
     }
   }
@@ -91,12 +91,9 @@ void
 sk::rt::thread::ConditionMediator::
 ensure(bool expression, uint64_t timeout)
 {
-  ensureLockOwner();
-
-  if(expression == true) {
-    return;
+  if(expression == false) {
+    throw WaitRequest(timeout);
   }
-  throw WaitRequest(timeout);
 }
 
 void
@@ -106,7 +103,6 @@ announce(bool expression)
   if(expression == false) {
     return;
   }
-  ensureLockOwner();
   sk::rt::Locker locker(_mutex);
 
   struct Interruptor : public virtual sk::util::Processor<sk::rt::thread::Generic> {
@@ -116,30 +112,4 @@ announce(bool expression)
   };
   _waiters.forEach(Interruptor());
   _waiters.clear();
-}
-
-void
-sk::rt::thread::ConditionMediator::
-lock()
-{
-  _lock.lock();
-  _locked = true;
-  _lockOwnerId = sk::rt::Thread::currentThread().getId();
-}
-
-void
-sk::rt::thread::ConditionMediator::
-unlock()
-{
-  _locked = false;
-  _lock.unlock();
-}
-
-void
-sk::rt::thread::ConditionMediator::
-ensureLockOwner()
-{
-  if(!_locked || _lockOwnerId != sk::rt::Thread::currentThread().getId()) {
-    throw sk::util::IllegalStateException("Not a lock owner");
-  }
 }

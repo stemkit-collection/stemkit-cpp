@@ -52,13 +52,7 @@ namespace sk {
 
           void invoke(const sk::rt::thread::Conditional& block);
 
-          void lock();
-          void unlock();
-          void ensureLockOwner();
-
           sk::rt::Lock& _lock;
-          uint64_t _lockOwnerId;
-          bool _locked;
           sk::util::ArrayList<sk::rt::thread::Generic> _waiters;
           sk::rt::Mutex _mutex;
 
