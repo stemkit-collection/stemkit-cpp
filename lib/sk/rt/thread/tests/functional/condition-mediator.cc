@@ -34,11 +34,12 @@ int main(int argc, const char* const argv[])
   sk::rt::Scope::controller().loadXmlConfig(
     sk::rt::config::InlineLocator("\n\
       <scope name='app'>\n\
-        <scope name='sk::rt::thread::pthread::Mutex'>\n\
-          <log destination='std::cerr' level='error' show-object='false' show-time='true' />\n\
+        <log destination='std::cerr' level='info' show-object='false' show-time='true' />\n\
+        <scope name='sk::rt::thread::pthreads::Mutex'>\n\
+          <log level='error' />\n\
         </scope>\n\
-        <scope name='sk::rt::thread::pthread::Thread'>\n\
-          <log destination='std::cerr' level='error' show-object='false' show-time='true' />\n\
+        <scope name='sk::rt::thread::pthreads::Thread'>\n\
+          <log level='error' />\n\
         </scope>\n\
       </scope>\n\
     ")
@@ -54,7 +55,7 @@ namespace {
     Consumer(sk::rt::thread::ConditionMediator& mediator, sk::util::Integers& depot) 
       : _scope("Consumer"), _mediator(mediator), _depot(depot) {}
 
-    void runEnsured(sk::rt::thread::Condition& condition) {
+    void process(sk::rt::thread::Condition& condition) {
       _scope.info() << "Checking for a bunch";
       condition.ensure(_depot.size() >= 10);
       _scope.info() << "Got a bunch of 10: " << _depot.inspect();
@@ -77,7 +78,7 @@ namespace {
     Supplier(sk::rt::thread::ConditionMediator& mediator, sk::util::Integers& depot) 
       : _scope("Supplier"), _mediator(mediator), _depot(depot), _counter(0) {}
 
-    void runEnsured(sk::rt::thread::Condition& condition) {
+    void process(sk::rt::thread::Condition& condition) {
       _scope.info() << "...Pushing " << _counter;
       _depot.add(_counter);
       if(_depot.size() >= 10) {

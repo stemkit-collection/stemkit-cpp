@@ -55,7 +55,7 @@ synchronize(sk::rt::thread::Conditional& block)
     lock();
 
     try {
-      block.runEnsured(*this);
+      block.process(*this);
       unlock();
       break;
     }

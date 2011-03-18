@@ -21,7 +21,7 @@ namespace sk {
         : public virtual sk::util::Object
       {
         public:
-          virtual void runEnsured(sk::rt::thread::Condition& condition) = 0;
+          virtual void process(sk::rt::thread::Condition& condition) = 0;
       };
     }
   }
