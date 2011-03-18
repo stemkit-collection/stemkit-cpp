@@ -18,6 +18,7 @@
 
 #include <time.h>
 #include <pthread.h>
+#include <errno.h>
 
 static const char* __className("sk::rt::thread::pthreads::Implementation");
 
@@ -109,12 +110,20 @@ void
 sk::rt::thread::pthreads::Implementation::
 sleep(uint64_t milliseconds) const
 {
-  timespec spec;
+  timespec remaining;
 
-  spec.tv_sec = (milliseconds / 1000);
-  spec.tv_nsec = (milliseconds % 1000) * 1000000;
+  remaining.tv_sec = (milliseconds / 1000);
+  remaining.tv_nsec = (milliseconds % 1000) * 1000000;
 
-  nanosleep(&spec, 0);
+  while(true) {
+    timespec spec = remaining;
+    if(nanosleep(&spec, &remaining) < 0) {
+      if(errno == EINTR) {
+        continue;
+      }
+    }
+    break;
+  }
 }
 
 void
