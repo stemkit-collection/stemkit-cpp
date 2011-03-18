@@ -13,8 +13,12 @@
 
 #include <sk/util/Object.h>
 #include <sk/rt/Lock.h>
+#include <sk/rt/Thread.h>
 #include <sk/rt/thread/Condition.h>
 #include <sk/rt/thread/Conditional.h>
+#include <sk/rt/Mutex.h>
+
+#include <sk/util/ArrayList.hxx>
 
 namespace sk {
   namespace rt {
@@ -36,7 +40,7 @@ namespace sk {
           ConditionMediator& operator = (const ConditionMediator& other);
 
           // sk::rt::thread::Condition implementation.
-          void ensure(bool expression, int timeout);
+          void ensure(bool expression, uint64_t timeout = 0);
           void announce();
 
           void lock();
@@ -46,6 +50,8 @@ namespace sk {
           sk::rt::Lock& _lock;
           uint64_t _lockOwnerId;
           bool _locked;
+          sk::util::ArrayList<sk::rt::thread::Generic> _waiters;
+          sk::rt::Mutex _mutex;
 
           struct WaitRequest;
       };
