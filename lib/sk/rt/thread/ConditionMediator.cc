@@ -12,6 +12,7 @@
 #include <sk/util/String.h>
 #include <sk/util/IllegalStateException.h>
 #include <sk/util/ArrayList.cxx>
+#include <sk/util/Vector.cxx>
 
 #include <sk/rt/thread/ConditionMediator.h>
 #include <sk/rt/TimeoutException.h>
@@ -20,19 +21,26 @@
 static const sk::util::String __className("sk::rt::thread::ConditionMediator");
 
 struct sk::rt::thread::ConditionMediator::WaitRequest {
-  WaitRequest(uint64_t milliseconds)
-    : _milliseconds(milliseconds) {}
+  WaitRequest(int channel, uint64_t milliseconds)
+    : _channel(channel), _milliseconds(milliseconds) {}
 
   uint64_t waitMilliseconds() const {
     return _milliseconds;
   }
+  int channel() const {
+    return _channel;
+  }
   uint64_t _milliseconds;
+  int _channel;
 };
 
 sk::rt::thread::ConditionMediator::
-ConditionMediator(sk::rt::Lock& lock)
+ConditionMediator(sk::rt::Lock& lock, int capacity)
   : _lock(lock)
 {
+  for(int counter=std::min(1, capacity); counter; --counter) {
+    _waiters.add(new sk::util::ArrayList<sk::rt::thread::Generic>());
+  }
 }
 
 sk::rt::thread::ConditionMediator::
@@ -61,7 +69,8 @@ invoke(const sk::rt::thread::Conditional& block)
     }
     catch(const sk::rt::thread::ConditionMediator::WaitRequest& request) {
       sk::rt::thread::Generic& currentThread = sk::rt::Thread::currentThread();
-      (sk::rt::Locker(_mutex), _waiters.add(currentThread));
+      sk::util::ArrayList<sk::rt::thread::Generic>& waiters = _waiters.getMutable(request.channel());
+      (sk::rt::Locker(_mutex), waiters.add(currentThread));
 
       _lock.unlock();
 
@@ -73,7 +82,7 @@ invoke(const sk::rt::thread::Conditional& block)
         sk::rt::Thread::sleep(span);
         if(forever == false) {
           if(remaining < span) {
-            (sk::rt::Locker(_mutex), _waiters.remove(currentThread));
+            (sk::rt::Locker(_mutex), waiters.remove(currentThread));
             throw sk::rt::TimeoutException();
           }
           remaining -= span;
@@ -91,8 +100,15 @@ void
 sk::rt::thread::ConditionMediator::
 ensure(bool expression, uint64_t timeout)
 {
+  ensure(0, expression, timeout);
+}
+
+void
+sk::rt::thread::ConditionMediator::
+ensure(int channel, bool expression, uint64_t timeout)
+{
   if(expression == false) {
-    throw WaitRequest(timeout);
+    throw WaitRequest(channel, timeout);
   }
 }
 
@@ -100,16 +116,24 @@ void
 sk::rt::thread::ConditionMediator::
 announce(bool expression)
 {
+  announce(0, expression);
+}
+
+void
+sk::rt::thread::ConditionMediator::
+announce(int channel, bool expression)
+{
   if(expression == false) {
     return;
   }
-  sk::rt::Locker locker(_mutex);
-
   struct Interruptor : public virtual sk::util::Processor<sk::rt::thread::Generic> {
     void process(sk::rt::thread::Generic& thread) const {
       thread.interrupt();
     }
   };
-  _waiters.forEach(Interruptor());
-  _waiters.clear();
+  sk::util::ArrayList<sk::rt::thread::Generic>& waiters = _waiters.getMutable(channel);
+  sk::rt::Locker locker(_mutex);
+
+  waiters.forEach(Interruptor());
+  waiters.clear();
 }

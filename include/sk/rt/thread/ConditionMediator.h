@@ -19,6 +19,7 @@
 #include <sk/rt/Mutex.h>
 
 #include <sk/util/ArrayList.hxx>
+#include <sk/util/Vector.hxx>
 
 namespace sk {
   namespace rt {
@@ -27,7 +28,7 @@ namespace sk {
         : public virtual sk::rt::thread::Condition
       {
         public:
-          ConditionMediator(sk::rt::Lock& lock);
+          ConditionMediator(sk::rt::Lock& lock, int capacity = 1);
           virtual ~ConditionMediator();
 
           template<typename T>
@@ -48,12 +49,15 @@ namespace sk {
 
           // sk::rt::thread::Condition implementation.
           void ensure(bool expression, uint64_t timeout);
+          void ensure(int channel, bool expression, uint64_t timeout);
           void announce(bool expression);
+          void announce(int channel, bool expression);
 
           void invoke(const sk::rt::thread::Conditional& block);
 
           sk::rt::Lock& _lock;
-          sk::util::ArrayList<sk::rt::thread::Generic> _waiters;
+          typedef sk::util::ArrayList<sk::rt::thread::Generic> thread_container_t;
+          sk::util::Vector<thread_container_t> _waiters;
           sk::rt::Mutex _mutex;
 
           struct WaitRequest;
