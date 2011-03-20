@@ -20,6 +20,8 @@ namespace sk {
   namespace rt {
     namespace thread {
       namespace pthreads {
+        class Mutex;
+
         class ConditionMediator 
           : public virtual sk::rt::thread::platform::ConditionMediator,
             public virtual sk::rt::thread::Condition
@@ -44,6 +46,7 @@ namespace sk {
             void announce(int channel, bool expression);
 
             sk::rt::Lock& _lock;
+            pthreads::Mutex& _mutex;
         };
       }
     }

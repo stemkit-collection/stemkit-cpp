@@ -10,16 +10,18 @@
 
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
+#include <sk/util/upcast.cxx>
 #include <sk/util/UnsupportedOperationException.h>
+#include <sk/rt/TimeoutException.h>
 
 #include "ConditionMediator.h"
-#include <sk/rt/TimeoutException.h>
+#include "Mutex.h"
 
 static const sk::util::String __className("sk::rt::thread::pthreads::ConditionMediator");
 
 sk::rt::thread::pthreads::ConditionMediator::
 ConditionMediator(sk::rt::Lock& lock, int capacity)
-  : _lock(lock)
+  : _lock(lock), _mutex(sk::util::upcast<pthreads::Mutex>(lock.getObject()))
 {
 }
 
