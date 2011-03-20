@@ -44,6 +44,9 @@ namespace sk {
         /// object.
         virtual const String inspect() const;
 
+        virtual Object& getObject();
+        virtual const Object& getObject() const;
+
       protected:
         Object();
     };

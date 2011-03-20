@@ -61,6 +61,20 @@ inspect() const
   return toString();
 }
 
+sk::util::Object& 
+sk::util::Object::
+getObject()
+{
+  return *this;
+}
+
+const sk::util::Object& 
+sk::util::Object::
+getObject() const
+{
+  return *this;
+}
+
 bool 
 sk::util::
 operator<(const sk::util::Object& first, const sk::util::Object& second)
@@ -109,4 +123,3 @@ operator<<(std::ostream& stream, const sk::util::Object& object)
 {
   return stream << object.inspect();
 }
-
