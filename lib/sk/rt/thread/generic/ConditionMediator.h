@@ -11,7 +11,6 @@
 #ifndef _SK_RT_THREAD_GENERIC_CONDITIONMEDIATOR_H_
 #define _SK_RT_THREAD_GENERIC_CONDITIONMEDIATOR_H_
 
-#include <sk/util/Object.h>
 #include <sk/rt/Lock.h>
 #include <sk/rt/Thread.h>
 #include <sk/rt/thread/Condition.h>
