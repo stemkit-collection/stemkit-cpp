@@ -34,28 +34,28 @@ getClass() const
   return sk::util::Class(__className);
 }
 
-sk::rt::thread::mock::Mutex*
+sk::rt::thread::platform::Mutex*
 sk::rt::thread::mock::Implementation::
 makeSimpleMutex() const
 {
   return new mock::Mutex();
 }
 
-sk::rt::thread::mock::Mutex*
+sk::rt::thread::platform::Mutex*
 sk::rt::thread::mock::Implementation::
 makeRecursiveMutex() const
 {
   return new mock::Mutex();
 }
 
-sk::rt::thread::mock::Thread*
+sk::rt::thread::platform::Thread*
 sk::rt::thread::mock::Implementation::
 makeThread(sk::rt::Runnable& target, sk::rt::thread::Generic& /*handle*/) const
 {
   return new mock::Thread(target);
 }
 
-sk::rt::thread::mock::Thread*
+sk::rt::thread::platform::Thread*
 sk::rt::thread::mock::Implementation::
 wrapCurrentThread(sk::rt::thread::Generic& /*handle*/) const
 {

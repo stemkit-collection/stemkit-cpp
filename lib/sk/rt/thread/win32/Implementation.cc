@@ -69,14 +69,14 @@ makeRecursiveMutex() const
   return new win32::CriticalSection;
 }
 
-sk::rt::thread::win32::Thread* 
+sk::rt::thread::platform::Thread* 
 sk::rt::thread::win32::Implementation::
 makeThread(sk::rt::Runnable& target, sk::rt::thread::Generic& handle) const
 {
   return new win32::Thread(*this, target, handle);
 }
 
-sk::rt::thread::win32::Thread* 
+sk::rt::thread::platform::Thread* 
 sk::rt::thread::win32::Implementation::
 wrapCurrentThread(sk::rt::thread::Generic& handle) const
 {

@@ -29,10 +29,10 @@ namespace sk {
 
             // sk::rt::thread::platform::Implementation implementation.
             platform::ConditionMediator* makeConditionMediator(sk::rt::Lock& lock, int capacity) const;
-            mock::Mutex* makeSimpleMutex() const;
-            mock::Mutex* makeRecursiveMutex() const;
-            mock::Thread* makeThread(sk::rt::Runnable& target, sk::rt::thread::Generic& handle) const;
-            mock::Thread* wrapCurrentThread(sk::rt::thread::Generic& handle) const;
+            platform::Mutex* makeSimpleMutex() const;
+            platform::Mutex* makeRecursiveMutex() const;
+            platform::Thread* makeThread(sk::rt::Runnable& target, sk::rt::thread::Generic& handle) const;
+            platform::Thread* wrapCurrentThread(sk::rt::thread::Generic& handle) const;
             sk::rt::thread::Generic& getGeneric() const;
             void sleep(uint64_t milliseconds) const;
             void yield() const;

@@ -34,8 +34,8 @@ namespace sk {
             // sk::rt::thread::platform::Implementation implementation.
             platform::Mutex* makeSimpleMutex() const;
             platform::Mutex* makeRecursiveMutex() const;
-            win32::Thread* makeThread(sk::rt::Runnable& target, sk::rt::thread::Generic& handle) const;
-            win32::Thread* wrapCurrentThread(sk::rt::thread::Generic& handle) const;
+            platform::Thread* makeThread(sk::rt::Runnable& target, sk::rt::thread::Generic& handle) const;
+            platform::Thread* wrapCurrentThread(sk::rt::thread::Generic& handle) const;
             sk::rt::thread::Generic& getGeneric() const;
             void sleep(uint64_t milliseconds) const;
             void yield() const;

@@ -56,28 +56,28 @@ makeConditionMediator(sk::rt::Lock& lock, int capacity) const
   return new generic::ConditionMediator(lock, capacity);
 }
 
-sk::rt::thread::pthreads::Mutex*
+sk::rt::thread::platform::Mutex*
 sk::rt::thread::pthreads::Implementation::
 makeSimpleMutex() const
 {
   return pthreads::Mutex::makeSingular();
 }
 
-sk::rt::thread::pthreads::Mutex*
+sk::rt::thread::platform::Mutex*
 sk::rt::thread::pthreads::Implementation::
 makeRecursiveMutex() const
 {
   return pthreads::Mutex::makeRecursive();
 }
 
-sk::rt::thread::pthreads::Thread*
+sk::rt::thread::platform::Thread*
 sk::rt::thread::pthreads::Implementation::
 makeThread(sk::rt::Runnable& target, sk::rt::thread::Generic& handle) const
 {
   return new pthreads::Thread(*this, target, handle);
 }
 
-sk::rt::thread::pthreads::Thread*
+sk::rt::thread::platform::Thread*
 sk::rt::thread::pthreads::Implementation::
 wrapCurrentThread(sk::rt::thread::Generic& handle) const
 {
