@@ -11,7 +11,7 @@
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
 #include <sk/util/IllegalStateException.h>
-#include "../generic/ConditionMediator.h"
+#include "ConditionMediator.h"
 
 #include "Implementation.h"
 #include "Exception.h"
@@ -53,7 +53,7 @@ sk::rt::thread::platform::ConditionMediator*
 sk::rt::thread::pthreads::Implementation::
 makeConditionMediator(sk::rt::Lock& lock, int capacity) const
 {
-  return new generic::ConditionMediator(lock, capacity);
+  return new pthreads::ConditionMediator(lock, capacity);
 }
 
 sk::rt::thread::platform::Mutex*

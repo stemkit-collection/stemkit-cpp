@@ -10,7 +10,6 @@
 
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
-#include <sk/util/IllegalStateException.h>
 #include <sk/util/ArrayList.cxx>
 #include <sk/util/Vector.cxx>
 
