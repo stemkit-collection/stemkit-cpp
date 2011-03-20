@@ -57,7 +57,7 @@ namespace sk {
 
           sk::rt::Lock& _lock;
           typedef sk::util::ArrayList<sk::rt::thread::Generic> thread_container_t;
-          sk::util::Vector<thread_container_t> _waiters;
+          sk::util::Vector<thread_container_t>::Direct _waiters;
           sk::rt::Mutex _mutex;
 
           struct WaitRequest;

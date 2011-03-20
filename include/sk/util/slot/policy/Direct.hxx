@@ -10,6 +10,7 @@
 #define _SK_UTIL_SLOT_POLICY_DIRECT_HXX_
 
 #include <sk/util/MissingResourceException.h>
+#include <sk/util/UnsupportedOperationException.h>
 #include <sk/util/inspect.h>
 #include <sk/util/selector/EqualValue.hxx>
 
@@ -58,6 +59,14 @@ namespace sk {
               if(object != 0) {
                 setSlot(storage, object);
               }
+            }
+
+            static void setObject(slot_storage_t& storage, const T& object) {
+              throw sk::util::UnsupportedOperationException("setObject");
+            }
+
+            static void setObject(slot_storage_t& storage, T& object) {
+              throw sk::util::UnsupportedOperationException("setObject");
             }
 
             static bool hasObject(const slot_storage_t storage) {
