@@ -29,11 +29,12 @@ else implementation = pthreads ;
 
 use-project-libraries $(library). : 
   sk.rt.thread.$(implementation) 
+  sk.rt.thread.generic
   sk.rt.bundle 
   sk.util 
 ;
 
 make-shared-library $(library) : $(objects) ;
-make-subdirs tests platform mock ;
+make-subdirs tests platform generic mock ;
 
 make-subdirs $(implementation) ;

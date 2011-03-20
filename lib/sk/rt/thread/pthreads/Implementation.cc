@@ -11,7 +11,7 @@
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
 #include <sk/util/IllegalStateException.h>
-#include <sk/util/UnsupportedOperationException.h>
+#include "../generic/ConditionMediator.h"
 
 #include "Implementation.h"
 #include "Exception.h"
@@ -47,6 +47,13 @@ sk::rt::thread::pthreads::Implementation::
 getClass() const
 {
   return sk::util::Class(__className);
+}
+
+sk::rt::thread::platform::ConditionMediator*
+sk::rt::thread::pthreads::Implementation::
+makeConditionMediator(sk::rt::Lock& lock, int capacity) const
+{
+  return new generic::ConditionMediator(lock, capacity);
 }
 
 sk::rt::thread::pthreads::Mutex*

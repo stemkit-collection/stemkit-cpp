@@ -14,13 +14,13 @@
 #include <sk/util/ArrayList.cxx>
 #include <sk/util/Vector.cxx>
 
-#include <sk/rt/thread/ConditionMediator.h>
+#include "ConditionMediator.h"
 #include <sk/rt/TimeoutException.h>
 #include <sk/rt/Locker.h>
 
-static const sk::util::String __className("sk::rt::thread::ConditionMediator");
+static const sk::util::String __className("sk::rt::thread::generic::ConditionMediator");
 
-struct sk::rt::thread::ConditionMediator::WaitRequest {
+struct sk::rt::thread::generic::ConditionMediator::WaitRequest {
   WaitRequest(int channel, uint64_t milliseconds)
     : _channel(channel), _milliseconds(milliseconds) {}
 
@@ -34,7 +34,7 @@ struct sk::rt::thread::ConditionMediator::WaitRequest {
   int _channel;
 };
 
-sk::rt::thread::ConditionMediator::
+sk::rt::thread::generic::ConditionMediator::
 ConditionMediator(sk::rt::Lock& lock, int capacity)
   : _lock(lock)
 {
@@ -43,20 +43,20 @@ ConditionMediator(sk::rt::Lock& lock, int capacity)
   }
 }
 
-sk::rt::thread::ConditionMediator::
+sk::rt::thread::generic::ConditionMediator::
 ~ConditionMediator()
 {
 }
 
 const sk::util::Class
-sk::rt::thread::ConditionMediator::
+sk::rt::thread::generic::ConditionMediator::
 getClass() const
 {
   return sk::util::Class(__className);
 }
 
 void
-sk::rt::thread::ConditionMediator::
+sk::rt::thread::generic::ConditionMediator::
 invoke(const sk::rt::thread::Conditional& block)
 {
   while(true) {
@@ -67,7 +67,7 @@ invoke(const sk::rt::thread::Conditional& block)
       _lock.unlock();
       break;
     }
-    catch(const sk::rt::thread::ConditionMediator::WaitRequest& request) {
+    catch(const sk::rt::thread::generic::ConditionMediator::WaitRequest& request) {
       sk::rt::thread::Generic& currentThread = sk::rt::Thread::currentThread();
       sk::util::ArrayList<sk::rt::thread::Generic>& waiters = _waiters.getMutable(request.channel());
       (sk::rt::Locker(_mutex), waiters.add(currentThread));
@@ -97,14 +97,14 @@ invoke(const sk::rt::thread::Conditional& block)
 }
 
 void
-sk::rt::thread::ConditionMediator::
+sk::rt::thread::generic::ConditionMediator::
 ensure(bool expression, uint64_t timeout)
 {
   ensure(0, expression, timeout);
 }
 
 void
-sk::rt::thread::ConditionMediator::
+sk::rt::thread::generic::ConditionMediator::
 ensure(int channel, bool expression, uint64_t timeout)
 {
   if(expression == false) {
@@ -113,14 +113,14 @@ ensure(int channel, bool expression, uint64_t timeout)
 }
 
 void
-sk::rt::thread::ConditionMediator::
+sk::rt::thread::generic::ConditionMediator::
 announce(bool expression)
 {
   announce(0, expression);
 }
 
 void
-sk::rt::thread::ConditionMediator::
+sk::rt::thread::generic::ConditionMediator::
 announce(int channel, bool expression)
 {
   if(expression == false) {

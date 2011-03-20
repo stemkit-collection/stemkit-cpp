@@ -1,0 +1,9 @@
+# vim: ft=jam: sw=2:
+
+local library = sk.rt.thread.generic. ;
+
+local objects = 
+  ConditionMediator.cc
+;
+
+make-library $(library) : $(objects) ;

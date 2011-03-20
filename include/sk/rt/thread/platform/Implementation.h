@@ -14,6 +14,8 @@
 #include <sk/util/Object.h>
 #include <sk/rt/thread/platform/Mutex.h>
 #include <sk/rt/thread/platform/Thread.h>
+#include <sk/rt/thread/platform/ConditionMediator.h>
+#include <sk/rt/Lock.h>
 #include <sk/rt/Runnable.h>
 #include <sk/rt/thread/Generic.h>
 
@@ -25,6 +27,7 @@ namespace sk {
           : public virtual sk::util::Object
         {
           public:
+            virtual platform::ConditionMediator* makeConditionMediator(sk::rt::Lock& lock, int capacity) const = 0;
             virtual platform::Mutex* makeSimpleMutex() const = 0;
             virtual platform::Mutex* makeRecursiveMutex() const = 0;
             virtual platform::Thread* makeThread(sk::rt::Runnable& target, sk::rt::thread::Generic& handle) const = 0;

@@ -9,7 +9,7 @@ local objects =
 ;
 
 use-project-libraries $(test) : sk.rt.bundle sk.util sk.cppunit ;
-use-project-libraries $(test) : sk.rt.thread.pthreads ;
+use-project-libraries $(test) : sk.rt.thread ;
 
 use-unit-test $(test) $(objects) ;
 make-cpp-test $(test) : $(objects) ;
