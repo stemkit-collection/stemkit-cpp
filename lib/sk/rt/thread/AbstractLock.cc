@@ -123,3 +123,17 @@ inspect() const
 
   return stream.str();
 }
+
+const sk::util::Object& 
+sk::rt::thread::AbstractLock::
+getObject() const
+{
+  return _mutexHolder.get().getObject();
+}
+
+sk::util::Object& 
+sk::rt::thread::AbstractLock::
+getObject()
+{
+  return _mutexHolder.getMutable().getObject();
+}

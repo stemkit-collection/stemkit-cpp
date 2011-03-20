@@ -36,6 +36,8 @@ namespace sk {
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
           const sk::util::String inspect() const;
+          const sk::util::Object& getObject() const;
+          sk::util::Object& getObject();
 
         protected:
           AbstractLock(platform::Mutex* mutex, bool ownership);
