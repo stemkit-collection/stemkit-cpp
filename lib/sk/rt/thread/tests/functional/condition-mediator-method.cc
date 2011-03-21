@@ -54,9 +54,10 @@ namespace {
         : _scope("Workshop"), _mediator(_mutex) {}
 
       void printBunch(sk::rt::thread::Condition& condition) {
-        _scope.info() << "Checking for a bunch";
-        condition.ensure(_depot.size() >= 10);
-
+        while(_depot.size() < 10) {
+          _scope.info() << "Checking for a bunch";
+          condition.wait();
+        }
         _scope.info() << "Got a bunch of 10: " << _depot.inspect();
         _depot.clear();
         sk::rt::Thread::sleep(5000);
@@ -65,7 +66,9 @@ namespace {
       void pushValue(sk::rt::thread::Condition& condition, int value) {
         _scope.info() << "...Pushing " << value;
         _depot.add(value);
-        condition.announce(_depot.size() >= 10);
+        if(_depot.size() >= 10) {
+          condition.announce();
+        }
       }
 
       sk::rt::thread::ConditionMediator& mediator() {

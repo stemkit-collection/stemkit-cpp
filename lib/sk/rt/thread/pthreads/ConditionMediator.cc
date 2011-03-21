@@ -53,19 +53,43 @@ getClass() const
   return sk::util::Class(__className);
 }
 
+namespace {
+  struct ConditionAdaptor : public virtual sk::rt::thread::Condition {
+    ConditionAdaptor(sk::rt::thread::pthreads::ConditionMediator& mediator)
+      : _mediator(mediator), _channel(0) {}
+
+    sk::rt::thread::Condition& on(int channel) {
+      _channel = channel;
+      return *this;
+    }
+
+    void wait(uint64_t milliseconds = 0) {
+      _mediator.ensure(_channel, milliseconds);
+    }
+
+    void announce() {
+      _mediator.announce(_channel);
+    }
+
+    sk::rt::thread::pthreads::ConditionMediator& _mediator;
+    int _channel;
+  };
+}
+
 void
 sk::rt::thread::pthreads::ConditionMediator::
 invoke(const sk::rt::thread::Conditional& block)
 {
   _lock.lock();
 
+  ConditionAdaptor adaptor(*this);
   bool momentCalculated = false;
   struct timespec moment;
 
   while(true) {
     try {
       try {
-        block.process(*this);
+        block.process(adaptor);
         _lock.unlock();
         return;
       }
@@ -97,34 +121,15 @@ invoke(const sk::rt::thread::Conditional& block)
 
 void
 sk::rt::thread::pthreads::ConditionMediator::
-ensure(bool expression, uint64_t timeout)
+ensure(int channel, uint64_t timeout)
 {
-  ensure(0, expression, timeout);
+  throw WaitRequest(channel, timeout);
 }
 
 void
 sk::rt::thread::pthreads::ConditionMediator::
-ensure(int channel, bool expression, uint64_t timeout)
+announce(int channel)
 {
-  if(expression == false) {
-    throw WaitRequest(channel, timeout);
-  }
-}
-
-void
-sk::rt::thread::pthreads::ConditionMediator::
-announce(bool expression)
-{
-  announce(0, expression);
-}
-
-void
-sk::rt::thread::pthreads::ConditionMediator::
-announce(int channel, bool expression)
-{
-  if(expression == false) {
-    return;
-  }
   _conditions.getMutable(channel).broadcast();
 }
 

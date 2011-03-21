@@ -13,7 +13,6 @@
 
 #include <sk/rt/Lock.h>
 #include <sk/rt/Thread.h>
-#include <sk/rt/thread/Condition.h>
 #include <sk/rt/thread/Conditional.h>
 #include <sk/rt/thread/platform/ConditionMediator.h>
 #include <sk/rt/Mutex.h>
@@ -26,14 +25,15 @@ namespace sk {
     namespace thread {
       namespace generic {
         class ConditionMediator 
-          : public virtual sk::rt::thread::platform::ConditionMediator,
-            public virtual sk::rt::thread::Condition
+          : public virtual sk::rt::thread::platform::ConditionMediator
         {
           public:
             ConditionMediator(sk::rt::Lock& lock, int capacity = 1);
             virtual ~ConditionMediator();
 
             void invoke(const sk::rt::thread::Conditional& block);
+            void ensure(int channel, uint64_t timeout);
+            void announce(int channel);
 
             // sk::util::Object re-implementation.
             const sk::util::Class getClass() const;
@@ -41,12 +41,6 @@ namespace sk {
           private:
             ConditionMediator(const ConditionMediator& other);
             ConditionMediator& operator = (const ConditionMediator& other);
-
-            // sk::rt::thread::Condition implementation.
-            void ensure(bool expression, uint64_t timeout);
-            void ensure(int channel, bool expression, uint64_t timeout);
-            void announce(bool expression);
-            void announce(int channel, bool expression);
 
             sk::rt::Lock& _lock;
             typedef sk::util::ArrayList<thread::Generic> thread_container_t;

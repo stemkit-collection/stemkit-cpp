@@ -62,28 +62,32 @@ namespace {
         : _scope("Workshop"), _mediator(_mutex, WS_COND_NUMBER) {}
 
       void getBunch(sk::rt::thread::Condition& condition, sk::util::Integers& bunch) {
-        _scope.info() << "Checking for a bunch of " << BUNCH_SIZE << " items";
-        condition.ensure(WS_COND_GOTBUNCH, _queue.size() >= BUNCH_SIZE);
+        while(_queue.size() < BUNCH_SIZE) {
+          _scope.info() << "Checking for a bunch of " << BUNCH_SIZE << " items";
+          condition.on(WS_COND_GOTBUNCH).wait();
+        }
         _scope.info() << "At least " << BUNCH_SIZE << " items are available, packing...";
 
         for(int counter = 0; counter < BUNCH_SIZE; ++counter) {
           bunch.add(_queue.shift());
         }
         if(_queue.size() < QUEUE_CAPACITY) {
-          condition.announce(WS_COND_NOTFULL);
+          condition.on(WS_COND_NOTFULL).announce();
         }
       }
 
       void pushValue(sk::rt::thread::Condition& condition, int value) {
         _scope.info() << "Checking queue not full";
-        condition.ensure(WS_COND_NOTFULL, _queue.size() < QUEUE_CAPACITY);
+        while(_queue.size() >= QUEUE_CAPACITY) {
+          condition.on(WS_COND_NOTFULL).wait();
+        }
         _scope.info() << "Queue has " << QUEUE_CAPACITY - _queue.size() << " slots available";
 
         _scope.info() << "...Pushing " << value;
         _queue.add(value);
 
         if(_queue.size() >= BUNCH_SIZE) {
-          condition.announce(WS_COND_GOTBUNCH);
+          condition.on(WS_COND_GOTBUNCH).announce();
         }
       }
 

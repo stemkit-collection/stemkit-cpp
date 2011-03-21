@@ -53,8 +53,10 @@ namespace {
       : _scope("Consumer"), _mediator(mediator), _depot(depot) {}
 
     void process(sk::rt::thread::Condition& condition) const {
-      _scope.info() << "Checking for a bunch";
-      condition.ensure(_depot.size() >= 10);
+      while(_depot.size() < 10) {
+        _scope.info() << "Checking for a bunch";
+        condition.wait();
+      }
       _scope.info() << "Got a bunch of 10: " << _depot.inspect();
       _depot.clear();
       sk::rt::Thread::sleep(5000);
@@ -78,7 +80,9 @@ namespace {
     void process(sk::rt::thread::Condition& condition) const {
       _scope.info() << "...Pushing " << _counter;
       _depot.add(_counter);
-      condition.announce(_depot.size() >= 10);
+      if(_depot.size() >= 10) {
+        condition.announce();
+      }
     }
 
     void run() {

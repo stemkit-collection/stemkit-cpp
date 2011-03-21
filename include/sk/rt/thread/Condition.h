@@ -20,10 +20,9 @@ namespace sk {
         : public virtual sk::util::Object
       {
         public:
-          virtual void ensure(bool expression, uint64_t timeout = 0) = 0;
-          virtual void ensure(int channel, bool expression, uint64_t timeout = 0) = 0;
-          virtual void announce(bool expression = true) = 0;
-          virtual void announce(int channel, bool expression = true) = 0;
+          virtual sk::rt::thread::Condition& on(int channel) = 0;
+          virtual void wait(uint64_t milliseconds = 0) = 0;
+          virtual void announce() = 0;
       };
     }
   }
