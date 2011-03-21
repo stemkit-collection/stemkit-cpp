@@ -32,6 +32,7 @@ namespace sk {
             virtual ~Implementation();
         
             // sk::rt::thread::platform::Implementation implementation.
+            platform::ConditionMediator* makeConditionMediator(sk::rt::Lock& lock, int capacity) const;
             platform::Mutex* makeSimpleMutex() const;
             platform::Mutex* makeRecursiveMutex() const;
             platform::Thread* makeThread(sk::rt::Runnable& target, sk::rt::thread::Generic& handle) const;

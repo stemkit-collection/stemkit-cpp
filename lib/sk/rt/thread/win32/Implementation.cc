@@ -13,6 +13,8 @@
 #include <sk/util/UnsupportedOperationException.h>
 #include <sk/util/IllegalStateException.h>
 
+#include "../generic/ConditionMediator.h"
+
 #include "Implementation.h"
 #include "CriticalSection.h"
 #include "Thread.h"
@@ -50,6 +52,13 @@ sk::rt::thread::win32::Implementation::
 getClass() const
 {
   return sk::util::Class(__className);
+}
+
+sk::rt::thread::platform::ConditionMediator* 
+sk::rt::thread::win32::Implementation::
+makeConditionMediator(sk::rt::Lock& lock, int capacity) const
+{
+  return new generic::ConditionMediator(lock, capacity);
 }
 
 sk::rt::thread::platform::Mutex* 
