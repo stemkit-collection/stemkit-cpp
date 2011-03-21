@@ -25,9 +25,9 @@ int main(int argc, const char* argv[])
   sk::rt::Scope::controller().loadXmlConfig(
     sk::rt::config::InlineLocator("\n\
       <scope name='app'>\n\
-        <scope name='sk::rt::thread::pthreads::Mutex'>\n\
+        <scope name='sk::rt::thread::pthreads'>\n\
           <log destination='std::cerr' level='info' show-object='false' show-time='true' />\n\
-          <property name='perform-error-check' value='true' />\n\
+          <property name='mutex-error-check' value='true' />\n\
         </scope>\n\
         \n\
         <scope name='sk::rt::thread::pthreads::Thread'>\n\

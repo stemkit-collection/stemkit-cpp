@@ -13,6 +13,7 @@
 
 #include <cppunit/TestFixture.h>
 #include <cppunit/extensions/HelperMacros.h>
+#include <sk/rt/Scope.h>
 
 namespace sk {
   namespace rt {
@@ -41,6 +42,8 @@ namespace sk {
             private:
               SingularMutexTest(const SingularMutexTest& other);
               SingularMutexTest& operator = (const SingularMutexTest& other);
+
+              sk::rt::Scope _scope;
           };
         }
       }

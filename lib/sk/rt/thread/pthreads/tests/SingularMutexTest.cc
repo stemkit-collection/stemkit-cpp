@@ -18,6 +18,7 @@ CPPUNIT_TEST_SUITE_REGISTRATION(sk::rt::thread::pthreads::tests::SingularMutexTe
 
 sk::rt::thread::pthreads::tests::SingularMutexTest::
 SingularMutexTest()
+  : _scope("sk::rt::thread::pthreads")
 {
 }
 
@@ -42,7 +43,7 @@ void
 sk::rt::thread::pthreads::tests::SingularMutexTest::
 testUnlockFailsOnNonLocked()
 {
-  sk::util::Holder<Mutex> _mutexHolder(pthreads::Mutex::makeSingular());
+  sk::util::Holder<Mutex> _mutexHolder(pthreads::Mutex::makeSingular(_scope));
   try {
     _mutexHolder.getMutable().unlock();
     CPPUNIT_FAIL("No expected exception");
@@ -57,7 +58,7 @@ void
 sk::rt::thread::pthreads::tests::SingularMutexTest::
 testLockUnlock()
 {
-  sk::util::Holder<Mutex> _mutexHolder(pthreads::Mutex::makeSingular());
+  sk::util::Holder<Mutex> _mutexHolder(pthreads::Mutex::makeSingular(_scope));
   CPPUNIT_ASSERT_THROW(_mutexHolder.getMutable().unlock(), sk::rt::thread::pthreads::Exception);
 
   CPPUNIT_ASSERT_NO_THROW(_mutexHolder.getMutable().lock());
@@ -71,7 +72,7 @@ void
 sk::rt::thread::pthreads::tests::SingularMutexTest::
 testTryLock()
 {
-  sk::util::Holder<Mutex> _mutexHolder(pthreads::Mutex::makeSingular());
+  sk::util::Holder<Mutex> _mutexHolder(pthreads::Mutex::makeSingular(_scope));
 
   CPPUNIT_ASSERT(_mutexHolder.getMutable().tryLock() == true);
   CPPUNIT_ASSERT(_mutexHolder.getMutable().tryLock() == false);

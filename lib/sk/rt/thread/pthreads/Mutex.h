@@ -38,18 +38,18 @@ namespace sk {
             // sk::util::Object re-implementation.
             const sk::util::Class getClass() const;
 
-            static Mutex* makeRecursive();
-            static Mutex* makeSingular();
+            static Mutex* makeRecursive(const sk::rt::Scope& scope);
+            static Mutex* makeSingular(const sk::rt::Scope& scope);
         
           private:
-            Mutex(int mutex_type, const sk::rt::Scope scope);
+            Mutex(int mutex_type, const sk::rt::Scope& scope);
             Mutex(const Mutex& other);
             Mutex& operator = (const Mutex& other);
 
             void destroyMutex();
             void destroyMutexAttributes();
 
-            sk::rt::Scope _scope;
+            const sk::rt::Scope& _scope;
             pthread_mutex_t _mutexHandle;
             pthread_mutexattr_t _attributes;
         };

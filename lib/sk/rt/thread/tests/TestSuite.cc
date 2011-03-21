@@ -34,8 +34,8 @@ int main(int argc, const char* argv[])
           <property name='abort-on-exception' value='false' />\n\
         </scope>\n\
         \n\
-        <scope name='sk::rt::thread::pthreads::Mutex'>\n\
-          <property name='perform-error-check' value='true' />\n\
+        <scope name='sk::rt::thread::pthreads'>\n\
+          <property name='mutex-error-check' value='true' />\n\
         </scope>\n\
         \n\
         <scope name='sk::rt::thread::pthreads::Thread'>\n\
@@ -49,8 +49,5 @@ int main(int argc, const char* argv[])
     sk::cppunit::SourcePath::setBase(argv[1]);
   }
   runner.addTest(registry.makeTest());
-  int status = !runner.run();
-  sk::rt::Thread::reset();
-
-  return status;
+  return !runner.run();
 }

@@ -19,7 +19,7 @@
 static const char* __className("sk::rt::thread::pthreads::Mutex");
 
 sk::rt::thread::pthreads::Mutex::
-Mutex(int mutex_type, sk::rt::Scope scope)
+Mutex(int mutex_type, const sk::rt::Scope& scope)
   : _scope(scope)
 {
   SK_PTHREAD_RAISE_UNLESS_SUCCESS(pthread_mutexattr_init(&_attributes));
@@ -35,17 +35,16 @@ Mutex(int mutex_type, sk::rt::Scope scope)
 
 sk::rt::thread::pthreads::Mutex*
 sk::rt::thread::pthreads::Mutex::
-makeRecursive()
+makeRecursive(const sk::rt::Scope& scope)
 {
-  return new pthreads::Mutex(PTHREAD_MUTEX_RECURSIVE, sk::rt::Scope(__className));
+  return new pthreads::Mutex(PTHREAD_MUTEX_RECURSIVE, scope);
 }
 
 sk::rt::thread::pthreads::Mutex*
 sk::rt::thread::pthreads::Mutex::
-makeSingular()
+makeSingular(const sk::rt::Scope& scope)
 {
-  sk::rt::Scope scope(__className);
-  bool check = scope.getProperty("perform-error-check", sk::util::Boolean::B_TRUE);
+  bool check = scope.getProperty("mutex-error-check", sk::util::Boolean::B_TRUE);
   return new Mutex((check ? PTHREAD_MUTEX_ERRORCHECK : PTHREAD_MUTEX_NORMAL), scope);
 }
 

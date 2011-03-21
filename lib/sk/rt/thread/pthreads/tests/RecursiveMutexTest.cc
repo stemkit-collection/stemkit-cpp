@@ -18,6 +18,7 @@ CPPUNIT_TEST_SUITE_REGISTRATION(sk::rt::thread::pthreads::tests::RecursiveMutexT
 
 sk::rt::thread::pthreads::tests::RecursiveMutexTest::
 RecursiveMutexTest()
+  : _scope("sk::rt::thread::pthreads")
 {
 }
 
@@ -42,7 +43,7 @@ void
 sk::rt::thread::pthreads::tests::RecursiveMutexTest::
 testUnlockFailsOnNonLocked()
 {
-  sk::util::Holder<Mutex> _mutexHolder(pthreads::Mutex::makeRecursive());
+  sk::util::Holder<Mutex> _mutexHolder(pthreads::Mutex::makeRecursive(_scope));
   try {
     _mutexHolder.getMutable().unlock();
     CPPUNIT_FAIL("No expected exception");
@@ -57,7 +58,7 @@ void
 sk::rt::thread::pthreads::tests::RecursiveMutexTest::
 testLockUnlock()
 {
-  sk::util::Holder<Mutex> _mutexHolder(pthreads::Mutex::makeRecursive());
+  sk::util::Holder<Mutex> _mutexHolder(pthreads::Mutex::makeRecursive(_scope));
   CPPUNIT_ASSERT_THROW(_mutexHolder.getMutable().unlock(), sk::rt::thread::pthreads::Exception);
 
   CPPUNIT_ASSERT_NO_THROW(_mutexHolder.getMutable().lock());
@@ -79,7 +80,7 @@ testTryLock()
   // on Windows - on recursive locks it returns EDEADLK on all invocations
   // with the mutex already locked by the current thread.
   //
-  sk::util::Holder<Mutex> _mutexHolder(pthreads::Mutex::makeRecursive());
+  sk::util::Holder<Mutex> _mutexHolder(pthreads::Mutex::makeRecursive(_scope));
 
   CPPUNIT_ASSERT(_mutexHolder.getMutable().tryLock() == true);
   // SEE ABOVE NOTE: CPPUNIT_ASSERT(_mutexHolder.getMutable().tryLock() == true);

@@ -27,7 +27,7 @@ int main(int argc, const char* argv[])
       <scope name='app'>\n\
         <scope name='sk::rt::thread::win32::CriticalSection'>\n\
           <log destination='std::cerr' level='info' show-object='false' show-time='true' />\n\
-          <property name='perform-error-check' value='true' />\n\
+          <property name='mutex-error-check' value='true' />\n\
         </scope>\n\
         \n\
         <scope name='sk::rt::thread::win32::Thread'>\n\

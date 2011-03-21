@@ -65,14 +65,14 @@ sk::rt::thread::platform::Mutex*
 sk::rt::thread::pthreads::Implementation::
 makeSimpleMutex() const
 {
-  return pthreads::Mutex::makeSingular();
+  return pthreads::Mutex::makeSingular(_scope);
 }
 
 sk::rt::thread::platform::Mutex*
 sk::rt::thread::pthreads::Implementation::
 makeRecursiveMutex() const
 {
-  return pthreads::Mutex::makeRecursive();
+  return pthreads::Mutex::makeRecursive(_scope);
 }
 
 sk::rt::thread::platform::Thread*

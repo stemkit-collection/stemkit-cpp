@@ -49,8 +49,8 @@ int main(int argc, const char* argv[])
             <property name='abort-on-exception' value='true' />\n\
           </scope>\n\
           \n\
-          <scope name='sk::rt::thread::pthreads::Mutex'>\n\
-            <property name='perform-error-check' value='true' />\n\
+          <scope name='sk::rt::thread::pthreads'>\n\
+            <property name='mutex-error-check' value='true' />\n\
           </scope>\n\
           \n\
         </scope>\n\
