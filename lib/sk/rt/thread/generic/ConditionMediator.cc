@@ -31,7 +31,7 @@ sk::rt::thread::generic::ConditionMediator::
 ConditionMediator(sk::rt::Lock& lock, int capacity)
   : _lock(lock)
 {
-  for(int counter=std::min(1, capacity); counter; --counter) {
+  for(int counter=std::max(1, capacity); counter; --counter) {
     _waiters.add(new thread_container_t);
   }
 }
