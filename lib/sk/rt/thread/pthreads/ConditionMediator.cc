@@ -32,12 +32,12 @@ struct sk::rt::thread::pthreads::ConditionMediator::WaitRequest {
 };
 
 sk::rt::thread::pthreads::ConditionMediator::
-ConditionMediator(sk::rt::Lock& lock, int capacity)
-  : _lock(lock)
+ConditionMediator(const sk::rt::Scope& scope, sk::rt::Lock& lock, int capacity)
+  : _scope(scope), _lock(lock)
 {
   pthreads::Mutex& mutex = sk::util::upcast<pthreads::Mutex>(lock.getObject());
   for(int counter=std::min(1, capacity); counter; --counter) {
-    _conditions.add(new pthreads::Condition(mutex));
+    _conditions.add(new pthreads::Condition(_scope, mutex));
   }
 }
 

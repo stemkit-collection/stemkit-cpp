@@ -15,6 +15,7 @@
 #include <sk/rt/thread/Condition.h>
 #include <sk/rt/thread/Conditional.h>
 #include <sk/rt/thread/platform/ConditionMediator.h>
+#include <sk/rt/Scope.h>
 
 #include <sk/util/Vector.hxx>
 
@@ -29,7 +30,7 @@ namespace sk {
             public virtual sk::rt::thread::Condition
         {
           public:
-            ConditionMediator(sk::rt::Lock& lock, int capacity = 1);
+            ConditionMediator(const sk::rt::Scope& scope, sk::rt::Lock& lock, int capacity = 1);
             virtual ~ConditionMediator();
 
             void invoke(const sk::rt::thread::Conditional& block);
@@ -49,6 +50,7 @@ namespace sk {
 
             sk::rt::Lock& _lock;
             sk::util::Vector<pthreads::Condition>::Direct _conditions;
+            const sk::rt::Scope& _scope;
 
             struct WaitRequest;
         };

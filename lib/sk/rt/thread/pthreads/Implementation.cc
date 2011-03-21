@@ -58,7 +58,7 @@ makeConditionMediator(sk::rt::Lock& lock, int capacity) const
   if(_scope.getProperty("generic-condition-mediator", sk::util::Boolean::B_FALSE) == true) {
     return new generic::ConditionMediator(lock, capacity);
   }
-  return new pthreads::ConditionMediator(lock, capacity);
+  return new pthreads::ConditionMediator(_scope, lock, capacity);
 }
 
 sk::rt::thread::platform::Mutex*

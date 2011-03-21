@@ -24,7 +24,7 @@ namespace sk {
           : public virtual sk::util::Object
         {
           public:
-            Condition(pthreads::Mutex& mutex);
+            Condition(const sk::rt::Scope& scope, pthreads::Mutex& mutex);
             virtual ~Condition();
 
             pthread_cond_t& getHandle();
@@ -45,7 +45,7 @@ namespace sk {
 
             pthread_mutex_t& _mutexHandle;
             pthread_cond_t _conditionHandle;
-            sk::rt::Scope _scope;
+            const sk::rt::Scope& _scope;
         };
       }
     }

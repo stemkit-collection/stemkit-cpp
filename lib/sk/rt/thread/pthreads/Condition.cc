@@ -20,8 +20,8 @@
 static const sk::util::String __className("sk::rt::thread::pthreads::Condition");
 
 sk::rt::thread::pthreads::Condition::
-Condition(pthreads::Mutex& mutex)
-  : _scope(__className), _mutexHandle(mutex.getHandle())
+Condition(const sk::rt::Scope& scope, pthreads::Mutex& mutex)
+  : _scope(scope), _mutexHandle(mutex.getHandle())
 {
     SK_PTHREAD_RAISE_UNLESS_SUCCESS(pthread_cond_init(&_conditionHandle, 0));
 }
