@@ -11,7 +11,9 @@
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
 #include <sk/util/IllegalStateException.h>
-#include "ConditionMediator.h"
+
+#include "../pthreads/ConditionMediator.h"
+#include "../generic/ConditionMediator.h"
 
 #include "Implementation.h"
 #include "Exception.h"
@@ -53,6 +55,9 @@ sk::rt::thread::platform::ConditionMediator*
 sk::rt::thread::pthreads::Implementation::
 makeConditionMediator(sk::rt::Lock& lock, int capacity) const
 {
+  if(_scope.getProperty("generic-condition-mediator", sk::util::Boolean::B_FALSE) == true) {
+    return new generic::ConditionMediator(lock, capacity);
+  }
   return new pthreads::ConditionMediator(lock, capacity);
 }
 
