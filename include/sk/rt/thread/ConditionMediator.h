@@ -34,7 +34,10 @@ namespace sk {
           void synchronize(T& target, TMF method);
       
           template<typename T, typename TMF, typename P> 
-          void synchronize(T& target, TMF method, P param);
+          void synchronize(T& target, TMF method, P& param);
+      
+          template<typename T, typename TMF, typename P> 
+          void synchronize(T& target, TMF method, const P& param);
       
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
@@ -87,7 +90,7 @@ synchronize(T& target, TMF method)
 
 template<typename T, typename TMF, typename P>
 struct sk::rt::thread::ConditionMediator::MemberFunctionWithParamInvocator : public virtual sk::rt::thread::Conditional {
-  MemberFunctionWithParamInvocator(T& target, TMF method, P param)
+  MemberFunctionWithParamInvocator(T& target, TMF method, P& param)
     : _target(target), _method(method), _param(param) {}
 
   void process(sk::rt::thread::Condition& condition) const {
@@ -95,15 +98,23 @@ struct sk::rt::thread::ConditionMediator::MemberFunctionWithParamInvocator : pub
   }
   T& _target;
   TMF _method;
-  P _param;
+  P& _param;
 };
 
 template<typename T, typename TMF, typename P>
 void
 sk::rt::thread::ConditionMediator::
-synchronize(T& target, TMF method, P param)
+synchronize(T& target, TMF method, P& param)
 {
   invoke(MemberFunctionWithParamInvocator<T, TMF, P>(target, method, param));
+}
+
+template<typename T, typename TMF, typename P>
+void
+sk::rt::thread::ConditionMediator::
+synchronize(T& target, TMF method, const P& param)
+{
+  invoke(MemberFunctionWithParamInvocator<T, TMF, const P>(target, method, param));
 }
 
 #endif /* _SK_RT_THREAD_CONDITIONMEDIATOR_H_ */
