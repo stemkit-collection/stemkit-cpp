@@ -26,7 +26,7 @@ static const char* __className("sk::rt::thread::pthreads::Implementation");
 
 sk::rt::thread::pthreads::Implementation::
 Implementation()
-  : _scope(__className)
+  : _scope("sk::rt::thread::pthreads")
 {
   SK_PTHREAD_RAISE_UNLESS_SUCCESS(pthread_key_create(&_currentThreadKey, 0));
 }
