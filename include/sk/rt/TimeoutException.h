@@ -20,6 +20,7 @@ namespace sk {
     {
       public:
         TimeoutException();
+        TimeoutException(const sk::util::String& message);
     
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;

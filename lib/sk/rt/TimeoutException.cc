@@ -16,6 +16,12 @@
 static const sk::util::String __className("sk::rt::TimeoutException");
 
 sk::rt::TimeoutException::
+TimeoutException(const sk::util::String& message)
+  : sk::util::Exception(join("Timeout", message))
+{
+}
+
+sk::rt::TimeoutException::
 TimeoutException()
   : sk::util::Exception("Timeout")
 {
