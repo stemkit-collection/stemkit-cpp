@@ -31,6 +31,8 @@ namespace sk {
 
             void wait();
             void waitUntil(const struct timespec& moment);
+            void broadcast();
+            void signal();
 
             // sk::util::Object re-implementation.
             const sk::util::Class getClass() const;

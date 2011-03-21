@@ -68,3 +68,17 @@ wait()
 {
   SK_PTHREAD_RAISE_UNLESS_SUCCESS(pthread_cond_wait(&_conditionHandle, &_mutexHandle));
 }
+
+void
+sk::rt::thread::pthreads::Condition::
+broadcast()
+{
+  SK_PTHREAD_RAISE_UNLESS_SUCCESS(pthread_cond_broadcast(&_conditionHandle));
+}
+
+void
+sk::rt::thread::pthreads::Condition::
+signal()
+{
+  SK_PTHREAD_RAISE_UNLESS_SUCCESS(pthread_cond_signal(&_conditionHandle));
+}

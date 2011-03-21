@@ -12,7 +12,6 @@
 #include <sk/util/String.h>
 #include <sk/util/upcast.cxx>
 #include <sk/util/Vector.cxx>
-#include <sk/util/UnsupportedOperationException.h>
 
 #include <sk/rt/SystemException.h>
 
@@ -123,6 +122,9 @@ void
 sk::rt::thread::pthreads::ConditionMediator::
 announce(int channel, bool expression)
 {
-  throw sk::util::UnsupportedOperationException("announce");
+  if(expression == false) {
+    return;
+  }
+  _conditions.getMutable(channel).broadcast();
 }
 
