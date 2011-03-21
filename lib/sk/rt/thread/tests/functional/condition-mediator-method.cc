@@ -38,9 +38,6 @@ int main(int argc, const char* const argv[])
         <scope name='sk::rt::thread::pthreads'>\n\
           <log level='error' />\n\
         </scope>\n\
-        <scope name='sk::rt::thread::pthreads::Thread'>\n\
-          <log level='error' />\n\
-        </scope>\n\
       </scope>\n\
     ")
   );

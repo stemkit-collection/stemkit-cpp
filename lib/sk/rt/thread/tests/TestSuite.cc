@@ -37,10 +37,6 @@ int main(int argc, const char* argv[])
         <scope name='sk::rt::thread::pthreads'>\n\
           <property name='mutex-error-check' value='true' />\n\
         </scope>\n\
-        \n\
-        <scope name='sk::rt::thread::pthreads::Thread'>\n\
-          <log level='error' />\n\
-        </scope>\n\
       </scope>\n\
     ")
   );

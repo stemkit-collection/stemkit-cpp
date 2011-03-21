@@ -29,16 +29,16 @@ namespace {
 }
 
 sk::rt::thread::pthreads::Thread::
-Thread(const Provider& provider, sk::rt::thread::Generic& handle)
-  : _scope(__className), _provider(provider), _handle(handle), _target(DUMMY_TARGET), 
+Thread(const sk::rt::Scope& scope, const Provider& provider, sk::rt::thread::Generic& handle)
+  : _scope(scope), _provider(provider), _handle(handle), _target(DUMMY_TARGET), 
     _thread(pthread_self()), _wrapper(true), _stopping(false)
 {
   _provider.installGeneric(_handle);
 }
 
 sk::rt::thread::pthreads::Thread::
-Thread(const Provider& provider, sk::rt::Runnable& target, sk::rt::thread::Generic& handle)
-  : _scope(__className), _provider(provider), _target(target), _handle(handle), 
+Thread(const sk::rt::Scope& scope, const Provider& provider, sk::rt::Runnable& target, sk::rt::thread::Generic& handle)
+  : _scope(scope), _provider(provider), _target(target), _handle(handle), 
   _thread(0), _wrapper(false), _stopping(false)
 {
 }

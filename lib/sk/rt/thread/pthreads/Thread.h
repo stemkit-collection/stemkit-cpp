@@ -27,8 +27,8 @@ namespace sk {
           : public virtual sk::rt::thread::platform::Thread
         {
           public:
-            Thread(const Provider& provider, sk::rt::thread::Generic& handle);
-            Thread(const Provider& provider, sk::rt::Runnable& target, thread::Generic& handle);
+            Thread(const sk::rt::Scope& scope, const Provider& provider, sk::rt::thread::Generic& handle);
+            Thread(const sk::rt::Scope& scope, const Provider& provider, sk::rt::Runnable& target, thread::Generic& handle);
             virtual ~Thread();
 
             // sk::rt::thread::platform::Thread implementation.
@@ -48,7 +48,7 @@ namespace sk {
             void run();
             static void* runner(void* data);
 
-            sk::rt::Scope _scope;
+            const sk::rt::Scope& _scope;
             pthread_t _thread;
             sk::rt::Runnable& _target;
             sk::rt::thread::Generic& _handle;

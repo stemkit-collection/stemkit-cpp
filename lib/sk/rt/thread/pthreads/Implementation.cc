@@ -79,14 +79,14 @@ sk::rt::thread::platform::Thread*
 sk::rt::thread::pthreads::Implementation::
 makeThread(sk::rt::Runnable& target, sk::rt::thread::Generic& handle) const
 {
-  return new pthreads::Thread(*this, target, handle);
+  return new pthreads::Thread(_scope, *this, target, handle);
 }
 
 sk::rt::thread::platform::Thread*
 sk::rt::thread::pthreads::Implementation::
 wrapCurrentThread(sk::rt::thread::Generic& handle) const
 {
-  return new pthreads::Thread(*this, handle);
+  return new pthreads::Thread(_scope, *this, handle);
 }
 
 void

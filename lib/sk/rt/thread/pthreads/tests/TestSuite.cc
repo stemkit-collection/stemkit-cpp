@@ -29,10 +29,6 @@ int main(int argc, const char* argv[])
           <log destination='std::cerr' level='info' show-object='false' show-time='true' />\n\
           <property name='mutex-error-check' value='true' />\n\
         </scope>\n\
-        \n\
-        <scope name='sk::rt::thread::pthreads::Thread'>\n\
-          <log destination='std::cerr' level='error' show-object='false' show-time='true' />\n\
-        </scope>\n\
       </scope>\n\
     ")
   );
