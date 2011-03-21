@@ -25,6 +25,8 @@ namespace sk {
           public:
             virtual ~Mutex();
 
+            pthread_mutex_t& getHandle();
+
             // sk::rt::thread::platform::Mutex implementation
             void lock();
             void unlock();

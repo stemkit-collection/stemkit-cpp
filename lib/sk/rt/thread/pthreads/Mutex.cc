@@ -56,6 +56,13 @@ sk::rt::thread::pthreads::Mutex::
   sk::util::Exception::guard(_scope.warning(), *this, &Mutex::destroyMutexAttributes, __FUNCTION__);
 }
 
+pthread_mutex_t&
+sk::rt::thread::pthreads::Mutex::
+getHandle()
+{
+  return _mutex;
+}
+
 void 
 sk::rt::thread::pthreads::Mutex::
 destroyMutex() 
