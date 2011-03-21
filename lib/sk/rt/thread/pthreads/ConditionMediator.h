@@ -16,11 +16,13 @@
 #include <sk/rt/thread/Conditional.h>
 #include <sk/rt/thread/platform/ConditionMediator.h>
 
+#include <sk/util/Vector.hxx>
+
 namespace sk {
   namespace rt {
     namespace thread {
       namespace pthreads {
-        class Mutex;
+        class Condition;
 
         class ConditionMediator 
           : public virtual sk::rt::thread::platform::ConditionMediator,
@@ -46,7 +48,9 @@ namespace sk {
             void announce(int channel, bool expression);
 
             sk::rt::Lock& _lock;
-            pthreads::Mutex& _mutex;
+            sk::util::Vector<pthreads::Condition>::Direct _conditions;
+
+            struct WaitRequest;
         };
       }
     }
