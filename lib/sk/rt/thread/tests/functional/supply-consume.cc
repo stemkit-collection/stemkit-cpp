@@ -50,27 +50,41 @@ int main(int argc, const char* const argv[])
 namespace {
   class Workshop {
     enum Conditions {
-      WS_COND_FULL,
-      WS_COND_EMPTY,
+      WS_COND_GOTBUNCH,
+      WS_COND_NOTFULL,
       WS_COND_NUMBER
     };
+    static const int BUNCH_SIZE = 3;
+    static const int QUEUE_CAPACITY = 5;
+    
     public: 
       Workshop()
         : _scope("Workshop"), _mediator(_mutex, WS_COND_NUMBER) {}
 
-      void printBunch(sk::rt::thread::Condition& condition) {
-        _scope.info() << "Checking for a bunch";
-        condition.ensure(WS_COND_FULL, _depot.size() >= 10);
+      void getBunch(sk::rt::thread::Condition& condition, sk::util::Integers& bunch) {
+        _scope.info() << "Checking for a bunch of " << BUNCH_SIZE << " items";
+        condition.ensure(WS_COND_GOTBUNCH, _queue.size() >= BUNCH_SIZE);
+        _scope.info() << "At least " << BUNCH_SIZE << " items are available, packing...";
 
-        _scope.info() << "Got a bunch of 10: " << _depot.inspect();
-        _depot.clear();
-        sk::rt::Thread::sleep(5000);
+        for(int counter = 0; counter < BUNCH_SIZE; ++counter) {
+          bunch.add(_queue.shift());
+        }
+        if(_queue.size() < QUEUE_CAPACITY) {
+          condition.announce(WS_COND_NOTFULL);
+        }
       }
 
       void pushValue(sk::rt::thread::Condition& condition, int value) {
+        _scope.info() << "Checking queue not full";
+        condition.ensure(WS_COND_NOTFULL, _queue.size() < QUEUE_CAPACITY);
+        _scope.info() << "Queue has " << QUEUE_CAPACITY - _queue.size() << " slots available";
+
         _scope.info() << "...Pushing " << value;
-        _depot.add(value);
-        condition.announce(WS_COND_FULL, _depot.size() >= 10);
+        _queue.add(value);
+
+        if(_queue.size() >= BUNCH_SIZE) {
+          condition.announce(WS_COND_GOTBUNCH);
+        }
       }
 
       sk::rt::thread::ConditionMediator& mediator() {
@@ -80,7 +94,7 @@ namespace {
     private:
       sk::rt::Mutex _mutex;
       sk::rt::thread::ConditionMediator _mediator;
-      sk::util::Integers _depot;
+      sk::util::Integers _queue;
       sk::rt::Scope _scope;
   };
 
@@ -91,10 +105,14 @@ namespace {
     void run() {
       _scope.info() << sk::rt::Thread::currentThread().inspect();
       while(true) {
-        _workshop.mediator().synchronize(_workshop, &Workshop::printBunch);
-        sk::rt::Thread::sleep(3000);
+        _bunch.clear();
+        _workshop.mediator().synchronize(_workshop, &Workshop::getBunch, _bunch);
+        _scope.info() << "... GOT BUNCH: " << _bunch.inspect();
+        sk::rt::Thread::sleep(15000);
       }
     }
+
+    sk::util::Integers _bunch;
     sk::rt::Scope _scope;
     Workshop& _workshop;
   };
