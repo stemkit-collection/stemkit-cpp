@@ -20,17 +20,11 @@
 static const sk::util::String __className("sk::rt::thread::generic::ConditionMediator");
 
 struct sk::rt::thread::generic::ConditionMediator::WaitRequest {
-  WaitRequest(int channel, uint64_t milliseconds)
-    : _channel(channel), _milliseconds(milliseconds) {}
+  WaitRequest(int number, uint64_t milliseconds)
+    : channel(number), timeout(milliseconds) {}
 
-  uint64_t waitMilliseconds() const {
-    return _milliseconds;
-  }
-  int channel() const {
-    return _channel;
-  }
-  uint64_t _milliseconds;
-  int _channel;
+  uint64_t timeout;
+  int channel;
 };
 
 sk::rt::thread::generic::ConditionMediator::
@@ -38,7 +32,7 @@ ConditionMediator(sk::rt::Lock& lock, int capacity)
   : _lock(lock)
 {
   for(int counter=std::min(1, capacity); counter; --counter) {
-    _waiters.add(new sk::util::ArrayList<sk::rt::thread::Generic>());
+    _waiters.add(new thread_container_t);
   }
 }
 
@@ -66,14 +60,14 @@ invoke(const sk::rt::thread::Conditional& block)
       _lock.unlock();
       break;
     }
-    catch(const sk::rt::thread::generic::ConditionMediator::WaitRequest& request) {
-      sk::rt::thread::Generic& currentThread = sk::rt::Thread::currentThread();
-      sk::util::ArrayList<sk::rt::thread::Generic>& waiters = _waiters.getMutable(request.channel());
+    catch(const WaitRequest& request) {
+      thread::Generic& currentThread = sk::rt::Thread::currentThread();
+      thread_container_t& waiters = _waiters.getMutable(request.channel);
       (sk::rt::Locker(_mutex), waiters.add(currentThread));
 
       _lock.unlock();
 
-      uint64_t remaining = request.waitMilliseconds();
+      uint64_t remaining = request.timeout;
       bool forever = (remaining > 0 ? false : true);
       uint64_t span = 100;
 
@@ -130,7 +124,7 @@ announce(int channel, bool expression)
       thread.interrupt();
     }
   };
-  sk::util::ArrayList<sk::rt::thread::Generic>& waiters = _waiters.getMutable(channel);
+  thread_container_t& waiters = _waiters.getMutable(channel);
   sk::rt::Locker locker(_mutex);
 
   waiters.forEach(Interruptor());

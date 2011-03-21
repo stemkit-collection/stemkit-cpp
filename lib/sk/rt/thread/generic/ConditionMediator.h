@@ -49,7 +49,7 @@ namespace sk {
             void announce(int channel, bool expression);
 
             sk::rt::Lock& _lock;
-            typedef sk::util::ArrayList<sk::rt::thread::Generic> thread_container_t;
+            typedef sk::util::ArrayList<thread::Generic> thread_container_t;
             sk::util::Vector<thread_container_t>::Direct _waiters;
             sk::rt::Mutex _mutex;
 
