@@ -14,6 +14,7 @@
 #include <sk/util/Vector.cxx>
 
 #include "ConditionMediator.h"
+#include "../ConditionAdaptor.hxx"
 #include <sk/rt/TimeoutException.h>
 #include <sk/rt/Locker.h>
 
@@ -48,34 +49,11 @@ getClass() const
   return sk::util::Class(__className);
 }
 
-namespace {
-  struct ConditionAdaptor : public virtual sk::rt::thread::Condition {
-    ConditionAdaptor(sk::rt::thread::generic::ConditionMediator& mediator)
-      : _mediator(mediator), _channel(0) {}
-
-    sk::rt::thread::Condition& on(int channel) {
-      _channel = channel;
-      return *this;
-    }
-
-    void wait(uint64_t milliseconds = 0) {
-      _mediator.ensure(_channel, milliseconds);
-    }
-
-    void announce() {
-      _mediator.announce(_channel);
-    }
-
-    sk::rt::thread::generic::ConditionMediator& _mediator;
-    int _channel;
-  };
-}
-
 void
 sk::rt::thread::generic::ConditionMediator::
 invoke(const sk::rt::thread::Conditional& block)
 {
-  ConditionAdaptor adaptor(*this);
+  sk::rt::thread::ConditionAdaptor<generic::ConditionMediator> adaptor(*this);
 
   while(true) {
     _lock.lock();
@@ -116,7 +94,7 @@ invoke(const sk::rt::thread::Conditional& block)
 
 void
 sk::rt::thread::generic::ConditionMediator::
-ensure(int channel, uint64_t timeout)
+wait(int channel, uint64_t timeout)
 {
   throw WaitRequest(channel, timeout);
 }

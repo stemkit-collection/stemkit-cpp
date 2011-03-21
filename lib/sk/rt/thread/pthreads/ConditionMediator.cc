@@ -16,6 +16,7 @@
 #include <sk/rt/SystemException.h>
 
 #include "ConditionMediator.h"
+#include "../ConditionAdaptor.hxx"
 #include "Condition.h"
 #include "Mutex.h"
 
@@ -53,36 +54,13 @@ getClass() const
   return sk::util::Class(__className);
 }
 
-namespace {
-  struct ConditionAdaptor : public virtual sk::rt::thread::Condition {
-    ConditionAdaptor(sk::rt::thread::pthreads::ConditionMediator& mediator)
-      : _mediator(mediator), _channel(0) {}
-
-    sk::rt::thread::Condition& on(int channel) {
-      _channel = channel;
-      return *this;
-    }
-
-    void wait(uint64_t milliseconds = 0) {
-      _mediator.ensure(_channel, milliseconds);
-    }
-
-    void announce() {
-      _mediator.announce(_channel);
-    }
-
-    sk::rt::thread::pthreads::ConditionMediator& _mediator;
-    int _channel;
-  };
-}
-
 void
 sk::rt::thread::pthreads::ConditionMediator::
 invoke(const sk::rt::thread::Conditional& block)
 {
   _lock.lock();
 
-  ConditionAdaptor adaptor(*this);
+  sk::rt::thread::ConditionAdaptor<pthreads::ConditionMediator> adaptor(*this);
   bool momentCalculated = false;
   struct timespec moment;
 
@@ -121,7 +99,7 @@ invoke(const sk::rt::thread::Conditional& block)
 
 void
 sk::rt::thread::pthreads::ConditionMediator::
-ensure(int channel, uint64_t timeout)
+wait(int channel, uint64_t timeout)
 {
   throw WaitRequest(channel, timeout);
 }
