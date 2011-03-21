@@ -25,7 +25,7 @@ Mutex(int mutex_type, sk::rt::Scope scope)
   SK_PTHREAD_RAISE_UNLESS_SUCCESS(pthread_mutexattr_init(&_attributes));
   try {
     SK_PTHREAD_RAISE_UNLESS_SUCCESS(pthread_mutexattr_settype(&_attributes, mutex_type));
-    SK_PTHREAD_RAISE_UNLESS_SUCCESS(pthread_mutex_init(&_mutex, &_attributes));
+    SK_PTHREAD_RAISE_UNLESS_SUCCESS(pthread_mutex_init(&_mutexHandle, &_attributes));
   }
   catch(...) {
     destroyMutexAttributes();
@@ -60,14 +60,14 @@ pthread_mutex_t&
 sk::rt::thread::pthreads::Mutex::
 getHandle()
 {
-  return _mutex;
+  return _mutexHandle;
 }
 
 void 
 sk::rt::thread::pthreads::Mutex::
 destroyMutex() 
 {
-  SK_PTHREAD_RAISE_UNLESS_SUCCESS(pthread_mutex_destroy(&_mutex));
+  SK_PTHREAD_RAISE_UNLESS_SUCCESS(pthread_mutex_destroy(&_mutexHandle));
 }
 
 void 
@@ -88,21 +88,21 @@ void
 sk::rt::thread::pthreads::Mutex::
 lock()
 {
-  SK_PTHREAD_RAISE_UNLESS_SUCCESS(pthread_mutex_lock(&_mutex));
+  SK_PTHREAD_RAISE_UNLESS_SUCCESS(pthread_mutex_lock(&_mutexHandle));
 }
 
 void 
 sk::rt::thread::pthreads::Mutex::
 unlock()
 {
-  SK_PTHREAD_RAISE_UNLESS_SUCCESS(pthread_mutex_unlock(&_mutex));
+  SK_PTHREAD_RAISE_UNLESS_SUCCESS(pthread_mutex_unlock(&_mutexHandle));
 }
 
 void 
 sk::rt::thread::pthreads::Mutex::
 reset()
 {
-  SK_PTHREAD_RAISE_UNLESS_SUCCESS(pthread_mutex_init(&_mutex, &_attributes));
+  SK_PTHREAD_RAISE_UNLESS_SUCCESS(pthread_mutex_init(&_mutexHandle, &_attributes));
 }
 
 bool
@@ -113,7 +113,7 @@ tryLock()
   // on Windows - on recursive locks it returns EDEADLK on all invocations
   // with the mutex already locked by the current thread.
   //
-  return SK_PTHREAD_RAISE_UNLESS_SUCCESS_OR(sk::util::Integers() << EBUSY << EDEADLK, pthread_mutex_trylock(&_mutex));
+  return SK_PTHREAD_RAISE_UNLESS_SUCCESS_OR(sk::util::Integers() << EBUSY << EDEADLK, pthread_mutex_trylock(&_mutexHandle));
 }
 
 bool
