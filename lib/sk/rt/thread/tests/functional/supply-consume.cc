@@ -109,14 +109,13 @@ namespace {
     void run() {
       _scope.info() << sk::rt::Thread::currentThread().inspect();
       while(true) {
-        _bunch.clear();
-        _workshop.mediator().synchronize(_workshop, &Workshop::getBunch, _bunch);
-        _scope.info() << "... GOT BUNCH: " << _bunch.inspect();
+        sk::util::Integers bunch;
+        _workshop.mediator().synchronize(_workshop, &Workshop::getBunch, bunch);
+        _scope.info() << "... GOT BUNCH: " << bunch.inspect();
         sk::rt::Thread::sleep(15000);
       }
     }
 
-    sk::util::Integers _bunch;
     sk::rt::Scope _scope;
     Workshop& _workshop;
   };
