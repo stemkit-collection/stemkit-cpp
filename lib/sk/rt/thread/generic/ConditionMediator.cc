@@ -56,7 +56,15 @@ invoke(bool blocking, const sk::rt::thread::Conditional& block)
   sk::rt::thread::ConditionAdaptor<generic::ConditionMediator> adaptor(*this);
 
   while(true) {
-    _lock.lock();
+    if(blocking == false) {
+      if(_lock.tryLock() == false) {
+        return false;
+      }
+      blocking = true;
+    }
+    else {
+      _lock.lock();
+    }
 
     try {
       block.process(adaptor);

@@ -58,7 +58,14 @@ bool
 sk::rt::thread::pthreads::ConditionMediator::
 invoke(bool blocking, const sk::rt::thread::Conditional& block)
 {
-  _lock.lock();
+  if(blocking == false) {
+    if(_lock.tryLock() == false) {
+      return false;
+    }
+  }
+  else {
+    _lock.lock();
+  }
 
   sk::rt::thread::ConditionAdaptor<pthreads::ConditionMediator> adaptor(*this);
   bool momentCalculated = false;
