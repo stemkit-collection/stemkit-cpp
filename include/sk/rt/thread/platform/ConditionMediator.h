@@ -21,7 +21,7 @@ namespace sk {
           : public virtual sk::util::Object
         {
           public:
-            virtual void invoke(const sk::rt::thread::Conditional& block) = 0; 
+            virtual bool invoke(bool blocking, const sk::rt::thread::Conditional& block) = 0; 
         };
       }
     }

@@ -49,9 +49,9 @@ getClass() const
   return sk::util::Class(__className);
 }
 
-void
+bool
 sk::rt::thread::generic::ConditionMediator::
-invoke(const sk::rt::thread::Conditional& block)
+invoke(bool blocking, const sk::rt::thread::Conditional& block)
 {
   sk::rt::thread::ConditionAdaptor<generic::ConditionMediator> adaptor(*this);
 
@@ -61,7 +61,7 @@ invoke(const sk::rt::thread::Conditional& block)
     try {
       block.process(adaptor);
       _lock.unlock();
-      break;
+      return true;
     }
     catch(const WaitRequest& request) {
       thread::Generic& currentThread = sk::rt::Thread::currentThread();

@@ -31,7 +31,7 @@ namespace sk {
             ConditionMediator(sk::rt::Lock& lock, int capacity = 1);
             virtual ~ConditionMediator();
 
-            void invoke(const sk::rt::thread::Conditional& block);
+            bool invoke(bool blocking, const sk::rt::thread::Conditional& block);
             void wait(int channel, uint64_t timeout);
             void announce(int channel);
 

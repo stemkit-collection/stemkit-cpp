@@ -18,7 +18,8 @@ static const sk::util::String __className("sk::rt::thread::ConditionMediator");
 
 sk::rt::thread::ConditionMediator::
 ConditionMediator(sk::rt::Lock& lock, int capacity)
-  : _mediatorHolder(thread::Implementation::instance().makeConditionMediator(lock, capacity))
+  : _mediatorHolder(thread::Implementation::instance().makeConditionMediator(lock, capacity)),
+    _blocking(true)
 {
 }
 
@@ -36,8 +37,22 @@ getClass() const
 
 void
 sk::rt::thread::ConditionMediator::
+setBlocking(bool state)
+{
+  _blocking = state;
+}
+
+bool
+sk::rt::thread::ConditionMediator::
+isBlocking() const
+{
+  return _blocking;
+}
+
+bool
+sk::rt::thread::ConditionMediator::
 invoke(const sk::rt::thread::Conditional& block)
 {
-  _mediatorHolder.getMutable().invoke(block);
+  return _mediatorHolder.getMutable().invoke(_blocking, block);
 }
 

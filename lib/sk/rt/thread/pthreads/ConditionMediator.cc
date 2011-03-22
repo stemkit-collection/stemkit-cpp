@@ -54,9 +54,9 @@ getClass() const
   return sk::util::Class(__className);
 }
 
-void
+bool
 sk::rt::thread::pthreads::ConditionMediator::
-invoke(const sk::rt::thread::Conditional& block)
+invoke(bool blocking, const sk::rt::thread::Conditional& block)
 {
   _lock.lock();
 
@@ -69,7 +69,7 @@ invoke(const sk::rt::thread::Conditional& block)
       try {
         block.process(adaptor);
         _lock.unlock();
-        return;
+        return true;
       }
       catch(const WaitRequest& request) {
         pthreads::Condition& condition = _conditions.getMutable(request.channel);
