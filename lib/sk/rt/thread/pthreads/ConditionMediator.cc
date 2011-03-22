@@ -16,21 +16,11 @@
 #include <sk/rt/SystemException.h>
 
 #include "ConditionMediator.h"
-#include "../ConditionAdaptor.hxx"
+#include "../ConditionTimespecAdaptor.hxx"
 #include "Condition.h"
 #include "Mutex.h"
 
-#include <sys/time.h>
-
 static const sk::util::String __className("sk::rt::thread::pthreads::ConditionMediator");
-
-struct sk::rt::thread::pthreads::ConditionMediator::WaitRequest {
-  WaitRequest(int number, uint64_t milliseconds)
-    : channel(number), timeout(milliseconds) {}
-
-  uint64_t timeout;
-  int channel;
-};
 
 sk::rt::thread::pthreads::ConditionMediator::
 ConditionMediator(const sk::rt::Scope& scope, sk::rt::Lock& lock, int capacity)
@@ -67,35 +57,13 @@ invoke(bool blocking, const sk::rt::thread::Conditional& block)
     _lock.lock();
   }
 
-  sk::rt::thread::ConditionAdaptor<pthreads::ConditionMediator> adaptor(*this);
-  bool momentCalculated = false;
-  struct timespec moment;
+  sk::rt::thread::ConditionTimespecAdaptor<pthreads::ConditionMediator> adaptor(*this);
 
   while(true) {
     try {
-      try {
-        block.process(adaptor);
-        _lock.unlock();
-        return true;
-      }
-      catch(const WaitRequest& request) {
-        pthreads::Condition& condition = _conditions.getMutable(request.channel);
-        if(request.timeout) {
-          if(momentCalculated == false) {
-            struct timeval now;
-            if(gettimeofday(&now, 0) < 0) {
-              throw sk::rt::SystemException("gettimeofday");
-            }
-            moment.tv_sec = now.tv_sec + (request.timeout / 1000);
-            moment.tv_nsec = (now.tv_usec + ((request.timeout % 1000) * 1000)) * 1000;
-            momentCalculated = true;
-          }
-          condition.waitUntil(moment);
-        }
-        else {
-          condition.wait();
-        }
-      }
+      block.process(adaptor);
+      _lock.unlock();
+      return true;
     }
     catch(...) {
       _lock.unlock();
@@ -106,9 +74,16 @@ invoke(bool blocking, const sk::rt::thread::Conditional& block)
 
 void
 sk::rt::thread::pthreads::ConditionMediator::
-wait(int channel, uint64_t timeout)
+wait(int channel)
 {
-  throw WaitRequest(channel, timeout);
+  _conditions.getMutable(channel).wait();
+}
+
+void
+sk::rt::thread::pthreads::ConditionMediator::
+wait(int channel, const struct timespec moment)
+{
+  _conditions.getMutable(channel).waitUntil(moment);
 }
 
 void

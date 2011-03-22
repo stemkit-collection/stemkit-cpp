@@ -32,7 +32,8 @@ namespace sk {
             virtual ~ConditionMediator();
 
             bool invoke(bool blocking, const sk::rt::thread::Conditional& block);
-            void wait(int channel, uint64_t timeout);
+            void wait(int channel);
+            void wait(int channel, const struct timespec moment);
             void announce(int channel);
 
             // sk::util::Object re-implementation.
@@ -45,8 +46,6 @@ namespace sk {
             sk::rt::Lock& _lock;
             sk::util::Vector<pthreads::Condition>::Direct _conditions;
             const sk::rt::Scope& _scope;
-
-            struct WaitRequest;
         };
       }
     }

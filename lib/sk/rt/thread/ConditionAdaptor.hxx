@@ -29,7 +29,7 @@ namespace sk {
             return *this;
           }
 
-          void wait(uint64_t milliseconds = 0) {
+          void wait(uint64_t milliseconds) {
             _mediator.wait(_channel, milliseconds);
           }
 
