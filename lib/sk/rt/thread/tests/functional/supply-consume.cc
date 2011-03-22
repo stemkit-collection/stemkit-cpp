@@ -54,8 +54,11 @@ namespace {
       WS_COND_NOTFULL,
       WS_COND_NUMBER
     };
-    static const int BUNCH_SIZE = 3;
-    static const int QUEUE_CAPACITY = 5;
+
+    enum Constants {
+      BUNCH_SIZE = 3,
+      QUEUE_CAPACITY = 5
+    };
     
     public: 
       Workshop()
