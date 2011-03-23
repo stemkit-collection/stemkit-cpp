@@ -66,7 +66,7 @@ test_default_blocking_but_can_be_changed()
 
 void
 sk::rt::thread::tests::ConditionMediatorTest::
-test_synchronize_locks_invokes_and_unlocks()
+test_blocking_locks_invokes_and_unlocks()
 {
   CPPUNIT_ASSERT(_lockHolder.get().isLocked() == false);
   sk::rt::thread::ConditionMediator mediator(_lockHolder.getMutable());
@@ -116,7 +116,7 @@ namespace {
 
 void
 sk::rt::thread::tests::ConditionMediatorTest::
-test_synchronize_waits_until_unlocked_then_invokes()
+test_blocking_waits_until_unlocked_then_invokes()
 {
   sk::rt::thread::ConditionMediator mediator(_lockHolder.getMutable());
 

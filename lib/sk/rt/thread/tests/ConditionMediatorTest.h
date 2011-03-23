@@ -28,9 +28,9 @@ namespace sk {
         {
           CPPUNIT_TEST_SUITE(sk::rt::thread::tests::ConditionMediatorTest);
             CPPUNIT_TEST(test_default_blocking_but_can_be_changed);
-            CPPUNIT_TEST(test_synchronize_locks_invokes_and_unlocks);
+            CPPUNIT_TEST(test_blocking_locks_invokes_and_unlocks);
             CPPUNIT_TEST(test_non_blocking_locks_when_available_and_fails_otherwise);
-            CPPUNIT_TEST(test_synchronize_waits_until_unlocked_then_invokes);
+            CPPUNIT_TEST(test_blocking_waits_until_unlocked_then_invokes);
           CPPUNIT_TEST_SUITE_END();
         
           public:
@@ -40,9 +40,9 @@ namespace sk {
             void setUp();
             void tearDown();
             void test_default_blocking_but_can_be_changed();
-            void test_synchronize_locks_invokes_and_unlocks();
+            void test_blocking_locks_invokes_and_unlocks();
             void test_non_blocking_locks_when_available_and_fails_otherwise();
-            void test_synchronize_waits_until_unlocked_then_invokes();
+            void test_blocking_waits_until_unlocked_then_invokes();
 
             void ensureLocked(sk::rt::thread::Condition& condition, bool& indicator);
         
