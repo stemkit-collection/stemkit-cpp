@@ -14,7 +14,7 @@
 #include <sk/rt/thread/ConditionMediator.h>
 #include <sk/rt/Locker.h>
 #include <sk/rt/Thread.h>
-#include <sys/time.h>
+#include <time.h>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::rt::thread::tests::ConditionMediatorTest);
 
@@ -126,7 +126,7 @@ test_blocking_waits_until_unlocked_then_invokes()
 
   time_t now = time(0);
   thread.start();
-  sleep(2);
+  sk::rt::Thread::sleep(2000);
 
   CPPUNIT_ASSERT(thread.isAlive() == true);
 
