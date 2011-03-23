@@ -12,6 +12,8 @@ local general-objects =
   MutexTest.cc
   ReentrantLockTest.cc
   LockerTest.cc
+  ConditionMediatorEnsureGenericTest.cc
+  ConditionMediatorTest.cc
 ;
 
 local static-objects =

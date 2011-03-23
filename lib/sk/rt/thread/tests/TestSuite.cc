@@ -36,6 +36,7 @@ int main(int argc, const char* argv[])
         \n\
         <scope name='sk::rt::thread::pthreads'>\n\
           <property name='mutex-error-check' value='true' />\n\
+          <property name='generic-condition-mediator' value='true' />\n\
         </scope>\n\
       </scope>\n\
     ")

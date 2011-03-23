@@ -1,11 +1,11 @@
-/*  vim: set sw=2:
- *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
+/*  vim: sw=2:
+ *  Copyright (c) 2011, Gennady Bystritsky <bystr@mac.com>
  *  
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
  *  
- *  Author: Gennady Bystritsky (gennady.bystritsky@quest.com)
+ *  Author: Gennady Bystritsky
 */
 
 #include <cppunit/extensions/TestFactoryRegistry.h>
@@ -17,7 +17,7 @@
 #include <sk/rt/Scope.h>
 #include <sk/rt/config/InlineLocator.h>
 
-int main(int argc, const char* argv[])
+int main(int argc, const char* const argv[])
 {
   CppUnit::TestFactoryRegistry &registry = CppUnit::TestFactoryRegistry::getRegistry();
   sk::cppunit::TestRunner runner;
@@ -28,7 +28,6 @@ int main(int argc, const char* argv[])
         <scope name='sk::rt::thread::pthreads'>\n\
           <log destination='std::cerr' level='info' show-object='false' show-time='true' />\n\
           <property name='mutex-error-check' value='true' />\n\
-          <property name='generic-condition-mediator' value='false' />\n\
         </scope>\n\
       </scope>\n\
     ")
