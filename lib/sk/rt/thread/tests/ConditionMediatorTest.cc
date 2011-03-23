@@ -81,13 +81,17 @@ test_synchronize_locks_invokes_and_unlocks()
 
 void
 sk::rt::thread::tests::ConditionMediatorTest::
-test_non_blocking_fails_to_enter_when_locked()
+test_non_blocking_locks_when_available_and_fails_otherwise()
 {
   sk::rt::thread::ConditionMediator mediator(_lockHolder.getMutable());
-  mediator.setBlocking(false);
-
-  sk::rt::Locker locker(_lockHolder.getMutable());
   bool method_invoked_indicator = false;
+  CPPUNIT_ASSERT(mediator.synchronize(*this, &ConditionMediatorTest::ensureLocked, method_invoked_indicator) == true);
+  CPPUNIT_ASSERT(method_invoked_indicator == true);
+
+  mediator.setBlocking(false);
+  sk::rt::Locker locker(_lockHolder.getMutable());
+  method_invoked_indicator = false;
+
   CPPUNIT_ASSERT(mediator.synchronize(*this, &ConditionMediatorTest::ensureLocked, method_invoked_indicator) == false);
   CPPUNIT_ASSERT(method_invoked_indicator == false);
 }
