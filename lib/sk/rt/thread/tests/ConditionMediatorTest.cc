@@ -13,6 +13,8 @@
 #include <sk/rt/Mutex.h>
 #include <sk/rt/thread/ConditionMediator.h>
 #include <sk/rt/Locker.h>
+#include <sk/rt/Thread.h>
+#include <sys/time.h>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::rt::thread::tests::ConditionMediatorTest);
 
@@ -88,4 +90,49 @@ test_non_blocking_fails_to_enter_when_locked()
   bool method_invoked_indicator = false;
   CPPUNIT_ASSERT(mediator.synchronize(*this, &ConditionMediatorTest::ensureLocked, method_invoked_indicator) == false);
   CPPUNIT_ASSERT(method_invoked_indicator == false);
+}
+
+namespace {
+  struct Sampler : public virtual sk::rt::Runnable {
+    Sampler(sk::rt::thread::ConditionMediator& m) 
+      : mediator(m), moment(0), status(false) {}
+
+    void registerTime(sk::rt::thread::Condition& condition) {
+      moment = time(0);
+    }
+
+    void run() {
+      status = mediator.synchronize(*this, &Sampler::registerTime);
+    }
+    volatile bool status;
+    volatile time_t moment;
+    sk::rt::thread::ConditionMediator& mediator;
+  };
+}
+
+void
+sk::rt::thread::tests::ConditionMediatorTest::
+test_synchronize_waits_until_unlocked_then_invokes()
+{
+  sk::rt::thread::ConditionMediator mediator(_lockHolder.getMutable());
+
+  Sampler sampler(mediator);
+  sk::rt::Thread thread(sampler);
+  sk::rt::Locker locker(_lockHolder.getMutable());
+
+  time_t now = time(0);
+  thread.start();
+  sleep(2);
+
+  CPPUNIT_ASSERT(thread.isAlive() == true);
+
+  locker.unlock();
+  thread.join();
+
+  CPPUNIT_ASSERT(thread.isAlive() == false);
+  CPPUNIT_ASSERT(sampler.status == true);
+  CPPUNIT_ASSERT(sampler.moment != 0);
+  CPPUNIT_ASSERT((sampler.moment - now) >= 2);
+
+  CPPUNIT_ASSERT(_lockHolder.get().isLocked() == false);
 }

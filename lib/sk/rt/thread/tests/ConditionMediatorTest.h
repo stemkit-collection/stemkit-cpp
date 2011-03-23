@@ -30,6 +30,7 @@ namespace sk {
             CPPUNIT_TEST(test_default_blocking_but_can_be_changed);
             CPPUNIT_TEST(test_synchronize_locks_invokes_and_unlocks);
             CPPUNIT_TEST(test_non_blocking_fails_to_enter_when_locked);
+            CPPUNIT_TEST(test_synchronize_waits_until_unlocked_then_invokes);
           CPPUNIT_TEST_SUITE_END();
         
           public:
@@ -41,6 +42,7 @@ namespace sk {
             void test_default_blocking_but_can_be_changed();
             void test_synchronize_locks_invokes_and_unlocks();
             void test_non_blocking_fails_to_enter_when_locked();
+            void test_synchronize_waits_until_unlocked_then_invokes();
 
             void ensureLocked(sk::rt::thread::Condition& condition, bool& indicator);
         
