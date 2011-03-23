@@ -9,6 +9,9 @@
 */
 
 #include "ConditionMediatorTest.h"
+#include <sk/util/Holder.cxx>
+#include <sk/rt/Mutex.h>
+#include <sk/rt/thread/ConditionMediator.h>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::rt::thread::tests::ConditionMediatorTest);
 
@@ -26,16 +29,32 @@ void
 sk::rt::thread::tests::ConditionMediatorTest::
 setUp()
 {
+  _lockHolder.set(new sk::rt::Mutex);
 }
 
 void
 sk::rt::thread::tests::ConditionMediatorTest::
 tearDown()
 {
+  _lockHolder.clear();
 }
 
 void
 sk::rt::thread::tests::ConditionMediatorTest::
-testBasics()
+ensureLocked(sk::rt::thread::Condition& condition)
 {
+  CPPUNIT_ASSERT(_lockHolder.get().isLocked() == true);
+}
+
+void
+sk::rt::thread::tests::ConditionMediatorTest::
+testSynchronizeLocksAndUnlocks()
+{
+  CPPUNIT_ASSERT(_lockHolder.get().isLocked() == false);
+  sk::rt::thread::ConditionMediator mediator(_lockHolder.getMutable());
+  CPPUNIT_ASSERT(_lockHolder.get().isLocked() == false);
+
+  mediator.synchronize(*this, &ConditionMediatorTest::ensureLocked);
+
+  CPPUNIT_ASSERT(_lockHolder.get().isLocked() == false);
 }

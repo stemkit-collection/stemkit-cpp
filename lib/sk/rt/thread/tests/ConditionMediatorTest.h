@@ -13,16 +13,21 @@
 
 #include <cppunit/TestFixture.h>
 #include <cppunit/extensions/HelperMacros.h>
+#include <sk/util/Holder.hxx>
 
 namespace sk {
   namespace rt {
+    class Lock;
+
     namespace thread {
+      class Condition;
+
       namespace tests {
         class ConditionMediatorTest
           : public CppUnit::TestFixture
         {
           CPPUNIT_TEST_SUITE(sk::rt::thread::tests::ConditionMediatorTest);
-            CPPUNIT_TEST(testBasics);
+            CPPUNIT_TEST(testSynchronizeLocksAndUnlocks);
           CPPUNIT_TEST_SUITE_END();
         
           public:
@@ -31,11 +36,15 @@ namespace sk {
         
             void setUp();
             void tearDown();
-            void testBasics();
+            void testSynchronizeLocksAndUnlocks();
+
+            void ensureLocked(sk::rt::thread::Condition& condition);
         
           private:
             ConditionMediatorTest(const ConditionMediatorTest& other);
             ConditionMediatorTest& operator = (const ConditionMediatorTest& other);
+
+            sk::util::Holder<sk::rt::Lock> _lockHolder;
         };
       }
     }
