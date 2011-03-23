@@ -27,7 +27,8 @@ namespace sk {
           : public CppUnit::TestFixture
         {
           CPPUNIT_TEST_SUITE(sk::rt::thread::tests::ConditionMediatorTest);
-            CPPUNIT_TEST(testSynchronizeLocksAndUnlocks);
+            CPPUNIT_TEST(test_default_blocking_but_can_be_changed);
+            CPPUNIT_TEST(test_synchronize_locks_and_unlocks);
           CPPUNIT_TEST_SUITE_END();
         
           public:
@@ -36,7 +37,8 @@ namespace sk {
         
             void setUp();
             void tearDown();
-            void testSynchronizeLocksAndUnlocks();
+            void test_default_blocking_but_can_be_changed();
+            void test_synchronize_locks_and_unlocks();
 
             void ensureLocked(sk::rt::thread::Condition& condition);
         

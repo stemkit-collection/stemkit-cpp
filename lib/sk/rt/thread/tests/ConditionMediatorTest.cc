@@ -48,7 +48,19 @@ ensureLocked(sk::rt::thread::Condition& condition)
 
 void
 sk::rt::thread::tests::ConditionMediatorTest::
-testSynchronizeLocksAndUnlocks()
+test_default_blocking_but_can_be_changed()
+{
+  sk::rt::thread::ConditionMediator mediator(_lockHolder.getMutable());
+  CPPUNIT_ASSERT(mediator.isBlocking() == true);
+  mediator.setBlocking(false);
+  CPPUNIT_ASSERT(mediator.isBlocking() == false);
+  mediator.setBlocking(true);
+  CPPUNIT_ASSERT(mediator.isBlocking() == true);
+}
+
+void
+sk::rt::thread::tests::ConditionMediatorTest::
+test_synchronize_locks_and_unlocks()
 {
   CPPUNIT_ASSERT(_lockHolder.get().isLocked() == false);
   sk::rt::thread::ConditionMediator mediator(_lockHolder.getMutable());
