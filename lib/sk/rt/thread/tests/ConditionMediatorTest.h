@@ -50,7 +50,9 @@ namespace sk {
             ConditionMediatorTest(const ConditionMediatorTest& other);
             ConditionMediatorTest& operator = (const ConditionMediatorTest& other);
 
-            sk::util::Holder<sk::rt::Lock> _lockHolder;
+            sk::rt::Lock& mutex();
+
+            sk::util::Holder<sk::rt::Lock> _mutexHolder;
         };
       }
     }
