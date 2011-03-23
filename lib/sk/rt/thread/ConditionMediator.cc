@@ -56,3 +56,16 @@ invoke(const sk::rt::thread::Conditional& block)
   return _mediatorHolder.getMutable().invoke(_blocking, block);
 }
 
+const sk::util::Object&
+sk::rt::thread::ConditionMediator::
+getObject() const
+{
+  return _mediatorHolder.get().getObject();
+}
+
+sk::util::Object& 
+sk::rt::thread::ConditionMediator::
+getObject()
+{
+  return _mediatorHolder.getMutable().getObject();
+}

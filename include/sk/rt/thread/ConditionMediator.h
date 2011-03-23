@@ -44,6 +44,8 @@ namespace sk {
       
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
+          const sk::util::Object& getObject() const;
+          sk::util::Object& getObject();
       
         private:
           ConditionMediator(const ConditionMediator& other);
