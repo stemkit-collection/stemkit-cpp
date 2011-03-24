@@ -224,9 +224,9 @@ test_condition_wait_succeeds_on_announce()
   CPPUNIT_ASSERT(mutex().isLocked() == false);
   waiter.event = true;
   mediator.synchronize(*this, &ConditionMediatorTest::announceCondition, 0);
-  CPPUNIT_ASSERT(mutex().isLocked() == false);
-
   sk::rt::Thread::sleep(1000);
+
+  CPPUNIT_ASSERT(mutex().isLocked() == false);
   CPPUNIT_ASSERT(thread.isAlive() == false);
 
   CPPUNIT_ASSERT(waiter.timeout == false);
