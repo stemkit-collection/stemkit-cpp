@@ -14,7 +14,6 @@
 #include <sk/util/Strings.h>
 
 #include <sk/rt/Time.h>
-#include <time.h>
 
 static const char* __className("sk::rt::Time");
 
@@ -40,7 +39,9 @@ const sk::rt::Time
 sk::rt::Time::
 now() 
 {
-  return Time(time(0), 0);
+  struct timeval moment;
+  obtainCurrentTime(moment);
+  return Time(moment.tv_sec, moment.tv_usec);
 }
 
 const sk::rt::Time
@@ -77,6 +78,13 @@ inspect() const
   depot << "time=" + format("%H:%M:%S") + '.' + sk::util::String::valueOf(_microseconds);
 
   return "<Time: " + depot.join(", ") + '>';
+}
+
+const sk::util::String
+sk::rt::Time::
+toString() const
+{
+  return format("%+");
 }
 
 time_t
