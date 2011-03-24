@@ -32,7 +32,6 @@ namespace sk {
         const sk::util::String format(const sk::util::String& specification) const;
         time_t getSeconds() const;
         uint32_t getMicroseconds() const;
-        void fill(struct timespec& moment) const;
 
         const sk::rt::Time offsetMilliseconds(uint64_t milliseconds) const;
     

@@ -98,7 +98,7 @@ wait(int channel)
 
 void
 sk::rt::thread::generic::ConditionMediator::
-wait(int channel, const struct timespec moment)
+wait(int channel, const sk::rt::Time& moment)
 {
   throw WaitRequest();
 }

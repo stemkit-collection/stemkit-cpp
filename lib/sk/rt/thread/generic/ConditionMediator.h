@@ -17,6 +17,7 @@
 #include <sk/rt/thread/platform/ConditionMediator.h>
 #include <sk/rt/Mutex.h>
 #include <sk/rt/Scope.h>
+#include <sk/rt/Time.h>
 
 #include <sk/util/ArrayList.hxx>
 #include <sk/util/Vector.hxx>
@@ -34,7 +35,7 @@ namespace sk {
 
             bool invoke(bool blocking, const sk::rt::thread::Conditional& block);
             void wait(int channel);
-            void wait(int channel, const struct timespec moment);
+            void wait(int channel, const sk::rt::Time& moment);
             void announce(int channel);
 
             // sk::util::Object re-implementation.

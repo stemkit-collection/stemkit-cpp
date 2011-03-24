@@ -81,9 +81,13 @@ wait(int channel)
 
 void
 sk::rt::thread::pthreads::ConditionMediator::
-wait(int channel, const struct timespec moment)
+wait(int channel, const sk::rt::Time& moment)
 {
-  _conditions.getMutable(channel).waitUntil(moment);
+  struct timespec ts;
+  ts.tv_sec = moment.getSeconds();
+  ts.tv_nsec = moment.getMicroseconds() * 1000;
+
+  _conditions.getMutable(channel).waitUntil(ts);
 }
 
 void

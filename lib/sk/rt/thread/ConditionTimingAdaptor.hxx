@@ -21,13 +21,13 @@ namespace sk {
       class ConditionTimingAdaptor : public virtual sk::rt::thread::Condition {
         public:
           ConditionTimingAdaptor(T& mediator)
-            : _time(sk::rt::Time::at(0)), _mediator(mediator), _channel(0) {}
+            : _moment(sk::rt::Time::at(0)), _mediator(mediator), _channel(0) {}
 
           bool isMomentReached() const {
-            if(_time.getSeconds() == 0) {
+            if(_moment.getSeconds() == 0) {
               return false;
             }
-            return sk::rt::Time::now() < _time ? false : true;
+            return sk::rt::Time::now() < _moment ? false : true;
           }
 
           int getChannel() const {
@@ -46,9 +46,8 @@ namespace sk {
               _mediator.wait(_channel);
               return;
             }
-            if(_time.getSeconds() == 0) {
-              _time = sk::rt::Time::now().offsetMilliseconds(milliseconds);
-              _time.fill(_moment);
+            if(_moment.getSeconds() == 0) {
+              _moment = sk::rt::Time::now().offsetMilliseconds(milliseconds);
             }
             _mediator.wait(_channel, _moment);
           }
@@ -60,8 +59,7 @@ namespace sk {
         private:
           T& _mediator;
           int _channel;
-          sk::rt::Time _time;
-          struct timespec _moment;
+          sk::rt::Time _moment;
       };
     }
   }
