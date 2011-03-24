@@ -58,7 +58,7 @@ sk::rt::thread::platform::ConditionMediator*
 sk::rt::thread::win32::Implementation::
 makeConditionMediator(sk::rt::Lock& lock, int capacity) const
 {
-  return new generic::ConditionMediator(lock, capacity);
+  return new generic::ConditionMediator(_scope, lock, capacity);
 }
 
 sk::rt::thread::platform::Mutex* 

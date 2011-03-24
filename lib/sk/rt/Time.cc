@@ -14,6 +14,7 @@
 #include <sk/util/Strings.h>
 
 #include <sk/rt/Time.h>
+#include <time.h>
 
 static const char* __className("sk::rt::Time");
 
