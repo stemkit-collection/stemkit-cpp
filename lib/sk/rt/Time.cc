@@ -101,6 +101,21 @@ getMicroseconds() const
   return _microseconds;
 }
 
+const sk::rt::Time
+sk::rt::Time::
+offsetMilliseconds(uint64_t milliseconds) const
+{
+  return Time(_seconds + (milliseconds / 1000), _microseconds + ((milliseconds % 1000) * 1000));
+}
+
+void
+sk::rt::Time::
+fill(struct timespec& moment) const
+{
+  moment.tv_sec = _seconds;
+  moment.tv_nsec = _microseconds * 1000;
+}
+
 bool 
 sk::rt::
 operator==(const sk::rt::Time& first, const sk::rt::Time& second)

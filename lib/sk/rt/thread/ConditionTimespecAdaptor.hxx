@@ -21,7 +21,7 @@ namespace sk {
       class ConditionTimespecAdaptor : public virtual sk::rt::thread::Condition {
         public:
           ConditionTimespecAdaptor(T& mediator)
-            : _mediator(mediator), _channel(0), _calculated(false) {}
+            : _time(sk::rt::Time::at(0)), _mediator(mediator), _channel(0) {}
 
         protected:
           // sk::rt::thread::Condition implementation.
@@ -35,12 +35,9 @@ namespace sk {
               _mediator.wait(_channel);
               return;
             }
-            if(_calculated == false) {
-              const sk::rt::Time now = sk::rt::Time::now();
-              _moment.tv_sec = now.getSeconds() + (milliseconds / 1000);
-              _moment.tv_nsec = (now.getMicroseconds() + ((milliseconds % 1000) * 1000)) * 1000;
-
-              _calculated = true;
+            if(_time.getSeconds() == 0) {
+              _time = sk::rt::Time::now().offsetMilliseconds(milliseconds);
+              _time.fill(_moment);
             }
             _mediator.wait(_channel, _moment);
           }
@@ -52,7 +49,7 @@ namespace sk {
         private:
           T& _mediator;
           int _channel;
-          bool _calculated;
+          sk::rt::Time _time;
           struct timespec _moment;
       };
     }

@@ -32,6 +32,9 @@ namespace sk {
         const sk::util::String format(const sk::util::String& specification) const;
         time_t getSeconds() const;
         uint32_t getMicroseconds() const;
+        void fill(struct timespec& moment) const;
+
+        const sk::rt::Time offsetMilliseconds(uint64_t milliseconds) const;
     
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
@@ -42,7 +45,6 @@ namespace sk {
 
       private:
         Time(time_t seconds, uint32_t microseconds);
-        Time& operator = (const Time& other);
 
         const struct tm& makeLocaltime(struct tm& tm_buffer) const;
 
