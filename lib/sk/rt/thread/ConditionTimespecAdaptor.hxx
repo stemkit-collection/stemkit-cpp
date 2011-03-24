@@ -12,7 +12,7 @@
 #define _SK_RT_THREAD_CONDITIONTIMESPECADAPTOR_HXX_
 
 #include <sk/rt/thread/Condition.h>
-#include <sys/time.h>
+#include <sk/rt/Time.h>
 
 namespace sk {
   namespace rt {
@@ -36,12 +36,9 @@ namespace sk {
               return;
             }
             if(_calculated == false) {
-              struct timeval now;
-              if(::gettimeofday(&now, 0) < 0) {
-                throw sk::rt::SystemException("gettimeofday");
-              }
-              _moment.tv_sec = now.tv_sec + (milliseconds / 1000);
-              _moment.tv_nsec = (now.tv_usec + ((milliseconds % 1000) * 1000)) * 1000;
+              const sk::rt::Time now = sk::rt::Time::now();
+              _moment.tv_sec = now.getSeconds() + (milliseconds / 1000);
+              _moment.tv_nsec = (now.getMicroseconds() + ((milliseconds % 1000) * 1000)) * 1000;
 
               _calculated = true;
             }
