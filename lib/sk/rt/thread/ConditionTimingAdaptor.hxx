@@ -30,6 +30,10 @@ namespace sk {
             return sk::rt::Time::now() < _time ? false : true;
           }
 
+          int getChannel() const {
+            return _channel;
+          }
+
         protected:
           // sk::rt::thread::Condition implementation.
           sk::rt::thread::Condition& on(int channel) {

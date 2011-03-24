@@ -42,12 +42,7 @@ getClass() const
 }
 
 namespace {
-  struct WaitRequest {
-    WaitRequest(int number)
-      : channel(number) {}
-
-    int channel;
-  };
+  struct WaitRequest {};
 }
 
 bool
@@ -74,7 +69,7 @@ invoke(bool blocking, const sk::rt::thread::Conditional& block)
     }
     catch(const WaitRequest& request) {
       thread::Generic& currentThread = sk::rt::Thread::currentThread();
-      thread_container_t& waiters = _waiters.getMutable(request.channel);
+      thread_container_t& waiters = _waiters.getMutable(adaptor.getChannel());
       (sk::rt::Locker(_mutex), waiters.add(currentThread));
 
       _lock.unlock();
@@ -98,14 +93,14 @@ void
 sk::rt::thread::generic::ConditionMediator::
 wait(int channel)
 {
-  throw WaitRequest(channel);
+  throw WaitRequest();
 }
 
 void
 sk::rt::thread::generic::ConditionMediator::
 wait(int channel, const struct timespec moment)
 {
-  throw WaitRequest(channel);
+  throw WaitRequest();
 }
 
 void
