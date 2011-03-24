@@ -11,10 +11,13 @@
 #include "ConditionMediatorTest.h"
 #include <sk/util/Holder.cxx>
 #include <sk/rt/Mutex.h>
+#include <sk/rt/TimeoutException.h>
 #include <sk/rt/thread/ConditionMediator.h>
 #include <sk/rt/Locker.h>
 #include <sk/rt/Thread.h>
+
 #include <time.h>
+#include <iostream>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::rt::thread::tests::ConditionMediatorTest);
 
@@ -104,8 +107,8 @@ test_non_blocking_locks_when_available_and_fails_otherwise()
 }
 
 namespace {
-  struct Sampler : public virtual sk::rt::Runnable {
-    Sampler(sk::rt::thread::ConditionMediator& m) 
+  struct UnlockWaitingInvocator : public virtual sk::rt::Runnable {
+    UnlockWaitingInvocator(sk::rt::thread::ConditionMediator& m) 
       : mediator(m), moment(0), status(false) {}
 
     void registerTime(sk::rt::thread::Condition& condition) {
@@ -113,7 +116,7 @@ namespace {
     }
 
     void run() {
-      status = mediator.synchronize(*this, &Sampler::registerTime);
+      status = mediator.synchronize(*this, &UnlockWaitingInvocator::registerTime);
     }
     volatile bool status;
     volatile time_t moment;
@@ -127,7 +130,7 @@ test_blocking_waits_until_unlocked_then_invokes()
 {
   sk::rt::thread::ConditionMediator mediator(mutex());
 
-  Sampler sampler(mediator);
+  UnlockWaitingInvocator sampler(mediator);
   sk::rt::Thread thread(sampler);
   sk::rt::Locker locker(mutex());
 
@@ -146,4 +149,129 @@ test_blocking_waits_until_unlocked_then_invokes()
   CPPUNIT_ASSERT((sampler.moment - now) >= 2);
 
   CPPUNIT_ASSERT(mutex().isLocked() == false);
+}
+
+namespace {
+  struct ConditionWaiter : public virtual sk::rt::Runnable {
+    ConditionWaiter(sk::rt::thread::ConditionMediator& cm, int ch, int ms)
+      : mediator(cm), channel(ch), milliseconds(ms), event(false), timeout(false), status(false), triggered(false) {}
+
+    void waitCondition(sk::rt::thread::Condition& condition, int milliseconds) {
+      while(event == false) {
+        (milliseconds == 0 ? condition.on(channel).wait() : condition.on(channel).wait(milliseconds));
+      }
+      triggered = true;
+    }
+
+    void run() {
+      try { 
+        status = mediator.synchronize(*this, &ConditionWaiter::waitCondition, milliseconds);
+      }
+      catch(const sk::rt::TimeoutException& exception) {
+        timeout = true;
+      }
+    }
+
+    sk::rt::thread::ConditionMediator& mediator;
+    const int channel;
+    const int milliseconds;
+    volatile bool event;
+    volatile bool timeout;
+    volatile bool status;
+    volatile bool triggered;
+  };
+}
+
+void
+sk::rt::thread::tests::ConditionMediatorTest::
+test_condition_wait_times_out()
+{
+  sk::rt::thread::ConditionMediator mediator(mutex());
+  ConditionWaiter waiter(mediator, 0, 2000);
+  sk::rt::Thread thread(waiter);
+  thread.start();
+
+  sk::rt::Thread::sleep(1000);
+  CPPUNIT_ASSERT(thread.isAlive() == true);
+
+  sk::rt::Thread::sleep(2000);
+  CPPUNIT_ASSERT(thread.isAlive() == false);
+
+  CPPUNIT_ASSERT(waiter.timeout == true);
+  CPPUNIT_ASSERT(waiter.status == false);
+  CPPUNIT_ASSERT(waiter.triggered == false);
+}
+
+void 
+sk::rt::thread::tests::ConditionMediatorTest::
+announceCondition(sk::rt::thread::Condition& condition, int channel)
+{
+  condition.on(channel).announce();
+}
+
+void
+sk::rt::thread::tests::ConditionMediatorTest::
+test_condition_wait_succeeds_on_announce()
+{
+  sk::rt::thread::ConditionMediator mediator(mutex());
+  ConditionWaiter waiter(mediator, 0, 2000);
+  sk::rt::Thread thread(waiter);
+  thread.start();
+
+  sk::rt::Thread::sleep(1000);
+  CPPUNIT_ASSERT(thread.isAlive() == true);
+
+  CPPUNIT_ASSERT(mutex().isLocked() == false);
+  waiter.event = true;
+  mediator.synchronize(*this, &ConditionMediatorTest::announceCondition, 0);
+  CPPUNIT_ASSERT(mutex().isLocked() == false);
+
+  sk::rt::Thread::sleep(1000);
+  CPPUNIT_ASSERT(thread.isAlive() == false);
+
+  CPPUNIT_ASSERT(waiter.timeout == false);
+  CPPUNIT_ASSERT(waiter.status == true);
+  CPPUNIT_ASSERT(waiter.triggered == true);
+}
+
+void
+sk::rt::thread::tests::ConditionMediatorTest::
+test_multi_channel_conditions()
+{
+  enum {
+    EVENT_1,
+    EVENT_2,
+    NUMBER_OF_EVENTS
+  };
+  sk::rt::thread::ConditionMediator mediator(mutex(), NUMBER_OF_EVENTS);
+  ConditionWaiter w1(mediator, EVENT_1, 5000);
+  ConditionWaiter w2(mediator, EVENT_2, 5000);
+
+  sk::rt::Thread t1(w1);
+  sk::rt::Thread t2(w2);
+
+  t1.start();
+  t2.start();
+
+  sk::rt::Thread::sleep(1000);
+  CPPUNIT_ASSERT(t1.isAlive() == true);
+  CPPUNIT_ASSERT(t2.isAlive() == true);
+  CPPUNIT_ASSERT(mutex().isLocked() == false);
+
+  w1.event = true;
+  mediator.synchronize(*this, &ConditionMediatorTest::announceCondition, int(EVENT_1));
+  sk::rt::Thread::sleep(1000);
+
+  CPPUNIT_ASSERT(t1.isAlive() == false);
+  CPPUNIT_ASSERT(t2.isAlive() == true);
+
+  CPPUNIT_ASSERT(w1.triggered == true);
+  CPPUNIT_ASSERT(w2.triggered == false);
+
+  w2.event = true;
+  mediator.synchronize(*this, &ConditionMediatorTest::announceCondition, int(EVENT_2));
+  sk::rt::Thread::sleep(1000);
+
+  CPPUNIT_ASSERT(t2.isAlive() == false);
+  CPPUNIT_ASSERT(w2.triggered == true);
 }

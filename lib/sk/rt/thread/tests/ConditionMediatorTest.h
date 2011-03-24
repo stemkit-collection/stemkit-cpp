@@ -31,6 +31,9 @@ namespace sk {
             CPPUNIT_TEST(test_blocking_locks_invokes_and_unlocks);
             CPPUNIT_TEST(test_non_blocking_locks_when_available_and_fails_otherwise);
             CPPUNIT_TEST(test_blocking_waits_until_unlocked_then_invokes);
+            CPPUNIT_TEST(test_condition_wait_times_out);
+            CPPUNIT_TEST(test_condition_wait_succeeds_on_announce);
+            CPPUNIT_TEST(test_multi_channel_conditions);
           CPPUNIT_TEST_SUITE_END();
         
           public:
@@ -43,8 +46,12 @@ namespace sk {
             void test_blocking_locks_invokes_and_unlocks();
             void test_non_blocking_locks_when_available_and_fails_otherwise();
             void test_blocking_waits_until_unlocked_then_invokes();
+            void test_condition_wait_times_out();
+            void test_condition_wait_succeeds_on_announce();
+            void test_multi_channel_conditions();
 
             void ensureLocked(sk::rt::thread::Condition& condition, bool& indicator);
+            void announceCondition(sk::rt::thread::Condition& condition, int channel);
         
           private:
             ConditionMediatorTest(const ConditionMediatorTest& other);
