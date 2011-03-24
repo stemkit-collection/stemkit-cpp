@@ -23,6 +23,13 @@ namespace sk {
           ConditionTimespecAdaptor(T& mediator)
             : _time(sk::rt::Time::at(0)), _mediator(mediator), _channel(0) {}
 
+          bool isMomentReached() const {
+            if(_time.getSeconds() == 0) {
+              return false;
+            }
+            return sk::rt::Time::now() < _time ? false : true;
+          }
+
         protected:
           // sk::rt::thread::Condition implementation.
           sk::rt::thread::Condition& on(int channel) {

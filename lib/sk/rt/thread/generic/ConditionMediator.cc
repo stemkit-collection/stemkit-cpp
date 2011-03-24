@@ -14,17 +14,16 @@
 #include <sk/util/Vector.cxx>
 
 #include "ConditionMediator.h"
-#include "../ConditionAdaptor.hxx"
+#include "../ConditionTimespecAdaptor.hxx"
 #include <sk/rt/TimeoutException.h>
 #include <sk/rt/Locker.h>
 
 static const sk::util::String __className("sk::rt::thread::generic::ConditionMediator");
 
 struct sk::rt::thread::generic::ConditionMediator::WaitRequest {
-  WaitRequest(int number, uint64_t milliseconds)
-    : channel(number), timeout(milliseconds) {}
+  WaitRequest(int number)
+    : channel(number) {}
 
-  uint64_t timeout;
   int channel;
 };
 
@@ -53,7 +52,7 @@ bool
 sk::rt::thread::generic::ConditionMediator::
 invoke(bool blocking, const sk::rt::thread::Conditional& block)
 {
-  sk::rt::thread::ConditionAdaptor<generic::ConditionMediator> adaptor(*this);
+  sk::rt::thread::ConditionTimespecAdaptor<generic::ConditionMediator> adaptor(*this);
 
   while(true) {
     if(blocking == false) {
@@ -78,18 +77,11 @@ invoke(bool blocking, const sk::rt::thread::Conditional& block)
 
       _lock.unlock();
 
-      uint64_t remaining = request.timeout;
-      bool forever = (remaining > 0 ? false : true);
-      uint64_t span = 100;
-
       while(currentThread.isInterrupted() == false) {
-        sk::rt::Thread::sleep(span);
-        if(forever == false) {
-          if(remaining < span) {
-            (sk::rt::Locker(_mutex), waiters.remove(currentThread));
-            throw sk::rt::TimeoutException();
-          }
-          remaining -= span;
+        sk::rt::Thread::sleep(100);
+        if(adaptor.isMomentReached() == true) {
+          (sk::rt::Locker(_mutex), waiters.remove(currentThread));
+          throw sk::rt::TimeoutException();
         }
       }
     }
@@ -102,9 +94,16 @@ invoke(bool blocking, const sk::rt::thread::Conditional& block)
 
 void
 sk::rt::thread::generic::ConditionMediator::
-wait(int channel, uint64_t timeout)
+wait(int channel)
 {
-  throw WaitRequest(channel, timeout);
+  throw WaitRequest(channel);
+}
+
+void
+sk::rt::thread::generic::ConditionMediator::
+wait(int channel, const struct timespec moment)
+{
+  throw WaitRequest(channel);
 }
 
 void
