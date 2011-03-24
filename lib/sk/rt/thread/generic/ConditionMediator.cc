@@ -20,16 +20,9 @@
 
 static const sk::util::String __className("sk::rt::thread::generic::ConditionMediator");
 
-struct sk::rt::thread::generic::ConditionMediator::WaitRequest {
-  WaitRequest(int number)
-    : channel(number) {}
-
-  int channel;
-};
-
 sk::rt::thread::generic::ConditionMediator::
-ConditionMediator(sk::rt::Lock& lock, int capacity)
-  : _lock(lock)
+ConditionMediator(const sk::rt::Scope& scope, sk::rt::Lock& lock, int capacity)
+  : _scope(scope), _lock(lock), _delay(std::max(1, scope.getProperty("generic-condition-mediator-delay", 100)))
 {
   for(int counter=std::max(1, capacity); counter; --counter) {
     _waiters.add(new thread_container_t);
@@ -46,6 +39,15 @@ sk::rt::thread::generic::ConditionMediator::
 getClass() const
 {
   return sk::util::Class(__className);
+}
+
+namespace {
+  struct WaitRequest {
+    WaitRequest(int number)
+      : channel(number) {}
+
+    int channel;
+  };
 }
 
 bool
@@ -78,7 +80,7 @@ invoke(bool blocking, const sk::rt::thread::Conditional& block)
       _lock.unlock();
 
       while(currentThread.isInterrupted() == false) {
-        sk::rt::Thread::sleep(100);
+        sk::rt::Thread::sleep(_delay);
         if(adaptor.isMomentReached() == true) {
           (sk::rt::Locker(_mutex), waiters.remove(currentThread));
           throw sk::rt::TimeoutException();

@@ -16,6 +16,7 @@
 #include <sk/rt/thread/Conditional.h>
 #include <sk/rt/thread/platform/ConditionMediator.h>
 #include <sk/rt/Mutex.h>
+#include <sk/rt/Scope.h>
 
 #include <sk/util/ArrayList.hxx>
 #include <sk/util/Vector.hxx>
@@ -28,7 +29,7 @@ namespace sk {
           : public virtual sk::rt::thread::platform::ConditionMediator
         {
           public:
-            ConditionMediator(sk::rt::Lock& lock, int capacity = 1);
+            ConditionMediator(const sk::rt::Scope& scope, sk::rt::Lock& lock, int capacity = 1);
             virtual ~ConditionMediator();
 
             bool invoke(bool blocking, const sk::rt::thread::Conditional& block);
@@ -47,8 +48,8 @@ namespace sk {
             typedef sk::util::ArrayList<thread::Generic> thread_container_t;
             sk::util::Vector<thread_container_t>::Direct _waiters;
             sk::rt::Mutex _mutex;
-
-            struct WaitRequest;
+            const int _delay;
+            const sk::rt::Scope& _scope;
         };
       }
     }
