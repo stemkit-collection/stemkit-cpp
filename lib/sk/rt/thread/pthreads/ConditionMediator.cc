@@ -16,7 +16,7 @@
 #include <sk/rt/SystemException.h>
 
 #include "ConditionMediator.h"
-#include "../ConditionTimespecAdaptor.hxx"
+#include "../ConditionTimingAdaptor.hxx"
 #include "Condition.h"
 #include "Mutex.h"
 
@@ -57,7 +57,7 @@ invoke(bool blocking, const sk::rt::thread::Conditional& block)
     _lock.lock();
   }
 
-  sk::rt::thread::ConditionTimespecAdaptor<pthreads::ConditionMediator> adaptor(*this);
+  sk::rt::thread::ConditionTimingAdaptor<pthreads::ConditionMediator> adaptor(*this);
 
   while(true) {
     try {

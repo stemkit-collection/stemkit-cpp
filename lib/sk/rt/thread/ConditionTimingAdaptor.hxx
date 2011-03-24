@@ -8,8 +8,8 @@
  *  Author: Gennady Bystritsky <bystr@mac.com>
 */
 
-#ifndef _SK_RT_THREAD_CONDITIONTIMESPECADAPTOR_HXX_
-#define _SK_RT_THREAD_CONDITIONTIMESPECADAPTOR_HXX_
+#ifndef _SK_RT_THREAD_CONDITIONTIMINGADAPTOR_HXX_
+#define _SK_RT_THREAD_CONDITIONTIMINGADAPTOR_HXX_
 
 #include <sk/rt/thread/Condition.h>
 #include <sk/rt/Time.h>
@@ -18,9 +18,9 @@ namespace sk {
   namespace rt {
     namespace thread {
       template<typename T>
-      class ConditionTimespecAdaptor : public virtual sk::rt::thread::Condition {
+      class ConditionTimingAdaptor : public virtual sk::rt::thread::Condition {
         public:
-          ConditionTimespecAdaptor(T& mediator)
+          ConditionTimingAdaptor(T& mediator)
             : _time(sk::rt::Time::at(0)), _mediator(mediator), _channel(0) {}
 
           bool isMomentReached() const {
@@ -64,4 +64,4 @@ namespace sk {
 }
 
 
-#endif /* _SK_RT_THREAD_CONDITIONTIMESPECADAPTOR_HXX_ */
+#endif /* _SK_RT_THREAD_CONDITIONTIMINGADAPTOR_HXX_ */

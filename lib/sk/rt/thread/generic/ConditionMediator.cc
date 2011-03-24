@@ -14,7 +14,7 @@
 #include <sk/util/Vector.cxx>
 
 #include "ConditionMediator.h"
-#include "../ConditionTimespecAdaptor.hxx"
+#include "../ConditionTimingAdaptor.hxx"
 #include <sk/rt/TimeoutException.h>
 #include <sk/rt/Locker.h>
 
@@ -52,7 +52,7 @@ bool
 sk::rt::thread::generic::ConditionMediator::
 invoke(bool blocking, const sk::rt::thread::Conditional& block)
 {
-  sk::rt::thread::ConditionTimespecAdaptor<generic::ConditionMediator> adaptor(*this);
+  sk::rt::thread::ConditionTimingAdaptor<generic::ConditionMediator> adaptor(*this);
 
   while(true) {
     if(blocking == false) {
