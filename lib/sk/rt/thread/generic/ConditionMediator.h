@@ -49,8 +49,10 @@ namespace sk {
             typedef sk::util::ArrayList<thread::Generic> thread_container_t;
             sk::util::Vector<thread_container_t>::Direct _waiters;
             sk::rt::Mutex _mutex;
-            const int _delay;
             const sk::rt::Scope& _scope;
+            const int _delay;
+            const bool _yields;
+            const bool _broadcasts;
         };
       }
     }

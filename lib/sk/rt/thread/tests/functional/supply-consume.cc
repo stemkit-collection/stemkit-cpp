@@ -38,7 +38,7 @@ int main(int argc, const char* const argv[])
         <property name='generic-condition-mediator-delay' value='10' />\n\
         <property name='condition-mediator-yields' value='false' />\n\
         <property name='condition-mediator-broadcasts' value='true' />\n\
-
+        \n\
         <scope name='sk::rt::thread::pthreads'>\n\
           <log level='error' />\n\
           <property name='generic-condition-mediator' value='false' />\n\

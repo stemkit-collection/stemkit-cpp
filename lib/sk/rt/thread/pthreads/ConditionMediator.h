@@ -47,8 +47,8 @@ namespace sk {
             sk::rt::Lock& _lock;
             sk::util::Vector<pthreads::Condition>::Direct _conditions;
             const sk::rt::Scope& _scope;
-            bool _yields;
-            bool _broadcasts;
+            const bool _yields;
+            const bool _broadcasts;
         };
       }
     }

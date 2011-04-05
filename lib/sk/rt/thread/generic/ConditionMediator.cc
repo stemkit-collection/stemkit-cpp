@@ -11,6 +11,7 @@
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
 #include <sk/util/ArrayList.cxx>
+#include <sk/util/UnsupportedOperationException.h>
 #include <sk/util/Vector.cxx>
 
 #include "ConditionMediator.h"
@@ -22,7 +23,10 @@ static const sk::util::String __className("sk::rt::thread::generic::ConditionMed
 
 sk::rt::thread::generic::ConditionMediator::
 ConditionMediator(const sk::rt::Scope& scope, sk::rt::Lock& lock, int capacity)
-  : _scope(scope), _lock(lock), _delay(std::max(1, scope.getProperty("generic-condition-mediator-delay", 100)))
+  : _scope(scope), _lock(lock), 
+    _delay(std::max(1, scope.getProperty("generic-condition-mediator-delay", 100))),
+    _yields(scope.getProperty("condition-mediator-yields", sk::util::Boolean::B_FALSE)),
+    _broadcasts(scope.getProperty("condition-mediator-broadcasts", sk::util::Boolean::B_TRUE))
 {
   for(int counter=std::max(1, capacity); counter; --counter) {
     _waiters.add(new thread_container_t);
@@ -65,6 +69,9 @@ invoke(bool blocking, const sk::rt::thread::Conditional& block)
     try {
       block.process(adaptor);
       _lock.unlock();
+      if(_yields == true) {
+        sk::rt::Thread::yield();
+      }
       return true;
     }
     catch(const WaitRequest& request) {
@@ -107,6 +114,9 @@ void
 sk::rt::thread::generic::ConditionMediator::
 announce(int channel)
 {
+  if(_broadcasts == false) {
+    throw sk::util::UnsupportedOperationException(SK_METHOD + ':' + "non-broadcast mode");
+  }
   struct Interruptor : public virtual sk::util::Processor<sk::rt::thread::Generic> {
     void process(sk::rt::thread::Generic& thread) const {
       thread.interrupt();
