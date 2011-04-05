@@ -24,7 +24,9 @@ static const sk::util::String __className("sk::rt::thread::pthreads::ConditionMe
 
 sk::rt::thread::pthreads::ConditionMediator::
 ConditionMediator(const sk::rt::Scope& scope, sk::rt::Lock& lock, int capacity)
-  : _scope(scope), _lock(lock)
+  : _scope(scope), _lock(lock), 
+    _yields(scope.getProperty("condition-mediator-yields", sk::util::Boolean::B_FALSE)),
+    _broadcasts(scope.getProperty("condition-mediator-broadcasts", sk::util::Boolean::B_TRUE))
 {
   pthreads::Mutex& mutex = sk::util::upcast<pthreads::Mutex>(lock.getObject());
   for(int counter=std::max(1, capacity); counter; --counter) {
@@ -63,6 +65,9 @@ invoke(bool blocking, const sk::rt::thread::Conditional& block)
     try {
       block.process(adaptor);
       _lock.unlock();
+      if(_yields == true) {
+        sched_yield();
+      }
       return true;
     }
     catch(...) {
@@ -94,6 +99,12 @@ void
 sk::rt::thread::pthreads::ConditionMediator::
 announce(int channel)
 {
-  _conditions.getMutable(channel).broadcast();
+  pthreads::Condition& condition = _conditions.getMutable(channel);
+  if(_broadcasts == true) {
+    condition.broadcast();
+  }
+  else {
+    condition.signal();
+  }
 }
 

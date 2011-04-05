@@ -35,10 +35,13 @@ int main(int argc, const char* const argv[])
     sk::rt::config::InlineLocator("\n\
       <scope name='app'>\n\
         <log destination='std::cerr' level='info' show-object='false' show-time='true' />\n\
+        <property name='generic-condition-mediator-delay' value='10' />\n\
+        <property name='condition-mediator-yields' value='false' />\n\
+        <property name='condition-mediator-broadcasts' value='true' />\n\
+
         <scope name='sk::rt::thread::pthreads'>\n\
           <log level='error' />\n\
           <property name='generic-condition-mediator' value='false' />\n\
-          <property name='generic-condition-mediator-delay' value='10' />\n\
         </scope>\n\
       </scope>\n\
     ")
