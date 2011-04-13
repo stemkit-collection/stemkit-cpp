@@ -49,93 +49,33 @@ PLATFORM_IMPLEMENTATION = unix ;
 
 project.DO_ABORT_TEST = false ;
 
-rule platform-mswin-x86-m64-win
+rule local.mswin-x86.setup 
 {
-  platform-mswin-x86-setup ;
+  local _mode = $(1) ;
+  local _block = $(2) ;
 
-  PLATFORM_IMPLEMENTATION = win32 ;
-
-  project.PLATFORM_SPECIFICS = windows ;
-  util.delete-from project.DO_NOT_BUILD : java ;
-
-  INCLUDES += [ util.make-path $(system.SRCTOP) platform include windows-visual-studio ] ;
-
-  project.JAVA_HOME = [ util.make-path "C:" "Program Files (x86)" "Java" "jdk1.5.0_15" ] ;
-  project.JAVA_INCLUDES = [ util.make-path $(project.JAVA_HOME) include ] ;
-  project.JAVA_INCLUDES += [ util.make-path $(project.JAVA_HOME) include win32 ] ;
-
-  JAVAC = [ util.make-path $(project.JAVA_HOME) bin javac.exe ] ;
-  JAR = [ util.make-path $(project.JAVA_HOME) bin jar.exe ] ;
-  SWIG = [ util.make-path $(TOOLS_HOME) swigwin-1.3.35 swig.exe ] ;
-
-  windows.EXTRA_SYSLIBS = ws2_32 ;
-}
-
-rule platform-mswin-x86-m32-win
-{
-  platform-mswin-x86-setup ;
-
-  PLATFORM_IMPLEMENTATION = win32 ;
-
-  project.PLATFORM_SPECIFICS = windows ;
-  util.delete-from project.DO_NOT_BUILD : java ;
-
-  INCLUDES += [ util.make-path $(system.SRCTOP) platform include windows-visual-studio ] ;
-
-  project.JAVA_HOME = [ util.make-path "C:" "Program Files (x86)" "Java" "jdk1.5.0_15" ] ;
-  project.JAVA_INCLUDES = [ util.make-path $(project.JAVA_HOME) include ] ;
-  project.JAVA_INCLUDES += [ util.make-path $(project.JAVA_HOME) include win32 ] ;
-
-  JAVAC = [ util.make-path $(project.JAVA_HOME) bin javac.exe ] ;
-  JAR = [ util.make-path $(project.JAVA_HOME) bin jar.exe ] ;
-  SWIG = [ util.make-path $(TOOLS_HOME) swigwin-1.3.35 swig.exe ] ;
-
-  windows.EXTRA_SYSLIBS = ws2_32 ;
-}
-
-rule platform-mswin-x86-m64-mks
-{
-  platform-mswin-x86-setup ;
-
-  project.PLATFORM_SPECIFICS = mks32 ;
-  UNIX_FLAVOR = mks32 ;
-
-  INCLUDES += [ util.make-path $(system.SRCTOP) platform include windows-mks32 ] ;
-
-  core.ensure-defined JAM_MKS_ROOT ;
-  mswin.setup-mks-toolkit8 "$(JAM_MKS_ROOT:J= )" ;
-
-  jam.NO_PTHREAD_LIB = true ;
-}
-
-rule platform-mswin-x86-m32-mks
-{
-  platform-mswin-x86-setup ;
-
-  project.PLATFORM_SPECIFICS = mks32 ;
-  UNIX_FLAVOR = mks32 ;
-
-  INCLUDES += [ util.make-path $(system.SRCTOP) platform include windows-mks32 ] ;
-
-  core.ensure-defined JAM_MKS_ROOT ;
-  mswin.setup-mks-toolkit8 "$(JAM_MKS_ROOT:J= )" ;
-
-  jam.NO_PTHREAD_LIB = true ;
-}
-
-rule platform-mswin-x86-setup
-{
   core.load-config Jam.windows ;
+
+  TOOLS_HOME = [ util.make-path C: qtools ] ;
+  CONTRIB_ROOT = [ util.make-path $(TOOLS_HOME) build visual-studio-8 ] ;
 
   project.PROHIBIT_SHARED = true ;
   project.DO_NOT_USE_LIBRARY_MAJOR = true ;
   project.CURSES_LIBS = ;
 
-  TOOLS_HOME = [ util.make-path C: qtools ] ;
-  CONTRIB_ROOT = [ util.make-path $(TOOLS_HOME) build visual-studio-8 ] ;
+  project.JAVA_HOME = [ util.make-path "C:" "Program Files (x86)" "Java" "jdk1.5.0_15" ] ;
+  project.JAVA_INCLUDES = 
+    [ util.make-path $(project.JAVA_HOME) include ]
+    [ util.make-path $(project.JAVA_HOME) include win32 ]
+  ;
+
+  JAVAC = [ util.make-path $(project.JAVA_HOME) bin javac.exe ] ;
+  JAR = [ util.make-path $(project.JAVA_HOME) bin jar.exe ] ;
+  SWIG = [ util.make-path $(TOOLS_HOME) swigwin-1.3.35 swig.exe ] ;
 
   CPPUNIT_VERSION = 1.12 ;
   UNITTEST_LIBS = cppunit ;
+  UNITTEST_DIRS ?= $(CONTRIB_ROOT)/cppunit-$(CPPUNIT_VERSION)_64 ;
 
   CCDFLAGS = ;
   CCOFLAGS = ;
@@ -144,12 +84,12 @@ rule platform-mswin-x86-setup
 
   INCLUDES = ;
   LIBDIRS = ;
-}
 
-rule platform-mswin-x86
-{
+  if $(_block) {
+    $(_block) $(_mode) ;
+  }
   core.ensure-defined JAM_MSVS_ROOT ;
-  mswin.setup-visual-studio8 "$(JAM_MSVS_ROOT:J= )" ;
+  mswin.setup-visual-studio8-m$(_mode) "$(JAM_MSVS_ROOT:J= )" ;
 
   USE_GLOBAL_INCLUDES_AFTER = false ;
 
@@ -157,9 +97,68 @@ rule platform-mswin-x86
   CCFLAGS +=  /MD /WL /FC /W3 /Z7 /Gy ;
   CCOFLAGS = /Od ;
 
-  LINKER_FLAGS += /STACK:9000000 /MACHINE:X86 /NODEFAULTLIB:LIBCMT.LIB /NODEFAULTLIB:LIBCP.LIB /DEBUG ;
-  DEFINES += NDEBUG WINVER=0x0501 _WIN32_WINNT=0x0501 _USE_32BIT_TIME_T _LARGEFILE64_SOURCE ;
+  switch $(_mode) {
+    case 32 : 
+      LINKER_FLAGS += /MACHINE:X86 ;
+      DEFINES += _USE_32BIT_TIME_T ;
+
+    case 64 : 
+      LINKER_FLAGS += /MACHINE:X64 ;
+  }
+  LINKER_FLAGS += /STACK:9000000 /NODEFAULTLIB:LIBCMT.LIB /NODEFAULTLIB:LIBCP.LIB /DEBUG ;
+  DEFINES += NDEBUG WINVER=0x0501 _WIN32_WINNT=0x0501 _LARGEFILE64_SOURCE ;
   SYSLIBS = shlwapi advapi32 user32 psapi $(windows.EXTRA_SYSLIBS) ;
+}
+
+rule local.mswin-x86.native
+{
+  local _mode = $(1) ;
+
+  PLATFORM_IMPLEMENTATION = win32 ;
+  project.PLATFORM_SPECIFICS = windows ;
+  util.delete-from project.DO_NOT_BUILD : java ;
+
+  INCLUDES += [ util.make-path $(system.SRCTOP) platform include windows-visual-studio ] ;
+  windows.EXTRA_SYSLIBS = ws2_32 ;
+}
+
+rule local.mswin-x86.mks
+{
+  local _mode = $(1) ;
+
+  project.PLATFORM_SPECIFICS = mks32 ;
+  UNIX_FLAVOR = mks32 ;
+
+  INCLUDES += [ util.make-path $(system.SRCTOP) platform include windows-mks32 ] ;
+
+  core.ensure-defined JAM_MKS_ROOT ;
+  mswin.setup-mks-toolkit8-m$(_mode) "$(JAM_MKS_ROOT:J= )" ;
+
+  jam.NO_PTHREAD_LIB = true ;
+}
+
+rule platform-mswin-x86-m64-win
+{
+  local.mswin-x86.setup 64 : local.mswin-x86.native ;
+}
+
+rule platform-mswin-x86-m32-win
+{
+  local.mswin-x86.setup 32 : local.mswin-x86.native ;
+}
+
+rule platform-mswin-x86-m64-mks
+{
+  local.mswin-x86.setup 64 : local.mswin-x86.mks ;
+}
+
+rule platform-mswin-x86-m32-mks
+{
+  local.mswin-x86.setup 32 : local.mswin-x86.mks ;
+}
+
+rule platform-mswin-x86
+{
 }
 
 rule platform-linux-x86-m32
