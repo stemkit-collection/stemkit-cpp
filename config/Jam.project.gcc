@@ -75,7 +75,6 @@ rule local.mswin-x86.setup
 
   CPPUNIT_VERSION = 1.12 ;
   UNITTEST_LIBS = cppunit ;
-  UNITTEST_DIRS ?= $(CONTRIB_ROOT)/cppunit-$(CPPUNIT_VERSION)_64 ;
 
   CCDFLAGS = ;
   CCOFLAGS = ;
@@ -104,6 +103,8 @@ rule local.mswin-x86.setup
 
     case 64 : 
       LINKER_FLAGS += /MACHINE:X64 ;
+      platform.setup-abi-lib lib64 ;
+
   }
   LINKER_FLAGS += /STACK:9000000 /NODEFAULTLIB:LIBCMT.LIB /NODEFAULTLIB:LIBCP.LIB /DEBUG ;
   DEFINES += NDEBUG WINVER=0x0501 _WIN32_WINNT=0x0501 _LARGEFILE64_SOURCE ;
@@ -131,8 +132,9 @@ rule local.mswin-x86.mks
 
   INCLUDES += [ util.make-path $(system.SRCTOP) platform include windows-mks32 ] ;
 
-  core.ensure-defined JAM_MKS_ROOT ;
-  mswin.setup-mks-toolkit8-m$(_mode) "$(JAM_MKS_ROOT:J= )" ;
+  JAM_MKS_ROOT_$(_mode) ?= $(JAM_MKS_ROOT) ;
+  core.ensure-defined JAM_MKS_ROOT_$(_mode) ;
+  mswin.setup-mks-toolkit8-m$(_mode) "$(JAM_MKS_ROOT_$(_mode):J= )" ;
 
   jam.NO_PTHREAD_LIB = true ;
 }

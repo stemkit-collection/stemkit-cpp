@@ -1,7 +1,8 @@
+# vim: ft=jam: sw=2:
 
-library = sk.cppunit ;
+local library = sk.cppunit ;
 
-objects = 
+local objects = 
   SingleLineOutputter.cc
   TestRunner.cc
   SourcePath.cc
@@ -9,6 +10,10 @@ objects =
 ;
 
 use-unit-test $(objects) ;
-make-library $(library) : $(objects) ;
+
+switch $(config.unit-test.disable) {
+  case true : make-empty-library $(library) ;
+  case * : make-library $(library) : $(objects) ;
+}
 
 make-subdirs test ;
