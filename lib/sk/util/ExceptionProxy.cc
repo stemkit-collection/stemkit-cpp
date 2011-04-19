@@ -16,21 +16,27 @@
 
 static const sk::util::String __className("sk::util::ExceptionProxy");
 
+namespace {
+  const sk::util::String makeClassName(const sk::util::String& name, const sk::util::Strings& strings) {
+    return (sk::util::Strings(name) << strings).join("#");
+  }
+}
+
 sk::util::ExceptionProxy::
 ExceptionProxy(const sk::util::Strings& strings, sk::util::Exception& exception)
-  : sk::util::Exception(strings, exception), _originalClassName(exception.getClass().getName())
+  : sk::util::Exception(strings, exception), _originalClassName(makeClassName(exception.getClass().getName(), strings))
 {
 }
 
 sk::util::ExceptionProxy::
 ExceptionProxy(const sk::util::Strings& strings, std::exception& exception)
-  : sk::util::Exception(strings + exception.what()), _originalClassName("std::exception")
+  : sk::util::Exception(strings + exception.what()), _originalClassName(makeClassName("std::exception", strings))
 {
 }
 
 sk::util::ExceptionProxy::
 ExceptionProxy(const sk::util::Strings& strings)
-  : sk::util::Exception(strings), _originalClassName("<UNKNOWN>")
+  : sk::util::Exception(strings), _originalClassName(makeClassName("<UNKNOWN>", strings))
 {
 }
 

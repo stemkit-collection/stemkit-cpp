@@ -166,6 +166,17 @@ operator << (const T& item)
 }
 
 template<typename T>
+sk::util::Items<T>&
+sk::util::Items<T>::
+operator << (const sk::util::Items<T>& other)
+{
+  if(&other != this) {
+    other.forEach(Propagator(*this));
+  }
+  return *this;
+}
+
+template<typename T>
 const T&
 sk::util::Items<T>::
 first() const

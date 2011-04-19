@@ -45,7 +45,7 @@ test_stemkit_exception()
   sk::util::Exception original("abc");
   sk::util::ExceptionProxy proxy("zzz", original);
 
-  CPPUNIT_ASSERT_EQUAL("sk::util::Exception", proxy.getClass().getName());
+  CPPUNIT_ASSERT_EQUAL("sk::util::Exception#zzz", proxy.getClass().getName());
   CPPUNIT_ASSERT_EQUAL("ERROR: zzz: abc", proxy.what());
 }
 
@@ -56,7 +56,7 @@ test_std_exception()
   std::out_of_range original("abc");
   sk::util::ExceptionProxy proxy("zzz", original);
 
-  CPPUNIT_ASSERT_EQUAL("std::exception", proxy.getClass().getName());
+  CPPUNIT_ASSERT_EQUAL("std::exception#zzz", proxy.getClass().getName());
   CPPUNIT_ASSERT_EQUAL("ERROR: zzz: abc", proxy.what());
 }
 
@@ -66,6 +66,6 @@ test_unknown_exception()
 {
   sk::util::ExceptionProxy proxy("zzz");
 
-  CPPUNIT_ASSERT_EQUAL("<UNKNOWN>", proxy.getClass().getName());
+  CPPUNIT_ASSERT_EQUAL("<UNKNOWN>#zzz", proxy.getClass().getName());
   CPPUNIT_ASSERT_EQUAL("ERROR: zzz", proxy.what());
 }

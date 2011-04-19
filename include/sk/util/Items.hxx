@@ -45,7 +45,8 @@ namespace sk {
         sk::util::Items<T> operator + (const T& item) const;
         sk::util::Items<T> operator + (const sk::util::Items<T>& other) const;
         sk::util::Items<T>& operator = (const sk::util::Items<T>& other);
-        Items<T>& operator << (const T& item);
+        sk::util::Items<T>& operator << (const T& item);
+        sk::util::Items<T>& operator << (const sk::util::Items<T>& other);
         
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
