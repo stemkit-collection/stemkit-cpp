@@ -23,7 +23,7 @@ namespace sk {
       : public virtual sk::util::Object
     {
       public:
-        Actions(const sk::rt::Scope& scope);
+        Actions(bool reverse = false);
         virtual ~Actions();
 
         template<typename T, typename TMF> 
@@ -58,7 +58,7 @@ namespace sk {
         void finalize();
         void runActionsCollectExceptions();
 
-        const sk::rt::Scope& _scope;
+        const sk::rt::Scope _scope;
         bool _reverse;
         sk::util::ArrayList<Item> _items;
         sk::util::ArrayList<sk::util::Exception> _exceptions;

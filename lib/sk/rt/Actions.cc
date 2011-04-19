@@ -11,6 +11,7 @@
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
 #include <sk/util/ExceptionProxy.h>
+#include <sk/util/CompoundException.h>
 #include <sk/util/ArrayList.cxx>
 
 #include <sk/rt/Actions.h>
@@ -24,8 +25,8 @@ Item(const sk::util::String& label)
 }
 
 sk::rt::Actions::
-Actions(const sk::rt::Scope& scope)
-  : _scope(scope), _reverse(false)
+Actions(bool reverse)
+  : _scope(__className), _reverse(reverse)
 {
 }
 
@@ -127,9 +128,9 @@ sk::rt::Actions::
 finalize()
 {
   _items.clear();
-  int number = _exceptions.size();
-  if(number > 0) {
-    _exceptions.clear();
-    throw sk::util::Exception("There are " + sk::util::String::valueOf(number) + "exceptions collected");
+  if(_exceptions.isEmpty() == false) {
+    sk::rt::Actions cleanupActions;
+    cleanupActions.add(SK_METHOD, _exceptions, &sk::util::ArrayList<sk::util::Exception>::clear);
+    throw sk::util::CompoundException(_exceptions);
   }
 }
