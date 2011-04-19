@@ -25,13 +25,28 @@ Item(const sk::util::String& label)
 
 sk::rt::Actions::
 Actions(const sk::rt::Scope& scope)
-  : _scope(scope)
+  : _scope(scope), _reverse(false)
 {
 }
 
 sk::rt::Actions::
 ~Actions()
 {
+  performIgnoreErrors();
+}
+
+void
+sk::rt::Actions::
+setReverse(bool state)
+{
+  _reverse = state;
+}
+
+bool
+sk::rt::Actions::
+isReverse() const
+{
+  return _reverse;
 }
 
 const sk::util::Class
@@ -71,28 +86,39 @@ namespace {
   };
 }
 
+void
+sk::rt::Actions::
+runActionsCollectExceptions()
+{
+  if(_reverse) {
+    _items.reverse();
+  }
+  _items.forEach(GuardingExecutor(_exceptions));
+}
+
 void 
 sk::rt::Actions::
 perform()
 {
-  _items.forEach(GuardingExecutor(_exceptions));
+  runActionsCollectExceptions();
   finalize();
 }
 
 void 
 sk::rt::Actions::
-performReverse()
+performIgnoreErrors()
 {
-  _items.forEach(GuardingExecutor(_exceptions));
+  runActionsCollectExceptions();
+  _exceptions.clear();
   finalize();
 }
 
 void 
 sk::rt::Actions::
-performReverseThrow(const sk::util::Exception& exception)
+performThrow(const sk::util::Exception& exception)
 {
   _exceptions.add(exception);
-  _items.forEach(GuardingExecutor(_exceptions));
+  runActionsCollectExceptions();
   finalize();
 }
 
