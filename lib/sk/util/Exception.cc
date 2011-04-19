@@ -30,11 +30,20 @@ sk::util::Exception::
 {
 }
 
+static const sk::util::String __messageHeader("ERROR: ");
+
+const sk::util::String
+sk::util::Exception::
+makeMessage(const sk::util::Strings& strings)
+{
+  return __messageHeader + strings.join(": ");
+}
+
 const sk::util::String
 sk::util::Exception::
 getMessage() const
 {
-  return _message.substring(_message.indexOf(' ') + 1);
+  return _message.substring(__messageHeader.size());
 }
 
 const sk::util::Class
@@ -56,11 +65,4 @@ sk::util::Exception::
 what() const throw()
 {
   return _message.getChars();
-}
-
-const sk::util::String
-sk::util::Exception::
-makeMessage(const sk::util::Strings& strings) const
-{
-  return "ERROR: " + strings.join(": ");
 }

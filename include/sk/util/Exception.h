@@ -37,10 +37,10 @@ namespace sk {
         static void guard(const S& stream, T& target, TMF method, const char* spot = 0);
         
       private:
-        const String makeMessage(const Strings& strings) const;
+        static const String makeMessage(const Strings& strings);
 
       private:
-        sk::util::String _message;
+        const sk::util::String _message;
     };
   }
 }
