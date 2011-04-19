@@ -16,6 +16,7 @@ test-objects =
   StringHashTest.cc
   TestSuite.cc
   ExceptionTest.cc
+  ExceptionProxyTest.cc
   IllegalStateExceptionTest.cc
   IndexOutOfBoundsExceptionTest.cc
   InterruptedExceptionTest.cc
