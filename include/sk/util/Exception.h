@@ -21,6 +21,9 @@ namespace sk {
     {
       public:
         Exception(const util::String& message);
+        Exception(const util::String& message, sk::util::Exception& exception);
+        Exception(const util::String& message, const std::exception& exception);
+        Exception(const util::String& message, const sk::util::Strings& strings);
         virtual ~Exception() throw();
 
         const sk::util::String getMessage() const;

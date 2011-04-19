@@ -57,7 +57,13 @@ namespace {
         item.invoke();
       }
       catch(const sk::util::Exception& exception) {
-        _exceptions.add(exception);
+        _exceptions.add(new sk::util::Exception(item, exception));
+      }
+      catch(const std::exception& exception) {
+        _exceptions.add(new sk::util::Exception(item, exception));
+      }
+      catch(...) {
+        _exceptions.add(new sk::util::Exception(item, "Unknown exception"));
       }
     }
     sk::util::List<sk::util::Exception>& _exceptions;
@@ -94,4 +100,9 @@ sk::rt::Actions::
 finalize()
 {
   _items.clear();
+  int number = _exceptions.size();
+  if(number > 0) {
+    _exceptions.clear();
+    throw sk::util::Exception("There are " + sk::util::String::valueOf(number) + "exceptions collected");
+  }
 }

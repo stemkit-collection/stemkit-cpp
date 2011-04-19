@@ -11,10 +11,29 @@
 #include <sk/util/Integer.h>
 
 #include <sk/util/Exception.h>
+#include <sk/util/Strings.h>
 
 sk::util::Exception::
 Exception(const sk::util::String& message)
   : _message(join("ERROR", message))
+{
+}
+
+sk::util::Exception::
+Exception(const sk::util::String& message, sk::util::Exception& exception)
+  : _message(join(join("ERROR", message), exception.getMessage()))
+{
+}
+
+sk::util::Exception::
+Exception(const sk::util::String& message, const std::exception& exception)
+  : _message(join(join("ERROR", message), exception.what()))
+{
+}
+
+sk::util::Exception::
+Exception(const sk::util::String& message, const sk::util::Strings& strings)
+  : _message(join(join("ERROR", message), strings.join(":")))
 {
 }
 
