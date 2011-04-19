@@ -17,6 +17,7 @@ test-objects =
   TestSuite.cc
   ExceptionTest.cc
   ExceptionProxyTest.cc
+  CompoundExceptionTest.cc
   IllegalStateExceptionTest.cc
   IndexOutOfBoundsExceptionTest.cc
   InterruptedExceptionTest.cc
