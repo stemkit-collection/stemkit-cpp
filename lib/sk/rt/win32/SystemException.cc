@@ -9,7 +9,7 @@
 */
 
 #include <sk/util/Class.h>
-#include <sk/util/String.h>
+#include <sk/util/Strings.h>
 
 #include <sk/rt/SystemException.h>
 #include <windows.h>
@@ -37,13 +37,13 @@ namespace {
 
 sk::rt::SystemException::
 SystemException(const sk::util::String& message)
-  : sk::util::Exception(join(join(join("Runtime", message), GetLastError()), getErrorString(GetLastError()))), _code(GetLastError())
+  : sk::util::Exception(sk::util::Strings("Runtime") << message << sk::util::String::valueOf(GetLastError()) << getErrorString(GetLastError())), _code(GetLastError())
 {
 }
 
 sk::rt::SystemException::
 SystemException(const sk::util::String& message, uint32_t code)
-  : sk::util::Exception(join(join(join("Runtime", message), code), getErrorString(code))), _code(code)
+  : sk::util::Exception(sk::util::Strings("Runtime") << message << sk::util::String::valueOf(code) << getErrorString(code)), _code(code)
 {
 }
 
