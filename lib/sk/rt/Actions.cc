@@ -73,10 +73,10 @@ namespace {
       try {
         item.invoke();
       }
-      catch(const sk::util::Exception& exception) {
+      catch(sk::util::Exception& exception) {
         _exceptions.add(new sk::util::ExceptionProxy(item, exception));
       }
-      catch(const std::exception& exception) {
+      catch(std::exception& exception) {
         _exceptions.add(new sk::util::ExceptionProxy(item, exception));
       }
       catch(...) {

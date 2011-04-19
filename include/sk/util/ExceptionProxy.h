@@ -21,7 +21,7 @@ namespace sk {
     {
       public:
         ExceptionProxy(const sk::util::Strings& strings, sk::util::Exception& exception);
-        ExceptionProxy(const sk::util::Strings& strings, const std::exception& exception);
+        ExceptionProxy(const sk::util::Strings& strings, std::exception& exception);
         ExceptionProxy(const sk::util::Strings& strings);
         virtual ~ExceptionProxy() throw();
     
@@ -29,7 +29,7 @@ namespace sk {
         const sk::util::Class getClass() const;
     
       private:
-        const sk::util::String _className;
+        const sk::util::String _originalClassName;
     };
   }
 }

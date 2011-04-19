@@ -18,19 +18,19 @@ static const sk::util::String __className("sk::util::ExceptionProxy");
 
 sk::util::ExceptionProxy::
 ExceptionProxy(const sk::util::Strings& strings, sk::util::Exception& exception)
-  : sk::util::Exception(strings, exception), _className(exception.getClass().getName())
+  : sk::util::Exception(strings, exception), _originalClassName(exception.getClass().getName())
 {
 }
 
 sk::util::ExceptionProxy::
-ExceptionProxy(const sk::util::Strings& strings, const std::exception& exception)
-  : sk::util::Exception(strings + exception.what()), _className("std::exception")
+ExceptionProxy(const sk::util::Strings& strings, std::exception& exception)
+  : sk::util::Exception(strings + exception.what()), _originalClassName("std::exception")
 {
 }
 
 sk::util::ExceptionProxy::
 ExceptionProxy(const sk::util::Strings& strings)
-  : sk::util::Exception(strings), _className("<UNKNOWN>")
+  : sk::util::Exception(strings), _originalClassName("<UNKNOWN>")
 {
 }
 
@@ -43,5 +43,5 @@ const sk::util::Class
 sk::util::ExceptionProxy::
 getClass() const
 {
-  return _className;
+  return sk::util::Class(_originalClassName);
 }
