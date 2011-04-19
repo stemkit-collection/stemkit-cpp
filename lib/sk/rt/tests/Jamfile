@@ -1,14 +1,22 @@
+# vim: ft=jam: sw=2
 
-test = test-rt ;
+local test = sk-rt-tests ;
 
-test-objects =
+local test-objects =
   ScopeTest.cc
   EnvironmentTest.cc
   ActionsTest.cc
+  StopWatchTest.cc
+  TimeTest.cc
   TestSuite.cc
 ;
 
-use-project-libraries $(test) : sk.cppunit sk.rt.bundle sk.util ;
+use-project-libraries $(test) : 
+  sk.rt.thread 
+  sk.rt.bundle 
+  sk.util 
+  sk.cppunit 
+;
 
 use-unit-test $(test) $(test-objects) ;
 make-cpp-test $(test) : $(test-objects) ;

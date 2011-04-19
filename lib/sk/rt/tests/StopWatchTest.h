@@ -8,19 +8,19 @@
  *  Author: Gennady Bystritsky
 */
 
-#ifndef _SK_RT_TEST_STOPWATCHTEST_H_
-#define _SK_RT_TEST_STOPWATCHTEST_H_
+#ifndef _SK_RT_TESTS_STOPWATCHTEST_H_
+#define _SK_RT_TESTS_STOPWATCHTEST_H_
 
 #include <cppunit/TestFixture.h>
 #include <cppunit/extensions/HelperMacros.h>
 
 namespace sk {
   namespace rt {
-    namespace test {
+    namespace tests {
       class StopWatchTest
         : public CppUnit::TestFixture
       {
-        CPPUNIT_TEST_SUITE(sk::rt::test::StopWatchTest);
+        CPPUNIT_TEST_SUITE(sk::rt::tests::StopWatchTest);
           CPPUNIT_TEST(testTicking);
           CPPUNIT_TEST(testNotStarted);
           CPPUNIT_TEST(testChangesUntilStopped);
@@ -46,4 +46,4 @@ namespace sk {
   }
 }
 
-#endif /* _SK_RT_TEST_STOPWATCHTEST_H_ */
+#endif /* _SK_RT_TESTS_STOPWATCHTEST_H_ */

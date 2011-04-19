@@ -12,32 +12,32 @@
 #include <sk/rt/Time.h>
 #include <sk/util/ArrayList.cxx>
 
-CPPUNIT_TEST_SUITE_REGISTRATION(sk::rt::test::TimeTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(sk::rt::tests::TimeTest);
 
-sk::rt::test::TimeTest::
+sk::rt::tests::TimeTest::
 TimeTest()
 {
 }
 
-sk::rt::test::TimeTest::
+sk::rt::tests::TimeTest::
 ~TimeTest()
 {
 }
 
 void
-sk::rt::test::TimeTest::
+sk::rt::tests::TimeTest::
 setUp()
 {
 }
 
 void
-sk::rt::test::TimeTest::
+sk::rt::tests::TimeTest::
 tearDown()
 {
 }
 
 void
-sk::rt::test::TimeTest::
+sk::rt::tests::TimeTest::
 testBasics()
 {
   sk::rt::Time t = sk::rt::Time::at(127);
@@ -49,7 +49,7 @@ testBasics()
 }
 
 void 
-sk::rt::test::TimeTest::
+sk::rt::tests::TimeTest::
 testOrdering()
 {
   sk::rt::Time t1 = sk::rt::Time::at(10);
@@ -79,7 +79,7 @@ testOrdering()
 }
 
 void
-sk::rt::test::TimeTest::
+sk::rt::tests::TimeTest::
 testSort()
 {
   sk::util::ArrayList<sk::rt::Time> list;

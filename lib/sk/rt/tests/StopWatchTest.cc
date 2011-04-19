@@ -12,32 +12,32 @@
 #include <sk/rt/StopWatch.h>
 #include <sk/rt/Thread.h>
 
-CPPUNIT_TEST_SUITE_REGISTRATION(sk::rt::test::StopWatchTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(sk::rt::tests::StopWatchTest);
 
-sk::rt::test::StopWatchTest::
+sk::rt::tests::StopWatchTest::
 StopWatchTest()
 {
 }
 
-sk::rt::test::StopWatchTest::
+sk::rt::tests::StopWatchTest::
 ~StopWatchTest()
 {
 }
 
 void
-sk::rt::test::StopWatchTest::
+sk::rt::tests::StopWatchTest::
 setUp()
 {
 }
 
 void
-sk::rt::test::StopWatchTest::
+sk::rt::tests::StopWatchTest::
 tearDown()
 {
 }
 
 void
-sk::rt::test::StopWatchTest::
+sk::rt::tests::StopWatchTest::
 testTicking()
 {
   sk::rt::StopWatch stopwatch;
@@ -55,7 +55,7 @@ testTicking()
 }
 
 void 
-sk::rt::test::StopWatchTest::
+sk::rt::tests::StopWatchTest::
 testNotStarted() 
 {
   sk::rt::StopWatch stopwatch;
@@ -69,7 +69,7 @@ testNotStarted()
 }
 
 void 
-sk::rt::test::StopWatchTest::
+sk::rt::tests::StopWatchTest::
 testChangesUntilStopped()
 {
   sk::rt::StopWatch stopwatch;
@@ -96,7 +96,7 @@ testChangesUntilStopped()
 }
 
 void 
-sk::rt::test::StopWatchTest::
+sk::rt::tests::StopWatchTest::
 testInspect() 
 {
   sk::rt::StopWatch stopwatch;

@@ -8,19 +8,19 @@
  *  Author: Gennady Bystritsky
 */
 
-#ifndef _SK_RT_TEST_TIMETEST_H_
-#define _SK_RT_TEST_TIMETEST_H_
+#ifndef _SK_RT_TESTS_TIMETEST_H_
+#define _SK_RT_TESTS_TIMETEST_H_
 
 #include <cppunit/TestFixture.h>
 #include <cppunit/extensions/HelperMacros.h>
 
 namespace sk {
   namespace rt {
-    namespace test {
+    namespace tests {
       class TimeTest
         : public CppUnit::TestFixture
       {
-        CPPUNIT_TEST_SUITE(sk::rt::test::TimeTest);
+        CPPUNIT_TEST_SUITE(sk::rt::tests::TimeTest);
           CPPUNIT_TEST(testBasics);
           CPPUNIT_TEST(testOrdering);
           CPPUNIT_TEST(testSort);
@@ -44,4 +44,4 @@ namespace sk {
   }
 }
 
-#endif /* _SK_RT_TEST_TIMETEST_H_ */
+#endif /* _SK_RT_TESTS_TIMETEST_H_ */
