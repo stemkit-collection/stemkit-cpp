@@ -12,6 +12,7 @@ local objects =
   Benchmarker.cc
   StopWatch.cc
   TimeoutException.cc
+  Actions.cc
 ;
 
 # if $(PLATFORM_IMPLEMENTATION) = win32 || mks32 in $(project.PLATFORM_SPECIFICS) {
