@@ -16,6 +16,7 @@ objects =
   Pathname.cc
   Exception.cc
   ExceptionProxy.cc
+  CompoundException.cc
   IllegalStateException.cc
   IndexOutOfBoundsException.cc
   InterruptedException.cc
