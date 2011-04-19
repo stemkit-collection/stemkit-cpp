@@ -6,13 +6,13 @@
 */
 
 #include <sk/util/Class.h>
-#include <sk/util/String.h>
+#include <sk/util/Strings.h>
 
 #include <sk/util/IndexOutOfBoundsException.h>
 
 sk::util::IndexOutOfBoundsException::
 IndexOutOfBoundsException(const sk::util::String& message)
-  : sk::util::Exception(join("Index out of bounds", message))
+  : sk::util::Exception(sk::util::Strings("Index out of bounds") << message)
 {
 }
 

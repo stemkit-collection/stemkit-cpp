@@ -6,13 +6,13 @@
 */
 
 #include <sk/util/Class.h>
-#include <sk/util/String.h>
+#include <sk/util/Strings.h>
 
 #include <sk/util/IllegalStateException.h>
 
 sk::util::IllegalStateException::
 IllegalStateException(const sk::util::String& message)
-  : sk::util::Exception(join("Illegal state", message))
+  : sk::util::Exception(sk::util::Strings("Illegal state") << message)
 {
 }
 

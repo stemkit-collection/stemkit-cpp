@@ -6,13 +6,13 @@
 */
 
 #include <sk/util/Class.h>
-#include <sk/util/String.h>
+#include <sk/util/Strings.h>
 
 #include <sk/util/InterruptedException.h>
 
 sk::util::InterruptedException::
 InterruptedException(const sk::util::String& message)
-  : sk::util::Exception(join("Interrupted", message))
+  : sk::util::Exception(sk::util::Strings("Interrupted") << message)
 {
 }
 

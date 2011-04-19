@@ -14,26 +14,14 @@
 #include <sk/util/Strings.h>
 
 sk::util::Exception::
-Exception(const sk::util::String& message)
-  : _message(join("ERROR", message))
+Exception(const sk::util::Strings& strings)
+  : _message(makeMessage(strings))
 {
 }
 
 sk::util::Exception::
-Exception(const sk::util::String& message, sk::util::Exception& exception)
-  : _message(join(join("ERROR", message), exception.getMessage()))
-{
-}
-
-sk::util::Exception::
-Exception(const sk::util::String& message, const std::exception& exception)
-  : _message(join(join("ERROR", message), exception.what()))
-{
-}
-
-sk::util::Exception::
-Exception(const sk::util::String& message, const sk::util::Strings& strings)
-  : _message(join(join("ERROR", message), strings.join(":")))
+Exception(const sk::util::Strings& strings, sk::util::Exception& exception)
+  : _message(makeMessage(strings + exception.getMessage()))
 {
 }
 
@@ -72,14 +60,7 @@ what() const throw()
 
 const sk::util::String
 sk::util::Exception::
-join(const sk::util::String& s1, const sk::util::String& s2) const
+makeMessage(const sk::util::Strings& strings) const
 {
-  return s1 + ": " + s2;
-}
-
-const sk::util::String
-sk::util::Exception::
-join(const sk::util::String& s1, int i1) const
-{
-  return join(s1, sk::util::Integer::toString(i1));
+  return "ERROR: " + strings.join(": ");
 }

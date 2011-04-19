@@ -9,7 +9,7 @@
 */
 
 #include <sk/util/Class.h>
-#include <sk/util/String.h>
+#include <sk/util/Strings.h>
 #include <sk/C/handle_provider.cxx>
 
 #include <sk/C/test/Probe.h>

@@ -9,7 +9,7 @@
 */
 
 #include <sk/util/Class.h>
-#include <sk/util/String.h>
+#include <sk/util/Strings.h>
 
 #include <sk/util/IllegalArgumentException.h>
 
@@ -17,7 +17,7 @@ static const char* __className("sk::util::IllegalArgumentException");
 
 sk::util::IllegalArgumentException::
 IllegalArgumentException(const sk::util::String& message)
-  : sk::util::Exception(join("Illegal argument", message))
+  : sk::util::Exception(sk::util::Strings("Illegal argument") << message)
 {
 }
 

@@ -6,13 +6,13 @@
 */
 
 #include <sk/util/Class.h>
-#include <sk/util/String.h>
+#include <sk/util/Strings.h>
 
 #include <sk/util/UnsupportedOperationException.h>
 
 sk::util::UnsupportedOperationException::
 UnsupportedOperationException(const sk::util::String& message)
-  : sk::util::Exception(join("Unsupported operation", message))
+  : sk::util::Exception(sk::util::Strings("Unsupported operation") << message)
 {
 }
 

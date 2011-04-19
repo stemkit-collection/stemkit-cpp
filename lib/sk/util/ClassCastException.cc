@@ -9,7 +9,7 @@
 */
 
 #include <sk/util/Class.h>
-#include <sk/util/String.h>
+#include <sk/util/Strings.h>
 
 #include <sk/util/ClassCastException.h>
 
@@ -17,7 +17,7 @@ static const char* __className("sk::util::ClassCastException");
 
 sk::util::ClassCastException::
 ClassCastException(const sk::util::String& sourceName)
-  : Exception(join("Illegal cast", sourceName)), _sourceName(sourceName)
+  : Exception(sk::util::Strings("Illegal cast") << sourceName), _sourceName(sourceName)
 {
 }
 

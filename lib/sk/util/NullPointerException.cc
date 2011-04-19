@@ -6,13 +6,13 @@
 */
 
 #include <sk/util/Class.h>
-#include <sk/util/String.h>
+#include <sk/util/Strings.h>
 
 #include <sk/util/NullPointerException.h>
 
 sk::util::NullPointerException::
 NullPointerException(const sk::util::String& message)
-  : sk::util::Exception(join("Null pointer", message))
+  : sk::util::Exception(sk::util::Strings("Null pointer") << message)
 {
 }
 

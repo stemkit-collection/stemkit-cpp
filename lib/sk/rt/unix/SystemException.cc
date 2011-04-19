@@ -9,7 +9,7 @@
 */
 
 #include <sk/util/Class.h>
-#include <sk/util/String.h>
+#include <sk/util/Strings.h>
 
 #include <sk/rt/SystemException.h>
 #include <errno.h>
@@ -29,13 +29,13 @@ namespace {
 
 sk::rt::SystemException::
 SystemException(const sk::util::String& message)
-  : sk::util::Exception(join(join(join("Runtime", message), errno), get_errno_message(errno))), _code(errno)
+  : sk::util::Exception(sk::util::Strings("Runtime") << message << sk::util::String::valueOf(errno) << get_errno_message(errno)), _code(errno)
 {
 }
 
 sk::rt::SystemException::
 SystemException(const sk::util::String& message, uint32_t code)
-  : sk::util::Exception(join(join(join("Runtime", message), code), get_errno_message(code))), _code(code)
+  : sk::util::Exception(sk::util::Strings("Runtime") << message << sk::util::String::valueOf(code) << get_errno_message(code)), _code(code)
 {
 }
 

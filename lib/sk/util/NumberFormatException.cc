@@ -6,13 +6,13 @@
 */
 
 #include <sk/util/Class.h>
-#include <sk/util/String.h>
+#include <sk/util/Strings.h>
 
 #include <sk/util/NumberFormatException.h>
 
 sk::util::NumberFormatException::
 NumberFormatException(const sk::util::String& message)
-  : sk::util::Exception(join("Wrong number format", message))
+  : sk::util::Exception(sk::util::Strings("Wrong number format") << message)
 {
 }
 

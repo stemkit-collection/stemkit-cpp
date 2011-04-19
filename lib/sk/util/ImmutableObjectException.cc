@@ -6,13 +6,13 @@
 */
 
 #include <sk/util/Class.h>
-#include <sk/util/String.h>
+#include <sk/util/Strings.h>
 
 #include <sk/util/ImmutableObjectException.h>
 
 sk::util::ImmutableObjectException::
 ImmutableObjectException(const sk::util::String& message)
-  : sk::util::Exception(join("Immutable object", message))
+  : sk::util::Exception(sk::util::Strings("Immutable object") << message)
 {
 }
 

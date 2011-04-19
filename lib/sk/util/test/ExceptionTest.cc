@@ -7,6 +7,7 @@
 
 #include "ExceptionTest.h"
 #include <sk/util/Exception.h>
+#include <sk/util/Strings.h>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::util::test::ExceptionTest);
 

@@ -20,10 +20,8 @@ namespace sk {
         public virtual sk::util::Object 
     {
       public:
-        Exception(const util::String& message);
-        Exception(const util::String& message, sk::util::Exception& exception);
-        Exception(const util::String& message, const std::exception& exception);
-        Exception(const util::String& message, const sk::util::Strings& strings);
+        Exception(const util::Strings& strings);
+        Exception(const util::Strings& strings, sk::util::Exception& exception);
         virtual ~Exception() throw();
 
         const sk::util::String getMessage() const;
@@ -38,9 +36,8 @@ namespace sk {
         template<typename S, typename T, typename TMF>
         static void guard(const S& stream, T& target, TMF method, const char* spot = 0);
         
-      protected:
-        const String join(const String& s1, const String& s2) const;
-        const String join(const String& s1, int i1) const;
+      private:
+        const String makeMessage(const Strings& strings) const;
 
       private:
         sk::util::String _message;

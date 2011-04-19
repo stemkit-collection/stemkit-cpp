@@ -9,7 +9,7 @@
 */
 
 #include <sk/util/Class.h>
-#include <sk/util/String.h>
+#include <sk/util/Strings.h>
 
 #include <sk/rt/thread/Exit.h>
 
@@ -17,7 +17,7 @@ static const char* __className("sk::rt::thread::Exit");
 
 sk::rt::thread::Exit::
 Exit(int code)
-  : Exception(join("Thread exit", code)), _code(code)
+  : Exception(sk::util::Strings("Thread exit") << sk::util::String::valueOf(code)), _code(code)
 {
 }
 

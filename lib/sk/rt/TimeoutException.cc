@@ -9,7 +9,7 @@
 */
 
 #include <sk/util/Class.h>
-#include <sk/util/String.h>
+#include <sk/util/Strings.h>
 
 #include <sk/rt/TimeoutException.h>
 
@@ -17,7 +17,7 @@ static const sk::util::String __className("sk::rt::TimeoutException");
 
 sk::rt::TimeoutException::
 TimeoutException(const sk::util::String& message)
-  : sk::util::Exception(join("Timeout", message))
+  : sk::util::Exception(sk::util::Strings("Timeout") << message)
 {
 }
 

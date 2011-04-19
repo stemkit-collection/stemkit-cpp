@@ -6,13 +6,13 @@
 */
 
 #include <sk/util/Class.h>
-#include <sk/util/String.h>
+#include <sk/util/Strings.h>
 
 #include <sk/util/MissingResourceException.h>
 
 sk::util::MissingResourceException::
 MissingResourceException(const sk::util::String& message)
-  : sk::util::Exception(join("Missing resource", message))
+  : sk::util::Exception(sk::util::Strings("Missing resource") << message)
 {
 }
 

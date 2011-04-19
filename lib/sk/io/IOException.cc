@@ -6,13 +6,13 @@
 */
 
 #include <sk/util/Class.h>
-#include <sk/util/String.h>
+#include <sk/util/Strings.h>
 
 #include <sk/io/IOException.h>
 
 sk::io::IOException::
 IOException(const sk::util::String& message)
-  : sk::util::Exception(join("Input/output", message))
+  : sk::util::Exception(sk::util::Strings("Input/output") << message)
 {
 }
 
