@@ -4,6 +4,7 @@ test = test-rt ;
 test-objects =
   ScopeTest.cc
   EnvironmentTest.cc
+  ActionsTest.cc
   TestSuite.cc
 ;
 
