@@ -21,7 +21,10 @@ namespace sk {
         : public CppUnit::TestFixture
       {
         CPPUNIT_TEST_SUITE(sk::rt::tests::ActionsTest);
-          CPPUNIT_TEST(test_no_actions_no_problems);
+          CPPUNIT_TEST(test_set_reverse_and_no_actions_no_problems);
+          CPPUNIT_TEST(test_non_problem_actions_work_in_direct_order);
+          CPPUNIT_TEST(test_non_problem_actions_work_in_reverse_order);
+          CPPUNIT_TEST(test_non_problem_actions_work_out_of_scope_without_perform);
         CPPUNIT_TEST_SUITE_END();
       
         public:
@@ -30,7 +33,10 @@ namespace sk {
       
           void setUp();
           void tearDown();
-          void test_no_actions_no_problems();
+          void test_set_reverse_and_no_actions_no_problems();
+          void test_non_problem_actions_work_in_direct_order();
+          void test_non_problem_actions_work_in_reverse_order();
+          void test_non_problem_actions_work_out_of_scope_without_perform();
       
         private:
           ActionsTest(const ActionsTest& other);
