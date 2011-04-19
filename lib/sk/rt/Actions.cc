@@ -10,6 +10,7 @@
 
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
+#include <sk/util/ExceptionProxy.h>
 #include <sk/util/ArrayList.cxx>
 
 #include <sk/rt/Actions.h>
@@ -57,13 +58,13 @@ namespace {
         item.invoke();
       }
       catch(const sk::util::Exception& exception) {
-        _exceptions.add(new sk::util::Exception(item, exception));
+        _exceptions.add(new sk::util::ExceptionProxy(item, exception));
       }
       catch(const std::exception& exception) {
-        _exceptions.add(new sk::util::Exception(item, exception));
+        _exceptions.add(new sk::util::ExceptionProxy(item, exception));
       }
       catch(...) {
-        _exceptions.add(new sk::util::Exception(item, "Unknown exception"));
+        _exceptions.add(new sk::util::ExceptionProxy(item));
       }
     }
     sk::util::List<sk::util::Exception>& _exceptions;
