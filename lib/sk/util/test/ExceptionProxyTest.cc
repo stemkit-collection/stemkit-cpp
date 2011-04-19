@@ -40,7 +40,7 @@ tearDown()
 
 void
 sk::util::test::ExceptionProxyTest::
-test_stemkit_exception()
+test_wraps_stemkit_exception()
 {
   sk::util::Exception original("abc");
   sk::util::ExceptionProxy proxy("zzz", original);
@@ -51,7 +51,18 @@ test_stemkit_exception()
 
 void
 sk::util::test::ExceptionProxyTest::
-test_std_exception()
+test_wraps_stemkit_derived_exception()
+{
+  sk::util::IllegalStateException original("abc");
+  sk::util::ExceptionProxy proxy("zzz", original);
+
+  CPPUNIT_ASSERT_EQUAL("sk::util::IllegalStateException#zzz", proxy.getClass().getName());
+  CPPUNIT_ASSERT_EQUAL("ERROR: zzz: Illegal state: abc", proxy.what());
+}
+
+void
+sk::util::test::ExceptionProxyTest::
+test_wraps_std_exception()
 {
   std::out_of_range original("abc");
   sk::util::ExceptionProxy proxy("zzz", original);
@@ -62,7 +73,7 @@ test_std_exception()
 
 void
 sk::util::test::ExceptionProxyTest::
-test_unknown_exception()
+test_wraps_unknown_exception()
 {
   sk::util::ExceptionProxy proxy("zzz");
 
