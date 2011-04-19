@@ -35,9 +35,12 @@ namespace sk {
         template<typename T, typename TMF, typename P> 
         void add(const sk::util::String& label, T& target, TMF method, const P& param);
 
+        void setReverse(bool state);
+        bool isReverse() const;
+
         void perform();
-        void performReverse();
-        void performReverseThrow(const sk::util::Exception& exception);
+        void performIgnoreErrors();
+        void performThrow(const sk::util::Exception& exception);
     
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
@@ -53,8 +56,10 @@ namespace sk {
 
         void addItem(Item* actionItem);
         void finalize();
+        void runActionsCollectExceptions();
 
         const sk::rt::Scope& _scope;
+        bool _reverse;
         sk::util::ArrayList<Item> _items;
         sk::util::ArrayList<sk::util::Exception> _exceptions;
 
