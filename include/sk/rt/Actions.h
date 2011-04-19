@@ -35,6 +35,7 @@ namespace sk {
         template<typename T, typename TMF, typename P> 
         void add(const sk::util::String& label, T& target, TMF method, const P& param);
 
+        int size() const;
         void setReverse(bool state);
         bool isReverse() const;
 

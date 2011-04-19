@@ -36,6 +36,13 @@ sk::rt::Actions::
   performIgnoreErrors();
 }
 
+const sk::util::Class
+sk::rt::Actions::
+getClass() const
+{
+  return sk::util::Class(__className);
+}
+
 void
 sk::rt::Actions::
 setReverse(bool state)
@@ -50,11 +57,11 @@ isReverse() const
   return _reverse;
 }
 
-const sk::util::Class
+int
 sk::rt::Actions::
-getClass() const
+size() const
 {
-  return sk::util::Class(__className);
+  return _items.size();
 }
 
 void 
