@@ -28,6 +28,9 @@ namespace sk {
           CPPUNIT_TEST(test_all_executed_despite_errors_with_compound_exception);
           CPPUNIT_TEST(test_all_reversed_executed_despite_errors_with_compound_exception);
           CPPUNIT_TEST(test_all_executed_despite_errors_no_exception_when_ignored);
+          CPPUNIT_TEST(test_non_problem_actions_throw_requested_exception);
+          CPPUNIT_TEST(test_throws_requested_exception_with_action_exceptions);
+          CPPUNIT_TEST(test_throws_requested_exception_with_reversed_action_exceptions);
         CPPUNIT_TEST_SUITE_END();
       
         public:
@@ -43,6 +46,9 @@ namespace sk {
           void test_all_executed_despite_errors_with_compound_exception();
           void test_all_reversed_executed_despite_errors_with_compound_exception();
           void test_all_executed_despite_errors_no_exception_when_ignored();
+          void test_non_problem_actions_throw_requested_exception();
+          void test_throws_requested_exception_with_action_exceptions();
+          void test_throws_requested_exception_with_reversed_action_exceptions();
       
         private:
           ActionsTest(const ActionsTest& other);
