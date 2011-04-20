@@ -31,6 +31,7 @@ namespace sk {
           CPPUNIT_TEST(test_non_problem_actions_throw_requested_exception);
           CPPUNIT_TEST(test_throws_requested_exception_with_action_exceptions);
           CPPUNIT_TEST(test_throws_requested_exception_with_reversed_action_exceptions);
+          CPPUNIT_TEST(test_exceptions_cleared_after_throw);
         CPPUNIT_TEST_SUITE_END();
       
         public:
@@ -49,6 +50,7 @@ namespace sk {
           void test_non_problem_actions_throw_requested_exception();
           void test_throws_requested_exception_with_action_exceptions();
           void test_throws_requested_exception_with_reversed_action_exceptions();
+          void test_exceptions_cleared_after_throw();
       
         private:
           ActionsTest(const ActionsTest& other);

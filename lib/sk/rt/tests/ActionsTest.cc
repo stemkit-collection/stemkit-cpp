@@ -331,3 +331,22 @@ test_throws_requested_exception_with_reversed_action_exceptions()
   CPPUNIT_ASSERT_EQUAL("m4", workshop.strings.get(0));
   CPPUNIT_ASSERT_EQUAL("m1", workshop.strings.get(1));
 }
+
+void
+sk::rt::tests::ActionsTest::
+test_exceptions_cleared_after_throw()
+{
+  Workshop workshop;
+  sk::rt::Actions actions;
+
+  actions.add("a1", workshop, &Workshop::addMessage, "e1");
+  actions.add("a2", workshop, &Workshop::addMessage, "s1");
+
+  CPPUNIT_ASSERT_THROW(actions.perform(), sk::util::CompoundException);
+  CPPUNIT_ASSERT_EQUAL(0, actions.size());
+  CPPUNIT_ASSERT_EQUAL(0, workshop.strings.size());
+
+  actions.add("a1", workshop, &Workshop::addMessage, "m1");
+  CPPUNIT_ASSERT_EQUAL(0, actions.performIgnoreErrors());
+  CPPUNIT_ASSERT_EQUAL(1, workshop.strings.size());
+}
