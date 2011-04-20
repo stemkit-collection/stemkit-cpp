@@ -59,9 +59,16 @@ inspect() const
   return getClass().getName() + "[" + getMessage() + "]";
 }
 
+const sk::util::String
+sk::util::Exception::
+getTrace() const
+{
+  return _tracer.trace();
+}
+
 const char*
 sk::util::Exception::
 what() const throw()
 {
-  return _message.getChars();
+  return _tracer.traceWithMessage(_message).getChars();
 }

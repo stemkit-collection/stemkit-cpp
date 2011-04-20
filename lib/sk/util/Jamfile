@@ -5,6 +5,7 @@ objects =
   Object.cc
   Class.cc
   Method.cc
+  Exception.cc
   String.cc
   Strings.cc
   CappedStrings.cc
@@ -14,7 +15,6 @@ objects =
   Boolean.cc
   StringHash.cc
   Pathname.cc
-  Exception.cc
   ExceptionProxy.cc
   CompoundException.cc
   IllegalStateException.cc
@@ -40,9 +40,11 @@ objects =
 ;
 
 make-shared-library $(library) : $(objects) ;
+add-project-library $(library) : $(library).exception ;
 add-project-library $(library) : $(library).pp ;
 
 make-subdir 
+  exception
   pp 
   test 
   performance 

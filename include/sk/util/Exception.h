@@ -11,6 +11,7 @@
 
 #include <sk/util/Object.h>
 #include <sk/util/String.h>
+#include <sk/util/exception/Tracer.h>
 #include <exception>
 
 namespace sk {
@@ -25,6 +26,7 @@ namespace sk {
         virtual ~Exception() throw();
 
         const sk::util::String getMessage() const;
+        const sk::util::String getTrace() const;
         
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
@@ -38,6 +40,7 @@ namespace sk {
         
       private:
         const sk::util::String _message;
+        const sk::util::exception::Tracer _tracer;
     };
   }
 }
