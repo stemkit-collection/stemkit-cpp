@@ -164,6 +164,7 @@ test_all_executed_despite_errors_with_compound_exception()
   catch(...) {
     CPPUNIT_FAIL("Unexpected unknown exception");
   }
+  CPPUNIT_ASSERT_EQUAL(0, actions.size());
 
   CPPUNIT_ASSERT_EQUAL(2, workshop.strings.size());
   CPPUNIT_ASSERT_EQUAL("m1", workshop.strings.get(0));
@@ -198,6 +199,7 @@ test_all_reversed_executed_despite_errors_with_compound_exception()
   catch(...) {
     CPPUNIT_FAIL("Unexpected unknown exception");
   }
+  CPPUNIT_ASSERT_EQUAL(0, actions.size());
 
   CPPUNIT_ASSERT_EQUAL(2, workshop.strings.size());
   CPPUNIT_ASSERT_EQUAL("m6", workshop.strings.get(0));
@@ -228,6 +230,8 @@ test_all_executed_despite_errors_no_exception_when_ignored()
   catch(...) {
     CPPUNIT_FAIL("Unexpected unknown exception");
   }
+  CPPUNIT_ASSERT_EQUAL(0, actions.size());
+
   CPPUNIT_ASSERT_EQUAL(2, workshop.strings.size());
   CPPUNIT_ASSERT_EQUAL("m1", workshop.strings.get(0));
   CPPUNIT_ASSERT_EQUAL("m6", workshop.strings.get(1));
@@ -256,6 +260,7 @@ test_non_problem_actions_throw_requested_exception()
   catch(...) {
     CPPUNIT_FAIL("Unexpected unknown exception");
   }
+  CPPUNIT_ASSERT_EQUAL(0, actions.size());
 
   CPPUNIT_ASSERT_EQUAL(2, workshop.strings.size());
   CPPUNIT_ASSERT_EQUAL("m1", workshop.strings.get(0));
@@ -287,6 +292,7 @@ test_throws_requested_exception_with_action_exceptions()
   catch(...) {
     CPPUNIT_FAIL("Unexpected unknown exception");
   }
+  CPPUNIT_ASSERT_EQUAL(0, actions.size());
 
   CPPUNIT_ASSERT_EQUAL(2, workshop.strings.size());
   CPPUNIT_ASSERT_EQUAL("m1", workshop.strings.get(0));
@@ -319,6 +325,7 @@ test_throws_requested_exception_with_reversed_action_exceptions()
   catch(...) {
     CPPUNIT_FAIL("Unexpected unknown exception");
   }
+  CPPUNIT_ASSERT_EQUAL(0, actions.size());
 
   CPPUNIT_ASSERT_EQUAL(2, workshop.strings.size());
   CPPUNIT_ASSERT_EQUAL("m4", workshop.strings.get(0));
