@@ -10,6 +10,9 @@
 
 #include "ActionsTest.h"
 #include <sk/rt/Actions.h>
+#include <sk/util/CompoundException.h>
+#include <sk/util/IllegalStateException.h>
+#include <stdexcept>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::rt::tests::ActionsTest);
 
@@ -52,6 +55,18 @@ test_set_reverse_and_no_actions_no_problems()
 namespace {
   struct Workshop {
     void addMessage(const sk::util::String& message) {
+      if(message.startsWith("sk") == true) {
+        throw sk::util::IllegalStateException("Got SK " + message);
+      }
+      if(message.startsWith("e") == true) {
+        throw std::domain_error("Got STD " + message);
+      }
+      if(message.startsWith("s") == true) {
+        throw "Got STR " + message;
+      }
+      if(message.startsWith("u") == true) {
+        throw Workshop();
+      }
       strings << message;
     }
     sk::util::Strings strings;
@@ -121,3 +136,100 @@ test_non_problem_actions_work_out_of_scope_without_perform()
   CPPUNIT_ASSERT_EQUAL("m2", workshop.strings.get(1));
   CPPUNIT_ASSERT_EQUAL("m1", workshop.strings.get(2));
 }
+
+void 
+sk::rt::tests::ActionsTest::
+test_all_executed_despite_errors_with_compound_exception()
+{
+  Workshop workshop;
+  sk::rt::Actions actions;
+
+  actions.add("a1", workshop, &Workshop::addMessage, "m1");
+  actions.add("a2", workshop, &Workshop::addMessage, "sk2");
+  actions.add("a3", workshop, &Workshop::addMessage, "e3");
+  actions.add("a4", workshop, &Workshop::addMessage, "s4");
+  actions.add("a5", workshop, &Workshop::addMessage, "u5");
+  actions.add("a6", workshop, &Workshop::addMessage, "m6");
+
+  try {
+    actions.perform();
+    CPPUNIT_FAIL("No expected exception");
+  }
+  catch(const sk::util::CompoundException& exception) {
+    CPPUNIT_ASSERT_EQUAL("ERROR: Compound: <a2: Illegal state: Got SK sk2>: <a3: Got STD e3>: <a4: Got STR s4>: <a5: \?\?\?>", exception.what());
+  }
+  catch(const std::exception& exception) {
+    CPPUNIT_FAIL(sk::util::String("Unexpected exception: ") + exception.what());
+  }
+  catch(...) {
+    CPPUNIT_FAIL("Unexpected unknown exception");
+  }
+
+  CPPUNIT_ASSERT_EQUAL(2, workshop.strings.size());
+  CPPUNIT_ASSERT_EQUAL("m1", workshop.strings.get(0));
+  CPPUNIT_ASSERT_EQUAL("m6", workshop.strings.get(1));
+}
+
+void 
+sk::rt::tests::ActionsTest::
+test_all_reversed_executed_despite_errors_with_compound_exception()
+{
+  Workshop workshop;
+  sk::rt::Actions actions(true);
+  CPPUNIT_ASSERT(actions.isReverse() == true);
+
+  actions.add("a1", workshop, &Workshop::addMessage, "m1");
+  actions.add("a2", workshop, &Workshop::addMessage, "sk2");
+  actions.add("a3", workshop, &Workshop::addMessage, "e3");
+  actions.add("a4", workshop, &Workshop::addMessage, "s4");
+  actions.add("a5", workshop, &Workshop::addMessage, "u5");
+  actions.add("a6", workshop, &Workshop::addMessage, "m6");
+
+  try {
+    actions.perform();
+    CPPUNIT_FAIL("No expected exception");
+  }
+  catch(const sk::util::CompoundException& exception) {
+    CPPUNIT_ASSERT_EQUAL("ERROR: Compound: <a5: \?\?\?>: <a4: Got STR s4>: <a3: Got STD e3>: <a2: Illegal state: Got SK sk2>", exception.what());
+  }
+  catch(const std::exception& exception) {
+    CPPUNIT_FAIL(sk::util::String("Unexpected exception: ") + exception.what());
+  }
+  catch(...) {
+    CPPUNIT_FAIL("Unexpected unknown exception");
+  }
+
+  CPPUNIT_ASSERT_EQUAL(2, workshop.strings.size());
+  CPPUNIT_ASSERT_EQUAL("m6", workshop.strings.get(0));
+  CPPUNIT_ASSERT_EQUAL("m1", workshop.strings.get(1));
+}
+
+void 
+sk::rt::tests::ActionsTest::
+test_all_executed_despite_errors_no_exception_when_ignored()
+{
+  Workshop workshop;
+  sk::rt::Actions actions;
+
+  actions.add("a1", workshop, &Workshop::addMessage, "m1");
+  actions.add("a2", workshop, &Workshop::addMessage, "sk2");
+  actions.add("a3", workshop, &Workshop::addMessage, "e3");
+  actions.add("a4", workshop, &Workshop::addMessage, "s4");
+  actions.add("a5", workshop, &Workshop::addMessage, "u5");
+  actions.add("a6", workshop, &Workshop::addMessage, "m6");
+
+  try {
+    int number_of_errors = actions.performIgnoreErrors();
+    CPPUNIT_ASSERT_EQUAL(4, number_of_errors);
+  }
+  catch(const std::exception& exception) {
+    CPPUNIT_FAIL(sk::util::String("Unexpected exception: ") + exception.what());
+  }
+  catch(...) {
+    CPPUNIT_FAIL("Unexpected unknown exception");
+  }
+  CPPUNIT_ASSERT_EQUAL(2, workshop.strings.size());
+  CPPUNIT_ASSERT_EQUAL("m1", workshop.strings.get(0));
+  CPPUNIT_ASSERT_EQUAL("m6", workshop.strings.get(1));
+}
+

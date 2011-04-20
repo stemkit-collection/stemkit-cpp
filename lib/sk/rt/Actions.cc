@@ -115,13 +115,16 @@ perform()
   finalize();
 }
 
-void 
+int
 sk::rt::Actions::
 performIgnoreErrors()
 {
   runActionsCollectExceptions();
+  int number_of_errors = _exceptions.size();
   _exceptions.clear();
   finalize();
+
+  return number_of_errors;
 }
 
 void 

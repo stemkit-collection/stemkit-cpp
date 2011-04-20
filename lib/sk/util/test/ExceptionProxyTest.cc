@@ -89,5 +89,5 @@ test_wraps_unknown_exception()
   sk::util::ExceptionProxy proxy("zzz");
 
   CPPUNIT_ASSERT_EQUAL("<UNKNOWN>", proxy.getClass().getName());
-  CPPUNIT_ASSERT_EQUAL("ERROR: zzz", proxy.what());
+  CPPUNIT_ASSERT_EQUAL("ERROR: zzz: \?\?\?", proxy.what());
 }

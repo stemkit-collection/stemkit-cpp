@@ -40,7 +40,7 @@ namespace sk {
         bool isReverse() const;
 
         void perform();
-        void performIgnoreErrors();
+        int performIgnoreErrors();
         void performThrow(const sk::util::Exception& exception);
     
         // sk::util::Object re-implementation.
