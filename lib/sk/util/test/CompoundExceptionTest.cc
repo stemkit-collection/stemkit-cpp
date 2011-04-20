@@ -44,9 +44,9 @@ test_wraps_multiple_exceptions()
 {
   sk::util::ArrayList<sk::util::Exception> list;
   list.add(new sk::util::IllegalStateException("abc"));
-  list.add(new sk::util::IndexOutOfBoundsException("abc"));
+  list.add(new sk::util::IndexOutOfBoundsException("zzz"));
   sk::util::CompoundException compound(list);
 
   CPPUNIT_ASSERT_EQUAL("sk::util::CompoundException", compound.getClass().getName());
-  CPPUNIT_ASSERT_EQUAL("ERROR: Compound: sk::util::IllegalStateException: sk::util::IndexOutOfBoundsException", compound.what());
+  CPPUNIT_ASSERT_EQUAL("ERROR: Compound: <Illegal state: abc>: <Index out of bounds: zzz>", compound.what());
 }

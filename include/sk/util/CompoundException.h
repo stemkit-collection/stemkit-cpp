@@ -24,9 +24,6 @@ namespace sk {
     
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
-    
-      private:
-        static const sk::util::Strings makeClassNames(const sk::util::String& label, const sk::util::List<sk::util::Exception>& exceptions);
     };
   }
 }

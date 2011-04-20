@@ -17,9 +17,27 @@
 
 static const sk::util::String __className("sk::util::CompoundException");
 
+namespace {
+  struct ExceptionMessageCollector : sk::util::Processor<const sk::util::Exception> {
+    ExceptionMessageCollector(sk::util::Strings& strings) 
+      : _strings(strings) {}
+
+    void process(const sk::util::Exception& exception) const {
+      _strings << '<' + exception.getMessage() + '>';
+    }
+    sk::util::Strings& _strings;
+  };
+
+  const sk::util::Strings makeComponents(const sk::util::String& label, const sk::util::List<sk::util::Exception>& exceptions) {
+    sk::util::Strings strings(label);
+    exceptions.forEach(ExceptionMessageCollector(strings));
+    return strings;
+  }
+}
+
 sk::util::CompoundException::
 CompoundException(const sk::util::List<sk::util::Exception>& exceptions)
-  : sk::util::Exception(makeClassNames("Compound", exceptions))
+  : sk::util::Exception(makeComponents("Compound", exceptions))
 {
 }
 
@@ -28,22 +46,4 @@ sk::util::CompoundException::
 getClass() const
 {
   return sk::util::Class(__className);
-}
-
-namespace {
-  struct ClassNameMapper : sk::util::Mapper<const sk::util::Exception, const sk::util::String> {
-    const sk::util::String map(const sk::util::Exception& exception) const {
-      return exception.getClass().getName();
-    }
-  };
-}
-
-const sk::util::Strings 
-sk::util::CompoundException::
-makeClassNames(const sk::util::String& label, const sk::util::List<sk::util::Exception>& exceptions)
-{
-  sk::util::Strings strings(label);
-  exceptions.forEach(sk::util::processor::Mapping<const sk::util::Exception, const sk::util::String>(sk::util::processor::Copying<sk::util::String>(strings), ClassNameMapper()));
-
-  return strings;
 }

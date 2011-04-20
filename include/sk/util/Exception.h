@@ -37,9 +37,6 @@ namespace sk {
         static void guard(const S& stream, T& target, TMF method, const char* spot = 0);
         
       private:
-        static const String makeMessage(const Strings& strings);
-
-      private:
         const sk::util::String _message;
     };
   }
