@@ -86,6 +86,9 @@ namespace {
       catch(std::exception& exception) {
         _exceptions.add(new sk::util::ExceptionProxy(item, exception));
       }
+      catch(std::string& exception) {
+        _exceptions.add(new sk::util::ExceptionProxy(item, exception));
+      }
       catch(...) {
         _exceptions.add(new sk::util::ExceptionProxy(item));
       }

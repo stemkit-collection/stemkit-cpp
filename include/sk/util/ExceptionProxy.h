@@ -22,6 +22,7 @@ namespace sk {
       public:
         ExceptionProxy(const sk::util::Strings& strings, sk::util::Exception& exception);
         ExceptionProxy(const sk::util::Strings& strings, std::exception& exception);
+        ExceptionProxy(const sk::util::Strings& strings, std::string& exception);
         ExceptionProxy(const sk::util::Strings& strings);
         virtual ~ExceptionProxy() throw();
     

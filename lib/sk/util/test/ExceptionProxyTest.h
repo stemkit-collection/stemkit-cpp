@@ -24,6 +24,7 @@ namespace sk {
           CPPUNIT_TEST(test_wraps_stemkit_exception);
           CPPUNIT_TEST(test_wraps_stemkit_derived_exception);
           CPPUNIT_TEST(test_wraps_std_exception);
+          CPPUNIT_TEST(test_wraps_std_string);
           CPPUNIT_TEST(test_wraps_unknown_exception);
         CPPUNIT_TEST_SUITE_END();
       
@@ -36,6 +37,7 @@ namespace sk {
           void test_wraps_stemkit_exception();
           void test_wraps_stemkit_derived_exception();
           void test_wraps_std_exception();
+          void test_wraps_std_string();
           void test_wraps_unknown_exception();
       
         private:

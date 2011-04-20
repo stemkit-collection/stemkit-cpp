@@ -29,6 +29,12 @@ ExceptionProxy(const sk::util::Strings& strings, std::exception& exception)
 }
 
 sk::util::ExceptionProxy::
+ExceptionProxy(const sk::util::Strings& strings, std::string& exception)
+  : sk::util::Exception(strings + exception), _originalClassName("std::string")
+{
+}
+
+sk::util::ExceptionProxy::
 ExceptionProxy(const sk::util::Strings& strings)
   : sk::util::Exception(strings), _originalClassName("<UNKNOWN>")
 {
