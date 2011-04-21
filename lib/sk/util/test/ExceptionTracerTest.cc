@@ -27,15 +27,28 @@ sk::util::test::ExceptionTracerTest::
 }
 
 namespace {
+  bool raiseSetupException = false;
+  bool raiseResetException = false;
+  bool raiseProduceException = false;
+
   struct TraceProducer : public virtual sk::util::exception::trace::Producer {
     void setup() {
+      if(raiseSetupException == true) {
+        throw std::domain_error("setup error");
+      }
     }
 
     const sk::util::String produceTrace() {
+      if(raiseProduceException == true) {
+        throw std::domain_error("produce error");
+      }
       return "<sample trace output>";
     }
 
     void reset() {
+      if(raiseResetException == true) {
+        throw std::domain_error("reset error");
+      }
     }
   };
 }
@@ -52,6 +65,10 @@ sk::util::test::ExceptionTracerTest::
 setUp()
 {
   sk::util::exception::Tracer::setProducerFactory(*this);
+
+  raiseSetupException = false;
+  raiseResetException = false;
+  raiseProduceException = false;
 }
 
 void
@@ -63,9 +80,43 @@ tearDown()
 
 void
 sk::util::test::ExceptionTracerTest::
-testBasics()
+test_trace_produced_normally()
 {
   sk::util::IllegalStateException exception("abcd");
   CPPUNIT_ASSERT_EQUAL("<sample trace output>", exception.getTrace());
   CPPUNIT_ASSERT_EQUAL("ERROR: Illegal state: abcd\n<sample trace output>", exception.what());
 }
+
+void
+sk::util::test::ExceptionTracerTest::
+test_trace_errors_in_setup()
+{
+  raiseSetupException = true;
+
+  sk::util::IllegalStateException exception("abcd");
+  CPPUNIT_ASSERT_EQUAL("<Error in trace setup: setup error>", exception.getTrace());
+  CPPUNIT_ASSERT_EQUAL("ERROR: Illegal state: abcd\n<Error in trace setup: setup error>", exception.what());
+}
+
+void
+sk::util::test::ExceptionTracerTest::
+test_trace_errors_in_reset()
+{
+  raiseResetException = true;
+
+  sk::util::IllegalStateException exception("abcd");
+  CPPUNIT_ASSERT_EQUAL("<sample trace output><Error in trace reset: reset error>", exception.getTrace());
+  CPPUNIT_ASSERT_EQUAL("ERROR: Illegal state: abcd\n<sample trace output><Error in trace reset: reset error>", exception.what());
+}
+
+void
+sk::util::test::ExceptionTracerTest::
+test_trace_errors_in_produce()
+{
+  raiseProduceException = true;
+
+  sk::util::IllegalStateException exception("abcd");
+  CPPUNIT_ASSERT_EQUAL("<Error in trace produce: produce error>", exception.getTrace());
+  CPPUNIT_ASSERT_EQUAL("ERROR: Illegal state: abcd\n<Error in trace produce: produce error>", exception.what());
+}
+

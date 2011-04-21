@@ -23,7 +23,10 @@ namespace sk {
           public virtual sk::util::exception::trace::ProducerFactory
       {
         CPPUNIT_TEST_SUITE(sk::util::test::ExceptionTracerTest);
-          CPPUNIT_TEST(testBasics);
+          CPPUNIT_TEST(test_trace_produced_normally);
+          CPPUNIT_TEST(test_trace_errors_in_setup);
+          CPPUNIT_TEST(test_trace_errors_in_reset);
+          CPPUNIT_TEST(test_trace_errors_in_produce);
         CPPUNIT_TEST_SUITE_END();
       
         public:
@@ -32,7 +35,10 @@ namespace sk {
       
           void setUp();
           void tearDown();
-          void testBasics();
+          void test_trace_produced_normally();
+          void test_trace_errors_in_setup();
+          void test_trace_errors_in_reset();
+          void test_trace_errors_in_produce();
       
         protected:
           sk::util::exception::trace::Producer* createTraceProducer() const;

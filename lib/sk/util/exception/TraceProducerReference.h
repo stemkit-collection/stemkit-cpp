@@ -39,7 +39,7 @@ namespace sk {
           TraceProducerReference& operator = (const TraceProducerReference& other);
 
           void ensureTraceCollected();
-          void setError(const sk::util::String& message);
+          void setError(const sk::util::String& stage, const sk::util::String& message);
           void reset();
 
           sk::util::Holder<sk::util::exception::trace::Producer>::Direct _producerHolder;
@@ -47,6 +47,7 @@ namespace sk {
           sk::util::String _buffer;
           sk::util::String _trace;
           bool _traceCollected;
+          bool _resetDone;
           int _links;
      };
     }

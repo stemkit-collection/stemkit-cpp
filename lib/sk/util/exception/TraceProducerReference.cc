@@ -19,16 +19,17 @@ static const sk::util::String __className("sk::util::exception::TraceProducerRef
 
 sk::util::exception::TraceProducerReference::
 TraceProducerReference(sk::util::exception::trace::Producer* producer)
-  : _producerHolder(producer), _producer(_producerHolder.getMutable()), _links(0), _traceCollected(false)
+  : _producerHolder(producer), _producer(_producerHolder.getMutable()), 
+    _links(0), _traceCollected(false), _resetDone(false)
 {
   try {
     _producer.setup();
   }
   catch(const std::exception& exception) {
-    setError(exception.what());
+    setError("setup", exception.what());
   }
   catch(...) {
-    setError("Unknown exception");
+    setError("setup", "Unknown exception");
   }
 }
 
@@ -81,10 +82,18 @@ void
 sk::util::exception::TraceProducerReference::
 reset()
 {
+  if(_resetDone == true) {
+    return;
+  }
   try {
     _producer.reset();
   }
-  catch(...) {}
+  catch(const std::exception& exception) {
+    setError("reset", exception.what());
+  }
+  catch(...) {
+    setError("reset", "Unknown exception");
+  }
 }
 
 void
@@ -96,10 +105,10 @@ ensureTraceCollected()
       _trace = _producer.produceTrace();
     }
     catch(const std::exception& exception) {
-      setError(exception.what());
+      setError("produce", exception.what());
     }
     catch(...) {
-      setError("Unknown exception");
+      setError("produce", "Unknown exception");
     }
     _traceCollected = true;
     reset();
@@ -108,8 +117,8 @@ ensureTraceCollected()
 
 void 
 sk::util::exception::TraceProducerReference::
-setError(const sk::util::String& message) 
+setError(const sk::util::String& stage, const sk::util::String& message) 
 {
   _traceCollected = true;
-  _trace = "<Error in trace collection: " + message + ">";
+  _trace += "<Error in trace " + stage + ": " + message + ">";
 }
