@@ -61,7 +61,7 @@ namespace {
     if(exception == true) {
       throw std::domain_error(items.join(": "));
     }
-    std::cerr << "ERROR: " << items.join(": ") << std::endl;
+    std::cerr << items.join("<", ": ", ">") << std::endl;
   }
 
   void generate_system_error(const sk::util::String& label, const sk::util::String& info = sk::util::String::EMPTY) {
