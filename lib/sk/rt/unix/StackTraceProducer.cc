@@ -184,7 +184,7 @@ produceTrace()
       sk::util::String argv0("pstack");
       sk::util::String argv1(sk::util::String::valueOf(_data.pid));
 
-      execlp(argv0.getChars(), argv0.getChars(), argv1.getChars(), 0);
+      ::execlp(argv0.getChars(), argv0.getChars(), argv1.getChars(), (const char*)0);
       print_system_error("execlp", argv0);
       _exit(2);
     }
