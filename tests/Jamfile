@@ -4,6 +4,7 @@ local programs =
   test-covariants
   test-temporary-in-constructor-init-list
   yaml-producer
+  stack-trace
 ;
 
 if linux in $(project.PLATFORM_SPECIFICS) {
@@ -20,7 +21,7 @@ if ! windows in $(project.PLATFORM_SPECIFICS) {
   make-subdirs tcp-echo ;
 }
 
-use-project-libraries $(programs) : sk.util ;
+use-project-libraries $(programs) : sk.util sk.rt.bundle ;
 
 use-project-libraries yaml-producer : sk.other.yaml-cpp ;
 
