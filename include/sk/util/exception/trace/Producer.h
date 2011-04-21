@@ -21,6 +21,9 @@ namespace sk {
           : public virtual sk::util::Object
         {
           public:
+            virtual void setup() = 0;
+            virtual const sk::util::String produceTrace() = 0;
+            virtual void reset() = 0;
         };
       }
     }

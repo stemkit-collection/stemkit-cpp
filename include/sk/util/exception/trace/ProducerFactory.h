@@ -21,7 +21,7 @@ namespace sk {
           : public virtual sk::util::Object
         {
           public:
-            virtual sk::util::exception::trace::Producer* create() const = 0;
+            virtual sk::util::exception::trace::Producer* createTraceProducer() const = 0;
         };
       }
     }

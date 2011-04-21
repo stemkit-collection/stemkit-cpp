@@ -12,11 +12,13 @@
 #define _SK_UTIL_EXCEPTION_TRACER_H_
 
 #include <sk/util/String.h>
-#include <sk/util/exception/trace/ProducerFactory.h>
 
 namespace sk {
   namespace util {
     namespace exception {
+      namespace trace {
+        class ProducerFactory;
+      }
       class TraceProducerReference;
 
       class Tracer 
@@ -30,6 +32,7 @@ namespace sk {
           const sk::util::String& traceWithMessage(const sk::util::String& message) const;
 
           static void setProducerFactory(const sk::util::exception::trace::ProducerFactory& factory);
+          static void clearProducerFactory();
       
         private:
           Tracer& operator = (const Tracer& other);

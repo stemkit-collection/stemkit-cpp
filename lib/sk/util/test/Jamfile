@@ -28,6 +28,7 @@ test-objects =
   SystemExceptionTest.cc
   UnsupportedOperationExceptionTest.cc
   InsufficientMemoryExceptionTest.cc
+  ExceptionTracerTest.cc
   UpcastTest.cc
   CovariantWorkaroundTest.cc
   PropertiesTest.cc

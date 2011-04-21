@@ -10,6 +10,7 @@
 
 #include <sk/util/exception/Tracer.h>
 #include "TraceProducerReference.h"
+#include <sk/util/exception/trace/ProducerFactory.h>
 
 namespace {
   const sk::util::exception::trace::ProducerFactory* __factory = 0;
@@ -22,9 +23,16 @@ setProducerFactory(const sk::util::exception::trace::ProducerFactory& factory)
   __factory = &factory;
 }
 
+void 
+sk::util::exception::Tracer::
+clearProducerFactory()
+{
+  __factory = 0;
+}
+
 sk::util::exception::Tracer::
 Tracer()
-  : _reference(__factory == 0 ? 0 : new TraceProducerReference(__factory->create()))
+  : _reference(__factory == 0 ? 0 : new TraceProducerReference(__factory->createTraceProducer()))
 {
 }
 

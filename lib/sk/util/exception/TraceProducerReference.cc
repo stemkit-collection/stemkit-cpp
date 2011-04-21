@@ -19,13 +19,23 @@ static const sk::util::String __className("sk::util::exception::TraceProducerRef
 
 sk::util::exception::TraceProducerReference::
 TraceProducerReference(sk::util::exception::trace::Producer* producer)
-  : _producerHolder(producer), _links(0)
+  : _producerHolder(producer), _producer(_producerHolder.getMutable()), _links(0), _traceCollected(false)
 {
+  try {
+    _producer.setup();
+  }
+  catch(const std::exception& exception) {
+    setError(exception.what());
+  }
+  catch(...) {
+    setError("Unknown exception");
+  }
 }
 
 sk::util::exception::TraceProducerReference::
 ~TraceProducerReference()
 {
+  reset();
 }
 
 const sk::util::Class
@@ -53,12 +63,53 @@ const sk::util::String&
 sk::util::exception::TraceProducerReference::
 trace() 
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  ensureTraceCollected();
+  return _trace;
 }
 
 const sk::util::String&
 sk::util::exception::TraceProducerReference::
 traceWithMessage(const sk::util::String& message) 
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  ensureTraceCollected();
+  _buffer = message + "\n" + _trace;
+
+  return _buffer;
+}
+
+void
+sk::util::exception::TraceProducerReference::
+reset()
+{
+  try {
+    _producer.reset();
+  }
+  catch(...) {}
+}
+
+void
+sk::util::exception::TraceProducerReference::
+ensureTraceCollected()
+{
+  if(_traceCollected == false) {
+    try {
+      _trace = _producer.produceTrace();
+    }
+    catch(const std::exception& exception) {
+      setError(exception.what());
+    }
+    catch(...) {
+      setError("Unknown exception");
+    }
+    _traceCollected = true;
+    reset();
+  }
+}
+
+void 
+sk::util::exception::TraceProducerReference::
+setError(const sk::util::String& message) 
+{
+  _traceCollected = true;
+  _trace = "<Error in trace collection: " + message + ">";
 }

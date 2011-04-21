@@ -13,6 +13,7 @@
 
 #include <sk/util/Object.h>
 #include <sk/util/Holder.hxx>
+#include <sk/util/exception/trace/Producer.h>
 
 namespace sk {
   namespace util {
@@ -37,9 +38,17 @@ namespace sk {
           TraceProducerReference(const TraceProducerReference& other);
           TraceProducerReference& operator = (const TraceProducerReference& other);
 
+          void ensureTraceCollected();
+          void setError(const sk::util::String& message);
+          void reset();
+
           sk::util::Holder<sk::util::exception::trace::Producer>::Direct _producerHolder;
+          sk::util::exception::trace::Producer& _producer;
+          sk::util::String _buffer;
+          sk::util::String _trace;
+          bool _traceCollected;
           int _links;
-      };
+     };
     }
   }
 }
