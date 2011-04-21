@@ -11,21 +11,40 @@
 #include <sk/util/exception/Tracer.h>
 #include "TraceProducerReference.h"
 
+namespace {
+  const sk::util::exception::trace::ProducerFactory* __factory = 0;
+}
+
+void 
+sk::util::exception::Tracer::
+setProducerFactory(const sk::util::exception::trace::ProducerFactory& factory)
+{
+  __factory = &factory;
+}
+
 sk::util::exception::Tracer::
 Tracer()
-  : _reference(0)
+  : _reference(__factory == 0 ? 0 : new TraceProducerReference(__factory->create()))
 {
 }
 
 sk::util::exception::Tracer::
 Tracer(const sk::util::exception::Tracer& other)
-  : _reference(0)
+  : _reference(other._reference)
 {
+  if(_reference != 0) {
+    _reference->link();
+  }
 }
 
 sk::util::exception::Tracer::
 ~Tracer()
 {
+  if(_reference != 0) {
+    if(_reference->unlink() == 0) {
+      delete _reference;
+    }
+  }
 }
 
 const sk::util::String&
