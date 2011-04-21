@@ -41,7 +41,7 @@ getClass() const
 
 namespace {
   void generate_unsupported_error() {
-    throw std::domain_error("Stack trace unsupported on Windows");
+    throw std::domain_error("Stack trace report not supported on Windows");
   }
 }
 

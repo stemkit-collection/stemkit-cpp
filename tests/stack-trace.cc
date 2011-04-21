@@ -21,8 +21,13 @@ int main(int argc, const char* const argv[])
 {
   sk::rt::StackTracerFactory factory;
   sk::util::exception::Tracer::setProducerFactory(factory);
-  sk::util::Strings items("abc");
-  std::cerr << items.get(1) << std::endl;
 
+  try {
+    sk::util::Strings items("abc");
+    std::cerr << items.get(1) << std::endl;
+  }
+  catch(const std::exception& exception) {
+    std::cerr << exception.what() << std::endl;
+  }
   return 0;
 }
