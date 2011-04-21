@@ -11,12 +11,12 @@
 #ifndef _SK_UTIL_EXCEPTION_TRACE_PRODUCERFACTORY_H_
 #define _SK_UTIL_EXCEPTION_TRACE_PRODUCERFACTORY_H_
 
-#include <sk/util/exception/trace/Producer.h>
-
 namespace sk {
   namespace util {
     namespace exception {
       namespace trace {
+        class Producer;
+
         class ProducerFactory 
           : public virtual sk::util::Object
         {
