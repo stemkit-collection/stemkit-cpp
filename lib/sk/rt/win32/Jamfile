@@ -5,6 +5,7 @@ local objects =
   SystemException.cc
   ProcessInfo.cc
   Time.cc
+  StackTraceProducer.cc
 ;
 
 make-library $(library) : $(objects) ;
