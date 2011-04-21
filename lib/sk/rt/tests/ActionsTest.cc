@@ -11,6 +11,8 @@
 #include "ActionsTest.h"
 #include <sk/rt/Actions.h>
 #include <sk/util/CompoundException.h>
+#include <sk/util/StandardException.h>
+#include <sk/util/UnknownException.h>
 #include <sk/util/IllegalStateException.h>
 #include <stdexcept>
 
@@ -349,4 +351,49 @@ test_exceptions_cleared_after_throw()
   actions.add("a1", workshop, &Workshop::addMessage, "m1");
   CPPUNIT_ASSERT_EQUAL(0, actions.performIgnoreErrors());
   CPPUNIT_ASSERT_EQUAL(1, workshop.strings.size());
+}
+
+void
+sk::rt::tests::ActionsTest::
+test_no_actions_after_clear()
+{
+  Workshop workshop;
+  sk::rt::Actions actions;
+
+  actions.add("a1", workshop, &Workshop::addMessage, "e1");
+  actions.add("a2", workshop, &Workshop::addMessage, "s2");
+
+  actions.clear();
+  CPPUNIT_ASSERT_EQUAL(0, actions.size());
+  CPPUNIT_ASSERT_NO_THROW(actions.perform());
+}
+
+void 
+sk::rt::tests::ActionsTest::
+test_on_error_throws_with_undo_exceptions()
+{
+  Workshop workshop;
+  sk::rt::Actions actions(true);
+
+  try {
+    try {
+      actions.add("a1", workshop, &Workshop::addMessage, "e1");
+      actions.add("a2", workshop, &Workshop::addMessage, "s2");
+
+      throw std::domain_error("sample error");
+    }
+    catch(const sk::util::Exception& exception) {
+      actions.performThrow(exception);
+    }
+    catch(const std::exception& exception) {
+      actions.performThrow(sk::util::StandardException(exception));
+    }
+    catch(...) {
+      actions.performThrow(sk::util::UnknownException());
+    }
+    CPPUNIT_FAIL("No expected exception");
+  }
+  catch(const sk::util::CompoundException& exception) {
+    CPPUNIT_ASSERT_EQUAL("ERROR: Compound: <sample error>: <a2: Got STR s2>: <a1: Got STD e1>", exception.what());
+  }
 }

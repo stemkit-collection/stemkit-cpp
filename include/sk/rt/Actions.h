@@ -39,6 +39,7 @@ namespace sk {
         void setReverse(bool state);
         bool isReverse() const;
 
+        void clear();
         void perform();
         int performIgnoreErrors();
         void performThrow(const sk::util::Exception& exception);

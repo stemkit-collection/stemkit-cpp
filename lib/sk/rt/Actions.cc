@@ -143,9 +143,17 @@ sk::rt::Actions::
 finalize()
 {
   _items.clear();
+
   if(_exceptions.isEmpty() == false) {
     sk::rt::Actions cleanupActions;
     cleanupActions.add(SK_METHOD, _exceptions, &sk::util::ArrayList<sk::util::Exception>::clear);
     throw sk::util::CompoundException(_exceptions);
   }
+}
+
+void
+sk::rt::Actions::
+clear()
+{
+  _items.clear();
 }
