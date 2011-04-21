@@ -16,6 +16,8 @@ objects =
   StringHash.cc
   Pathname.cc
   ExceptionProxy.cc
+  StandardException.cc
+  UnknownException.cc
   CompoundException.cc
   IllegalStateException.cc
   IndexOutOfBoundsException.cc

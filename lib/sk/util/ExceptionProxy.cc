@@ -14,29 +14,9 @@
 
 #include <sk/util/ExceptionProxy.h>
 
-static const sk::util::String __className("sk::util::ExceptionProxy");
-
 sk::util::ExceptionProxy::
-ExceptionProxy(const sk::util::Strings& strings, sk::util::Exception& exception)
-  : sk::util::Exception(strings, exception), _originalClassName(exception.getClass().getName())
-{
-}
-
-sk::util::ExceptionProxy::
-ExceptionProxy(const sk::util::Strings& strings, std::exception& exception)
-  : sk::util::Exception(strings + exception.what()), _originalClassName("std::exception")
-{
-}
-
-sk::util::ExceptionProxy::
-ExceptionProxy(const sk::util::Strings& strings, std::string& exception)
-  : sk::util::Exception(strings + exception), _originalClassName("std::string")
-{
-}
-
-sk::util::ExceptionProxy::
-ExceptionProxy(const sk::util::Strings& strings)
-  : sk::util::Exception(strings + "???"), _originalClassName("<UNKNOWN>")
+ExceptionProxy(const sk::util::String& label, const sk::util::Exception& exception)
+  : sk::util::Exception(sk::util::Strings(label) << exception.getMessage()), _className(exception.getClass().getName())
 {
 }
 
@@ -49,5 +29,5 @@ const sk::util::Class
 sk::util::ExceptionProxy::
 getClass() const
 {
-  return sk::util::Class(_originalClassName);
+  return sk::util::Class(_className);
 }

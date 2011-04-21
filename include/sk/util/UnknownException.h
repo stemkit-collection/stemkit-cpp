@@ -8,28 +8,24 @@
  *  Author: Gennady Bystritsky
 */
 
-#ifndef _SK_UTIL_EXCEPTIONPROXY_H_
-#define _SK_UTIL_EXCEPTIONPROXY_H_
+#ifndef _SK_UTIL_UNKNOWNEXCEPTION_H_
+#define _SK_UTIL_UNKNOWNEXCEPTION_H_
 
 #include <sk/util/Exception.h>
-#include <sk/util/String.h>
 
 namespace sk {
   namespace util {
-    class ExceptionProxy 
+    class UnknownException 
       : public sk::util::Exception
     {
       public:
-        ExceptionProxy(const sk::util::String& label, const sk::util::Exception& exception);
-        virtual ~ExceptionProxy() throw();
+        UnknownException(const sk::util::String& label);
+        UnknownException();
     
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
-    
-      private:
-        const sk::util::String _className;
     };
   }
 }
 
-#endif /* _SK_UTIL_EXCEPTIONPROXY_H_ */
+#endif /* _SK_UTIL_UNKNOWNEXCEPTION_H_ */

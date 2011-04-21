@@ -11,6 +11,8 @@
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
 #include <sk/util/ExceptionProxy.h>
+#include <sk/util/StandardException.h>
+#include <sk/util/UnknownException.h>
 #include <sk/util/CompoundException.h>
 #include <sk/util/ArrayList.cxx>
 
@@ -80,17 +82,17 @@ namespace {
       try {
         item.invoke();
       }
-      catch(sk::util::Exception& exception) {
+      catch(const sk::util::Exception& exception) {
         _exceptions.add(new sk::util::ExceptionProxy(item, exception));
       }
-      catch(std::exception& exception) {
-        _exceptions.add(new sk::util::ExceptionProxy(item, exception));
+      catch(const std::exception& exception) {
+        _exceptions.add(new sk::util::StandardException(item, exception));
       }
-      catch(std::string& exception) {
-        _exceptions.add(new sk::util::ExceptionProxy(item, exception));
+      catch(const std::string& exception) {
+        _exceptions.add(new sk::util::Exception(sk::util::Strings(item) << exception));
       }
       catch(...) {
-        _exceptions.add(new sk::util::ExceptionProxy(item));
+        _exceptions.add(new sk::util::UnknownException(item));
       }
     }
     sk::util::List<sk::util::Exception>& _exceptions;

@@ -8,28 +8,24 @@
  *  Author: Gennady Bystritsky
 */
 
-#ifndef _SK_UTIL_EXCEPTIONPROXY_H_
-#define _SK_UTIL_EXCEPTIONPROXY_H_
+#ifndef _SK_UTIL_STANDARDEXCEPTION_H_
+#define _SK_UTIL_STANDARDEXCEPTION_H_
 
 #include <sk/util/Exception.h>
-#include <sk/util/String.h>
 
 namespace sk {
   namespace util {
-    class ExceptionProxy 
+    class StandardException 
       : public sk::util::Exception
     {
       public:
-        ExceptionProxy(const sk::util::String& label, const sk::util::Exception& exception);
-        virtual ~ExceptionProxy() throw();
+        StandardException(const sk::util::String& label, const std::exception& exception);
+        StandardException(const std::exception& exception);
     
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
-    
-      private:
-        const sk::util::String _className;
     };
   }
 }
 
-#endif /* _SK_UTIL_EXCEPTIONPROXY_H_ */
+#endif /* _SK_UTIL_STANDARDEXCEPTION_H_ */

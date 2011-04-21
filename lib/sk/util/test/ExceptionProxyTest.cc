@@ -10,6 +10,8 @@
 
 #include "ExceptionProxyTest.h"
 #include <sk/util/ExceptionProxy.h>
+#include <sk/util/UnknownException.h>
+#include <sk/util/StandardException.h>
 #include <sk/util/IllegalStateException.h>
 #include <sk/util/Strings.h>
 #include <stdexcept>
@@ -65,7 +67,7 @@ sk::util::test::ExceptionProxyTest::
 test_wraps_std_exception()
 {
   std::out_of_range original("abc");
-  sk::util::ExceptionProxy proxy("zzz", original);
+  sk::util::StandardException proxy("zzz", original);
 
   CPPUNIT_ASSERT_EQUAL("std::exception", proxy.getClass().getName());
   CPPUNIT_ASSERT_EQUAL("ERROR: zzz: abc", proxy.what());
@@ -73,20 +75,9 @@ test_wraps_std_exception()
 
 void
 sk::util::test::ExceptionProxyTest::
-test_wraps_std_string()
-{
-  std::string original("abc");
-  sk::util::ExceptionProxy proxy("zzz", original);
-
-  CPPUNIT_ASSERT_EQUAL("std::string", proxy.getClass().getName());
-  CPPUNIT_ASSERT_EQUAL("ERROR: zzz: abc", proxy.what());
-}
-
-void
-sk::util::test::ExceptionProxyTest::
 test_wraps_unknown_exception()
 {
-  sk::util::ExceptionProxy proxy("zzz");
+  sk::util::UnknownException proxy("zzz");
 
   CPPUNIT_ASSERT_EQUAL("<UNKNOWN>", proxy.getClass().getName());
   CPPUNIT_ASSERT_EQUAL("ERROR: zzz: \?\?\?", proxy.what());
