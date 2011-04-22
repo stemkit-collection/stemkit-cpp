@@ -21,6 +21,12 @@ Exception(const sk::util::Strings& strings)
 {
 }
 
+sk::util::Exception::
+Exception(const sk::util::Strings& strings, const sk::util::Exception& exception)
+  : _message(__messageHeader + (strings + exception.getMessage()).join(": ")), _tracer(exception._tracer)
+{
+}
+
 const sk::util::String
 sk::util::Exception::
 getMessage() const

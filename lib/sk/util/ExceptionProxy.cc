@@ -16,7 +16,7 @@
 
 sk::util::ExceptionProxy::
 ExceptionProxy(const sk::util::String& label, const sk::util::Exception& exception)
-  : sk::util::Exception(sk::util::Strings(label) << exception.getMessage()), _className(exception.getClass().getName())
+  : sk::util::Exception(label, exception), _className(exception.getClass().getName())
 {
 }
 
