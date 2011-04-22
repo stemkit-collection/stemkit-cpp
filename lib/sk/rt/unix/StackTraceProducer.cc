@@ -20,6 +20,8 @@
 #include <sstream>
 
 #include <sys/wait.h>
+#include <fcntl.h>
+#include <unistd.h>
 
 static const sk::util::String __className("sk::rt::StackTraceProducer");
 
