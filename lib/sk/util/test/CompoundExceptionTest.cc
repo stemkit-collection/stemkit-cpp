@@ -48,5 +48,9 @@ test_wraps_multiple_exceptions()
   sk::util::CompoundException compound(list);
 
   CPPUNIT_ASSERT_EQUAL("sk::util::CompoundException", compound.getClass().getName());
-  CPPUNIT_ASSERT_EQUAL("ERROR: Compound: <Illegal state: abc>: <Index out of bounds: zzz>", compound.what());
+  CPPUNIT_ASSERT_EQUAL("ERROR: Compound: 2: Illegal state: abc", compound.what());
+
+  CPPUNIT_ASSERT_EQUAL(2, compound.size());
+  CPPUNIT_ASSERT_EQUAL("ERROR: Illegal state: abc", compound.exceptionAt(0).what());
+  CPPUNIT_ASSERT_EQUAL("ERROR: Index out of bounds: zzz", compound.exceptionAt(1).what());
 }

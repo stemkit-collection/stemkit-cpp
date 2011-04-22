@@ -12,7 +12,7 @@
 #define _SK_UTIL_EXCEPTIONPROXY_H_
 
 #include <sk/util/Exception.h>
-#include <sk/util/String.h>
+#include <sk/util/Strings.h>
 
 namespace sk {
   namespace util {
@@ -20,7 +20,7 @@ namespace sk {
       : public sk::util::Exception
     {
       public:
-        ExceptionProxy(const sk::util::String& label, const sk::util::Exception& exception);
+        ExceptionProxy(const sk::util::Strings& strings, const sk::util::Exception& exception);
         virtual ~ExceptionProxy() throw();
     
         // sk::util::Object re-implementation.

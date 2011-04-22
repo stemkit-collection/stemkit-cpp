@@ -10,34 +10,36 @@
 
 #include <sk/util/Class.h>
 #include <sk/util/Strings.h>
-#include <sk/util/processor/Mapping.hxx>
-#include <sk/util/processor/Copying.hxx>
+#include <sk/util/ArrayList.cxx>
+#include <sk/util/Holder.cxx>
+#include <sk/util/ExceptionProxy.h>
 
 #include <sk/util/CompoundException.h>
 
 static const sk::util::String __className("sk::util::CompoundException");
 
 namespace {
-  struct ExceptionMessageCollector : sk::util::Processor<const sk::util::Exception> {
-    ExceptionMessageCollector(sk::util::Strings& strings) 
-      : _strings(strings) {}
+  struct Populator : sk::util::Processor<const sk::util::Exception> {
+    Populator(sk::util::List<sk::util::Exception>& list) 
+      : _list(list) {}
 
     void process(const sk::util::Exception& exception) const {
-      _strings << '<' + exception.getMessage() + '>';
+      _list.add(new sk::util::ExceptionProxy(sk::util::Strings(), exception));
     }
-    sk::util::Strings& _strings;
+    sk::util::List<sk::util::Exception>& _list;
   };
-
-  const sk::util::Strings makeComponents(const sk::util::String& label, const sk::util::List<sk::util::Exception>& exceptions) {
-    sk::util::Strings strings(label);
-    exceptions.forEach(ExceptionMessageCollector(strings));
-    return strings;
-  }
 }
 
 sk::util::CompoundException::
 CompoundException(const sk::util::List<sk::util::Exception>& exceptions)
-  : sk::util::Exception(makeComponents("Compound", exceptions))
+  : sk::util::Exception(sk::util::Strings("Compound") << sk::util::String::valueOf(exceptions.size()), exceptions.get(0)),
+    _listHolder(new sk::util::ArrayList<sk::util::Exception>), _list(_listHolder.getMutable())
+{
+  exceptions.forEach(Populator(_list));
+}
+
+sk::util::CompoundException::
+~CompoundException() throw()
 {
 }
 
@@ -46,4 +48,18 @@ sk::util::CompoundException::
 getClass() const
 {
   return sk::util::Class(__className);
+}
+
+int 
+sk::util::CompoundException::
+size() const
+{
+  return _list.size();
+}
+
+const sk::util::Exception& 
+sk::util::CompoundException::
+exceptionAt(int index) const
+{
+  return _list.get(index);
 }

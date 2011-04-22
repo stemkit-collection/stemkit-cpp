@@ -13,6 +13,8 @@
 
 #include <sk/util/Exception.h>
 #include <sk/util/List.h>
+#include <sk/util/Holder.hxx>
+#include <sk/util/List.h>
 
 namespace sk {
   namespace util {
@@ -21,9 +23,17 @@ namespace sk {
     {
       public:
         CompoundException(const sk::util::List<sk::util::Exception>& exceptions);
+        virtual ~CompoundException() throw();
+
+        int size() const;
+        const sk::util::Exception& exceptionAt(int index) const;
     
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
+
+        typedef sk::util::List<sk::util::Exception> exception_list_t;
+        sk::util::Holder<exception_list_t>::Sharing _listHolder;
+        exception_list_t& _list;
     };
   }
 }

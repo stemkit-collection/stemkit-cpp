@@ -15,8 +15,8 @@
 #include <sk/util/ExceptionProxy.h>
 
 sk::util::ExceptionProxy::
-ExceptionProxy(const sk::util::String& label, const sk::util::Exception& exception)
-  : sk::util::Exception(label, exception), _className(exception.getClass().getName())
+ExceptionProxy(const sk::util::Strings& strings, const sk::util::Exception& exception)
+  : sk::util::Exception(strings, exception), _className(exception.getClass().getName())
 {
 }
 
