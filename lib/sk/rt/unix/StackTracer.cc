@@ -12,7 +12,7 @@
 #include <sk/util/Strings.h>
 #include <sk/util/Holder.cxx>
 
-#include "../StackTraceProducer.h"
+#include "../StackTracer.h"
 
 #include <stdexcept>
 #include <cerrno>
@@ -23,27 +23,27 @@
 #include <fcntl.h>
 #include <unistd.h>
 
-static const sk::util::String __className("sk::rt::StackTraceProducer");
+static const sk::util::String __className("sk::rt::StackTracer");
 
-struct sk::rt::StackTraceProducer::Data : public virtual sk::util::Object {
+struct sk::rt::StackTracer::Data : public virtual sk::util::Object {
   int channel;
   pid_t pid;
 };
 
-sk::rt::StackTraceProducer::
-StackTraceProducer()
+sk::rt::StackTracer::
+StackTracer()
   : _dataHolder(new Data), _data(_dataHolder.getMutable())
 {
   _data.pid = -1;
 }
 
-sk::rt::StackTraceProducer::
-~StackTraceProducer()
+sk::rt::StackTracer::
+~StackTracer()
 {
 }
 
 const sk::util::Class
-sk::rt::StackTraceProducer::
+sk::rt::StackTracer::
 getClass() const
 {
   return sk::util::Class(__className);
@@ -113,7 +113,7 @@ namespace {
 }
 
 void
-sk::rt::StackTraceProducer::
+sk::rt::StackTracer::
 setup()
 {
   if(_data.pid != -1) {
@@ -145,7 +145,7 @@ setup()
 }
 
 void 
-sk::rt::StackTraceProducer::
+sk::rt::StackTracer::
 reset()
 {
   if(_data.pid == -1) {
@@ -159,7 +159,7 @@ reset()
 }
 
 const sk::util::String
-sk::rt::StackTraceProducer::
+sk::rt::StackTracer::
 produceTrace()
 {
   if(_data.pid == -1) {

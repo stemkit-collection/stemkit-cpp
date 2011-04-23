@@ -12,7 +12,7 @@
 #include <sk/util/String.h>
 
 #include <sk/rt/StackTracerFactory.h>
-#include "StackTraceProducer.h"
+#include "StackTracer.h"
 
 static const sk::util::String __className("sk::rt::StackTracerFactory");
 
@@ -37,5 +37,5 @@ sk::util::exception::trace::Producer*
 sk::rt::StackTracerFactory::
 createTraceProducer() const 
 {
-  return new StackTraceProducer();
+  return new StackTracer();
 }

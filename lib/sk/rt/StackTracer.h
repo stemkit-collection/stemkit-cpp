@@ -8,20 +8,20 @@
  *  Author: Gennady Bystritsky (gennady.bystritsky@quest.com)
 */
 
-#ifndef _SK_RT_STACKTRACEPRODUCER_H_
-#define _SK_RT_STACKTRACEPRODUCER_H_
+#ifndef _SK_RT_STACKTRACER_H_
+#define _SK_RT_STACKTRACER_H_
 
 #include <sk/util/exception/trace/Producer.h>
 #include <sk/util/Holder.hxx>
 
 namespace sk {
   namespace rt {
-    class StackTraceProducer 
+    class StackTracer 
       : public virtual sk::util::exception::trace::Producer
     {
       public:
-        StackTraceProducer();
-        virtual ~StackTraceProducer();
+        StackTracer();
+        virtual ~StackTracer();
 
         // sk::util::exception::trace::Producer implementation.
         void setup();
@@ -32,8 +32,8 @@ namespace sk {
         const sk::util::Class getClass() const;
     
       private:
-        StackTraceProducer(const StackTraceProducer& other);
-        StackTraceProducer& operator = (const StackTraceProducer& other);
+        StackTracer(const StackTracer& other);
+        StackTracer& operator = (const StackTracer& other);
 
         struct Data;
         sk::util::Holder<Data>::Direct _dataHolder;
@@ -42,4 +42,4 @@ namespace sk {
   }
 }
 
-#endif /* _SK_RT_STACKTRACEPRODUCER_H_ */
+#endif /* _SK_RT_STACKTRACER_H_ */

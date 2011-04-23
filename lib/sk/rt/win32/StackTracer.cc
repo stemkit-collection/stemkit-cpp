@@ -12,28 +12,28 @@
 #include <sk/util/Strings.h>
 #include <sk/util/Holder.cxx>
 
-#include "../StackTraceProducer.h"
+#include "../StackTracer.h"
 
 #include <stdexcept>
 
-static const sk::util::String __className("sk::rt::StackTraceProducer");
+static const sk::util::String __className("sk::rt::StackTracer");
 
-struct sk::rt::StackTraceProducer::Data : public virtual sk::util::Object {
+struct sk::rt::StackTracer::Data : public virtual sk::util::Object {
 };
 
-sk::rt::StackTraceProducer::
-StackTraceProducer()
+sk::rt::StackTracer::
+StackTracer()
   : _dataHolder(new Data), _data(_dataHolder.getMutable())
 {
 }
 
-sk::rt::StackTraceProducer::
-~StackTraceProducer()
+sk::rt::StackTracer::
+~StackTracer()
 {
 }
 
 const sk::util::Class
-sk::rt::StackTraceProducer::
+sk::rt::StackTracer::
 getClass() const
 {
   return sk::util::Class(__className);
@@ -46,21 +46,21 @@ namespace {
 }
 
 void
-sk::rt::StackTraceProducer::
+sk::rt::StackTracer::
 setup()
 {
   generate_unsupported_error();
 }
 
 void 
-sk::rt::StackTraceProducer::
+sk::rt::StackTracer::
 reset()
 {
   generate_unsupported_error();
 }
 
 const sk::util::String
-sk::rt::StackTraceProducer::
+sk::rt::StackTracer::
 produceTrace()
 {
   generate_unsupported_error();
