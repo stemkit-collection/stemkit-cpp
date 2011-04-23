@@ -8,27 +8,14 @@
  *  Author: Gennady Bystritsky (gennady.bystritsky@quest.com)
 */
 
-#include <sk/util/Class.h>
 #include <sk/util/String.h>
 
 #include <sk/rt/StackTracerFactory.h>
+#include "StackTracer.h"
 
-static const sk::util::String __className("sk::rt::StackTracerFactory");
-
+sk::util::exception::trace::Producer*
 sk::rt::StackTracerFactory::
-StackTracerFactory()
+createTraceProducer() const 
 {
+  return new StackTracer();
 }
-
-sk::rt::StackTracerFactory::
-~StackTracerFactory()
-{
-}
-
-const sk::util::Class
-sk::rt::StackTracerFactory::
-getClass() const
-{
-  return sk::util::Class(__className);
-}
-

@@ -10,9 +10,8 @@
 
 #include <sk/util/Class.h>
 #include <sk/util/Strings.h>
-#include <sk/util/Holder.cxx>
 
-#include "../StackTracer.h"
+#include "StackTracer.h"
 
 #include <stdexcept>
 #include <cerrno>
@@ -21,20 +20,13 @@
 
 #include <sys/wait.h>
 #include <fcntl.h>
-#include <unistd.h>
 
 static const sk::util::String __className("sk::rt::StackTracer");
 
-struct sk::rt::StackTracer::Data : public virtual sk::util::Object {
-  int channel;
-  pid_t pid;
-};
-
 sk::rt::StackTracer::
 StackTracer()
-  : _dataHolder(new Data), _data(_dataHolder.getMutable())
+  : _pid(-1), _channel(-1)
 {
-  _data.pid = -1;
 }
 
 sk::rt::StackTracer::
@@ -116,7 +108,7 @@ void
 sk::rt::StackTracer::
 setup()
 {
-  if(_data.pid != -1) {
+  if(_pid != -1) {
     return;
   }
 
@@ -138,8 +130,8 @@ setup()
     }
     default: {
       ::close(fds[0]);
-      _data.channel = fds[1];
-      _data.pid = pid;
+      _channel = fds[1];
+      _pid = pid;
     }
   }
 }
@@ -148,13 +140,15 @@ void
 sk::rt::StackTracer::
 reset()
 {
-  if(_data.pid == -1) {
+  if(_pid == -1) {
     return;
   }
-  pid_t pid = _data.pid;
-  _data.pid = -1;
+  ::close(_channel);
+  _channel = -1;
 
-  ::close(_data.channel);
+  pid_t pid = _pid;
+  _pid = -1;
+
   wait_for_process(pid);
 }
 
@@ -162,7 +156,7 @@ const sk::util::String
 sk::rt::StackTracer::
 produceTrace()
 {
-  if(_data.pid == -1) {
+  if(_pid == -1) {
     throw std::domain_error("setup not done");
   }
 
@@ -184,7 +178,7 @@ produceTrace()
       dup(fds[1]);
 
       sk::util::String argv0("pstack");
-      sk::util::String argv1(sk::util::String::valueOf(_data.pid));
+      sk::util::String argv1(sk::util::String::valueOf(_pid));
 
       ::execlp(argv0.getChars(), argv0.getChars(), argv1.getChars(), (const char*)0);
       print_system_error("execlp", argv0);

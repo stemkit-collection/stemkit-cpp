@@ -4,6 +4,7 @@ local library = sk.rt.unix ;
 objects = 
   SystemException.cc
   Time.cc
+  StackTracerFactory.cc
   StackTracer.cc
 ;
 

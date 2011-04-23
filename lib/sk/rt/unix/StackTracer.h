@@ -12,7 +12,7 @@
 #define _SK_RT_STACKTRACER_H_
 
 #include <sk/util/exception/trace/Producer.h>
-#include <sk/util/Holder.hxx>
+#include <unistd.h>
 
 namespace sk {
   namespace rt {
@@ -35,9 +35,8 @@ namespace sk {
         StackTracer(const StackTracer& other);
         StackTracer& operator = (const StackTracer& other);
 
-        struct Data;
-        sk::util::Holder<Data>::Direct _dataHolder;
-        Data& _data;
+        int _channel;
+        pid_t _pid;
     };
   }
 }
