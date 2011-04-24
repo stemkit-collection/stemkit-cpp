@@ -6,6 +6,7 @@ local objects =
   DataInputStream.cc
   DataOutputStream.cc
   DatagramSocket.cc
+  MulticastSocket.cc
   InetAddress.cc
   InetSocketAddress.cc
   ServerSocket.cc
