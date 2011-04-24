@@ -7,8 +7,8 @@
  *  Author: Gennady Bystritsky
 */
 
-#ifndef _SK_NET_IP4_ADDRESS_H_
-#define _SK_NET_IP4_ADDRESS_H_
+#ifndef _SK_NET_IP4_INETADDRESS_H_
+#define _SK_NET_IP4_INETADDRESS_H_
 
 #include <sk/util/Object.h>
 
@@ -17,20 +17,20 @@
 namespace sk {
   namespace net {
     namespace ip4 {
-      class Address
+      class InetAddress
         : public virtual sk::util::Object 
       {
         public:
-          Address();
-          Address(const Address& other);
-          Address(const sk::util::String& spec);
-          Address(uint32_t number);
-          virtual ~Address();
+          InetAddress();
+          InetAddress(const InetAddress& other);
+          InetAddress(const sk::util::String& spec);
+          InetAddress(uint32_t number);
+          virtual ~InetAddress();
 
-          static const Address hostname(const sk::util::String& name);
-          static const Address ip(const sk::util::String& number);
-          static const Address number(uint32_t number);
-          static const Address localhost();
+          static const InetAddress hostname(const sk::util::String& name);
+          static const InetAddress ip(const sk::util::String& number);
+          static const InetAddress number(uint32_t number);
+          static const InetAddress localhost();
 
           const sk::util::String hostname() const;
           const sk::util::String ip() const;
@@ -40,10 +40,10 @@ namespace sk {
           const sk::util::Class getClass() const;
           
         private:
-          Address& operator = (const Address& other);
+          InetAddress& operator = (const InetAddress& other);
       };
     }
   }
 }
 
-#endif /* _SK_NET_IP4_ADDRESS_H_ */
+#endif /* _SK_NET_IP4_INETADDRESS_H_ */

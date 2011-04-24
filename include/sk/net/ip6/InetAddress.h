@@ -8,30 +8,30 @@
  *  Author: Gennady Bystritsky
 */
 
-#ifndef _SK_NET_IP6_ADDRESS_H_
-#define _SK_NET_IP6_ADDRESS_H_
+#ifndef _SK_NET_IP6_INETADDRESS_H_
+#define _SK_NET_IP6_INETADDRESS_H_
 
 #include <sk/util/Object.h>
 
 namespace sk {
   namespace net {
     namespace ip6 {
-      class Address 
+      class InetAddress 
         : public virtual sk::util::Object
       {
         public:
-          Address();
-          virtual ~Address();
+          InetAddress();
+          virtual ~InetAddress();
       
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
       
         private:
-          Address(const Address& other);
-          Address& operator = (const Address& other);
+          InetAddress(const InetAddress& other);
+          InetAddress& operator = (const InetAddress& other);
       };
     }
   }
 }
 
-#endif /* _SK_NET_IP6_ADDRESS_H_ */
+#endif /* _SK_NET_IP6_INETADDRESS_H_ */

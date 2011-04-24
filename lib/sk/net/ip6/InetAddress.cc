@@ -11,22 +11,22 @@
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
 
-#include <sk/net/ip6/Address.h>
+#include <sk/net/ip6/InetAddress.h>
 
-static const char* __className("sk::net::ip6::Address");
+static const char* __className("sk::net::ip6::InetAddress");
 
-sk::net::ip6::Address::
-Address()
+sk::net::ip6::InetAddress::
+InetAddress()
 {
 }
 
-sk::net::ip6::Address::
-~Address()
+sk::net::ip6::InetAddress::
+~InetAddress()
 {
 }
 
 const sk::util::Class
-sk::net::ip6::Address::
+sk::net::ip6::InetAddress::
 getClass() const
 {
   return sk::util::Class(__className);

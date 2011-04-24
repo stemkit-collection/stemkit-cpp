@@ -2,7 +2,7 @@
 local library = sk.net.ip6 ;
 
 local objects =
-  Address.cc
+  InetAddress.cc
 ;
 
 make-library $(library) :  $(objects) ;

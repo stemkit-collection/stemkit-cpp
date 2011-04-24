@@ -11,70 +11,70 @@
 #include <sk/util/String.h>
 #include <sk/util/UnsupportedOperationException.h>
 
-#include <sk/net/ip4/Address.h>
+#include <sk/net/ip4/InetAddress.h>
 
-sk::net::ip4::Address::
-Address()
+sk::net::ip4::InetAddress::
+InetAddress()
 {
 }
 
-sk::net::ip4::Address::
-Address(const Address& /*TODO: other*/)
+sk::net::ip4::InetAddress::
+InetAddress(const InetAddress& /*TODO: other*/)
 {
 }
 
-sk::net::ip4::Address::
-Address(const sk::util::String& /*TODO: spec*/)
+sk::net::ip4::InetAddress::
+InetAddress(const sk::util::String& /*TODO: spec*/)
 {
 }
 
-sk::net::ip4::Address::
-Address(uint32_t /*TODO: number*/)
+sk::net::ip4::InetAddress::
+InetAddress(uint32_t /*TODO: number*/)
 {
 }
 
-sk::net::ip4::Address::
-~Address()
+sk::net::ip4::InetAddress::
+~InetAddress()
 {
 }
 
-const sk::net::ip4::Address
-sk::net::ip4::Address::
+const sk::net::ip4::InetAddress
+sk::net::ip4::InetAddress::
 number(uint32_t number) 
 {
-  return Address(number);
+  return InetAddress(number);
 }
 
-const sk::net::ip4::Address
-sk::net::ip4::Address::
+const sk::net::ip4::InetAddress
+sk::net::ip4::InetAddress::
 localhost()
 {
-  return Address("localhost");
+  return InetAddress("localhost");
 }
 
 const sk::util::Class
-sk::net::ip4::Address::
+sk::net::ip4::InetAddress::
 getClass() const
 {
-  return sk::util::Class("sk::net::ip4::Address");
+  return sk::util::Class("sk::net::ip4::InetAddress");
 }
 
 uint32_t
-sk::net::ip4::Address::
+sk::net::ip4::InetAddress::
 number() const
 {
   throw sk::util::UnsupportedOperationException(SK_METHOD);
 }
 
 const sk::util::String
-sk::net::ip4::Address::
+sk::net::ip4::InetAddress::
 hostname() const
 {
   throw sk::util::UnsupportedOperationException(SK_METHOD);
 }
 
 const sk::util::String
-sk::net::ip4::Address::
+sk::net::ip4::InetAddress::
 ip() const
 {
   throw sk::util::UnsupportedOperationException(SK_METHOD);
