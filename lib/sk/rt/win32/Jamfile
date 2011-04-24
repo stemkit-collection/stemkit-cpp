@@ -5,6 +5,7 @@ local objects =
   SystemException.cc
   ProcessInfo.cc
   Time.cc
+  StackTracerFactory.cc
   StackTracer.cc
 ;
 

@@ -12,18 +12,14 @@
 #include <sk/util/Strings.h>
 #include <sk/util/Holder.cxx>
 
-#include "../StackTracer.h"
+#include "StackTracer.h"
 
 #include <stdexcept>
 
 static const sk::util::String __className("sk::rt::StackTracer");
 
-struct sk::rt::StackTracer::Data : public virtual sk::util::Object {
-};
-
 sk::rt::StackTracer::
 StackTracer()
-  : _dataHolder(new Data), _data(_dataHolder.getMutable())
 {
 }
 
