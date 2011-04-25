@@ -5,6 +5,7 @@ local library = sk.net ;
 local objects = 
   DataInputStream.cc
   DataOutputStream.cc
+  DatagramPacket.cc
   DatagramSocket.cc
   MulticastSocket.cc
   InetAddress.cc
