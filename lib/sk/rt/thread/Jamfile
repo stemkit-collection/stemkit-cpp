@@ -19,6 +19,7 @@ local objects =
   ../Thread.cc
   ../Mutex.cc
   ../ReentrantLock.cc
+  ../ReentrantReadWriteLock.cc
 ;
 
 local implementation ;
