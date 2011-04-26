@@ -11,9 +11,9 @@
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
 #include <sk/util/UnsupportedOperationException.h>
-#include <sk/util/IllegalStateException.h>
 
 #include <sk/net/ip4/InetAddress.h>
+#include <sk/net/UnknownHostException.h>
 
 static const sk::util::String __className("sk::net::ip4::InetAddress");
 
@@ -22,7 +22,7 @@ InetAddress(const sk::util::bytes& components)
   : sk::net::InetAddress(components)
 {
   if(components.size() != 4) {
-    throw sk::util::IllegalStateException("Wrong IPV4 address");
+    throw sk::net::UnknownHostException("Wrong IPV4 address", components.join("."));
   }
 }
 
@@ -42,7 +42,7 @@ const sk::util::String
 sk::net::ip4::InetAddress::
 getHostAddress() const
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  return getAddress().join(".");
 }
 
 bool 
