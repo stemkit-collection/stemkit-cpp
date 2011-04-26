@@ -11,7 +11,7 @@
 #define _SK_NET_IP4_INETADDRESS_H_
 
 #include <sk/net/InetAddress.h>
-#include <vector>
+#include <sk/util/bytes.h>
 
 namespace sk {
   namespace net {
@@ -20,7 +20,7 @@ namespace sk {
         : public sk::net::InetAddress
       {
         public:
-          InetAddress(const std::vector<int>& components);
+          InetAddress(const sk::util::bytes& components);
           virtual ~InetAddress();
 
           // sk::net::InetAddress implementation.

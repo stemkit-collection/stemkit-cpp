@@ -19,13 +19,13 @@
 static const char* __className("sk::net::InetAddress");
 
 sk::net::InetAddress::
-InetAddress(const std::vector<int>& components)
+InetAddress(const sk::util::bytes& components)
   : _address(components), _resolved(false)
 {
 }
 
 sk::net::InetAddress::
-InetAddress(const std::vector<int>& components, const sk::util::String& name)
+InetAddress(const sk::util::bytes& components, const sk::util::String& name)
   : _address(components), _hostName(name), _resolved(true)
 {
 }
@@ -49,7 +49,7 @@ toString() const
   return (_resolved == false ? sk::util::String("\?\?\?") : getHostName() ) + '/' + getHostAddress();
 }
 
-const std::vector<int>&
+const sk::util::bytes&
 sk::net::InetAddress::
 getAddress() const
 {
@@ -86,7 +86,7 @@ getCanonicalHostName() const
 
 sk::net::InetAddress& 
 sk::net::InetAddress::
-getByAddress(const std::vector<int>& components)
+getByAddress(const sk::util::bytes& components)
 {
   return InetAddressFactory::instance().findOrCreateByAddress(components);
 }

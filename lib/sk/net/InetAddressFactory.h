@@ -14,7 +14,7 @@
 #include <sk/util/Object.h>
 #include <sk/util/ArrayList.hxx>
 #include <sk/rt/ReentrantReadWriteLock.h>
-#include <vector>
+#include <sk/util/bytes.h>
 
 namespace sk {
   namespace net {
@@ -27,7 +27,7 @@ namespace sk {
         InetAddressFactory();
         virtual ~InetAddressFactory();
 
-        sk::net::InetAddress& findOrCreateByAddress(const std::vector<int>& components);
+        sk::net::InetAddress& findOrCreateByAddress(const sk::util::bytes& components);
         const sk::net::InetAddress& findOrCreateByName(const sk::util::String& name);
         const sk::net::InetAddress& findOrCreateLocalHost();
 

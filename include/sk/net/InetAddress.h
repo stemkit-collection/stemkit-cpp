@@ -13,7 +13,7 @@
 
 #include <sk/util/Object.h>
 #include <sk/util/String.h>
-#include <vector>
+#include <sk/util/bytes.h>
 
 namespace sk {
   namespace net {
@@ -23,11 +23,11 @@ namespace sk {
       public:
         virtual ~InetAddress();
 
-        static InetAddress& getByAddress(const std::vector<int>& components);
+        static InetAddress& getByAddress(const sk::util::bytes& components);
         static const InetAddress& getByName(const sk::util::String& name);
         static const InetAddress& getLocalHost();
     
-        const std::vector<int>& getAddress() const;
+        const sk::util::bytes& getAddress() const;
         const sk::util::String& getHostName() const;
         const sk::util::String& getHostName();
         const sk::util::String getCanonicalHostName() const;
@@ -42,13 +42,13 @@ namespace sk {
         const sk::util::String toString() const;
 
       protected:
-        InetAddress(const std::vector<int>& components);
-        InetAddress(const std::vector<int>& components, const sk::util::String& name);
+        InetAddress(const sk::util::bytes& components);
+        InetAddress(const sk::util::bytes& components, const sk::util::String& name);
         InetAddress(const InetAddress& other);
         InetAddress& operator = (const InetAddress& other);
 
       private:
-        std::vector<int> _address;
+        sk::util::bytes _address;
         sk::util::String _hostName;
         bool _resolved;
     };

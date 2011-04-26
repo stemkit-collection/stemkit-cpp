@@ -53,7 +53,7 @@ getClass() const
 }
 
 namespace {
-  void create_by_address(const std::vector<int>& components, sk::util::Holder<sk::net::InetAddress>& holder) {
+  void create_by_address(const sk::util::bytes& components, sk::util::Holder<sk::net::InetAddress>& holder) {
     for(int counter = 0; holder.isEmpty() == true; ++counter) {
       try {
         switch(counter) {
@@ -74,19 +74,19 @@ namespace {
   }
 
   struct ComponentsSelector : public virtual sk::util::Selector<sk::net::InetAddress> {
-    ComponentsSelector(const std::vector<int>& components)
+    ComponentsSelector(const sk::util::bytes& components)
       : _components(components) {}
 
     bool assess(const sk::net::InetAddress& address) const {
       return address.getAddress() == _components;
     }
-    const std::vector<int>& _components;
+    const sk::util::bytes& _components;
   };
 }
 
 sk::net::InetAddress& 
 sk::net::InetAddressFactory::
-findOrCreateByAddress(const std::vector<int>& components)
+findOrCreateByAddress(const sk::util::bytes& components)
 {
   sk::util::Holder<sk::net::InetAddress> addressHolder;
 

@@ -18,7 +18,7 @@
 static const sk::util::String __className("sk::net::ip4::InetAddress");
 
 sk::net::ip4::InetAddress::
-InetAddress(const std::vector<int>& components)
+InetAddress(const sk::util::bytes& components)
   : sk::net::InetAddress(components)
 {
   if(components.size() != 4) {
