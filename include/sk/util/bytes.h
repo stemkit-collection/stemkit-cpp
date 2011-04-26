@@ -13,6 +13,7 @@
 
 #include <vector>
 #include <inttypes.h>
+#include <sk/util/String.h>
 
 namespace sk {
   namespace util {
@@ -23,6 +24,8 @@ namespace sk {
         bytes();
         bytes(uint8_t value);
         bytes(const std::vector<uint8_t>& other);
+
+        const sk::util::String join(const sk::util::String& delimiter) const;
 
         sk::util::bytes& operator << (uint8_t value);
         const sk::util::bytes operator + (uint8_t value) const;

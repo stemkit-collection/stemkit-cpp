@@ -9,8 +9,7 @@
 */
 
 #include <sk/util/bytes.h>
-#include <algorithm>
-#include <iterator>
+#include <sstream>
 
 sk::util::bytes::
 bytes() 
@@ -28,6 +27,30 @@ sk::util::bytes::
 bytes(const std::vector<uint8_t>& other)
   : std::vector<uint8_t>(other) 
 {
+}
+
+namespace {
+  bool output_with_delimiter(std::ostream& stream, const sk::util::bytes& items, const sk::util::String& delimiter) {
+    if(items.empty() == false) {
+      sk::util::bytes::const_iterator iterator = items.begin();
+      stream << uint32_t(*iterator);
+      while(++iterator != items.end()) {
+        stream << delimiter << uint32_t(*iterator);
+      }
+      return true;
+    }
+    return false;
+  }
+}
+
+const sk::util::String 
+sk::util::bytes::
+join(const sk::util::String& delimiter) const
+{
+  std::stringstream stream;
+  output_with_delimiter(stream, *this, delimiter);
+
+  return stream.str();
 }
 
 sk::util::bytes& 
@@ -57,13 +80,9 @@ operator + (const sk::util::bytes& other) const
 std::ostream& 
 sk::util::operator << (std::ostream& stream, const sk::util::bytes& items) 
 {
-  stream << "[";
-  if(items.empty() == false) {
-    sk::util::bytes::const_iterator iterator = items.begin();
-    stream << " " << uint32_t(*iterator);
-    while(++iterator != items.end()) {
-      stream << ", " << uint32_t(*iterator);
-    }
+  stream << "[ ";
+  if(output_with_delimiter(stream, items, ", ") == true) {
+    stream << " ";
   }
-  return stream << " ]";
+  return stream << "]";
 }
