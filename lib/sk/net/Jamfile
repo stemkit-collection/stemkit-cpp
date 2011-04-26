@@ -3,11 +3,13 @@
 local library = sk.net ;
 
 local objects = 
+  UnknownHostException.cc
   DataInputStream.cc
   DataOutputStream.cc
   DatagramPacket.cc
   DatagramSocket.cc
   MulticastSocket.cc
+  InetAddressFactory.cc
   InetAddress.cc
   InetSocketAddress.cc
   ServerSocket.cc
@@ -24,3 +26,4 @@ add-project-library $(library) : $(library).ip4 ;
 add-project-library $(library) : $(library).ip6 ;
 
 make-subdirs ip4 ip6 ;
+make-subdirs test ;

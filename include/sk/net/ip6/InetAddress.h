@@ -11,18 +11,25 @@
 #ifndef _SK_NET_IP6_INETADDRESS_H_
 #define _SK_NET_IP6_INETADDRESS_H_
 
-#include <sk/util/Object.h>
+#include <sk/net/InetAddress.h>
+#include <vector>
 
 namespace sk {
   namespace net {
     namespace ip6 {
       class InetAddress 
-        : public virtual sk::util::Object
+        : public sk::net::InetAddress
       {
         public:
-          InetAddress();
+          InetAddress(const std::vector<int>& components);
           virtual ~InetAddress();
       
+          // sk::net::InetAddress implementation.
+          const sk::util::String getHostAddress() const;
+          bool isLoopbackAddress() const;
+          bool isAnyLocalAddress() const;
+          bool isMulticastAddress() const;
+
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
       
