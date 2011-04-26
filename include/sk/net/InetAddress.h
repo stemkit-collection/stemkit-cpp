@@ -26,10 +26,11 @@ namespace sk {
         static InetAddress& getByAddress(const sk::util::bytes& components);
         static const InetAddress& getByName(const sk::util::String& name);
         static const InetAddress& getLocalHost();
+
+        InetAddress& resolve();
     
         const sk::util::bytes& getAddress() const;
         const sk::util::String& getHostName() const;
-        const sk::util::String& getHostName();
         const sk::util::String getCanonicalHostName() const;
 
         virtual const sk::util::String getHostAddress() const = 0;

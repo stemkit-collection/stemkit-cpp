@@ -10,7 +10,7 @@
 
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
-#include <sk/util/MissingResourceException.h>
+#include <sk/util/IllegalStateException.h>
 #include <sk/util/UnsupportedOperationException.h>
 
 #include <sk/net/InetAddress.h>
@@ -63,18 +63,18 @@ getHostName() const
   if(_resolved == true) {
     return _hostName;
   }
-  throw sk::util::MissingResourceException("Unresolved host name");
+  throw sk::util::IllegalStateException("Unresolved host name");
 }
 
-const sk::util::String&
+sk::net::InetAddress&
 sk::net::InetAddress::
-getHostName() 
+resolve() 
 {
-  if(_resolved == true) {
+  if(_resolved == false) {
     _hostName = getCanonicalHostName();
     _resolved = true;
   }
-  return _hostName;
+  return *this;
 }
 
 const sk::util::String
