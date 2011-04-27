@@ -1,5 +1,6 @@
 InetAddress:
   - Use read/write locks when searching/updating the cache.
+  - Better address factory instantiation in thread environment.
   - Better caching for multiple entries after host resolution.
   - A method to get a loopback address
   - Implement IPv6 support class (mostly unsupported operations for now).
@@ -8,7 +9,9 @@ InetAddress:
   - Recognize the case when getByName() is given IP address string.
   - Add a method to clean the cache.
   - Implement better cache indexing, now searches are done sequentially.
-  - For sk::rt::Actions, implement method to help with going through all
+
+  + [DONE]
+    For sk::rt::Actions, implement method to help with going through all
     possible implementations:
       performUntilSuccess(reverseErrors = false) 
 
