@@ -1,9 +1,18 @@
 # vim: ft=jam: sw=2
 
-use-project-libraries sample-resolve : 
-  sk.net 
-  sk.rt.thread 
-  sk.rt.bundle 
-  sk.util 
+local simple-programs =
+  sample-resolve
+  get-localhost
+  get-hostname
 ;
-make-program sample-resolve : sample-resolve.cc ;
+
+local _program ;
+for _program in $(simple-programs) {
+  use-project-libraries $(_program) : 
+    sk.net 
+    sk.rt.thread 
+    sk.rt.bundle 
+    sk.util 
+  ;
+  make-program $(_program) : $(_program).cc ;
+}
