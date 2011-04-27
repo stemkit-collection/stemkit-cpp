@@ -64,20 +64,31 @@ isResolved() const
   return _resolved;
 }
 
-const sk::util::String
+sk::net::InetAddress&
 sk::net::InetAddress::
-getHostName()
+resolve(bool tolerate)
 {
   if(_resolved == false) {
-    try {
-      _hostName = resolve();
+    if(tolerate == true) {
+      try {
+        _hostName = resolveHostName();
+        _resolved = true;
+      }
+      catch(const sk::net::UnknownHostException& exception) {}
+    }
+    else {
+      _hostName = resolveHostName();
       _resolved = true;
     }
-    catch(const sk::net::UnknownHostException& exception) {
-      return getHostAddress();
-    }
   }
-  return _hostName;
+  return *this;
+}
+
+const sk::util::String
+sk::net::InetAddress::
+getHostName() const
+{
+  return (_resolved == true ? _hostName : getHostAddress());
 }
 
 const sk::util::String

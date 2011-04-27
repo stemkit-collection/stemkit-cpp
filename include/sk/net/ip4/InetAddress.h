@@ -23,8 +23,11 @@ namespace sk {
           InetAddress(const sk::util::bytes& components);
           virtual ~InetAddress();
 
+          static uint32_t toNumber(const sk::util::bytes& components);
+          static const sk::util::String toString(const sk::util::bytes& components);
+
           // sk::net::InetAddress implementation.
-          const sk::util::String resolve() const;
+          const sk::util::String resolveHostName() const;
           const sk::util::String getHostAddress() const;
           bool isLoopbackAddress() const;
           bool isAnyLocalAddress() const;
@@ -36,6 +39,8 @@ namespace sk {
         private:
           InetAddress& operator = (const InetAddress& other);
           InetAddress(const InetAddress& other);
+
+          uint32_t _number;
       };
     }
   }

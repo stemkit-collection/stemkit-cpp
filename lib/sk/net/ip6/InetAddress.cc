@@ -47,7 +47,7 @@ getHostAddress() const
 
 const sk::util::String 
 sk::net::ip6::InetAddress::
-resolve() const
+resolveHostName() const
 {
   throw sk::util::UnsupportedOperationException(SK_METHOD);
 }

@@ -28,11 +28,13 @@ namespace sk {
         static const InetAddress& getLocalHost();
 
         bool isResolved() const;
+        InetAddress& resolve(bool tolerate = true);
+
         const sk::util::bytes& getAddress() const;
-        const sk::util::String getHostName();
+        const sk::util::String getHostName() const;
         const sk::util::String getCanonicalHostName() const;
 
-        virtual const sk::util::String resolve() const = 0;
+        virtual const sk::util::String resolveHostName() const = 0;
         virtual const sk::util::String getHostAddress() const = 0;
         virtual bool isLoopbackAddress() const = 0;
         virtual bool isAnyLocalAddress() const = 0;

@@ -17,7 +17,8 @@
 
 int main(int argc, const char* const argv[])
 {
-  sk::net::InetAddress& address = sk::net::InetAddress::getByAddress(sk::util::bytes(1) << 2 << 3 << 4);
+  sk::net::InetAddress& address = sk::net::InetAddress::getByAddress(sk::util::bytes(10) << 1 << 17 << 52).resolve();
+  // sk::net::InetAddress& address = sk::net::InetAddress::getByAddress(sk::util::bytes(1) << 1 << 17 << 52).resolve(true);
   std::cerr << "A: " << address << std::endl;
 
   return 0;
