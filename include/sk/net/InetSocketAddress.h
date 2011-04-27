@@ -11,12 +11,12 @@
 #ifndef _SK_NET_INETSOCKETADDRESS_H_
 #define _SK_NET_INETSOCKETADDRESS_H_
 
-#include <sk/util/Object.h>
+#include <sk/net/SocketAddress.h>
 
 namespace sk {
   namespace net {
     class InetSocketAddress 
-      : public virtual sk::util::Object
+      : public sk::net::SocketAddress
     {
       public:
         InetSocketAddress();
