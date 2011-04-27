@@ -16,7 +16,20 @@
 static const char* __className("sk::net::InetSocketAddress");
 
 sk::net::InetSocketAddress::
-InetSocketAddress()
+InetSocketAddress(const sk::net::InetAddress& address, uint16_t port)
+  : _port(port) 
+{
+}
+
+sk::net::InetSocketAddress::
+InetSocketAddress(const sk::util::String& hostname, uint16_t port)
+  : _port(port) 
+{
+}
+
+sk::net::InetSocketAddress::
+InetSocketAddress(uint16_t port)
+  : _port(port) 
 {
 }
 
@@ -30,4 +43,11 @@ sk::net::InetSocketAddress::
 getClass() const
 {
   return sk::util::Class(__className);
+}
+
+uint16_t 
+sk::net::InetSocketAddress::
+getPort() const
+{
+  return _port;
 }
