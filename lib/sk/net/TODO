@@ -1,0 +1,10 @@
+InetAddress:
+  - Use read/write locks when searching/updating the cache.
+  - Better caching for multiple entries after host resolution.
+  - A method to get a loopback address
+  - Implement IPv6 support class (mostly unsupported operations for now).
+  - Implement getCanonicalHostName()
+  - Better implementation for getLocalHost(), now returns IPv6 address on Mac.
+  - Recognize the case when getByName() is given IP address string.
+  - Add a method to clean the cache.
+  - Implement better cache indexing, now searches are done sequentially.
