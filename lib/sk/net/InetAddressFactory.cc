@@ -15,6 +15,7 @@
 #include <sk/util/ArrayList.cxx>
 #include <sk/util/UnsupportedOperationException.h>
 
+#include <sk/rt/Actions.h>
 #include <sk/rt/SystemException.h>
 #include <sk/rt/Locker.h>
 
@@ -55,34 +56,38 @@ getClass() const
 }
 
 namespace {
-  void create_by_address(const sk::util::bytes& components, sk::util::Holder<sk::net::InetAddress>& holder) {
-    for(int counter = 0; holder.isEmpty() == true; ++counter) {
-      try {
-        switch(counter) {
-          case 0:
-            holder.set(new sk::net::ip4::InetAddress(components));
-            return;
-
-          case 1:
-            holder.set(new sk::net::ip6::InetAddress(components));
-            return;
-        }
-      }
-      catch(...) {
-        continue;
-      }
-      throw sk::net::UnknownHostException("Unsupported IP address format", components.inspect());
-    }
-  }
-
-  struct ComponentsSelector : public virtual sk::util::Selector<sk::net::InetAddress> {
-    ComponentsSelector(const sk::util::bytes& components)
-      : _components(components) {}
+  struct ByAddressSelectorCreator : public virtual sk::util::Selector<sk::net::InetAddress> {
+    ByAddressSelectorCreator(const sk::util::bytes& components, sk::util::Holder<sk::net::InetAddress>& holder)
+      : _components(components), _holder(holder) {}
 
     bool assess(const sk::net::InetAddress& address) const {
       return address.getAddress() == _components;
     }
+
+    void tryIp4() const {
+      _holder.set(new sk::net::ip4::InetAddress(_components));
+    }
+    
+    void tryIp6() const {
+      _holder.set(new sk::net::ip6::InetAddress(_components));
+    }
+
+    void error() const {
+      throw sk::net::UnknownHostException("Unsupported IP address format", _components.inspect());
+    }
+
+    sk::net::InetAddress* create() const {
+      sk::rt::Actions actions;
+
+      actions.add("ip4", *this, &ByAddressSelectorCreator::tryIp4);
+      actions.add("ip6", *this, &ByAddressSelectorCreator::tryIp6);
+      actions.add("error", *this, &ByAddressSelectorCreator::error);
+
+      actions.performUntilSuccess(true);
+      return _holder.release();
+    }
     const sk::util::bytes& _components;
+    sk::util::Holder<sk::net::InetAddress>& _holder;
   };
 }
 
@@ -91,13 +96,13 @@ sk::net::InetAddressFactory::
 findOrCreateByAddress(const sk::util::bytes& components)
 {
   sk::util::Holder<sk::net::InetAddress> addressHolder;
+  ByAddressSelectorCreator selectorCreator(components, addressHolder);
 
   // sk::rt::Locker readLocker(_lock.readLock());
-  if(_cache.find(addressHolder, ComponentsSelector(components)) == false) {
+  if(_cache.find(addressHolder, selectorCreator) == false) {
     // sk::rt::Locker writeLocker(_lock.writeLock());
-    if(_cache.find(addressHolder, ComponentsSelector(components)) == false) {
-      create_by_address(components, addressHolder);
-      _cache.add(addressHolder.release());
+    if(_cache.find(addressHolder, selectorCreator) == false) {
+      _cache.add(selectorCreator.create());
     }
   }
   return addressHolder.getMutable();
