@@ -8,3 +8,11 @@ InetAddress:
   - Recognize the case when getByName() is given IP address string.
   - Add a method to clean the cache.
   - Implement better cache indexing, now searches are done sequentially.
+  - For sk::rt::Actions, implement method to help with going through all
+    possible implementations:
+      performUntilSuccess(reverseErrors = false) 
+
+    When it gets to a successful action, it stops and returns without errors
+    even if some were collected before. If all actions end up with exceptions,
+    throw all in CompoundExceptions, reversing the list if reverseErrors is
+    true. 
