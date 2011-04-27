@@ -22,8 +22,8 @@ UnknownHostException(const sk::util::String& hostid)
 }
 
 sk::net::UnknownHostException::
-UnknownHostException(const sk::util::String& message, const sk::util::String& hostid)
-  : sk::util::Exception(sk::util::Strings(message) << hostid)
+UnknownHostException(const sk::util::Strings& messages, const sk::util::String& hostid)
+  : sk::util::Exception(messages + hostid)
 {
 }
 
