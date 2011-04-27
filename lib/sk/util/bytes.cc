@@ -9,6 +9,7 @@
 */
 
 #include <sk/util/bytes.h>
+#include <sk/util/inspect.h>
 #include <sstream>
 
 sk::util::bytes::
@@ -51,6 +52,13 @@ join(const sk::util::String& delimiter) const
   output_with_delimiter(stream, *this, delimiter);
 
   return stream.str();
+}
+
+const sk::util::String
+sk::util::bytes::
+inspect() const
+{
+  return sk::util::inspect(*this);
 }
 
 sk::util::bytes& 

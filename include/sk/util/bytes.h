@@ -26,6 +26,7 @@ namespace sk {
         bytes(const std::vector<uint8_t>& other);
 
         const sk::util::String join(const sk::util::String& delimiter) const;
+        const sk::util::String inspect() const;
 
         sk::util::bytes& operator << (uint8_t value);
         const sk::util::bytes operator + (uint8_t value) const;

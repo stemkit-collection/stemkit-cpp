@@ -16,6 +16,12 @@ IllegalStateException(const sk::util::String& message)
 {
 }
 
+sk::util::IllegalStateException::
+IllegalStateException(const sk::util::String& message, const sk::util::Strings& details)
+  : sk::util::Exception(sk::util::Strings("Illegal state") << message << details)
+{
+}
+
 const sk::util::Class
 sk::util::IllegalStateException::
 getClass() const
