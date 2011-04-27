@@ -14,6 +14,8 @@
 #include <sk/net/InetAddress.h>
 #include <sk/util/bytes.h>
 
+struct addrinfo;
+
 namespace sk {
   namespace net {
     namespace ip6 {
@@ -21,6 +23,7 @@ namespace sk {
         : public sk::net::InetAddress
       {
         public:
+          InetAddress(const sk::util::String& name, const struct addrinfo& info);
           InetAddress(const sk::util::bytes& components);
           virtual ~InetAddress();
       

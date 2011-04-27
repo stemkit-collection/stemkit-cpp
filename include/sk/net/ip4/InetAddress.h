@@ -13,6 +13,8 @@
 #include <sk/net/InetAddress.h>
 #include <sk/util/bytes.h>
 
+struct addrinfo;
+
 namespace sk {
   namespace net {
     namespace ip4 {
@@ -20,10 +22,12 @@ namespace sk {
         : public sk::net::InetAddress
       {
         public:
+          InetAddress(const sk::util::String& name, const struct addrinfo& info);
           InetAddress(const sk::util::bytes& components);
           virtual ~InetAddress();
 
           static uint32_t toNumber(const sk::util::bytes& components);
+          static const sk::util::bytes toComponents(uint32_t number);
           static const sk::util::String toString(const sk::util::bytes& components);
 
           // sk::net::InetAddress implementation.

@@ -9,20 +9,32 @@
 */
 
 #include <sk/util/Class.h>
-#include <sk/util/String.h>
+#include <sk/util/Strings.h>
 #include <sk/util/UnsupportedOperationException.h>
-#include <sk/util/IllegalStateException.h>
 
 #include <sk/net/ip6/InetAddress.h>
+#include <sk/net/UnknownHostException.h>
 
 static const sk::util::String __className("sk::net::ip6::InetAddress");
+
+namespace {
+  const sk::util::bytes& figure_address_components(const sk::util::String& name, const struct addrinfo& info) {
+    throw sk::util::UnsupportedOperationException("IPv6 resolution", name);
+  }
+}
+
+sk::net::ip6::InetAddress::
+InetAddress(const sk::util::String& name, const struct addrinfo& info)
+  : sk::net::InetAddress(figure_address_components(name, info))
+{
+}
 
 sk::net::ip6::InetAddress::
 InetAddress(const sk::util::bytes& components)
   : sk::net::InetAddress(components)
 {
   if(components.size() != 16) {
-    throw sk::util::IllegalStateException("Wrong IPV6 ip address");
+    throw sk::net::UnknownHostException("Wrong IPv6 address", components.inspect());
   }
 }
 
