@@ -15,10 +15,21 @@
 #include <sk/net/ip6/InetAddress.h>
 #include <sk/net/UnknownHostException.h>
 
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <netdb.h>
+#include <arpa/inet.h>
+
 static const sk::util::String __className("sk::net::ip6::InetAddress");
 
 namespace {
   const sk::util::bytes& figure_address_components(const sk::util::String& name, const struct addrinfo& info) {
+    if(info.ai_family != AF_INET6) {
+      throw sk::util::IllegalStateException("Wrong IPv6 address family", sk::util::Strings(sk::util::String::valueOf(info.ai_family)) << name);
+    }
+    if(info.ai_addrlen != sizeof(sockaddr_in6)) {
+      throw sk::util::IllegalStateException("Wrong IPv6 address length", sk::util::Strings(sk::util::String::valueOf(info.ai_addrlen)) << name);
+    }
     throw sk::util::UnsupportedOperationException("IPv6 resolution", name);
   }
 }

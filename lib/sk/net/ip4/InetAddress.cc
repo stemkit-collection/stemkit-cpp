@@ -21,8 +21,6 @@
 #include <netdb.h>
 #include <arpa/inet.h>
 
-#include <iostream>
-
 static const sk::util::String __className("sk::net::ip4::InetAddress");
 
 namespace {
