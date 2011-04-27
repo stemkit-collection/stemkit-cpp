@@ -41,8 +41,16 @@ namespace sk {
 
         void clear();
         void perform();
-        int performIgnoreErrors();
         void performThrow(const sk::util::Exception& exception);
+        int performIgnoreErrors();
+
+        /// Performs actions until it gets to a successful one, in which case 
+        /// it stops and returns without errors even if some were collected 
+        /// before. It returns a number of exceptions collected, if any.
+        /// If all actions end up with exceptions, throw them all enveloped 
+        /// in sk::util::CompoundException, reversing the list in case if
+        /// reverseErrors is true. 
+        int performUntilSuccess(bool reverseErrors = false);
     
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
@@ -58,7 +66,7 @@ namespace sk {
 
         void addItem(Item* actionItem);
         void finalize();
-        void runActionsCollectExceptions();
+        bool runActionsCollectExceptions(bool untilSuccess = false);
 
         const sk::rt::Scope _scope;
         bool _reverse;
