@@ -14,6 +14,7 @@
 #include <sk/util/UnsupportedOperationException.h>
 
 #include <sk/net/InetAddress.h>
+#include <sk/net/UnknownHostException.h>
 #include "InetAddressFactory.h"
 
 static const char* __className("sk::net::InetAddress");
@@ -46,7 +47,7 @@ const sk::util::String
 sk::net::InetAddress::
 toString() const
 {
-  return (_resolved == false ? sk::util::String("\?\?\?") : getHostName() ) + '/' + getHostAddress();
+  return (_resolved == false ? sk::util::String("\?\?\?") : _hostName ) + '/' + getHostAddress();
 }
 
 const sk::util::bytes&
@@ -56,25 +57,27 @@ getAddress() const
   return _address;
 }
 
-const sk::util::String&
+bool
 sk::net::InetAddress::
-getHostName() const
+isResolved() const
 {
-  if(_resolved == true) {
-    return _hostName;
-  }
-  throw sk::util::IllegalStateException("Unresolved host name");
+  return _resolved;
 }
 
-sk::net::InetAddress&
+const sk::util::String
 sk::net::InetAddress::
-resolve() 
+getHostName()
 {
   if(_resolved == false) {
-    _hostName = getCanonicalHostName();
-    _resolved = true;
+    try {
+      _hostName = resolve();
+      _resolved = true;
+    }
+    catch(const sk::net::UnknownHostException& exception) {
+      return getHostAddress();
+    }
   }
-  return *this;
+  return _hostName;
 }
 
 const sk::util::String

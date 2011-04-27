@@ -45,6 +45,13 @@ getHostAddress() const
   throw sk::util::UnsupportedOperationException(SK_METHOD);
 }
 
+const sk::util::String 
+sk::net::ip6::InetAddress::
+resolve() const
+{
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
+}
+
 bool 
 sk::net::ip6::InetAddress::
 isLoopbackAddress() const

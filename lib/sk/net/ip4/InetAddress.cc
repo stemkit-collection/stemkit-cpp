@@ -45,6 +45,13 @@ getHostAddress() const
   return getAddress().join(".");
 }
 
+const sk::util::String 
+sk::net::ip4::InetAddress::
+resolve() const
+{
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
+}
+
 bool 
 sk::net::ip4::InetAddress::
 isLoopbackAddress() const
