@@ -79,8 +79,8 @@ namespace {
     sk::net::InetAddress* create() const {
       sk::rt::Actions actions;
 
-      actions.add("ip4", *this, &ByAddressSelectorCreator::tryIp4);
-      actions.add("ip6", *this, &ByAddressSelectorCreator::tryIp6);
+      actions.add("ip4-a", *this, &ByAddressSelectorCreator::tryIp4);
+      actions.add("ip6-a", *this, &ByAddressSelectorCreator::tryIp6);
       actions.add("error", *this, &ByAddressSelectorCreator::error);
 
       actions.performUntilSuccess(true);
@@ -136,8 +136,8 @@ namespace {
       for(struct addrinfo* item = _items; item != 0; item = item->ai_next) {
         sk::rt::Actions actions;
 
-        actions.add("ip4", *this, &ByNameSelectorCreator::tryIp4, *item);
-        actions.add("ip6", *this, &ByNameSelectorCreator::tryIp6, *item);
+        actions.add("ip4-n", *this, &ByNameSelectorCreator::tryIp4, *item);
+        actions.add("ip6-n", *this, &ByNameSelectorCreator::tryIp6, *item);
         actions.add("error", *this, &ByNameSelectorCreator::error, *item);
 
         actions.performUntilSuccess(true);
