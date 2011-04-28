@@ -112,7 +112,10 @@ bind(const InetSocketAddress& endpoint, int backlog)
   }
   undo.add("reset", *this, &sk::net::ServerSocket::close);
 
-  if(listen(_socket, getBacklog()) == -1) {
+  if(::bind(_socket, 0, 0) == -1) {
+    throw sk::rt::SystemException("bind()");
+  }
+  if(::listen(_socket, getBacklog()) == -1) {
     throw sk::rt::SystemException("listen()");
   }
   undo.clear();
