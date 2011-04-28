@@ -13,6 +13,7 @@
 #include <sk/util/Holder.cxx>
 
 #include <sk/net/InetSocketAddress.h>
+#include <sk/net/InetAddress.h>
 
 static const char* __className("sk::net::InetSocketAddress");
 

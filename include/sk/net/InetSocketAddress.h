@@ -13,10 +13,11 @@
 
 #include <sk/util/Holder.hxx>
 #include <sk/net/SocketAddress.h>
-#include <sk/net/InetAddress.h>
 
 namespace sk {
   namespace net {
+    class InetAddress;
+
     class InetSocketAddress 
       : public sk::net::SocketAddress
     {

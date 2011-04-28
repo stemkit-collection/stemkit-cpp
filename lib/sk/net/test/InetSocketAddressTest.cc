@@ -10,6 +10,7 @@
 
 #include "InetSocketAddressTest.h"
 #include <sk/net/InetSocketAddress.h>
+#include <sk/net/InetAddress.h>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::net::test::InetSocketAddressTest);
 
