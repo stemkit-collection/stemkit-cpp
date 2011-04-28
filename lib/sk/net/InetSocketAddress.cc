@@ -10,6 +10,7 @@
 
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
+#include <sk/util/Holder.cxx>
 
 #include <sk/net/InetSocketAddress.h>
 
@@ -17,13 +18,13 @@ static const char* __className("sk::net::InetSocketAddress");
 
 sk::net::InetSocketAddress::
 InetSocketAddress(const sk::net::InetAddress& address, uint16_t port)
-  : _port(port) 
+  : _addressHolder(address), _port(port) 
 {
 }
 
 sk::net::InetSocketAddress::
 InetSocketAddress(const sk::util::String& hostname, uint16_t port)
-  : _port(port) 
+  : _addressHolder(sk::net::InetAddress::getByName(hostname)), _port(port) 
 {
 }
 
@@ -45,9 +46,37 @@ getClass() const
   return sk::util::Class(__className);
 }
 
+const sk::util::String
+sk::net::InetSocketAddress::
+toString() const
+{
+  return _addressHolder.get().toString() + ':' + sk::util::String::valueOf(_port);
+}
+
 uint16_t 
 sk::net::InetSocketAddress::
 getPort() const
 {
   return _port;
+}
+
+const sk::net::InetAddress&
+sk::net::InetSocketAddress::
+getAddress() const 
+{
+  return _addressHolder.get();
+}
+
+const sk::util::String
+sk::net::InetSocketAddress::
+getHostName() const
+{
+  return _addressHolder.get().getHostName();
+}
+
+bool
+sk::net::InetSocketAddress::
+isResolved() const 
+{
+  return _addressHolder.get().isResolved();
 }
