@@ -55,6 +55,14 @@ getClass() const
   return sk::util::Class(__className);
 }
 
+void 
+sk::net::InetAddressFactory::
+clearCache()
+{
+  // sk::util::Locker locker(_lock.writeLock());
+  _cache.clear();
+}
+
 namespace {
   struct ByAddressSelectorCreator : public virtual sk::util::Selector<sk::net::InetAddress> {
     ByAddressSelectorCreator(const sk::util::bytes& components, sk::util::Holder<sk::net::InetAddress>& holder)

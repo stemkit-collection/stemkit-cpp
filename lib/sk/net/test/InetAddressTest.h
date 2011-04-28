@@ -22,6 +22,7 @@ namespace sk {
       {
         CPPUNIT_TEST_SUITE(sk::net::test::InetAddressTest);
           CPPUNIT_TEST(test_creates_unresolved_ip4_address);
+          CPPUNIT_TEST(test_clones_ip4_address);
         CPPUNIT_TEST_SUITE_END();
       
         public:
@@ -31,6 +32,7 @@ namespace sk {
           void setUp();
           void tearDown();
           void test_creates_unresolved_ip4_address();
+          void test_clones_ip4_address();
       
         private:
           InetAddressTest(const InetAddressTest& other);

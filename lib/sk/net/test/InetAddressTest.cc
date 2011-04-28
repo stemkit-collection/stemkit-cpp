@@ -10,6 +10,8 @@
 
 #include "InetAddressTest.h"
 #include <sk/net/InetAddress.h>
+#include <sk/util/Holder.cxx>
+#include <sk/util/covariant.h>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::net::test::InetAddressTest);
 
@@ -27,6 +29,7 @@ void
 sk::net::test::InetAddressTest::
 setUp()
 {
+  sk::net::InetAddress::clearCache();
 }
 
 void
@@ -40,6 +43,17 @@ sk::net::test::InetAddressTest::
 test_creates_unresolved_ip4_address()
 {
   sk::net::InetAddress& address = sk::net::InetAddress::getByAddress(sk::util::bytes(1) << 2 << 3 << 4);
+  CPPUNIT_ASSERT_EQUAL("1.2.3.4", address.getHostAddress());
+  CPPUNIT_ASSERT(address.isResolved() == false);
+}
+
+void
+sk::net::test::InetAddressTest::
+test_clones_ip4_address()
+{
+  sk::net::InetAddress& address = sk::net::InetAddress::getByAddress(sk::util::bytes(1) << 2 << 3 << 4);
+  sk::util::Holder<sk::net::InetAddress> cloneHolder(sk::util::covariant<sk::net::InetAddress>(address.clone()));
+
   CPPUNIT_ASSERT_EQUAL("1.2.3.4", address.getHostAddress());
   CPPUNIT_ASSERT(address.isResolved() == false);
 }

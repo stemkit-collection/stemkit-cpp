@@ -118,3 +118,10 @@ getLocalHost()
 {
   return InetAddressFactory::instance().findOrCreateLocalHost();
 }
+
+void
+sk::net::InetAddress::
+clearCache()
+{
+  return InetAddressFactory::instance().clearCache();
+}

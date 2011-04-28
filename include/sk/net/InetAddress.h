@@ -27,6 +27,8 @@ namespace sk {
         static const InetAddress& getByName(const sk::util::String& name);
         static const InetAddress& getLocalHost();
 
+        static void clearCache();
+
         bool isResolved() const;
         InetAddress& resolve(bool tolerate = true);
 

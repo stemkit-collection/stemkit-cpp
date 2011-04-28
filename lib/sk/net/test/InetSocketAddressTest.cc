@@ -27,6 +27,7 @@ void
 sk::net::test::InetSocketAddressTest::
 setUp()
 {
+  sk::net::InetAddress::clearCache();
 }
 
 void

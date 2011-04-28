@@ -30,6 +30,7 @@ namespace sk {
         sk::net::InetAddress& findOrCreateByAddress(const sk::util::bytes& components);
         const sk::net::InetAddress& findOrCreateByName(const sk::util::String& name);
         const sk::net::InetAddress& findOrCreateLocalHost();
+        void clearCache();
 
         static sk::net::InetAddressFactory& instance();
     
