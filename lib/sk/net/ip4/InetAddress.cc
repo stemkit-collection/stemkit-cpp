@@ -141,6 +141,29 @@ isAnyLocalAddress() const
 
 bool 
 sk::net::ip4::InetAddress::
+isSiteLocalAddress() const
+{
+  const sk::util::bytes& addr = getAddress();
+  // 10.0.0.0/8
+  if (addr[0] == 0x0A) {
+    return true;
+  }
+
+  // 172.16.0.0/12
+  if (addr[0] == 0xAC && (addr[1] & 0xF0) == 0x01) {
+    return true;
+  }
+
+  // 192.168.0.0/16
+  if (addr[0] == 0xC0 && addr[1] == 0xA8) {
+    return true;
+  }
+
+  return false;
+}
+
+bool 
+sk::net::ip4::InetAddress::
 isMulticastAddress() const
 {
   return (getAddress()[0] & 0xF0) == 0xE0;

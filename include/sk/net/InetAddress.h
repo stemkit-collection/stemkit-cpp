@@ -40,6 +40,7 @@ namespace sk {
         virtual const sk::util::String getHostAddress() const = 0;
         virtual bool isLoopbackAddress() const = 0;
         virtual bool isAnyLocalAddress() const = 0;
+        virtual bool isSiteLocalAddress() const = 0;
         virtual bool isMulticastAddress() const = 0;
 
         // sk::util::Object re-implementation.

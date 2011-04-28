@@ -91,6 +91,13 @@ isAnyLocalAddress() const
 
 bool 
 sk::net::ip6::InetAddress::
+isSiteLocalAddress() const
+{
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
+}
+
+bool 
+sk::net::ip6::InetAddress::
 isMulticastAddress() const
 {
   throw sk::util::UnsupportedOperationException(SK_METHOD);
