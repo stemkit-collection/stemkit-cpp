@@ -32,6 +32,12 @@ InetAddress(const sk::util::bytes& components, const sk::util::String& name)
 }
 
 sk::net::InetAddress::
+InetAddress(const InetAddress& other)
+  : _address(other._address), _hostName(other._hostName), _resolved(other._resolved)
+{
+}
+
+sk::net::InetAddress::
 ~InetAddress()
 {
 }
