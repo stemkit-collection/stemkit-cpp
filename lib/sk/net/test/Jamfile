@@ -1,3 +1,18 @@
 # vim: ft=jam: sw=2:
 
+local test = sk-net-test ;
+
+local objects = 
+  TestSuite.cc
+  InetAddressTest.cc
+;
+
+use-unit-test $(test) $(objects) ;
+use-project-libraries $(test) :
+  sk.net
+  sk.rt.thread
+  sk.cppunit
+;
+make-cpp-test $(test) : $(objects) ;
+
 make-subdirs functional ;
