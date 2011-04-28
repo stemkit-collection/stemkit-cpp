@@ -37,7 +37,6 @@ namespace sk {
         const sk::util::String toString() const;
     
       private:
-        InetSocketAddress(const InetSocketAddress& other);
         InetSocketAddress& operator = (const InetSocketAddress& other);
 
         sk::util::Holder<sk::net::InetAddress>::Cloning _addressHolder;

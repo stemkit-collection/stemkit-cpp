@@ -14,33 +14,40 @@
 #include <sk/util/UnsupportedOperationException.h>
 #include <sk/util/IllegalStateException.h>
 
+#include <sk/io/IOException.h>
+#include <sk/rt/Actions.h>
+#include <sk/rt/SystemException.h>
+
 #include <sk/net/ServerSocket.h>
 #include <sk/net/InetSocketAddress.h>
+#include <sk/net/InetAddress.h>
+
+#include <sys/socket.h>
 
 static const char* __className("sk::net::ServerSocket");
 
 sk::net::ServerSocket::
 ServerSocket()
-  : _bound(false)
+  : _backlog(0), _socket(-1)
 {
 }
 
 sk::net::ServerSocket::
 ServerSocket(int port)
-  : _bound(false)
 {
+  bind(sk::net::InetSocketAddress(port));
 }
 
 sk::net::ServerSocket::
 ServerSocket(int port, int backlog)
-  : _bound(false)
 {
+  bind(sk::net::InetSocketAddress(port), backlog);
 }
 
 sk::net::ServerSocket::
 ServerSocket(int port, int backlog, const sk::net::InetAddress& bindAddress)
-  : _bound(false)
 {
+  bind(sk::net::InetSocketAddress(bindAddress, port), backlog);
 }
 
 sk::net::ServerSocket::
@@ -59,10 +66,17 @@ const sk::util::String
 sk::net::ServerSocket::
 toString() const
 {
-  if(_bound == false) {
+  if(isBound() == false) {
     return "<unbound server socket>";
   }
   return _endpointHolder.get().toString();
+}
+
+int 
+sk::net::ServerSocket::
+getBacklog() const
+{
+  return _backlog > 0 ? _backlog : 10;
 }
 
 sk::net::Socket 
@@ -84,28 +98,49 @@ void
 sk::net::ServerSocket::
 bind(const InetSocketAddress& endpoint, int backlog)
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  if(isBound() == true) {
+    throw sk::io::IOException(SK_METHOD);
+  }
+  sk::rt::Actions undo(true);
+
+  _backlog = backlog;
+  _endpointHolder.set(endpoint);
+
+  _socket = ::socket(PF_INET, SOCK_STREAM, 0);
+  if(_socket == -1) {
+    throw sk::rt::SystemException("socket()");
+  }
+  undo.add("reset", *this, &sk::net::ServerSocket::close);
+
+  if(listen(_socket, getBacklog()) == -1) {
+    throw sk::rt::SystemException("listen()");
+  }
+  undo.clear();
 }
 
 bool 
 sk::net::ServerSocket::
 isBound() const
 {
-  return _bound;
+  return _endpointHolder.isEmpty() == false;
 }
 
 void 
 sk::net::ServerSocket::
 close()
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  if(_socket != -1) {
+    ::close(_socket);
+    _socket = -1;
+  }
+  _endpointHolder.clear();
 }
 
 void
 sk::net::ServerSocket::
 ensureBound() const
 {
-  if(_bound == false) {
+  if(isBound() == false) {
     throw sk::util::IllegalStateException("Server socket not bound");
   }
 }

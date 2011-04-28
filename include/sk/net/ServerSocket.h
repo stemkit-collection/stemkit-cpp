@@ -36,6 +36,7 @@ namespace sk {
         void bind(const InetSocketAddress& endpoint);
         void bind(const InetSocketAddress& endpoint, int backlog);
         bool isBound() const;
+        int getBacklog() const;
 
         int getPort() const;
         const sk::net::InetSocketAddress& getSocketAddress() const;
@@ -60,8 +61,9 @@ namespace sk {
 
         void ensureBound() const;
 
-        bool _bound;
-        sk::util::Holder<sk::net::InetSocketAddress> _endpointHolder;
+        sk::util::Holder<sk::net::InetSocketAddress>::Copying _endpointHolder;
+        int _backlog;
+        int _socket;
     };
   }
 }
