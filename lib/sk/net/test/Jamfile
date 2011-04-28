@@ -1,18 +1,3 @@
-# vim: ft=jam: sw=2
+# vim: ft=jam: sw=2:
 
-local simple-programs =
-  sample-resolve
-  get-localhost
-  get-hostname
-;
-
-local _program ;
-for _program in $(simple-programs) {
-  use-project-libraries $(_program) : 
-    sk.net 
-    sk.rt.thread 
-    sk.rt.bundle 
-    sk.util 
-  ;
-  make-program $(_program) : $(_program).cc ;
-}
+make-subdirs functional ;
