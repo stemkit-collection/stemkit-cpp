@@ -5,6 +5,7 @@ local test = sk-net-test ;
 local objects = 
   TestSuite.cc
   InetAddressTest.cc
+  InetSocketAddressTest.cc
 ;
 
 use-unit-test $(test) $(objects) ;
