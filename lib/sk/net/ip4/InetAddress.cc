@@ -59,6 +59,13 @@ getClass() const
   return sk::util::Class(__className);
 }
 
+sk::util::Object*
+sk::net::ip4::InetAddress::
+clone() const
+{
+  return new sk::net::ip4::InetAddress(*this);
+}
+
 uint32_t
 sk::net::ip4::InetAddress::
 toNumber(const sk::util::bytes& components)
@@ -122,20 +129,20 @@ bool
 sk::net::ip4::InetAddress::
 isLoopbackAddress() const
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  return getAddress()[0] == 0x7F;
 }
 
 bool 
 sk::net::ip4::InetAddress::
 isAnyLocalAddress() const
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  return _number == 0;
 }
 
 bool 
 sk::net::ip4::InetAddress::
 isMulticastAddress() const
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  return (getAddress()[0] & 0xF0) == 0xE0;
 }
 

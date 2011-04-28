@@ -39,11 +39,9 @@ namespace sk {
 
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
+          sk::util::Object* clone() const;
           
         private:
-          InetAddress& operator = (const InetAddress& other);
-          InetAddress(const InetAddress& other);
-
           uint32_t _number;
       };
     }
