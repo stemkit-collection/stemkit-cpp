@@ -30,7 +30,7 @@ InetSocketAddress(const sk::util::String& hostname, uint16_t port)
 
 sk::net::InetSocketAddress::
 InetSocketAddress(uint16_t port)
-  : _port(port) 
+  : _addressHolder(sk::net::InetAddress::getByAddress(sk::util::bytes(0) << 0 << 0 << 0)), _port(port) 
 {
 }
 

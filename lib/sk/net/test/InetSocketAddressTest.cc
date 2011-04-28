@@ -41,5 +41,18 @@ sk::net::test::InetSocketAddressTest::
 test_creates_unresolved_ip4_address()
 {
   sk::net::InetSocketAddress address(sk::net::InetAddress::getByAddress(sk::util::bytes(2) << 3 << 4 << 5), 45);
-  CPPUNIT_ASSERT_EQUAL("", address.getHostName());
+  CPPUNIT_ASSERT_EQUAL("2.3.4.5", address.getHostName());
+  CPPUNIT_ASSERT_EQUAL(uint16_t(45), address.getPort());
+  CPPUNIT_ASSERT(address.isResolved() == false);
+}
+
+void
+sk::net::test::InetSocketAddressTest::
+test_creates_wildcard_address()
+{
+  sk::net::InetSocketAddress address(79);
+  CPPUNIT_ASSERT_EQUAL(uint16_t(79), address.getPort());
+  CPPUNIT_ASSERT(address.getAddress().isAnyLocalAddress() == true);
+  CPPUNIT_ASSERT(address.getAddress().isLoopbackAddress() == false);
+  CPPUNIT_ASSERT(address.getAddress().isMulticastAddress() == false);
 }
