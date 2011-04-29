@@ -2,6 +2,7 @@
 
 local simple-programs =
   sample-resolve
+  sample-listen
   get-localhost
   get-hostname
 ;
