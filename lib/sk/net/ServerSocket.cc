@@ -12,11 +12,6 @@
 #include <sk/util/String.h>
 #include <sk/util/Holder.cxx>
 #include <sk/util/UnsupportedOperationException.h>
-#include <sk/util/IllegalStateException.h>
-
-#include <sk/io/IOException.h>
-#include <sk/rt/Actions.h>
-#include <sk/rt/SystemException.h>
 
 #include <sk/net/ServerSocket.h>
 #include <sk/net/InetSocketAddress.h>
@@ -27,27 +22,27 @@
 static const sk::util::String __className("sk::net::ServerSocket");
 
 sk::net::ServerSocket::
-ServerSocket()
-  : _backlog(0)
-{
-}
-
-sk::net::ServerSocket::
 ServerSocket(int port)
+  : _addressHolder(new sk::net::InetSocketAddress(port)), _address(_addressHolder.get()),
+    _socketHolder(_address.makeDirectedSocket()), _socket(_socketHolder.get())
 {
-  bind(sk::net::InetSocketAddress(port));
+  setup(0);
 }
 
 sk::net::ServerSocket::
 ServerSocket(int port, int backlog)
+  : _addressHolder(new sk::net::InetSocketAddress(port)), _address(_addressHolder.get()),
+    _socketHolder(_address.makeDirectedSocket()), _socket(_socketHolder.get())
 {
-  bind(sk::net::InetSocketAddress(port), backlog);
+  setup(backlog);
 }
 
 sk::net::ServerSocket::
 ServerSocket(int port, int backlog, const sk::net::InetAddress& bindAddress)
+  : _addressHolder(new sk::net::InetSocketAddress(bindAddress, port)), _address(_addressHolder.get()),
+    _socketHolder(_address.makeDirectedSocket()), _socket(_socketHolder.get())
 {
-  bind(sk::net::InetSocketAddress(bindAddress, port), backlog);
+  setup(backlog);
 }
 
 sk::net::ServerSocket::
@@ -66,93 +61,36 @@ const sk::util::String
 sk::net::ServerSocket::
 toString() const
 {
-  if(isBound() == false) {
-    return "<unbound server socket>";
-  }
-  return _endpointHolder.get().toString();
-}
-
-int 
-sk::net::ServerSocket::
-getBacklog() const
-{
-  return _backlog > 0 ? _backlog : 10;
+  return _address.toString();
 }
 
 sk::net::Socket 
 sk::net::ServerSocket::
 accept()
 {
-  ensureBound();
   throw sk::util::UnsupportedOperationException(SK_METHOD);
 }
 
 void 
 sk::net::ServerSocket::
-bind(const InetSocketAddress& endpoint)
+setup(int backlog)
 {
-  bind(endpoint, 0);
-}
-
-void 
-sk::net::ServerSocket::
-bind(const InetSocketAddress& endpoint, int backlog)
-{
-  if(isBound() == true) {
-    throw sk::io::IOException(SK_METHOD);
-  }
-  _backlog = backlog;
-
-  sk::rt::Actions undo(true);
-  undo.add("reset", *this, &sk::net::ServerSocket::close);
-
-  _endpointHolder.set(endpoint);
-  _socketHolder.set(_endpointHolder.get().makeDirectedSocket());
-
-  _socketHolder.get().bind();
-  _socketHolder.get().listen(getBacklog());
-
-  undo.clear();
-}
-
-bool 
-sk::net::ServerSocket::
-isBound() const
-{
-  return _endpointHolder.isEmpty() == false;
-}
-
-void 
-sk::net::ServerSocket::
-close()
-{
-  _socketHolder.clear();
-  _endpointHolder.clear();
-}
-
-void
-sk::net::ServerSocket::
-ensureBound() const
-{
-  if(isBound() == false) {
-    throw sk::util::IllegalStateException("Server socket not bound");
-  }
+  _socket.bind();
+  _socket.listen(backlog > 0 ? _backlog : 5);
 }
 
 int 
 sk::net::ServerSocket::
 getPort() const
 {
-  ensureBound();
-  return _endpointHolder.get().getPort();
+  return _address.getPort();
 }
 
 const sk::net::InetSocketAddress& 
 sk::net::ServerSocket::
 getSocketAddress() const
 {
-  ensureBound();
-  return _endpointHolder.get();
+  return _address;
 }
 
 const sk::net::InetAddress& 

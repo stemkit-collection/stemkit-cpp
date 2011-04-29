@@ -25,19 +25,12 @@ namespace sk {
       : public virtual sk::util::Object
     {
       public:
-        ServerSocket();
         ServerSocket(int port);
         ServerSocket(int port, int backlog);
         ServerSocket(int port, int backlog, const sk::net::InetAddress& bindAddress);
         virtual ~ServerSocket();
 
         sk::net::Socket accept();
-        void close();
-
-        void bind(const InetSocketAddress& endpoint);
-        void bind(const InetSocketAddress& endpoint, int backlog);
-        bool isBound() const;
-        int getBacklog() const;
 
         int getPort() const;
         const sk::net::InetSocketAddress& getSocketAddress() const;
@@ -60,11 +53,13 @@ namespace sk {
         ServerSocket(const ServerSocket& other);
         ServerSocket& operator = (const ServerSocket& other);
 
-        void ensureBound() const;
+        void setup(int backlog);
 
         int _backlog;
-        sk::util::Holder<sk::net::InetSocketAddress> _endpointHolder;
+        sk::util::Holder<sk::net::InetSocketAddress> _addressHolder;
+        const sk::net::InetSocketAddress& _address;
         sk::util::Holder<sk::net::DirectedSocket> _socketHolder;
+        const sk::net::DirectedSocket& _socket;
     };
   }
 }
