@@ -26,17 +26,18 @@ int main(int argc, const char* const argv[])
 {
   sk::net::ServerSocket server(8787);
   std::cerr << "Listening on " << server << std::endl;
+  
   sk::net::Socket socket = server.accept();
-
   std::cerr << "Got connection from " << socket.getRemoteAddress() << ", port " << socket.getRemotePort() << std::endl;
 
   sk::io::DataInputStream inputStream(socket.inputStream());
   sk::io::DataOutputStream outputStream(socket.outputStream());
+
   try { 
     while(true) {
       const sk::util::String line = inputStream.readLine();
-      std::cerr << "L: " << line.inspect() << std::endl;
 
+      std::cerr << "L: " << line.inspect() << std::endl;
       outputStream.writeChars(line.toUpperCase());
     }
   }
