@@ -22,6 +22,8 @@
 #include <netdb.h>
 #include <arpa/inet.h>
 
+#include "DirectedSocket.h"
+
 static const sk::util::String __className("sk::net::ip4::InetAddress");
 
 namespace {
@@ -184,23 +186,9 @@ getAnyLocalAddress()
   return sk::net::InetAddress::getByAddress(sk::util::bytes(0) << 0 << 0 << 0);
 }
 
-int
+sk::net::DirectedSocket*
 sk::net::ip4::InetAddress::
-makeBoundSocket(uint16_t port) const
+makeDirectedSocket(uint16_t port) const
 {
-  int socket = ::socket(PF_INET, SOCK_STREAM, 0);
-  if(socket == -1) {
-    throw sk::rt::SystemException("socket()");
-  }
-  sockaddr_in addr = { 0 };
-
-  addr.sin_family = AF_INET;
-  addr.sin_port = port;
-  addr.sin_addr.s_addr = _number;
-
-  if(::bind(socket, reinterpret_cast<sockaddr*>(&addr), sizeof(addr)) == -1) {
-    ::close(socket);
-    throw sk::rt::SystemException("bind()");
-  }
-  return socket;
+  return new sk::net::ip4::DirectedSocket(_number, port);
 }

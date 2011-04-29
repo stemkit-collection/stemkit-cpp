@@ -82,9 +82,9 @@ isResolved() const
   return _addressHolder.get().isResolved();
 }
 
-int 
+sk::net::DirectedSocket*
 sk::net::InetSocketAddress::
-makeBoundSocket() const 
+makeDirectedSocket() const
 {
-  return getAddress().makeBoundSocket(_port);
+  return getAddress().makeDirectedSocket(_port);
 }

@@ -19,6 +19,7 @@ namespace sk {
   namespace net {
     class InetAddress;
     class InetSocketAddress;
+    class DirectedSocket;
 
     class ServerSocket 
       : public virtual sk::util::Object
@@ -61,9 +62,9 @@ namespace sk {
 
         void ensureBound() const;
 
-        sk::util::Holder<sk::net::InetSocketAddress>::Copying _endpointHolder;
         int _backlog;
-        int _socket;
+        sk::util::Holder<sk::net::InetSocketAddress> _endpointHolder;
+        sk::util::Holder<sk::net::DirectedSocket> _socketHolder;
     };
   }
 }

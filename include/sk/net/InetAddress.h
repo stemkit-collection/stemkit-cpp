@@ -17,6 +17,8 @@
 
 namespace sk {
   namespace net {
+    class DirectedSocket;
+
     class InetAddress 
       : public virtual sk::util::Object
     {
@@ -43,7 +45,7 @@ namespace sk {
         virtual bool isSiteLocalAddress() const = 0;
         virtual bool isMulticastAddress() const = 0;
 
-        virtual int makeBoundSocket(uint16_t port) const = 0;
+        virtual sk::net::DirectedSocket* makeDirectedSocket(uint16_t port) const = 0;
 
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;

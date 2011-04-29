@@ -103,9 +103,9 @@ isMulticastAddress() const
   throw sk::util::UnsupportedOperationException(SK_METHOD);
 }
 
-int
+sk::net::DirectedSocket*
 sk::net::ip6::InetAddress::
-makeBoundSocket(uint16_t port) const
+makeDirectedSocket(uint16_t port) const
 {
   throw sk::util::UnsupportedOperationException(SK_METHOD);
 }

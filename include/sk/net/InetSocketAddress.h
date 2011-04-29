@@ -17,6 +17,7 @@
 namespace sk {
   namespace net {
     class InetAddress;
+    class DirectedSocket;
 
     class InetSocketAddress 
       : public sk::net::SocketAddress
@@ -32,8 +33,8 @@ namespace sk {
         uint16_t getPort() const;
         bool isResolved() const;
 
-        int makeBoundSocket() const;
-    
+        sk::net::DirectedSocket* makeDirectedSocket() const;
+
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
         const sk::util::String toString() const;

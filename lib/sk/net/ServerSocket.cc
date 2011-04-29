@@ -22,13 +22,13 @@
 #include <sk/net/InetSocketAddress.h>
 #include <sk/net/InetAddress.h>
 
-#include <sys/socket.h>
+#include "DirectedSocket.h"
 
 static const sk::util::String __className("sk::net::ServerSocket");
 
 sk::net::ServerSocket::
 ServerSocket()
-  : _backlog(0), _socket(-1)
+  : _backlog(0)
 {
 }
 
@@ -101,19 +101,17 @@ bind(const InetSocketAddress& endpoint, int backlog)
   if(isBound() == true) {
     throw sk::io::IOException(SK_METHOD);
   }
-
-  _socket = -1;
   _backlog = backlog;
 
   sk::rt::Actions undo(true);
-  _endpointHolder.set(endpoint);
   undo.add("reset", *this, &sk::net::ServerSocket::close);
 
-  _socket = _endpointHolder.get().makeBoundSocket();
+  _endpointHolder.set(endpoint);
+  _socketHolder.set(_endpointHolder.get().makeDirectedSocket());
 
-  if(::listen(_socket, getBacklog()) == -1) {
-    throw sk::rt::SystemException("listen()");
-  }
+  _socketHolder.get().bind();
+  _socketHolder.get().listen(getBacklog());
+
   undo.clear();
 }
 
@@ -128,10 +126,7 @@ void
 sk::net::ServerSocket::
 close()
 {
-  if(_socket != -1) {
-    ::close(_socket);
-    _socket = -1;
-  }
+  _socketHolder.clear();
   _endpointHolder.clear();
 }
 
