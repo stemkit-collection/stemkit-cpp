@@ -53,7 +53,10 @@ const sk::util::String
 sk::net::InetAddress::
 toString() const
 {
-  return (_resolved == false ? sk::util::String("\?\?\?") : _hostName ) + '/' + getHostAddress();
+  if(_resolved == false) {
+    return getHostAddress();
+  }
+  return _hostName + '/' + getHostAddress();
 }
 
 const sk::util::bytes&
