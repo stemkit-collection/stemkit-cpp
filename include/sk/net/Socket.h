@@ -17,19 +17,22 @@ namespace sk {
   namespace net {
     class DirectedSocket;
     class InetSocketAddress;
+    class ServerSocket;
 
     class Socket 
       : public virtual sk::util::Object
     {
       public:
-        Socket(sk::net::DirectedSocket* directedSocket, const sk::net::InetSocketAddress& localSocketAddress);
         virtual ~Socket();
     
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
     
       private:
+        Socket(sk::net::DirectedSocket* directedSocket, const sk::net::InetSocketAddress& localSocketAddress);
         Socket& operator = (const Socket& other);
+
+        friend class sk::net::ServerSocket;
     };
   }
 }
