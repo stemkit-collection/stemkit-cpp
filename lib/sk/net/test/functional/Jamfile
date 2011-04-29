@@ -2,6 +2,7 @@
 
 local simple-programs =
   sample-resolve
+  sample-connector
   echo-server
   get-localhost
   get-hostname
