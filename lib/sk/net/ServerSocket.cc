@@ -23,24 +23,24 @@ static const sk::util::String __className("sk::net::ServerSocket");
 
 sk::net::ServerSocket::
 ServerSocket(int port)
-  : _addressHolder(new sk::net::InetSocketAddress(port)), _address(_addressHolder.get()),
-    _socketHolder(_address.makeDirectedSocket()), _socket(_socketHolder.get())
+  : _socketAddressHolder(new sk::net::InetSocketAddress(port)), _socketAddress(_socketAddressHolder.get()),
+    _socketHolder(_socketAddress.makeDirectedSocket()), _socket(_socketHolder.get())
 {
   setup(0);
 }
 
 sk::net::ServerSocket::
 ServerSocket(int port, int backlog)
-  : _addressHolder(new sk::net::InetSocketAddress(port)), _address(_addressHolder.get()),
-    _socketHolder(_address.makeDirectedSocket()), _socket(_socketHolder.get())
+  : _socketAddressHolder(new sk::net::InetSocketAddress(port)), _socketAddress(_socketAddressHolder.get()),
+    _socketHolder(_socketAddress.makeDirectedSocket()), _socket(_socketHolder.get())
 {
   setup(backlog);
 }
 
 sk::net::ServerSocket::
 ServerSocket(int port, int backlog, const sk::net::InetAddress& bindAddress)
-  : _addressHolder(new sk::net::InetSocketAddress(bindAddress, port)), _address(_addressHolder.get()),
-    _socketHolder(_address.makeDirectedSocket()), _socket(_socketHolder.get())
+  : _socketAddressHolder(new sk::net::InetSocketAddress(bindAddress, port)), _socketAddress(_socketAddressHolder.get()),
+    _socketHolder(_socketAddress.makeDirectedSocket()), _socket(_socketHolder.get())
 {
   setup(backlog);
 }
@@ -61,7 +61,7 @@ const sk::util::String
 sk::net::ServerSocket::
 toString() const
 {
-  return _address.toString();
+  return _socketAddress.toString();
 }
 
 sk::net::Socket 
@@ -83,14 +83,14 @@ int
 sk::net::ServerSocket::
 getPort() const
 {
-  return _address.getPort();
+  return _socketAddress.getPort();
 }
 
 const sk::net::InetSocketAddress& 
 sk::net::ServerSocket::
 getSocketAddress() const
 {
-  return _address;
+  return _socketAddress;
 }
 
 const sk::net::InetAddress& 

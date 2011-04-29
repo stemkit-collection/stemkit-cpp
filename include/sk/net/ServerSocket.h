@@ -56,8 +56,8 @@ namespace sk {
         void setup(int backlog);
 
         int _backlog;
-        sk::util::Holder<sk::net::InetSocketAddress> _addressHolder;
-        const sk::net::InetSocketAddress& _address;
+        sk::util::Holder<sk::net::InetSocketAddress> _socketAddressHolder;
+        const sk::net::InetSocketAddress& _socketAddress;
         sk::util::Holder<sk::net::DirectedSocket> _socketHolder;
         const sk::net::DirectedSocket& _socket;
     };
