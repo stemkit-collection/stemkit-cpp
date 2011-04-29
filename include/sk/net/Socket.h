@@ -17,6 +17,7 @@
 #include <sk/io/OutputStream.h>
 
 #include <sk/net/InetSocketAddress.h>
+#include <sk/net/InetAddress.h>
 
 namespace sk {
   namespace net {
