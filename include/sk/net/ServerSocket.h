@@ -31,6 +31,7 @@ namespace sk {
         virtual ~ServerSocket();
 
         sk::net::Socket accept();
+        void close();
 
         const sk::net::InetSocketAddress& getSocketAddress() const;
         const sk::net::InetAddress& getInetAddress() const;
@@ -55,10 +56,7 @@ namespace sk {
         void setup(int backlog);
 
         sk::util::Holder<sk::net::InetSocketAddress>::Direct _socketAddressHolder;
-        const sk::net::InetSocketAddress& _socketAddress;
-
         sk::util::Holder<sk::net::DirectedSocket>::Direct _socketHolder;
-        const sk::net::DirectedSocket& _socket;
     };
   }
 }
