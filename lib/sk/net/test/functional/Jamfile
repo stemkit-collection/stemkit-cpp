@@ -2,7 +2,7 @@
 
 local simple-programs =
   sample-resolve
-  sample-listen
+  echo-server
   get-localhost
   get-hostname
 ;

@@ -15,7 +15,11 @@
 
 #include <sk/net/ServerSocket.h>
 #include <sk/io/InputStream.h>
+#include <sk/io/OutputStream.h>
+
 #include <sk/io/DataInputStream.h>
+#include <sk/io/DataOutputStream.h>
+
 #include <sk/io/EOFException.h>
 
 int main(int argc, const char* const argv[])
@@ -26,10 +30,14 @@ int main(int argc, const char* const argv[])
 
   std::cerr << "Got connection from " << socket.getRemoteAddress() << ", port " << socket.getRemotePort() << std::endl;
 
-  sk::io::DataInputStream stream(socket.inputStream());
+  sk::io::DataInputStream inputStream(socket.inputStream());
+  sk::io::DataOutputStream outputStream(socket.outputStream());
   try { 
     while(true) {
-      std::cerr << "L: " << stream.readLine().strip().inspect() << std::endl;
+      const sk::util::String line = inputStream.readLine();
+      std::cerr << "L: " << line.inspect() << std::endl;
+
+      outputStream.writeChars(line.toUpperCase());
     }
   }
   catch(const sk::io::EOFException& exception) {}
