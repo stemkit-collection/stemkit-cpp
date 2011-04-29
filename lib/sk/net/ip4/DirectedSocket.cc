@@ -116,7 +116,7 @@ sk::net::InetAddress&
 sk::net::ip4::DirectedSocket::
 getAddress() const
 {
-  return sk::net::InetAddress::getByAddress(sk::net::ip4::InetAddress::toComponents(_address.sin_addr.s_addr));
+  return sk::net::InetAddress::getByAddress(sk::net::ip4::InetAddress::toComponents(ntohl(_address.sin_addr.s_addr)));
 }
 
 sk::io::InputStream&

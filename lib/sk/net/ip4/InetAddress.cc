@@ -34,7 +34,7 @@ namespace {
     if(info.ai_addrlen != sizeof(sockaddr_in)) {
       throw sk::util::IllegalStateException("Wrong IPv4 address length", sk::util::Strings(sk::util::String::valueOf(info.ai_addrlen)) << name);
     }
-    return sk::net::ip4::InetAddress::toComponents(reinterpret_cast<struct sockaddr_in*>(info.ai_addr)->sin_addr.s_addr);
+    return sk::net::ip4::InetAddress::toComponents(ntohl(reinterpret_cast<struct sockaddr_in*>(info.ai_addr)->sin_addr.s_addr));
   }
 }
 
@@ -93,7 +93,7 @@ toComponents(uint32_t number)
   } data;
   data.number = htonl(number);
 
-  return sk::util::bytes(data.c[3]) << data.c[2] << data.c[1] << data.c[0];
+  return sk::util::bytes(data.c[0]) << data.c[1] << data.c[2] << data.c[3];
 }
 
 const sk::util::String
