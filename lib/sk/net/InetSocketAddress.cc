@@ -81,3 +81,10 @@ isResolved() const
 {
   return _addressHolder.get().isResolved();
 }
+
+int 
+sk::net::InetSocketAddress::
+makeBoundSocket() const 
+{
+  return getAddress().makeBoundSocket(_port);
+}

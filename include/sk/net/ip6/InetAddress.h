@@ -35,6 +35,9 @@ namespace sk {
           bool isSiteLocalAddress() const;
           bool isMulticastAddress() const;
 
+          // sk::net::InetAddress implementation.
+          int makeBoundSocket(uint16_t port) const;
+
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
       

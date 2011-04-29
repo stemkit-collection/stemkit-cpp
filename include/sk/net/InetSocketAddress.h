@@ -31,6 +31,8 @@ namespace sk {
         const sk::util::String getHostName() const;
         uint16_t getPort() const;
         bool isResolved() const;
+
+        int makeBoundSocket() const;
     
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;

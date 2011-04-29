@@ -24,7 +24,7 @@
 
 #include <sys/socket.h>
 
-static const char* __className("sk::net::ServerSocket");
+static const sk::util::String __className("sk::net::ServerSocket");
 
 sk::net::ServerSocket::
 ServerSocket()
@@ -101,20 +101,16 @@ bind(const InetSocketAddress& endpoint, int backlog)
   if(isBound() == true) {
     throw sk::io::IOException(SK_METHOD);
   }
-  sk::rt::Actions undo(true);
 
+  _socket = -1;
   _backlog = backlog;
-  _endpointHolder.set(endpoint);
 
-  _socket = ::socket(PF_INET, SOCK_STREAM, 0);
-  if(_socket == -1) {
-    throw sk::rt::SystemException("socket()");
-  }
+  sk::rt::Actions undo(true);
+  _endpointHolder.set(endpoint);
   undo.add("reset", *this, &sk::net::ServerSocket::close);
 
-  if(::bind(_socket, 0, 0) == -1) {
-    throw sk::rt::SystemException("bind()");
-  }
+  _socket = _endpointHolder.get().makeBoundSocket();
+
   if(::listen(_socket, getBacklog()) == -1) {
     throw sk::rt::SystemException("listen()");
   }

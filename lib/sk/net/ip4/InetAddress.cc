@@ -12,6 +12,7 @@
 #include <sk/util/Strings.h>
 #include <sk/util/UnsupportedOperationException.h>
 #include <sk/util/IllegalStateException.h>
+#include <sk/rt/SystemException.h>
 
 #include <sk/net/ip4/InetAddress.h>
 #include <sk/net/UnknownHostException.h>
@@ -181,4 +182,25 @@ sk::net::ip4::InetAddress::
 getAnyLocalAddress()
 {
   return sk::net::InetAddress::getByAddress(sk::util::bytes(0) << 0 << 0 << 0);
+}
+
+int
+sk::net::ip4::InetAddress::
+makeBoundSocket(uint16_t port) const
+{
+  int socket = ::socket(PF_INET, SOCK_STREAM, 0);
+  if(socket == -1) {
+    throw sk::rt::SystemException("socket()");
+  }
+  sockaddr_in addr = { 0 };
+
+  addr.sin_family = AF_INET;
+  addr.sin_port = port;
+  addr.sin_addr.s_addr = _number;
+
+  if(::bind(socket, reinterpret_cast<sockaddr*>(&addr), sizeof(addr)) == -1) {
+    ::close(socket);
+    throw sk::rt::SystemException("bind()");
+  }
+  return socket;
 }
