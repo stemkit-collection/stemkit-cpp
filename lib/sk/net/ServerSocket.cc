@@ -68,7 +68,7 @@ sk::net::Socket
 sk::net::ServerSocket::
 accept()
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  return sk::net::Socket(_socket.accept(), _socketAddress);
 }
 
 void 

@@ -15,18 +15,20 @@
 
 namespace sk {
   namespace net {
+    class DirectedSocket;
+    class InetSocketAddress;
+
     class Socket 
       : public virtual sk::util::Object
     {
       public:
-        Socket();
+        Socket(sk::net::DirectedSocket* directedSocket, const sk::net::InetSocketAddress& localSocketAddress);
         virtual ~Socket();
     
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
     
       private:
-        Socket(const Socket& other);
         Socket& operator = (const Socket& other);
     };
   }
