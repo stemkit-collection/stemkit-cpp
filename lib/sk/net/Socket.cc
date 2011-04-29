@@ -20,6 +20,22 @@
 static const sk::util::String __className("sk::net::Socket");
 
 sk::net::Socket::
+Socket(const sk::net::InetAddress& address, int port)
+  : _directedSocketHolder(address.makeDirectedSocket(port)),
+    _localEndpointHolder(new sk::net::InetSocketAddress(0))
+{
+  _directedSocketHolder.get().connect();
+}
+
+sk::net::Socket::
+Socket(const sk::util::String& host, int port)
+  : _directedSocketHolder(sk::net::InetAddress::getByName(host).makeDirectedSocket(port)),
+    _localEndpointHolder(new sk::net::InetSocketAddress(0))
+{
+  _directedSocketHolder.get().connect();
+}
+
+sk::net::Socket::
 Socket(sk::net::DirectedSocket* directedSocket, const sk::net::InetSocketAddress& localSocketAddress)
   : _directedSocketHolder(directedSocket), _localEndpointHolder(localSocketAddress)
 {
