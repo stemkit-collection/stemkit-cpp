@@ -118,3 +118,17 @@ getAddress() const
 {
   return sk::net::InetAddress::getByAddress(sk::net::ip4::InetAddress::toComponents(_address.sin_addr.s_addr));
 }
+
+sk::io::InputStream&
+sk::net::ip4::DirectedSocket::
+inputStream() const
+{
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
+}
+
+sk::io::OutputStream&
+sk::net::ip4::DirectedSocket::
+outputStream() const
+{
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
+}

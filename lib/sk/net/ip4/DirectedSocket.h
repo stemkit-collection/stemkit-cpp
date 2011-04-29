@@ -35,6 +35,8 @@ namespace sk {
           sk::net::DirectedSocket* accept() const;
           uint16_t getPort() const;
           sk::net::InetAddress& getAddress() const;
+          sk::io::InputStream& inputStream() const;
+          sk::io::OutputStream& outputStream() const;
       
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;

@@ -12,6 +12,8 @@
 #define _SK_NET_DIRECTEDSOCKET_H_
 
 #include <sk/util/Object.h>
+#include <sk/io/InputStream.h>
+#include <sk/io/OutputStream.h>
 
 namespace sk {
   namespace net {
@@ -27,6 +29,8 @@ namespace sk {
         virtual uint16_t getPort() const = 0;
         virtual sk::net::InetAddress& getAddress() const = 0;
         virtual sk::net::DirectedSocket* accept() const = 0;
+        virtual sk::io::InputStream& inputStream() const = 0;
+        virtual sk::io::OutputStream& outputStream() const = 0;
     };
   }
 }
