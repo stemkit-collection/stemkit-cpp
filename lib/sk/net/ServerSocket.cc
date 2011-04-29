@@ -76,7 +76,7 @@ sk::net::ServerSocket::
 setup(int backlog)
 {
   _socket.bind();
-  _socket.listen(backlog > 0 ? _backlog : 5);
+  _socket.listen(backlog > 0 ? backlog : 5);
 }
 
 int 
@@ -102,7 +102,7 @@ getInetAddress() const
 
 bool 
 sk::net::ServerSocket::
-getReuseAddress() const
+isReuseAddress() const
 {
   throw sk::util::UnsupportedOperationException(SK_METHOD);
 }

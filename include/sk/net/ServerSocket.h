@@ -32,17 +32,16 @@ namespace sk {
 
         sk::net::Socket accept();
 
-        int getPort() const;
         const sk::net::InetSocketAddress& getSocketAddress() const;
         const sk::net::InetAddress& getInetAddress() const;
+        int getPort() const;
 
-        bool getReuseAddress() const;
-        void setReuseAddress(bool state);
-
+        bool isReuseAddress() const;
         int getReceiveBufferSize() const;
-        void setReceiveBufferSize(int size);
-
         int getSoTimeout() const;
+
+        void setReuseAddress(bool state);
+        void setReceiveBufferSize(int size);
         void setSoTimeout(int timeout);
     
         // sk::util::Object re-implementation.
@@ -55,7 +54,6 @@ namespace sk {
 
         void setup(int backlog);
 
-        int _backlog;
         sk::util::Holder<sk::net::InetSocketAddress> _socketAddressHolder;
         const sk::net::InetSocketAddress& _socketAddress;
         sk::util::Holder<sk::net::DirectedSocket> _socketHolder;
