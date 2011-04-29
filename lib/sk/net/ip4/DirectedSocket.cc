@@ -10,10 +10,15 @@
 
 #include <sk/util/Class.h>
 #include <sk/util/Strings.h>
+#include <sk/util/Holder.hxx>
+
 #include <sk/util/UnsupportedOperationException.h>
 #include <sk/util/IllegalStateException.h>
+
 #include <sk/rt/SystemException.h>
 #include <sk/net/ip4/InetAddress.h>
+#include <sk/io/FileDescriptorInputStream.h>
+#include <sk/io/FileDescriptorOutputStream.h>
 
 #include "DirectedSocket.h"
 
@@ -123,12 +128,18 @@ sk::io::InputStream&
 sk::net::ip4::DirectedSocket::
 inputStream() const
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  if(_inputStreamHolder.isEmpty() == true) {
+    _inputStreamHolder.set(new sk::io::FileDescriptorInputStream(_socket));
+  }
+  return _inputStreamHolder.getMutable();
 }
 
 sk::io::OutputStream&
 sk::net::ip4::DirectedSocket::
 outputStream() const
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  if(_outputStreamHolder.isEmpty() == true) {
+    _outputStreamHolder.set(new sk::io::FileDescriptorOutputStream(_socket));
+  }
+  return _outputStreamHolder.getMutable();
 }

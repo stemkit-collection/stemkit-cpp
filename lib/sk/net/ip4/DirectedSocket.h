@@ -12,6 +12,7 @@
 #define _SK_NET_IP4_DIRECTEDSOCKET_H_
 
 #include "../DirectedSocket.h"
+#include <sk/util/Holder.hxx>
 
 #include <sys/socket.h>
 #include <netdb.h>
@@ -47,6 +48,8 @@ namespace sk {
 
           const struct sockaddr_in _address;
           const int _socket;
+          mutable sk::util::Holder<sk::io::InputStream> _inputStreamHolder;
+          mutable sk::util::Holder<sk::io::OutputStream> _outputStreamHolder;
       };
     }
   }
