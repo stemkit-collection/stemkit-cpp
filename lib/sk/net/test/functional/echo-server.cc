@@ -26,6 +26,8 @@ int main(int argc, const char* const argv[])
 {
   sk::net::ServerSocket server(8787);
   std::cerr << "Listening on " << server.endpoint() << std::endl;
+
+  server.setReuseAddress(true);
   
   sk::net::Socket socket = server.accept();
   std::cerr << "Got connection from " << socket.endpoint() << std::endl;
