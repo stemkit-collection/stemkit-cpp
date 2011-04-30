@@ -26,8 +26,8 @@ namespace sk {
           InetAddress(const sk::util::bytes& components);
           virtual ~InetAddress();
 
-          static const sk::net::InetAddress& getLoopbackAddress();
-          static const sk::net::InetAddress& getAnyLocalAddress();
+          static sk::net::InetAddress& getLoopbackAddress();
+          static sk::net::InetAddress& getAnyLocalAddress();
 
           static uint32_t toNumber(const sk::util::bytes& components);
           static const sk::util::bytes toComponents(uint32_t number);

@@ -178,14 +178,14 @@ isMulticastAddress() const
   return (getAddress()[0] & 0xF0) == 0xE0;
 }
 
-const sk::net::InetAddress&
+sk::net::InetAddress&
 sk::net::ip4::InetAddress::
 getLoopbackAddress()
 {
   return sk::net::InetAddress::getByAddress(sk::util::bytes(127) << 0 << 0 << 1);
 }
 
-const sk::net::InetAddress&
+sk::net::InetAddress&
 sk::net::ip4::InetAddress::
 getAnyLocalAddress()
 {
