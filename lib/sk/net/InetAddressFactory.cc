@@ -107,9 +107,9 @@ findOrCreateByAddress(const sk::util::bytes& components)
   ByAddressSelectorCreator selectorCreator(components, addressHolder);
 
   // sk::rt::Locker readLocker(_lock.readLock());
-  if(_cache.find(addressHolder, selectorCreator) == false) {
+  if(_cache.findMutable(addressHolder, selectorCreator) == false) {
     // sk::rt::Locker writeLocker(_lock.writeLock());
-    if(_cache.find(addressHolder, selectorCreator) == false) {
+    if(_cache.findMutable(addressHolder, selectorCreator) == false) {
       _cache.add(selectorCreator.create());
     }
   }
@@ -179,9 +179,9 @@ findOrCreateByName(const sk::util::String& name)
   ByNameSelectorCreator selectorCreator(name, addressHolder);
 
   // sk::rt::Locker readLocker(_lock.readLock());
-  if(_cache.find(addressHolder, selectorCreator) == false) {
+  if(_cache.findMutable(addressHolder, selectorCreator) == false) {
     // sk::rt::Locker writeLocker(_lock.writeLock());
-    if(_cache.find(addressHolder, selectorCreator) == false) {
+    if(_cache.findMutable(addressHolder, selectorCreator) == false) {
       _cache.add(selectorCreator.create());
     }
   }
