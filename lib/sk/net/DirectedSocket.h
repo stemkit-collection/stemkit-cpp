@@ -15,13 +15,14 @@
 #include <sk/io/InputStream.h>
 #include <sk/io/OutputStream.h>
 #include <sk/net/InetSocketAddress.h>
+#include <sk/net/ConfigurableSocket.h>
 
 namespace sk {
   namespace net {
     class InetAddress;
 
     class DirectedSocket 
-      : public virtual sk::util::Object
+      : public virtual sk::net::ConfigurableSocket
     {
       public:
         virtual void bind() const = 0;

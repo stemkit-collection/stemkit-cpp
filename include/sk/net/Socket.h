@@ -11,22 +11,17 @@
 #ifndef _SK_NET_SOCKET_H_
 #define _SK_NET_SOCKET_H_
 
-#include <sk/util/Object.h>
-#include <sk/util/Holder.hxx>
+#include <sk/net/AbstractSocket.h>
+
 #include <sk/io/InputStream.h>
 #include <sk/io/OutputStream.h>
 
-#include <sk/net/InetSocketAddress.h>
-#include <sk/net/InetAddress.h>
-
 namespace sk {
   namespace net {
-    class DirectedSocket;
-    class InetAddress;
     class ServerSocket;
 
     class Socket 
-      : public virtual sk::util::Object
+      : public sk::net::AbstractSocket
     {
       public:
         Socket(const sk::net::InetSocketAddress& endpoint);
@@ -34,29 +29,15 @@ namespace sk {
         Socket(const sk::util::String& host, const uint16_t port);
         virtual ~Socket();
 
-        const sk::net::InetSocketAddress& endpoint() const;
-        const sk::net::InetAddress& address() const;
-        const uint16_t port() const;
-
-        const sk::net::InetSocketAddress& localEndpoint() const;
-        const sk::net::InetAddress& localAddress() const;
-        const uint16_t localPort() const;
-
         sk::io::InputStream& inputStream() const;
         sk::io::OutputStream& outputStream() const;
 
-        void close();
-    
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
     
       private:
         Socket(sk::net::DirectedSocket* directedSocket);
         Socket& operator = (const Socket& other);
-
-        sk::util::Holder<sk::net::DirectedSocket>::Sharing _directedSocketHolder;
-        mutable sk::util::Holder<sk::net::InetSocketAddress>::Copying _endpointHolder;
-        mutable sk::util::Holder<sk::net::InetSocketAddress>::Copying _localEndpointHolder;
 
         friend class sk::net::ServerSocket;
     };

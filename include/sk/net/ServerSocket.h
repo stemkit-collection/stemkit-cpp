@@ -11,8 +11,7 @@
 #ifndef _SK_NET_SERVERSOCKET_H_
 #define _SK_NET_SERVERSOCKET_H_
 
-#include <sk/util/Object.h>
-#include <sk/util/Holder.hxx>
+#include <sk/net/AbstractSocket.h>
 #include <sk/net/Socket.h>
 
 namespace sk {
@@ -22,7 +21,7 @@ namespace sk {
     class DirectedSocket;
 
     class ServerSocket 
-      : public virtual sk::util::Object
+       : public sk::net::AbstractSocket
     {
       public:
         ServerSocket(const uint16_t port);
@@ -31,11 +30,6 @@ namespace sk {
         virtual ~ServerSocket();
 
         sk::net::Socket accept();
-        void close();
-
-        const sk::net::InetSocketAddress& endpoint() const;
-        const sk::net::InetAddress& address() const;
-        const uint16_t port() const;
 
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
@@ -46,9 +40,6 @@ namespace sk {
         ServerSocket& operator = (const ServerSocket& other);
 
         void setup(const int backlog);
-
-        sk::util::Holder<sk::net::InetSocketAddress>::Direct _endpointHolder;
-        sk::util::Holder<sk::net::DirectedSocket>::Direct _socketHolder;
     };
   }
 }

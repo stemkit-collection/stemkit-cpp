@@ -14,6 +14,7 @@ local objects =
   InetSocketAddress.cc
   ServerSocket.cc
   Socket.cc
+  AbstractSocket.cc
   SocketAddress.cc
   URL.cc
   URI.cc

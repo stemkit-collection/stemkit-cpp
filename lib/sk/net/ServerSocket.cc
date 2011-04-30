@@ -10,12 +10,7 @@
 
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
-#include <sk/util/Holder.cxx>
-#include <sk/util/UnsupportedOperationException.h>
-
 #include <sk/net/ServerSocket.h>
-#include <sk/net/InetSocketAddress.h>
-#include <sk/net/InetAddress.h>
 
 #include "DirectedSocket.h"
 
@@ -23,24 +18,21 @@ static const sk::util::String __className("sk::net::ServerSocket");
 
 sk::net::ServerSocket::
 ServerSocket(const uint16_t port)
-  : _endpointHolder(new sk::net::InetSocketAddress(port)), 
-    _socketHolder(_endpointHolder.get().makeDirectedSocket())
+  : sk::net::AbstractSocket(sk::net::InetSocketAddress(port).makeDirectedSocket())
 {
   setup(0);
 }
 
 sk::net::ServerSocket::
 ServerSocket(const uint16_t port, const int backlog)
-  : _endpointHolder(new sk::net::InetSocketAddress(port)), 
-    _socketHolder(_endpointHolder.get().makeDirectedSocket())
+  : sk::net::AbstractSocket(sk::net::InetSocketAddress(port).makeDirectedSocket())
 {
   setup(backlog);
 }
 
 sk::net::ServerSocket::
 ServerSocket(const uint16_t port, const int backlog, const sk::net::InetAddress& bindAddress)
-  : _endpointHolder(new sk::net::InetSocketAddress(bindAddress, port)),
-    _socketHolder(_endpointHolder.get().makeDirectedSocket())
+  : sk::net::AbstractSocket(sk::net::InetSocketAddress(bindAddress, port).makeDirectedSocket())
 {
   setup(backlog);
 }
@@ -61,14 +53,14 @@ const sk::util::String
 sk::net::ServerSocket::
 toString() const
 {
-  return _endpointHolder.get().toString();
+  return endpoint().toString();
 }
 
 void 
 sk::net::ServerSocket::
 setup(const int backlog)
 {
-  const sk::net::DirectedSocket& socket = _socketHolder.get();
+  const sk::net::DirectedSocket& socket = directedSocket();
 
   socket.bind();
   socket.listen(backlog > 0 ? backlog : 5);
@@ -78,34 +70,5 @@ sk::net::Socket
 sk::net::ServerSocket::
 accept()
 {
-  return sk::net::Socket(_socketHolder.get().accept());
-}
-
-void
-sk::net::ServerSocket::
-close()
-{
-  _socketHolder.clear();
-  _endpointHolder.clear();
-}
-
-const uint16_t 
-sk::net::ServerSocket::
-port() const
-{
-  return endpoint().getPort();
-}
-
-const sk::net::InetSocketAddress& 
-sk::net::ServerSocket::
-endpoint() const
-{
-  return _endpointHolder.get();
-}
-
-const sk::net::InetAddress& 
-sk::net::ServerSocket::
-address() const
-{
-  return endpoint().getAddress();
+  return sk::net::Socket(directedSocket().accept());
 }
