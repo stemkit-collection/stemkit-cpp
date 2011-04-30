@@ -25,8 +25,8 @@ namespace sk {
         : public virtual sk::net::DirectedSocket
       {
         public:
-          DirectedSocket(uint32_t number, uint16_t port);
-          DirectedSocket(const struct sockaddr_in& address, int socket);
+          DirectedSocket(const uint32_t number, const uint16_t port);
+          DirectedSocket(const struct sockaddr_in& address, const int socket);
           virtual ~DirectedSocket();
 
           // sk::net::DirectedSocket implementation.
@@ -36,7 +36,7 @@ namespace sk {
           sk::net::DirectedSocket* accept() const;
 
           // sk::net::DirectedSocket implementation.
-          uint16_t port() const;
+          const uint16_t port() const;
           sk::net::InetAddress& address() const;
           const sk::net::InetSocketAddress localEndpoint() const;
 

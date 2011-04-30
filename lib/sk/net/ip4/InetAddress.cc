@@ -194,7 +194,7 @@ getAnyLocalAddress()
 
 sk::net::DirectedSocket*
 sk::net::ip4::InetAddress::
-makeDirectedSocket(uint16_t port) const
+makeDirectedSocket(const uint16_t port) const
 {
   return new sk::net::ip4::DirectedSocket(_number, port);
 }

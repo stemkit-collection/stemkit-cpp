@@ -29,7 +29,7 @@ namespace sk {
         virtual void connect() const = 0;
         virtual sk::net::DirectedSocket* accept() const = 0;
 
-        virtual uint16_t port() const = 0;
+        virtual const uint16_t port() const = 0;
         virtual sk::net::InetAddress& address() const = 0;
         virtual const sk::net::InetSocketAddress localEndpoint() const = 0;
 

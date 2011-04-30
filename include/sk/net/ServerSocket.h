@@ -25,9 +25,9 @@ namespace sk {
       : public virtual sk::util::Object
     {
       public:
-        ServerSocket(int port);
-        ServerSocket(int port, int backlog);
-        ServerSocket(int port, int backlog, const sk::net::InetAddress& bindAddress);
+        ServerSocket(const uint16_t port);
+        ServerSocket(const uint16_t port, int backlog);
+        ServerSocket(const uint16_t port, int backlog, const sk::net::InetAddress& bindAddress);
         virtual ~ServerSocket();
 
         sk::net::Socket accept();
@@ -35,16 +35,8 @@ namespace sk {
 
         const sk::net::InetSocketAddress& getSocketAddress() const;
         const sk::net::InetAddress& getInetAddress() const;
-        int getPort() const;
+        const uint16_t getPort() const;
 
-        bool isReuseAddress() const;
-        int getReceiveBufferSize() const;
-        int getSoTimeout() const;
-
-        void setReuseAddress(bool state);
-        void setReceiveBufferSize(int size);
-        void setSoTimeout(int timeout);
-    
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
         const sk::util::String toString() const;

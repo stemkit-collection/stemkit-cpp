@@ -37,7 +37,7 @@ namespace {
 }
 
 sk::net::ip4::DirectedSocket::
-DirectedSocket(uint32_t number, uint16_t port)
+DirectedSocket(const uint32_t number, const uint16_t port)
   : _address(makeAddr(number, port)), _socket(::socket(PF_INET, SOCK_STREAM, 0))
 {
   if(_socket == -1) {
@@ -46,7 +46,7 @@ DirectedSocket(uint32_t number, uint16_t port)
 }
 
 sk::net::ip4::DirectedSocket::
-DirectedSocket(const struct sockaddr_in& address, int socket)
+DirectedSocket(const struct sockaddr_in& address, const int socket)
   : _address(address), _socket(socket)
 {
 }
@@ -110,7 +110,7 @@ accept() const
   return new sk::net::ip4::DirectedSocket(addr, socket);
 }
 
-uint16_t
+const uint16_t
 sk::net::ip4::DirectedSocket::
 port() const
 {

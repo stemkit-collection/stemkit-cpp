@@ -27,14 +27,14 @@ Socket(const sk::net::InetSocketAddress& endpoint)
 }
 
 sk::net::Socket::
-Socket(const sk::net::InetAddress& address, int port)
+Socket(const sk::net::InetAddress& address, const uint16_t port)
   : _directedSocketHolder(address.makeDirectedSocket(port))
 {
   _directedSocketHolder.get().connect();
 }
 
 sk::net::Socket::
-Socket(const sk::util::String& host, int port)
+Socket(const sk::util::String& host, const uint16_t port)
   : _directedSocketHolder(sk::net::InetAddress::getByName(host).makeDirectedSocket(port))
 {
   _directedSocketHolder.get().connect();
@@ -75,7 +75,7 @@ localAddress() const
   return localEndpoint().getAddress();
 }
 
-const uint16_t 
+const uint16_t
 sk::net::Socket::
 localPort() const
 {
@@ -99,7 +99,7 @@ address() const
   return endpoint().getAddress();
 }
 
-const uint16_t 
+const uint16_t
 sk::net::Socket::
 port() const
 {

@@ -30,8 +30,8 @@ namespace sk {
     {
       public:
         Socket(const sk::net::InetSocketAddress& endpoint);
-        Socket(const sk::net::InetAddress& address, int port);
-        Socket(const sk::util::String& host, int port);
+        Socket(const sk::net::InetAddress& address, const uint16_t port);
+        Socket(const sk::util::String& host, const uint16_t port);
         virtual ~Socket();
 
         const sk::net::InetSocketAddress& endpoint() const;

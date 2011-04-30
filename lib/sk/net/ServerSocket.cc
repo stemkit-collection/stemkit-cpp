@@ -22,7 +22,7 @@
 static const sk::util::String __className("sk::net::ServerSocket");
 
 sk::net::ServerSocket::
-ServerSocket(int port)
+ServerSocket(const uint16_t port)
   : _socketAddressHolder(new sk::net::InetSocketAddress(port)), 
     _socketHolder(_socketAddressHolder.get().makeDirectedSocket())
 {
@@ -30,7 +30,7 @@ ServerSocket(int port)
 }
 
 sk::net::ServerSocket::
-ServerSocket(int port, int backlog)
+ServerSocket(const uint16_t port, int backlog)
   : _socketAddressHolder(new sk::net::InetSocketAddress(port)), 
     _socketHolder(_socketAddressHolder.get().makeDirectedSocket())
 {
@@ -38,7 +38,7 @@ ServerSocket(int port, int backlog)
 }
 
 sk::net::ServerSocket::
-ServerSocket(int port, int backlog, const sk::net::InetAddress& bindAddress)
+ServerSocket(const uint16_t port, int backlog, const sk::net::InetAddress& bindAddress)
   : _socketAddressHolder(new sk::net::InetSocketAddress(bindAddress, port)),
     _socketHolder(_socketAddressHolder.get().makeDirectedSocket())
 {
@@ -89,7 +89,7 @@ close()
   _socketAddressHolder.clear();
 }
 
-int 
+const uint16_t 
 sk::net::ServerSocket::
 getPort() const
 {
@@ -108,46 +108,4 @@ sk::net::ServerSocket::
 getInetAddress() const
 {
   return getSocketAddress().getAddress();
-}
-
-bool 
-sk::net::ServerSocket::
-isReuseAddress() const
-{
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
-}
-
-void 
-sk::net::ServerSocket::
-setReuseAddress(bool state)
-{
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
-}
-
-int 
-sk::net::ServerSocket::
-getReceiveBufferSize() const
-{
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
-}
-
-void 
-sk::net::ServerSocket::
-setReceiveBufferSize(int size)
-{
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
-}
-
-int 
-sk::net::ServerSocket::
-getSoTimeout() const
-{
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
-}
-
-void 
-sk::net::ServerSocket::
-setSoTimeout(int timeout)
-{
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
 }
