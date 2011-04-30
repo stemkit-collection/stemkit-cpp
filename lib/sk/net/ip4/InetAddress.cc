@@ -76,11 +76,17 @@ toNumber(const sk::util::bytes& components)
   if(components.size() != 4) {
     throw sk::net::UnknownHostException("Wrong IPv4 address", toString(components));
   }
-  uint32_t result = 0;
-  for(sk::util::bytes::const_iterator iterator = components.begin(); iterator != components.end(); ++iterator) {
-    result = (result << 8) | *iterator;
-  }
-  return ntohl(result);
+  union {
+    uint8_t c[4];
+    uint32_t number;
+  } data;
+
+  data.c[0] = components[0];
+  data.c[1] = components[1];
+  data.c[2] = components[2];
+  data.c[3] = components[3];
+
+  return ntohl(data.number);
 }
 
 const sk::util::bytes
@@ -91,8 +97,8 @@ toComponents(uint32_t number)
     uint8_t c[4];
     uint32_t number;
   } data;
-  data.number = htonl(number);
 
+  data.number = htonl(number);
   return sk::util::bytes(data.c[0]) << data.c[1] << data.c[2] << data.c[3];
 }
 
@@ -118,7 +124,7 @@ resolveHostName() const
 
   addr.sin_family = AF_INET;
   addr.sin_port = 0;
-  addr.sin_addr.s_addr = _number;
+  addr.sin_addr.s_addr = ntohl(_number);
 
   char hostname[NI_MAXHOST];
   int status = getnameinfo(reinterpret_cast<struct sockaddr*>(&addr), sizeof(addr), hostname, sizeof(hostname), 0, 0, NI_NAMEREQD);
