@@ -38,7 +38,6 @@ namespace sk {
         const sk::util::String getHostName() const;
         const sk::util::String getCanonicalHostName() const;
 
-        virtual const sk::util::String resolveHostName() const = 0;
         virtual const sk::util::String getHostAddress() const = 0;
         virtual bool isLoopbackAddress() const = 0;
         virtual bool isAnyLocalAddress() const = 0;
@@ -56,6 +55,8 @@ namespace sk {
         InetAddress(const sk::util::bytes& components, const sk::util::String& name);
         InetAddress(const InetAddress& other);
         InetAddress& operator = (const InetAddress& other);
+
+        virtual const sk::util::String lookupHostName() const = 0;
 
       private:
         sk::util::bytes _address;

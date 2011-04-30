@@ -80,13 +80,13 @@ resolve(bool tolerate)
   if(_resolved == false) {
     if(tolerate == true) {
       try {
-        _hostName = resolveHostName();
+        _hostName = lookupHostName();
         _resolved = true;
       }
       catch(const sk::net::UnknownHostException& exception) {}
     }
     else {
-      _hostName = resolveHostName();
+      _hostName = lookupHostName();
       _resolved = true;
     }
   }

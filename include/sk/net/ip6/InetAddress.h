@@ -28,7 +28,6 @@ namespace sk {
           virtual ~InetAddress();
       
           // sk::net::InetAddress implementation.
-          const sk::util::String resolveHostName() const;
           const sk::util::String getHostAddress() const;
           bool isLoopbackAddress() const;
           bool isAnyLocalAddress() const;
@@ -41,6 +40,10 @@ namespace sk {
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
       
+        protected:
+          // sk::net::InetAddress implementation.
+          const sk::util::String lookupHostName() const;
+
         private:
           InetAddress(const InetAddress& other);
           InetAddress& operator = (const InetAddress& other);

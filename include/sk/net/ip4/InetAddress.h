@@ -34,7 +34,6 @@ namespace sk {
           static const sk::util::String toString(const sk::util::bytes& components);
 
           // sk::net::InetAddress implementation.
-          const sk::util::String resolveHostName() const;
           const sk::util::String getHostAddress() const;
           bool isLoopbackAddress() const;
           bool isAnyLocalAddress() const;
@@ -48,6 +47,10 @@ namespace sk {
           const sk::util::Class getClass() const;
           sk::util::Object* clone() const;
           
+        protected:
+          // sk::net::InetAddress implementation.
+          const sk::util::String lookupHostName() const;
+
         private:
           uint32_t _number;
       };

@@ -118,7 +118,7 @@ getHostAddress() const
 
 const sk::util::String 
 sk::net::ip4::InetAddress::
-resolveHostName() const
+lookupHostName() const
 {
   struct sockaddr_in addr;
 
