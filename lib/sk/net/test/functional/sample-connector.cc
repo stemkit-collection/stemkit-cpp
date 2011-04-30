@@ -11,13 +11,13 @@
 #include <iostream>
 #include <iomanip>
 #include <exception>
-#include <string>
 
 #include <sk/util/exception/Tracer.h>
 #include <sk/rt/StackTracerFactory.h>
 
 #include <sk/net/Socket.h>
 #include <sk/net/ip4/InetAddress.h>
+
 #include <sk/io/DataInputStream.h>
 #include <sk/io/DataOutputStream.h>
 #include <sk/io/EOFException.h>
