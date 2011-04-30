@@ -38,6 +38,9 @@ namespace sk {
 
         void close();
 
+        // sk::net::ConfigurableSocket implementation.
+        void setReuseAddress(bool state);
+
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
     

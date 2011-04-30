@@ -160,3 +160,13 @@ outputStream() const
   }
   return _outputStreamHolder.getMutable();
 }
+
+void
+sk::net::ip4::DirectedSocket::
+setReuseAddress(bool state)
+{
+  int value = (state == true ? 1 : 0);
+  if(::setsockopt(_socket, SOL_SOCKET, SO_REUSEADDR, &value, sizeof(value)) == -1) {
+    throw sk::rt::SystemException("setsockopt()");
+  }
+}

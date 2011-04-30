@@ -43,6 +43,9 @@ namespace sk {
           // sk::net::DirectedSocket implementation.
           sk::io::InputStream& inputStream() const;
           sk::io::OutputStream& outputStream() const;
+
+          // sk::net::ConfigurableSocket implementation.
+          void setReuseAddress(bool state);
       
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;

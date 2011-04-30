@@ -97,3 +97,9 @@ port() const
   return _directedSocketHolder.get().port();
 }
 
+void
+sk::net::AbstractSocket::
+setReuseAddress(bool state)
+{
+  _directedSocketHolder.getMutable().setReuseAddress(state);
+}

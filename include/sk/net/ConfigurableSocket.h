@@ -19,6 +19,7 @@ namespace sk {
       : public virtual sk::util::Object
     {
       public:
+        virtual void setReuseAddress(bool state) = 0;
     };
   }
 }
