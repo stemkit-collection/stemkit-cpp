@@ -112,16 +112,33 @@ accept() const
 
 uint16_t
 sk::net::ip4::DirectedSocket::
-getPort() const
+port() const
 {
   return ntohs(_address.sin_port);
 }
 
 sk::net::InetAddress&
 sk::net::ip4::DirectedSocket::
-getAddress() const
+address() const
 {
   return sk::net::InetAddress::getByAddress(sk::net::ip4::InetAddress::toComponents(ntohl(_address.sin_addr.s_addr)));
+}
+
+const sk::net::InetSocketAddress
+sk::net::ip4::DirectedSocket::
+localSocketAddress() const
+{
+  struct sockaddr_in addr;
+  socklen_t size;
+
+  if(::getsockname(_socket, reinterpret_cast<sockaddr*>(&addr), &size) == -1) {
+    throw sk::rt::SystemException("getsockname()");
+  }
+  if(size != sizeof(addr)) {
+    throw sk::util::IllegalStateException("getsockname()", "sockaddr_in size mismatch");
+  }
+  const sk::util::bytes components = sk::net::ip4::InetAddress::toComponents(ntohl(addr.sin_addr.s_addr));
+  return sk::net::InetSocketAddress(sk::net::InetAddress::getByAddress(components), ntohs(addr.sin_port));
 }
 
 sk::io::InputStream&

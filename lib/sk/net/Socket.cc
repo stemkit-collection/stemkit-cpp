@@ -69,14 +69,14 @@ uint16_t
 sk::net::Socket::
 getRemotePort() const
 {
-  return _directedSocketHolder.get().getPort();
+  return _directedSocketHolder.get().port();
 }
 
 const sk::net::InetAddress& 
 sk::net::Socket::
 getRemoteAddress() const
 {
-  return _directedSocketHolder.get().getAddress();
+  return _directedSocketHolder.get().address();
 }
 
 sk::io::InputStream& 

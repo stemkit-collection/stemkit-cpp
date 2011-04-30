@@ -34,8 +34,13 @@ namespace sk {
           void listen(int backlog) const;
           void connect() const;
           sk::net::DirectedSocket* accept() const;
-          uint16_t getPort() const;
-          sk::net::InetAddress& getAddress() const;
+
+          // sk::net::DirectedSocket implementation.
+          uint16_t port() const;
+          sk::net::InetAddress& address() const;
+          const sk::net::InetSocketAddress localSocketAddress() const;
+
+          // sk::net::DirectedSocket implementation.
           sk::io::InputStream& inputStream() const;
           sk::io::OutputStream& outputStream() const;
       

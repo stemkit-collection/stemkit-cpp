@@ -14,6 +14,7 @@
 #include <sk/util/Object.h>
 #include <sk/io/InputStream.h>
 #include <sk/io/OutputStream.h>
+#include <sk/net/InetSocketAddress.h>
 
 namespace sk {
   namespace net {
@@ -26,9 +27,12 @@ namespace sk {
         virtual void bind() const = 0;
         virtual void listen(int backlog) const = 0;
         virtual void connect() const = 0;
-        virtual uint16_t getPort() const = 0;
-        virtual sk::net::InetAddress& getAddress() const = 0;
         virtual sk::net::DirectedSocket* accept() const = 0;
+
+        virtual uint16_t port() const = 0;
+        virtual sk::net::InetAddress& address() const = 0;
+        virtual const sk::net::InetSocketAddress localSocketAddress() const = 0;
+
         virtual sk::io::InputStream& inputStream() const = 0;
         virtual sk::io::OutputStream& outputStream() const = 0;
     };
