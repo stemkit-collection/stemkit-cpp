@@ -21,23 +21,21 @@ static const sk::util::String __className("sk::net::Socket");
 
 sk::net::Socket::
 Socket(const sk::net::InetAddress& address, int port)
-  : _directedSocketHolder(address.makeDirectedSocket(port)),
-    _localEndpointHolder(new sk::net::InetSocketAddress(0))
+  : _directedSocketHolder(address.makeDirectedSocket(port))
 {
   _directedSocketHolder.get().connect();
 }
 
 sk::net::Socket::
 Socket(const sk::util::String& host, int port)
-  : _directedSocketHolder(sk::net::InetAddress::getByName(host).makeDirectedSocket(port)),
-    _localEndpointHolder(new sk::net::InetSocketAddress(0))
+  : _directedSocketHolder(sk::net::InetAddress::getByName(host).makeDirectedSocket(port))
 {
   _directedSocketHolder.get().connect();
 }
 
 sk::net::Socket::
-Socket(sk::net::DirectedSocket* directedSocket, const sk::net::InetSocketAddress& localSocketAddress)
-  : _directedSocketHolder(directedSocket), _localEndpointHolder(localSocketAddress)
+Socket(sk::net::DirectedSocket* directedSocket)
+  : _directedSocketHolder(directedSocket)
 {
 }
 
@@ -57,14 +55,14 @@ uint16_t
 sk::net::Socket::
 getLocalPort() const
 {
-  return _localEndpointHolder.get().getPort();
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
 }
 
 const sk::net::InetAddress& 
 sk::net::Socket::
 getLocalAddress() const
 {
-  return _localEndpointHolder.get().getAddress();
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
 }
 
 uint16_t 
@@ -100,5 +98,4 @@ sk::net::Socket::
 close()
 {
   _directedSocketHolder.clear();
-  _localEndpointHolder.clear();
 }

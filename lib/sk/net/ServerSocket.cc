@@ -78,7 +78,7 @@ sk::net::Socket
 sk::net::ServerSocket::
 accept()
 {
-  return sk::net::Socket(_socketHolder.get().accept(), _socketAddressHolder.get());
+  return sk::net::Socket(_socketHolder.get().accept());
 }
 
 void

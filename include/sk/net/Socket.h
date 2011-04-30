@@ -48,11 +48,10 @@ namespace sk {
         const sk::util::Class getClass() const;
     
       private:
-        Socket(sk::net::DirectedSocket* directedSocket, const sk::net::InetSocketAddress& localSocketAddress);
+        Socket(sk::net::DirectedSocket* directedSocket);
         Socket& operator = (const Socket& other);
 
         sk::util::Holder<sk::net::DirectedSocket>::Sharing _directedSocketHolder;
-        sk::util::Holder<sk::net::InetSocketAddress>::Copying _localEndpointHolder;
 
         friend class sk::net::ServerSocket;
     };
