@@ -26,8 +26,8 @@ namespace sk {
     {
       public:
         ServerSocket(const uint16_t port);
-        ServerSocket(const uint16_t port, int backlog);
-        ServerSocket(const uint16_t port, int backlog, const sk::net::InetAddress& bindAddress);
+        ServerSocket(const uint16_t port, const int backlog);
+        ServerSocket(const uint16_t port, const int backlog, const sk::net::InetAddress& bindAddress);
         virtual ~ServerSocket();
 
         sk::net::Socket accept();
@@ -45,7 +45,7 @@ namespace sk {
         ServerSocket(const ServerSocket& other);
         ServerSocket& operator = (const ServerSocket& other);
 
-        void setup(int backlog);
+        void setup(const int backlog);
 
         sk::util::Holder<sk::net::InetSocketAddress>::Direct _socketAddressHolder;
         sk::util::Holder<sk::net::DirectedSocket>::Direct _socketHolder;

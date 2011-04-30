@@ -25,7 +25,7 @@
 static const sk::util::String __className("sk::net::ip4::DirectedSocket");
 
 namespace {
-  const sockaddr_in makeAddr(uint32_t number, uint16_t port) {
+  const sockaddr_in makeAddr(const uint32_t number, const uint16_t port) {
     struct sockaddr_in addr = { 0 };
 
     addr.sin_family = AF_INET;
@@ -77,7 +77,7 @@ bind() const
 
 void 
 sk::net::ip4::DirectedSocket::
-listen(int backlog) const
+listen(const int backlog) const
 {
   if(::listen(_socket, backlog) == -1) {
     throw sk::rt::SystemException("listen()");
@@ -100,7 +100,7 @@ accept() const
   struct sockaddr_in addr = { 0 };
   socklen_t size = 0;
 
-  int socket = ::accept(_socket, reinterpret_cast<sockaddr*>(&addr), &size);
+  const int socket = ::accept(_socket, reinterpret_cast<sockaddr*>(&addr), &size);
   if(socket == -1) {
     throw sk::rt::SystemException("accept()");
   }

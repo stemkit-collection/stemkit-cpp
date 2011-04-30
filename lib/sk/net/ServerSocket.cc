@@ -30,7 +30,7 @@ ServerSocket(const uint16_t port)
 }
 
 sk::net::ServerSocket::
-ServerSocket(const uint16_t port, int backlog)
+ServerSocket(const uint16_t port, const int backlog)
   : _socketAddressHolder(new sk::net::InetSocketAddress(port)), 
     _socketHolder(_socketAddressHolder.get().makeDirectedSocket())
 {
@@ -38,7 +38,7 @@ ServerSocket(const uint16_t port, int backlog)
 }
 
 sk::net::ServerSocket::
-ServerSocket(const uint16_t port, int backlog, const sk::net::InetAddress& bindAddress)
+ServerSocket(const uint16_t port, const int backlog, const sk::net::InetAddress& bindAddress)
   : _socketAddressHolder(new sk::net::InetSocketAddress(bindAddress, port)),
     _socketHolder(_socketAddressHolder.get().makeDirectedSocket())
 {
@@ -66,7 +66,7 @@ toString() const
 
 void 
 sk::net::ServerSocket::
-setup(int backlog)
+setup(const int backlog)
 {
   const sk::net::DirectedSocket& socket = _socketHolder.get();
 

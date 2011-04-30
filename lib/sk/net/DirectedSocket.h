@@ -25,7 +25,7 @@ namespace sk {
     {
       public:
         virtual void bind() const = 0;
-        virtual void listen(int backlog) const = 0;
+        virtual void listen(const int backlog) const = 0;
         virtual void connect() const = 0;
         virtual sk::net::DirectedSocket* accept() const = 0;
 

@@ -31,7 +31,7 @@ namespace sk {
 
           // sk::net::DirectedSocket implementation.
           void bind() const;
-          void listen(int backlog) const;
+          void listen(const int backlog) const;
           void connect() const;
           sk::net::DirectedSocket* accept() const;
 
