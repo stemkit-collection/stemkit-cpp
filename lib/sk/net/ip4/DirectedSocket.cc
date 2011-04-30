@@ -26,7 +26,7 @@ static const sk::util::String __className("sk::net::ip4::DirectedSocket");
 
 namespace {
   const sockaddr_in makeAddr(uint32_t number, uint16_t port) {
-    sockaddr_in addr = { 0 };
+    struct sockaddr_in addr = { 0 };
 
     addr.sin_family = AF_INET;
     addr.sin_port = htons(port);
@@ -46,7 +46,7 @@ DirectedSocket(uint32_t number, uint16_t port)
 }
 
 sk::net::ip4::DirectedSocket::
-DirectedSocket(const struct sockaddr_in address, int socket)
+DirectedSocket(const struct sockaddr_in& address, int socket)
   : _address(address), _socket(socket)
 {
 }
@@ -97,8 +97,8 @@ sk::net::DirectedSocket*
 sk::net::ip4::DirectedSocket::
 accept() const
 {
-  struct sockaddr_in addr;
-  socklen_t size;
+  struct sockaddr_in addr = { 0 };
+  socklen_t size = 0;
 
   int socket = ::accept(_socket, reinterpret_cast<sockaddr*>(&addr), &size);
   if(socket == -1) {
@@ -128,8 +128,8 @@ const sk::net::InetSocketAddress
 sk::net::ip4::DirectedSocket::
 localEndpoint() const
 {
-  struct sockaddr_in addr;
-  socklen_t size;
+  struct sockaddr_in addr = { 0 };
+  socklen_t size = 0;
 
   if(::getsockname(_socket, reinterpret_cast<sockaddr*>(&addr), &size) == -1) {
     throw sk::rt::SystemException("getsockname()");

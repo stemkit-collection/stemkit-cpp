@@ -34,11 +34,13 @@ namespace sk {
         Socket(const sk::util::String& host, int port);
         virtual ~Socket();
 
-        uint16_t getLocalPort() const;
-        const sk::net::InetAddress& getLocalAddress() const;
+        const sk::net::InetSocketAddress& endpoint() const;
+        const sk::net::InetAddress& address() const;
+        const uint16_t port() const;
 
-        uint16_t getRemotePort() const;
-        const sk::net::InetAddress& getRemoteAddress() const;
+        const sk::net::InetSocketAddress& localEndpoint() const;
+        const sk::net::InetAddress& localAddress() const;
+        const uint16_t localPort() const;
 
         sk::io::InputStream& inputStream() const;
         sk::io::OutputStream& outputStream() const;
@@ -53,6 +55,8 @@ namespace sk {
         Socket& operator = (const Socket& other);
 
         sk::util::Holder<sk::net::DirectedSocket>::Sharing _directedSocketHolder;
+        mutable sk::util::Holder<sk::net::InetSocketAddress>::Copying _endpointHolder;
+        mutable sk::util::Holder<sk::net::InetSocketAddress>::Copying _localEndpointHolder;
 
         friend class sk::net::ServerSocket;
     };

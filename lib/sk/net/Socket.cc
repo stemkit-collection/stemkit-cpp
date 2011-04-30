@@ -58,32 +58,52 @@ getClass() const
   return sk::util::Class(__className);
 }
 
-uint16_t 
+const sk::net::InetSocketAddress& 
 sk::net::Socket::
-getLocalPort() const
+localEndpoint() const
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  if(_localEndpointHolder.isEmpty() == true) {
+    _localEndpointHolder.set(_directedSocketHolder.get().localEndpoint());
+  }
+  return _localEndpointHolder.get();
 }
 
 const sk::net::InetAddress& 
 sk::net::Socket::
-getLocalAddress() const
+localAddress() const
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  return localEndpoint().getAddress();
 }
 
-uint16_t 
+const uint16_t 
 sk::net::Socket::
-getRemotePort() const
+localPort() const
+{
+  return localEndpoint().getPort();
+}
+
+const sk::net::InetSocketAddress& 
+sk::net::Socket::
+endpoint() const
+{
+  if(_endpointHolder.isEmpty() == true) {
+    _endpointHolder.set(sk::net::InetSocketAddress(_directedSocketHolder.get().address(), port()));
+  }
+  return _endpointHolder.get();
+}
+
+const sk::net::InetAddress& 
+sk::net::Socket::
+address() const
+{
+  return endpoint().getAddress();
+}
+
+const uint16_t 
+sk::net::Socket::
+port() const
 {
   return _directedSocketHolder.get().port();
-}
-
-const sk::net::InetAddress& 
-sk::net::Socket::
-getRemoteAddress() const
-{
-  return _directedSocketHolder.get().address();
 }
 
 sk::io::InputStream& 

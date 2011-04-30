@@ -28,7 +28,7 @@ int main(int argc, const char* const argv[])
   std::cerr << "Listening on " << server << std::endl;
   
   sk::net::Socket socket = server.accept();
-  std::cerr << "Got connection from " << socket.getRemoteAddress() << ", port " << socket.getRemotePort() << std::endl;
+  std::cerr << "Got connection from " << socket.endpoint() << std::endl;
 
   sk::io::DataInputStream inputStream(socket.inputStream());
   sk::io::DataOutputStream outputStream(socket.outputStream());

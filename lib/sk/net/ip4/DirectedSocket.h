@@ -26,7 +26,7 @@ namespace sk {
       {
         public:
           DirectedSocket(uint32_t number, uint16_t port);
-          DirectedSocket(const struct sockaddr_in address, int socket);
+          DirectedSocket(const struct sockaddr_in& address, int socket);
           virtual ~DirectedSocket();
 
           // sk::net::DirectedSocket implementation.
