@@ -28,8 +28,11 @@ int main(int argc, const char* const argv[])
   // sk::util::exception::Tracer::setProducerFactory(factory);
 
   try { 
-    sk::net::Socket socket(sk::net::ip4::InetAddress::getLoopbackAddress(), 8787);
-    std::cerr << "Connected to " << socket.getRemoteAddress() << ", port " << socket.getRemoteAddress() << std::endl;
+    const sk::net::InetAddress& address = sk::net::ip4::InetAddress::getLoopbackAddress();
+    std::cerr << "Connecting to " << address << std::endl;
+
+    sk::net::Socket socket(address, 8787);
+    std::cerr << "Connected to " << socket.getRemoteAddress() << ", port " << socket.getRemotePort() << std::endl;
 
     sk::io::DataInputStream inputStream(socket.inputStream());
     sk::io::DataOutputStream outputStream(socket.outputStream());
