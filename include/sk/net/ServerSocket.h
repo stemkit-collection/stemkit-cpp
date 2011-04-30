@@ -33,9 +33,9 @@ namespace sk {
         sk::net::Socket accept();
         void close();
 
-        const sk::net::InetSocketAddress& getSocketAddress() const;
-        const sk::net::InetAddress& getInetAddress() const;
-        const uint16_t getPort() const;
+        const sk::net::InetSocketAddress& endpoint() const;
+        const sk::net::InetAddress& address() const;
+        const uint16_t port() const;
 
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
@@ -47,7 +47,7 @@ namespace sk {
 
         void setup(const int backlog);
 
-        sk::util::Holder<sk::net::InetSocketAddress>::Direct _socketAddressHolder;
+        sk::util::Holder<sk::net::InetSocketAddress>::Direct _endpointHolder;
         sk::util::Holder<sk::net::DirectedSocket>::Direct _socketHolder;
     };
   }

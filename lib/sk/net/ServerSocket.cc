@@ -23,24 +23,24 @@ static const sk::util::String __className("sk::net::ServerSocket");
 
 sk::net::ServerSocket::
 ServerSocket(const uint16_t port)
-  : _socketAddressHolder(new sk::net::InetSocketAddress(port)), 
-    _socketHolder(_socketAddressHolder.get().makeDirectedSocket())
+  : _endpointHolder(new sk::net::InetSocketAddress(port)), 
+    _socketHolder(_endpointHolder.get().makeDirectedSocket())
 {
   setup(0);
 }
 
 sk::net::ServerSocket::
 ServerSocket(const uint16_t port, const int backlog)
-  : _socketAddressHolder(new sk::net::InetSocketAddress(port)), 
-    _socketHolder(_socketAddressHolder.get().makeDirectedSocket())
+  : _endpointHolder(new sk::net::InetSocketAddress(port)), 
+    _socketHolder(_endpointHolder.get().makeDirectedSocket())
 {
   setup(backlog);
 }
 
 sk::net::ServerSocket::
 ServerSocket(const uint16_t port, const int backlog, const sk::net::InetAddress& bindAddress)
-  : _socketAddressHolder(new sk::net::InetSocketAddress(bindAddress, port)),
-    _socketHolder(_socketAddressHolder.get().makeDirectedSocket())
+  : _endpointHolder(new sk::net::InetSocketAddress(bindAddress, port)),
+    _socketHolder(_endpointHolder.get().makeDirectedSocket())
 {
   setup(backlog);
 }
@@ -61,7 +61,7 @@ const sk::util::String
 sk::net::ServerSocket::
 toString() const
 {
-  return _socketAddressHolder.get().toString();
+  return _endpointHolder.get().toString();
 }
 
 void 
@@ -86,26 +86,26 @@ sk::net::ServerSocket::
 close()
 {
   _socketHolder.clear();
-  _socketAddressHolder.clear();
+  _endpointHolder.clear();
 }
 
 const uint16_t 
 sk::net::ServerSocket::
-getPort() const
+port() const
 {
-  return _socketAddressHolder.get().getPort();
+  return endpoint().getPort();
 }
 
 const sk::net::InetSocketAddress& 
 sk::net::ServerSocket::
-getSocketAddress() const
+endpoint() const
 {
-  return _socketAddressHolder.get();
+  return _endpointHolder.get();
 }
 
 const sk::net::InetAddress& 
 sk::net::ServerSocket::
-getInetAddress() const
+address() const
 {
-  return getSocketAddress().getAddress();
+  return endpoint().getAddress();
 }
