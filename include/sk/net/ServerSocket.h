@@ -40,6 +40,9 @@ namespace sk {
         ServerSocket& operator = (const ServerSocket& other);
 
         void setup(const int backlog);
+
+        bool _bound;
+        int _backlog;
     };
   }
 }

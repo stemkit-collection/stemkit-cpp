@@ -60,15 +60,21 @@ void
 sk::net::ServerSocket::
 setup(const int backlog)
 {
-  const sk::net::DirectedSocket& socket = directedSocket();
-
-  socket.bind();
-  socket.listen(backlog > 0 ? backlog : 5);
+  _backlog = backlog;
+  _bound = false;
 }
 
 sk::net::Socket 
 sk::net::ServerSocket::
 accept()
 {
-  return sk::net::Socket(directedSocket().accept());
+  const sk::net::DirectedSocket& socket = directedSocket();
+
+  if(_bound == false) {
+    socket.bind();
+    socket.listen(_backlog > 0 ? _backlog : 5);
+
+    _bound = true;
+  }
+  return sk::net::Socket(socket.accept());
 }
