@@ -126,7 +126,7 @@ address() const
 
 const sk::net::InetSocketAddress
 sk::net::ip4::DirectedSocket::
-localSocketAddress() const
+localEndpoint() const
 {
   struct sockaddr_in addr;
   socklen_t size;

@@ -38,7 +38,7 @@ namespace sk {
           // sk::net::DirectedSocket implementation.
           uint16_t port() const;
           sk::net::InetAddress& address() const;
-          const sk::net::InetSocketAddress localSocketAddress() const;
+          const sk::net::InetSocketAddress localEndpoint() const;
 
           // sk::net::DirectedSocket implementation.
           sk::io::InputStream& inputStream() const;
