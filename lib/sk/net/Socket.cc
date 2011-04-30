@@ -20,6 +20,13 @@
 static const sk::util::String __className("sk::net::Socket");
 
 sk::net::Socket::
+Socket(const sk::net::InetSocketAddress& endpoint)
+  : _directedSocketHolder(endpoint.getAddress().makeDirectedSocket(endpoint.getPort()))
+{
+  _directedSocketHolder.get().connect();
+}
+
+sk::net::Socket::
 Socket(const sk::net::InetAddress& address, int port)
   : _directedSocketHolder(address.makeDirectedSocket(port))
 {

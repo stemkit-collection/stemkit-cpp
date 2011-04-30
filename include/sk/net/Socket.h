@@ -29,6 +29,7 @@ namespace sk {
       : public virtual sk::util::Object
     {
       public:
+        Socket(const sk::net::InetSocketAddress& endpoint);
         Socket(const sk::net::InetAddress& address, int port);
         Socket(const sk::util::String& host, int port);
         virtual ~Socket();
