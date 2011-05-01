@@ -15,7 +15,7 @@
 #include <sk/net/InetSocketAddress.h>
 #include <sk/net/ip4/InetAddress.h>
 
-static const char* __className("sk::net::InetSocketAddress");
+static const sk::util::String __className("sk::net::InetSocketAddress");
 
 sk::net::InetSocketAddress::
 InetSocketAddress(const sk::net::InetAddress& address, uint16_t port)
