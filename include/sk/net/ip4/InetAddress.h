@@ -41,7 +41,8 @@ namespace sk {
           bool isMulticastAddress() const;
           
           // sk::net::InetAddress implementation.
-          sk::net::DirectedSocket* makeDirectedSocket(const uint16_t port) const;
+          sk::net::DirectedSocket* directedStreamSocket(const uint16_t port) const;
+          sk::net::DirectedSocket* directedDatagramSocket(const uint16_t port) const;
 
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;

@@ -84,7 +84,14 @@ isResolved() const
 
 sk::net::DirectedSocket*
 sk::net::InetSocketAddress::
-makeDirectedSocket() const
+directedStreamSocket() const
 {
-  return getAddress().makeDirectedSocket(_port);
+  return getAddress().directedStreamSocket(_port);
+}
+
+sk::net::DirectedSocket*
+sk::net::InetSocketAddress::
+directedDatagramSocket() const
+{
+  return getAddress().directedDatagramSocket(_port);
 }

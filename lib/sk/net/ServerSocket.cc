@@ -18,21 +18,21 @@ static const sk::util::String __className("sk::net::ServerSocket");
 
 sk::net::ServerSocket::
 ServerSocket(const uint16_t port)
-  : sk::net::AbstractSocket(sk::net::InetSocketAddress(port).makeDirectedSocket())
+  : sk::net::AbstractSocket(sk::net::InetSocketAddress(port).directedStreamSocket())
 {
   setup(0);
 }
 
 sk::net::ServerSocket::
 ServerSocket(const uint16_t port, const int backlog)
-  : sk::net::AbstractSocket(sk::net::InetSocketAddress(port).makeDirectedSocket())
+  : sk::net::AbstractSocket(sk::net::InetSocketAddress(port).directedStreamSocket())
 {
   setup(backlog);
 }
 
 sk::net::ServerSocket::
 ServerSocket(const uint16_t port, const int backlog, const sk::net::InetAddress& bindAddress)
-  : sk::net::AbstractSocket(sk::net::InetSocketAddress(bindAddress, port).makeDirectedSocket())
+  : sk::net::AbstractSocket(sk::net::InetSocketAddress(bindAddress, port).directedStreamSocket())
 {
   setup(backlog);
 }

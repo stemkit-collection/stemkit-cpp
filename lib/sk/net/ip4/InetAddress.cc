@@ -194,7 +194,14 @@ getAnyLocalAddress()
 
 sk::net::DirectedSocket*
 sk::net::ip4::InetAddress::
-makeDirectedSocket(const uint16_t port) const
+directedStreamSocket(const uint16_t port) const
 {
   return new sk::net::ip4::DirectedSocket(_number, port);
+}
+
+sk::net::DirectedSocket*
+sk::net::ip4::InetAddress::
+directedDatagramSocket(const uint16_t port) const
+{
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
 }

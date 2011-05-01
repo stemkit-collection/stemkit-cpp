@@ -33,7 +33,8 @@ namespace sk {
         uint16_t getPort() const;
         bool isResolved() const;
 
-        sk::net::DirectedSocket* makeDirectedSocket() const;
+        sk::net::DirectedSocket* directedStreamSocket() const;
+        sk::net::DirectedSocket* directedDatagramSocket() const;
 
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;

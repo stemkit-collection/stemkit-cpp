@@ -44,7 +44,8 @@ namespace sk {
         virtual bool isSiteLocalAddress() const = 0;
         virtual bool isMulticastAddress() const = 0;
 
-        virtual sk::net::DirectedSocket* makeDirectedSocket(const uint16_t port) const = 0;
+        virtual sk::net::DirectedSocket* directedStreamSocket(const uint16_t port) const = 0;
+        virtual sk::net::DirectedSocket* directedDatagramSocket(const uint16_t port) const = 0;
 
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;

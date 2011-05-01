@@ -18,21 +18,21 @@ static const sk::util::String __className("sk::net::Socket");
 
 sk::net::Socket::
 Socket(const sk::net::InetSocketAddress& endpoint)
-  : sk::net::AbstractSocket(endpoint.getAddress().makeDirectedSocket(endpoint.getPort()))
+  : sk::net::AbstractSocket(endpoint.getAddress().directedStreamSocket(endpoint.getPort()))
 {
   directedSocket().connect();
 }
 
 sk::net::Socket::
 Socket(const sk::net::InetAddress& address, const uint16_t port)
-  : sk::net::AbstractSocket(address.makeDirectedSocket(port))
+  : sk::net::AbstractSocket(address.directedStreamSocket(port))
 {
   directedSocket().connect();
 }
 
 sk::net::Socket::
 Socket(const sk::util::String& host, const uint16_t port)
-  : sk::net::AbstractSocket(sk::net::InetAddress::getByName(host).makeDirectedSocket(port))
+  : sk::net::AbstractSocket(sk::net::InetAddress::getByName(host).directedStreamSocket(port))
 {
   directedSocket().connect();
 }
