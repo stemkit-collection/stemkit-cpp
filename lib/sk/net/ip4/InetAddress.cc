@@ -196,12 +196,12 @@ sk::net::DirectedSocket*
 sk::net::ip4::InetAddress::
 directedStreamSocket(const uint16_t port) const
 {
-  return new sk::net::ip4::DirectedSocket(_number, port);
+  return sk::net::ip4::DirectedSocket::streamSocket(_number, port);
 }
 
 sk::net::DirectedSocket*
 sk::net::ip4::InetAddress::
 directedDatagramSocket(const uint16_t port) const
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  return sk::net::ip4::DirectedSocket::datagramSocket(_number, port);
 }

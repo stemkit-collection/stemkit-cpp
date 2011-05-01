@@ -25,9 +25,10 @@ namespace sk {
         : public virtual sk::net::DirectedSocket
       {
         public:
-          DirectedSocket(const uint32_t number, const uint16_t port);
-          DirectedSocket(const struct sockaddr_in& address, const int socket);
           virtual ~DirectedSocket();
+
+          static sk::net::DirectedSocket* streamSocket(const uint32_t number, const uint16_t port);
+          static sk::net::DirectedSocket* datagramSocket(const uint32_t number, const uint16_t port);
 
           // sk::net::DirectedSocket implementation.
           void bind() const;
@@ -51,6 +52,8 @@ namespace sk {
           const sk::util::Class getClass() const;
       
         private:
+          DirectedSocket(const uint32_t number, const uint16_t port, const int socket);
+          DirectedSocket(const struct sockaddr_in& address, const int socket);
           DirectedSocket(const DirectedSocket& other);
           DirectedSocket& operator = (const DirectedSocket& other);
 

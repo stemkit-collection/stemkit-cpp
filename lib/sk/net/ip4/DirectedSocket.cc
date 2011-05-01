@@ -37,8 +37,8 @@ namespace {
 }
 
 sk::net::ip4::DirectedSocket::
-DirectedSocket(const uint32_t number, const uint16_t port)
-  : _address(makeAddr(number, port)), _socket(::socket(PF_INET, SOCK_STREAM, 0))
+DirectedSocket(const uint32_t number, const uint16_t port, const int socket)
+  : _address(makeAddr(number, port)), _socket(socket)
 {
   if(_socket == -1) {
     throw sk::rt::SystemException("socket()");
@@ -57,6 +57,20 @@ sk::net::ip4::DirectedSocket::
   if(_socket >= 0) {
     ::close(_socket);
   }
+}
+
+sk::net::DirectedSocket* 
+sk::net::ip4::DirectedSocket::
+streamSocket(const uint32_t number, const uint16_t port)
+{
+  return new sk::net::ip4::DirectedSocket(number, port, ::socket(PF_INET, SOCK_STREAM, 0));
+}
+
+sk::net::DirectedSocket* 
+sk::net::ip4::DirectedSocket::
+datagramSocket(const uint32_t number, const uint16_t port)
+{
+  return new sk::net::ip4::DirectedSocket(number, port, ::socket(PF_INET, SOCK_DGRAM, 0));
 }
 
 const sk::util::Class
