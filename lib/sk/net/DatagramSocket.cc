@@ -56,16 +56,16 @@ getClass() const
   return sk::util::Class(__className);
 }
 
-void
+const sk::net::InetSocketAddress
 sk::net::DatagramSocket::
-receive(sk::net::DatagramPacket& packet)
+receive(std::vector<char>& buffer)
 {
   throw sk::util::UnsupportedOperationException(SK_METHOD);
 }
 
 void
 sk::net::DatagramSocket::
-send(const sk::net::DatagramPacket& packet)
+send(const std::vector<char>& data, const sk::net::InetSocketAddress& endpoint)
 {
   throw sk::util::UnsupportedOperationException(SK_METHOD);
 }

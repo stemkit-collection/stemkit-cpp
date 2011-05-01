@@ -15,8 +15,6 @@
 
 namespace sk {
   namespace net {
-    class DatagramPacket;
-
     class DatagramSocket 
       : public sk::net::AbstractSocket
     {
@@ -27,8 +25,8 @@ namespace sk {
         DatagramSocket(const sk::net::InetSocketAddress& endpoint);
         virtual ~DatagramSocket();
 
-        void receive(sk::net::DatagramPacket& packet);
-        void send(const sk::net::DatagramPacket& packet);
+        const sk::net::InetSocketAddress receive(std::vector<char>& buffer);
+        void send(const std::vector<char>& data, const sk::net::InetSocketAddress& endpoint);
     
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
