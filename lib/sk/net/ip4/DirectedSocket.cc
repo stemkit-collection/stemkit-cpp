@@ -112,7 +112,7 @@ sk::net::ip4::DirectedSocket::
 accept() const
 {
   struct sockaddr_in addr = { 0 };
-  socklen_t size = 0;
+  socklen_t size = sizeof(addr);
 
   const int socket = ::accept(_socket, reinterpret_cast<sockaddr*>(&addr), &size);
   if(socket == -1) {
@@ -143,7 +143,7 @@ sk::net::ip4::DirectedSocket::
 localEndpoint() const
 {
   struct sockaddr_in addr = { 0 };
-  socklen_t size = 0;
+  socklen_t size = sizeof(addr);
 
   if(::getsockname(_socket, reinterpret_cast<sockaddr*>(&addr), &size) == -1) {
     throw sk::rt::SystemException("getsockname()");
