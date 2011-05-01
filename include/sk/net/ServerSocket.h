@@ -16,10 +16,6 @@
 
 namespace sk {
   namespace net {
-    class InetAddress;
-    class InetSocketAddress;
-    class DirectedSocket;
-
     class ServerSocket 
        : public sk::net::AbstractSocket
     {
