@@ -16,11 +16,13 @@
 #include <sk/util/IllegalStateException.h>
 
 #include <sk/net/SocketException.h>
+#include <sk/net/BindException.h>
 #include <sk/net/ip4/InetAddress.h>
 #include <sk/io/FileDescriptorInputStream.h>
 #include <sk/io/FileDescriptorOutputStream.h>
 
 #include "DirectedSocket.h"
+#include <cerrno>
 
 static const sk::util::String __className("sk::net::ip4::DirectedSocket");
 
@@ -85,6 +87,9 @@ sk::net::ip4::DirectedSocket::
 bind() const
 {
   if(::bind(_socket, reinterpret_cast<const sockaddr*>(&_address), sizeof(_address)) == -1) {
+    if(errno == EADDRINUSE) {
+      throw sk::net::BindException(port());
+    }
     throw sk::net::SocketException("bind()");
   }
 }

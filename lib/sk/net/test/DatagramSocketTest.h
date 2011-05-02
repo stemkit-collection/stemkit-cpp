@@ -22,6 +22,7 @@ namespace sk {
       {
         CPPUNIT_TEST_SUITE(sk::net::test::DatagramSocketTest);
           CPPUNIT_TEST(test_transmits_simple_data);
+          CPPUNIT_TEST(test_fails_on_port_in_use);
         CPPUNIT_TEST_SUITE_END();
       
         public:
@@ -31,6 +32,7 @@ namespace sk {
           void setUp();
           void tearDown();
           void test_transmits_simple_data();
+          void test_fails_on_port_in_use();
       
         private:
           DatagramSocketTest(const DatagramSocketTest& other);

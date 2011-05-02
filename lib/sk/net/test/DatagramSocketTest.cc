@@ -11,6 +11,7 @@
 #include "DatagramSocketTest.h"
 #include <sk/net/DatagramSocket.h>
 #include <sk/net/ip4/InetAddress.h>
+#include <sk/net/BindException.h>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::net::test::DatagramSocketTest);
 
@@ -53,4 +54,18 @@ test_transmits_simple_data()
 
   CPPUNIT_ASSERT_EQUAL(s1.localPort(), endpoint.getPort());
   CPPUNIT_ASSERT(endpoint.getAddress().isLoopbackAddress() == true);
+}
+
+void
+sk::net::test::DatagramSocketTest::
+test_fails_on_port_in_use()
+{
+  sk::net::DatagramSocket s1;
+  try {
+    sk::net::DatagramSocket s2(s1.localPort());
+    CPPUNIT_FAIL("No expected exception");
+  }
+  catch(const sk::net::BindException& exception) {
+    CPPUNIT_ASSERT_EQUAL(s1.localPort(), exception.getPort());
+  }
 }

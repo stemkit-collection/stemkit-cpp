@@ -4,6 +4,8 @@ local library = sk.net ;
 
 local objects = 
   SocketException.cc
+  BindException.cc
+  ConnectException.cc
   UnknownHostException.cc
   DataInputStream.cc
   DataOutputStream.cc
