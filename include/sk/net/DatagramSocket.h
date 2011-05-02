@@ -27,6 +27,7 @@ namespace sk {
 
         const sk::net::InetSocketAddress receive(std::vector<char>& buffer);
         void send(const std::vector<char>& data, const sk::net::InetSocketAddress& endpoint);
+        void send(const std::vector<char>& data, const sk::net::InetAddress& address, const uint16_t port);
     
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;

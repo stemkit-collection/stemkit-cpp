@@ -6,6 +6,7 @@ local objects =
   TestSuite.cc
   InetAddressTest.cc
   InetSocketAddressTest.cc
+  DatagramSocketTest.cc
 ;
 
 use-unit-test $(test) $(objects) ;

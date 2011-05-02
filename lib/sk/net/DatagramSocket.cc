@@ -69,3 +69,10 @@ send(const std::vector<char>& data, const sk::net::InetSocketAddress& endpoint)
 {
   directedSocket().sendto(data, endpoint);
 }
+
+void 
+sk::net::DatagramSocket::
+send(const std::vector<char>& data, const sk::net::InetAddress& address, const uint16_t port)
+{
+  directedSocket().sendto(data, sk::net::InetSocketAddress(address, port));
+}
