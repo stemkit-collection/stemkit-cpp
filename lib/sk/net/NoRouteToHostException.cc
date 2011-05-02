@@ -17,7 +17,7 @@ static const sk::util::String __className("sk::net::NoRouteToHostException");
 
 sk::net::NoRouteToHostException::
 NoRouteToHostException(const sk::util::String& host, const uint16_t port)
-  : sk::net::ConnectException("no route", host, port)
+  : sk::net::ConnectException(host, port)
 {
 }
 

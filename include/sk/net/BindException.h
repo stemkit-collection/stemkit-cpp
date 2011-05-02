@@ -19,14 +19,17 @@ namespace sk {
       : public sk::net::SocketException
     {
       public:
-        BindException(const uint16_t port);
+        BindException(const sk::util::String& address, const uint16_t port);
+        virtual ~BindException() throw();
 
+        const sk::util::String getAddress() const;
         const uint16_t getPort() const;
     
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
 
       private:
+        const sk::util::String _address;
         const uint16_t _port;
     };
   }

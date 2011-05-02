@@ -41,7 +41,7 @@ SystemException(const sk::util::String& message, uint32_t code)
 
 sk::rt::SystemException::
 SystemException(const sk::util::String& message, const sk::util::Strings& details)
-  : sk::util::Exception(sk::util::Strings("Runtime") << message << details << sk::util::String::valueOf(errno) << get_errno_message(errno)), _code(errno)
+  : sk::util::Exception(sk::util::Strings("Runtime") << message << sk::util::String::valueOf(errno) << get_errno_message(errno) << details), _code(errno)
 {
 }
 

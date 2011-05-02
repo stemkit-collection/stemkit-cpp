@@ -16,8 +16,13 @@
 static const sk::util::String __className("sk::net::BindException");
 
 sk::net::BindException::
-BindException(const uint16_t port)
-  : sk::net::SocketException("bind", sk::util::String::valueOf(port)), _port(port) 
+BindException(const sk::util::String& address, const uint16_t port)
+  : sk::net::SocketException("bind", sk::util::Strings(address) << sk::util::String::valueOf(port)), _address(address), _port(port) 
+{
+}
+
+sk::net::BindException::
+~BindException() throw()
 {
 }
 
@@ -26,6 +31,13 @@ sk::net::BindException::
 getClass() const
 {
   return sk::util::Class(__className);
+}
+
+const sk::util::String
+sk::net::BindException::
+getAddress() const
+{
+  return _address;
 }
 
 const uint16_t

@@ -90,7 +90,7 @@ bind() const
 {
   if(::bind(_socket, reinterpret_cast<const sockaddr*>(&_address), sizeof(_address)) == -1) {
     if(errno == EADDRINUSE) {
-      throw sk::net::BindException(port());
+      throw sk::net::BindException(address().getHostAddress(), port());
     }
     throw sk::net::SocketException("bind()");
   }
