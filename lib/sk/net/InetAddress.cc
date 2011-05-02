@@ -73,7 +73,18 @@ isResolved() const
   return _resolved;
 }
 
-sk::net::InetAddress&
+const sk::net::InetAddress&
+sk::net::InetAddress::
+resolve(bool tolerate) const
+{
+  if(_resolved == true) {
+    return *this;
+  }
+  sk::net::InetAddress& address = sk::net::InetAddress::getByAddress(getAddress());
+  return address.resolve(tolerate);
+}
+
+const sk::net::InetAddress&
 sk::net::InetAddress::
 resolve(bool tolerate)
 {

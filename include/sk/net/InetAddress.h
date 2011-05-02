@@ -32,7 +32,8 @@ namespace sk {
         static void clearCache();
 
         bool isResolved() const;
-        InetAddress& resolve(bool tolerate = true);
+        const InetAddress& resolve(bool tolerate = true) const;
+        const InetAddress& resolve(bool tolerate = true);
 
         const sk::util::bytes& getAddress() const;
         const sk::util::String getHostName() const;
