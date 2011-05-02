@@ -31,7 +31,7 @@ namespace sk {
         virtual void listen(const int backlog) const = 0;
         virtual void connect() const = 0;
         virtual sk::net::DirectedSocket* accept() const = 0;
-        virtual void sendto(const std::vector<char>& data, const sk::net::InetSocketAddress& endpoint) const = 0;
+        virtual void sendto(const std::vector<char>& data, const sk::net::InetAddress& address, const uint16_t port) const = 0;
         virtual const sk::net::InetSocketAddress recvfrom(std::vector<char>& data) const = 0;
 
         virtual const uint16_t port() const = 0;

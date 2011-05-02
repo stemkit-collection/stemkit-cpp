@@ -126,7 +126,7 @@ accept() const
 
 void 
 sk::net::ip4::DirectedSocket::
-sendto(const std::vector<char>& data, const sk::net::InetSocketAddress& endpoint) const
+sendto(const std::vector<char>& data, const sk::net::InetAddress& address, const uint16_t port) const
 {
   std::vector<char>::size_type amount = data.size();
   if(amount == 0) {
@@ -134,8 +134,8 @@ sendto(const std::vector<char>& data, const sk::net::InetSocketAddress& endpoint
   }
   sockaddr_in addr = { 0 };
   addr.sin_family = AF_INET;
-  addr.sin_port = htons(endpoint.getPort());
-  addr.sin_addr.s_addr = htonl(sk::net::ip4::InetAddress::toNumber(endpoint.getAddress().getAddress()));
+  addr.sin_port = htons(port);
+  addr.sin_addr.s_addr = htonl(sk::net::ip4::InetAddress::toNumber(address.getAddress()));
 
   ssize_t n = ::sendto(_socket, &data[0], amount, 0, reinterpret_cast<sockaddr*>(&addr), sizeof(addr));
   if(n == -1) {
