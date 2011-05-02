@@ -6,6 +6,7 @@ local objects =
   SocketException.cc
   BindException.cc
   ConnectException.cc
+  NoRouteToHostException.cc
   UnknownHostException.cc
   DataInputStream.cc
   DataOutputStream.cc

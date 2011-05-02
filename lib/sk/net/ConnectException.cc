@@ -9,19 +9,20 @@
 */
 
 #include <sk/util/Class.h>
-#include <sk/util/String.h>
+#include <sk/util/Strings.h>
 
 #include <sk/net/ConnectException.h>
 
 static const sk::util::String __className("sk::net::ConnectException");
 
 sk::net::ConnectException::
-ConnectException()
+ConnectException(const sk::util::String& host, const uint16_t port)
+  : sk::net::SocketException("connect", sk::util::Strings(host) << sk::util::String::valueOf(port)), _host(host), _port(port)
 {
 }
 
 sk::net::ConnectException::
-~ConnectException()
+~ConnectException() throw()
 {
 }
 
@@ -30,4 +31,18 @@ sk::net::ConnectException::
 getClass() const
 {
   return sk::util::Class(__className);
+}
+
+const sk::util::String
+sk::net::ConnectException::
+getHost() const
+{
+  return _host;
+}
+
+const uint16_t
+sk::net::ConnectException::
+getPort() const
+{
+  return _port;
 }

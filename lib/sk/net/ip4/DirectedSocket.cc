@@ -17,6 +17,8 @@
 
 #include <sk/net/SocketException.h>
 #include <sk/net/BindException.h>
+#include <sk/net/ConnectException.h>
+#include <sk/net/NoRouteToHostException.h>
 #include <sk/net/ip4/InetAddress.h>
 #include <sk/io/FileDescriptorInputStream.h>
 #include <sk/io/FileDescriptorOutputStream.h>
@@ -108,6 +110,12 @@ sk::net::ip4::DirectedSocket::
 connect() const
 {
   if(::connect(_socket, reinterpret_cast<const sockaddr*>(&_address), sizeof(_address)) == -1) {
+    if(errno == ECONNREFUSED) {
+      throw sk::net::ConnectException(address().getHostName(), port());
+    }
+    if((errno == EHOSTUNREACH) || (errno == ENETUNREACH)) {
+      throw sk::net::NoRouteToHostException(address().getHostName());
+    }
     throw sk::net::SocketException("connect()");
   }
 }
