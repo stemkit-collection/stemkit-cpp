@@ -60,12 +60,12 @@ const sk::net::InetSocketAddress
 sk::net::DatagramSocket::
 receive(std::vector<char>& buffer)
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  return directedSocket().recvfrom(buffer);
 }
 
 void
 sk::net::DatagramSocket::
 send(const std::vector<char>& data, const sk::net::InetSocketAddress& endpoint)
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  directedSocket().sendto(data, endpoint);
 }

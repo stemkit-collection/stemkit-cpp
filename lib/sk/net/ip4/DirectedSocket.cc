@@ -124,6 +124,48 @@ accept() const
   return new sk::net::ip4::DirectedSocket(addr, socket);
 }
 
+void 
+sk::net::ip4::DirectedSocket::
+sendto(const std::vector<char>& data, const sk::net::InetSocketAddress& endpoint) const
+{
+  std::vector<char>::size_type amount = data.size();
+  if(amount == 0) {
+    return;
+  }
+  sockaddr_in addr = { 0 };
+  addr.sin_family = AF_INET;
+  addr.sin_port = htons(endpoint.getPort());
+  addr.sin_addr.s_addr = htonl(sk::net::ip4::InetAddress::toNumber(endpoint.getAddress().getAddress()));
+
+  ssize_t n = ::sendto(_socket, &data[0], amount, 0, reinterpret_cast<sockaddr*>(&addr), sizeof(addr));
+  if(n == -1) {
+    throw sk::rt::SystemException("sendto()");
+  }
+  if(n != amount) {
+    throw sk::util::IllegalStateException("sendto()", sk::util::Strings("amount mismatch") << sk::util::String::valueOf(n) << sk::util::String::valueOf(amount));
+  }
+}
+
+const sk::net::InetSocketAddress 
+sk::net::ip4::DirectedSocket::
+recvfrom(std::vector<char>& data) const
+{
+  sockaddr_in addr = { 0 };
+  socklen_t size = sizeof(addr);
+
+  ssize_t n = ::recvfrom(_socket, &data[0], data.size(), 0, reinterpret_cast<sockaddr*>(&addr), &size);
+  if(n == -1) {
+    throw sk::rt::SystemException("recvfrom()");
+  }
+  if(size != sizeof(addr)) {
+    throw sk::util::IllegalStateException("recvfrom()", "sockaddr_in size mismatch");
+  }
+  data.resize(n);
+
+  const sk::util::bytes components = sk::net::ip4::InetAddress::toComponents(ntohl(addr.sin_addr.s_addr));
+  return sk::net::InetSocketAddress(sk::net::InetAddress::getByAddress(components), ntohs(addr.sin_port));
+}
+
 const uint16_t
 sk::net::ip4::DirectedSocket::
 port() const

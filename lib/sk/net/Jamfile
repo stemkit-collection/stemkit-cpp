@@ -6,9 +6,7 @@ local objects =
   UnknownHostException.cc
   DataInputStream.cc
   DataOutputStream.cc
-  DatagramPacket.cc
   DatagramSocket.cc
-  MulticastSocket.cc
   InetAddressFactory.cc
   InetAddress.cc
   InetSocketAddress.cc
