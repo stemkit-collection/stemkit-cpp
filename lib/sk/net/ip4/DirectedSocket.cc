@@ -15,7 +15,7 @@
 #include <sk/util/UnsupportedOperationException.h>
 #include <sk/util/IllegalStateException.h>
 
-#include <sk/rt/SystemException.h>
+#include <sk/net/SocketException.h>
 #include <sk/net/ip4/InetAddress.h>
 #include <sk/io/FileDescriptorInputStream.h>
 #include <sk/io/FileDescriptorOutputStream.h>
@@ -41,7 +41,7 @@ DirectedSocket(const uint32_t number, const uint16_t port, const int socket)
   : _address(makeAddr(number, port)), _socket(socket)
 {
   if(_socket == -1) {
-    throw sk::rt::SystemException("socket()");
+    throw sk::net::SocketException("socket()");
   }
 }
 
@@ -85,7 +85,7 @@ sk::net::ip4::DirectedSocket::
 bind() const
 {
   if(::bind(_socket, reinterpret_cast<const sockaddr*>(&_address), sizeof(_address)) == -1) {
-    throw sk::rt::SystemException("bind()");
+    throw sk::net::SocketException("bind()");
   }
 }
 
@@ -94,7 +94,7 @@ sk::net::ip4::DirectedSocket::
 listen(const int backlog) const
 {
   if(::listen(_socket, backlog) == -1) {
-    throw sk::rt::SystemException("listen()");
+    throw sk::net::SocketException("listen()");
   }
 }
 
@@ -103,7 +103,7 @@ sk::net::ip4::DirectedSocket::
 connect() const
 {
   if(::connect(_socket, reinterpret_cast<const sockaddr*>(&_address), sizeof(_address)) == -1) {
-    throw sk::rt::SystemException("connect()");
+    throw sk::net::SocketException("connect()");
   }
 }
 
@@ -116,7 +116,7 @@ accept() const
 
   const int socket = ::accept(_socket, reinterpret_cast<sockaddr*>(&addr), &size);
   if(socket == -1) {
-    throw sk::rt::SystemException("accept()");
+    throw sk::net::SocketException("accept()");
   }
   if(size != sizeof(addr)) {
     throw sk::util::IllegalStateException("accept()", "sockaddr_in size mismatch");
@@ -139,7 +139,7 @@ sendto(const std::vector<char>& data, const sk::net::InetAddress& address, const
 
   ssize_t n = ::sendto(_socket, &data[0], amount, 0, reinterpret_cast<sockaddr*>(&addr), sizeof(addr));
   if(n == -1) {
-    throw sk::rt::SystemException("sendto()");
+    throw sk::net::SocketException("sendto()");
   }
   if(n != amount) {
     throw sk::util::IllegalStateException("sendto()", sk::util::Strings("amount mismatch") << sk::util::String::valueOf(n) << sk::util::String::valueOf(amount));
@@ -155,7 +155,7 @@ recvfrom(std::vector<char>& data) const
 
   ssize_t n = ::recvfrom(_socket, &data[0], data.size(), 0, reinterpret_cast<sockaddr*>(&addr), &size);
   if(n == -1) {
-    throw sk::rt::SystemException("recvfrom()");
+    throw sk::net::SocketException("recvfrom()");
   }
   if(size != sizeof(addr)) {
     throw sk::util::IllegalStateException("recvfrom()", "sockaddr_in size mismatch");
@@ -188,7 +188,7 @@ localEndpoint() const
   socklen_t size = sizeof(addr);
 
   if(::getsockname(_socket, reinterpret_cast<sockaddr*>(&addr), &size) == -1) {
-    throw sk::rt::SystemException("getsockname()");
+    throw sk::net::SocketException("getsockname()");
   }
   if(size != sizeof(addr)) {
     throw sk::util::IllegalStateException("getsockname()", "sockaddr_in size mismatch");
@@ -223,6 +223,6 @@ setReuseAddress(bool state)
 {
   int value = (state == true ? 1 : 0);
   if(::setsockopt(_socket, SOL_SOCKET, SO_REUSEADDR, &value, sizeof(value)) == -1) {
-    throw sk::rt::SystemException("setsockopt()");
+    throw sk::net::SocketException("setsockopt()");
   }
 }

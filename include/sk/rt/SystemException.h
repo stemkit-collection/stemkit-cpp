@@ -21,6 +21,7 @@ namespace sk {
       public:
         SystemException(const sk::util::String& message);
         SystemException(const sk::util::String& message, uint32_t code);
+        SystemException(const sk::util::String& message, const sk::util::Strings& details);
 
         static bool raiseUnlessSuccess(const sk::util::String& statement, int status, int other = 0);
         uint32_t getCode() const;

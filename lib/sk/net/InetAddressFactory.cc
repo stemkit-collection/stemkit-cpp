@@ -16,12 +16,12 @@
 #include <sk/util/UnsupportedOperationException.h>
 
 #include <sk/rt/Actions.h>
-#include <sk/rt/SystemException.h>
 #include <sk/rt/Locker.h>
 
 #include <sk/net/ip4/InetAddress.h>
 #include <sk/net/ip6/InetAddress.h>
 #include <sk/net/UnknownHostException.h>
+#include <sk/net/SocketException.h>
 
 #include <unistd.h>
 #include <sys/types.h>
@@ -194,7 +194,7 @@ findOrCreateLocalHost()
 {
   char buffer[512];
   if(gethostname(buffer, sizeof(buffer)) == -1) {
-    throw sk::rt::SystemException("gethostname");
+    throw sk::net::SocketException("gethostname");
   }
   return findOrCreateByName(buffer);
 }

@@ -12,7 +12,6 @@
 #include <sk/util/Strings.h>
 #include <sk/util/UnsupportedOperationException.h>
 #include <sk/util/IllegalStateException.h>
-#include <sk/rt/SystemException.h>
 
 #include <sk/net/ip4/InetAddress.h>
 #include <sk/net/UnknownHostException.h>
