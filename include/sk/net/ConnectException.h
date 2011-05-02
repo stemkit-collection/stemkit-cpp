@@ -19,6 +19,7 @@ namespace sk {
       : public sk::net::SocketException
     {
       public:
+        ConnectException(const sk::util::String& message, const sk::util::String& host, const uint16_t port);
         ConnectException(const sk::util::String& host, const uint16_t port);
         virtual ~ConnectException() throw();
 

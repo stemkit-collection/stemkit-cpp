@@ -16,13 +16,8 @@
 static const sk::util::String __className("sk::net::NoRouteToHostException");
 
 sk::net::NoRouteToHostException::
-NoRouteToHostException(const sk::util::String& host)
-  : sk::net::SocketException("no route", host), _host(host)
-{
-}
-
-sk::net::NoRouteToHostException::
-~NoRouteToHostException() throw()
+NoRouteToHostException(const sk::util::String& host, const uint16_t port)
+  : sk::net::ConnectException("no route", host, port)
 {
 }
 
@@ -31,11 +26,4 @@ sk::net::NoRouteToHostException::
 getClass() const
 {
   return sk::util::Class(__className);
-}
-
-const sk::util::String
-sk::net::NoRouteToHostException::
-getHost() const
-{
-  return _host;
 }

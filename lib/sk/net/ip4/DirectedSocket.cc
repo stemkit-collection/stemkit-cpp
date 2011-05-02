@@ -114,7 +114,7 @@ connect() const
       throw sk::net::ConnectException(address().getHostName(), port());
     }
     if((errno == EHOSTUNREACH) || (errno == ENETUNREACH)) {
-      throw sk::net::NoRouteToHostException(address().getHostName());
+      throw sk::net::NoRouteToHostException(address().getHostName(), port());
     }
     throw sk::net::SocketException("connect()");
   }

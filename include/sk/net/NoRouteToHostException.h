@@ -11,24 +11,18 @@
 #ifndef _SK_NET_NOROUTETOHOSTEXCEPTION_H_
 #define _SK_NET_NOROUTETOHOSTEXCEPTION_H_
 
-#include <sk/net/SocketException.h>
+#include <sk/net/ConnectException.h>
 
 namespace sk {
   namespace net {
     class NoRouteToHostException 
-      : public sk::net::SocketException
+      : public sk::net::ConnectException
     {
       public:
-        NoRouteToHostException(const sk::util::String& host);
-        virtual ~NoRouteToHostException() throw();
-
-        const sk::util::String getHost() const;
+        NoRouteToHostException(const sk::util::String& host, const uint16_t port);
     
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
-    
-      private:
-        const sk::util::String _host;
     };
   }
 }

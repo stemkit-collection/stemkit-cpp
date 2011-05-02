@@ -16,6 +16,12 @@
 static const sk::util::String __className("sk::net::ConnectException");
 
 sk::net::ConnectException::
+ConnectException(const sk::util::String& message, const sk::util::String& host, const uint16_t port)
+  : sk::net::SocketException("connect", sk::util::Strings(message) << host << sk::util::String::valueOf(port)), _host(host), _port(port)
+{
+}
+
+sk::net::ConnectException::
 ConnectException(const sk::util::String& host, const uint16_t port)
   : sk::net::SocketException("connect", sk::util::Strings(host) << sk::util::String::valueOf(port)), _host(host), _port(port)
 {
