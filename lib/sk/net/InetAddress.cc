@@ -13,11 +13,13 @@
 #include <sk/util/IllegalStateException.h>
 #include <sk/util/UnsupportedOperationException.h>
 
+#include <sk/rt/Locker.h>
 #include <sk/net/InetAddress.h>
 #include <sk/net/UnknownHostException.h>
+
 #include "InetAddressFactory.h"
 
-static const char* __className("sk::net::InetAddress");
+static const sk::util::String __className("sk::net::InetAddress");
 
 sk::net::InetAddress::
 InetAddress(const sk::util::bytes& components)
@@ -33,7 +35,7 @@ InetAddress(const sk::util::bytes& components, const sk::util::String& name)
 
 sk::net::InetAddress::
 InetAddress(const InetAddress& other)
-  : _address(other._address), _hostName(other._hostName), _resolved(other._resolved)
+  : _address(other._address), _hostName(other.getHostName()), _resolved(other._resolved)
 {
 }
 
@@ -56,7 +58,7 @@ toString() const
   if(_resolved == false) {
     return getHostAddress();
   }
-  return _hostName + '/' + getHostAddress();
+  return getHostName() + '/' + getHostAddress();
 }
 
 const sk::util::bytes&
@@ -91,14 +93,22 @@ resolve(bool tolerate)
   if(_resolved == false) {
     if(tolerate == true) {
       try {
-        _hostName = lookupHostName();
-        _resolved = true;
+        sk::rt::Locker locker(_lock);
+        if(_resolved == false) {
+          _hostName = lookupHostName();
+          _resolved = true;
+        }
+        locker.unlock();
       }
       catch(const sk::net::UnknownHostException& exception) {}
     }
     else {
-      _hostName = lookupHostName();
-      _resolved = true;
+      sk::rt::Locker locker(_lock);
+      if(_resolved == false) {
+        _hostName = lookupHostName();
+        _resolved = true;
+      }
+      locker.unlock();
     }
   }
   return *this;
@@ -108,7 +118,14 @@ const sk::util::String
 sk::net::InetAddress::
 getHostName() const
 {
-  return (_resolved == true ? _hostName : getHostAddress());
+  if(_resolved == false) {
+    return getHostAddress();
+  }
+  sk::rt::Locker locker(_lock);
+  const sk::util::String name = _hostName;
+  locker.unlock();
+
+  return name;
 }
 
 const sk::util::String

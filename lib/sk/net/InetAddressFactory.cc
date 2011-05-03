@@ -59,7 +59,7 @@ void
 sk::net::InetAddressFactory::
 clearCache()
 {
-  // sk::util::Locker locker(_lock.writeLock());
+  sk::rt::Locker locker(_lock);
   _cache.clear();
 }
 
@@ -106,12 +106,9 @@ findOrCreateByAddress(const sk::util::bytes& components)
   sk::util::Holder<sk::net::InetAddress> addressHolder;
   ByAddressSelectorCreator selectorCreator(components, addressHolder);
 
-  // sk::rt::Locker readLocker(_lock.readLock());
+  sk::rt::Locker locker(_lock);
   if(_cache.findMutable(addressHolder, selectorCreator) == false) {
-    // sk::rt::Locker writeLocker(_lock.writeLock());
-    if(_cache.findMutable(addressHolder, selectorCreator) == false) {
-      _cache.add(selectorCreator.create());
-    }
+    _cache.add(selectorCreator.create());
   }
   return addressHolder.getMutable();
 }
@@ -178,12 +175,9 @@ findOrCreateByName(const sk::util::String& name)
   sk::util::Holder<sk::net::InetAddress> addressHolder;
   ByNameSelectorCreator selectorCreator(name, addressHolder);
 
-  // sk::rt::Locker readLocker(_lock.readLock());
+  sk::rt::Locker locker(_lock);
   if(_cache.findMutable(addressHolder, selectorCreator) == false) {
-    // sk::rt::Locker writeLocker(_lock.writeLock());
-    if(_cache.findMutable(addressHolder, selectorCreator) == false) {
-      _cache.add(selectorCreator.create());
-    }
+    _cache.add(selectorCreator.create());
   }
   return addressHolder.getMutable();
 }

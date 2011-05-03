@@ -13,7 +13,7 @@
 
 #include <sk/util/Object.h>
 #include <sk/util/ArrayList.hxx>
-#include <sk/rt/ReentrantReadWriteLock.h>
+#include <sk/rt/Mutex.h>
 #include <sk/util/bytes.h>
 
 namespace sk {
@@ -42,7 +42,7 @@ namespace sk {
         InetAddressFactory& operator = (const InetAddressFactory& other);
 
         sk::util::ArrayList<sk::net::InetAddress> _cache;
-        sk::rt::ReentrantReadWriteLock _lock;
+        sk::rt::Mutex _lock;
     };
   }
 }

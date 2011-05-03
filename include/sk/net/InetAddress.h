@@ -14,6 +14,7 @@
 #include <sk/util/Object.h>
 #include <sk/util/String.h>
 #include <sk/util/bytes.h>
+#include <sk/rt/Mutex.h>
 
 namespace sk {
   namespace net {
@@ -64,6 +65,7 @@ namespace sk {
         sk::util::bytes _address;
         sk::util::String _hostName;
         bool _resolved;
+        mutable sk::rt::Mutex _lock;
     };
   }
 }
