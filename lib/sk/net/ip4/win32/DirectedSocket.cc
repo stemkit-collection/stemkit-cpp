@@ -93,7 +93,11 @@ bind() const
   if(::bind(_socket, reinterpret_cast<const sockaddr*>(&_address), sizeof(_address)) == SOCKET_ERROR) {
     int error = WSAGetLastError();
     if(error == WSAEADDRINUSE) {
-      throw sk::net::BindException(address().getHostAddress(), port());
+      const sk::util::String hostAddress = address().getHostAddress();
+      const uint16_t hostPort = port();
+
+      WSASetLastError(error);
+      throw sk::net::BindException(hostAddress, hostPort);
     }
     throw sk::net::SocketException("bind()");
   }
@@ -114,11 +118,16 @@ connect() const
 {
   if(::connect(_socket, reinterpret_cast<const sockaddr*>(&_address), sizeof(_address)) == SOCKET_ERROR) {
     int error = WSAGetLastError();
+    const sk::util::String hostName = address().getHostName();
+    const uint16_t hostPort = port();
+
+    WSASetLastError(error);
+
     if(error == WSAECONNREFUSED) {
-      throw sk::net::ConnectException(address().getHostName(), port());
+      throw sk::net::ConnectException(hostName, hostPort);
     }
     if((error == WSAEHOSTUNREACH) || (error == WSAENETUNREACH)) {
-      throw sk::net::NoRouteToHostException(address().getHostName(), port());
+      throw sk::net::NoRouteToHostException(hostName, hostPort);
     }
     throw sk::net::SocketException("connect()");
   }
