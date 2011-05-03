@@ -53,7 +53,10 @@ namespace sk {
           const sk::util::String lookupHostName() const;
 
         private:
-          uint32_t _number;
+          static const uint32_t toHostOrder(const uint32_t number);
+          static const uint32_t toNetworkOrder(const uint32_t number);
+
+          const uint32_t _number;
       };
     }
   }
