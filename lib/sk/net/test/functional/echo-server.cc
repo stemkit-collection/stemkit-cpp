@@ -29,20 +29,28 @@ int main(int argc, const char* const argv[])
 
   server.setReuseAddress(true);
   
-  sk::net::Socket socket = server.accept();
-  std::cerr << "Got connection from " << socket.endpoint() << std::endl;
+  try {
+    sk::net::Socket socket = server.accept();
+    std::cerr << "Got connection from " << socket.endpoint() << std::endl;
 
-  sk::io::DataInputStream inputStream(socket.inputStream());
-  sk::io::DataOutputStream outputStream(socket.outputStream());
+    sk::io::DataInputStream inputStream(socket.inputStream());
+    sk::io::DataOutputStream outputStream(socket.outputStream());
 
-  try { 
-    while(true) {
-      const sk::util::String line = inputStream.readLine();
+    try { 
+      while(true) {
+        const sk::util::String line = inputStream.readLine();
 
-      std::cerr << "L: " << line.inspect() << std::endl;
-      outputStream.writeChars(line.toUpperCase());
+        std::cerr << "L: " << line.inspect() << std::endl;
+        outputStream.writeChars(line.toUpperCase());
+      }
     }
+    catch(const sk::io::EOFException& exception) {}
   }
-  catch(const sk::io::EOFException& exception) {}
+  catch(const std::exception& exception) {
+    std::cerr << "EX: " << exception.what() << std::endl;
+  }
+  catch(...) {
+    std::cerr << "EX: UNKNOWN" << std::endl;
+  }
   return 0;
 }
