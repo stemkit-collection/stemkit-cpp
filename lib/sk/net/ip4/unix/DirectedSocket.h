@@ -11,7 +11,7 @@
 #ifndef _SK_NET_IP4_DIRECTEDSOCKET_H_
 #define _SK_NET_IP4_DIRECTEDSOCKET_H_
 
-#include "../DirectedSocket.h"
+#include "../../DirectedSocket.h"
 #include <sk/util/Holder.hxx>
 
 #include <sys/socket.h>

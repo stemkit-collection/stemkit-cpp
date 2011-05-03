@@ -8,12 +8,10 @@
  *  Author: Gennady Bystritsky
 */
 
-#include "InetAddressFactory.h"
+#include "../InetAddressFactory.h"
 
-#include <sk/util/Class.h>
 #include <sk/util/Strings.h>
 #include <sk/util/ArrayList.cxx>
-#include <sk/util/UnsupportedOperationException.h>
 
 #include <sk/rt/Actions.h>
 #include <sk/rt/Locker.h>
@@ -27,91 +25,6 @@
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netdb.h>
-
-static const sk::util::String __className("sk::net::InetAddressFactory");
-
-sk::net::InetAddressFactory::
-InetAddressFactory()
-{
-}
-
-sk::net::InetAddressFactory::
-~InetAddressFactory()
-{
-}
-
-sk::net::InetAddressFactory&
-sk::net::InetAddressFactory::
-instance()
-{
-  static InetAddressFactory factory;
-  return factory;
-}
-
-const sk::util::Class
-sk::net::InetAddressFactory::
-getClass() const
-{
-  return sk::util::Class(__className);
-}
-
-void 
-sk::net::InetAddressFactory::
-clearCache()
-{
-  sk::rt::Locker locker(_lock);
-  _cache.clear();
-}
-
-namespace {
-  struct ByAddressSelectorCreator : public virtual sk::util::Selector<sk::net::InetAddress> {
-    ByAddressSelectorCreator(const sk::util::bytes& components, sk::util::Holder<sk::net::InetAddress>& holder)
-      : _components(components), _holder(holder) {}
-
-    bool assess(const sk::net::InetAddress& address) const {
-      return address.getAddress() == _components;
-    }
-
-    void tryIPv4() const {
-      _holder.set(new sk::net::ip4::InetAddress(_components));
-    }
-    
-    void tryIPv6() const {
-      _holder.set(new sk::net::ip6::InetAddress(_components));
-    }
-
-    void error() const {
-      throw sk::net::UnknownHostException("Unsupported IP address format", _components.inspect());
-    }
-
-    sk::net::InetAddress* create() const {
-      sk::rt::Actions actions;
-
-      actions.add("ip4-a", *this, &ByAddressSelectorCreator::tryIPv4);
-      actions.add("ip6-a", *this, &ByAddressSelectorCreator::tryIPv6);
-      actions.add("error", *this, &ByAddressSelectorCreator::error);
-
-      actions.performUntilSuccess(true);
-      return _holder.release();
-    }
-    const sk::util::bytes& _components;
-    sk::util::Holder<sk::net::InetAddress>& _holder;
-  };
-}
-
-sk::net::InetAddress& 
-sk::net::InetAddressFactory::
-findOrCreateByAddress(const sk::util::bytes& components)
-{
-  sk::util::Holder<sk::net::InetAddress> addressHolder;
-  ByAddressSelectorCreator selectorCreator(components, addressHolder);
-
-  sk::rt::Locker locker(_lock);
-  if(_cache.findMutable(addressHolder, selectorCreator) == false) {
-    _cache.add(selectorCreator.create());
-  }
-  return addressHolder.getMutable();
-}
 
 namespace {
   struct ByNameSelectorCreator : public virtual sk::util::Selector<sk::net::InetAddress> {

@@ -20,8 +20,6 @@
 #include <netdb.h>
 #include <arpa/inet.h>
 
-static const sk::util::String __className("sk::net::ip6::InetAddress");
-
 namespace {
   const sk::util::bytes& figure_address_components(const sk::util::String& name, const struct addrinfo& info) {
     if(info.ai_family != AF_INET6) {
@@ -40,79 +38,3 @@ InetAddress(const sk::util::String& name, const struct addrinfo& info)
 {
 }
 
-sk::net::ip6::InetAddress::
-InetAddress(const sk::util::bytes& components)
-  : sk::net::InetAddress(components)
-{
-  if(components.size() != 16) {
-    throw sk::net::UnknownHostException("Wrong IPv6 address", components.inspect());
-  }
-}
-
-sk::net::ip6::InetAddress::
-~InetAddress()
-{
-}
-
-const sk::util::Class
-sk::net::ip6::InetAddress::
-getClass() const
-{
-  return sk::util::Class(__className);
-}
-
-const sk::util::String 
-sk::net::ip6::InetAddress::
-getHostAddress() const
-{
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
-}
-
-const sk::util::String 
-sk::net::ip6::InetAddress::
-lookupHostName() const
-{
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
-}
-
-bool 
-sk::net::ip6::InetAddress::
-isLoopbackAddress() const
-{
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
-}
-
-bool 
-sk::net::ip6::InetAddress::
-isAnyLocalAddress() const
-{
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
-}
-
-bool 
-sk::net::ip6::InetAddress::
-isSiteLocalAddress() const
-{
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
-}
-
-bool 
-sk::net::ip6::InetAddress::
-isMulticastAddress() const
-{
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
-}
-
-sk::net::DirectedSocket*
-sk::net::ip6::InetAddress::
-directedStreamSocket(const uint16_t port) const
-{
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
-}
-
-sk::net::DirectedSocket*
-sk::net::ip6::InetAddress::
-directedDatagramSocket(const uint16_t port) const
-{
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
-}
