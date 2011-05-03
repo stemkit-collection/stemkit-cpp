@@ -15,6 +15,18 @@
 
 static const sk::util::String __className("sk::net::SocketException");
 
+sk::net::SocketException::
+SocketException(const sk::util::String& message)
+  : sk::rt::SystemException(message)
+{
+}
+
+sk::net::SocketException::
+SocketException(const sk::util::String& message, const sk::util::Strings& details)
+  : sk::rt::SystemException(message, details)
+{
+}
+
 const sk::util::Class
 sk::net::SocketException::
 getClass() const

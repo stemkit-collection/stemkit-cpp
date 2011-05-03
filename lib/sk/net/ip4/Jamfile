@@ -3,7 +3,9 @@ local library = sk.net.ip4 ;
 
 local objects =
   InetAddress.cc
-  DirectedSocket.cc
 ;
 
 make-library $(library) :  $(objects) ;
+add-project-library $(library) : $(library).$(PLATFORM_IMPLEMENTATION) ;
+
+make-subdirs $(PLATFORM_IMPLEMENTATION) ;

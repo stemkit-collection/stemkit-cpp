@@ -27,6 +27,7 @@ use-project-libraries $(library). : sk.io sk.util ;
 make-shared-library $(library) : $(objects) ;
 add-project-library $(library) : $(library).ip4 ;
 add-project-library $(library) : $(library).ip6 ;
+add-project-library $(library) : $(library).$(PLATFORM_IMPLEMENTATION) ;
 
-make-subdirs ip4 ip6 ;
+make-subdirs ip4 ip6 $(PLATFORM_IMPLEMENTATION) ;
 make-subdirs test ;

@@ -1,0 +1,10 @@
+# vim: ft=jam: sw=2:
+
+local library = sk.net.win32 ;
+
+local objects = 
+  InetAddressFactory.cc
+  SocketException.cc
+;
+
+make-static-library $(library) : $(objects) ;
