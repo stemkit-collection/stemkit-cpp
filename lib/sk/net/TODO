@@ -2,7 +2,8 @@
 
 InetAddress:
 ===========
-  - Use read/write locks when searching/updating the cache.
+  - Use read/write locks when searching/updating the cache. Currently, it
+    uses simple mutexes.
   - Better address factory instantiation in thread environment.
   - Better caching for multiple entries after host resolution.
   - Implement IPv6 support class (mostly unsupported operations for now).
@@ -25,5 +26,8 @@ InetAddress:
 
 ServerSocket/Socket:
 ===================
-  - Implement socket opiton settings, possibly via AbstractSocket class. See if 
-    it may host some other information.
+  - Add more options. Currently only setReuseAddresss() is implemented.
+
+  + [DONE]
+    - Implement socket opiton settings, possibly via AbstractSocket class. See if 
+      it may host some other information.

@@ -72,11 +72,11 @@ namespace {
       return address.getAddress() == _components;
     }
 
-    void tryIp4() const {
+    void tryIPv4() const {
       _holder.set(new sk::net::ip4::InetAddress(_components));
     }
     
-    void tryIp6() const {
+    void tryIPv6() const {
       _holder.set(new sk::net::ip6::InetAddress(_components));
     }
 
@@ -87,8 +87,8 @@ namespace {
     sk::net::InetAddress* create() const {
       sk::rt::Actions actions;
 
-      actions.add("ip4-a", *this, &ByAddressSelectorCreator::tryIp4);
-      actions.add("ip6-a", *this, &ByAddressSelectorCreator::tryIp6);
+      actions.add("ip4-a", *this, &ByAddressSelectorCreator::tryIPv4);
+      actions.add("ip6-a", *this, &ByAddressSelectorCreator::tryIPv6);
       actions.add("error", *this, &ByAddressSelectorCreator::error);
 
       actions.performUntilSuccess(true);
@@ -141,8 +141,8 @@ namespace {
       for(struct addrinfo* item = _items; item != 0; item = item->ai_next) {
         sk::rt::Actions actions;
 
-        actions.add("ip4-n", *this, &ByNameSelectorCreator::tryIp4, *item);
-        actions.add("ip6-n", *this, &ByNameSelectorCreator::tryIp6, *item);
+        actions.add("ip4-n", *this, &ByNameSelectorCreator::tryIPv4, *item);
+        actions.add("ip6-n", *this, &ByNameSelectorCreator::tryIPv6, *item);
         actions.add("error", *this, &ByNameSelectorCreator::error, *item);
 
         actions.performUntilSuccess(true);
@@ -150,11 +150,11 @@ namespace {
       return _holder.release();
     }
 
-    void tryIp4(const struct addrinfo& item) const {
+    void tryIPv4(const struct addrinfo& item) const {
       _holder.set(new sk::net::ip4::InetAddress(_name, item));
     }
 
-    void tryIp6(const struct addrinfo& item) const {
+    void tryIPv6(const struct addrinfo& item) const {
       _holder.set(new sk::net::ip6::InetAddress(_name, item));
     }
 
