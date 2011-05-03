@@ -16,20 +16,12 @@ local objects =
   StackTracerFactory.cc
 ;
 
-# if $(PLATFORM_IMPLEMENTATION) = win32 || mks32 in $(project.PLATFORM_SPECIFICS) {
-if $(PLATFORM_IMPLEMENTATION) = win32 {
-  objects += [ util.make-path win32 foreach_environment_item.cc ] ;
-}
-else objects += [ util.make-path unix foreach_environment_item.cc ] ;
-
 local INCLUDES = $(INCLUDES) $(system.SRCDIR) ;
 
 make-library $(library) : $(objects) ;
-
-make-subdirs $(PLATFORM_IMPLEMENTATION) ;
-
 add-project-library $(library) : $(library).$(PLATFORM_IMPLEMENTATION) ;
 add-project-library $(library) : $(library).bm ;
 
+make-subdirs $(PLATFORM_IMPLEMENTATION) ;
 make-subdirs scope logger config bundle ;
 make-subdirs thread bm tests performance ;

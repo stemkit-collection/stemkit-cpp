@@ -18,7 +18,7 @@
 static const char* __className("sk::rt::SystemException");
 
 namespace {
-  const sk::util::String get_errno_message(int code) {
+  const sk::util::String get_errno_message(const uint32_t code) {
     const char* message = strerror(code);
     if(message == 0) {
       message = "Unknown system error";
@@ -34,7 +34,7 @@ SystemException(const sk::util::String& message)
 }
 
 sk::rt::SystemException::
-SystemException(const sk::util::String& message, uint32_t code)
+SystemException(const sk::util::String& message, const uint32_t code)
   : sk::util::Exception(sk::util::Strings("Runtime") << message << get_errno_message(code)), _code(code)
 {
 }
@@ -42,6 +42,12 @@ SystemException(const sk::util::String& message, uint32_t code)
 sk::rt::SystemException::
 SystemException(const sk::util::String& message, const sk::util::Strings& details)
   : sk::util::Exception(sk::util::Strings("Runtime") << message << get_errno_message(errno) << details), _code(errno)
+{
+}
+
+sk::rt::SystemException::
+SystemException(const sk::util::String& message, const sk::util::Strings& details, const uint32_t code)
+  : sk::util::Exception(sk::util::Strings("Runtime") << message << get_errno_message(code) << details), _code(code)
 {
 }
 

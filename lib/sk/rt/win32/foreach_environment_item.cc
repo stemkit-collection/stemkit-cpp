@@ -9,7 +9,7 @@
 */
 
 #include <sk/rt/SystemException.h>
-#include "foreach_environment_item.h"
+#include "../foreach_environment_item.h"
 #include <windows.h>
 
 void sk::rt::foreach_environment_item(const sk::util::Processor<const sk::util::String>& processor) {

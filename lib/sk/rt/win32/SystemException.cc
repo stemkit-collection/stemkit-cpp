@@ -15,35 +15,54 @@
 #include <windows.h>
 #include <sstream>
 
-static const char* __className("sk::rt::SystemException");
+static const sk::util::String __className("sk::rt::SystemException");
 
 namespace {
-  const sk::util::String getErrorString(uint32_t errorCode) {
+  const sk::util::String getErrorString(const uint32_t errorCode) {
+    char* s = 0;
 	int flags = FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS;
-    char* s;
 	int n = FormatMessage(flags, 0, errorCode, 0, LPTSTR(&s), 0, 0);
  
     std::ostringstream stream;
 	if(n == 0) {
-      stream << "Error " << errorCode << "(no message found)";
+      stream << "Unknown system error";
     }
     else {
-      stream << s;
+      const sk::util::String message = sk::util::String(s).trim();
+      if(message.endsWith(".") == true) {
+        stream << message.substring(0, message.size() - 1);
+      }
+      else {
+        stream << message;
+      }
       LocalFree(s);
     }
+    stream << " (" << errorCode << ")";
     return sk::util::String(stream.str()).trim();
   }
 }
 
 sk::rt::SystemException::
 SystemException(const sk::util::String& message)
-  : sk::util::Exception(sk::util::Strings("Runtime") << message << sk::util::String::valueOf(GetLastError()) << getErrorString(GetLastError())), _code(GetLastError())
+  : sk::util::Exception(sk::util::Strings("Runtime") << message << getErrorString(GetLastError())), _code(GetLastError())
 {
 }
 
 sk::rt::SystemException::
-SystemException(const sk::util::String& message, uint32_t code)
-  : sk::util::Exception(sk::util::Strings("Runtime") << message << sk::util::String::valueOf(code) << getErrorString(code)), _code(code)
+SystemException(const sk::util::String& message, const uint32_t code)
+  : sk::util::Exception(sk::util::Strings("Runtime") << message << getErrorString(code)), _code(code)
+{
+}
+
+sk::rt::SystemException::
+SystemException(const sk::util::String& message, const sk::util::Strings& details)
+  : sk::util::Exception(sk::util::Strings("Runtime") << message << getErrorString(GetLastError()) << details), _code(GetLastError())
+{
+}
+
+sk::rt::SystemException::
+SystemException(const sk::util::String& message, const sk::util::Strings& details, const uint32_t code)
+  : sk::util::Exception(sk::util::Strings("Runtime") << message << getErrorString(code) << details), _code(code)
 {
 }
 
