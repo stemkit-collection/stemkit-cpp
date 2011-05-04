@@ -24,8 +24,8 @@ namespace echo {
       Producer(sk::io::InputStream& input, sk::io::OutputStream& output);
       virtual ~Producer();
 
-      void start();
-      void start(const sk::util::Mapper<const sk::util::String>& mapper);
+      bool start();
+      bool start(const sk::util::Mapper<const sk::util::String>& mapper);
   
       // sk::util::Object re-implementation.
       const sk::util::Class getClass() const;

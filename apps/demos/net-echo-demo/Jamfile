@@ -1,8 +1,13 @@
 # vim: ft=jam: sw=2:
 
+local objects = 
+  App.cc 
+  Producer.cc 
+;
+
 use-project-libraries echo-server echo-client : 
   sk.rt.bundle sk.rt.thread sk.net sk.io sk.util 
 ;
 
-make-program echo-server : server.cc Producer.cc ;
-make-program echo-client : client.cc Producer.cc ;
+make-program echo-server : server.cc $(objects) ;
+make-program echo-client : client.cc $(objects) ;

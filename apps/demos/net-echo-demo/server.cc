@@ -8,16 +8,13 @@
  *  Author: Gennady Bystritsky
 */
 
-#include <sk/util/String.h>
-#include <sk/util/Integer.h>
-#include <sk/util/Pathname.h>
-#include <sk/util/IllegalArgumentException.h>
 #include <sk/util/Holder.cxx>
 #include <sk/util/ArrayList.cxx>
 #include <sk/net/ServerSocket.h>
 #include <sk/rt/Thread.h>
 
 #include "Producer.h"
+#include "App.h"
 
 class Responder : public virtual sk::util::Mapper<const sk::util::String>, public virtual sk::rt::Runnable {
   public:
@@ -26,13 +23,8 @@ class Responder : public virtual sk::util::Mapper<const sk::util::String>, publi
     }
 
     void run() {
-      try {
-        _producer.start(*this);
-      }
-      catch(const std::exception& exception) {
-        _scope.error() << exception.what();
-      }
-      _scope.info() << "Terminated connection from " << _socket.endpoint();
+      bool status = _producer.start(*this);
+      _scope.info() << "Terminated connection from " << _socket.endpoint() << " (" << status << ")";
     }
 
     const sk::util::String map(const sk::util::String& line) const {
@@ -45,11 +37,11 @@ class Responder : public virtual sk::util::Mapper<const sk::util::String>, publi
     echo::Producer _producer;
 };
 
-class App : public virtual sk::util::Selector<sk::rt::Thread> {
+class App : public echo::App, public virtual sk::util::Selector<sk::rt::Thread> {
   public:
-    App(const int argc, const char* const argv[]) : _scope("Server"), _server(figurePort(argc, argv)) {
+    App(const int argc, const char* const argv[]) : echo::App("Server", argc, argv), _server(endpoint()) {
+      scope().info() << "Listening on " << _server.endpoint();
       _server.setReuseAddress(true);
-      _scope.info() << "Listening on " << _server.endpoint();
     }
 
     void start() {
@@ -63,18 +55,10 @@ class App : public virtual sk::util::Selector<sk::rt::Thread> {
     }
 
   private:
-    static uint16_t figurePort(const int argc, const char* const argv[]) {
-      if(argc != 2) {
-        throw sk::util::IllegalArgumentException("USAGE: " + sk::util::Pathname(argv[0]).basename() + " <port>");
-      }
-      return sk::util::Integer::parseInt(argv[1]);
-    }
-
     bool assess(const sk::rt::Thread& thread) const {
       return thread.isAlive() == false;
     }
 
-    const sk::rt::Scope _scope;
     sk::net::ServerSocket _server;
     sk::util::ArrayList<sk::rt::Thread> _threads;
 };

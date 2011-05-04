@@ -8,20 +8,15 @@
  *  Author: Gennady Bystritsky
 */
 
-#include <sk/util/String.h>
-#include <sk/util/Integer.h>
-#include <sk/util/Pathname.h>
 #include <sk/util/ArrayList.cxx>
-#include <sk/util/IllegalArgumentException.h>
-#include <sk/rt/Scope.h>
 #include <sk/rt/Thread.h>
 #include <sk/rt/thread/Starter.h>
 #include <sk/rt/thread/Joiner.h>
-#include <sk/net/InetSocketAddress.h>
 #include <sk/net/Socket.h>
 #include <sk/io/Console.h>
 
 #include "Producer.h"
+#include "App.h"
 
 class Reader : public virtual sk::util::Mapper<const sk::util::String>, public virtual sk::rt::Runnable {
   public:
@@ -29,12 +24,7 @@ class Reader : public virtual sk::util::Mapper<const sk::util::String>, public v
       : _scope(name), _producer(input, output) {}
 
     void run() {
-      try {
-        _producer.start(*this);
-      }
-      catch(const std::exception& exception) {
-        _scope.error() << exception.what();
-      }
+      _producer.start(*this);
     }
 
     const sk::util::String map(const sk::util::String& item) const {
@@ -46,10 +36,10 @@ class Reader : public virtual sk::util::Mapper<const sk::util::String>, public v
     echo::Producer _producer;
 };
 
-class App {
+class App : public echo::App {
   public:
-    App(const int argc, const char* const argv[]) : _scope("Client"), _socket(figureEndpoint(argc, argv)) {
-      _scope.info() << "Connected to " << _socket.endpoint();
+    App(const int argc, const char* const argv[]) : echo::App("Client", argc, argv), _socket(endpoint()) {
+      scope().info() << "Connected to " << _socket.endpoint();
     }
 
     void start() {
@@ -64,13 +54,6 @@ class App {
     }
 
   private:
-    static const sk::net::InetSocketAddress figureEndpoint(const int argc, const char* const argv[]) {
-      if(argc != 3) {
-        throw sk::util::IllegalArgumentException("USAGE: " + sk::util::Pathname(argv[0]).basename() + " <host> <port>");
-      }
-      return sk::net::InetSocketAddress(argv[1], sk::util::Integer::parseInt(argv[2]));
-    }
-    const sk::rt::Scope _scope;
     sk::net::Socket _socket;
 };
 

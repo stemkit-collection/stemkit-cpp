@@ -34,23 +34,34 @@ getClass() const
   return sk::util::Class(__className);
 }
 
-void 
+bool
 echo::Producer::
 start()
 {
-  start(*this);
+  return start(*this);
 }
 
-void 
+bool
 echo::Producer::
 start(const sk::util::Mapper<const sk::util::String>& mapper)
 {
   try {
-    while(true) {
-      _output.writeChars(mapper.map(_input.readLine()));
+    try {
+      while(true) {
+        _output.writeChars(mapper.map(_input.readLine()));
+      }
+    }
+    catch(const sk::io::EOFException& eof) {
+      return true;
     }
   }
-  catch(const sk::io::EOFException& eof) {}
+  catch(const std::exception& exception) {
+    _scope.error() << exception.what();
+  }
+  catch(...) {
+    _scope.error() << "Unknown exception";
+  }
+  return false;
 }
 
 const sk::util::String
