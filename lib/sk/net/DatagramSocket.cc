@@ -12,8 +12,6 @@
 #include <sk/util/String.h>
 #include <sk/net/DatagramSocket.h>
 
-#include "DirectedSocket.h"
-
 static const sk::util::String __className("sk::net::DatagramSocket");
 
 sk::net::DatagramSocket::

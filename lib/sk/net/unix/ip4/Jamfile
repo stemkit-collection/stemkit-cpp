@@ -1,9 +1,0 @@
-
-local library = sk.net.ip4 ;
-
-local objects =
-  InetAddress.cc
-  DirectedSocket.cc
-;
-
-make-library $(library) :  $(objects) ;

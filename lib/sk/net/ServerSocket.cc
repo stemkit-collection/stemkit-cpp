@@ -12,8 +12,6 @@
 #include <sk/util/String.h>
 #include <sk/net/ServerSocket.h>
 
-#include "DirectedSocket.h"
-
 static const sk::util::String __className("sk::net::ServerSocket");
 
 sk::net::ServerSocket::

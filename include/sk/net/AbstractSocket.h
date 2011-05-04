@@ -17,11 +17,10 @@
 #include <sk/net/InetAddress.h>
 
 #include <sk/net/ConfigurableSocket.h>
+#include <sk/net/DirectedSocket.h>
 
 namespace sk {
   namespace net {
-    class DirectedSocket;
-
     class AbstractSocket 
       : public virtual sk::net::ConfigurableSocket
     {

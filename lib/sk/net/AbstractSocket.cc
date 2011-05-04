@@ -13,8 +13,6 @@
 #include <sk/util/Holder.cxx>
 #include <sk/net/AbstractSocket.h>
 
-#include "DirectedSocket.h"
-
 static const sk::util::String __className("sk::net::AbstractSocket");
 
 sk::net::AbstractSocket::
