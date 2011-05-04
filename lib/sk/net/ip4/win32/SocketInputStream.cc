@@ -8,30 +8,27 @@
 
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
+#include <sk/rt/SystemException.h>
+#include <sk/io/EOFException.h>
 
 #include "SocketInputStream.h"
 
 sk::net::win32::SocketInputStream::
-SocketInputStream(int fd)
-  : _descriptor(fd)
-{
-}
-
-sk::net::win32::SocketInputStream::
-SocketInputStream(const sk::io::FileDescriptor& descriptor)
-  : _descriptor(descriptor)
+SocketInputStream(const SOCKET socket)
+  : _socket(socket)
 {
 }
 
 sk::net::win32::SocketInputStream::
 SocketInputStream(const sk::net::win32::SocketInputStream& other)
-  : _descriptor(other._descriptor)
+  : _socket(other._socket)
 {
 }
 
 sk::net::win32::SocketInputStream::
 ~SocketInputStream()
 {
+  close();
 }
 
 sk::util::Object*
@@ -52,33 +49,39 @@ void
 sk::net::win32::SocketInputStream::
 close()
 {
-  _descriptor.close();
+  ::closesocket(_socket);
+  _socket = INVALID_SOCKET;
 }
 
 int 
 sk::net::win32::SocketInputStream::
 read(char* buffer, int offset, int length)
 {
-  return filterReadEvents(_descriptor.read(buffer, offset, length));
-}
-
-const sk::io::FileDescriptor&
-sk::net::win32::SocketInputStream::
-getFileDescriptor() const
-{
-  return _descriptor;
+  if(offset < 0) {
+    offset = 0;
+  }
+  if(length < 0) {
+    length = 0;
+  }
+  int n = ::recv(_socket, buffer + offset, length, 0);
+  if(n == SOCKET_ERROR) {
+    throw sk::rt::SystemException("recv()");
+  }
+  if(n == 0) {
+    throw sk::io::EOFException();
+  }
+  return n;
 }
 
 void
 sk::net::win32::SocketInputStream::
 inheritable(bool state)
 {
-  return _descriptor.inheritable(state);
 }
 
 const sk::util::String
 sk::net::win32::SocketInputStream::
 inspect() const
 {
-  return "<" + getClass().getName() + ": " + _descriptor.inspect() + ">";
+  return "<" + getClass().getName() + ": " + sk::util::String::valueOf(_socket) + ">";
 }

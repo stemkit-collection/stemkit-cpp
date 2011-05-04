@@ -10,25 +10,21 @@
 #define _SK_NET_WIN32_SOCKETINPUTSTREAM_
 
 #include <sk/io/AbstractInputStream.h>
-#include <sk/io/FileDescriptor.h>
-#include <sk/io/FileDescriptorProvider.h>
+
+#include <winsock2.h>
+#include <ws2tcpip.h>
 
 namespace sk {
   namespace net {
     namespace win32 {
       class SocketInputStream
-        : public sk::io::AbstractInputStream, 
-          public virtual sk::io::FileDescriptorProvider
+        : public sk::io::AbstractInputStream
       {
         public:
-          SocketInputStream(int fd);
-          SocketInputStream(const sk::io::FileDescriptor& descriptor);
+          SocketInputStream(const SOCKET socket);
           SocketInputStream(const SocketInputStream& other);
           virtual ~SocketInputStream();
 
-          // sk::io::FileDescriptorProvider implementation.
-          const sk::io::FileDescriptor& getFileDescriptor() const;
-          
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
           sk::util::Object* clone() const;
@@ -43,7 +39,7 @@ namespace sk {
         private:
           SocketInputStream& operator = (const SocketInputStream& other);
 
-          sk::io::FileDescriptor _descriptor;
+          SOCKET _socket;
       };
     }
   }

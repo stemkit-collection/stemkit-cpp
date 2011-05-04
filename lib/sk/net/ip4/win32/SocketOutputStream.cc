@@ -8,24 +8,19 @@
 
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
+#include <sk/rt/SystemException.h>
 
 #include "SocketOutputStream.h"
 
 sk::net::win32::SocketOutputStream::
-SocketOutputStream(int fd)
-  : _descriptor(fd)
-{
-}
-
-sk::net::win32::SocketOutputStream::
-SocketOutputStream(const sk::io::FileDescriptor& descriptor)
-  : _descriptor(descriptor)
+SocketOutputStream(const SOCKET socket)
+  : _socket(socket)
 {
 }
 
 sk::net::win32::SocketOutputStream::
 SocketOutputStream(const sk::net::win32::SocketOutputStream& other)
-  : _descriptor(other._descriptor)
+  : _socket(other._socket)
 {
 }
 
@@ -52,33 +47,36 @@ void
 sk::net::win32::SocketOutputStream::
 close()
 {
-  _descriptor.close();
+  ::closesocket(_socket);
+  _socket = INVALID_SOCKET;
 }
 
 int
 sk::net::win32::SocketOutputStream::
 write(const char* buffer, int offset, int length)
 {
-  return _descriptor.write(buffer, offset, length);
+  if(offset < 0) {
+    offset = 0;
+  }
+  if(length < 0) {
+    length = 0;
+  }
+  int n = ::send(_socket, buffer + offset, length, 0);
+  if(n == SOCKET_ERROR) {
+    throw sk::rt::SystemException("send()");
+  }
+  return n;
 }
 
 void
 sk::net::win32::SocketOutputStream::
 inheritable(bool state)
 {
-  _descriptor.inheritable(state);
-}
-
-const sk::io::FileDescriptor&
-sk::net::win32::SocketOutputStream::
-getFileDescriptor() const
-{
-  return _descriptor;
 }
 
 const sk::util::String
 sk::net::win32::SocketOutputStream::
 inspect() const
 {
-  return "<" + getClass().getName() + ": " + _descriptor.inspect() + ">";
+  return "<" + getClass().getName() + ": " + sk::util::String::valueOf(_socket) + ">";
 }
