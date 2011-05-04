@@ -14,3 +14,5 @@ for test in $(tests) {
   use-project-libraries $(program) : sk.rt.bundle sk.net sk.io sk.util sk.rt.thread ;
   make-program $(program) : $(test).cc ;
 }
+
+make-subdirs net-echo-demo ;
