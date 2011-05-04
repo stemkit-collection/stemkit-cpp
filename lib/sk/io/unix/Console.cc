@@ -10,14 +10,22 @@
 
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
-
+#include <sk/util/Holder.cxx>
 #include <sk/io/Console.h>
+#include <sk/io/File.h>
 
-static const char* __className("sk::io::Console");
+static const sk::util::String __className("sk::io::Console");
+
+struct sk::io::Console::Data : public virtual sk::util::Object {
+  Data() 
+    : file("/dev/tty", "r+") {}
+
+  sk::io::File file;
+};
 
 sk::io::Console::
 Console()
-  : sk::io::File("/dev/tty", "r+")
+  : _dataHolder(new Data()), _data(_dataHolder.getMutable())
 {
 }
 
@@ -31,4 +39,25 @@ sk::io::Console::
 getClass() const
 {
   return sk::util::Class(__className);
+}
+
+void
+sk::io::Console::
+close()
+{
+  _data.file.close();
+}
+
+sk::io::InputStream&
+sk::io::Console::
+inputStream() const
+{
+  return _data.file.inputStream();
+}
+
+sk::io::OutputStream&
+sk::io::Console::
+outputStream() const
+{
+  return _data.file.outputStream();
 }
