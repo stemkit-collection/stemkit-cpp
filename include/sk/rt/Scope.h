@@ -29,6 +29,7 @@ namespace sk {
         Scope(const Scope& other);
         virtual ~Scope();
 
+        const sk::util::String getName() const;
         Scope& operator = (const Scope& other);
 
         static scope::Controller& controller();
