@@ -21,7 +21,7 @@
 
 class Responder : public virtual sk::util::Mapper<const sk::util::String>, public virtual sk::rt::Runnable {
   public:
-    Responder(const sk::net::Socket& socket) : _scope("Responder"), _socket(socket), _producer("Copier", _socket.inputStream(), _socket.outputStream()) {
+    Responder(const sk::net::Socket& socket) : _scope("Responder"), _socket(socket), _producer(_socket.inputStream(), _socket.outputStream()) {
       _scope.info() << "Got connection from " << _socket.endpoint();
     }
 

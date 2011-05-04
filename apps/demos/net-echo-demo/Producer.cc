@@ -17,8 +17,8 @@
 static const sk::util::String __className("echo::Producer");
 
 echo::Producer::
-Producer(const sk::util::String& name, sk::io::InputStream& input, sk::io::OutputStream& output)
-  : _scope(name), _input(input), _output(output)
+Producer(sk::io::InputStream& input, sk::io::OutputStream& output)
+  : _scope(__className), _input(input), _output(output)
 {
 }
 

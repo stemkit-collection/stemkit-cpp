@@ -21,7 +21,7 @@ namespace echo {
     : public virtual sk::util::Mapper<const sk::util::String>
   {
     public:
-      Producer(const sk::util::String& name, sk::io::InputStream& input, sk::io::OutputStream& output);
+      Producer(sk::io::InputStream& input, sk::io::OutputStream& output);
       virtual ~Producer();
 
       void start();

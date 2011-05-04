@@ -29,7 +29,7 @@
 class Reader : public virtual sk::util::Mapper<const sk::util::String>, public virtual sk::rt::Runnable {
   public:
     Reader(const sk::util::String& name, sk::io::InputStream& input, sk::io::OutputStream& output)
-      : _scope(name), _producer(name, input, output) {}
+      : _scope(name), _producer(input, output) {}
 
     void run() {
       try {
