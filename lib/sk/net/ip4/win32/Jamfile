@@ -4,6 +4,8 @@ local library = sk.net.ip4.win32 ;
 local objects =
   InetAddress.cc
   DirectedSocket.cc
+  SocketInputStream.cc
+  SocketOutputStream.cc
 ;
 
 make-library $(library) :  $(objects) ;

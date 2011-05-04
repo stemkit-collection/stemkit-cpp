@@ -20,9 +20,9 @@
 #include <sk/net/ConnectException.h>
 #include <sk/net/NoRouteToHostException.h>
 #include <sk/net/ip4/InetAddress.h>
-#include <sk/io/FileDescriptorInputStream.h>
-#include <sk/io/FileDescriptorOutputStream.h>
 
+#include "SocketInputStream.h"
+#include "SocketOutputStream.h"
 #include "DirectedSocket.h"
 
 #include <winsock2.h>
@@ -228,7 +228,7 @@ sk::net::ip4::DirectedSocket::
 inputStream() const
 {
   if(_inputStreamHolder.isEmpty() == true) {
-    _inputStreamHolder.set(new sk::io::FileDescriptorInputStream(_socket));
+    _inputStreamHolder.set(new sk::net::win32::SocketInputStream(_socket));
   }
   return _inputStreamHolder.getMutable();
 }
@@ -238,7 +238,7 @@ sk::net::ip4::DirectedSocket::
 outputStream() const
 {
   if(_outputStreamHolder.isEmpty() == true) {
-    _outputStreamHolder.set(new sk::io::FileDescriptorOutputStream(_socket));
+    _outputStreamHolder.set(new sk::net::win32::SocketOutputStream(_socket));
   }
   return _outputStreamHolder.getMutable();
 }
