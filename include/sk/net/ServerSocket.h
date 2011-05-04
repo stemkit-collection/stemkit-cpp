@@ -23,6 +23,8 @@ namespace sk {
         ServerSocket(const uint16_t port);
         ServerSocket(const uint16_t port, const int backlog);
         ServerSocket(const uint16_t port, const int backlog, const sk::net::InetAddress& address);
+        ServerSocket(const sk::net::InetSocketAddress& endpoint);
+        ServerSocket(const sk::net::InetSocketAddress& endpoint, const int backlog);
         virtual ~ServerSocket();
 
         sk::net::Socket accept();

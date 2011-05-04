@@ -38,6 +38,20 @@ ServerSocket(const uint16_t port, const int backlog, const sk::net::InetAddress&
 }
 
 sk::net::ServerSocket::
+ServerSocket(const sk::net::InetSocketAddress& endpoint)
+  : sk::net::AbstractSocket(endpoint.directedStreamSocket())
+{
+  setup(0);
+}
+
+sk::net::ServerSocket::
+ServerSocket(const sk::net::InetSocketAddress& endpoint, const int backlog)
+  : sk::net::AbstractSocket(endpoint.directedStreamSocket())
+{
+  setup(backlog);
+}
+
+sk::net::ServerSocket::
 ~ServerSocket()
 {
 }
