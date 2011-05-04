@@ -24,7 +24,9 @@
 #include <sk/io/FileDescriptorOutputStream.h>
 
 #include "DirectedSocket.h"
-#include <cerrno>
+
+#include <unistd.h>
+#include <errno.h>
 
 static const sk::util::String __className("sk::net::ip4::DirectedSocket");
 
