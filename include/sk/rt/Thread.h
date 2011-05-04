@@ -31,10 +31,10 @@ namespace sk {
     {
       public:
         Thread();
-        Thread(const sk::util::String& name);
-        Thread(sk::rt::Runnable& target);
+        explicit Thread(const sk::util::String& name);
+        explicit Thread(sk::rt::Runnable& target);
         Thread(sk::rt::Runnable& target, const sk::util::String& name);
-        Thread(sk::rt::Runnable* target);
+        explicit Thread(sk::rt::Runnable* target);
         Thread(sk::rt::Runnable* target, const sk::util::String& name);
         virtual ~Thread();
 

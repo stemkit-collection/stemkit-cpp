@@ -47,7 +47,7 @@ class Responder : public virtual sk::util::Mapper<const sk::util::String>, publi
 
 class App : public virtual sk::util::Selector<sk::rt::Thread> {
   public:
-    App(int argc, const char* const argv[]) : _scope("Server"), _server(figurePort(argc, argv)) {
+    App(const int argc, const char* const argv[]) : _scope("Server"), _server(figurePort(argc, argv)) {
       _server.setReuseAddress(true);
       _scope.info() << "Listening on " << _server.endpoint();
     }
@@ -63,7 +63,7 @@ class App : public virtual sk::util::Selector<sk::rt::Thread> {
     }
 
   private:
-    static uint16_t figurePort(int argc, const char* const argv[]) {
+    static uint16_t figurePort(const int argc, const char* const argv[]) {
       if(argc != 2) {
         throw sk::util::IllegalArgumentException("USAGE: " + sk::util::Pathname(argv[0]).basename() + " <port>");
       }
