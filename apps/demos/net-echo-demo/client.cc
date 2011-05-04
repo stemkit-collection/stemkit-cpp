@@ -23,9 +23,6 @@
 
 #include "Producer.h"
 
-#include <sk/util/exception/Tracer.h>
-#include <sk/rt/StackTracerFactory.h>
-
 class Reader : public virtual sk::util::Mapper<const sk::util::String>, public virtual sk::rt::Runnable {
   public:
     Reader(const sk::util::String& name, sk::io::InputStream& input, sk::io::OutputStream& output)
@@ -79,9 +76,6 @@ class App {
 
 int main(int argc, const char* const argv[])
 {
-  sk::rt::StackTracerFactory factory;
-  sk::util::exception::Tracer::setProducerFactory(factory);
-
   const sk::rt::Scope scope("app");
   try {
     App app(argc, argv);
