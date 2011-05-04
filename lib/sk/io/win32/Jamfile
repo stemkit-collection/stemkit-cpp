@@ -9,6 +9,7 @@ objects =
   Pty.cc
   FileInfo.cc
   Dir.cc
+  Console.cc
 ;
 
 make-library $(library) : $(objects) ;

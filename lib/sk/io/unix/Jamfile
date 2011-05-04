@@ -6,6 +6,7 @@ objects =
   LooseFileDescriptor.cc
   Dir.cc
   FileInfo.cc
+  Console.cc
 ;
 
 if mks32 in $(project.PLATFORM_SPECIFICS) {
