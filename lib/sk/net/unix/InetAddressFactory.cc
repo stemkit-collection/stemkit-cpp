@@ -51,15 +51,13 @@ namespace {
       if(status != 0) {
         throw sk::net::UnknownHostException(gai_strerror(status), _name);
       }
+      sk::rt::Actions actions;
       for(struct addrinfo* item = _items; item != 0; item = item->ai_next) {
-        sk::rt::Actions actions;
-
         actions.add("ip4-n", *this, &ByNameSelectorCreator::tryIPv4, *item);
         actions.add("ip6-n", *this, &ByNameSelectorCreator::tryIPv6, *item);
         actions.add("error", *this, &ByNameSelectorCreator::error, *item);
-
-        actions.performUntilSuccess(true);
       }
+      actions.performUntilSuccess(true);
       return _holder.release();
     }
 
