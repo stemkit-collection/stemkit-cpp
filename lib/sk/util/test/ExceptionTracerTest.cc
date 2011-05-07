@@ -11,6 +11,7 @@
 #include "ExceptionTracerTest.h"
 #include <sk/util/exception/Tracer.h>
 #include <sk/util/exception/trace/Producer.h>
+#include <sk/util/exception/trace/ProducerFactory.h>
 #include <sk/util/IllegalStateException.h>
 #include <stdexcept>
 
@@ -51,20 +52,23 @@ namespace {
       }
     }
   };
-}
 
-sk::util::exception::trace::Producer* 
-sk::util::test::ExceptionTracerTest::
-createTraceProducer() const
-{
-  return new TraceProducer();
+  struct TraceProducerFactory : public virtual sk::util::exception::trace::ProducerFactory {
+    sk::util::exception::trace::Producer* createTraceProducer() const {
+      return new TraceProducer();
+    }
+
+    sk::util::Object* clone() const {
+      return new TraceProducerFactory(*this);
+    }
+  };
 }
 
 void
 sk::util::test::ExceptionTracerTest::
 setUp()
 {
-  sk::util::exception::Tracer::setProducerFactory(*this);
+  sk::util::exception::Tracer::setProducerFactory(TraceProducerFactory());
 
   raiseSetupException = false;
   raiseResetException = false;

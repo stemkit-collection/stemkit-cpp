@@ -19,8 +19,7 @@
 
 int main(int argc, const char* const argv[])
 {
-  sk::rt::StackTracerFactory factory;
-  sk::util::exception::Tracer::setProducerFactory(factory);
+  sk::util::exception::Tracer::setProducerFactory(sk::rt::StackTracerFactory());
 
   try {
     sk::util::Strings items("abc");

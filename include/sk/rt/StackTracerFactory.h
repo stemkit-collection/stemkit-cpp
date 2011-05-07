@@ -27,9 +27,9 @@ namespace sk {
     
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
+        sk::util::Object* clone() const;
     
       private:
-        StackTracerFactory(const StackTracerFactory& other);
         StackTracerFactory& operator = (const StackTracerFactory& other);
     };
   }

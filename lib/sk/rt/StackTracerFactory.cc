@@ -32,3 +32,9 @@ getClass() const
   return sk::util::Class(__className);
 }
 
+sk::util::Object*
+sk::rt::StackTracerFactory::
+clone() const
+{
+  return new sk::rt::StackTracerFactory(*this);
+}

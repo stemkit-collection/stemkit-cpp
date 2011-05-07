@@ -13,14 +13,12 @@
 
 #include <cppunit/TestFixture.h>
 #include <cppunit/extensions/HelperMacros.h>
-#include <sk/util/exception/trace/ProducerFactory.h>
 
 namespace sk {
   namespace util {
     namespace test {
       class ExceptionTracerTest
-        : public CppUnit::TestFixture,
-          public virtual sk::util::exception::trace::ProducerFactory
+        : public CppUnit::TestFixture
       {
         CPPUNIT_TEST_SUITE(sk::util::test::ExceptionTracerTest);
           CPPUNIT_TEST(test_trace_produced_normally);
@@ -40,9 +38,6 @@ namespace sk {
           void test_trace_errors_in_reset();
           void test_trace_errors_in_produce();
       
-        protected:
-          sk::util::exception::trace::Producer* createTraceProducer() const;
-
         private:
           ExceptionTracerTest(const ExceptionTracerTest& other);
           ExceptionTracerTest& operator = (const ExceptionTracerTest& other);

@@ -9,30 +9,32 @@
 */
 
 #include <sk/util/exception/Tracer.h>
-#include "TraceProducerReference.h"
+#include <sk/util/Holder.cxx>
 #include <sk/util/exception/trace/ProducerFactory.h>
 
+#include "TraceProducerReference.h"
+
 namespace {
-  const sk::util::exception::trace::ProducerFactory* __factory = 0;
+  sk::util::Holder<sk::util::exception::trace::ProducerFactory>::Direct __factoryHolder;
 }
 
 void 
 sk::util::exception::Tracer::
 setProducerFactory(const sk::util::exception::trace::ProducerFactory& factory)
 {
-  __factory = &factory;
+  __factoryHolder.set(sk::util::covariant<sk::util::exception::trace::ProducerFactory>(factory.clone()));
 }
 
 void 
 sk::util::exception::Tracer::
 clearProducerFactory()
 {
-  __factory = 0;
+  __factoryHolder.clear();
 }
 
 sk::util::exception::Tracer::
 Tracer()
-  : _reference(__factory == 0 ? 0 : new TraceProducerReference(__factory->createTraceProducer()))
+  : _reference(__factoryHolder.isEmpty() ? 0 : new TraceProducerReference(__factoryHolder.get().createTraceProducer()))
 {
 }
 

@@ -11,6 +11,8 @@
 #ifndef _SK_UTIL_EXCEPTION_TRACE_PRODUCERFACTORY_H_
 #define _SK_UTIL_EXCEPTION_TRACE_PRODUCERFACTORY_H_
 
+#include <sk/util/Object.h>
+
 namespace sk {
   namespace util {
     namespace exception {
