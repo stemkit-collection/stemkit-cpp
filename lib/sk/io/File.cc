@@ -14,16 +14,15 @@
 #include <sk/io/File.h>
 #include <sk/io/IOException.h>
 #include <sk/io/ClosedChannelException.h>
-#include <sk/io/FileDescriptorInputStream.h>
-#include <sk/io/FileDescriptorOutputStream.h>
 #include <sk/io/FileInfo.h>
+
 #include <fcntl.h>
 #include <unistd.h>
 #include <fstream>
 
 sk::io::File::
 File(const sk::io::File& other)
-  : _name(other.getName()), _descriptorHolder(new sk::io::FileDescriptor(other.getFileDescriptor()))
+  : _name(other.getName()), _descriptorHolder(new sk::io::FileDescriptorStream(other.getFileDescriptor()))
 {
 }
 
@@ -85,14 +84,14 @@ sk::io::InputStream&
 sk::io::File::
 inputStream() const
 {
-    return _inputStreamHolder.getMutable();
+    return _descriptorHolder.get().inputStream();
 }
 
 sk::io::OutputStream&
 sk::io::File::
 outputStream() const
 {
-    return _outputStreamHolder.getMutable();
+    return _descriptorHolder.get().outputStream();
 }
 
 void
@@ -100,18 +99,16 @@ sk::io::File::
 close()
 {
   _descriptorHolder.clear();
-  _inputStreamHolder.clear();
-  _outputStreamHolder.clear();
 }
 
-sk::io::FileDescriptor&
+const sk::io::FileDescriptor&
 sk::io::File::
 getFileDescriptor() const
 {
   if(_descriptorHolder.isEmpty() == true) {
     throw sk::io::ClosedChannelException();
   }
-  return _descriptorHolder.getMutable();
+  return _descriptorHolder.get().getFileDescriptor();
 }
 
 void
@@ -129,10 +126,7 @@ open(int mode, int permissions)
   if(fd < 0) {
     throw sk::io::IOException(getName() + ": open() failed");
   }
-  _descriptorHolder.set(new sk::io::FileDescriptor(fd));
-  _inputStreamHolder.set(new sk::io::FileDescriptorInputStream(fd));
-  _outputStreamHolder.set(new sk::io::FileDescriptorOutputStream(fd));
-
+  _descriptorHolder.set(new sk::io::FileDescriptorStream(fd));
   _infoHolder.set(new sk::io::FileInfo(_name));
 }
 

@@ -29,6 +29,7 @@ namespace sk {
       public:
         explicit FileDescriptorStream(const int fd);
         explicit FileDescriptorStream(const sk::io::Stream& stream);
+        explicit FileDescriptorStream(const sk::io::FileDescriptor& descriptor);
         FileDescriptorStream(const FileDescriptorStream& other);
         virtual ~FileDescriptorStream();
     

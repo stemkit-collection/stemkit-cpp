@@ -26,6 +26,12 @@ FileDescriptorStream(const int fd)
 }
 
 sk::io::FileDescriptorStream::
+FileDescriptorStream(const sk::io::FileDescriptor& descriptor)
+  : _descriptor(descriptor)
+{
+}
+
+sk::io::FileDescriptorStream::
 FileDescriptorStream(const sk::io::Stream& stream)
   : _descriptor(sk::util::upcast<sk::io::FileDescriptorProvider>(stream).getFileDescriptor())
 {

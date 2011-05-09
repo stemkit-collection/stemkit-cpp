@@ -12,7 +12,8 @@
 #include <sk/util/Object.h>
 #include <sk/util/Holder.hxx>
 #include <sk/util/String.h>
-#include <sk/io/FileDescriptor.h>
+#include <sk/io/FileDescriptorStream.h>
+#include <sk/io/StreamProvider.h>
 
 namespace sk {
   namespace io {
@@ -21,10 +22,10 @@ namespace sk {
     class FileInfo;
 
     class File
-      : public virtual sk::util::Object 
+      : public virtual sk::io::StreamProvider
     {
       public:
-        File(const sk::util::String& name);
+        explicit File(const sk::util::String& name);
         File(const sk::util::String& name, const sk::util::String& mode);
         File(const sk::util::String& name, const sk::util::String& mode, int permissions);
         File(const sk::util::String& name, int mode);
@@ -32,17 +33,19 @@ namespace sk {
         File(const File& other);
         virtual ~File();
 
-        const sk::io::FileInfo& info() const;
-
-        sk::io::InputStream& inputStream() const;
-        sk::io::OutputStream& outputStream() const;
-
         const sk::util::String getName() const;
-        virtual sk::io::FileDescriptor& getFileDescriptor() const;
-        virtual void close();
         uint64_t size() const;
         uint64_t position() const;
-        
+        const sk::io::FileInfo& info() const;
+
+        // sk::io::StreamProvider implementation.
+        sk::io::InputStream& inputStream() const;
+        sk::io::OutputStream& outputStream() const;
+        void close();
+
+        // sk::io::FileDescriptorProvider implementation.
+        const sk::io::FileDescriptor& getFileDescriptor() const;
+
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
 
@@ -62,9 +65,7 @@ namespace sk {
         int numericMode(const sk::util::String& mode);
 
         sk::util::String _name;
-        sk::util::Holder<sk::io::FileDescriptor> _descriptorHolder;
-        sk::util::Holder<sk::io::InputStream> _inputStreamHolder;
-        sk::util::Holder<sk::io::OutputStream> _outputStreamHolder;
+        sk::util::Holder<sk::io::FileDescriptorStream> _descriptorHolder;
         sk::util::Holder<sk::io::FileInfo> _infoHolder;
     };
   }
