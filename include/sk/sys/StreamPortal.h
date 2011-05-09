@@ -16,6 +16,7 @@
 #include <sk/util/Strings.h>
 #include <sk/util/PropertyRegistry.h>
 #include <sk/util/Processor.h>
+#include <sk/io/StreamProvider.h>
 #include <sk/io/Stream.h>
 #include <sk/rt/Scope.h>
 
@@ -33,8 +34,12 @@ namespace sk {
         static sk::rt::Scope& scope();
 
         int size() const;
-        sk::io::Stream& getStream(int index) const;
-        void forEachStream(const sk::util::Processor<const sk::io::Stream>& processor) const;
+        const sk::io::StreamProvider& streamProvider(int index) const;
+        sk::io::StreamProvider& streamProvider(int index);
+
+        sk::io::InputStream& inputStream(int index) const;
+        sk::io::OutputStream& outputStream(int index) const;
+        void forEachStreamProvider(const sk::util::Processor<const sk::io::StreamProvider>& processor) const;
     
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
@@ -46,7 +51,7 @@ namespace sk {
         void importStreams(const sk::util::PropertyRegistry& registry);
         static const sk::util::Strings descriptors(const sk::util::PropertyRegistry& registry);
 
-        sk::util::ArrayList<sk::io::Stream> _streams;
+        sk::util::ArrayList<sk::io::StreamProvider> _streamProviders;
     };
   }
 }

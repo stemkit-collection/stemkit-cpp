@@ -21,7 +21,6 @@
 #include <sk/sys/ProcessLaunchException.h>
 #include <sk/sys/StreamPortal.h>
 #include <sk/io/EOFException.h>
-#include <sk/io/FileDescriptorStream.h>
 #include <sk/io/NullDevice.h>
 #include <sk/io/DataInputStream.h>
 #include <sk/io/AnonymousPipe.h>

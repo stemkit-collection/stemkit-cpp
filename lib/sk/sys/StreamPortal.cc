@@ -53,21 +53,42 @@ int
 sk::sys::StreamPortal::
 size() const
 {
-  return _streams.size();
+  return _streamProviders.size();
 }
 
-sk::io::Stream& 
+sk::io::StreamProvider&
 sk::sys::StreamPortal::
-getStream(int index) const
+streamProvider(int index)
 {
-  return _streams.getMutable(index);
+  return _streamProviders.getMutable(index);
+}
+
+const sk::io::StreamProvider&
+sk::sys::StreamPortal::
+streamProvider(int index) const
+{
+  return _streamProviders.get(index);
+}
+
+sk::io::InputStream& 
+sk::sys::StreamPortal::
+inputStream(int index) const
+{
+  return _streamProviders.get(index).inputStream();
+}
+
+sk::io::OutputStream& 
+sk::sys::StreamPortal::
+outputStream(int index) const
+{
+  return _streamProviders.get(index).outputStream();
 }
 
 void 
 sk::sys::StreamPortal::
-forEachStream(const sk::util::Processor<const sk::io::Stream>& processor) const
+forEachStreamProvider(const sk::util::Processor<const sk::io::StreamProvider>& processor) const
 {
-  _streams.forEach(processor);
+  _streamProviders.forEach(processor);
 }
 
 void 
@@ -75,7 +96,7 @@ sk::sys::StreamPortal::
 importStreams(const sk::util::PropertyRegistry& registry)
 {
   scope().detail(__FUNCTION__) << "SK_STREAMS: " << registry.getProperty("SK_STREAMS", "").inspect();
-  descriptors(registry).forEach(StreamPortalImporter(_streams));
+  descriptors(registry).forEach(StreamPortalImporter(_streamProviders));
 }
 
 const sk::util::Strings 

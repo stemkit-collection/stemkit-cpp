@@ -14,7 +14,7 @@
 #include <sk/util/String.h>
 #include <sk/util/Processor.h>
 #include <sk/util/ArrayList.hxx>
-#include <sk/io/Stream.h>
+#include <sk/io/StreamProvider.h>
 
 namespace sk {
   namespace sys {
@@ -22,7 +22,7 @@ namespace sk {
       : public virtual sk::util::Processor<const sk::util::String> 
     {
       public:
-        StreamPortalImporter(sk::util::ArrayList<sk::io::Stream>& streams);
+        StreamPortalImporter(sk::util::ArrayList<sk::io::StreamProvider>& providers);
     
         // sk::util::Processor implementation.
         void process(const sk::util::String& descriptor) const;
@@ -33,7 +33,7 @@ namespace sk {
       private:
         StreamPortalImporter& operator = (const StreamPortalImporter& other);
 
-        sk::util::ArrayList<sk::io::Stream>& _streams;
+        sk::util::ArrayList<sk::io::StreamProvider>& _providers;
     };
   }
 }

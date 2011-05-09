@@ -15,7 +15,6 @@
 
 #include <sk/sys/StreamPortal.h>
 #include <sk/sys/Process.h>
-#include <sk/io/FileDescriptorStream.h>
 #include <sk/io/FileDescriptorInputStream.h>
 #include <sk/io/DataInputStream.h>
 #include <sk/io/DataOutputStream.h>
@@ -69,8 +68,8 @@ void start(int /*argc*/, const char* /*argv*/[]) {
   sk::sys::StreamPortal& portal = sk::sys::Process::streamPortal();
   scope.notice() << "Got portal";
 
-  const sk::io::FileDescriptor& id = sk::util::upcast<sk::io::FileDescriptorProvider>(portal.getStream(0)).getFileDescriptor();
-  const sk::io::FileDescriptor& od = sk::util::upcast<sk::io::FileDescriptorProvider>(portal.getStream(1)).getFileDescriptor();
+  const sk::io::FileDescriptor& id = sk::util::upcast<sk::io::FileDescriptorProvider>(portal.streamProvider(0)).getFileDescriptor();
+  const sk::io::FileDescriptor& od = sk::util::upcast<sk::io::FileDescriptorProvider>(portal.streamProvider(1)).getFileDescriptor();
   scope.notice() << "Got file descriptor";
 
   sk::io::FileDescriptorInputStream inputStream(id.getFileNumber());
