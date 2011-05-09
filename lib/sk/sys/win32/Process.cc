@@ -109,11 +109,10 @@ processStarting(sk::io::Stream& umbilical)
 {
 }
 
-int
+void
 sk::sys::Process::
 processStopping()
 {
-  return 0;
 }
 
 void

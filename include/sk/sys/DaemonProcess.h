@@ -46,7 +46,7 @@ namespace sk {
 
         // sk::sys::ProcessListener implementation.
         void processStarting(sk::io::Stream& umbilical);
-        int processStopping();
+        void processStopping();
         void processJoining();
         void processFailing(const sk::util::String& message);
         void processConfiguring(sk::sys::ProcessConfigurator& configurator);

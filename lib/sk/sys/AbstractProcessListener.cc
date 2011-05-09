@@ -33,11 +33,10 @@ processStarting(sk::io::Stream& /*umbilical*/)
 {
 }
 
-int 
+void
 sk::sys::AbstractProcessListener::
 processStopping() 
 {
-  return 0;
 }
 
 void 

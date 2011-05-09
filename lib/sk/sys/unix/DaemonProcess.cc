@@ -162,11 +162,10 @@ processStarting(sk::io::Stream& /*umbilical*/)
   process.detach();
 }
 
-int 
+void
 sk::sys::DaemonProcess::
 processStopping() 
 {
-  return 0;
 }
 
 void 

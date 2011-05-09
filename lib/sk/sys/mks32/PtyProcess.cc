@@ -24,7 +24,7 @@ struct sk::sys::PtyProcess::Listener
   : public sk::sys::AbstractProcessListener 
 {
     void processConfiguring(sk::sys::ProcessConfigurator& configurator);
-    int processStopping();
+    void processStopping();
     void processJoining();
 
     sk::io::Pty pty;
@@ -116,12 +116,11 @@ processConfiguring(sk::sys::ProcessConfigurator& configurator)
   pty.close();
 }
 
-int 
+void
 sk::sys::PtyProcess::Listener::
 processStopping()
 {
   pty.getMasterSlavePipe().outputStream().close();
-  return 1;
 }
 
 void 

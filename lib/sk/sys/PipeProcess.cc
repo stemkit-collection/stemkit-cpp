@@ -24,7 +24,7 @@ struct sk::sys::PipeProcess::Listener
   : public sk::sys::AbstractProcessListener 
 {
     void processConfiguring(sk::sys::ProcessConfigurator& configurator);
-    int processStopping();
+    void processStopping();
     void processJoining();
 
     sk::io::AnonymousPipe stdinPipe;
@@ -113,12 +113,11 @@ processConfiguring(sk::sys::ProcessConfigurator& configurator)
   configurator.setErrorOutputStream(stderrPipe.outputStream());
 }
 
-int 
+void
 sk::sys::PipeProcess::Listener::
 processStopping()
 {
   stdinPipe.outputStream().close();
-  return 1;
 }
 
 void 

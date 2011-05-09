@@ -22,7 +22,7 @@ namespace sk {
     {
       public:
         virtual void processStarting(sk::io::Stream& umbilical) = 0;
-        virtual int processStopping() = 0;
+        virtual void processStopping() = 0;
         virtual void processJoining() = 0;
         virtual void processFailing(const sk::util::String& message) = 0;
         virtual void processConfiguring(sk::sys::ProcessConfigurator& configurator) = 0;
