@@ -64,6 +64,8 @@ namespace sk {
         void open(int mode, int permissions);
         int numericMode(const sk::util::String& mode);
 
+        void ensureDescriptor() const;
+
         sk::util::String _name;
         sk::util::Holder<sk::io::FileDescriptorStream> _descriptorHolder;
         sk::util::Holder<sk::io::FileInfo> _infoHolder;

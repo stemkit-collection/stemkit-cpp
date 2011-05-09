@@ -84,14 +84,16 @@ sk::io::InputStream&
 sk::io::File::
 inputStream() const
 {
-    return _descriptorHolder.get().inputStream();
+  ensureDescriptor();
+  return _descriptorHolder.get().inputStream();
 }
 
 sk::io::OutputStream&
 sk::io::File::
 outputStream() const
 {
-    return _descriptorHolder.get().outputStream();
+  ensureDescriptor();
+  return _descriptorHolder.get().outputStream();
 }
 
 void
@@ -101,13 +103,20 @@ close()
   _descriptorHolder.clear();
 }
 
-const sk::io::FileDescriptor&
+void
 sk::io::File::
-getFileDescriptor() const
+ensureDescriptor() const
 {
   if(_descriptorHolder.isEmpty() == true) {
     throw sk::io::ClosedChannelException();
   }
+}
+
+const sk::io::FileDescriptor&
+sk::io::File::
+getFileDescriptor() const
+{
+  ensureDescriptor();
   return _descriptorHolder.get().getFileDescriptor();
 }
 
