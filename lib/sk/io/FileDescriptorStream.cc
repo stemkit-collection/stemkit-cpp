@@ -10,11 +10,20 @@
 
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
+#include <sk/util/Holder.cxx>
 
 #include <sk/io/FileDescriptorStream.h>
+#include <sk/io/FileDescriptorInputStream.h>
+#include <sk/io/FileDescriptorOutputStream.h>
 #include <sk/util/upcast.cxx>
 
-static const char* __className("sk::io::FileDescriptorStream");
+static const sk::util::String __className("sk::io::FileDescriptorStream");
+
+sk::io::FileDescriptorStream::
+FileDescriptorStream(const int fd)
+  : _descriptor(fd)
+{
+}
 
 sk::io::FileDescriptorStream::
 FileDescriptorStream(const sk::io::Stream& stream)
@@ -52,6 +61,8 @@ sk::io::FileDescriptorStream::
 close()
 {
   _descriptor.close();
+  _inputStreamHolder.clear();
+  _outputStreamHolder.clear();
 }
 
 const sk::io::FileDescriptor&
@@ -66,4 +77,24 @@ sk::io::FileDescriptorStream::
 inheritable(bool state)
 {
   _descriptor.inheritable(state);
+}
+
+sk::io::InputStream&
+sk::io::FileDescriptorStream::
+inputStream() const
+{
+  if(_inputStreamHolder.isEmpty() == true) {
+    _inputStreamHolder.set(new FileDescriptorInputStream(_descriptor));
+  }
+  return _inputStreamHolder.getMutable();
+}
+
+sk::io::OutputStream&
+sk::io::FileDescriptorStream::
+outputStream() const
+{
+  if(_outputStreamHolder.isEmpty() == true) {
+    _outputStreamHolder.set(new FileDescriptorOutputStream(_descriptor));
+  }
+  return _outputStreamHolder.getMutable();
 }
