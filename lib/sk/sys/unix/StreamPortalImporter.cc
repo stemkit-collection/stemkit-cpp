@@ -16,7 +16,7 @@
 
 #include "../StreamPortalImporter.h"
 
-static const char* __className("sk::sys::StreamPortalImporter");
+static const sk::util::String __className("sk::sys::StreamPortalImporter");
 
 sk::sys::StreamPortalImporter::
 StreamPortalImporter(sk::util::ArrayList<sk::io::StreamProvider>& providers)

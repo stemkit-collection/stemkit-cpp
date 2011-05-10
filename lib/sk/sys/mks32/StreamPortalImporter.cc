@@ -12,15 +12,15 @@
 #include <sk/util/String.h>
 #include <sk/util/Integer.h>
 #include <sk/util/ArrayList.cxx>
-#include <sk/io/FileDescriptorInputStream.h>
+#include <sk/io/FileDescriptorStream.h>
 
 #include "../StreamPortalImporter.h"
 
-static const char* __className("sk::sys::StreamPortalImporter");
+static const sk::util::String __className("sk::sys::StreamPortalImporter");
 
 sk::sys::StreamPortalImporter::
-StreamPortalImporter(sk::util::ArrayList<sk::io::Stream>& streams)
-  : _streams(streams) 
+StreamPortalImporter(sk::util::ArrayList<sk::io::StreamProvider>& providers)
+  : _providers(providers) 
 {
 }
 
@@ -36,6 +36,6 @@ sk::sys::StreamPortalImporter::
 process(const sk::util::String& descriptor) const 
 {
   int fd = sk::util::Integer::parseInt(descriptor);
-  _streams.add(new sk::io::FileDescriptorInputStream(fd));
+  _providers.add(new sk::io::FileDescriptorStream(fd));
 }
 

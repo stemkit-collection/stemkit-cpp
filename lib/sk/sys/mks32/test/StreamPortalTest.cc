@@ -55,9 +55,9 @@ testStreams()
     CPPUNIT_ASSERT_EQUAL(3, portal.size());
     CPPUNIT_ASSERT_EQUAL("", registry.getProperty("SK_STREAMS"));
 
-    CPPUNIT_ASSERT_EQUAL(45, sk::util::upcast<sk::io::FileDescriptorProvider>(portal.getStream(0)).getFileDescriptor().getFileNumber());
-    CPPUNIT_ASSERT_EQUAL(55, sk::util::upcast<sk::io::FileDescriptorProvider>(portal.getStream(1)).getFileDescriptor().getFileNumber());
-    CPPUNIT_ASSERT_EQUAL(65, sk::util::upcast<sk::io::FileDescriptorProvider>(portal.getStream(2)).getFileDescriptor().getFileNumber());
+    CPPUNIT_ASSERT_EQUAL(45, sk::util::upcast<sk::io::FileDescriptorProvider>(portal.streamProvider(0)).getFileDescriptor().getFileNumber());
+    CPPUNIT_ASSERT_EQUAL(55, sk::util::upcast<sk::io::FileDescriptorProvider>(portal.streamProvider(1)).getFileDescriptor().getFileNumber());
+    CPPUNIT_ASSERT_EQUAL(65, sk::util::upcast<sk::io::FileDescriptorProvider>(portal.streamProvider(2)).getFileDescriptor().getFileNumber());
   }
   CPPUNIT_ASSERT_EQUAL(-1, ::close(45));
   CPPUNIT_ASSERT_EQUAL(-1, ::close(55));

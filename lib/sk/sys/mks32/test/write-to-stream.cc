@@ -15,9 +15,9 @@
 
 #include <sk/util/IllegalArgumentException.h>
 #include <sk/util/Container.h>
-#include <sk/io/FileDescriptorOutputStream.h>
 #include <sk/sys/Process.h>
 #include <sk/sys/StreamPortal.h>
+#include <sk/io/OutputStream.h>
 
 int main(int argc, const char* argv[])
 {
@@ -26,7 +26,7 @@ int main(int argc, const char* argv[])
       throw sk::util::IllegalArgumentException("main()");
     }
     sk::sys::StreamPortal& portal = sk::sys::Process::streamPortal();
-    sk::io::FileDescriptorOutputStream outputStream(sk::util::upcast<sk::io::FileDescriptorProvider>(portal.getStream(0)).getFileDescriptor());
+    sk::io::OutputStream& outputStream = portal.outputStream(0);
 
     outputStream.write(sk::util::Container(sk::util::String(argv[1]) + "\r\n"));
   }
