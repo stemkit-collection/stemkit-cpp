@@ -24,7 +24,7 @@ namespace sk {
 
     class Process
       : public virtual sk::sys::Executable,
-        public sk::sys::AbstractProcessListener
+        private sk::sys::AbstractProcessListener
     {
       public:
         Process(sk::io::InputStream& inputStream, const sk::util::Strings& cmdline, ProcessListener& listener);
@@ -56,14 +56,14 @@ namespace sk {
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
 
+      private:
+        Process(const Process& other);
+        Process& operator = (const Process& other);
+
         // sk::sys::ProcessListener implementation.
         void processStarting(sk::io::Stream& umbilical);
         void processStopping();
         void processJoining();
-
-      private:
-        Process(const Process& other);
-        Process& operator = (const Process& other);
 
         struct Implementation;
         Implementation& process() const;
