@@ -2,7 +2,7 @@
  *  Copyright (c) 2011, Gennady Bystritsky <bystr@mac.com>
  *  
  *  Distributed under the MIT Licence.
- *  This is free software. See 'LICENSE' for details.
+*  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
  *  
  *  Author: Gennady Bystritsky (bystr@mac.com)
@@ -31,7 +31,7 @@ namespace sk {
           bool isBlocking() const;
 
           template<typename T>
-          bool synchronize(T& block);
+          bool synchronize(const T& block);
 
           template<typename T, typename TMF> 
           bool synchronize(T& target, TMF method);
@@ -69,7 +69,7 @@ namespace sk {
 template<typename T>
 bool
 sk::rt::thread::ConditionMediator::
-synchronize(T& block)
+synchronize(const T& block)
 {
   return invoke(block);
 }
