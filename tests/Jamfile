@@ -4,6 +4,7 @@ local programs =
   test-covariants
   test-temporary-in-constructor-init-list
   yaml-producer
+  json-parser
   stack-trace
 ;
 
@@ -22,8 +23,8 @@ if ! windows in $(project.PLATFORM_SPECIFICS) {
 }
 
 use-project-libraries $(programs) : sk.util sk.rt.bundle ;
-
 use-project-libraries yaml-producer : sk.other.yaml-cpp ;
+use-project-libraries json-parser : sk.other.jsoncpp ;
 
 local _program ;
 for _program in $(programs) {
