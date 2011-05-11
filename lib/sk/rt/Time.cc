@@ -85,7 +85,7 @@ const sk::util::String
 sk::rt::Time::
 toString() const
 {
-  return format("%+");
+  return format("%c");
 }
 
 time_t
