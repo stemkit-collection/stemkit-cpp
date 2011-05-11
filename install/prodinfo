@@ -169,6 +169,7 @@ fileset {
     'include/sk/other',
     'include/sk/other/tinyxml',
     'include/sk/other/yaml-cpp',
+    'include/sk/other/jsoncpp',
     cache.lib
   ]
   install.as('include/sk/other').source.tree 'include/sk/other', :follow => true
@@ -177,6 +178,7 @@ fileset {
     static_library 'lib' => %w{
       sk.other.tinyxml
       sk.other.yaml-cpp
+      sk.other.jsoncpp
     }
   }
 }

@@ -1,2 +1,2 @@
 
-make-subdirs tinyxml yaml-cpp ;
+make-subdirs tinyxml yaml-cpp jsoncpp ;

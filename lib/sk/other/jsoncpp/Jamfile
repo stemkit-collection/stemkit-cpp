@@ -1,0 +1,8 @@
+# vim: ft=jam: sw=2:
+
+local library = sk.other.jsoncpp ;
+
+make-library $(library) ;
+add-local-library $(library) : lib_json ;
+
+make-subdirs lib_json ;

@@ -1,0 +1,12 @@
+# vim: ft=jam: sw=2:
+
+local library = lib_json ;
+
+local objects = 
+  json_reader.cpp
+  json_value.cpp
+  json_writer.cpp
+;
+
+use-project-includes $(objects) : include/sk/other/jsoncpp ;
+make-static-library $(library) : $(objects) ;
