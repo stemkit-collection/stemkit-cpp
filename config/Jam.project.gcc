@@ -152,7 +152,6 @@ rule platform-mswin-x86-m32-win
 rule platform-mswin-x86-m64-mks
 {
   local.mswin-x86.setup 64 : local.mswin-x86.mks ;
-  config.unit-test.disable = true ;
 }
 
 rule platform-mswin-x86-m32-mks
