@@ -5,7 +5,7 @@ all::
 ABI_LIST = 32-win 64-win 32-mks 64-mks
 
 windows-build::
-	for abi in $(ABI_LIST); do jam.cmd -sBUILD_ABI=$${abi} lib || break; done
+	for abi in $(ABI_LIST); do jam.rbx -sBUILD_ABI=$${abi} lib || break; done
 
 windows-install::
 	@ [ "$(SKCPP_TARGET_DIR)" != "" ] || (echo "Need parameter: SKCPP_TARGET_DIR"; exit 1)
