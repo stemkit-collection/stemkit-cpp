@@ -476,3 +476,32 @@ test_performing_until_success_fails_on_all_errors()
   }
   CPPUNIT_ASSERT_EQUAL(0, workshop.strings.size());
 }
+
+namespace {
+  sk::util::Strings __testStrings;
+}
+
+static void f1() {
+  __testStrings.add("f1");
+}
+
+extern "C" void f2() {
+  __testStrings.add("f2");
+}
+
+void
+sk::rt::tests::ActionsTest::
+test_can_add_global_no_param_function()
+{
+  __testStrings.clear();
+  {
+    sk::rt::Actions actions;
+    actions.add("F1", f1);
+    actions.add("F2", f2);
+
+    CPPUNIT_ASSERT_EQUAL(0, __testStrings.size());
+  }
+  CPPUNIT_ASSERT_EQUAL(2, __testStrings.size());
+  CPPUNIT_ASSERT_EQUAL("f1", __testStrings.get(0));
+  CPPUNIT_ASSERT_EQUAL("f2", __testStrings.get(1));
+}

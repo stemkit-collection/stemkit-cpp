@@ -179,3 +179,23 @@ clear()
 {
   _items.clear();
 }
+
+namespace {
+  struct FunctionInvocator : public virtual sk::rt::Actions::Item {
+    FunctionInvocator(const sk::util::String& label, sk::rt::Actions::function_t& function)
+      : Item(label), _function(function) {}
+
+    void invoke() const {
+      (_function)();
+    }
+    sk::rt::Actions::function_t& _function;
+  };
+}
+
+template<> 
+void 
+sk::rt::Actions::
+add<sk::rt::Actions::function_t>(const sk::util::String& label, sk::rt::Actions::function_t& function)
+{
+  addItem(new FunctionInvocator(label, function));
+}

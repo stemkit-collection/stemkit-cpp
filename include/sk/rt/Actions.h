@@ -26,6 +26,9 @@ namespace sk {
         Actions(bool reverse = false);
         virtual ~Actions();
 
+        template<typename T> 
+        void add(const sk::util::String& label, T& target);
+
         template<typename T, typename TMF> 
         void add(const sk::util::String& label, T& target, TMF method);
     
@@ -78,7 +81,11 @@ namespace sk {
 
         template<typename T, typename TMF, typename P> 
         struct MemberFunctionWithParamInvocator;
+
+      public:
+        typedef void (function_t)();
     };
+    template<> void Actions::add<Actions::function_t>(const sk::util::String& label, Actions::function_t& function);
   }
 }
 
@@ -99,7 +106,7 @@ void
 sk::rt::Actions::
 add(const sk::util::String& label, T& target, TMF method)
 {
-  return addItem(new MemberFunctionInvocator<T, TMF>(label, target, method));
+  addItem(new MemberFunctionInvocator<T, TMF>(label, target, method));
 }
 
 template<typename T, typename TMF, typename P>
@@ -120,7 +127,7 @@ void
 sk::rt::Actions::
 add(const sk::util::String& label, T& target, TMF method, P& param)
 {
-  return addItem(new MemberFunctionWithParamInvocator<T, TMF, P>(label, target, method, param));
+  addItem(new MemberFunctionWithParamInvocator<T, TMF, P>(label, target, method, param));
 }
 
 template<typename T, typename TMF, typename P>
@@ -128,7 +135,15 @@ void
 sk::rt::Actions::
 add(const sk::util::String& label, T& target, TMF method, const P& param)
 {
-  return addItem(new MemberFunctionWithParamInvocator<T, TMF, const P>(label, target, method, param));
+  addItem(new MemberFunctionWithParamInvocator<T, TMF, const P>(label, target, method, param));
+}
+
+template<typename T> 
+void 
+sk::rt::Actions::
+add(const sk::util::String& label, T& target)
+{
+  add(label, target, &T::operator());
 }
 
 #endif /* _SK_RT_ACTIONS_H_ */

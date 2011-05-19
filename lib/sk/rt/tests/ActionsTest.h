@@ -36,6 +36,7 @@ namespace sk {
           CPPUNIT_TEST(test_no_actions_after_clear);
           CPPUNIT_TEST(test_performing_until_success_succeeds_when_one_successful);
           CPPUNIT_TEST(test_performing_until_success_fails_on_all_errors);
+          CPPUNIT_TEST(test_can_add_global_no_param_function);
         CPPUNIT_TEST_SUITE_END();
       
         public:
@@ -59,6 +60,7 @@ namespace sk {
           void test_no_actions_after_clear();
           void test_performing_until_success_succeeds_when_one_successful();
           void test_performing_until_success_fails_on_all_errors();
+          void test_can_add_global_no_param_function();
       
         private:
           ActionsTest(const ActionsTest& other);
