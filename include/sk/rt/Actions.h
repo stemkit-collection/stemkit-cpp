@@ -11,6 +11,7 @@
 #ifndef _SK_RT_ACTIONS_H_
 #define _SK_RT_ACTIONS_H_
 
+#include <sk/types.h>
 #include <sk/util/Object.h>
 #include <sk/rt/Runnable.h>
 #include <sk/util/ArrayList.hxx>
@@ -38,16 +39,10 @@ namespace sk {
         template<typename T, typename TMF, typename P> 
         void add(const sk::util::String& label, T& target, TMF method, const P& param);
 
-        template<typename P>
-        struct Type {
-          typedef void (function_t)(P param);
-        };
-
         template<typename P> 
-        void addF(const sk::util::String& label, const typename Type<const P&>::function_t& function, const P& param);
+        void addF(const sk::util::String& label, const typename sk::function<void, const P&>::type& function, const P& param);
 
-        typedef void (function_t)();
-        void add(const sk::util::String& label, const function_t& function);
+        void add(const sk::util::String& label, const sk::function<void>::type& function);
         
         int size() const;
         void setReverse(bool state);
@@ -158,20 +153,20 @@ add(const sk::util::String& label, T& target)
 
 template<typename P>
 struct sk::rt::Actions::FunctionWithParamInvocator : public virtual sk::rt::Actions::Item {
-  FunctionWithParamInvocator(const sk::util::String& label, const typename Type<P>::function_t& function, P param)
+  FunctionWithParamInvocator(const sk::util::String& label, const typename sk::function<void, P>::type& function, P param)
     : Item(label), _function(function), _param(param) {}
 
   void invoke() const {
     (_function)(_param);
   }
-  const typename sk::rt::Actions::Type<P>::function_t& _function;
+  const typename sk::function<void, P>::type& _function;
   P _param;
 };
 
 template<typename P> 
 void 
 sk::rt::Actions::
-addF(const sk::util::String& label, const typename Type<const P&>::function_t& function, const P& param)
+addF(const sk::util::String& label, const typename sk::function<void, const P&>::type& function, const P& param)
 {
   addItem(new FunctionWithParamInvocator<const P&>(label, function, param));
 }

@@ -182,19 +182,19 @@ clear()
 
 namespace {
   struct FunctionInvocator : public virtual sk::rt::Actions::Item {
-    FunctionInvocator(const sk::util::String& label, const sk::rt::Actions::function_t& function)
+    FunctionInvocator(const sk::util::String& label, const sk::function<void>::type& function)
       : Item(label), _function(function) {}
 
     void invoke() const {
       (_function)();
     }
-    const sk::rt::Actions::function_t& _function;
+    const sk::function<void>::type& _function;
   };
 }
 
 void 
 sk::rt::Actions::
-add(const sk::util::String& label, const sk::rt::Actions::function_t& function)
+add(const sk::util::String& label, const sk::function<void>::type& function)
 {
   addItem(new FunctionInvocator(label, function));
 }
