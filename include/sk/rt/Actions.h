@@ -89,7 +89,7 @@ namespace sk {
         struct TwoArgumentInvocator;
 
         template<typename P>
-        struct TwoArgumentInvocator<const typename sk::function<void, const P&, void, void>::type, P>;
+        struct TwoArgumentInvocator<const typename sk::function<void, const P&>::type, P>;
 
         template<typename P> 
         struct FunctionWithParamInvocator;
