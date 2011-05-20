@@ -33,12 +33,17 @@ product {
 fileset {
   name "main"
 
-  directory %w{
-    bin
-  }
+  directory [
+    'bin',
+    'include',
+    'include/sk',
+    cache.lib
+  ]
+
   generate.as('bin/stemkit-info').source {
     program 'install/make-info.rb'
   }
+  install.into('include/sk').source.file 'include/sk/types.h'
 }
 
 fileset {
