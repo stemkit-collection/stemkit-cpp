@@ -38,6 +38,9 @@ namespace sk {
         template<typename T, typename TMF, typename P> 
         void add(const sk::util::String& label, T& target, TMF method, const P& param);
 
+        typedef void (function_t)();
+        void add(const sk::util::String& label, function_t& function);
+        
         int size() const;
         void setReverse(bool state);
         bool isReverse() const;
@@ -81,11 +84,7 @@ namespace sk {
 
         template<typename T, typename TMF, typename P> 
         struct MemberFunctionWithParamInvocator;
-
-      public:
-        typedef void (function_t)();
     };
-    template<> void Actions::add<Actions::function_t>(const sk::util::String& label, Actions::function_t& function);
   }
 }
 
