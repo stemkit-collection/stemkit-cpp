@@ -95,7 +95,7 @@ namespace sk {
         struct TwoArgumentInvocator;
 
         template<typename P>
-        struct TwoArgumentInvocator<const typename sk::function<void, const P&>::type, P>;
+        struct TwoArgumentInvocator<const typename sk::function<void, P>::type, P>;
 
         template<typename P>
         struct TwoArgumentInvocator<const typename sk::function<void, P*>::type, P>;
@@ -156,15 +156,15 @@ struct sk::rt::Actions::TwoArgumentInvocator : public virtual sk::rt::Actions::I
 };
 
 template<typename P>
-struct sk::rt::Actions::TwoArgumentInvocator<const typename sk::function<void, const P&>::type, P> : public virtual sk::rt::Actions::Item {
-  TwoArgumentInvocator(const sk::util::String& label, const typename sk::function<void, const P&>::type& function, const P& param)
+struct sk::rt::Actions::TwoArgumentInvocator<const typename sk::function<void, P>::type, P> : public virtual sk::rt::Actions::Item {
+  TwoArgumentInvocator(const sk::util::String& label, const typename sk::function<void, P>::type& function, const P param)
     : Item(label), _function(function), _param(param) {}
 
   void invoke() const {
     (_function)(_param);
   }
-  const typename sk::function<void, const P&>::type& _function;
-  const P& _param;
+  const typename sk::function<void, P>::type& _function;
+  const P _param;
 };
 
 template<typename P1, typename P2>
