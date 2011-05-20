@@ -31,10 +31,10 @@ namespace sk {
         void add(const sk::util::String& label, T& target);
 
         template<typename P1, typename P2> 
-        void add(const sk::util::String& label, P1& p1, const P2& p2);
+        void add(const sk::util::String& label, P1& p1, P2& p2);
     
         template<typename P1, typename P2> 
-        void add(const sk::util::String& label, P1& p1, P2& p2);
+        void add(const sk::util::String& label, P1& p1, const P2& p2);
     
         template<typename T, typename TMF, typename P> 
         void add(const sk::util::String& label, T& target, TMF method, P& param);
