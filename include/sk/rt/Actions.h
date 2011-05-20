@@ -38,8 +38,16 @@ namespace sk {
         template<typename T, typename TMF, typename P> 
         void add(const sk::util::String& label, T& target, TMF method, const P& param);
 
+        template<typename P>
+        struct Type {
+          typedef void (function_t)(P param);
+        };
+
+        template<typename P> 
+        void addF(const sk::util::String& label, const typename Type<const P&>::function_t& function, const P& param);
+
         typedef void (function_t)();
-        void add(const sk::util::String& label, function_t& function);
+        void add(const sk::util::String& label, const function_t& function);
         
         int size() const;
         void setReverse(bool state);
@@ -84,6 +92,9 @@ namespace sk {
 
         template<typename T, typename TMF, typename P> 
         struct MemberFunctionWithParamInvocator;
+
+        template<typename P> 
+        struct FunctionWithParamInvocator;
     };
   }
 }
@@ -143,6 +154,26 @@ sk::rt::Actions::
 add(const sk::util::String& label, T& target)
 {
   add(label, target, &T::operator());
+}
+
+template<typename P>
+struct sk::rt::Actions::FunctionWithParamInvocator : public virtual sk::rt::Actions::Item {
+  FunctionWithParamInvocator(const sk::util::String& label, const typename Type<P>::function_t& function, P param)
+    : Item(label), _function(function), _param(param) {}
+
+  void invoke() const {
+    (_function)(_param);
+  }
+  const typename sk::rt::Actions::Type<P>::function_t& _function;
+  P _param;
+};
+
+template<typename P> 
+void 
+sk::rt::Actions::
+addF(const sk::util::String& label, const typename Type<const P&>::function_t& function, const P& param)
+{
+  addItem(new FunctionWithParamInvocator<const P&>(label, function, param));
 }
 
 #endif /* _SK_RT_ACTIONS_H_ */

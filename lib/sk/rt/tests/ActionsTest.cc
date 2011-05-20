@@ -505,3 +505,23 @@ test_can_add_global_no_param_function()
   CPPUNIT_ASSERT_EQUAL("f1", __testStrings.get(0));
   CPPUNIT_ASSERT_EQUAL("f2", __testStrings.get(1));
 }
+
+static void fp1(const std::string& s) {
+  __testStrings.add(sk::util::String("fp1:std::string:") + s);
+}
+
+void
+sk::rt::tests::ActionsTest::
+test_can_add_global_one_param_function()
+{
+  const std::string s("abc");
+  __testStrings.clear();
+  {
+    sk::rt::Actions actions;
+    actions.addF("FP1", fp1, s);
+
+    CPPUNIT_ASSERT_EQUAL(0, __testStrings.size());
+  }
+  CPPUNIT_ASSERT_EQUAL(1, __testStrings.size());
+  CPPUNIT_ASSERT_EQUAL("fp1:std::string:abc", __testStrings.get(0));
+}
