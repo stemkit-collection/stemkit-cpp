@@ -518,8 +518,9 @@ static void fp3(const char* s) {
   __testStrings.add(sk::util::String("fp1:const-chars:") + s);
 }
 
-static void fp4(char* s) {
+static int fp4(char* s) {
   __testStrings.add(sk::util::String("fp1:chars:") + s);
+  return 0;
 }
 
 void
@@ -534,7 +535,7 @@ test_can_add_global_one_param_function()
     actions.add("FP1", fp1, std::string("abc"));
     actions.add("FP2", fp2, 78);
     actions.add("FP3", fp3, "uuu");
-    actions.add("FP4", fp4, chars);
+    actions.addFunction("FP4", fp4, chars);
 
     CPPUNIT_ASSERT_EQUAL(0, __testStrings.size());
   }

@@ -48,6 +48,9 @@ namespace sk {
         template<typename T, typename TMF, typename P> 
         void add(const sk::util::String& label, T& target, const TMF& method, const P& param);
 
+        template<typename F, typename P> 
+        void addFunction(const sk::util::String& label, const F& function, P* param);
+    
         void add(const sk::util::String& label, const sk::function<void>::type& function);
         
         int size() const;
@@ -100,8 +103,8 @@ namespace sk {
         template<typename P>
         struct TwoArgumentInvocator<const typename sk::function<void, P*>::type, P>;
 
-        template<typename P> 
-        struct FunctionWithParamInvocator;
+        template<typename F, typename P> 
+        struct ParameterFunctionInvocator;
     };
   }
 }
@@ -209,6 +212,26 @@ sk::rt::Actions::
 add(const sk::util::String& label, P1& p1, const P2* p2)
 {
   addItem(new TwoArgumentInvocator<P1, const P2>(label, p1, p2));
+}
+
+template<typename F, typename P>
+struct sk::rt::Actions::ParameterFunctionInvocator : public virtual sk::rt::Actions::Item {
+  ParameterFunctionInvocator(const sk::util::String& label, const F& function, P* param)
+    : Item(label), _function(function), _param(param) {}
+
+  void invoke() const {
+    (_function)(_param);
+  }
+  const F& _function;
+  P* _param;
+};
+
+template<typename F, typename P> 
+void 
+sk::rt::Actions::
+addFunction(const sk::util::String& label, const F& function, P* param)
+{
+  addItem(new ParameterFunctionInvocator<F, P>(label, function, param));
 }
 
 #endif /* _SK_RT_ACTIONS_H_ */
