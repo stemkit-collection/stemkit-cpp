@@ -30,17 +30,17 @@ namespace sk {
         template<typename T> 
         void add(const sk::util::String& label, T& target);
 
-        template<typename T, typename TMF> 
-        void add(const sk::util::String& label, T& target, TMF method);
+        template<typename P1, typename P2> 
+        void add(const sk::util::String& label, P1& p1, const P2& p2);
+    
+        template<typename P1, typename P2> 
+        void add(const sk::util::String& label, P1& p1, P2& p2);
     
         template<typename T, typename TMF, typename P> 
         void add(const sk::util::String& label, T& target, TMF method, P& param);
     
         template<typename T, typename TMF, typename P> 
         void add(const sk::util::String& label, T& target, TMF method, const P& param);
-
-        template<typename P> 
-        void addF(const sk::util::String& label, const typename sk::function<void, const P&>::type& function, const P& param);
 
         void add(const sk::util::String& label, const sk::function<void>::type& function);
         
@@ -82,36 +82,19 @@ namespace sk {
         sk::util::ArrayList<Item> _items;
         sk::util::ArrayList<sk::util::Exception> _exceptions;
 
-        template<typename T, typename TMF> 
-        struct MemberFunctionInvocator;
-
         template<typename T, typename TMF, typename P> 
         struct MemberFunctionWithParamInvocator;
+
+        template<typename P1, typename P2>
+        struct TwoArgumentInvocator;
+
+        template<typename P>
+        struct TwoArgumentInvocator<const typename sk::function<void, const P&, void, void>::type, P>;
 
         template<typename P> 
         struct FunctionWithParamInvocator;
     };
   }
-}
-
-template<typename T, typename TMF>
-struct sk::rt::Actions::MemberFunctionInvocator : public virtual sk::rt::Actions::Item {
-  MemberFunctionInvocator(const sk::util::String& label, T& target, TMF method)
-    : Item(label), _target(target), _method(method) {}
-
-  void invoke() const {
-    (_target.*_method)();
-  }
-  T& _target;
-  TMF _method;
-};
-
-template<typename T, typename TMF>
-void
-sk::rt::Actions::
-add(const sk::util::String& label, T& target, TMF method)
-{
-  addItem(new MemberFunctionInvocator<T, TMF>(label, target, method));
 }
 
 template<typename T, typename TMF, typename P>
@@ -151,24 +134,44 @@ add(const sk::util::String& label, T& target)
   add(label, target, &T::operator());
 }
 
+template<typename T, typename TMF>
+struct sk::rt::Actions::TwoArgumentInvocator : public virtual sk::rt::Actions::Item {
+  TwoArgumentInvocator(const sk::util::String& label, T& target, TMF method)
+    : Item(label), _target(target), _method(method) {}
+
+  void invoke() const {
+    (_target.*_method)();
+  }
+  T& _target;
+  TMF _method;
+};
+
 template<typename P>
-struct sk::rt::Actions::FunctionWithParamInvocator : public virtual sk::rt::Actions::Item {
-  FunctionWithParamInvocator(const sk::util::String& label, const typename sk::function<void, P>::type& function, P param)
+struct sk::rt::Actions::TwoArgumentInvocator<const typename sk::function<void, const P&>::type, P> : public virtual sk::rt::Actions::Item {
+  TwoArgumentInvocator(const sk::util::String& label, const typename sk::function<void, const P&>::type& function, const P& param)
     : Item(label), _function(function), _param(param) {}
 
   void invoke() const {
     (_function)(_param);
   }
-  const typename sk::function<void, P>::type& _function;
-  P _param;
+  const typename sk::function<void, const P&>::type& _function;
+  const P& _param;
 };
 
-template<typename P> 
-void 
+template<typename P1, typename P2>
+void
 sk::rt::Actions::
-addF(const sk::util::String& label, const typename sk::function<void, const P&>::type& function, const P& param)
+add(const sk::util::String& label, P1& p1, const P2& p2)
 {
-  addItem(new FunctionWithParamInvocator<const P&>(label, function, param));
+  addItem(new TwoArgumentInvocator<P1, P2>(label, p1, p2));
+}
+
+template<typename P1, typename P2>
+void
+sk::rt::Actions::
+add(const sk::util::String& label, P1& p1, P2& p2)
+{
+  addItem(new TwoArgumentInvocator<P1, P2>(label, p1, p2));
 }
 
 #endif /* _SK_RT_ACTIONS_H_ */

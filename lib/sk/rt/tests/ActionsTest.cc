@@ -514,11 +514,11 @@ void
 sk::rt::tests::ActionsTest::
 test_can_add_global_one_param_function()
 {
-  const std::string s("abc");
+  std::string s("abc");
   __testStrings.clear();
   {
     sk::rt::Actions actions;
-    actions.addF("FP1", fp1, s);
+    actions.add("FP1", fp1, s);
 
     CPPUNIT_ASSERT_EQUAL(0, __testStrings.size());
   }
