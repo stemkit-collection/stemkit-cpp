@@ -37,10 +37,10 @@ namespace sk {
         void add(const sk::util::String& label, P1& p1, const P2& p2);
     
         template<typename T, typename TMF, typename P> 
-        void add(const sk::util::String& label, T& target, TMF method, P& param);
+        void add(const sk::util::String& label, T& target, const TMF& method, P& param);
     
         template<typename T, typename TMF, typename P> 
-        void add(const sk::util::String& label, T& target, TMF method, const P& param);
+        void add(const sk::util::String& label, T& target, const TMF& method, const P& param);
 
         void add(const sk::util::String& label, const sk::function<void>::type& function);
         
@@ -99,21 +99,21 @@ namespace sk {
 
 template<typename T, typename TMF, typename P>
 struct sk::rt::Actions::MemberFunctionWithParamInvocator : public virtual sk::rt::Actions::Item {
-  MemberFunctionWithParamInvocator(const sk::util::String& label, T& target, TMF method, P& param)
+  MemberFunctionWithParamInvocator(const sk::util::String& label, T& target, const TMF method, P& param)
     : Item(label), _target(target), _method(method), _param(param) {}
 
   void invoke() const {
     (_target.*_method)(_param);
   }
   T& _target;
-  TMF _method;
+  const TMF _method;
   P& _param;
 };
 
 template<typename T, typename TMF, typename P>
 void
 sk::rt::Actions::
-add(const sk::util::String& label, T& target, TMF method, P& param)
+add(const sk::util::String& label, T& target, const TMF& method, P& param)
 {
   addItem(new MemberFunctionWithParamInvocator<T, TMF, P>(label, target, method, param));
 }
@@ -121,7 +121,7 @@ add(const sk::util::String& label, T& target, TMF method, P& param)
 template<typename T, typename TMF, typename P>
 void
 sk::rt::Actions::
-add(const sk::util::String& label, T& target, TMF method, const P& param)
+add(const sk::util::String& label, T& target, const TMF& method, const P& param)
 {
   addItem(new MemberFunctionWithParamInvocator<T, TMF, const P>(label, target, method, param));
 }
@@ -136,14 +136,14 @@ add(const sk::util::String& label, T& target)
 
 template<typename T, typename TMF>
 struct sk::rt::Actions::TwoArgumentInvocator : public virtual sk::rt::Actions::Item {
-  TwoArgumentInvocator(const sk::util::String& label, T& target, TMF method)
+  TwoArgumentInvocator(const sk::util::String& label, T& target, const TMF method)
     : Item(label), _target(target), _method(method) {}
 
   void invoke() const {
     (_target.*_method)();
   }
   T& _target;
-  TMF _method;
+  const TMF _method;
 };
 
 template<typename P>
