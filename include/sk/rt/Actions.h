@@ -36,6 +36,12 @@ namespace sk {
         template<typename P1, typename P2> 
         void add(const sk::util::String& label, P1& p1, const P2& p2);
     
+        template<typename P1, typename P2> 
+        void add(const sk::util::String& label, P1& p1, P2* p2);
+    
+        template<typename P1, typename P2> 
+        void add(const sk::util::String& label, P1& p1, const P2* p2);
+    
         template<typename T, typename TMF, typename P> 
         void add(const sk::util::String& label, T& target, const TMF& method, P& param);
     
@@ -90,6 +96,9 @@ namespace sk {
 
         template<typename P>
         struct TwoArgumentInvocator<const typename sk::function<void, const P&>::type, P>;
+
+        template<typename P>
+        struct TwoArgumentInvocator<const typename sk::function<void, P*>::type, P>;
 
         template<typename P> 
         struct FunctionWithParamInvocator;
@@ -161,7 +170,7 @@ struct sk::rt::Actions::TwoArgumentInvocator<const typename sk::function<void, c
 template<typename P1, typename P2>
 void
 sk::rt::Actions::
-add(const sk::util::String& label, P1& p1, const P2& p2)
+add(const sk::util::String& label, P1& p1, P2& p2)
 {
   addItem(new TwoArgumentInvocator<P1, P2>(label, p1, p2));
 }
@@ -169,9 +178,37 @@ add(const sk::util::String& label, P1& p1, const P2& p2)
 template<typename P1, typename P2>
 void
 sk::rt::Actions::
-add(const sk::util::String& label, P1& p1, P2& p2)
+add(const sk::util::String& label, P1& p1, const P2& p2)
 {
   addItem(new TwoArgumentInvocator<P1, P2>(label, p1, p2));
+}
+
+template<typename P>
+struct sk::rt::Actions::TwoArgumentInvocator<const typename sk::function<void, P*>::type, P> : public virtual sk::rt::Actions::Item {
+  TwoArgumentInvocator(const sk::util::String& label, const typename sk::function<void, P*>::type& function, P* param)
+    : Item(label), _function(function), _param(param) {}
+
+  void invoke() const {
+    (_function)(_param);
+  }
+  const typename sk::function<void, P*>::type& _function;
+  P* _param;
+};
+
+template<typename P1, typename P2>
+void
+sk::rt::Actions::
+add(const sk::util::String& label, P1& p1, P2* p2)
+{
+  addItem(new TwoArgumentInvocator<P1, P2>(label, p1, p2));
+}
+
+template<typename P1, typename P2>
+void
+sk::rt::Actions::
+add(const sk::util::String& label, P1& p1, const P2* p2)
+{
+  addItem(new TwoArgumentInvocator<P1, const P2>(label, p1, p2));
 }
 
 #endif /* _SK_RT_ACTIONS_H_ */
