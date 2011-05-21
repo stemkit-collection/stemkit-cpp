@@ -82,9 +82,9 @@ namespace {
     sk::net::InetAddress* create() const {
       sk::rt::Actions actions;
 
-      actions.add("ip4-a", *this, &ByAddressSelectorCreator::tryIPv4);
-      actions.add("ip6-a", *this, &ByAddressSelectorCreator::tryIPv6);
-      actions.add("error", *this, &ByAddressSelectorCreator::error);
+      actions.addMethod("ip4-a", *this, &ByAddressSelectorCreator::tryIPv4);
+      actions.addMethod("ip6-a", *this, &ByAddressSelectorCreator::tryIPv6);
+      actions.addMethod("error", *this, &ByAddressSelectorCreator::error);
 
       actions.performUntilSuccess(true);
       return _holder.release();

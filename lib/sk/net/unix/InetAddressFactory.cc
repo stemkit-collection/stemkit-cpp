@@ -53,9 +53,9 @@ namespace {
       }
       sk::rt::Actions actions;
       for(struct addrinfo* item = _items; item != 0; item = item->ai_next) {
-        actions.add("ip4-n", *this, &ByNameSelectorCreator::tryIPv4, *item);
-        actions.add("ip6-n", *this, &ByNameSelectorCreator::tryIPv6, *item);
-        actions.add("error", *this, &ByNameSelectorCreator::error, *item);
+        actions.addMethod("ip4-n", *this, &ByNameSelectorCreator::tryIPv4, *item);
+        actions.addMethod("ip6-n", *this, &ByNameSelectorCreator::tryIPv6, *item);
+        actions.addMethod("error", *this, &ByNameSelectorCreator::error, *item);
       }
       actions.performUntilSuccess(true);
       return _holder.release();

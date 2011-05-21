@@ -83,9 +83,9 @@ test_non_problem_actions_work_in_direct_order()
   sk::rt::Actions actions;
   CPPUNIT_ASSERT(actions.isReverse() == false);
 
-  actions.add("a1", workshop, &Workshop::addMessage, "m1");
-  actions.add("a2", workshop, &Workshop::addMessage, "m2");
-  actions.add("a3", workshop, &Workshop::addMessage, "m3");
+  actions.addMethod("a1", workshop, &Workshop::addMessage, "m1");
+  actions.addMethod("a2", workshop, &Workshop::addMessage, "m2");
+  actions.addMethod("a3", workshop, &Workshop::addMessage, "m3");
 
   CPPUNIT_ASSERT_EQUAL(3, actions.size());
   CPPUNIT_ASSERT_NO_THROW(actions.perform());
@@ -105,9 +105,9 @@ test_non_problem_actions_work_in_reverse_order()
   sk::rt::Actions actions(true);
   CPPUNIT_ASSERT(actions.isReverse() == true);
 
-  actions.add("a1", workshop, &Workshop::addMessage, "m1");
-  actions.add("a2", workshop, &Workshop::addMessage, "m2");
-  actions.add("a3", workshop, &Workshop::addMessage, "m3");
+  actions.addMethod("a1", workshop, &Workshop::addMessage, "m1");
+  actions.addMethod("a2", workshop, &Workshop::addMessage, "m2");
+  actions.addMethod("a3", workshop, &Workshop::addMessage, "m3");
 
   CPPUNIT_ASSERT_EQUAL(3, actions.size());
   CPPUNIT_ASSERT_NO_THROW(actions.perform());
@@ -129,9 +129,9 @@ test_non_problem_actions_work_out_of_scope_without_perform()
     sk::rt::Actions actions(true);
     CPPUNIT_ASSERT(actions.isReverse() == true);
 
-    actions.add("a1", workshop, &Workshop::addMessage, "m1");
-    actions.add("a2", workshop, &Workshop::addMessage, "m2");
-    actions.add("a3", workshop, &Workshop::addMessage, "m3");
+    actions.addMethod("a1", workshop, &Workshop::addMessage, "m1");
+    actions.addMethod("a2", workshop, &Workshop::addMessage, "m2");
+    actions.addMethod("a3", workshop, &Workshop::addMessage, "m3");
   }
   CPPUNIT_ASSERT_EQUAL(3, workshop.strings.size());
   CPPUNIT_ASSERT_EQUAL("m3", workshop.strings.get(0));
@@ -146,12 +146,12 @@ test_all_executed_despite_errors_with_compound_exception()
   Workshop workshop;
   sk::rt::Actions actions;
 
-  actions.add("a1", workshop, &Workshop::addMessage, "m1");
-  actions.add("a2", workshop, &Workshop::addMessage, "sk2");
-  actions.add("a3", workshop, &Workshop::addMessage, "e3");
-  actions.add("a4", workshop, &Workshop::addMessage, "s4");
-  actions.add("a5", workshop, &Workshop::addMessage, "u5");
-  actions.add("a6", workshop, &Workshop::addMessage, "m6");
+  actions.addMethod("a1", workshop, &Workshop::addMessage, "m1");
+  actions.addMethod("a2", workshop, &Workshop::addMessage, "sk2");
+  actions.addMethod("a3", workshop, &Workshop::addMessage, "e3");
+  actions.addMethod("a4", workshop, &Workshop::addMessage, "s4");
+  actions.addMethod("a5", workshop, &Workshop::addMessage, "u5");
+  actions.addMethod("a6", workshop, &Workshop::addMessage, "m6");
 
   try {
     actions.perform();
@@ -187,12 +187,12 @@ test_all_reversed_executed_despite_errors_with_compound_exception()
   sk::rt::Actions actions(true);
   CPPUNIT_ASSERT(actions.isReverse() == true);
 
-  actions.add("a1", workshop, &Workshop::addMessage, "m1");
-  actions.add("a2", workshop, &Workshop::addMessage, "sk2");
-  actions.add("a3", workshop, &Workshop::addMessage, "e3");
-  actions.add("a4", workshop, &Workshop::addMessage, "s4");
-  actions.add("a5", workshop, &Workshop::addMessage, "u5");
-  actions.add("a6", workshop, &Workshop::addMessage, "m6");
+  actions.addMethod("a1", workshop, &Workshop::addMessage, "m1");
+  actions.addMethod("a2", workshop, &Workshop::addMessage, "sk2");
+  actions.addMethod("a3", workshop, &Workshop::addMessage, "e3");
+  actions.addMethod("a4", workshop, &Workshop::addMessage, "s4");
+  actions.addMethod("a5", workshop, &Workshop::addMessage, "u5");
+  actions.addMethod("a6", workshop, &Workshop::addMessage, "m6");
 
   try {
     actions.perform();
@@ -227,12 +227,12 @@ test_all_executed_despite_errors_no_exception_when_ignored()
   Workshop workshop;
   sk::rt::Actions actions;
 
-  actions.add("a1", workshop, &Workshop::addMessage, "m1");
-  actions.add("a2", workshop, &Workshop::addMessage, "sk2");
-  actions.add("a3", workshop, &Workshop::addMessage, "e3");
-  actions.add("a4", workshop, &Workshop::addMessage, "s4");
-  actions.add("a5", workshop, &Workshop::addMessage, "u5");
-  actions.add("a6", workshop, &Workshop::addMessage, "m6");
+  actions.addMethod("a1", workshop, &Workshop::addMessage, "m1");
+  actions.addMethod("a2", workshop, &Workshop::addMessage, "sk2");
+  actions.addMethod("a3", workshop, &Workshop::addMessage, "e3");
+  actions.addMethod("a4", workshop, &Workshop::addMessage, "s4");
+  actions.addMethod("a5", workshop, &Workshop::addMessage, "u5");
+  actions.addMethod("a6", workshop, &Workshop::addMessage, "m6");
 
   try {
     int number_of_errors = actions.performIgnoreErrors();
@@ -258,8 +258,8 @@ test_non_problem_actions_throw_requested_exception()
   Workshop workshop;
   sk::rt::Actions actions;
 
-  actions.add("a1", workshop, &Workshop::addMessage, "m1");
-  actions.add("a2", workshop, &Workshop::addMessage, "m2");
+  actions.addMethod("a1", workshop, &Workshop::addMessage, "m1");
+  actions.addMethod("a2", workshop, &Workshop::addMessage, "m2");
 
   try {
     actions.performThrow(sk::util::IllegalStateException("Hello"));
@@ -291,10 +291,10 @@ test_throws_requested_exception_with_action_exceptions()
   Workshop workshop;
   sk::rt::Actions actions;
 
-  actions.add("a1", workshop, &Workshop::addMessage, "m1");
-  actions.add("a2", workshop, &Workshop::addMessage, "e2");
-  actions.add("a3", workshop, &Workshop::addMessage, "s3");
-  actions.add("a4", workshop, &Workshop::addMessage, "m4");
+  actions.addMethod("a1", workshop, &Workshop::addMessage, "m1");
+  actions.addMethod("a2", workshop, &Workshop::addMessage, "e2");
+  actions.addMethod("a3", workshop, &Workshop::addMessage, "s3");
+  actions.addMethod("a4", workshop, &Workshop::addMessage, "m4");
 
   try {
     actions.performThrow(sk::util::IllegalStateException("Hello"));
@@ -329,10 +329,10 @@ test_throws_requested_exception_with_reversed_action_exceptions()
   sk::rt::Actions actions(true);
   CPPUNIT_ASSERT(actions.isReverse() == true);
 
-  actions.add("a1", workshop, &Workshop::addMessage, "m1");
-  actions.add("a2", workshop, &Workshop::addMessage, "e2");
-  actions.add("a3", workshop, &Workshop::addMessage, "s3");
-  actions.add("a4", workshop, &Workshop::addMessage, "m4");
+  actions.addMethod("a1", workshop, &Workshop::addMessage, "m1");
+  actions.addMethod("a2", workshop, &Workshop::addMessage, "e2");
+  actions.addMethod("a3", workshop, &Workshop::addMessage, "s3");
+  actions.addMethod("a4", workshop, &Workshop::addMessage, "m4");
 
   try {
     actions.performThrow(sk::util::IllegalStateException("Hello"));
@@ -366,14 +366,14 @@ test_exceptions_cleared_after_throw()
   Workshop workshop;
   sk::rt::Actions actions;
 
-  actions.add("a1", workshop, &Workshop::addMessage, "e1");
-  actions.add("a2", workshop, &Workshop::addMessage, "s1");
+  actions.addMethod("a1", workshop, &Workshop::addMessage, "e1");
+  actions.addMethod("a2", workshop, &Workshop::addMessage, "s1");
 
   CPPUNIT_ASSERT_THROW(actions.perform(), sk::util::CompoundException);
   CPPUNIT_ASSERT_EQUAL(0, actions.size());
   CPPUNIT_ASSERT_EQUAL(0, workshop.strings.size());
 
-  actions.add("a1", workshop, &Workshop::addMessage, "m1");
+  actions.addMethod("a1", workshop, &Workshop::addMessage, "m1");
   CPPUNIT_ASSERT_EQUAL(0, actions.performIgnoreErrors());
   CPPUNIT_ASSERT_EQUAL(1, workshop.strings.size());
 }
@@ -385,8 +385,8 @@ test_no_actions_after_clear()
   Workshop workshop;
   sk::rt::Actions actions;
 
-  actions.add("a1", workshop, &Workshop::addMessage, "e1");
-  actions.add("a2", workshop, &Workshop::addMessage, "s2");
+  actions.addMethod("a1", workshop, &Workshop::addMessage, "e1");
+  actions.addMethod("a2", workshop, &Workshop::addMessage, "s2");
 
   actions.clear();
   CPPUNIT_ASSERT_EQUAL(0, actions.size());
@@ -402,8 +402,8 @@ test_on_error_throws_with_undo_exceptions()
 
   try {
     try {
-      actions.add("a1", workshop, &Workshop::addMessage, "e1");
-      actions.add("a2", workshop, &Workshop::addMessage, "s2");
+      actions.addMethod("a1", workshop, &Workshop::addMessage, "e1");
+      actions.addMethod("a2", workshop, &Workshop::addMessage, "s2");
 
       throw std::domain_error("sample error");
     }
@@ -435,11 +435,11 @@ test_performing_until_success_succeeds_when_one_successful()
   Workshop workshop;
   sk::rt::Actions actions;
 
-  actions.add("a1", workshop, &Workshop::addMessage, "e1");
-  actions.add("a2", workshop, &Workshop::addMessage, "e2");
-  actions.add("a3", workshop, &Workshop::addMessage, "m3");
-  actions.add("a4", workshop, &Workshop::addMessage, "m4");
-  actions.add("a5", workshop, &Workshop::addMessage, "e5");
+  actions.addMethod("a1", workshop, &Workshop::addMessage, "e1");
+  actions.addMethod("a2", workshop, &Workshop::addMessage, "e2");
+  actions.addMethod("a3", workshop, &Workshop::addMessage, "m3");
+  actions.addMethod("a4", workshop, &Workshop::addMessage, "m4");
+  actions.addMethod("a5", workshop, &Workshop::addMessage, "e5");
 
   CPPUNIT_ASSERT_EQUAL(2, actions.performUntilSuccess());
   CPPUNIT_ASSERT_EQUAL(1, workshop.strings.size());
@@ -452,9 +452,9 @@ test_performing_until_success_fails_on_all_errors()
   Workshop workshop;
   sk::rt::Actions actions;
 
-  actions.add("a1", workshop, &Workshop::addMessage, "e1");
-  actions.add("a2", workshop, &Workshop::addMessage, "e2");
-  actions.add("a3", workshop, &Workshop::addMessage, "e3");
+  actions.addMethod("a1", workshop, &Workshop::addMessage, "e1");
+  actions.addMethod("a2", workshop, &Workshop::addMessage, "e2");
+  actions.addMethod("a3", workshop, &Workshop::addMessage, "e3");
 
   try {
     actions.performUntilSuccess(true);
@@ -496,8 +496,8 @@ test_can_add_global_no_param_function()
   __testStrings.clear();
   {
     sk::rt::Actions actions;
-    actions.add("F1", f1);
-    actions.add("F2", f2);
+    actions.addFunctor("F1", f1);
+    actions.addFunctor("F2", f2);
 
     CPPUNIT_ASSERT_EQUAL(0, __testStrings.size());
   }
@@ -532,10 +532,10 @@ test_can_add_global_one_param_function()
   __testStrings.clear();
   {
     sk::rt::Actions actions;
-    actions.add("FP1", fp1, std::string("abc"));
-    actions.add("FP2", fp2, 78);
-    actions.add("FP3", fp3, "uuu");
-    actions.addFunction("FP4", fp4, chars);
+    actions.addFunctor("FP1", fp1, std::string("abc"));
+    actions.addFunctor("FP2", fp2, 78);
+    actions.addFunctor("FP3", fp3, "uuu");
+    actions.addFunctor("FP4", fp4, chars);
 
     CPPUNIT_ASSERT_EQUAL(0, __testStrings.size());
   }
