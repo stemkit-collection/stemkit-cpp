@@ -14,8 +14,8 @@
 #include <sk/util/StandardException.h>
 
 sk::util::StandardException::
-StandardException(const sk::util::String& label, const std::exception& exception)
-  : sk::util::Exception(sk::util::Strings(label) << exception.what())
+StandardException(const sk::util::Strings& strings, const std::exception& exception)
+  : sk::util::Exception(strings + exception.what())
 {
 }
 

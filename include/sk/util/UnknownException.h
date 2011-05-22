@@ -19,7 +19,7 @@ namespace sk {
       : public sk::util::Exception
     {
       public:
-        UnknownException(const sk::util::String& label);
+        UnknownException(const sk::util::Strings& strings);
         UnknownException();
     
         // sk::util::Object re-implementation.

@@ -16,8 +16,8 @@
 static sk::util::String __defaultMessage("\?\?\?");
 
 sk::util::UnknownException::
-UnknownException(const sk::util::String& label)
-  : sk::util::Exception(sk::util::Strings(label) << __defaultMessage)
+UnknownException(const sk::util::Strings& strings)
+  : sk::util::Exception(strings + __defaultMessage)
 {
 }
 

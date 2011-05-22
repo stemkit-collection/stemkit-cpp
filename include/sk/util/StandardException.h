@@ -19,7 +19,7 @@ namespace sk {
       : public sk::util::Exception
     {
       public:
-        StandardException(const sk::util::String& label, const std::exception& exception);
+        StandardException(const sk::util::Strings& strings, const std::exception& exception);
         StandardException(const std::exception& exception);
     
         // sk::util::Object re-implementation.
