@@ -17,6 +17,8 @@
 #include <sk/util/Exception.h>
 #include <sk/rt/Scope.h>
 #include <sk/rt/action/Item.h>
+#include <sk/rt/action/Method.hxx>
+#include <sk/rt/action/Functor.hxx>
 
 namespace sk {
   namespace rt {
@@ -71,101 +73,40 @@ namespace sk {
         bool _reverse;
         sk::util::ArrayList<sk::rt::action::Item> _items;
         sk::util::ArrayList<sk::util::Exception> _exceptions;
-
-        template<typename T, typename TMF> 
-        struct MethodInvocator;
-
-        template<typename T, typename TMF, typename P> 
-        struct MethodWithParamInvocator;
-
-        template<typename F> 
-        struct FunctorInvocator;
-
-        template<typename F, typename P> 
-        struct FunctorWithParamInvocator;
     };
   }
 }
-
-template<typename T, typename TMF>
-struct sk::rt::Actions::MethodInvocator : public virtual sk::rt::action::Item {
-  MethodInvocator(const sk::util::String& label, T& target, const TMF method)
-    : Item(label), _target(target), _method(method) {}
-
-  void invoke() const {
-    (_target.*_method)();
-  }
-  T& _target;
-  const TMF _method;
-};
 
 template<typename T, typename TMF>
 void
 sk::rt::Actions::
 addMethod(const sk::util::String& label, T& target, const TMF& method)
 {
-  addItem(new MethodInvocator<T, TMF>(label, target, method));
+  addItem(new sk::rt::action::Method<T, TMF>(label, target, method));
 }
-
-template<typename T, typename TMF, typename P>
-struct sk::rt::Actions::MethodWithParamInvocator : public virtual sk::rt::action::Item {
-  MethodWithParamInvocator(const sk::util::String& label, T& target, const TMF method, P param)
-    : Item(label), _target(target), _method(method), _param(param) {}
-
-  void invoke() const {
-    (_target.*_method)(_param);
-  }
-  T& _target;
-  const TMF _method;
-  P _param;
-};
 
 template<typename T, typename TMF, typename P>
 void
 sk::rt::Actions::
 addMethod(const sk::util::String& label, T& target, const TMF& method, P param)
 {
-  addItem(new MethodWithParamInvocator<T, TMF, P>(label, target, method, param));
+  addItem(new sk::rt::action::Method<T, TMF, P>(label, target, method, param));
 }
-
-template<typename F>
-struct sk::rt::Actions::FunctorInvocator : public virtual sk::rt::action::Item {
-  FunctorInvocator(const sk::util::String& label, const F& functor)
-    : Item(label), _functor(functor) {}
-
-  void invoke() const {
-    (_functor)();
-  }
-  const F& _functor;
-};
-
 
 template<typename F> 
 void 
 sk::rt::Actions::
 addFunctor(const sk::util::String& label, const F& functor)
 {
-  addItem(new FunctorInvocator<F>(label, functor));
+  addItem(new sk::rt::action::Functor<F>(label, functor));
 }
-
-template<typename F, typename P>
-struct sk::rt::Actions::FunctorWithParamInvocator : public virtual sk::rt::action::Item {
-  FunctorWithParamInvocator(const sk::util::String& label, const F& functor, P param)
-    : Item(label), _functor(functor), _param(param) {}
-
-  void invoke() const {
-    (_functor)(_param);
-  }
-  const F& _functor;
-  P _param;
-};
 
 template<typename F, typename P> 
 void 
 sk::rt::Actions::
 addFunctor(const sk::util::String& label, const F& functor, P param)
 {
-  addItem(new FunctorWithParamInvocator<F, P>(label, functor, param));
+  addItem(new sk::rt::action::Functor<F, P>(label, functor, param));
 }
 
 #endif /* _SK_RT_ACTIONS_H_ */
