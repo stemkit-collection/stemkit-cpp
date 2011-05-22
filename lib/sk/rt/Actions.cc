@@ -20,12 +20,6 @@
 
 static const sk::util::String __className("sk::rt::Actions");
 
-sk::rt::Actions::Item::
-Item(const sk::util::String& label)
-  : sk::util::String(label)
-{
-}
-
 sk::rt::Actions::
 Actions(bool reverse)
   : _scope(__className), _reverse(reverse)
@@ -68,32 +62,36 @@ size() const
 
 void 
 sk::rt::Actions::
-addItem(Item* item)
+addItem(sk::rt::action::Item* item)
 {
   _items.add(item);
 }
 
 namespace {
-  struct GuardingExecutor : public virtual sk::util::Selector<sk::rt::Actions::Item> {
+  struct GuardingExecutor : public virtual sk::util::Selector<sk::rt::action::Item> {
     GuardingExecutor(bool untilSuccess, sk::util::List<sk::util::Exception>& exceptions)
       : _untilSuccess(untilSuccess), _exceptions(exceptions) {}
 
-    bool assess(const sk::rt::Actions::Item& item) const {
+    bool assess(const sk::rt::action::Item& item) const {
       try {
         item.invoke();
         return _untilSuccess;
       }
       catch(const sk::util::Exception& exception) {
-        _exceptions.add(new sk::util::ExceptionProxy(item, exception));
+        sk::util::Strings strings;
+        _exceptions.add(new sk::util::ExceptionProxy(item.populate(strings), exception));
       }
       catch(const std::exception& exception) {
-        _exceptions.add(new sk::util::StandardException(item, exception));
+        sk::util::Strings strings;
+        _exceptions.add(new sk::util::StandardException(item.populate(strings), exception));
       }
       catch(const std::string& exception) {
-        _exceptions.add(new sk::util::Exception(sk::util::Strings(item) << exception));
+        sk::util::Strings strings;
+        _exceptions.add(new sk::util::Exception(item.populate(strings) << exception));
       }
       catch(...) {
-        _exceptions.add(new sk::util::UnknownException(item));
+        sk::util::Strings strings;
+        _exceptions.add(new sk::util::UnknownException(item.populate(strings)));
       }
       return false;
     }

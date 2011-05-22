@@ -1,0 +1,9 @@
+# vim: ft=jam: sw=2:
+
+local library = sk.rt.action ;
+
+local objects = 
+  Item.cc
+;
+
+make-library $(library) : $(objects) ;
