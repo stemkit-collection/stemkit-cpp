@@ -24,7 +24,7 @@ namespace {
 }
 
 sk::util::Method::
-Method(const sk::util::String& name, const sk::util::Class& scope, bool instance)
+Method(const sk::util::String& name, const sk::util::Class& scope, const bool instance)
   : _name(normalizeName(name)), _scopeName(scope.getName()), _instance(instance)
 {
 }
@@ -45,5 +45,26 @@ const sk::util::String
 sk::util::Method::
 getName() const
 {
-  return _scopeName + (_instance ? "#" : ".") + _name + "()";
+  return _name;
+}
+
+const sk::util::String
+sk::util::Method::
+getScopeName() const
+{
+  return _scopeName;
+}
+
+const sk::util::String
+sk::util::Method::
+getFullName() const
+{
+  return _scopeName + (_instance ? "#" : ".") + _name;
+}
+
+const sk::util::String
+sk::util::Method::
+toString() const
+{
+  return getFullName() + "()";
 }

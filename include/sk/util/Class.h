@@ -38,7 +38,8 @@ namespace sk {
   }
 }
 
-#define SK_METHOD (getClass().getMethod(__FUNCTION__).getName())
+#define SK_METHOD (getClass().getMethod(__FUNCTION__).inspect())
+#define SK_METHOD_NAME (getClass().getMethod(__FUNCTION__).getName())
 #define SK_CLASS_METHOD (sk::util::Class(__className).getClassMethod(__FUNCTION__).getName())
 
 #endif /* _SK_UTIL_CLASS_ */

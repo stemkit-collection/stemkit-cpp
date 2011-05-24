@@ -66,9 +66,13 @@ testMethodName()
 {
   Class klass("abcd");
 
-  CPPUNIT_ASSERT_EQUAL("abcd#zzz()", klass.getMethod("zzz").getName());
-  CPPUNIT_ASSERT_EQUAL("abcd#zzz()", klass.getMethod("aaa::bbb::ccc::zzz").getName());
+  CPPUNIT_ASSERT_EQUAL("abcd#zzz()", klass.getMethod("zzz").inspect());
+  CPPUNIT_ASSERT_EQUAL("abcd#zzz()", klass.getMethod("aaa::bbb::ccc::zzz").inspect());
 
-  CPPUNIT_ASSERT_EQUAL("abcd.zzz()", klass.getClassMethod("zzz").getName());
-  CPPUNIT_ASSERT_EQUAL("abcd.zzz()", klass.getClassMethod("aaa::bbb::ccc::zzz").getName());
+  CPPUNIT_ASSERT_EQUAL("abcd.zzz()", klass.getClassMethod("zzz").inspect());
+  CPPUNIT_ASSERT_EQUAL("abcd.zzz()", klass.getClassMethod("aaa::bbb::ccc::zzz").inspect());
+
+  CPPUNIT_ASSERT_EQUAL("zzz", klass.getMethod("aaa::bbb::ccc::zzz").getName());
+  CPPUNIT_ASSERT_EQUAL("abcd", klass.getMethod("aaa::bbb::ccc::zzz").getScopeName());
+  CPPUNIT_ASSERT_EQUAL("abcd#zzz", klass.getMethod("aaa::bbb::ccc::zzz").getFullName());
 }

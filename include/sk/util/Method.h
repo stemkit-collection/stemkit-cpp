@@ -22,20 +22,23 @@ namespace sk {
       : public virtual sk::util::Object
     {
       public:
-        Method(const sk::util::String& name, const sk::util::Class& scope, bool instance);
+        Method(const sk::util::String& name, const sk::util::Class& scope, const bool instance);
         virtual ~Method();
 
         const sk::util::String getName() const;
+        const sk::util::String getFullName() const;
+        const sk::util::String getScopeName() const;
     
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
+        const sk::util::String toString() const;
     
       private:
         Method& operator = (const Method& other);
 
         const sk::util::String _name;
         const sk::util::String _scopeName;
-        bool _instance;
+        const bool _instance;
     };
   }
 }
