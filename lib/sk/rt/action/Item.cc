@@ -9,8 +9,7 @@
 */
 
 #include <sk/util/Class.h>
-#include <sk/util/Strings.h>
-#include <sk/util/Holder.cxx>
+#include <sk/util/String.h>
 
 #include <sk/rt/action/Item.h>
 
@@ -18,12 +17,7 @@ static const sk::util::String __className("sk::rt::action::Item");
 
 sk::rt::action::Item::
 Item(const sk::util::String& label)
-  : _labelHolder(new sk::util::String(label))
-{
-}
-
-sk::rt::action::Item::
-Item()
+  : _label(label)
 {
 }
 
@@ -39,12 +33,9 @@ getClass() const
   return sk::util::Class(__className);
 }
 
-sk::util::Strings&
+const sk::util::String&
 sk::rt::action::Item::
-populate(sk::util::Strings& items) const 
+getLabel() const
 {
-  if(_labelHolder.isEmpty() == false) {
-    items << _labelHolder.get();
-  }
-  return items;
+  return _label;
 }

@@ -67,8 +67,7 @@ addItem(sk::rt::action::Item* item)
   _items.add(item);
 
   if(_notice == true) {
-    sk::util::Strings strings(SK_METHOD_NAME);
-    _scope.notice() << item->populate(strings).join(": ");
+    _scope.notice(SK_METHOD_NAME) << item->getLabel();
   }
 }
 
@@ -80,27 +79,22 @@ namespace {
     bool assess(const sk::rt::action::Item& item) const {
       try {
         if(_notice == true) {
-          sk::util::Strings strings("invoke");
-          _scope.notice() << item.populate(strings).join(": ");
+          _scope.notice("invoke") << item.getLabel();
         }
         item.invoke();
         return _untilSuccess;
       }
       catch(const sk::util::Exception& exception) {
-        sk::util::Strings strings;
-        saveException(new sk::util::ExceptionProxy(item.populate(strings), exception));
+        saveException(new sk::util::ExceptionProxy(item.getLabel(), exception));
       }
       catch(const std::exception& exception) {
-        sk::util::Strings strings;
-        saveException(new sk::util::StandardException(item.populate(strings), exception));
+        saveException(new sk::util::StandardException(item.getLabel(), exception));
       }
       catch(const std::string& exception) {
-        sk::util::Strings strings;
-        saveException(new sk::util::Exception(item.populate(strings) << exception));
+        saveException(new sk::util::Exception(sk::util::Strings(item.getLabel()) << exception));
       }
       catch(...) {
-        sk::util::Strings strings;
-        saveException(new sk::util::UnknownException(item.populate(strings)));
+        saveException(new sk::util::UnknownException(item.getLabel()));
       }
       return false;
     }

@@ -12,7 +12,6 @@
 #define _SK_RT_ACTION_ITEM_H_
 
 #include <sk/util/Object.h>
-#include <sk/util/Holder.hxx>
 
 namespace sk {
   namespace rt {
@@ -22,10 +21,9 @@ namespace sk {
       {
         public:
           Item(const sk::util::String& label);
-          Item();
           virtual ~Item();
 
-          sk::util::Strings& populate(sk::util::Strings& items) const;
+          const sk::util::String& getLabel() const;
           virtual void invoke() const = 0;
 
           // sk::util::Object re-implementation.
@@ -35,7 +33,7 @@ namespace sk {
           Item(const Item& other);
           Item& operator = (const Item& other);
 
-          const sk::util::Holder<sk::util::String>::Direct _labelHolder;
+          const sk::util::String _label;
       };
     }
   }
