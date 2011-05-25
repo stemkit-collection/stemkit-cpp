@@ -12,28 +12,25 @@
 #define _SK_RT_ACTION_METHOD_HXX_
 
 #include <sk/rt/action/Item.h>
+#include <sk/rt/Callable.hxx>
 
 namespace sk {
   namespace rt {
     namespace action {
-      template<typename T, typename TMF, typename P = void>
+      template<typename T, typename TMF, typename P1 = void>
       class Method : public virtual sk::rt::action::Item
       {
         public:
-          Method(const sk::util::String& label, T& target, const TMF method, P param)
-            : Item(label), _target(target), _method(method), _param(param) {}
+          Method(const sk::util::String& label, T& target, const TMF method, P1 p1)
+            : Item(label), _target(target), _binder(method, p1) {}
 
-          Method(T& target, const TMF method, P param)
-            : _target(target), _method(method), _param(param) {}
-      
           void invoke() const {
-            (_target.*_method)(_param);
+            _binder.call(_target);
           }
 
         public:
           T& _target;
-          const TMF _method;
-          P _param;
+          const sk::rt::Callable<TMF, P1> _binder;
       };
 
       template<typename T, typename TMF>
@@ -41,18 +38,15 @@ namespace sk {
       {
         public:
           Method(const sk::util::String& label, T& target, const TMF method)
-            : Item(label), _target(target), _method(method) {}
+            : Item(label), _target(target), _binder(method) {}
 
-          Method(T& target, const TMF method)
-            : _target(target), _method(method) {}
-      
           void invoke() const {
-            (_target.*_method)();
+            _binder.call(_target);
           }
 
         public:
           T& _target;
-          const TMF _method;
+          const sk::rt::Callable<TMF> _binder;
       };
     }
   }
