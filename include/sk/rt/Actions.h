@@ -70,6 +70,7 @@ namespace sk {
         bool runActionsCollectExceptions(bool untilSuccess = false);
 
         const sk::rt::Scope _scope;
+        const bool _notice;
         bool _reverse;
         sk::util::ArrayList<sk::rt::action::Item> _items;
         sk::util::ArrayList<sk::util::Exception> _exceptions;

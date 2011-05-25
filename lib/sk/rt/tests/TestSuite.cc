@@ -9,12 +9,27 @@
 #include <sk/cppunit/TestRunner.h>
 #include <sk/cppunit/SourcePath.h>
 
-#include <iostream>
+#include <sk/rt/Scope.h>
+#include <sk/rt/config/InlineLocator.h>
  
-int main(int argc, char **argv)
+int main(int argc, const char* const argv[])
 {     
   CppUnit::TestFactoryRegistry &registry = CppUnit::TestFactoryRegistry::getRegistry();
   sk::cppunit::TestRunner runner;
+
+  sk::rt::Scope::controller().loadXmlConfig(
+    sk::rt::config::InlineLocator("\n\
+      <scope name='app'>\n\
+        <log destination='std::cerr' level='info' show-object='false' show-time='true'>\n\
+          <file name='test.log' />\n\
+        </log>\n\
+        \n\
+        <scope name='sk::rt::Actions'>\n\
+          <log level='info' />\n\
+        </scope>\n\
+      </scope>\n\
+    ")
+  );
 
   if(argc == 2) {
     sk::cppunit::SourcePath::setBase(argv[1]);

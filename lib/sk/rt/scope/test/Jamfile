@@ -10,6 +10,7 @@ test-objects =
   AggregatorTest.cc
   XmlConfigLoaderTest.cc
   ConfigBlockLookupTest.cc
+  ScopeTest.cc
   TestSuite.cc
 ;
 

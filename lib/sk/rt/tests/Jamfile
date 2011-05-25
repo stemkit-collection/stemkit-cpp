@@ -3,7 +3,6 @@
 local test = sk-rt-tests ;
 
 local test-objects =
-  ScopeTest.cc
   EnvironmentTest.cc
   ActionsTest.cc
   StopWatchTest.cc

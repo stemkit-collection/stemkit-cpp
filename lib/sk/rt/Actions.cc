@@ -22,7 +22,7 @@ static const sk::util::String __className("sk::rt::Actions");
 
 sk::rt::Actions::
 Actions(bool reverse)
-  : _scope(__className), _reverse(reverse)
+  : _scope(__className), _notice(_scope.notice().isEnabled()), _reverse(reverse)
 {
 }
 
@@ -65,37 +65,55 @@ sk::rt::Actions::
 addItem(sk::rt::action::Item* item)
 {
   _items.add(item);
+
+  if(_notice == true) {
+    sk::util::Strings strings(SK_METHOD_NAME);
+    _scope.notice() << item->populate(strings).join(": ");
+  }
 }
 
 namespace {
   struct GuardingExecutor : public virtual sk::util::Selector<sk::rt::action::Item> {
-    GuardingExecutor(bool untilSuccess, sk::util::List<sk::util::Exception>& exceptions)
-      : _untilSuccess(untilSuccess), _exceptions(exceptions) {}
+    GuardingExecutor(const sk::rt::Scope& scope, const bool notice, const bool untilSuccess, sk::util::List<sk::util::Exception>& exceptions)
+      : _scope(scope), _notice(notice), _untilSuccess(untilSuccess), _exceptions(exceptions) {}
 
     bool assess(const sk::rt::action::Item& item) const {
       try {
+        if(_notice == true) {
+          sk::util::Strings strings("invoke");
+          _scope.notice() << item.populate(strings).join(": ");
+        }
         item.invoke();
         return _untilSuccess;
       }
       catch(const sk::util::Exception& exception) {
         sk::util::Strings strings;
-        _exceptions.add(new sk::util::ExceptionProxy(item.populate(strings), exception));
+        saveException(new sk::util::ExceptionProxy(item.populate(strings), exception));
       }
       catch(const std::exception& exception) {
         sk::util::Strings strings;
-        _exceptions.add(new sk::util::StandardException(item.populate(strings), exception));
+        saveException(new sk::util::StandardException(item.populate(strings), exception));
       }
       catch(const std::string& exception) {
         sk::util::Strings strings;
-        _exceptions.add(new sk::util::Exception(item.populate(strings) << exception));
+        saveException(new sk::util::Exception(item.populate(strings) << exception));
       }
       catch(...) {
         sk::util::Strings strings;
-        _exceptions.add(new sk::util::UnknownException(item.populate(strings)));
+        saveException(new sk::util::UnknownException(item.populate(strings)));
       }
       return false;
     }
+
+    void saveException(sk::util::Exception* exception) const {
+      _exceptions.add(exception);
+      if(_notice == true) {
+        _scope.notice("failure") << exception->getMessage();
+      }
+    }
+    const sk::rt::Scope& _scope;
     const bool _untilSuccess;
+    const bool _notice;
     sk::util::List<sk::util::Exception>& _exceptions;
   };
 }
@@ -107,7 +125,7 @@ runActionsCollectExceptions(bool untilSuccess)
   if(_reverse) {
     _items.reverse();
   }
-  return _items.contains(GuardingExecutor(untilSuccess, _exceptions));
+  return _items.contains(GuardingExecutor(_scope, _notice, untilSuccess, _exceptions));
 }
 
 void 
