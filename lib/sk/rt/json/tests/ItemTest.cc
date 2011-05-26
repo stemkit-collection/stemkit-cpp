@@ -103,3 +103,19 @@ test_succeeds_on_present_attribute()
   CPPUNIT_ASSERT_EQUAL("sk::util::Strings[ \"aaa\", \"bbb\", \"ccc\" ]", stringArrayValue.get().inspect());
   CPPUNIT_ASSERT_EQUAL("{ p1 => \"uuu\", p2 => \"zzz\", p3 => \"aaa\" }", propertiesValue.get().inspect());
 }
+
+void
+sk::rt::json::tests::ItemTest::
+test_can_be_copied()
+{
+  Json::Value root;
+  sk::rt::json::IntItem intValue(sk::rt::json::IntItem(root, "some-int"));
+  sk::rt::json::StringItem stringValue(sk::rt::json::StringItem(root, "some-string"));
+  sk::rt::json::StringArrayItem stringArrayValue(sk::rt::json::StringArrayItem(root, "some-string-array"));
+  sk::rt::json::PropertiesItem propertiesValue(sk::rt::json::PropertiesItem(root, "some-properties"));
+
+  CPPUNIT_ASSERT_EQUAL("some-int", intValue.name());
+  CPPUNIT_ASSERT_EQUAL("some-string", stringValue.name());
+  CPPUNIT_ASSERT_EQUAL("some-string-array", stringArrayValue.name());
+  CPPUNIT_ASSERT_EQUAL("some-properties", propertiesValue.name());
+}

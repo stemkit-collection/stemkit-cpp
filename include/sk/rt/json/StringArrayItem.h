@@ -21,16 +21,16 @@ namespace sk {
         : public sk::rt::json::Item
       {
         public:
-          StringArrayItem(const Json::Value& value, const sk::util::String& name);
+          StringArrayItem(Json::Value& value, const sk::util::String& name);
           virtual ~StringArrayItem();
       
           const sk::util::Strings& get();
+          void set(const sk::util::Strings& value);
 
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
       
         private:
-          StringArrayItem(const StringArrayItem& other);
           StringArrayItem& operator = (const StringArrayItem& other);
 
           sk::util::Strings _value;

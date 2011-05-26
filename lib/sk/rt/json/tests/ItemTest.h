@@ -25,6 +25,7 @@ namespace sk {
             CPPUNIT_TEST(test_raises_exception_on_non_present);
             CPPUNIT_TEST(test_succeeds_on_present_attribute);
             CPPUNIT_TEST(test_bad_convert_raises_argument_error);
+            CPPUNIT_TEST(test_can_be_copied);
           CPPUNIT_TEST_SUITE_END();
         
           public:
@@ -36,6 +37,7 @@ namespace sk {
             void test_raises_exception_on_non_present();
             void test_succeeds_on_present_attribute();
             void test_bad_convert_raises_argument_error();
+            void test_can_be_copied();
         
           private:
             ItemTest(const ItemTest& other);

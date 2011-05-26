@@ -25,4 +25,22 @@ int main(int argc, const char* const argv[])
   }
 
   std::cout << "JSON: " << root << std::endl;
+
+
+  Json::Value document;
+  Json::FastWriter writer;
+
+  document["stream-number"] = 56;
+  document["action"] = "launch";
+  document["command"] = "hehehe";
+
+  Json::Value array(Json::arrayValue);
+  array[0u] = "aaa";
+  array[1u] = "bbb";
+  array[2u] = 12;
+
+  document["components"] = array;
+
+  std::cerr << "D: " << writer.write(document);
+  return 0;
 }

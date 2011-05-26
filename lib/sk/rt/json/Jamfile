@@ -8,6 +8,7 @@ local objects =
   PropertiesItem.cc
   StringArrayItem.cc
   StringItem.cc
+  BooleanItem.cc
 ;
 
 make-static-library $(library) : $(objects) ;

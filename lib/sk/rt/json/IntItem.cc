@@ -10,13 +10,14 @@
 
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
+#include <sk/util/UnsupportedOperationException.h>
 
 #include <sk/rt/json/IntItem.h>
 
 static const sk::util::String __className("sk::rt::json::IntItem");
 
 sk::rt::json::IntItem::
-IntItem(const Json::Value& value, const sk::util::String& name)
+IntItem(Json::Value& value, const sk::util::String& name)
   : sk::rt::json::Item(value, name)
 {
 }
@@ -48,4 +49,11 @@ get()
   }
   ensureAvailable();
   return _value;
+}
+
+void 
+sk::rt::json::IntItem::
+set(const int value)
+{
+  setValue(value);
 }

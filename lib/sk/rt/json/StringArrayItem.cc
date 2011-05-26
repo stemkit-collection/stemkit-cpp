@@ -10,13 +10,14 @@
 
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
+#include <sk/util/UnsupportedOperationException.h>
 
 #include <sk/rt/json/StringArrayItem.h>
 
 static const sk::util::String __className("sk::rt::json::StringArrayItem");
 
 sk::rt::json::StringArrayItem::
-StringArrayItem(const Json::Value& value, const sk::util::String& name)
+StringArrayItem(Json::Value& value, const sk::util::String& name)
   : sk::rt::json::Item(value, name)
 {
 }
@@ -39,6 +40,8 @@ get()
 {
   if(isObtained() == false) {
     const Json::Value& value = getValue();
+    _value.clear();
+
     try {
       int size = value.size();
       for(int index=0; index < size; ++index) {
@@ -51,4 +54,16 @@ get()
   }
   ensureAvailable();
   return _value;
+}
+
+void 
+sk::rt::json::StringArrayItem::
+set(const sk::util::Strings& value)
+{
+  Json::Value array;
+  int size = value.size();
+  for(int index = 0; index < size; ++index) {
+    array[index] = value.get(index);
+  }
+  setValue(array);
 }

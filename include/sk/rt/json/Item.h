@@ -21,25 +21,26 @@ namespace sk {
         : public virtual sk::util::Object
       {
         public:
-          Item(const Json::Value& root, const sk::util::String& name);
+          Item(Json::Value& root, const sk::util::String& name);
           virtual ~Item();
 
           bool isPresent();
+          const sk::util::String& name() const;
 
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
       
         protected:
           const Json::Value& getValue();
+          void setValue(const Json::Value& value);
           bool isObtained() const;
           void ensureAvailable() const;
           void raiseArgumentException(const std::exception& exception) const;
       
         private:
-          Item(const Item& other);
           Item& operator = (const Item& other);
 
-          const Json::Value& _root;
+          Json::Value& _root;
           const sk::util::String _name;
           bool _obtained;
           bool _available;

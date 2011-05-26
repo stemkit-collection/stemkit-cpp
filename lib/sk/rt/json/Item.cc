@@ -18,7 +18,7 @@
 static const sk::util::String __className("sk::rt::json::Item");
 
 sk::rt::json::Item::
-Item(const Json::Value& root, const sk::util::String& name)
+Item(Json::Value& root, const sk::util::String& name)
   : _root(root), _name(name), _obtained(false), _available(false)
 {
 }
@@ -33,6 +33,13 @@ sk::rt::json::Item::
 getClass() const
 {
   return sk::util::Class(__className);
+}
+
+const sk::util::String&
+sk::rt::json::Item::
+name() const
+{
+  return _name;
 }
 
 bool
@@ -54,6 +61,15 @@ getValue()
   }
   _available = true;
   return value;
+}
+
+void
+sk::rt::json::Item::
+setValue(const Json::Value& value)
+{
+  _root[_name] = value;
+  _obtained = false;
+  _available = true;
 }
 
 void
