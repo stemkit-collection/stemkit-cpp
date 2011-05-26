@@ -12,6 +12,7 @@
 #define _SK_RT_JSON_STRINGITEM_H_
 
 #include <sk/rt/json/Item.h>
+#include <sk/util/Strings.h>
 
 namespace sk {
   namespace rt {

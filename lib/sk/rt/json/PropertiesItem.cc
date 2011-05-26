@@ -16,7 +16,8 @@
 static const sk::util::String __className("sk::rt::json::PropertiesItem");
 
 sk::rt::json::PropertiesItem::
-PropertiesItem()
+PropertiesItem(const Json::Value& value, const sk::util::String& name)
+  : sk::rt::json::Item(value, name)
 {
 }
 
@@ -30,4 +31,23 @@ sk::rt::json::PropertiesItem::
 getClass() const
 {
   return sk::util::Class(__className);
+}
+
+const sk::util::Properties&
+sk::rt::json::PropertiesItem::
+get()
+{
+  if(isObtained() == false) {
+    const Json::Value& value = getValue();
+    try {
+      for(Json::Value::const_iterator iterator = value.begin(); iterator != value.end(); ++iterator) {
+        _value.setProperty(iterator.key().asString(), (*iterator).asString());
+      }
+    }
+    catch(const std::exception& exception) {
+      raiseArgumentException(exception);
+    }
+  }
+  ensureAvailable();
+  return _value;
 }

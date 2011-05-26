@@ -9,11 +9,13 @@
 */
 
 #include "ItemTest.h"
+#include <sk/util/MissingResourceException.h>
+#include <sk/util/IllegalArgumentException.h>
+
 #include <sk/rt/json/IntItem.h>
 #include <sk/rt/json/StringItem.h>
 #include <sk/rt/json/StringArrayItem.h>
-#include <sk/util/MissingResourceException.h>
-#include <sk/util/IllegalArgumentException.h>
+#include <sk/rt/json/PropertiesItem.h>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::rt::json::tests::ItemTest);
 
@@ -47,10 +49,12 @@ test_raises_exception_on_non_present()
   sk::rt::json::IntItem intValue(root, "some-value");
   sk::rt::json::StringItem stringValue(root, "some-value");
   sk::rt::json::StringArrayItem stringArrayValue(root, "some-value");
+  sk::rt::json::PropertiesItem propertiesValue(root, "some-value");
 
   CPPUNIT_ASSERT_THROW(intValue.get(), sk::util::MissingResourceException);
   CPPUNIT_ASSERT_THROW(stringValue.get(), sk::util::MissingResourceException);
   CPPUNIT_ASSERT_THROW(stringArrayValue.get(), sk::util::MissingResourceException);
+  CPPUNIT_ASSERT_THROW(propertiesValue.get(), sk::util::MissingResourceException);
 }
 
 void
@@ -82,11 +86,20 @@ test_succeeds_on_present_attribute()
 
   root["some-string-array-value"] = array;
 
+  Json::Value properties;
+  properties["p1"] = "uuu";
+  properties["p2"] = "zzz";
+  properties["p3"] = "aaa";
+
+  root["some-properties-value"] = properties;
+
   sk::rt::json::IntItem intValue(root, "some-int-value");
   sk::rt::json::StringItem stringValue(root, "some-string-value");
   sk::rt::json::StringArrayItem stringArrayValue(root, "some-string-array-value");
+  sk::rt::json::PropertiesItem propertiesValue(root, "some-properties-value");
 
   CPPUNIT_ASSERT_EQUAL(59, intValue.get());
   CPPUNIT_ASSERT_EQUAL("abc", stringValue.get());
   CPPUNIT_ASSERT_EQUAL("sk::util::Strings[ \"aaa\", \"bbb\", \"ccc\" ]", stringArrayValue.get().inspect());
+  CPPUNIT_ASSERT_EQUAL("{ p1 => \"uuu\", p2 => \"zzz\", p3 => \"aaa\" }", propertiesValue.get().inspect());
 }
