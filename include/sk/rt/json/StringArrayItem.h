@@ -11,24 +11,29 @@
 #ifndef _SK_RT_JSON_STRINGARRAYITEM_H_
 #define _SK_RT_JSON_STRINGARRAYITEM_H_
 
-#include <sk/util/Object.h>
+#include <sk/rt/json/Item.h>
+#include <sk/util/Strings.h>
 
 namespace sk {
   namespace rt {
     namespace json {
       class StringArrayItem 
-        : public virtual sk::util::Object
+        : public sk::rt::json::Item
       {
         public:
-          StringArrayItem();
+          StringArrayItem(const Json::Value& value, const sk::util::String& name);
           virtual ~StringArrayItem();
       
+          const sk::util::Strings& get();
+
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
       
         private:
           StringArrayItem(const StringArrayItem& other);
           StringArrayItem& operator = (const StringArrayItem& other);
+
+          sk::util::Strings _value;
       };
     }
   }

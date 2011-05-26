@@ -11,6 +11,7 @@
 #include "ItemTest.h"
 #include <sk/rt/json/IntItem.h>
 #include <sk/rt/json/StringItem.h>
+#include <sk/rt/json/StringArrayItem.h>
 #include <sk/util/MissingResourceException.h>
 #include <sk/util/IllegalArgumentException.h>
 
@@ -45,9 +46,11 @@ test_raises_exception_on_non_present()
   Json::Value root;
   sk::rt::json::IntItem intValue(root, "some-value");
   sk::rt::json::StringItem stringValue(root, "some-value");
+  sk::rt::json::StringArrayItem stringArrayValue(root, "some-value");
 
   CPPUNIT_ASSERT_THROW(intValue.get(), sk::util::MissingResourceException);
   CPPUNIT_ASSERT_THROW(stringValue.get(), sk::util::MissingResourceException);
+  CPPUNIT_ASSERT_THROW(stringArrayValue.get(), sk::util::MissingResourceException);
 }
 
 void
@@ -71,9 +74,19 @@ test_succeeds_on_present_attribute()
   Json::Value root;
   root["some-int-value"] = 59;
   root["some-string-value"] = "abc";
+
+  Json::Value array;
+  array[0u] = "aaa";
+  array[1u] = "bbb";
+  array[2u] = "ccc";
+
+  root["some-string-array-value"] = array;
+
   sk::rt::json::IntItem intValue(root, "some-int-value");
   sk::rt::json::StringItem stringValue(root, "some-string-value");
+  sk::rt::json::StringArrayItem stringArrayValue(root, "some-string-array-value");
 
   CPPUNIT_ASSERT_EQUAL(59, intValue.get());
   CPPUNIT_ASSERT_EQUAL("abc", stringValue.get());
+  CPPUNIT_ASSERT_EQUAL("sk::util::Strings[ \"aaa\", \"bbb\", \"ccc\" ]", stringArrayValue.get().inspect());
 }
