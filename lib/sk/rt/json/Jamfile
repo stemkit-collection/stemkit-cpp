@@ -1,0 +1,14 @@
+# vim: ft=jam: sw=2:
+
+local library = sk.rt.json ;
+
+local objects = 
+  IntItem.cc
+  Item.cc
+  PropertiesItem.cc
+  StringArrayItem.cc
+  StringItem.cc
+;
+
+make-static-library $(library) : $(objects) ;
+make-subdirs tests ;

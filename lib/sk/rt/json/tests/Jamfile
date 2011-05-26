@@ -1,0 +1,12 @@
+# vim: ft=jam: sw=2:
+
+local test = sk-rt-json-test ;
+
+local objects = 
+  TestSuite.cc
+  IntItemTest.cc
+;
+
+use-unit-test $(test) $(objects) ;
+use-project-libraries $(test) : sk.other.jsoncpp sk.rt.json sk.cppunit sk.util ;
+make-cpp-test $(test) : $(objects) ;

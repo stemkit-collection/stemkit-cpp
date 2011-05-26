@@ -22,7 +22,8 @@ make-library $(library) : $(objects) ;
 add-project-library $(library) : $(library).$(PLATFORM_IMPLEMENTATION) ;
 add-project-library $(library) : $(library).bm ;
 add-project-library $(library) : $(library).action ;
+add-project-library $(library) : $(library).json ;
 
 make-subdirs $(PLATFORM_IMPLEMENTATION) ;
-make-subdirs scope logger config action bundle ;
+make-subdirs scope logger config action json bundle ;
 make-subdirs thread bm tests performance ;
