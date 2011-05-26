@@ -11,17 +11,19 @@
 #ifndef _SK_RT_JSON_STRINGITEM_H_
 #define _SK_RT_JSON_STRINGITEM_H_
 
-#include <sk/util/Object.h>
+#include <sk/rt/json/Item.h>
 
 namespace sk {
   namespace rt {
     namespace json {
       class StringItem 
-        : public virtual sk::util::Object
+        : public sk::rt::json::Item
       {
         public:
-          StringItem();
+          StringItem(const Json::Value& value, const sk::util::String& name);
           virtual ~StringItem();
+      
+          const sk::util::String& get();
       
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
@@ -29,6 +31,8 @@ namespace sk {
         private:
           StringItem(const StringItem& other);
           StringItem& operator = (const StringItem& other);
+
+          sk::util::String _value;
       };
     }
   }

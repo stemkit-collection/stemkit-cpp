@@ -16,7 +16,8 @@
 static const sk::util::String __className("sk::rt::json::StringItem");
 
 sk::rt::json::StringItem::
-StringItem()
+StringItem(const Json::Value& value, const sk::util::String& name)
+  : sk::rt::json::Item(value, name)
 {
 }
 
@@ -30,4 +31,21 @@ sk::rt::json::StringItem::
 getClass() const
 {
   return sk::util::Class(__className);
+}
+
+const sk::util::String&
+sk::rt::json::StringItem::
+get()
+{
+  if(isObtained() == false) {
+    const Json::Value& value = getValue();
+    try {
+      _value = value.asString();
+    }
+    catch(const std::exception& exception) {
+      raiseArgumentException(exception);
+    }
+  }
+  ensureAvailable();
+  return _value;
 }

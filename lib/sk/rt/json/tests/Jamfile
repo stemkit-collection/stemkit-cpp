@@ -4,7 +4,7 @@ local test = sk-rt-json-test ;
 
 local objects = 
   TestSuite.cc
-  IntItemTest.cc
+  ItemTest.cc
 ;
 
 use-unit-test $(test) $(objects) ;
