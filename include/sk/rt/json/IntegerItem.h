@@ -8,20 +8,20 @@
  *  Author: Gennady Bystritsky
 */
 
-#ifndef _SK_RT_JSON_INTITEM_H_
-#define _SK_RT_JSON_INTITEM_H_
+#ifndef _SK_RT_JSON_INTEGERITEM_H_
+#define _SK_RT_JSON_INTEGERITEM_H_
 
 #include <sk/rt/json/Item.h>
 
 namespace sk {
   namespace rt {
     namespace json {
-      class IntItem 
+      class IntegerItem 
         : public sk::rt::json::Item
       {
         public:
-          IntItem(Json::Value& value, const sk::util::String& name);
-          virtual ~IntItem();
+          IntegerItem(Json::Value& value, const sk::util::String& name);
+          virtual ~IntegerItem();
 
           int get();
           void set(const int value);
@@ -30,7 +30,7 @@ namespace sk {
           const sk::util::Class getClass() const;
       
         private:
-          IntItem& operator = (const IntItem& other);
+          IntegerItem& operator = (const IntegerItem& other);
 
           int _value;
       };
@@ -38,4 +38,4 @@ namespace sk {
   }
 }
 
-#endif /* _SK_RT_JSON_INTITEM_H_ */
+#endif /* _SK_RT_JSON_INTEGERITEM_H_ */

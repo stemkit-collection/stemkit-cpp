@@ -11,30 +11,30 @@
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
 
-#include <sk/rt/json/IntItem.h>
+#include <sk/rt/json/IntegerItem.h>
 
-static const sk::util::String __className("sk::rt::json::IntItem");
+static const sk::util::String __className("sk::rt::json::IntegerItem");
 
-sk::rt::json::IntItem::
-IntItem(Json::Value& value, const sk::util::String& name)
+sk::rt::json::IntegerItem::
+IntegerItem(Json::Value& value, const sk::util::String& name)
   : sk::rt::json::Item(value, name)
 {
 }
 
-sk::rt::json::IntItem::
-~IntItem()
+sk::rt::json::IntegerItem::
+~IntegerItem()
 {
 }
 
 const sk::util::Class
-sk::rt::json::IntItem::
+sk::rt::json::IntegerItem::
 getClass() const
 {
   return sk::util::Class(__className);
 }
 
 int
-sk::rt::json::IntItem::
+sk::rt::json::IntegerItem::
 get()
 {
   if(isObtained() == false) {
@@ -51,7 +51,7 @@ get()
 }
 
 void 
-sk::rt::json::IntItem::
+sk::rt::json::IntegerItem::
 set(const int value)
 {
   setValue(value);

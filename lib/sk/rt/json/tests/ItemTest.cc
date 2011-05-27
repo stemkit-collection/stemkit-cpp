@@ -12,7 +12,7 @@
 #include <sk/util/MissingResourceException.h>
 #include <sk/util/IllegalArgumentException.h>
 
-#include <sk/rt/json/IntItem.h>
+#include <sk/rt/json/IntegerItem.h>
 #include <sk/rt/json/StringItem.h>
 #include <sk/rt/json/StringArrayItem.h>
 #include <sk/rt/json/PropertiesItem.h>
@@ -47,7 +47,7 @@ sk::rt::json::tests::ItemTest::
 test_raises_exception_on_non_present()
 {
   Json::Value root;
-  sk::rt::json::IntItem intValue(root, "some-value");
+  sk::rt::json::IntegerItem intValue(root, "some-value");
   sk::rt::json::StringItem stringValue(root, "some-value");
   sk::rt::json::StringArrayItem stringArrayValue(root, "some-value");
   sk::rt::json::PropertiesItem propertiesValue(root, "some-value");
@@ -67,7 +67,7 @@ test_bad_convert_raises_argument_error()
   Json::Value root;
   root["some-int-value"] = "64";
   root["some-string-value"] = 17;
-  sk::rt::json::IntItem intValue(root, "some-int-value");
+  sk::rt::json::IntegerItem intValue(root, "some-int-value");
   sk::rt::json::StringItem stringValue(root, "some-string-value");
 
   CPPUNIT_ASSERT_THROW(intValue.get(), sk::util::IllegalArgumentException);
@@ -98,7 +98,7 @@ test_succeeds_on_present_attribute()
 
   root["some-properties-value"] = properties;
 
-  sk::rt::json::IntItem intValue(root, "some-int-value");
+  sk::rt::json::IntegerItem intValue(root, "some-int-value");
   sk::rt::json::StringItem stringValue(root, "some-string-value");
   sk::rt::json::StringArrayItem stringArrayValue(root, "some-string-array-value");
   sk::rt::json::PropertiesItem propertiesValue(root, "some-properties-value");
@@ -118,7 +118,7 @@ sk::rt::json::tests::ItemTest::
 test_can_be_copied()
 {
   Json::Value root;
-  sk::rt::json::IntItem intValue(sk::rt::json::IntItem(root, "some-int"));
+  sk::rt::json::IntegerItem intValue(sk::rt::json::IntegerItem(root, "some-int"));
   sk::rt::json::StringItem stringValue(sk::rt::json::StringItem(root, "some-string"));
   sk::rt::json::StringArrayItem stringArrayValue(sk::rt::json::StringArrayItem(root, "some-string-array"));
   sk::rt::json::PropertiesItem propertiesValue(sk::rt::json::PropertiesItem(root, "some-properties"));

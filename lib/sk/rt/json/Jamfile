@@ -3,8 +3,8 @@
 local library = sk.rt.json ;
 
 local objects = 
-  IntItem.cc
   Item.cc
+  IntegerItem.cc
   PropertiesItem.cc
   StringArrayItem.cc
   StringItem.cc
