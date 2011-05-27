@@ -11,24 +11,28 @@
 #ifndef _SK_RT_JSON_BOOLEANITEM_H_
 #define _SK_RT_JSON_BOOLEANITEM_H_
 
-#include <sk/util/Object.h>
+#include <sk/rt/json/Item.h>
 
 namespace sk {
   namespace rt {
     namespace json {
       class BooleanItem 
-        : public virtual sk::util::Object
+        : public sk::rt::json::Item
       {
         public:
-          BooleanItem();
+          BooleanItem(Json::Value& value, const sk::util::String& name);
           virtual ~BooleanItem();
       
+          bool get();
+          void set(const bool value);
+
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
       
         private:
-          BooleanItem(const BooleanItem& other);
           BooleanItem& operator = (const BooleanItem& other);
+
+          bool _value;
       };
     }
   }

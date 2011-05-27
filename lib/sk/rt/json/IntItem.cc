@@ -10,7 +10,6 @@
 
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
-#include <sk/util/UnsupportedOperationException.h>
 
 #include <sk/rt/json/IntItem.h>
 

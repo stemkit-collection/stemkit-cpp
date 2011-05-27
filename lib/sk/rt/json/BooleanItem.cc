@@ -16,7 +16,8 @@
 static const sk::util::String __className("sk::rt::json::BooleanItem");
 
 sk::rt::json::BooleanItem::
-BooleanItem()
+BooleanItem(Json::Value& value, const sk::util::String& name)
+  : sk::rt::json::Item(value, name)
 {
 }
 
@@ -30,4 +31,28 @@ sk::rt::json::BooleanItem::
 getClass() const
 {
   return sk::util::Class(__className);
+}
+
+bool
+sk::rt::json::BooleanItem::
+get()
+{
+  if(isObtained() == false) {
+    const Json::Value& value = getValue();
+    try {
+      _value = value.asBool();
+    }
+    catch(const std::exception& exception) {
+      raiseArgumentException(exception);
+    }
+  }
+  ensureAvailable();
+  return _value;
+}
+
+void 
+sk::rt::json::BooleanItem::
+set(const bool value)
+{
+  setValue(value);
 }
