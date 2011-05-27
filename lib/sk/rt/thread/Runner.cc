@@ -13,6 +13,7 @@
 #include <sk/util/UnsupportedOperationException.h>
 #include <sk/util/IllegalStateException.h>
 #include <sk/util/Holder.cxx>
+#include <sk/rt/Locker.h>
 
 #include "Implementation.h"
 #include "Dispatcher.h"
@@ -43,17 +44,14 @@ const sk::rt::thread::State&
 sk::rt::thread::Runner::
 getState()
 {
-  return _stateMutex.synchronize<const State&>(_stateHolder, &util::Holder<State>::get);
+  return (sk::rt::Locker(_stateMutex), _stateHolder.get());
 }
 
 void
 sk::rt::thread::Runner::
 setState(const thread::State& state)
 {
-  typedef void (util::Holder<State>::*member_function_t)(const State&);
-  member_function_t set = &util::Holder<State>::set;
-
-  _stateMutex.synchronize(_stateHolder, set, state);
+  (sk::rt::Locker(_stateMutex), _stateHolder.set(state));
 }
 
 sk::rt::Scope& 

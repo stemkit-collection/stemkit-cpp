@@ -11,6 +11,7 @@
 #include "MutexTest.h"
 #include <sk/rt/Mutex.h>
 #include <sk/rt/Runnable.h>
+#include <sk/rt/Locker.h>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::rt::thread::tests::MutexTest);
 
@@ -75,7 +76,7 @@ testSynchronize()
   CPPUNIT_ASSERT_EQUAL(false, visited);
   CPPUNIT_ASSERT_EQUAL(false, mutex.isLocked());
 
-  mutex.synchronize(Block(mutex, visited));
+  (sk::rt::Locker(mutex), Block(mutex, visited)());
 
   CPPUNIT_ASSERT_EQUAL(false, mutex.isLocked());
   CPPUNIT_ASSERT_EQUAL(true, visited);

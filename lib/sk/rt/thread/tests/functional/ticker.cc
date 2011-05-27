@@ -14,8 +14,9 @@
 #include <sk/rt/thread/Starter.h>
 #include <sk/rt/thread/Stopper.h>
 #include <sk/rt/thread/Joiner.h>
-
 #include <sk/rt/ReentrantLock.h>
+#include <sk/rt/Locker.h>
+
 #include <sk/util/ArrayList.cxx>
 
 #include <unistd.h>
@@ -52,7 +53,7 @@ namespace {
 
     void run() {
       while(true) {
-        _lock.synchronize(*this, &Block::tick);
+        (sk::rt::Locker(_lock), tick());
         sk::rt::Thread::sleep(1000);
       }
     }

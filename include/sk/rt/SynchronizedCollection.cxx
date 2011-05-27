@@ -39,7 +39,7 @@ T&
 sk::rt::SynchronizedCollection<T>::
 get(const Selector<T>& selector) const
 {
-  return _mutex.synchronize<T&>(_collection, &sk::util::Collection<T>::get, selector);
+  return (sk::rt::Lock(_mutex), _collection.get(selector));
 }
 
 #endif /* _SK_RT_SYNCHRONIZEDCOLLECTION_CXX_ */

@@ -8,11 +8,12 @@
  *  Author: Gennady Bystritsky
 */
 
+#include "DataGenerator.h"
+
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
 #include <sk/util/ArrayList.cxx>
-
-#include "DataGenerator.h"
+#include <sk/rt/Locker.h>
 
 static const char* __className("sk::rt::thread::tests::DataGenerator");
 
@@ -41,7 +42,7 @@ namespace {
 
     void run() {
       for(int counter=0; counter < _runs ; ++counter) {
-        _lock.synchronize(*this, &Worker::fill);
+        (sk::rt::Locker(_lock), fill());
         sk::rt::Thread::yield();
       }
     }

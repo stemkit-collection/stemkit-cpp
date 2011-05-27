@@ -9,9 +9,11 @@
 */
 
 #include "ReentrantLockTest.h"
+
 #include <sk/util/SystemException.h>
-#include <sk/rt/ReentrantLock.h>
 #include <sk/util/Holder.cxx>
+#include <sk/rt/ReentrantLock.h>
+#include <sk/rt/Locker.h>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::rt::thread::tests::ReentrantLockTest);
 
@@ -107,12 +109,12 @@ testSynchronizeFunctionObject()
 
   Block b(lock, visited);
 
-  lock.synchronize(b);
+  (sk::rt::Locker(lock), b());
   CPPUNIT_ASSERT_EQUAL(false, lock.isLocked());
   CPPUNIT_ASSERT_EQUAL(true, visited);
 
   visited = false;
-  lock.synchronize(Block(lock, visited));
+  (sk::rt::Locker(lock), Block(lock, visited)());
 
   CPPUNIT_ASSERT_EQUAL(false, lock.isLocked());
   CPPUNIT_ASSERT_EQUAL(true, visited);
@@ -133,7 +135,7 @@ testSynchronizeMethodWithoutParam()
 {
   _visited = false;
   _lockHolder.set(new ReentrantLock);
-  _lockHolder.getMutable().synchronize(*this, &ReentrantLockTest::criticalSectionWithoutParam);
+  (sk::rt::Locker(_lockHolder.getMutable()), criticalSectionWithoutParam());
 
   CPPUNIT_ASSERT_EQUAL(true, _visited);
 }
@@ -153,7 +155,7 @@ testSynchronizeConstMethodWithoutParam()
 {
   _visited = false;
   _lockHolder.set(new ReentrantLock);
-  _lockHolder.getMutable().synchronize(*this, &ReentrantLockTest::constCriticalSectionWithoutParam);
+  (sk::rt::Locker(_lockHolder.getMutable()), constCriticalSectionWithoutParam());
 
   CPPUNIT_ASSERT_EQUAL(true, _visited);
 }
@@ -173,7 +175,7 @@ testSynchronizeMethodWithParam()
 {
   bool visited = false;
   _lockHolder.set(new ReentrantLock);
-  _lockHolder.getMutable().synchronize(*this, &ReentrantLockTest::criticalSectionWithParam, visited);
+  (sk::rt::Locker(_lockHolder.getMutable()), criticalSectionWithParam(visited));
 
   CPPUNIT_ASSERT_EQUAL(true, visited);
 }
@@ -193,7 +195,7 @@ testSynchronizeConstMethodWithParam()
 {
   bool visited = false;
   _lockHolder.set(new ReentrantLock);
-  _lockHolder.getMutable().synchronize(*this, &ReentrantLockTest::constCriticalSectionWithParam, visited);
+  (sk::rt::Locker(_lockHolder.getMutable()), constCriticalSectionWithParam(visited));
 
   CPPUNIT_ASSERT_EQUAL(true, visited);
 }
@@ -212,7 +214,7 @@ testSynchronizeFunctionNamespace()
   global_flag = false;
 
   ReentrantLock lock;
-  lock.synchronize(f);
+  (sk::rt::Locker(lock), f());
 
   CPPUNIT_ASSERT_EQUAL(true, global_flag);
 }
@@ -232,7 +234,7 @@ testSynchronizeFunctionExternC()
   global_c_flag = false;
 
   ReentrantLock lock;
-  lock.synchronize(cf);
+  (sk::rt::Locker(lock), cf());
 
   CPPUNIT_ASSERT_EQUAL(true, global_c_flag);
 }

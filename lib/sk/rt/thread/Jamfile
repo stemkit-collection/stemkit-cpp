@@ -9,7 +9,6 @@ local objects =
   State.cc
   AbstractLock.cc
   Runner.cc
-  LockSpecializations.cc
   PrintingExceptionHandler.cc
   Inspector.cc
   Exit.cc
