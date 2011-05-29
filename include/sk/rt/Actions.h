@@ -17,8 +17,8 @@
 #include <sk/util/Exception.h>
 #include <sk/rt/Scope.h>
 #include <sk/rt/action/Item.h>
-#include <sk/rt/action/Method.hxx>
-#include <sk/rt/action/Functor.hxx>
+#include <sk/rt/action/MethodItem.hxx>
+#include <sk/rt/action/FunctorItem.hxx>
 
 namespace sk {
   namespace rt {
@@ -83,7 +83,7 @@ void
 sk::rt::Actions::
 addMethod(const sk::util::String& label, T& target, const TMF& method)
 {
-  addItem(new sk::rt::action::Method<T, TMF>(label, target, method));
+  addItem(new sk::rt::action::MethodItem<T, TMF>(label, target, method));
 }
 
 template<typename T, typename TMF, typename P>
@@ -91,7 +91,7 @@ void
 sk::rt::Actions::
 addMethod(const sk::util::String& label, T& target, const TMF& method, P param)
 {
-  addItem(new sk::rt::action::Method<T, TMF, P>(label, target, method, param));
+  addItem(new sk::rt::action::MethodItem<T, TMF, P>(label, target, method, param));
 }
 
 template<typename F> 
@@ -99,7 +99,7 @@ void
 sk::rt::Actions::
 addFunctor(const sk::util::String& label, const F& functor)
 {
-  addItem(new sk::rt::action::Functor<F>(label, functor));
+  addItem(new sk::rt::action::FunctorItem<F>(label, functor));
 }
 
 template<typename F, typename P> 
@@ -107,7 +107,7 @@ void
 sk::rt::Actions::
 addFunctor(const sk::util::String& label, const F& functor, P param)
 {
-  addItem(new sk::rt::action::Functor<F, P>(label, functor, param));
+  addItem(new sk::rt::action::FunctorItem<F, P>(label, functor, param));
 }
 
 #endif /* _SK_RT_ACTIONS_H_ */
