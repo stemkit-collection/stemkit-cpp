@@ -25,7 +25,7 @@ namespace sk {
             : Item(label), _target(target), _callable(method, p1, p2, p3) {}
 
           void invoke() const {
-            _callable.call(_target);
+            _callable.callTarget(_target);
           }
 
         public:
@@ -41,7 +41,7 @@ namespace sk {
             : Item(label), _target(target), _callable(method, p1, p2) {}
 
           void invoke() const {
-            _callable.call(_target);
+            _callable.callTarget(_target);
           }
 
         public:
@@ -57,7 +57,7 @@ namespace sk {
             : Item(label), _target(target), _callable(method, p1) {}
 
           void invoke() const {
-            _callable.call(_target);
+            _callable.callTarget(_target);
           }
 
         public:
@@ -73,7 +73,7 @@ namespace sk {
             : Item(label), _target(target), _callable(method) {}
 
           void invoke() const {
-            _callable.call(_target);
+            _callable.callTarget(_target);
           }
 
         public:

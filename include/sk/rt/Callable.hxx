@@ -21,7 +21,7 @@ namespace sk {
           : _callable(callable), _p1(p1), _p2(p2), _p3(p3) {}
     
         template<typename T>
-        void call(T& target) const {
+        void callTarget(T& target) const {
           (target.*_callable)(_p1, _p2, _p3);
         }
         void call() const {
@@ -43,7 +43,7 @@ namespace sk {
           : _callable(callable), _p1(p1), _p2(p2) {}
     
         template<typename T>
-        void call(T& target) const {
+        void callTarget(T& target) const {
           (target.*_callable)(_p1, _p2);
         }
         void call() const {
@@ -64,7 +64,7 @@ namespace sk {
           : _callable(callable), _p1(p1) {}
     
         template<typename T>
-        void call(T& target) const {
+        void callTarget(T& target) const {
           (target.*_callable)(_p1);
         }
         void call() const {
@@ -84,7 +84,7 @@ namespace sk {
           : _callable(callable) {}
     
         template<typename T>
-        void call(T& target) const {
+        void callTarget(T& target) const {
           (target.*_callable)();
         }
         void call() const {
