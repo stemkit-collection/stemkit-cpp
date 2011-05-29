@@ -51,7 +51,6 @@ namespace sk {
             void test_multi_channel_conditions();
 
             void ensureLocked(sk::rt::thread::Condition& condition, bool& indicator);
-            void announceCondition(sk::rt::thread::Condition& condition, int channel);
         
           private:
             ConditionMediatorTest(const ConditionMediatorTest& other);

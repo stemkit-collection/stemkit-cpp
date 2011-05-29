@@ -9,6 +9,7 @@
 */
 
 #include "ConditionMediatorTest.h"
+
 #include <sk/util/Holder.cxx>
 #include <sk/rt/Mutex.h>
 #include <sk/rt/TimeoutException.h>
@@ -202,11 +203,10 @@ test_condition_wait_times_out()
   CPPUNIT_ASSERT(waiter.triggered == false);
 }
 
-void 
-sk::rt::thread::tests::ConditionMediatorTest::
-announceCondition(sk::rt::thread::Condition& condition, int channel)
-{
-  condition.on(channel).announce();
+namespace {
+  void announceCondition(sk::rt::thread::Condition& condition, int channel) {
+    condition.on(channel).announce();
+  }
 }
 
 void
@@ -223,7 +223,7 @@ test_condition_wait_succeeds_on_announce()
 
   CPPUNIT_ASSERT(mutex().isLocked() == false);
   waiter.event = true;
-  mediator.syncMethod(*this, &ConditionMediatorTest::announceCondition, 0);
+  mediator.syncFunctor(announceCondition, 0);
   sk::rt::Thread::sleep(1000);
 
   CPPUNIT_ASSERT(mutex().isLocked() == false);
@@ -259,7 +259,7 @@ test_multi_channel_conditions()
   CPPUNIT_ASSERT(mutex().isLocked() == false);
 
   w1.event = true;
-  mediator.syncMethod(*this, &ConditionMediatorTest::announceCondition, int(EVENT_1));
+  mediator.syncFunctor(announceCondition, int(EVENT_1));
   sk::rt::Thread::sleep(1000);
 
   CPPUNIT_ASSERT(t1.isAlive() == false);
@@ -269,7 +269,7 @@ test_multi_channel_conditions()
   CPPUNIT_ASSERT(w2.triggered == false);
 
   w2.event = true;
-  mediator.syncMethod(*this, &ConditionMediatorTest::announceCondition, int(EVENT_2));
+  mediator.syncFunctor(announceCondition, int(EVENT_2));
   sk::rt::Thread::sleep(1000);
 
   CPPUNIT_ASSERT(t2.isAlive() == false);
