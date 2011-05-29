@@ -14,6 +14,7 @@
 #include <sk/rt/Lock.h>
 #include <sk/rt/thread/Condition.h>
 #include <sk/rt/thread/Conditional.h>
+#include <sk/rt/thread/MethodConditional.hxx>
 #include <sk/rt/thread/platform/ConditionMediator.h>
 #include <sk/util/Holder.hxx>
 
@@ -75,44 +76,19 @@ synchronize(const T& block)
 }
 
 template<typename T, typename TMF>
-struct sk::rt::thread::ConditionMediator::MemberFunctionInvocator : public virtual sk::rt::thread::Conditional {
-  MemberFunctionInvocator(T& target, TMF method)
-    : _target(target), _method(method) {}
-
-  void process(sk::rt::thread::Condition& condition) const {
-    (_target.*_method)(condition);
-  }
-  T& _target;
-  TMF _method;
-};
-
-template<typename T, typename TMF>
 bool
 sk::rt::thread::ConditionMediator::
 synchronize(T& target, TMF method)
 {
-  return invoke(MemberFunctionInvocator<T, TMF>(target, method));
+  return invoke(sk::rt::thread::MethodConditional<T, TMF>(target, method));
 }
-
-template<typename T, typename TMF, typename P>
-struct sk::rt::thread::ConditionMediator::MemberFunctionWithParamInvocator : public virtual sk::rt::thread::Conditional {
-  MemberFunctionWithParamInvocator(T& target, TMF method, P& param)
-    : _target(target), _method(method), _param(param) {}
-
-  void process(sk::rt::thread::Condition& condition) const {
-    (_target.*_method)(condition, _param);
-  }
-  T& _target;
-  TMF _method;
-  P& _param;
-};
 
 template<typename T, typename TMF, typename P>
 bool
 sk::rt::thread::ConditionMediator::
 synchronize(T& target, TMF method, P& param)
 {
-  return invoke(MemberFunctionWithParamInvocator<T, TMF, P>(target, method, param));
+  return invoke(sk::rt::thread::MethodConditional<T, TMF, P&>(target, method, param));
 }
 
 template<typename T, typename TMF, typename P>
@@ -120,7 +96,7 @@ bool
 sk::rt::thread::ConditionMediator::
 synchronize(T& target, TMF method, const P& param)
 {
-  return invoke(MemberFunctionWithParamInvocator<T, TMF, const P>(target, method, param));
+  return invoke(sk::rt::thread::MethodConditional<T, TMF, const P&>(target, method, param));
 }
 
 #endif /* _SK_RT_THREAD_CONDITIONMEDIATOR_H_ */

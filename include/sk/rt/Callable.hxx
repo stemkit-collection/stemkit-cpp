@@ -24,6 +24,14 @@ namespace sk {
         void callTarget(T& target) const {
           (target.*_callable)(_p1, _p2, _p3);
         }
+        template<typename T, typename E>
+        void callTarget(T& target, E& extra) const {
+          (target.*_callable)(extra, _p1, _p2, _p3);
+        }
+        template<typename E>
+        void call(E& extra) const {
+          (_callable)(extra, _p1, _p2, _p3);
+        }
         void call() const {
           (_callable)(_p1, _p2, _p3);
         }
@@ -46,6 +54,14 @@ namespace sk {
         void callTarget(T& target) const {
           (target.*_callable)(_p1, _p2);
         }
+        template<typename T, typename E>
+        void callTarget(T& target, E& extra) const {
+          (target.*_callable)(extra, _p1, _p2);
+        }
+        template<typename E>
+        void call(E& extra) const {
+          (_callable)(extra, _p1, _p2);
+        }
         void call() const {
           (_callable)(_p1, _p2);
         }
@@ -67,6 +83,14 @@ namespace sk {
         void callTarget(T& target) const {
           (target.*_callable)(_p1);
         }
+        template<typename T, typename E>
+        void callTarget(T& target, E& extra) const {
+          (target.*_callable)(extra, _p1);
+        }
+        template<typename E>
+        void call(E& extra) const {
+          (_callable)(extra, _p1);
+        }
         void call() const {
           (_callable)(_p1);
         }
@@ -86,6 +110,14 @@ namespace sk {
         template<typename T>
         void callTarget(T& target) const {
           (target.*_callable)();
+        }
+        template<typename T, typename E>
+        void callTarget(T& target, E& extra) const {
+          (target.*_callable)(extra);
+        }
+        template<typename E>
+        void call(E& extra) const {
+          (_callable)(extra);
         }
         void call() const {
           (_callable)();
