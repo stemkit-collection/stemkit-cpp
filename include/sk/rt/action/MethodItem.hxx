@@ -17,8 +17,40 @@
 namespace sk {
   namespace rt {
     namespace action {
-      template<typename T, typename TMF, typename P1 = void>
+      template<typename T, typename TMF, typename P1 = void, typename P2 = void, typename P3 = void>
       class MethodItem : public virtual sk::rt::action::Item
+      {
+        public:
+          MethodItem(const sk::util::String& label, T& target, const TMF method, P1 p1, P2 p2, P3 p3)
+            : Item(label), _target(target), _callable(method, p1, p2, p3) {}
+
+          void invoke() const {
+            _callable.call(_target);
+          }
+
+        public:
+          T& _target;
+          const sk::rt::Callable<TMF, P1, P2, P3> _callable;
+      };
+
+      template<typename T, typename TMF, typename P1, typename P2>
+      class MethodItem<T, TMF, P1, P2, void>: public virtual sk::rt::action::Item
+      {
+        public:
+          MethodItem(const sk::util::String& label, T& target, const TMF method, P1 p1, P2 p2)
+            : Item(label), _target(target), _callable(method, p1, p2) {}
+
+          void invoke() const {
+            _callable.call(_target);
+          }
+
+        public:
+          T& _target;
+          const sk::rt::Callable<TMF, P1, P2> _callable;
+      };
+
+      template<typename T, typename TMF, typename P1>
+      class MethodItem<T, TMF, P1, void, void>: public virtual sk::rt::action::Item
       {
         public:
           MethodItem(const sk::util::String& label, T& target, const TMF method, P1 p1)
@@ -34,7 +66,7 @@ namespace sk {
       };
 
       template<typename T, typename TMF>
-      class MethodItem<T, TMF, void> : public virtual sk::rt::action::Item
+      class MethodItem<T, TMF, void, void, void>: public virtual sk::rt::action::Item
       {
         public:
           MethodItem(const sk::util::String& label, T& target, const TMF method)
