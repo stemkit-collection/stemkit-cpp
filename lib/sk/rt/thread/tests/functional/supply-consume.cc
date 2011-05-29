@@ -118,7 +118,7 @@ namespace {
       _scope.info() << sk::rt::Thread::currentThread().inspect();
       while(true) {
         sk::util::Integers bunch;
-        _workshop.mediator().synchronize(_workshop, &Workshop::getBunch, bunch);
+        _workshop.mediator().syncMethod(_workshop, &Workshop::getBunch, bunch);
         _scope.info() << "... GOT BUNCH: " << bunch.inspect();
         sk::rt::Thread::sleep(15000);
       }
@@ -135,7 +135,7 @@ namespace {
     void run() {
       _scope.info() << sk::rt::Thread::currentThread().inspect();
       while(true) {
-        _workshop.mediator().synchronize(_workshop, &Workshop::pushValue, _counter++);
+        _workshop.mediator().syncMethod(_workshop, &Workshop::pushValue, _counter++);
         sk::rt::Thread::sleep(1000);
       }
     }

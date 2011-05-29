@@ -65,7 +65,7 @@ namespace {
     void run() {
       _scope.info() << sk::rt::Thread::currentThread().inspect();
       while(true) {
-        _mediator.synchronize(*this);
+        _mediator.sync(*this);
       }
     }
     sk::rt::Scope _scope;
@@ -88,7 +88,7 @@ namespace {
     void run() {
       _scope.info() << sk::rt::Thread::currentThread().inspect();
       while(true) {
-        _mediator.synchronize(*this);
+        _mediator.sync(*this);
         sk::rt::Thread::sleep(1000);
         _counter++;
       }

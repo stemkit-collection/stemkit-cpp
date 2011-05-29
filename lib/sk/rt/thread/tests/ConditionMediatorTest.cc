@@ -83,7 +83,7 @@ test_blocking_locks_invokes_and_unlocks()
   CPPUNIT_ASSERT(mutex().isLocked() == false);
 
   bool method_invoked_indicator = false;
-  CPPUNIT_ASSERT(mediator.synchronize(*this, &ConditionMediatorTest::ensureLocked, method_invoked_indicator) == true);
+  CPPUNIT_ASSERT(mediator.syncMethod(*this, &ConditionMediatorTest::ensureLocked, method_invoked_indicator) == true);
   CPPUNIT_ASSERT(method_invoked_indicator == true);
 
   CPPUNIT_ASSERT(mutex().isLocked() == false);
@@ -95,14 +95,14 @@ test_non_blocking_locks_when_available_and_fails_otherwise()
 {
   sk::rt::thread::ConditionMediator mediator(mutex());
   bool method_invoked_indicator = false;
-  CPPUNIT_ASSERT(mediator.synchronize(*this, &ConditionMediatorTest::ensureLocked, method_invoked_indicator) == true);
+  CPPUNIT_ASSERT(mediator.syncMethod(*this, &ConditionMediatorTest::ensureLocked, method_invoked_indicator) == true);
   CPPUNIT_ASSERT(method_invoked_indicator == true);
 
   mediator.setBlocking(false);
   sk::rt::Locker locker(mutex());
   method_invoked_indicator = false;
 
-  CPPUNIT_ASSERT(mediator.synchronize(*this, &ConditionMediatorTest::ensureLocked, method_invoked_indicator) == false);
+  CPPUNIT_ASSERT(mediator.syncMethod(*this, &ConditionMediatorTest::ensureLocked, method_invoked_indicator) == false);
   CPPUNIT_ASSERT(method_invoked_indicator == false);
 }
 
@@ -116,7 +116,7 @@ namespace {
     }
 
     void run() {
-      status = mediator.synchronize(*this, &UnlockWaitingInvocator::registerTime);
+      status = mediator.syncMethod(*this, &UnlockWaitingInvocator::registerTime);
     }
     volatile bool status;
     volatile time_t moment;
@@ -165,7 +165,7 @@ namespace {
 
     void run() {
       try { 
-        status = mediator.synchronize(*this, &ConditionWaiter::waitCondition, milliseconds);
+        status = mediator.syncMethod(*this, &ConditionWaiter::waitCondition, milliseconds);
       }
       catch(const sk::rt::TimeoutException& exception) {
         timeout = true;
@@ -223,7 +223,7 @@ test_condition_wait_succeeds_on_announce()
 
   CPPUNIT_ASSERT(mutex().isLocked() == false);
   waiter.event = true;
-  mediator.synchronize(*this, &ConditionMediatorTest::announceCondition, 0);
+  mediator.syncMethod(*this, &ConditionMediatorTest::announceCondition, 0);
   sk::rt::Thread::sleep(1000);
 
   CPPUNIT_ASSERT(mutex().isLocked() == false);
@@ -259,7 +259,7 @@ test_multi_channel_conditions()
   CPPUNIT_ASSERT(mutex().isLocked() == false);
 
   w1.event = true;
-  mediator.synchronize(*this, &ConditionMediatorTest::announceCondition, int(EVENT_1));
+  mediator.syncMethod(*this, &ConditionMediatorTest::announceCondition, int(EVENT_1));
   sk::rt::Thread::sleep(1000);
 
   CPPUNIT_ASSERT(t1.isAlive() == false);
@@ -269,7 +269,7 @@ test_multi_channel_conditions()
   CPPUNIT_ASSERT(w2.triggered == false);
 
   w2.event = true;
-  mediator.synchronize(*this, &ConditionMediatorTest::announceCondition, int(EVENT_2));
+  mediator.syncMethod(*this, &ConditionMediatorTest::announceCondition, int(EVENT_2));
   sk::rt::Thread::sleep(1000);
 
   CPPUNIT_ASSERT(t2.isAlive() == false);

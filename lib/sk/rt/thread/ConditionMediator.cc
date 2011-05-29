@@ -51,7 +51,7 @@ isBlocking() const
 
 bool
 sk::rt::thread::ConditionMediator::
-invoke(const sk::rt::thread::Conditional& block)
+sync(const sk::rt::thread::Conditional& block)
 {
   return _mediatorHolder.getMutable().invoke(_blocking, block);
 }

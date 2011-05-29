@@ -89,7 +89,7 @@ namespace {
     void run() {
       _scope.info() << sk::rt::Thread::currentThread().inspect();
       while(true) {
-        _workshop.mediator().synchronize(_workshop, &Workshop::printBunch);
+        _workshop.mediator().syncMethod(_workshop, &Workshop::printBunch);
       }
     }
     sk::rt::Scope _scope;
@@ -103,7 +103,7 @@ namespace {
     void run() {
       _scope.info() << sk::rt::Thread::currentThread().inspect();
       while(true) {
-        _workshop.mediator().synchronize(_workshop, &Workshop::pushValue, _counter++);
+        _workshop.mediator().syncMethod(_workshop, &Workshop::pushValue, _counter++);
         sk::rt::Thread::sleep(1000);
       }
     }
