@@ -38,6 +38,7 @@ namespace sk {
           CPPUNIT_TEST(test_performing_until_success_fails_on_all_errors);
           CPPUNIT_TEST(test_can_add_global_no_param_function);
           CPPUNIT_TEST(test_can_add_global_one_param_function);
+          CPPUNIT_TEST(test_can_add_global_multi_param_function);
         CPPUNIT_TEST_SUITE_END();
       
         public:
@@ -63,6 +64,7 @@ namespace sk {
           void test_performing_until_success_fails_on_all_errors();
           void test_can_add_global_no_param_function();
           void test_can_add_global_one_param_function();
+          void test_can_add_global_multi_param_function();
       
         private:
           ActionsTest(const ActionsTest& other);

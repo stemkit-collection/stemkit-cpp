@@ -545,3 +545,39 @@ test_can_add_global_one_param_function()
   CPPUNIT_ASSERT_EQUAL("fp1:const-chars:uuu", __testStrings.get(2));
   CPPUNIT_ASSERT_EQUAL("fp1:chars:mmm", __testStrings.get(3));
 }
+
+static void fppp1(const sk::util::String& s, const int n, int& r)
+{
+  __testStrings.add(sk::util::String("fppp1:std::string:") + s);
+  r += (s.size() + n);
+}
+
+extern "C" void fppp2(const sk::util::String& s, const int n, int r)
+{
+  __testStrings.add(sk::util::String("fppp2:std::string:") + s + ":" + sk::util::String::valueOf(s.size() + n + r));
+}
+
+void
+sk::rt::tests::ActionsTest::
+test_can_add_global_multi_param_function()
+{
+  __testStrings.clear();
+  int r = 2;
+  int n = 9;
+  {
+    sk::rt::Actions actions;
+    sk::util::String s("hehehe");
+    actions.addFunctor("FPPP1", fppp1, s, 4, r);
+    actions.addFunctor("FPPP2", fppp2, "ccc", 4, 7);
+    actions.addFunctor("FPPP3", fppp2, "ccc", 4, n);
+
+    CPPUNIT_ASSERT_EQUAL(0, __testStrings.size());
+  }
+  CPPUNIT_ASSERT_EQUAL(3, __testStrings.size());
+  CPPUNIT_ASSERT_EQUAL("fppp1:std::string:hehehe", __testStrings.get(0));
+  CPPUNIT_ASSERT_EQUAL(12, r);
+
+  CPPUNIT_ASSERT_EQUAL("fppp2:std::string:ccc:14", __testStrings.get(1));
+  CPPUNIT_ASSERT_EQUAL("fppp2:std::string:ccc:16", __testStrings.get(2));
+  CPPUNIT_ASSERT_EQUAL(9, n);
+}

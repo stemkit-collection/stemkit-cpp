@@ -32,14 +32,62 @@ namespace sk {
         template<typename T, typename TMF> 
         void addMethod(const sk::util::String& label, T& target, const TMF& method);
     
-        template<typename T, typename TMF, typename P> 
-        void addMethod(const sk::util::String& label, T& target, const TMF& method, P param);
+        template<typename T, typename TMF, typename P1> 
+        void addMethod(const sk::util::String& label, T& target, const TMF& method, P1* p1);
+    
+        template<typename T, typename TMF, typename P1> 
+        void addMethod(const sk::util::String& label, T& target, const TMF& method, P1& p1);
+    
+        template<typename T, typename TMF, typename P1> 
+        void addMethod(const sk::util::String& label, T& target, const TMF& method, const P1& p1);
+    
+        template<typename T, typename TMF, typename P1, typename P2> 
+        void addMethod(const sk::util::String& label, T& target, const TMF& method, P1 p1, P2* p2);
+    
+        template<typename T, typename TMF, typename P1, typename P2> 
+        void addMethod(const sk::util::String& label, T& target, const TMF& method, P1 p1, P2& p2);
+    
+        template<typename T, typename TMF, typename P1, typename P2> 
+        void addMethod(const sk::util::String& label, T& target, const TMF& method, P1 p1, const P2& p2);
+    
+        template<typename T, typename TMF, typename P1, typename P2, typename P3> 
+        void addMethod(const sk::util::String& label, T& target, const TMF& method, P1 p1, P2 p2, P3* p3);
+    
+        template<typename T, typename TMF, typename P1, typename P2, typename P3> 
+        void addMethod(const sk::util::String& label, T& target, const TMF& method, P1 p1, P2 p2, P3& p3);
+    
+        template<typename T, typename TMF, typename P1, typename P2, typename P3> 
+        void addMethod(const sk::util::String& label, T& target, const TMF& method, P1 p1, P2 p2, const P3& p3);
     
         template<typename F> 
         void addFunctor(const sk::util::String& label, const F& functor);
         
-        template<typename F, typename P> 
-        void addFunctor(const sk::util::String& label, const F& functor, P param);
+        template<typename F, typename P1> 
+        void addFunctor(const sk::util::String& label, const F& functor, P1* p1);
+    
+        template<typename F, typename P1> 
+        void addFunctor(const sk::util::String& label, const F& functor, P1& p1);
+    
+        template<typename F, typename P1> 
+        void addFunctor(const sk::util::String& label, const F& functor, const P1& p1);
+    
+        template<typename F, typename P1, typename P2> 
+        void addFunctor(const sk::util::String& label, const F& functor, P1 p1, P2* p2);
+    
+        template<typename F, typename P1, typename P2> 
+        void addFunctor(const sk::util::String& label, const F& functor, P1 p1, P2& p2);
+    
+        template<typename F, typename P1, typename P2> 
+        void addFunctor(const sk::util::String& label, const F& functor, P1 p1, const P2& p2);
+    
+        template<typename F, typename P1, typename P2, typename P3> 
+        void addFunctor(const sk::util::String& label, const F& functor, P1 p1, P2 p2, P3* p3);
+    
+        template<typename F, typename P1, typename P2, typename P3> 
+        void addFunctor(const sk::util::String& label, const F& functor, P1 p1, P2 p2, P3& p3);
+    
+        template<typename F, typename P1, typename P2, typename P3> 
+        void addFunctor(const sk::util::String& label, const F& functor, P1 p1, P2 p2, const P3& p3);
     
         int size() const;
         void setReverse(bool state);
@@ -86,12 +134,76 @@ addMethod(const sk::util::String& label, T& target, const TMF& method)
   addItem(new sk::rt::action::MethodItem<T, TMF>(label, target, method));
 }
 
-template<typename T, typename TMF, typename P>
+template<typename T, typename TMF, typename P1>
 void
 sk::rt::Actions::
-addMethod(const sk::util::String& label, T& target, const TMF& method, P param)
+addMethod(const sk::util::String& label, T& target, const TMF& method, P1* p1)
 {
-  addItem(new sk::rt::action::MethodItem<T, TMF, P>(label, target, method, param));
+  addItem(new sk::rt::action::MethodItem<T, TMF, P1*>(label, target, method, p1));
+}
+
+template<typename T, typename TMF, typename P1>
+void
+sk::rt::Actions::
+addMethod(const sk::util::String& label, T& target, const TMF& method, P1& p1)
+{
+  addItem(new sk::rt::action::MethodItem<T, TMF, P1&>(label, target, method, p1));
+}
+
+template<typename T, typename TMF, typename P1>
+void
+sk::rt::Actions::
+addMethod(const sk::util::String& label, T& target, const TMF& method, const P1& p1)
+{
+  addItem(new sk::rt::action::MethodItem<T, TMF, P1>(label, target, method, p1));
+}
+
+template<typename T, typename TMF, typename P1, typename P2>
+void
+sk::rt::Actions::
+addMethod(const sk::util::String& label, T& target, const TMF& method, P1 p1, P2* p2)
+{
+  addItem(new sk::rt::action::MethodItem<T, TMF, P1, P2*>(label, target, method, p1, p2));
+}
+
+template<typename T, typename TMF, typename P1, typename P2>
+void
+sk::rt::Actions::
+addMethod(const sk::util::String& label, T& target, const TMF& method, P1 p1, P2& p2)
+{
+  addItem(new sk::rt::action::MethodItem<T, TMF, P1, P2&>(label, target, method, p1, p2));
+}
+
+template<typename T, typename TMF, typename P1, typename P2>
+void
+sk::rt::Actions::
+addMethod(const sk::util::String& label, T& target, const TMF& method, P1 p1, const P2& p2)
+{
+  addItem(new sk::rt::action::MethodItem<T, TMF, P1, P2>(label, target, method, p1, p2));
+}
+
+template<typename T, typename TMF, typename P1, typename P2, typename P3>
+void
+sk::rt::Actions::
+addMethod(const sk::util::String& label, T& target, const TMF& method, P1 p1, P2 p2, P3* p3)
+{
+  addItem(new sk::rt::action::MethodItem<T, TMF, P1, P2, P3*>(label, target, method, p1, p2, p3));
+}
+
+template<typename T, typename TMF, typename P1, typename P2, typename P3>
+void
+sk::rt::Actions::
+addMethod(const sk::util::String& label, T& target, const TMF& method, P1 p1, P2 p2, P3& p3)
+{
+  addItem(new sk::rt::action::MethodItem<T, TMF, P1, P2, P3&>(label, target, method, p1, p2, p3));
+}
+
+template<typename T, typename TMF, typename P1, typename P2, typename P3>
+void
+sk::rt::Actions::
+addMethod(const sk::util::String& label, T& target, const TMF& method, P1 p1, P2 p2, const P3& p3)
+{
+  addItem(new sk::rt::action::MethodItem<T, TMF, P1, P2, P3>(label, target, method, p1, p2, p3));
 }
 
 template<typename F> 
@@ -102,12 +214,76 @@ addFunctor(const sk::util::String& label, const F& functor)
   addItem(new sk::rt::action::FunctorItem<F>(label, functor));
 }
 
-template<typename F, typename P> 
+template<typename F, typename P1> 
 void 
 sk::rt::Actions::
-addFunctor(const sk::util::String& label, const F& functor, P param)
+addFunctor(const sk::util::String& label, const F& functor, P1* p1)
 {
-  addItem(new sk::rt::action::FunctorItem<F, P>(label, functor, param));
+  addItem(new sk::rt::action::FunctorItem<F, P1*>(label, functor, p1));
+}
+
+template<typename F, typename P1> 
+void 
+sk::rt::Actions::
+addFunctor(const sk::util::String& label, const F& functor, P1& p1)
+{
+  addItem(new sk::rt::action::FunctorItem<F, P1&>(label, functor, p1));
+}
+
+template<typename F, typename P1> 
+void 
+sk::rt::Actions::
+addFunctor(const sk::util::String& label, const F& functor, const P1& p1)
+{
+  addItem(new sk::rt::action::FunctorItem<F, P1>(label, functor, p1));
+}
+
+template<typename F, typename P1, typename P2> 
+void 
+sk::rt::Actions::
+addFunctor(const sk::util::String& label, const F& functor, P1 p1, P2* p2)
+{
+  addItem(new sk::rt::action::FunctorItem<F, P1, P2*>(label, functor, p1, p2));
+}
+
+template<typename F, typename P1, typename P2> 
+void 
+sk::rt::Actions::
+addFunctor(const sk::util::String& label, const F& functor, P1 p1, P2& p2)
+{
+  addItem(new sk::rt::action::FunctorItem<F, P1, P2&>(label, functor, p1, p2));
+}
+
+template<typename F, typename P1, typename P2> 
+void 
+sk::rt::Actions::
+addFunctor(const sk::util::String& label, const F& functor, P1 p1, const P2& p2)
+{
+  addItem(new sk::rt::action::FunctorItem<F, P1, P2>(label, functor, p1, p2));
+}
+
+template<typename F, typename P1, typename P2, typename P3> 
+void 
+sk::rt::Actions::
+addFunctor(const sk::util::String& label, const F& functor, P1 p1, P2 p2, P3* p3)
+{
+  addItem(new sk::rt::action::FunctorItem<F, P1, P2, P3*>(label, functor, p1, p2, p3));
+}
+
+template<typename F, typename P1, typename P2, typename P3> 
+void 
+sk::rt::Actions::
+addFunctor(const sk::util::String& label, const F& functor, P1 p1, P2 p2, P3& p3)
+{
+  addItem(new sk::rt::action::FunctorItem<F, P1, P2, P3&>(label, functor, p1, p2, p3));
+}
+
+template<typename F, typename P1, typename P2, typename P3> 
+void 
+sk::rt::Actions::
+addFunctor(const sk::util::String& label, const F& functor, P1 p1, P2 p2, const P3& p3)
+{
+  addItem(new sk::rt::action::FunctorItem<F, P1, P2, P3>(label, functor, p1, p2, p3));
 }
 
 #endif /* _SK_RT_ACTIONS_H_ */
