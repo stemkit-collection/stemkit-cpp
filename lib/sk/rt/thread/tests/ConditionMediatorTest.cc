@@ -344,3 +344,69 @@ test_invoking_multi_param_functors()
   CPPUNIT_ASSERT_EQUAL(12, size1);
   CPPUNIT_ASSERT_EQUAL(17, size2);
 }
+
+namespace {
+  struct MethodProbe {
+    void dummyMethod(sk::rt::thread::Condition& condition) {
+      dummy(condition);
+    }
+
+    void preserveMethod(sk::rt::thread::Condition& condition, const sk::util::String& s) {
+      preserve(condition, s);
+    }
+    
+    void make_zeroMethod(sk::rt::thread::Condition& condition, int& value) {
+      make_zero(condition, value);
+    }
+
+    void concat_stringsMethod(sk::rt::thread::Condition& condition, const sk::util::String& s1, const sk::util::String& s2) {
+      concat_strings(condition, s1, s2);
+    }
+
+    void make_lengthMethod(sk::rt::thread::Condition& condition, const sk::util::String& s, int& length) {
+      make_length(condition, s, length);
+    }
+
+    void concat_many_stringsMethod(sk::rt::thread::Condition& condition, const sk::util::String& s1, const sk::util::String& s2, const std::string& s3) {
+      concat_many_strings(condition, s1, s2, s3);
+    }
+
+    void concat_and_make_lengthMethod(sk::rt::thread::Condition& condition, const sk::util::String& s1, const std::string& s2, int& length) {
+      concat_and_make_length(condition, s1, s2, length);
+    }
+  };
+}
+
+void 
+sk::rt::thread::tests::ConditionMediatorTest::
+test_invoking_multi_param_methods()
+{
+  sk::rt::thread::ConditionMediator mediator(mutex());
+  int value = 21;
+  int size1 = 5;
+  int size2 = 1;
+
+  __strings.clear();
+  MethodProbe probe;
+
+  mediator.syncMethod(probe, &MethodProbe::dummyMethod);
+  mediator.syncMethod(probe, &MethodProbe::preserveMethod, "abc");
+  mediator.syncMethod(probe, &MethodProbe::make_zeroMethod, value);
+  mediator.syncMethod(probe, &MethodProbe::concat_stringsMethod, "aaa", "bbb");
+  mediator.syncMethod(probe, &MethodProbe::make_lengthMethod, "=1234567890=", size1);
+  mediator.syncMethod(probe, &MethodProbe::concat_many_stringsMethod, "aaa", "bbb", "uuu");
+  mediator.syncMethod(probe, &MethodProbe::concat_and_make_lengthMethod, "=1234567890=", "12345", size2);
+
+  CPPUNIT_ASSERT_EQUAL(7, __strings.size());
+  CPPUNIT_ASSERT_EQUAL("dummy", __strings.get(0));
+  CPPUNIT_ASSERT_EQUAL("preserve:abc", __strings.get(1));
+  CPPUNIT_ASSERT_EQUAL("make_zero:21", __strings.get(2));
+  CPPUNIT_ASSERT_EQUAL("concat_strings:aaabbb", __strings.get(3));
+  CPPUNIT_ASSERT_EQUAL("make_length:=1234567890=:5", __strings.get(4));
+  CPPUNIT_ASSERT_EQUAL("concat_strings:aaabbbuuu", __strings.get(5));
+  CPPUNIT_ASSERT_EQUAL("concat_and_make_length:=1234567890=12345:1", __strings.get(6));
+
+  CPPUNIT_ASSERT_EQUAL(0, value);
+  CPPUNIT_ASSERT_EQUAL(12, size1);
+  CPPUNIT_ASSERT_EQUAL(17, size2);
+}
