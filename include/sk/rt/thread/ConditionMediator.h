@@ -37,20 +37,44 @@ namespace sk {
           template<typename T, typename TMF> 
           bool syncMethod(T& target, const TMF& method);
       
-          template<typename T, typename TMF, typename P> 
-          bool syncMethod(T& target, const TMF& method, P& param);
+          template<typename T, typename TMF, typename P1> 
+          bool syncMethod(T& target, const TMF& method, P1& p1);
       
-          template<typename T, typename TMF, typename P> 
-          bool syncMethod(T& target, const TMF& method, const P& param);
+          template<typename T, typename TMF, typename P1> 
+          bool syncMethod(T& target, const TMF& method, const P1& p1);
       
+          template<typename T, typename TMF, typename P1, typename P2> 
+          bool syncMethod(T& target, const TMF& method, const P1& p1, P2& p2);
+      
+          template<typename T, typename TMF, typename P1, typename P2> 
+          bool syncMethod(T& target, const TMF& method, const P1& p1, const P2& p2);
+      
+          template<typename T, typename TMF, typename P1, typename P2, typename P3> 
+          bool syncMethod(T& target, const TMF& method, const P1& p1, const P2& p2, P3& p3);
+      
+          template<typename T, typename TMF, typename P1, typename P2, typename P3> 
+          bool syncMethod(T& target, const TMF& method, const P1& p1, const P2& p2, const P3& p3);
+
           template<typename F> 
           bool syncFunctor(const F& functor);
       
-          template<typename F, typename P> 
-          bool syncFunctor(const F& functor, P& param);
+          template<typename F, typename P1> 
+          bool syncFunctor(const F& functor, P1& p1);
       
-          template<typename F, typename P> 
-          bool syncFunctor(const F& functor, const P& param);
+          template<typename F, typename P1> 
+          bool syncFunctor(const F& functor, const P1& p1);
+      
+          template<typename F, typename P1, typename P2> 
+          bool syncFunctor(const F& functor, const P1& p1, P2& p2);
+      
+          template<typename F, typename P1, typename P2> 
+          bool syncFunctor(const F& functor, const P1& p1, const P2& p2);
+      
+          template<typename F, typename P1, typename P2, typename P3> 
+          bool syncFunctor(const F& functor, const P1& p1, const P2& p2, P3& p3);
+      
+          template<typename F, typename P1, typename P2, typename P3> 
+          bool syncFunctor(const F& functor, const P1& p1, const P2& p2, const P3& p3);
       
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
@@ -76,20 +100,52 @@ syncMethod(T& target, const TMF& method)
   return sync(sk::rt::thread::MethodConditional<T, TMF>(target, method));
 }
 
-template<typename T, typename TMF, typename P>
+template<typename T, typename TMF, typename P1>
 bool
 sk::rt::thread::ConditionMediator::
-syncMethod(T& target, const TMF& method, P& param)
+syncMethod(T& target, const TMF& method, P1& p1)
 {
-  return sync(sk::rt::thread::MethodConditional<T, TMF, P&>(target, method, param));
+  return sync(sk::rt::thread::MethodConditional<T, TMF, P1&>(target, method, p1));
 }
 
-template<typename T, typename TMF, typename P>
+template<typename T, typename TMF, typename P1>
 bool
 sk::rt::thread::ConditionMediator::
-syncMethod(T& target, const TMF& method, const P& param)
+syncMethod(T& target, const TMF& method, const P1& p1)
 {
-  return sync(sk::rt::thread::MethodConditional<T, TMF, const P&>(target, method, param));
+  return sync(sk::rt::thread::MethodConditional<T, TMF, const P1&>(target, method, p1));
+}
+
+template<typename T, typename TMF, typename P1, typename P2>
+bool
+sk::rt::thread::ConditionMediator::
+syncMethod(T& target, const TMF& method, const P1& p1, P2& p2)
+{
+  return sync(sk::rt::thread::MethodConditional<T, TMF, const P1&, P2&>(target, method, p1, p2));
+}
+
+template<typename T, typename TMF, typename P1, typename P2>
+bool
+sk::rt::thread::ConditionMediator::
+syncMethod(T& target, const TMF& method, const P1& p1, const P2& p2)
+{
+  return sync(sk::rt::thread::MethodConditional<T, TMF, const P1&, const P2&>(target, method, p1, p2));
+}
+
+template<typename T, typename TMF, typename P1, typename P2, typename P3>
+bool
+sk::rt::thread::ConditionMediator::
+syncMethod(T& target, const TMF& method, const P1& p1, const P2& p2, P3& p3)
+{
+  return sync(sk::rt::thread::MethodConditional<T, TMF, const P1&, const P2&, P3&>(target, method, p1, p2, p3));
+}
+
+template<typename T, typename TMF, typename P1, typename P2, typename P3>
+bool
+sk::rt::thread::ConditionMediator::
+syncMethod(T& target, const TMF& method, const P1& p1, const P2& p2, const P3& p3)
+{
+  return sync(sk::rt::thread::MethodConditional<T, TMF, const P1&, const P2&, const P3&>(target, method, p1, p2, p3));
 }
 
 template<typename F>
@@ -100,20 +156,52 @@ syncFunctor(const F& functor)
   return sync(sk::rt::thread::FunctorConditional<F>(functor));
 }
 
-template<typename F, typename P>
+template<typename F, typename P1>
 bool
 sk::rt::thread::ConditionMediator::
-syncFunctor(const F& functor, P& param)
+syncFunctor(const F& functor, P1& p1)
 {
-  return sync(sk::rt::thread::FunctorConditional<F, P&>(functor, param));
+  return sync(sk::rt::thread::FunctorConditional<F, P1&>(functor, p1));
 }
 
-template<typename F, typename P>
+template<typename F, typename P1>
 bool
 sk::rt::thread::ConditionMediator::
-syncFunctor(const F& functor, const P& param)
+syncFunctor(const F& functor, const P1& p1)
 {
-  return sync(sk::rt::thread::FunctorConditional<F, const P&>(functor, param));
+  return sync(sk::rt::thread::FunctorConditional<F, const P1&>(functor, p1));
+}
+
+template<typename F, typename P1, typename P2>
+bool
+sk::rt::thread::ConditionMediator::
+syncFunctor(const F& functor, const P1& p1, P2& p2)
+{
+  return sync(sk::rt::thread::FunctorConditional<F, const P1&, P2&>(functor, p1, p2));
+}
+
+template<typename F, typename P1, typename P2>
+bool
+sk::rt::thread::ConditionMediator::
+syncFunctor(const F& functor, const P1& p1, const P2& p2)
+{
+  return sync(sk::rt::thread::FunctorConditional<F, const P1&, const P2&>(functor, p1, p2));
+}
+
+template<typename F, typename P1, typename P2, typename P3>
+bool
+sk::rt::thread::ConditionMediator::
+syncFunctor(const F& functor, const P1& p1, const P2& p2, P3& p3)
+{
+  return sync(sk::rt::thread::FunctorConditional<F, const P1&, const P2&, P3&>(functor, p1, p2, p3));
+}
+
+template<typename F, typename P1, typename P2, typename P3>
+bool
+sk::rt::thread::ConditionMediator::
+syncFunctor(const F& functor, const P1& p1, const P2& p2, const P3& p3)
+{
+  return sync(sk::rt::thread::FunctorConditional<F, const P1&, const P2&, const P3&>(functor, p1, p2, p3));
 }
 
 #endif /* _SK_RT_THREAD_CONDITIONMEDIATOR_H_ */
