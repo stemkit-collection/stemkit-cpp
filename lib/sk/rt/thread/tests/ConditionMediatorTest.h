@@ -34,6 +34,7 @@ namespace sk {
             CPPUNIT_TEST(test_condition_wait_times_out);
             CPPUNIT_TEST(test_condition_wait_succeeds_on_announce);
             CPPUNIT_TEST(test_multi_channel_conditions);
+            CPPUNIT_TEST(test_invoking_multi_param_functors);
           CPPUNIT_TEST_SUITE_END();
         
           public:
@@ -49,6 +50,7 @@ namespace sk {
             void test_condition_wait_times_out();
             void test_condition_wait_succeeds_on_announce();
             void test_multi_channel_conditions();
+            void test_invoking_multi_param_functors();
 
             void ensureLocked(sk::rt::thread::Condition& condition, bool& indicator);
         

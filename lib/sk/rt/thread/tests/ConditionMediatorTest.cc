@@ -11,6 +11,7 @@
 #include "ConditionMediatorTest.h"
 
 #include <sk/util/Holder.cxx>
+#include <sk/util/Strings.h>
 #include <sk/rt/Mutex.h>
 #include <sk/rt/TimeoutException.h>
 #include <sk/rt/thread/ConditionMediator.h>
@@ -274,4 +275,72 @@ test_multi_channel_conditions()
 
   CPPUNIT_ASSERT(t2.isAlive() == false);
   CPPUNIT_ASSERT(w2.triggered == true);
+}
+
+namespace {
+  sk::util::Strings __strings;
+
+  void dummy(sk::rt::thread::Condition& condition) {
+    __strings << "dummy";
+  }
+
+  void preserve(sk::rt::thread::Condition& condition, const sk::util::String& s) {
+    __strings << "preserve:" + s;
+  }
+  
+  void make_zero(sk::rt::thread::Condition& condition, int& value) {
+    __strings << "make_zero:" + sk::util::String::valueOf(value);
+    value = 0;
+  }
+
+  void concat_strings(sk::rt::thread::Condition& condition, const sk::util::String& s1, const sk::util::String& s2) {
+    __strings << "concat_strings:" + s1 + s2;
+  }
+
+  void make_length(sk::rt::thread::Condition& condition, const sk::util::String& s, int& length) {
+    __strings << "make_length:" + s + ":" + sk::util::String::valueOf(length);
+    length = s.length();
+  }
+
+  void concat_many_strings(sk::rt::thread::Condition& condition, const sk::util::String& s1, const sk::util::String& s2, const std::string& s3) {
+    __strings << "concat_strings:" + s1 + s2 + s3;
+  }
+
+  void concat_and_make_length(sk::rt::thread::Condition& condition, const sk::util::String& s1, const std::string& s2, int& length) {
+    __strings << "concat_and_make_length:" + s1 + s2 + ":" + sk::util::String::valueOf(length);
+    length = s1.length() + s2.length();
+  }
+}
+
+void 
+sk::rt::thread::tests::ConditionMediatorTest::
+test_invoking_multi_param_functors()
+{
+  sk::rt::thread::ConditionMediator mediator(mutex());
+  int value = 127;
+  int size1 = 3;
+  int size2 = 5;
+
+  __strings.clear();
+
+  mediator.syncFunctor(dummy);
+  mediator.syncFunctor(preserve, "abc");
+  mediator.syncFunctor(make_zero, value);
+  mediator.syncFunctor(concat_strings, "aaa", "bbb");
+  mediator.syncFunctor(make_length, "=1234567890=", size1);
+  mediator.syncFunctor(concat_many_strings, "aaa", "bbb", "uuu");
+  mediator.syncFunctor(concat_and_make_length, "=1234567890=", "12345", size2);
+
+  CPPUNIT_ASSERT_EQUAL(7, __strings.size());
+  CPPUNIT_ASSERT_EQUAL("dummy", __strings.get(0));
+  CPPUNIT_ASSERT_EQUAL("preserve:abc", __strings.get(1));
+  CPPUNIT_ASSERT_EQUAL("make_zero:127", __strings.get(2));
+  CPPUNIT_ASSERT_EQUAL("concat_strings:aaabbb", __strings.get(3));
+  CPPUNIT_ASSERT_EQUAL("make_length:=1234567890=:3", __strings.get(4));
+  CPPUNIT_ASSERT_EQUAL("concat_strings:aaabbbuuu", __strings.get(5));
+  CPPUNIT_ASSERT_EQUAL("concat_and_make_length:=1234567890=12345:5", __strings.get(6));
+
+  CPPUNIT_ASSERT_EQUAL(0, value);
+  CPPUNIT_ASSERT_EQUAL(12, size1);
+  CPPUNIT_ASSERT_EQUAL(17, size2);
 }
