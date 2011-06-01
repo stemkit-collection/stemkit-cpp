@@ -389,8 +389,8 @@ rule platform-hpux-ia64-m64
 
 rule platform-hpux-ia64
 {
-  C++FLAGS += -fPIC ;
-  CCFLAGS += -fPIC ;
+  C++FLAGS += -fPIC -pthread ;
+  CCFLAGS += -fPIC -pthread ;
   DEFINES += _FILE_OFFSET_BITS=64 _LARGEFILE64_SOURCE _REENTRANT ;
   DEFINES += _XOPEN_SOURCE _XOPEN_SOURCE_EXTENDED=1 ;
   INCLUDES += [ util.make-path $(system.SRCTOP) platform include hpux ] ;
