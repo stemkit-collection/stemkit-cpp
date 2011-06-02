@@ -13,9 +13,6 @@
 
 #include <sk/net/AbstractSocket.h>
 
-#include <sk/io/InputStream.h>
-#include <sk/io/OutputStream.h>
-
 namespace sk {
   namespace net {
     class ServerSocket;
@@ -28,9 +25,6 @@ namespace sk {
         Socket(const sk::net::InetAddress& address, const uint16_t port);
         Socket(const sk::util::String& host, const uint16_t port);
         virtual ~Socket();
-
-        sk::io::InputStream& inputStream() const;
-        sk::io::OutputStream& outputStream() const;
 
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;

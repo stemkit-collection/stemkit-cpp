@@ -19,6 +19,9 @@
 #include <sk/net/ConfigurableSocket.h>
 #include <sk/net/DirectedSocket.h>
 
+#include <sk/io/InputStream.h>
+#include <sk/io/OutputStream.h>
+
 namespace sk {
   namespace net {
     class AbstractSocket 
@@ -34,6 +37,9 @@ namespace sk {
         const sk::net::InetSocketAddress& localEndpoint() const;
         const sk::net::InetAddress& localAddress() const;
         const uint16_t localPort() const;
+
+        sk::io::InputStream& inputStream() const;
+        sk::io::OutputStream& outputStream() const;
 
         void close();
 

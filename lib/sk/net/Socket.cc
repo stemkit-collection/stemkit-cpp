@@ -52,17 +52,3 @@ getClass() const
 {
   return sk::util::Class(__className);
 }
-
-sk::io::InputStream& 
-sk::net::Socket::
-inputStream() const
-{
-  return directedSocket().inputStream();
-}
-
-sk::io::OutputStream& 
-sk::net::Socket::
-outputStream() const
-{
-  return directedSocket().outputStream();
-}

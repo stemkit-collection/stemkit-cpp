@@ -101,3 +101,17 @@ setReuseAddress(bool state)
 {
   _directedSocketHolder.getMutable().setReuseAddress(state);
 }
+
+sk::io::InputStream& 
+sk::net::AbstractSocket::
+inputStream() const
+{
+  return directedSocket().inputStream();
+}
+
+sk::io::OutputStream& 
+sk::net::AbstractSocket::
+outputStream() const
+{
+  return directedSocket().outputStream();
+}
