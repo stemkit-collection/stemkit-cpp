@@ -2,6 +2,7 @@
 
 local programs =
   test-covariants
+  test-upcast
   test-temporary-in-constructor-init-list
   yaml-producer
 ;
