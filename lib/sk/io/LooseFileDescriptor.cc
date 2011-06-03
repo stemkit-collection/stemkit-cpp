@@ -126,7 +126,7 @@ duplicateLoose() const
   return LooseFileDescriptor(fd);
 }
 
-void
+sk::io::LooseFileDescriptor&
 sk::io::LooseFileDescriptor::
 reopen(const sk::io::LooseFileDescriptor& other)
 {
@@ -139,6 +139,7 @@ reopen(const sk::io::LooseFileDescriptor& other)
   if(_fd != fd) {
     throw sk::rt::SystemException("dup2");
   }
+  return *this;
 }
 
 const sk::util::String

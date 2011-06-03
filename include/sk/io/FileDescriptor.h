@@ -16,8 +16,9 @@ namespace sk {
       : public sk::io::LooseFileDescriptor
     {
       public:
-        FileDescriptor(int fd);
+        explicit FileDescriptor(int fd);
         FileDescriptor(const FileDescriptor& other);
+        FileDescriptor(const LooseFileDescriptor& other);
         virtual ~FileDescriptor();
 
         // sk::util::Object re-implementation.

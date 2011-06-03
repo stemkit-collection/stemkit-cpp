@@ -16,7 +16,7 @@ namespace sk {
       : public virtual sk::util::Object 
     {
       public:
-        LooseFileDescriptor(int fd);
+        explicit LooseFileDescriptor(int fd);
         LooseFileDescriptor(const LooseFileDescriptor& other);
         virtual ~LooseFileDescriptor();
 
@@ -28,7 +28,7 @@ namespace sk {
         void inheritable(bool state);
 
         sk::io::LooseFileDescriptor duplicateLoose() const;
-        void reopen(const sk::io::LooseFileDescriptor& other);
+        sk::io::LooseFileDescriptor& reopen(const sk::io::LooseFileDescriptor& other);
 
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;

@@ -19,7 +19,13 @@ FileDescriptor(int fd)
 
 sk::io::FileDescriptor::
 FileDescriptor(const sk::io::FileDescriptor& other)
-  : sk::io::LooseFileDescriptor(other.duplicateLoose().getFileNumber())
+  : sk::io::LooseFileDescriptor(other.duplicateLoose())
+{
+}
+
+sk::io::FileDescriptor::
+FileDescriptor(const sk::io::LooseFileDescriptor& other)
+  : sk::io::LooseFileDescriptor(other.duplicateLoose())
 {
 }
 
