@@ -24,7 +24,7 @@ namespace sk {
           PropertiesItem(Json::Value& value, const sk::util::String& name);
           virtual ~PropertiesItem();
       
-          const sk::util::Properties& get();
+          const sk::util::Properties& get() const;
           void set(const sk::util::Properties& value);
 
           // sk::util::Object re-implementation.
@@ -33,7 +33,7 @@ namespace sk {
         private:
           PropertiesItem& operator = (const PropertiesItem& other);
 
-          sk::util::Properties _value;
+          mutable sk::util::Properties _value;
       };
     }
   }

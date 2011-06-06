@@ -51,7 +51,7 @@ isObtained() const
 
 const Json::Value&
 sk::rt::json::Item::
-getValue()
+getValue() const
 {
   const Json::Value& value = _root[_name];
   _obtained = true;
@@ -83,7 +83,7 @@ ensureAvailable() const
 
 bool
 sk::rt::json::Item::
-isPresent()
+isPresent() const
 {
   if(_obtained == false && _available == false) {
     _available = (_root[_name].isNull() == false ? true : false);

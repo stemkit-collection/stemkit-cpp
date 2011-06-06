@@ -35,7 +35,7 @@ getClass() const
 
 const sk::util::Properties&
 sk::rt::json::PropertiesItem::
-get()
+get() const
 {
   if(isObtained() == false) {
     const Json::Value& value = getValue();

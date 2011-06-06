@@ -23,7 +23,7 @@ namespace sk {
           BooleanItem(Json::Value& value, const sk::util::String& name);
           virtual ~BooleanItem();
       
-          bool get();
+          bool get() const;
           void set(const bool value);
 
           // sk::util::Object re-implementation.
@@ -32,7 +32,7 @@ namespace sk {
         private:
           BooleanItem& operator = (const BooleanItem& other);
 
-          bool _value;
+          mutable bool _value;
       };
     }
   }

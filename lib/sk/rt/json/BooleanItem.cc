@@ -35,7 +35,7 @@ getClass() const
 
 bool
 sk::rt::json::BooleanItem::
-get()
+get() const
 {
   if(isObtained() == false) {
     const Json::Value& value = getValue();

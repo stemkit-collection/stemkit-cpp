@@ -35,7 +35,7 @@ getClass() const
 
 const sk::util::Strings&
 sk::rt::json::StringArrayItem::
-get()
+get() const
 {
   if(isObtained() == false) {
     const Json::Value& value = getValue();

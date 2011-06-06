@@ -35,7 +35,7 @@ getClass() const
 
 int
 sk::rt::json::IntegerItem::
-get()
+get() const
 {
   if(isObtained() == false) {
     const Json::Value& value = getValue();

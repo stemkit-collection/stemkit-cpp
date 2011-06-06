@@ -24,7 +24,7 @@ namespace sk {
           StringItem(Json::Value& value, const sk::util::String& name);
           virtual ~StringItem();
       
-          const sk::util::String& get();
+          const sk::util::String& get() const;
           void set(const sk::util::String& value);
       
           // sk::util::Object re-implementation.
@@ -33,7 +33,7 @@ namespace sk {
         private:
           StringItem& operator = (const StringItem& other);
 
-          sk::util::String _value;
+          mutable sk::util::String _value;
       };
     }
   }

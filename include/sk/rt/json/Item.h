@@ -24,14 +24,14 @@ namespace sk {
           Item(Json::Value& root, const sk::util::String& name);
           virtual ~Item();
 
-          bool isPresent();
+          bool isPresent() const;
           const sk::util::String& name() const;
 
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
       
         protected:
-          const Json::Value& getValue();
+          const Json::Value& getValue() const;
           void setValue(const Json::Value& value);
           bool isObtained() const;
           void ensureAvailable() const;
@@ -42,8 +42,8 @@ namespace sk {
 
           Json::Value& _root;
           const sk::util::String _name;
-          bool _obtained;
-          bool _available;
+          mutable bool _obtained;
+          mutable bool _available;
       };
     }
   }

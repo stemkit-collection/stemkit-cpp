@@ -23,7 +23,7 @@ namespace sk {
           IntegerItem(Json::Value& value, const sk::util::String& name);
           virtual ~IntegerItem();
 
-          int get();
+          int get() const;
           void set(const int value);
       
           // sk::util::Object re-implementation.
@@ -32,7 +32,7 @@ namespace sk {
         private:
           IntegerItem& operator = (const IntegerItem& other);
 
-          int _value;
+          mutable int _value;
       };
     }
   }
