@@ -18,8 +18,8 @@
 static const sk::util::String __className("sk::rt::json::Item");
 
 sk::rt::json::Item::
-Item(Json::Value& root, const sk::util::String& name)
-  : _root(root), _name(name), _obtained(false), _available(false)
+Item(Json::Value& params, const sk::util::String& name)
+  : _params(params), _name(name), _obtained(false), _available(false)
 {
 }
 
@@ -53,7 +53,7 @@ const Json::Value&
 sk::rt::json::Item::
 getValue() const
 {
-  const Json::Value& value = _root[_name];
+  const Json::Value& value = _params[_name];
   _obtained = true;
 
   if(value.isNull() == true) {
@@ -67,7 +67,7 @@ void
 sk::rt::json::Item::
 setValue(const Json::Value& value)
 {
-  _root[_name] = value;
+  _params[_name] = value;
   _obtained = false;
   _available = true;
 }
@@ -86,7 +86,7 @@ sk::rt::json::Item::
 isPresent() const
 {
   if(_obtained == false && _available == false) {
-    _available = (_root[_name].isNull() == false ? true : false);
+    _available = (_params[_name].isNull() == false ? true : false);
   }
   return _available;
 

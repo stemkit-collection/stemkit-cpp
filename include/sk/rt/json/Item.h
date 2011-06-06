@@ -21,7 +21,7 @@ namespace sk {
         : public virtual sk::util::Object
       {
         public:
-          Item(Json::Value& root, const sk::util::String& name);
+          Item(Json::Value& params, const sk::util::String& name);
           virtual ~Item();
 
           bool isPresent() const;
@@ -40,7 +40,7 @@ namespace sk {
         private:
           Item& operator = (const Item& other);
 
-          Json::Value& _root;
+          Json::Value& _params;
           const sk::util::String _name;
           mutable bool _obtained;
           mutable bool _available;
