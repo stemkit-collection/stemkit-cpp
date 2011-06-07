@@ -90,7 +90,7 @@ sk::io::FileDescriptorStream::
 inputStream() const
 {
   if(_inputStreamHolder.isEmpty() == true) {
-    _inputStreamHolder.set(new FileDescriptorInputStream(_descriptor));
+    _inputStreamHolder.set(new FileDescriptorInputStream(_descriptor.getFileNumber()));
   }
   return _inputStreamHolder.getMutable();
 }
@@ -100,7 +100,7 @@ sk::io::FileDescriptorStream::
 outputStream() const
 {
   if(_outputStreamHolder.isEmpty() == true) {
-    _outputStreamHolder.set(new FileDescriptorOutputStream(_descriptor));
+    _outputStreamHolder.set(new FileDescriptorOutputStream(_descriptor.getFileNumber()));
   }
   return _outputStreamHolder.getMutable();
 }
