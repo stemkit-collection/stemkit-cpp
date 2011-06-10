@@ -9,10 +9,8 @@
 */
 
 #include <iostream>
-#include <iomanip>
-#include <exception>
-#include <string>
 
+#include <sk/util/Integer.h>
 #include <sk/net/ServerSocket.h>
 #include <sk/io/InputStream.h>
 #include <sk/io/OutputStream.h>
@@ -24,27 +22,31 @@
 
 int main(int argc, const char* const argv[])
 {
-  sk::net::ServerSocket server(8787);
-  std::cerr << "Listening on " << server.endpoint() << std::endl;
+  sk::net::ServerSocket server(sk::util::Integer::parseInt(argv[1]));
+  std::cerr << "Listening on " << server.endpoint() << " (" << server.localEndpoint() << ")" << std::endl;
 
   server.setReuseAddress(true);
   
   try {
-    sk::net::Socket socket = server.accept();
-    std::cerr << "Got connection from " << socket.endpoint() << std::endl;
+    while(true) {
+      sk::net::Socket socket = server.accept();
+      std::cerr << "Got connection from " << socket.endpoint() << std::endl;
 
-    sk::io::DataInputStream inputStream(socket.inputStream());
-    sk::io::DataOutputStream outputStream(socket.outputStream());
+      sk::io::DataInputStream inputStream(socket.inputStream());
+      sk::io::DataOutputStream outputStream(socket.outputStream());
 
-    try { 
-      while(true) {
-        const sk::util::String line = inputStream.readLine();
+      try { 
+        while(true) {
+          const sk::util::String line = inputStream.readLine();
 
-        std::cerr << "L: " << line.inspect() << std::endl;
-        outputStream.writeChars(line.toUpperCase());
+          std::cerr << "L: " << line.inspect() << std::endl;
+          outputStream.writeChars(line.toUpperCase());
+        }
+      }
+      catch(const sk::io::EOFException& exception) {
+        std::cerr << "Disconnected from " << socket.endpoint() << std::endl;
       }
     }
-    catch(const sk::io::EOFException& exception) {}
   }
   catch(const std::exception& exception) {
     std::cerr << "EX: " << exception.what() << std::endl;
