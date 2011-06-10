@@ -74,3 +74,10 @@ send(const std::vector<char>& data, const sk::net::InetAddress& address, const u
 {
   directedSocket().sendto(data, address, port);
 }
+
+bool 
+sk::net::DatagramSocket::
+isBound() const
+{
+  return true;
+}

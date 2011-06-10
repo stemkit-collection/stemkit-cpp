@@ -35,6 +35,9 @@ namespace sk {
       private:
         DatagramSocket(const DatagramSocket& other);
         DatagramSocket& operator = (const DatagramSocket& other);
+
+        // sk::net::AbstractSocket implementation.
+        bool isBound() const;
     };
   }
 }

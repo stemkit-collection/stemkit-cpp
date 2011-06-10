@@ -53,8 +53,12 @@ namespace sk {
         AbstractSocket(sk::net::DirectedSocket* directedSocket);
         const sk::net::DirectedSocket& directedSocket() const;
 
+        virtual bool isBound() const = 0;
+
       private:
         AbstractSocket& operator = (const AbstractSocket& other);
+
+        void ensureBound(const bool state) const;
 
         sk::util::Holder<sk::net::DirectedSocket>::Sharing _directedSocketHolder;
         mutable sk::util::Holder<sk::net::InetSocketAddress>::Copying _endpointHolder;

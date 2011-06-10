@@ -33,6 +33,9 @@ namespace sk {
         Socket(sk::net::DirectedSocket* directedSocket);
         Socket& operator = (const Socket& other);
 
+        // sk::net::AbstractSocket implementation;
+        bool isBound() const;
+
         friend class sk::net::ServerSocket;
     };
   }

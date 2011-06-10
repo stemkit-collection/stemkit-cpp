@@ -28,6 +28,7 @@ namespace sk {
         virtual ~ServerSocket();
 
         sk::net::Socket accept();
+        sk::net::ServerSocket& bind();
 
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
@@ -38,6 +39,9 @@ namespace sk {
         ServerSocket& operator = (const ServerSocket& other);
 
         void setup(const int backlog);
+
+        // sk::net::AbstractSocket implementation.
+        bool isBound() const;
 
         bool _bound;
         int _backlog;

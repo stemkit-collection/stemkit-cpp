@@ -23,9 +23,9 @@
 int main(int argc, const char* const argv[])
 {
   sk::net::ServerSocket server(sk::util::Integer::parseInt(argv[1]));
-  std::cerr << "Listening on " << server.endpoint() << " (" << server.localEndpoint() << ")" << std::endl;
-
   server.setReuseAddress(true);
+
+  std::cerr << "Listening on " << server.endpoint() << " (" << server.bind().localEndpoint() << ")" << std::endl;
   
   try {
     while(true) {

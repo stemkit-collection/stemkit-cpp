@@ -76,17 +76,32 @@ setup(const int backlog)
   _bound = false;
 }
 
-sk::net::Socket 
+sk::net::ServerSocket&
 sk::net::ServerSocket::
-accept()
+bind()
 {
-  const sk::net::DirectedSocket& socket = directedSocket();
-
   if(_bound == false) {
+    const sk::net::DirectedSocket& socket = directedSocket();
+
     socket.bind();
     socket.listen(_backlog > 0 ? _backlog : 5);
 
     _bound = true;
   }
-  return sk::net::Socket(socket.accept());
+  return *this;
+}
+
+sk::net::Socket 
+sk::net::ServerSocket::
+accept()
+{
+  bind();
+  return sk::net::Socket(directedSocket().accept());
+}
+
+bool
+sk::net::ServerSocket::
+isBound() const
+{
+  return _bound;
 }

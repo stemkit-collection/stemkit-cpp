@@ -52,3 +52,10 @@ getClass() const
 {
   return sk::util::Class(__className);
 }
+
+bool
+sk::net::Socket::
+isBound() const
+{
+  return true;
+}

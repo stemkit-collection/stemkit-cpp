@@ -51,6 +51,7 @@ const sk::net::InetSocketAddress&
 sk::net::AbstractSocket::
 localEndpoint() const
 {
+  ensureBound(true);
   if(_localEndpointHolder.isEmpty() == true) {
     _localEndpointHolder.set(_directedSocketHolder.get().localEndpoint());
   }
@@ -99,6 +100,7 @@ void
 sk::net::AbstractSocket::
 setReuseAddress(bool state)
 {
+  ensureBound(false);
   _directedSocketHolder.getMutable().setReuseAddress(state);
 }
 
@@ -114,4 +116,13 @@ sk::net::AbstractSocket::
 outputStream() const
 {
   return directedSocket().outputStream();
+}
+
+void
+sk::net::AbstractSocket::
+ensureBound(const bool state) const
+{
+  if(isBound() != state) {
+    throw sk::util::IllegalStateException("Socket " + sk::util::String(state ? "not" : "already") + " bound");
+  }
 }
