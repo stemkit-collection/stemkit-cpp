@@ -74,9 +74,10 @@ read(char* buffer, int offset, int length)
       throw sk::io::EOFException();
     }
     if(n < 0) {
-      if(errno != EAGAIN) {
-        throw sk::io::IOException("read");
+      if(errno == EAGAIN) {
+        continue;
       }
+      throw sk::io::IOException("read");
     }
     return n;
   }
