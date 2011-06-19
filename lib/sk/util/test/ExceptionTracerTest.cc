@@ -88,7 +88,7 @@ test_trace_produced_normally()
 {
   sk::util::IllegalStateException exception("abcd");
   CPPUNIT_ASSERT_EQUAL("<sample trace output>", exception.getTrace());
-  CPPUNIT_ASSERT_EQUAL("ERROR: Illegal state: abcd\n<sample trace output>", exception.what());
+  CPPUNIT_ASSERT_EQUAL("Illegal state: abcd\n<sample trace output>", exception.what());
 }
 
 void
@@ -99,7 +99,7 @@ test_trace_errors_in_setup()
 
   sk::util::IllegalStateException exception("abcd");
   CPPUNIT_ASSERT_EQUAL("<Error in trace setup: setup error>", exception.getTrace());
-  CPPUNIT_ASSERT_EQUAL("ERROR: Illegal state: abcd\n<Error in trace setup: setup error>", exception.what());
+  CPPUNIT_ASSERT_EQUAL("Illegal state: abcd\n<Error in trace setup: setup error>", exception.what());
 }
 
 void
@@ -110,7 +110,7 @@ test_trace_errors_in_reset()
 
   sk::util::IllegalStateException exception("abcd");
   CPPUNIT_ASSERT_EQUAL("<sample trace output><Error in trace reset: reset error>", exception.getTrace());
-  CPPUNIT_ASSERT_EQUAL("ERROR: Illegal state: abcd\n<sample trace output><Error in trace reset: reset error>", exception.what());
+  CPPUNIT_ASSERT_EQUAL("Illegal state: abcd\n<sample trace output><Error in trace reset: reset error>", exception.what());
 }
 
 void
@@ -121,6 +121,6 @@ test_trace_errors_in_produce()
 
   sk::util::IllegalStateException exception("abcd");
   CPPUNIT_ASSERT_EQUAL("<Error in trace produce: produce error>", exception.getTrace());
-  CPPUNIT_ASSERT_EQUAL("ERROR: Illegal state: abcd\n<Error in trace produce: produce error>", exception.what());
+  CPPUNIT_ASSERT_EQUAL("Illegal state: abcd\n<Error in trace produce: produce error>", exception.what());
 }
 

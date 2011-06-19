@@ -45,5 +45,5 @@ testBadHandle()
     throw sk::util::IllegalStateException("CloseHandle() did not fail");
   }
   sk::rt::SystemException error("CloseHandle");
-  CPPUNIT_ASSERT_EQUAL("ERROR: Runtime: CloseHandle: The handle is invalid (6)", error.what());
+  CPPUNIT_ASSERT_EQUAL("Runtime: CloseHandle: The handle is invalid (6)", error.what());
 }

@@ -48,7 +48,7 @@ test_wraps_stemkit_exception()
   sk::util::ExceptionProxy proxy("zzz", original);
 
   CPPUNIT_ASSERT_EQUAL("sk::util::Exception", proxy.getClass().getName());
-  CPPUNIT_ASSERT_EQUAL("ERROR: zzz: abc", proxy.what());
+  CPPUNIT_ASSERT_EQUAL("zzz: abc", proxy.what());
 }
 
 void
@@ -59,7 +59,7 @@ test_wraps_stemkit_derived_exception()
   sk::util::ExceptionProxy proxy("zzz", original);
 
   CPPUNIT_ASSERT_EQUAL("sk::util::IllegalStateException", proxy.getClass().getName());
-  CPPUNIT_ASSERT_EQUAL("ERROR: zzz: Illegal state: abc", proxy.what());
+  CPPUNIT_ASSERT_EQUAL("zzz: Illegal state: abc", proxy.what());
 }
 
 void
@@ -70,7 +70,7 @@ test_wraps_std_exception()
   sk::util::StandardException proxy("zzz", original);
 
   CPPUNIT_ASSERT_EQUAL("std::exception", proxy.getClass().getName());
-  CPPUNIT_ASSERT_EQUAL("ERROR: zzz: abc", proxy.what());
+  CPPUNIT_ASSERT_EQUAL("zzz: abc", proxy.what());
 }
 
 void
@@ -80,5 +80,5 @@ test_wraps_unknown_exception()
   sk::util::UnknownException proxy("zzz");
 
   CPPUNIT_ASSERT_EQUAL("<UNKNOWN>", proxy.getClass().getName());
-  CPPUNIT_ASSERT_EQUAL("ERROR: zzz: \?\?\?", proxy.what());
+  CPPUNIT_ASSERT_EQUAL("zzz: \?\?\?", proxy.what());
 }

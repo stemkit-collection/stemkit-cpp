@@ -42,7 +42,7 @@ testThrow()
   }
   catch(const sk::util::Exception& exception) {
     CPPUNIT_ASSERT_EQUAL("abcd", exception.getMessage());
-    CPPUNIT_ASSERT_EQUAL("ERROR: abcd", String(exception.what()));
+    CPPUNIT_ASSERT_EQUAL("abcd", String(exception.what()));
   }
 }
 
@@ -54,6 +54,6 @@ testStandard()
     throw sk::util::Exception("abcd");
   }
   catch(const std::exception& exception) {
-    CPPUNIT_ASSERT_EQUAL("ERROR: abcd", exception.what());
+    CPPUNIT_ASSERT_EQUAL("abcd", exception.what());
   }
 }

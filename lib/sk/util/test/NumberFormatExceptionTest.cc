@@ -41,7 +41,7 @@ testThrow()
     throw NumberFormatException("zzz");
   }
   catch(const Exception& exception) {
-    CPPUNIT_ASSERT_EQUAL("ERROR: Wrong number format: zzz", exception.what());
+    CPPUNIT_ASSERT_EQUAL("Wrong number format: zzz", exception.what());
     CPPUNIT_ASSERT_EQUAL("sk::util::NumberFormatException", exception.getClass().getName());
   }
 }

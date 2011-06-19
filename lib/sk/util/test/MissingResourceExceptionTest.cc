@@ -41,7 +41,7 @@ testThrow()
     throw MissingResourceException("zzz");
   }
   catch(const Exception& exception) {
-    CPPUNIT_ASSERT_EQUAL("ERROR: Missing resource: zzz", exception.what());
+    CPPUNIT_ASSERT_EQUAL("Missing resource: zzz", exception.what());
     CPPUNIT_ASSERT_EQUAL("sk::util::MissingResourceException", exception.getClass().getName());
   }
 }

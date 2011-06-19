@@ -158,13 +158,13 @@ test_all_executed_despite_errors_with_compound_exception()
     CPPUNIT_FAIL("No expected exception");
   }
   catch(const sk::util::CompoundException& exception) {
-    CPPUNIT_ASSERT_EQUAL("ERROR: Compound: 4: a2: Illegal state: Got SK sk2", exception.what());
+    CPPUNIT_ASSERT_EQUAL("Compound: 4: a2: Illegal state: Got SK sk2", exception.what());
     CPPUNIT_ASSERT_EQUAL(4, exception.size());
 
-    CPPUNIT_ASSERT_EQUAL("ERROR: a2: Illegal state: Got SK sk2", exception.exceptionAt(0).what());
-    CPPUNIT_ASSERT_EQUAL("ERROR: a3: Got STD e3", exception.exceptionAt(1).what());
-    CPPUNIT_ASSERT_EQUAL("ERROR: a4: Got STR s4", exception.exceptionAt(2).what());
-    CPPUNIT_ASSERT_EQUAL("ERROR: a5: \?\?\?", exception.exceptionAt(3).what());
+    CPPUNIT_ASSERT_EQUAL("a2: Illegal state: Got SK sk2", exception.exceptionAt(0).what());
+    CPPUNIT_ASSERT_EQUAL("a3: Got STD e3", exception.exceptionAt(1).what());
+    CPPUNIT_ASSERT_EQUAL("a4: Got STR s4", exception.exceptionAt(2).what());
+    CPPUNIT_ASSERT_EQUAL("a5: \?\?\?", exception.exceptionAt(3).what());
   }
   catch(const std::exception& exception) {
     CPPUNIT_FAIL(sk::util::String("Unexpected exception: ") + exception.what());
@@ -199,13 +199,13 @@ test_all_reversed_executed_despite_errors_with_compound_exception()
     CPPUNIT_FAIL("No expected exception");
   }
   catch(const sk::util::CompoundException& exception) {
-    CPPUNIT_ASSERT_EQUAL("ERROR: Compound: 4: a5: \?\?\?", exception.what());
+    CPPUNIT_ASSERT_EQUAL("Compound: 4: a5: \?\?\?", exception.what());
     CPPUNIT_ASSERT_EQUAL(4, exception.size());
 
-    CPPUNIT_ASSERT_EQUAL("ERROR: a5: \?\?\?", exception.exceptionAt(0).what());
-    CPPUNIT_ASSERT_EQUAL("ERROR: a4: Got STR s4", exception.exceptionAt(1).what());
-    CPPUNIT_ASSERT_EQUAL("ERROR: a3: Got STD e3", exception.exceptionAt(2).what());
-    CPPUNIT_ASSERT_EQUAL("ERROR: a2: Illegal state: Got SK sk2", exception.exceptionAt(3).what());
+    CPPUNIT_ASSERT_EQUAL("a5: \?\?\?", exception.exceptionAt(0).what());
+    CPPUNIT_ASSERT_EQUAL("a4: Got STR s4", exception.exceptionAt(1).what());
+    CPPUNIT_ASSERT_EQUAL("a3: Got STD e3", exception.exceptionAt(2).what());
+    CPPUNIT_ASSERT_EQUAL("a2: Illegal state: Got SK sk2", exception.exceptionAt(3).what());
   }
   catch(const std::exception& exception) {
     CPPUNIT_FAIL(sk::util::String("Unexpected exception: ") + exception.what());
@@ -266,10 +266,10 @@ test_non_problem_actions_throw_requested_exception()
     CPPUNIT_FAIL("No expected exception");
   }
   catch(const sk::util::CompoundException& exception) {
-    CPPUNIT_ASSERT_EQUAL("ERROR: Compound: 1: Illegal state: Hello", exception.what());
+    CPPUNIT_ASSERT_EQUAL("Compound: 1: Illegal state: Hello", exception.what());
     CPPUNIT_ASSERT_EQUAL(1, exception.size());
 
-    CPPUNIT_ASSERT_EQUAL("ERROR: Illegal state: Hello", exception.exceptionAt(0).what());
+    CPPUNIT_ASSERT_EQUAL("Illegal state: Hello", exception.exceptionAt(0).what());
   }
   catch(const std::exception& exception) {
     CPPUNIT_FAIL(sk::util::String("Unexpected exception: ") + exception.what());
@@ -301,12 +301,12 @@ test_throws_requested_exception_with_action_exceptions()
     CPPUNIT_FAIL("No expected exception");
   }
   catch(const sk::util::CompoundException& exception) {
-    CPPUNIT_ASSERT_EQUAL("ERROR: Compound: 3: Illegal state: Hello", exception.what());
+    CPPUNIT_ASSERT_EQUAL("Compound: 3: Illegal state: Hello", exception.what());
     CPPUNIT_ASSERT_EQUAL(3, exception.size());
 
-    CPPUNIT_ASSERT_EQUAL("ERROR: Illegal state: Hello", exception.exceptionAt(0).what());
-    CPPUNIT_ASSERT_EQUAL("ERROR: a2: Got STD e2", exception.exceptionAt(1).what());
-    CPPUNIT_ASSERT_EQUAL("ERROR: a3: Got STR s3", exception.exceptionAt(2).what());
+    CPPUNIT_ASSERT_EQUAL("Illegal state: Hello", exception.exceptionAt(0).what());
+    CPPUNIT_ASSERT_EQUAL("a2: Got STD e2", exception.exceptionAt(1).what());
+    CPPUNIT_ASSERT_EQUAL("a3: Got STR s3", exception.exceptionAt(2).what());
   }
   catch(const std::exception& exception) {
     CPPUNIT_FAIL(sk::util::String("Unexpected exception: ") + exception.what());
@@ -339,12 +339,12 @@ test_throws_requested_exception_with_reversed_action_exceptions()
     CPPUNIT_FAIL("No expected exception");
   }
   catch(const sk::util::CompoundException& exception) {
-    CPPUNIT_ASSERT_EQUAL("ERROR: Compound: 3: Illegal state: Hello", exception.what());
+    CPPUNIT_ASSERT_EQUAL("Compound: 3: Illegal state: Hello", exception.what());
     CPPUNIT_ASSERT_EQUAL(3, exception.size());
 
-    CPPUNIT_ASSERT_EQUAL("ERROR: Illegal state: Hello", exception.exceptionAt(0).what());
-    CPPUNIT_ASSERT_EQUAL("ERROR: a3: Got STR s3", exception.exceptionAt(1).what());
-    CPPUNIT_ASSERT_EQUAL("ERROR: a2: Got STD e2", exception.exceptionAt(2).what());
+    CPPUNIT_ASSERT_EQUAL("Illegal state: Hello", exception.exceptionAt(0).what());
+    CPPUNIT_ASSERT_EQUAL("a3: Got STR s3", exception.exceptionAt(1).what());
+    CPPUNIT_ASSERT_EQUAL("a2: Got STD e2", exception.exceptionAt(2).what());
   }
   catch(const std::exception& exception) {
     CPPUNIT_FAIL(sk::util::String("Unexpected exception: ") + exception.what());
@@ -419,12 +419,12 @@ test_on_error_throws_with_undo_exceptions()
     CPPUNIT_FAIL("No expected exception");
   }
   catch(const sk::util::CompoundException& exception) {
-    CPPUNIT_ASSERT_EQUAL("ERROR: Compound: 3: sample error", exception.what());
+    CPPUNIT_ASSERT_EQUAL("Compound: 3: sample error", exception.what());
     CPPUNIT_ASSERT_EQUAL(3, exception.size());
 
-    CPPUNIT_ASSERT_EQUAL("ERROR: sample error", exception.exceptionAt(0).what());
-    CPPUNIT_ASSERT_EQUAL("ERROR: a2: Got STR s2", exception.exceptionAt(1).what());
-    CPPUNIT_ASSERT_EQUAL("ERROR: a1: Got STD e1", exception.exceptionAt(2).what());
+    CPPUNIT_ASSERT_EQUAL("sample error", exception.exceptionAt(0).what());
+    CPPUNIT_ASSERT_EQUAL("a2: Got STR s2", exception.exceptionAt(1).what());
+    CPPUNIT_ASSERT_EQUAL("a1: Got STD e1", exception.exceptionAt(2).what());
   }
 }
 
@@ -461,12 +461,12 @@ test_performing_until_success_fails_on_all_errors()
     CPPUNIT_FAIL("No expected exception");
   }
   catch(const sk::util::CompoundException& exception) {
-    CPPUNIT_ASSERT_EQUAL("ERROR: Compound: 3: a3: Got STD e3", exception.what());
+    CPPUNIT_ASSERT_EQUAL("Compound: 3: a3: Got STD e3", exception.what());
     CPPUNIT_ASSERT_EQUAL(3, exception.size());
 
-    CPPUNIT_ASSERT_EQUAL("ERROR: a3: Got STD e3", exception.exceptionAt(0).what());
-    CPPUNIT_ASSERT_EQUAL("ERROR: a2: Got STD e2", exception.exceptionAt(1).what());
-    CPPUNIT_ASSERT_EQUAL("ERROR: a1: Got STD e1", exception.exceptionAt(2).what());
+    CPPUNIT_ASSERT_EQUAL("a3: Got STD e3", exception.exceptionAt(0).what());
+    CPPUNIT_ASSERT_EQUAL("a2: Got STD e2", exception.exceptionAt(1).what());
+    CPPUNIT_ASSERT_EQUAL("a1: Got STD e1", exception.exceptionAt(2).what());
   }
   catch(const std::exception& exception) {
     CPPUNIT_FAIL(sk::util::String("Unexpected exception: ") + exception.what());
