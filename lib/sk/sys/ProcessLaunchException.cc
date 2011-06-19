@@ -16,14 +16,6 @@
 static const char* __className("sk::sys::ProcessLaunchException");
 
 namespace {
-  const sk::util::String tweak_message(const sk::util::String& message) {
-    const sk::util::String label("ERROR:");
-    if(message.startsWith(label) == true) {
-      return message.substring(label.size()).trim();
-    }
-    return message.trim();
-  }
-
   const sk::util::String tweak_cmdline(const sk::util::String& cmdline) {
     return cmdline.substring(cmdline.indexOf('[')).trim();
   }
@@ -31,7 +23,7 @@ namespace {
 
 sk::sys::ProcessLaunchException::
 ProcessLaunchException(const sk::util::String& message, const sk::util::Strings& cmdline)
-  : Exception(sk::util::Strings(tweak_message(message)) << tweak_cmdline(cmdline.inspect()))
+  : Exception(sk::util::Strings(message) << tweak_cmdline(cmdline.inspect()))
 {
 }
 
