@@ -58,9 +58,6 @@ start(const sk::util::Mapper<const sk::util::String>& mapper)
   catch(const std::exception& exception) {
     _scope.error() << exception.what();
   }
-  catch(...) {
-    _scope.error() << "Unknown exception";
-  }
   return false;
 }
 

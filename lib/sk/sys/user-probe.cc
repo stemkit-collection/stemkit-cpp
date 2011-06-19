@@ -19,7 +19,7 @@ int main(int argc, char* argv[])
     return 0;
   }
   catch(const std::exception& exception) {
-    std::cerr << "EX: " << exception.what() << std::endl;
+    std::cerr << "ERROR: " << exception.what() << std::endl;
   }
   catch(...) {
     std::cerr << "Unknown exception" << std::endl;

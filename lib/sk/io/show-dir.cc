@@ -45,6 +45,6 @@ int main(int argc, const char* argv[])
     dir.forEachRegularFile(Printer());
   }
   catch(const std::exception& exception) {
-    std::cerr << exception.what() << std::endl;
+    std::cerr << "ERROR: " << exception.what() << std::endl;
   }
 }

@@ -48,7 +48,7 @@ int main(int argc, const char* const argv[])
     catch(const sk::io::EOFException& exception) {}
   }
   catch(const std::exception& exception) {
-    std::cerr << exception.what() << std::endl;
+    std::cerr << "ERROR: " << exception.what() << std::endl;
   }
   return 0;
 }

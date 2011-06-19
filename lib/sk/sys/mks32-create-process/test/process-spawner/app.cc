@@ -34,7 +34,7 @@ int main(int argc, const char* argv[])
     app.start();
   }
   catch(const std::exception& exception) {
-    std::cerr << "E: " << exception.what() << std::endl;
+    std::cerr << "ERROR: " << exception.what() << std::endl;
   }
   catch(const std::string& message) {
     std::cout << message << std::endl;

@@ -1,5 +1,4 @@
 #include <sk/io/File.h>
-#include <sk/io/IOException.h>
 #include <sk/io/DataOutputStream.h>
 #include <sk/net/DataOutputStream.h>
 #include <sk/io/BufferedOutputStream.h>
@@ -23,7 +22,7 @@ int main(int argc, const char* const argv[]) {
     writeData(host_data);
     writeData(network_data);
   }
-  catch(const sk::io::IOException& exception) {
-    std::cerr << "IO failed: " << exception.getMessage() << std::endl;
+  catch(const std::exception& exception) {
+    std::cerr << "ERROR: " << exception.what() << std::endl;
   }
 }

@@ -26,7 +26,7 @@ int main(int argc, const char* const argv[])
     std::cerr << items.get(1) << std::endl;
   }
   catch(const std::exception& exception) {
-    std::cerr << exception.what() << std::endl;
+    std::cerr << "ERROR: " << exception.what() << std::endl;
   }
   return 0;
 }

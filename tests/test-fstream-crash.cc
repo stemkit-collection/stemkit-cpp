@@ -30,7 +30,7 @@ int main(int argc, char **argv)
     std::cerr << ">>> DELETED" << std::endl;
   }
   catch(const std::exception& exception) {
-    std::cerr << "E: " << exception.what() << std::endl;
+    std::cerr << "ERROR: " << exception.what() << std::endl;
   }
   std::cerr << ">>> CLEANED" << std::endl;
   return 0;
