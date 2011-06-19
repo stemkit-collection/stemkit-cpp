@@ -13,17 +13,15 @@
 #include <sk/util/Exception.h>
 #include <sk/util/Strings.h>
 
-static const sk::util::String __messageHeader("ERROR: ");
-
 sk::util::Exception::
 Exception(const sk::util::Strings& strings)
-  : _message(__messageHeader + strings.join(": "))
+  : _message(strings.join(": "))
 {
 }
 
 sk::util::Exception::
 Exception(const sk::util::Strings& strings, const sk::util::Exception& exception)
-  : _message(__messageHeader + (strings + exception.getMessage()).join(": ")), _tracer(exception._tracer)
+  : _message((strings + exception.getMessage()).join(": ")), _tracer(exception._tracer)
 {
 }
 
@@ -31,7 +29,7 @@ const sk::util::String
 sk::util::Exception::
 getMessage() const
 {
-  return _message.substring(__messageHeader.size());
+  return _message;
 }
 
 sk::util::Exception::
