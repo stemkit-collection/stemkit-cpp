@@ -59,8 +59,10 @@ void
 sk::rt::json::StringArrayItem::
 set(const sk::util::Strings& value)
 {
-  Json::Value array;
+  Json::Value array(Json::arrayValue);
   int size = value.size();
+  array.resize(size);
+
   for(int index = 0; index < size; ++index) {
     array[index] = value.get(index);
   }
