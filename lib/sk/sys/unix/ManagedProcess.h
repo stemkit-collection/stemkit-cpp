@@ -26,6 +26,8 @@ namespace sk {
         // sk::sys::Executable implementation.
         void stop();
         void kill();
+        void terminate();
+        void interrupt();
         void join();
         void detach();
         bool isSuccess() const;
@@ -43,7 +45,7 @@ namespace sk {
         ManagedProcess(const ManagedProcess& other);
         ManagedProcess& operator = (const ManagedProcess& other);
 
-        bool terminate(int signal);
+        bool sendSignal(int signal);
 
         pid_t _pid;
     };

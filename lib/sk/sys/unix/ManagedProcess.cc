@@ -50,7 +50,7 @@ void
 sk::sys::ManagedProcess::
 stop()
 {
-  if(terminate(SIGTERM) == false) {
+  if(sendSignal(SIGTERM) == false) {
     kill();
   }
 }
@@ -59,14 +59,32 @@ void
 sk::sys::ManagedProcess::
 kill()
 {
-  if(terminate(SIGKILL) == false) {
-    throw sk::util::IllegalStateException("Cannot stop process:" + sk::util::String::valueOf(_pid));
+  if(sendSignal(SIGKILL) == false) {
+    throw sk::util::IllegalStateException("Cannot kill process:" + sk::util::String::valueOf(_pid));
+  }
+}
+
+void 
+sk::sys::ManagedProcess::
+terminate()
+{
+  if(sendSignal(SIGTERM) == false) {
+    throw sk::util::IllegalStateException("Cannot terminate process:" + sk::util::String::valueOf(_pid));
+  }
+}
+
+void 
+sk::sys::ManagedProcess::
+interrupt()
+{
+  if(sendSignal(SIGINT) == false) {
+    throw sk::util::IllegalStateException("Cannot interrupt process:" + sk::util::String::valueOf(_pid));
   }
 }
 
 bool
 sk::sys::ManagedProcess::
-terminate(int signal)
+sendSignal(int signal)
 {
   if(::kill(_pid, signal) != 0 && errno != ESRCH) {
     throw sk::rt::SystemException("kill:" + sk::util::String::valueOf(_pid) + ":" + sk::util::String::valueOf(signal));
