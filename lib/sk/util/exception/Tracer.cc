@@ -36,6 +36,9 @@ sk::util::exception::Tracer::
 Tracer()
   : _reference(__factoryHolder.isEmpty() ? 0 : new TraceProducerReference(__factoryHolder.get().createTraceProducer()))
 {
+  if(_reference != 0) {
+    _reference->link();
+  }
 }
 
 sk::util::exception::Tracer::
