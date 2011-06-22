@@ -9,4 +9,4 @@ windows-build::
 
 windows-install::
 	@ [ "$(SKCPP_TARGET_DIR)" != "" ] || (echo "Need parameter: SKCPP_TARGET_DIR"; exit 1)
-	eval `yaml-env.cmd -c config/build.yaml -e` && sh install-stemkit-cpp .. $(SKCPP_TARGET_DIR)/stemkit-$${release} $(ABI_LIST)
+	eval `yaml-env.rbx -c config/build.yaml -e` && sh install-stemkit-cpp .. $(SKCPP_TARGET_DIR)/stemkit-$${release} $(ABI_LIST)
