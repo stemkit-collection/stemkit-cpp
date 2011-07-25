@@ -5,6 +5,7 @@ local program = sk-util-benchmarks ;
 local objects = 
   Suite.cc
   StringBenchmarker.cc
+  VectorBenchmarker.cc
 ;
 
 use-project-libraries $(program) : sk.rt.bundle sk.util ;

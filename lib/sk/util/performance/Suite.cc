@@ -15,20 +15,18 @@
 
 #include <sk/rt/Benchmarker.h>
 #include "StringBenchmarker.h"
+#include "VectorBenchmarker.h"
 
 int main(int /*argc*/, const char* /*argv*/[])
 {
   sk::rt::Benchmarker benchmark("stemkit-cpp util benchmarks");
-  sk::util::performance::StringBenchmarker stringBenchmark;
 
-  benchmark.add(stringBenchmark);
   benchmark.add(new sk::util::performance::StringBenchmarker());
+  benchmark.add(new sk::util::performance::VectorBenchmarker());
 
   benchmark.init();
-  for(int counter=25; counter; --counter) {
-    benchmark.start();
-  }
-  benchmark.report(0, std::cout);
+  benchmark.start();
 
+  benchmark.report(0, std::cout);
   return 0;
 }
