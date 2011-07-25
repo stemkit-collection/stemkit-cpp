@@ -10,7 +10,7 @@
 
 #include <sk/util/Class.h>
 #include <sk/util/Strings.h>
-#include <sk/util/Holder.hxx>
+#include <sk/util/Holder.cxx>
 
 #include <sk/util/UnsupportedOperationException.h>
 #include <sk/util/IllegalStateException.h>

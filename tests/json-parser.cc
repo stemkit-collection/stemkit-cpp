@@ -8,6 +8,7 @@
  *  Author: Gennady Bystritsky (gennady.bystritsky@quest.com)
 */
 
+#include <stdlib.h>
 #include <iostream>
 #include <sk/other/jsoncpp/json/json.h>
 
@@ -15,7 +16,7 @@ int main(int argc, const char* const argv[])
 {
   if(argc != 2) {
     std::cerr << "USAGE: json-parser <string>" << std::endl;
-    exit(2);
+    ::exit(2);
   }
   Json::Value root;
   Json::Reader reader;

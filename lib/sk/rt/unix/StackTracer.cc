@@ -15,6 +15,7 @@
 
 #include <stdexcept>
 #include <cerrno>
+#include <cstring>
 #include <iostream>
 #include <sstream>
 
@@ -47,7 +48,7 @@ namespace {
 
     items << label;
     items << sk::util::String::valueOf(errno);
-    items << strerror(errno);
+    items << ::strerror(errno);
 
     if(&info != &sk::util::String::EMPTY) {
       items << info;

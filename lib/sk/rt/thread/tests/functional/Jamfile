@@ -14,6 +14,6 @@ local test ;
 for test in $(tests) {
   local program = $(test) ;
 
-  use-project-libraries $(program) : sk.rt.bundle sk.net sk.io sk.util sk.rt.thread ;
+  use-project-libraries $(program) : sk.rt.bundle sk.io sk.util sk.rt.thread ;
   make-program $(program) : $(test).cc ;
 }
