@@ -11,6 +11,7 @@
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
 #include <sk/util/InsufficientMemoryException.h>
+#include <sk/util/IllegalStateException.h>
 #include <sk/rt/Benchmark.h>
 #include <memory.h>
 #include <stdlib.h>
@@ -76,6 +77,57 @@ namespace {
     std::vector<sk::util::String*>& _storage;
   };
 
+  struct StandardVectorAlgorithmChecker : public virtual Benchmark {
+    StandardVectorAlgorithmChecker(const uint32_t iterations, const std::vector<sk::util::String*>& storage) 
+      : Benchmark(iterations), _storage(storage) {}
+
+    struct Checker {
+      Checker() 
+        : _value("zzz") {}
+
+      bool operator()(const sk::util::String* s) const {
+        return (*s).equals(_value);
+      }
+      const sk::util::String _value;
+    };
+
+    void run(const uint32_t iterations) {
+      (*_storage.at(iterations - 3)) = "zzz";
+      Checker checker;
+
+      for(int counter = 0; counter < 10; ++counter) {
+        if(std::find_if(_storage.begin(), _storage.end(), checker) == _storage.end()) {
+          throw sk::util::IllegalStateException("Expected element not found");
+        }
+      }
+    }
+    const std::vector<sk::util::String*>& _storage;
+  };
+
+  struct StandardVectorIteratorChecker : public virtual Benchmark {
+    StandardVectorIteratorChecker(const uint32_t iterations, const std::vector<sk::util::String*>& storage) 
+      : Benchmark(iterations), _storage(storage) {}
+
+    void run(const uint32_t iterations) {
+      (*_storage.at(iterations - 3)) = "zzz";
+      const sk::util::String value("zzz");
+
+      for(int counter = 0; counter < 10; ++counter) {
+        bool found = false;
+        for(std::vector<sk::util::String*>::const_iterator iterator = _storage.begin(); iterator != _storage.end(); ++iterator) {
+          if((*iterator)->equals(value) == true) {
+            found = true;
+            break;
+          }
+        }
+        if(found == false) {
+          throw sk::util::IllegalStateException("Expected element not found");
+        }
+      }
+    }
+    const std::vector<sk::util::String*>& _storage;
+  };
+
   struct StandardVectorCleaner : public virtual Benchmark {
     StandardVectorCleaner(const uint32_t iterations, std::vector<sk::util::String*>& storage) 
       : Benchmark(iterations), _storage(storage) {}
@@ -115,6 +167,24 @@ namespace {
     sk::util::Vector<sk::util::String>& _storage;
   };
 
+  struct StemkitVectorChecker : public virtual Benchmark {
+    StemkitVectorChecker(const uint32_t iterations, const sk::util::Vector<sk::util::String>& storage) 
+      : Benchmark(iterations), _storage(storage) {}
+
+    void run(const uint32_t iterations) {
+      _storage.getMutable(iterations - 3) = "zzz";
+      sk::util::String value("zzz");
+      const sk::util::selector::EqualValue<sk::util::String> selector(value);
+
+      for(int counter = 0; counter < 10; ++counter) {
+        if(_storage.contains(selector) == false) {
+          throw sk::util::IllegalStateException("Expected element not found");
+        }
+      }
+    }
+    const sk::util::Vector<sk::util::String>& _storage;
+  };
+
   struct StemkitVectorCleaner : public virtual Benchmark {
     StemkitVectorCleaner(const uint32_t iterations, sk::util::Vector<sk::util::String>& storage) 
       : Benchmark(iterations), _storage(storage) {}
@@ -138,6 +208,10 @@ setUp()
 
   add("Retrieve 100,000 strings in std::vector", new StandardVectorRetriever(100000, std_vector));
   add("Retrieve 100,000 strings in sk::util::Vector", new StemkitVectorRetriever(100000, sk_vector));
+
+  add("Check 100,000 strings in std::vector with algorithm", new StandardVectorAlgorithmChecker(100000, std_vector));
+  add("Check 100,000 strings in std::vector with iterator", new StandardVectorIteratorChecker(100000, std_vector));
+  add("Check 100,000 strings in sk::util::Vector", new StemkitVectorChecker(100000, sk_vector));
 
   add("Clear 100,000 strings in std::vector", new StandardVectorCleaner(100000, std_vector));
   add("Clear 100,000 strings in sk::util::Vector", new StemkitVectorCleaner(100000, sk_vector));
