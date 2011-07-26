@@ -7,6 +7,7 @@ local objects =
   StringBenchmarker.cc
   VectorBenchmarker.cc
   ArrayListBenchmarker.cc
+  LinkedListBenchmarker.cc
 ;
 
 use-project-libraries $(program) : sk.rt.bundle sk.util ;
