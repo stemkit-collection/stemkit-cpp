@@ -17,9 +17,10 @@
 #include <stdlib.h>
 #include <strings.h>
 
-#include "VectorBenchmarker.h"
 #include <vector>
 #include <sk/util/Vector.cxx>
+
+#include "VectorBenchmarker.h"
 
 static const sk::util::String __className("sk::util::performance::VectorBenchmarker");
 
@@ -144,7 +145,7 @@ namespace {
   };
 
   struct StemkitVectorStore : public virtual Benchmark {
-    StemkitVectorStore(const uint32_t iterations, sk::util::Vector<sk::util::String>& storage) 
+    StemkitVectorStore(const uint32_t iterations, sk::util::List<sk::util::String>& storage) 
       : Benchmark(iterations), _storage(storage) {}
 
     void run(const uint32_t iterations) {
@@ -152,11 +153,11 @@ namespace {
         _storage.add(new sk::util::String("abc"));
       }
     }
-    sk::util::Vector<sk::util::String>& _storage;
+    sk::util::List<sk::util::String>& _storage;
   };
 
   struct StemkitVectorRetriever : public virtual Benchmark {
-    StemkitVectorRetriever(const uint32_t iterations, const sk::util::Vector<sk::util::String>& storage) 
+    StemkitVectorRetriever(const uint32_t iterations, const sk::util::List<sk::util::String>& storage) 
       : Benchmark(iterations), _storage(storage) {}
 
     void run(const uint32_t iterations) {
@@ -164,11 +165,11 @@ namespace {
         _storage.get(counter).size();
       }
     }
-    const sk::util::Vector<sk::util::String>& _storage;
+    const sk::util::List<sk::util::String>& _storage;
   };
 
   struct StemkitVectorChecker : public virtual Benchmark {
-    StemkitVectorChecker(const uint32_t iterations, const sk::util::Vector<sk::util::String>& storage) 
+    StemkitVectorChecker(const uint32_t iterations, const sk::util::List<sk::util::String>& storage) 
       : Benchmark(iterations), _storage(storage) {}
 
     void run(const uint32_t iterations) {
@@ -181,17 +182,17 @@ namespace {
         }
       }
     }
-    const sk::util::Vector<sk::util::String>& _storage;
+    const sk::util::List<sk::util::String>& _storage;
   };
 
   struct StemkitVectorCleaner : public virtual Benchmark {
-    StemkitVectorCleaner(const uint32_t iterations, sk::util::Vector<sk::util::String>& storage) 
+    StemkitVectorCleaner(const uint32_t iterations, sk::util::List<sk::util::String>& storage) 
       : Benchmark(iterations), _storage(storage) {}
 
     void run(const uint32_t iterations) {
       _storage.clear();
     }
-    sk::util::Vector<sk::util::String>& _storage;
+    sk::util::List<sk::util::String>& _storage;
   };
 }
 
