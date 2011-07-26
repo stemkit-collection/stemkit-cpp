@@ -16,6 +16,7 @@
 #include <sk/rt/Benchmarker.h>
 #include "StringBenchmarker.h"
 #include "VectorBenchmarker.h"
+#include "ArrayListBenchmarker.h"
 
 int main(int /*argc*/, const char* /*argv*/[])
 {
@@ -23,6 +24,7 @@ int main(int /*argc*/, const char* /*argv*/[])
 
   benchmark.add(new sk::util::performance::StringBenchmarker());
   benchmark.add(new sk::util::performance::VectorBenchmarker());
+  benchmark.add(new sk::util::performance::ArrayListBenchmarker());
 
   benchmark.init();
   benchmark.start();

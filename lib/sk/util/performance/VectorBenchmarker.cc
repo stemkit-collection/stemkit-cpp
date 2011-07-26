@@ -24,7 +24,7 @@ static const sk::util::String __className("sk::util::performance::VectorBenchmar
 
 sk::util::performance::VectorBenchmarker::
 VectorBenchmarker()
-  : sk::rt::Benchmarker("String benchmarks")
+  : sk::rt::Benchmarker("Vector benchmarks")
 {
 }
 
