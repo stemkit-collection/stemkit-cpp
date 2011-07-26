@@ -66,7 +66,7 @@ namespace {
   };
 
   struct StandardVectorRetriever : public virtual Benchmark {
-    StandardVectorRetriever(const uint32_t iterations, std::vector<sk::util::String*>& storage) 
+    StandardVectorRetriever(const uint32_t iterations, const std::vector<sk::util::String*>& storage) 
       : Benchmark(iterations), _storage(storage) {}
 
     void run(const uint32_t iterations) {
@@ -74,7 +74,7 @@ namespace {
         (*_storage.at(counter)).size();
       }
     }
-    std::vector<sk::util::String*>& _storage;
+    const std::vector<sk::util::String*>& _storage;
   };
 
   struct StandardVectorAlgorithmChecker : public virtual Benchmark {
@@ -156,7 +156,7 @@ namespace {
   };
 
   struct StemkitVectorRetriever : public virtual Benchmark {
-    StemkitVectorRetriever(const uint32_t iterations, sk::util::Vector<sk::util::String>& storage) 
+    StemkitVectorRetriever(const uint32_t iterations, const sk::util::Vector<sk::util::String>& storage) 
       : Benchmark(iterations), _storage(storage) {}
 
     void run(const uint32_t iterations) {
@@ -164,7 +164,7 @@ namespace {
         _storage.get(counter).size();
       }
     }
-    sk::util::Vector<sk::util::String>& _storage;
+    const sk::util::Vector<sk::util::String>& _storage;
   };
 
   struct StemkitVectorChecker : public virtual Benchmark {
@@ -174,10 +174,9 @@ namespace {
     void run(const uint32_t iterations) {
       _storage.getMutable(iterations - 3) = "zzz";
       sk::util::String value("zzz");
-      const sk::util::selector::EqualValue<sk::util::String> selector(value);
 
       for(int counter = 0; counter < 10; ++counter) {
-        if(_storage.contains(selector) == false) {
+        if(_storage.contains(sk::util::selector::EqualValue<sk::util::String>(value)) == false) {
           throw sk::util::IllegalStateException("Expected element not found");
         }
       }
