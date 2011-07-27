@@ -201,18 +201,18 @@ sk::util::performance::VectorBenchmarker::
 setUp()
 {
   static std::vector<sk::util::String*> std_vector;
-  static sk::util::Vector<sk::util::String> sk_vector;
+  static sk::util::Vector<sk::util::String>::Direct sk_vector;
 
-  add("Put 100,000 strings in std::vector", new StandardVectorStore(100000, std_vector));
-  add("Put 100,000 strings in sk::util::Vector", new StemkitVectorStore(100000, sk_vector));
+  add("Put 100,000 strings in std::vector", new StandardVectorStore(1000000, std_vector));
+  add("Put 100,000 strings in sk::util::Vector", new StemkitVectorStore(1000000, sk_vector));
 
-  add("Retrieve 100,000 strings in std::vector", new StandardVectorRetriever(100000, std_vector));
-  add("Retrieve 100,000 strings in sk::util::Vector", new StemkitVectorRetriever(100000, sk_vector));
+  add("Retrieve 100,000 strings in std::vector", new StandardVectorRetriever(1000000, std_vector));
+  add("Retrieve 100,000 strings in sk::util::Vector", new StemkitVectorRetriever(1000000, sk_vector));
 
-  add("Check 100,000 strings in std::vector with algorithm", new StandardVectorAlgorithmChecker(100000, std_vector));
-  add("Check 100,000 strings in std::vector with iterator", new StandardVectorIteratorChecker(100000, std_vector));
-  add("Check 100,000 strings in sk::util::Vector", new StemkitVectorChecker(100000, sk_vector));
+  add("Check 100,000 strings in std::vector with algorithm", new StandardVectorAlgorithmChecker(1000000, std_vector));
+  add("Check 100,000 strings in std::vector with iterator", new StandardVectorIteratorChecker(1000000, std_vector));
+  add("Check 100,000 strings in sk::util::Vector", new StemkitVectorChecker(1000000, sk_vector));
 
-  add("Clear 100,000 strings in std::vector", new StandardVectorCleaner(100000, std_vector));
-  add("Clear 100,000 strings in sk::util::Vector", new StemkitVectorCleaner(100000, sk_vector));
+  add("Clear 100,000 strings in std::vector", new StandardVectorCleaner(1000000, std_vector));
+  add("Clear 100,000 strings in sk::util::Vector", new StemkitVectorCleaner(1000000, sk_vector));
 }
