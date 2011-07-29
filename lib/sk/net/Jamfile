@@ -22,7 +22,7 @@ local objects =
   URI.cc
 ;
 
-use-project-libraries $(library). : sk.io sk.util ;
+use-project-libraries $(library). : sk.rt.thread sk.io sk.util ;
 
 make-shared-library $(library) : $(objects) ;
 add-project-library $(library) : $(library).ip4 ;
