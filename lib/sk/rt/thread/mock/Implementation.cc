@@ -34,6 +34,13 @@ getClass() const
   return sk::util::Class(__className);
 }
 
+sk::rt::thread::platform::ConditionMediator* 
+sk::rt::thread::mock::Implementation::
+makeConditionMediator(sk::rt::Lock& lock, int capacity) const
+{
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
+}
+
 sk::rt::thread::platform::Mutex*
 sk::rt::thread::mock::Implementation::
 makeSimpleMutex() const

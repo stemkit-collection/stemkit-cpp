@@ -34,9 +34,11 @@ int main(int argc, const char* argv[])
           <property name='abort-on-exception' value='false' />\n\
         </scope>\n\
         \n\
+        <scope name='sk::rt::thread'>\n\
+          <property name='generic-condition-mediator' value='true' />\n\
+        </scope>\n\
         <scope name='sk::rt::thread::pthreads'>\n\
           <property name='mutex-error-check' value='true' />\n\
-          <property name='generic-condition-mediator' value='true' />\n\
         </scope>\n\
       </scope>\n\
     ")
