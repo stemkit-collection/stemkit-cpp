@@ -60,7 +60,7 @@ testGenericImplementation()
   sk::rt::Scope::controller().loadXmlConfig(
     sk::rt::config::InlineLocator("\n\
       <scope name='app'>\n\
-        <scope name='sk::rt::thread::pthreads'>\n\
+        <scope name='sk::rt::thread'>\n\
           <property name='generic-condition-mediator' value='true' />\n\
         </scope>\n\
       </scope>\n\
@@ -79,7 +79,7 @@ testPthreadsImplementation()
   sk::rt::Scope::controller().loadXmlConfig(
     sk::rt::config::InlineLocator("\n\
       <scope name='app'>\n\
-        <scope name='sk::rt::thread::pthreads'>\n\
+        <scope name='sk::rt::thread'>\n\
           <property name='generic-condition-mediator' value='false' />\n\
         </scope>\n\
       </scope>\n\
