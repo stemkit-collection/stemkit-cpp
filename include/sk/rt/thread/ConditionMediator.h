@@ -13,6 +13,7 @@
 
 #include <sk/rt/Lock.h>
 #include <sk/rt/thread/Condition.h>
+#include <sk/rt/Scope.h>
 #include <sk/rt/thread/Conditional.h>
 #include <sk/rt/thread/MethodConditional.hxx>
 #include <sk/rt/thread/FunctorConditional.hxx>
@@ -85,6 +86,7 @@ namespace sk {
           ConditionMediator(const ConditionMediator& other);
           ConditionMediator& operator = (const ConditionMediator& other);
 
+          const sk::rt::Scope _scope;
           const sk::util::Holder<platform::ConditionMediator>::Direct _mediatorHolder;
           bool _blocking;
       };

@@ -12,14 +12,24 @@
 #include <sk/util/String.h>
 #include <sk/rt/thread/ConditionMediator.h>
 #include <sk/util/Holder.cxx>
+
 #include "thread/Implementation.h"
+#include "generic/ConditionMediator.h"
 
 static const sk::util::String __className("sk::rt::thread::ConditionMediator");
 
+namespace {
+  sk::rt::thread::platform::ConditionMediator* makeConditionMediator(const sk::rt::Scope& scope, sk::rt::Lock& lock, int capacity) {
+    if(scope.getProperty("generic-condition-mediator", sk::util::Boolean::B_FALSE) == true) {
+      return new sk::rt::thread::generic::ConditionMediator(scope, lock, capacity);
+    }
+    return sk::rt::thread::Implementation::instance().makeConditionMediator(lock, capacity);
+  }
+}
+
 sk::rt::thread::ConditionMediator::
 ConditionMediator(sk::rt::Lock& lock, int capacity)
-  : _mediatorHolder(thread::Implementation::instance().makeConditionMediator(lock, capacity)),
-    _blocking(true)
+  : _scope(__className), _mediatorHolder(makeConditionMediator(_scope, lock, capacity)), _blocking(true)
 {
 }
 
