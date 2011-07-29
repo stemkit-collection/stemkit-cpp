@@ -39,11 +39,12 @@ getClass() const
   return sk::util::Class(__className);
 }
 
-void
+sk::rt::Actions&
 sk::rt::Actions::
 setReverse(bool state)
 {
   _reverse = state;
+  return *this;
 }
 
 bool

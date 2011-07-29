@@ -90,7 +90,7 @@ namespace sk {
         void addFunctor(const sk::util::String& label, const F& functor, P1 p1, P2 p2, const P3& p3);
     
         int size() const;
-        void setReverse(bool state);
+        sk::rt::Actions& setReverse(bool state);
         bool isReverse() const;
 
         void clear();
