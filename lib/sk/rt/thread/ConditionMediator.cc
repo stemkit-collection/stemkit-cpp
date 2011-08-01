@@ -29,7 +29,7 @@ namespace {
 
 sk::rt::thread::ConditionMediator::
 ConditionMediator(sk::rt::Lock& lock, int capacity)
-  : _scope(__className), _mediatorHolder(makeConditionMediator(_scope, lock, capacity)), _blocking(true)
+  : _scope("sk::rt::thread"), _mediatorHolder(makeConditionMediator(_scope, lock, capacity)), _blocking(true)
 {
 }
 
