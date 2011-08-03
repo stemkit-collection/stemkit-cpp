@@ -187,7 +187,7 @@ rule platform-linux-x86-m32
   C++FLAGS += -fpic ;
   CCFLAGS += -fpic ;
 
-  util.delete-from project.DO_NOT_BUILD : ruby java ;
+  # util.delete-from project.DO_NOT_BUILD : ruby java ;
 }
 
 rule platform-linux-x86-m64
@@ -217,7 +217,7 @@ rule platform-linux-ia64
   C++FLAGS += -fPIC ;
   CCFLAGS += -fPIC ;
 
-  project.DO_NOT_BUILD += ruby java ;
+  # project.DO_NOT_BUILD += ruby java ;
 }
 
 rule platform-osf-alpha
@@ -329,7 +329,7 @@ rule platform-solaris-sparc-m64
 
 rule platform-solaris-sparc
 {
-  util.delete-from project.DO_NOT_BUILD : ruby java ;
+  # util.delete-from project.DO_NOT_BUILD : ruby java ;
 
   C++FLAGS += -fPIC ;
   CCFLAGS += -fPIC ;
