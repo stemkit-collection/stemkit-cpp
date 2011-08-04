@@ -1,0 +1,8 @@
+
+local library = sk.net.ip6.unsupported ;
+
+local objects =
+  InetAddress.cc
+;
+
+make-library $(library) :  $(objects) ;

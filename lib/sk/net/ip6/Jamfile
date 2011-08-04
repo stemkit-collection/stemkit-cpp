@@ -6,6 +6,6 @@ local objects =
 ;
 
 make-library $(library) :  $(objects) ;
-add-project-library $(library) : $(library).$(PLATFORM_IMPLEMENTATION) ;
+add-project-library $(library) : $(library).$(IPV6_PLATFORM_IMPLEMENTATION) ;
 
-make-subdirs $(PLATFORM_IMPLEMENTATION) ;
+make-subdirs $(IPV6_PLATFORM_IMPLEMENTATION) ;
