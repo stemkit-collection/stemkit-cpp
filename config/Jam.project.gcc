@@ -392,6 +392,10 @@ rule platform-hpux-pa
   jam.DSO_EXTENTION = sl ;
 
   project.PTY_SPECIFICS = streams-hp ;
+
+  if $(platform.NAME) = "hp11-11-pa" {
+    IPV6_PLATFORM_IMPLEMENTATION = "unsupported" ;
+  }
 }
 
 rule platform-hpux-ia64-m32
@@ -424,6 +428,8 @@ platform.select $(BUILD_ABI) : true ;
 
 platform.offset-name $(JAM_OFFSET_PLATFORM) ;
 platform.offset-abi $(JAM_OFFSET_ABI) ;
+
+IPV6_PLATFORM_IMPLEMENTATION ?= $(PLATFORM_IMPLEMENTATION) ;
 
 BUILD_ABI = $(platform.ABI) ;
 BUILD_ABILIB = $(platform.ABILIB) ;
