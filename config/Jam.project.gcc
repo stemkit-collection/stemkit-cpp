@@ -424,6 +424,7 @@ rule platform-hpux-ia64
 
 platform.support-all-known ;
 platform.register-unsupported-name rh-21-x86 ;
+platform.register-unsupported-name hp11-00-pa ;
 platform.select $(BUILD_ABI) : true ;
 
 platform.offset-name $(JAM_OFFSET_PLATFORM) ;
