@@ -21,6 +21,7 @@
 
 #include <sys/wait.h>
 #include <fcntl.h>
+#include <signal.h>
 
 static const sk::util::String __className("sk::rt::StackTracer");
 
@@ -43,28 +44,27 @@ getClass() const
 }
 
 namespace {
-  void produce_system_error(bool exception, const sk::util::String& label, const sk::util::String& info) {
+  void produce_system_error(bool exception, const sk::util::Strings& info) {
     sk::util::Strings items;
+    int index = 0;
 
-    items << label;
+    items << (info.size() > index ? info.get(index++) : sk::util::String("???"));
     items << sk::util::String::valueOf(errno);
     items << ::strerror(errno);
+    items << info.slice(index, -1);
 
-    if(&info != &sk::util::String::EMPTY) {
-      items << info;
-    }
     if(exception == true) {
       throw std::domain_error(items.join(": "));
     }
     std::cerr << items.join("<", ": ", ">") << std::endl;
   }
 
-  void generate_system_error(const sk::util::String& label, const sk::util::String& info = sk::util::String::EMPTY) {
-    produce_system_error(true, label, info);
+  void generate_system_error(const sk::util::Strings& info) {
+    produce_system_error(true, info);
   }
 
-  void print_system_error(const sk::util::String& label, const sk::util::String& info = sk::util::String::EMPTY) {
-    produce_system_error(false, label, info);
+  void print_system_error(const sk::util::Strings& info) {
+    produce_system_error(false, info);
   }
 
   void collect_chars_until_eof(int fd, std::ostream& stream) {
@@ -85,14 +85,14 @@ namespace {
     }
   }
 
-  void wait_for_process(pid_t pid) {
+  void wait_for_process(const sk::util::String& label, pid_t pid) {
     while(true) {
       pid_t status = ::waitpid(pid, 0, 0);
       if(status == -1) {
         if(errno == EINTR) {
           continue;
         }
-        generate_system_error("waitpid");
+        generate_system_error(sk::util::Strings("waitpid") << label << sk::util::String::valueOf(pid));
       }
       if(status == pid) {
         return;
@@ -150,7 +150,7 @@ reset()
   pid_t pid = _pid;
   _pid = -1;
 
-  wait_for_process(pid);
+  wait_for_process("clone", pid);
 }
 
 const sk::util::String
@@ -182,7 +182,7 @@ produceTrace()
       sk::util::String argv1(sk::util::String::valueOf(_pid));
 
       ::execlp(argv0.getChars(), argv0.getChars(), argv1.getChars(), (const char*)0);
-      print_system_error("execlp", argv0);
+      print_system_error(sk::util::Strings("execlp") << argv0);
       _exit(2);
     }
     default: {
@@ -191,7 +191,7 @@ produceTrace()
   }
   std::stringstream stream;
   collect_chars_until_eof(fds[0], stream);
-  wait_for_process(pid);
+  wait_for_process("pstack", pid);
 
   return stream.str();
 }
