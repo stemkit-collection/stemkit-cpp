@@ -11,7 +11,6 @@
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
 #include <sk/util/Holder.cxx>
-#include <sk/util/UnsupportedOperationException.h>
 
 #include "TraceProducerReference.h"
 
@@ -78,6 +77,26 @@ traceWithMessage(const sk::util::String& message)
   return _buffer;
 }
 
+void 
+sk::util::exception::TraceProducerReference::
+finalize()
+{
+  if(_resetDone == true) {
+    return;
+  }
+  ensureTraceCollected();
+  try { 
+    _producer.finalize();
+  }
+  catch(const std::exception& exception) {
+    setError("finalize", exception.what());
+  }
+  catch(...) {
+    setError("finalize", "Unknown exception");
+  }
+  reset();
+}
+
 void
 sk::util::exception::TraceProducerReference::
 reset()
@@ -94,6 +113,7 @@ reset()
   catch(...) {
     setError("reset", "Unknown exception");
   }
+  _resetDone = true;
 }
 
 void
@@ -111,7 +131,6 @@ ensureTraceCollected()
       setError("produce", "Unknown exception");
     }
     _traceCollected = true;
-    reset();
   }
 }
 

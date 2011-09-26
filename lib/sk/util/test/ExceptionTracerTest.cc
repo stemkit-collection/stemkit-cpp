@@ -31,6 +31,7 @@ namespace {
   bool raiseSetupException = false;
   bool raiseResetException = false;
   bool raiseProduceException = false;
+  bool raiseFinalizeException = false;
 
   struct TraceProducer : public virtual sk::util::exception::trace::Producer {
     void setup() {
@@ -49,6 +50,12 @@ namespace {
     void reset() {
       if(raiseResetException == true) {
         throw std::domain_error("reset error");
+      }
+    }
+
+    void finalize() {
+      if(raiseFinalizeException == true) {
+        throw std::domain_error("finalize error");
       }
     }
   };
@@ -98,6 +105,8 @@ test_trace_errors_in_setup()
   raiseSetupException = true;
 
   sk::util::IllegalStateException exception("abcd");
+  exception.finalize();
+
   CPPUNIT_ASSERT_EQUAL("<Error in trace setup: setup error>", exception.getTrace());
   CPPUNIT_ASSERT_EQUAL("Illegal state: abcd\n<Error in trace setup: setup error>", exception.what());
 }
@@ -109,6 +118,8 @@ test_trace_errors_in_reset()
   raiseResetException = true;
 
   sk::util::IllegalStateException exception("abcd");
+  exception.finalize();
+
   CPPUNIT_ASSERT_EQUAL("<sample trace output><Error in trace reset: reset error>", exception.getTrace());
   CPPUNIT_ASSERT_EQUAL("Illegal state: abcd\n<sample trace output><Error in trace reset: reset error>", exception.what());
 }
@@ -120,6 +131,8 @@ test_trace_errors_in_produce()
   raiseProduceException = true;
 
   sk::util::IllegalStateException exception("abcd");
+  exception.finalize();
+
   CPPUNIT_ASSERT_EQUAL("<Error in trace produce: produce error>", exception.getTrace());
   CPPUNIT_ASSERT_EQUAL("Illegal state: abcd\n<Error in trace produce: produce error>", exception.what());
 }

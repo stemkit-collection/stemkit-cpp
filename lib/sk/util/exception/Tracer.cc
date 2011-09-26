@@ -79,3 +79,12 @@ traceWithMessage(const sk::util::String& message) const
   }
   return _reference->traceWithMessage(message);
 }
+
+void 
+sk::util::exception::Tracer::
+finalize() const
+{
+  if(_reference != 0) {
+    _reference->finalize();
+  }
+}

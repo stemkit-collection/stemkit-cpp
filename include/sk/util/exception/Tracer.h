@@ -30,6 +30,7 @@ namespace sk {
 
           const sk::util::String& trace() const;
           const sk::util::String& traceWithMessage(const sk::util::String& message) const;
+          void finalize() const;
 
           static void setProducerFactory(const sk::util::exception::trace::ProducerFactory& factory);
           static void clearProducerFactory();

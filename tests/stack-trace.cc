@@ -8,25 +8,35 @@
  *  Author: Gennady Bystritsky (gennady.bystritsky@quest.com)
 */
 
-#include <iostream>
-#include <iomanip>
-#include <exception>
-#include <string>
-
-#include <sk/util/Strings.h>
+#include <sk/util/String.h>
 #include <sk/util/exception/Tracer.h>
 #include <sk/rt/StackTracerFactory.h>
+
+#include <sk/rt/Scope.h>
+#include <sk/rt/config/InlineLocator.h>
 
 int main(int argc, const char* const argv[])
 {
   sk::util::exception::Tracer::setProducerFactory(sk::rt::StackTracerFactory());
+  sk::rt::Scope::controller().loadXmlConfig(
+    sk::rt::config::InlineLocator(
+      "<scope>\n"
+      "  <log destination='std::cerr' level='notice' show-thread='true' show-time='true' />\n"
+      "  <property name='exception-finalize-core' value='true' />\n"
+      "  <property name='exception-finalize-wait' value='false' />\n"
+      "</scope>\n"
+    )
+  );
+
+  sk::rt::Scope scope("main");
 
   try {
     sk::util::Strings items("abc");
-    std::cerr << items.get(1) << std::endl;
+    scope.info() << items.get(1);
   }
-  catch(const std::exception& exception) {
-    std::cerr << "ERROR: " << exception.what() << std::endl;
+  catch(const sk::util::Exception& exception) {
+    scope.error() << exception.what();
+    exception.finalize();
   }
   return 0;
 }

@@ -30,6 +30,7 @@ namespace sk {
 
           const sk::util::String& trace();
           const sk::util::String& traceWithMessage(const sk::util::String& message);
+          void finalize();
       
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;

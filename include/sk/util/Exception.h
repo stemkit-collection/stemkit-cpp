@@ -27,6 +27,11 @@ namespace sk {
 
         const sk::util::String getMessage() const;
         const sk::util::String getTrace() const;
+        void finalize() const;
+        void exit() const;
+        void exit(int code) const;
+
+        virtual int defaultExitCode() const;
         
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;

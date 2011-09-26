@@ -12,6 +12,7 @@
 #define _SK_RT_STACKTRACER_H_
 
 #include <sk/util/exception/trace/Producer.h>
+#include <sk/rt/Scope.h>
 #include <unistd.h>
 
 namespace sk {
@@ -26,6 +27,7 @@ namespace sk {
         // sk::util::exception::trace::Producer implementation.
         void setup();
         const sk::util::String produceTrace();
+        void finalize();
         void reset();
     
         // sk::util::Object re-implementation.
@@ -35,8 +37,11 @@ namespace sk {
         StackTracer(const StackTracer& other);
         StackTracer& operator = (const StackTracer& other);
 
+        const sk::rt::Scope _scope;
         int _channel;
         pid_t _pid;
+        bool _finalizeCores;
+        bool _finalizeWaits;
     };
   }
 }

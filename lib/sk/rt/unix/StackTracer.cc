@@ -22,13 +22,18 @@
 #include <sys/wait.h>
 #include <fcntl.h>
 #include <signal.h>
+#include <unistd.h>
+#include <stdlib.h>
 
 static const sk::util::String __className("sk::rt::StackTracer");
 
 sk::rt::StackTracer::
 StackTracer()
-  : _pid(-1), _channel(-1)
+  : _scope(__className), _pid(-1), _channel(-1), 
+    _finalizeCores(_scope.getProperty("exception-finalize-core", sk::util::Boolean::B_FALSE)),
+    _finalizeWaits(_scope.getProperty("exception-finalize-wait", sk::util::Boolean::B_FALSE))
 {
+
 }
 
 sk::rt::StackTracer::
@@ -103,6 +108,10 @@ namespace {
     }
   }
 
+  const sk::util::String dumpCoreRequest() {
+    return "dump-core";
+  }
+
 }
 
 void
@@ -127,6 +136,9 @@ setup()
       ::close(fds[1]);
       std::stringstream stream;
       collect_chars_until_eof(fds[0], stream);
+      if(sk::util::String(stream.str()).trim() == dumpCoreRequest()) {
+        ::abort();
+      }
       _exit(0);
     }
     default: {
@@ -196,3 +208,45 @@ produceTrace()
   return stream.str();
 }
 
+void
+sk::rt::StackTracer::
+finalize()
+{
+  if(_pid == -1) {
+    return;
+  }
+
+  pid_t thisPid = ::getpid();
+
+  do {
+    if(_finalizeWaits == true) {
+
+      sk::util::Strings message("Suspending processes");
+      message << sk::util::String::valueOf(thisPid);
+      message << sk::util::String::valueOf(_pid);
+
+      _scope.notice() << message.join(": ");
+
+      while(true) {
+        ::kill(thisPid, SIGSTOP);
+        ::sleep(60);
+      }
+      break;
+    }
+
+    if(_finalizeCores == true) {
+      sk::util::Strings message("Dumping core");
+      message << sk::util::String::valueOf(thisPid);
+      message << sk::util::String::valueOf(_pid);
+
+      _scope.notice() << message.join(": ");
+
+      const sk::util::String request = dumpCoreRequest();
+      ::write(_channel, request.getChars(), request.length());
+
+      break;
+    }
+  } while(false);
+
+  reset();
+}

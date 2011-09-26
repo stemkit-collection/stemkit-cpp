@@ -23,6 +23,7 @@ namespace sk {
           public:
             virtual void setup() = 0;
             virtual const sk::util::String produceTrace() = 0;
+            virtual void finalize() = 0;
             virtual void reset() = 0;
         };
       }

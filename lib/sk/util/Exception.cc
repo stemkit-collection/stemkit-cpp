@@ -13,6 +13,8 @@
 #include <sk/util/Exception.h>
 #include <sk/util/Strings.h>
 
+#include <stdlib.h>
+
 sk::util::Exception::
 Exception(const sk::util::Strings& strings)
   : _message(strings.join(": "))
@@ -56,6 +58,35 @@ sk::util::Exception::
 getTrace() const
 {
   return _tracer.trace();
+}
+
+int
+sk::util::Exception::
+defaultExitCode() const 
+{
+  return 4;
+}
+
+void
+sk::util::Exception::
+exit() const 
+{
+  exit(defaultExitCode());
+}
+
+void 
+sk::util::Exception::
+finalize() const
+{
+  _tracer.finalize();
+}
+
+void 
+sk::util::Exception::
+exit(int code) const
+{
+  finalize();
+  ::exit(code);
 }
 
 const char*
