@@ -25,6 +25,7 @@ namespace sk {
         // sk::util::exception::trace::Producer implementation.
         void setup();
         const sk::util::String produceTrace();
+        void finalize();
         void reset();
     
         // sk::util::Object re-implementation.

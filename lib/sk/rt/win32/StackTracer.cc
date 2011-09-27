@@ -50,6 +50,13 @@ setup()
 
 void 
 sk::rt::StackTracer::
+finalize()
+{
+  generate_unsupported_error();
+}
+
+void 
+sk::rt::StackTracer::
 reset()
 {
   generate_unsupported_error();

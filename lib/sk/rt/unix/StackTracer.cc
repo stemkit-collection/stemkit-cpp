@@ -228,7 +228,9 @@ finalize()
       _scope.notice() << message.join(": ");
 
       while(true) {
+#if defined(SIGSTOP)
         ::kill(thisPid, SIGSTOP);
+#endif
         ::sleep(60);
       }
       break;
