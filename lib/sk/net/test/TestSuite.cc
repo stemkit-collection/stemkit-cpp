@@ -11,7 +11,6 @@
 #include <cppunit/extensions/TestFactoryRegistry.h>
 #include <sk/cppunit/TestRunner.h>
 #include <sk/cppunit/SourcePath.h>
-#include <sk/util/Tracer.h>
 #include <sk/rt/StackTracerFactory.h>
 
 #include <iostream>
@@ -24,8 +23,7 @@ int main(int argc, const char* const argv[])
   if(argc == 2) {
     sk::cppunit::SourcePath::setBase(argv[1]);
   }
-  // sk::rt::StackTracerFactory factory;
-  // sk::util::Tracer::setProducerFactory(factory);
+  // sk::util::Exception::setTraceProducerFactory(sk::rt::StackTracerFactory());
 
   runner.addTest(registry.makeTest());
   return !runner.run();

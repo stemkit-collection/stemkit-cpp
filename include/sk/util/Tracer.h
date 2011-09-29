@@ -23,7 +23,7 @@ namespace sk {
     class Tracer 
     {
       public:
-        Tracer();
+        Tracer(const sk::util::trace::ProducerFactory& factory);
         Tracer(const Tracer& other);
         ~Tracer();
 
@@ -31,9 +31,6 @@ namespace sk {
         const sk::util::String& traceWithMessage(const sk::util::String& message) const;
         void finalize() const;
 
-        static void setProducerFactory(const sk::util::trace::ProducerFactory& factory);
-        static void clearProducerFactory();
-    
       private:
         Tracer& operator = (const Tracer& other);
         trace::ProducerReference* _reference;

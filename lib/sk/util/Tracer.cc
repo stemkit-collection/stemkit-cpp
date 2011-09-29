@@ -12,29 +12,18 @@
 #include <sk/util/trace/ProducerFactory.h>
 #include "trace/ProducerReference.h"
 
-#include <sk/util/Holder.cxx>
-
 namespace {
-  sk::util::Holder<sk::util::trace::ProducerFactory>::Direct __factoryHolder;
-}
-
-void 
-sk::util::Tracer::
-setProducerFactory(const sk::util::trace::ProducerFactory& factory)
-{
-  __factoryHolder.set(sk::util::covariant<sk::util::trace::ProducerFactory>(factory.clone()));
-}
-
-void 
-sk::util::Tracer::
-clearProducerFactory()
-{
-  __factoryHolder.clear();
+  sk::util::trace::ProducerReference* makeProducerReference(sk::util::trace::Producer* producer) {
+    if(producer == 0) {
+      return 0;
+    }
+    return new sk::util::trace::ProducerReference(producer);
+  }
 }
 
 sk::util::Tracer::
-Tracer()
-  : _reference(__factoryHolder.isEmpty() ? 0 : new trace::ProducerReference(__factoryHolder.get().createTraceProducer()))
+Tracer(const sk::util::trace::ProducerFactory& factory)
+  : _reference(makeProducerReference(factory.createTraceProducer()))
 {
   if(_reference != 0) {
     _reference->link();

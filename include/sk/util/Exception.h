@@ -43,6 +43,9 @@ namespace sk {
         template<typename S, typename T, typename TMF>
         static void guard(const S& stream, T& target, TMF method, const char* spot = 0);
         
+        static void setTraceProducerFactory(const sk::util::trace::ProducerFactory& factory);
+        static void clearTraceProducerFactory();
+    
       private:
         const sk::util::String _message;
         const sk::util::Tracer _tracer;

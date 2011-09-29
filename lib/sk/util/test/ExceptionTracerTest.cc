@@ -9,7 +9,6 @@
 */
 
 #include "ExceptionTracerTest.h"
-#include <sk/util/Tracer.h>
 #include <sk/util/trace/Producer.h>
 #include <sk/util/trace/ProducerFactory.h>
 #include <sk/util/IllegalStateException.h>
@@ -75,7 +74,7 @@ void
 sk::util::test::ExceptionTracerTest::
 setUp()
 {
-  sk::util::Tracer::setProducerFactory(TraceProducerFactory());
+  sk::util::Exception::setTraceProducerFactory(TraceProducerFactory());
 
   raiseSetupException = false;
   raiseResetException = false;
@@ -86,7 +85,7 @@ void
 sk::util::test::ExceptionTracerTest::
 tearDown()
 {
-  sk::util::Tracer::clearProducerFactory();
+  sk::util::Exception::clearTraceProducerFactory();
 }
 
 void

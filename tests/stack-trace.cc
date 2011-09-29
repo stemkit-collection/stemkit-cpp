@@ -9,7 +9,6 @@
 */
 
 #include <sk/util/String.h>
-#include <sk/util/Tracer.h>
 #include <sk/rt/StackTracerFactory.h>
 
 #include <sk/rt/Scope.h>
@@ -17,12 +16,12 @@
 
 int main(int argc, const char* const argv[])
 {
-  sk::util::Tracer::setProducerFactory(sk::rt::StackTracerFactory());
+  sk::util::Exception::setTraceProducerFactory(sk::rt::StackTracerFactory());
   sk::rt::Scope::controller().loadXmlConfig(
     sk::rt::config::InlineLocator(
       "<scope>\n"
       "  <log destination='std::cerr' level='notice' show-thread='true' show-time='true' />\n"
-      "  <property name='exception-finalize-core' value='true' />\n"
+      "  <property name='exception-finalize-core' value='false' />\n"
       "  <property name='exception-finalize-wait' value='false' />\n"
       "</scope>\n"
     )
