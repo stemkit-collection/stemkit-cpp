@@ -14,6 +14,10 @@
 #include <sk/rt/Scope.h>
 #include <sk/rt/config/InlineLocator.h>
 
+void showSpot(const sk::rt::Scope& scope) {
+  scope.info("Stack trace").stackTrace();
+}
+
 int main(int argc, const char* const argv[])
 {
   sk::util::Exception::setTraceProducerFactory(sk::rt::StackTracerFactory());
@@ -30,6 +34,8 @@ int main(int argc, const char* const argv[])
   sk::rt::Scope scope("main");
 
   try {
+    showSpot(scope);
+
     sk::util::Strings items("abc");
     scope.info() << items.get(1);
   }

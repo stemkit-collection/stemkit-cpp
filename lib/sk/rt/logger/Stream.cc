@@ -15,6 +15,9 @@
 #include <sk/rt/Time.h>
 #include <sk/rt/ProcessInfo.h>
 
+#include <sk/util/Tracer.h>
+#include <sk/rt/StackTracerFactory.h>
+
 sk::rt::logger::Stream::
 Stream(const sk::util::String& label, const Level& level, const logger::IScope& scope)
   : _stream(0), _label(label), _config(scope.getConfig()), _enabled(_config.checkLogLevel(level)), _level(level), _scope(scope), 
@@ -48,6 +51,16 @@ sk::rt::logger::Stream::
 memory() const
 {
   _memory = true;
+  return *this;
+}
+
+const sk::rt::logger::Stream&
+sk::rt::logger::Stream::
+stackTrace() const
+{
+  if(isEnabled() == true) {
+    getStream() << sk::util::Tracer(sk::rt::StackTracerFactory()).trace();
+  }
   return *this;
 }
 
