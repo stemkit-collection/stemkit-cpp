@@ -9,7 +9,7 @@
 */
 
 #include <sk/util/String.h>
-#include <sk/util/exception/Tracer.h>
+#include <sk/util/Tracer.h>
 #include <sk/rt/StackTracerFactory.h>
 
 #include <sk/rt/Scope.h>
@@ -17,7 +17,7 @@
 
 int main(int argc, const char* const argv[])
 {
-  sk::util::exception::Tracer::setProducerFactory(sk::rt::StackTracerFactory());
+  sk::util::Tracer::setProducerFactory(sk::rt::StackTracerFactory());
   sk::rt::Scope::controller().loadXmlConfig(
     sk::rt::config::InlineLocator(
       "<scope>\n"

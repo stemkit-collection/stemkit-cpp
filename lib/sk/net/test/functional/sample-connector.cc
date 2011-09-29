@@ -12,7 +12,7 @@
 #include <iomanip>
 #include <exception>
 
-#include <sk/util/exception/Tracer.h>
+#include <sk/util/Tracer.h>
 #include <sk/rt/StackTracerFactory.h>
 
 #include <sk/net/Socket.h>
@@ -25,7 +25,7 @@
 int main(int argc, const char* const argv[])
 {
   // sk::rt::StackTracerFactory factory;
-  // sk::util::exception::Tracer::setProducerFactory(factory);
+  // sk::util::Tracer::setProducerFactory(factory);
 
   try { 
     const sk::net::InetSocketAddress endpoint(sk::net::ip4::InetAddress::getLoopbackAddress().resolve(), 8787);

@@ -9,9 +9,9 @@
 */
 
 #include "ExceptionTracerTest.h"
-#include <sk/util/exception/Tracer.h>
-#include <sk/util/exception/trace/Producer.h>
-#include <sk/util/exception/trace/ProducerFactory.h>
+#include <sk/util/Tracer.h>
+#include <sk/util/trace/Producer.h>
+#include <sk/util/trace/ProducerFactory.h>
 #include <sk/util/IllegalStateException.h>
 #include <stdexcept>
 
@@ -33,7 +33,7 @@ namespace {
   bool raiseProduceException = false;
   bool raiseFinalizeException = false;
 
-  struct TraceProducer : public virtual sk::util::exception::trace::Producer {
+  struct TraceProducer : public virtual sk::util::trace::Producer {
     void setup() {
       if(raiseSetupException == true) {
         throw std::domain_error("setup error");
@@ -60,8 +60,8 @@ namespace {
     }
   };
 
-  struct TraceProducerFactory : public virtual sk::util::exception::trace::ProducerFactory {
-    sk::util::exception::trace::Producer* createTraceProducer() const {
+  struct TraceProducerFactory : public virtual sk::util::trace::ProducerFactory {
+    sk::util::trace::Producer* createTraceProducer() const {
       return new TraceProducer();
     }
 
@@ -75,7 +75,7 @@ void
 sk::util::test::ExceptionTracerTest::
 setUp()
 {
-  sk::util::exception::Tracer::setProducerFactory(TraceProducerFactory());
+  sk::util::Tracer::setProducerFactory(TraceProducerFactory());
 
   raiseSetupException = false;
   raiseResetException = false;
@@ -86,7 +86,7 @@ void
 sk::util::test::ExceptionTracerTest::
 tearDown()
 {
-  sk::util::exception::Tracer::clearProducerFactory();
+  sk::util::Tracer::clearProducerFactory();
 }
 
 void

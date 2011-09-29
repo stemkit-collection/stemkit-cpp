@@ -11,20 +11,20 @@
 #ifndef _SK_RT_STACKTRACER_H_
 #define _SK_RT_STACKTRACER_H_
 
-#include <sk/util/exception/trace/Producer.h>
+#include <sk/util/trace/Producer.h>
 #include <sk/rt/Scope.h>
 #include <unistd.h>
 
 namespace sk {
   namespace rt {
     class StackTracer 
-      : public virtual sk::util::exception::trace::Producer
+      : public virtual sk::util::trace::Producer
     {
       public:
         StackTracer();
         virtual ~StackTracer();
 
-        // sk::util::exception::trace::Producer implementation.
+        // sk::util::trace::Producer implementation.
         void setup();
         const sk::util::String produceTrace();
         void finalize();

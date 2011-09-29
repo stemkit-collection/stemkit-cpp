@@ -8,41 +8,41 @@
  *  Author: Gennady Bystritsky (gennady.bystritsky@quest.com)
 */
 
-#include <sk/util/exception/Tracer.h>
-#include <sk/util/Holder.cxx>
-#include <sk/util/exception/trace/ProducerFactory.h>
+#include <sk/util/Tracer.h>
+#include <sk/util/trace/ProducerFactory.h>
+#include "trace/ProducerReference.h"
 
-#include "TraceProducerReference.h"
+#include <sk/util/Holder.cxx>
 
 namespace {
-  sk::util::Holder<sk::util::exception::trace::ProducerFactory>::Direct __factoryHolder;
+  sk::util::Holder<sk::util::trace::ProducerFactory>::Direct __factoryHolder;
 }
 
 void 
-sk::util::exception::Tracer::
-setProducerFactory(const sk::util::exception::trace::ProducerFactory& factory)
+sk::util::Tracer::
+setProducerFactory(const sk::util::trace::ProducerFactory& factory)
 {
-  __factoryHolder.set(sk::util::covariant<sk::util::exception::trace::ProducerFactory>(factory.clone()));
+  __factoryHolder.set(sk::util::covariant<sk::util::trace::ProducerFactory>(factory.clone()));
 }
 
 void 
-sk::util::exception::Tracer::
+sk::util::Tracer::
 clearProducerFactory()
 {
   __factoryHolder.clear();
 }
 
-sk::util::exception::Tracer::
+sk::util::Tracer::
 Tracer()
-  : _reference(__factoryHolder.isEmpty() ? 0 : new TraceProducerReference(__factoryHolder.get().createTraceProducer()))
+  : _reference(__factoryHolder.isEmpty() ? 0 : new trace::ProducerReference(__factoryHolder.get().createTraceProducer()))
 {
   if(_reference != 0) {
     _reference->link();
   }
 }
 
-sk::util::exception::Tracer::
-Tracer(const sk::util::exception::Tracer& other)
+sk::util::Tracer::
+Tracer(const sk::util::Tracer& other)
   : _reference(other._reference)
 {
   if(_reference != 0) {
@@ -50,7 +50,7 @@ Tracer(const sk::util::exception::Tracer& other)
   }
 }
 
-sk::util::exception::Tracer::
+sk::util::Tracer::
 ~Tracer()
 {
   if(_reference != 0) {
@@ -61,7 +61,7 @@ sk::util::exception::Tracer::
 }
 
 const sk::util::String&
-sk::util::exception::Tracer::
+sk::util::Tracer::
 trace() const
 {
   if(_reference == 0) {
@@ -71,7 +71,7 @@ trace() const
 }
 
 const sk::util::String&
-sk::util::exception::Tracer::
+sk::util::Tracer::
 traceWithMessage(const sk::util::String& message) const
 {
   if(_reference == 0) {
@@ -81,7 +81,7 @@ traceWithMessage(const sk::util::String& message) const
 }
 
 void 
-sk::util::exception::Tracer::
+sk::util::Tracer::
 finalize() const
 {
   if(_reference != 0) {

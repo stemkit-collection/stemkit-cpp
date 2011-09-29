@@ -12,12 +12,12 @@
 #include <sk/util/String.h>
 #include <sk/util/Holder.cxx>
 
-#include "TraceProducerReference.h"
+#include "ProducerReference.h"
 
-static const sk::util::String __className("sk::util::exception::TraceProducerReference");
+static const sk::util::String __className("sk::util::ProducerReference");
 
-sk::util::exception::TraceProducerReference::
-TraceProducerReference(sk::util::exception::trace::Producer* producer)
+sk::util::trace::ProducerReference::
+ProducerReference(sk::util::trace::Producer* producer)
   : _producerHolder(producer), _producer(_producerHolder.getMutable()), 
     _links(0), _traceCollected(false), _resetDone(false)
 {
@@ -32,35 +32,35 @@ TraceProducerReference(sk::util::exception::trace::Producer* producer)
   }
 }
 
-sk::util::exception::TraceProducerReference::
-~TraceProducerReference()
+sk::util::trace::ProducerReference::
+~ProducerReference()
 {
   reset();
 }
 
 const sk::util::Class
-sk::util::exception::TraceProducerReference::
+sk::util::trace::ProducerReference::
 getClass() const
 {
   return sk::util::Class(__className);
 }
 
 int
-sk::util::exception::TraceProducerReference::
+sk::util::trace::ProducerReference::
 link()
 {
   return ++_links;
 }
 
 int
-sk::util::exception::TraceProducerReference::
+sk::util::trace::ProducerReference::
 unlink()
 {
   return --_links;
 }
 
 const sk::util::String&
-sk::util::exception::TraceProducerReference::
+sk::util::trace::ProducerReference::
 trace() 
 {
   ensureTraceCollected();
@@ -68,7 +68,7 @@ trace()
 }
 
 const sk::util::String&
-sk::util::exception::TraceProducerReference::
+sk::util::trace::ProducerReference::
 traceWithMessage(const sk::util::String& message) 
 {
   ensureTraceCollected();
@@ -78,7 +78,7 @@ traceWithMessage(const sk::util::String& message)
 }
 
 void 
-sk::util::exception::TraceProducerReference::
+sk::util::trace::ProducerReference::
 finalize()
 {
   if(_resetDone == true) {
@@ -98,7 +98,7 @@ finalize()
 }
 
 void
-sk::util::exception::TraceProducerReference::
+sk::util::trace::ProducerReference::
 reset()
 {
   if(_resetDone == true) {
@@ -117,7 +117,7 @@ reset()
 }
 
 void
-sk::util::exception::TraceProducerReference::
+sk::util::trace::ProducerReference::
 ensureTraceCollected()
 {
   if(_traceCollected == false) {
@@ -135,7 +135,7 @@ ensureTraceCollected()
 }
 
 void 
-sk::util::exception::TraceProducerReference::
+sk::util::trace::ProducerReference::
 setError(const sk::util::String& stage, const sk::util::String& message) 
 {
   _traceCollected = true;
