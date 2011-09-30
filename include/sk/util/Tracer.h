@@ -29,7 +29,7 @@ namespace sk {
 
         const sk::util::String& trace() const;
         const sk::util::String& traceWithMessage(const sk::util::String& message) const;
-        void finalize() const;
+        void finalizeFor(const sk::util::String& scope) const;
 
       private:
         Tracer& operator = (const Tracer& other);

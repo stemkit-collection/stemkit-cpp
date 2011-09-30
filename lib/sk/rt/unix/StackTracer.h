@@ -27,8 +27,8 @@ namespace sk {
         // sk::util::trace::Producer implementation.
         void setup();
         const sk::util::String produceTrace();
-        void finalize();
         void reset();
+        void finalizeFor(const sk::util::String& scope);
     
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
@@ -40,8 +40,6 @@ namespace sk {
         const sk::rt::Scope _scope;
         int _channel;
         pid_t _pid;
-        bool _finalizeCores;
-        bool _finalizeWaits;
     };
   }
 }

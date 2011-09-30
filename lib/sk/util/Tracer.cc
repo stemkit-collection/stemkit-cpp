@@ -71,9 +71,9 @@ traceWithMessage(const sk::util::String& message) const
 
 void 
 sk::util::Tracer::
-finalize() const
+finalizeFor(const sk::util::String& scope) const
 {
   if(_reference != 0) {
-    _reference->finalize();
+    _reference->finalizeFor(scope);
   }
 }

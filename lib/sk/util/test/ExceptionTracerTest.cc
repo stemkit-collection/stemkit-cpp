@@ -52,9 +52,9 @@ namespace {
       }
     }
 
-    void finalize() {
+    void finalizeFor(const sk::util::String& scope) {
       if(raiseFinalizeException == true) {
-        throw std::domain_error("finalize error");
+        throw std::domain_error("finalize for " + scope.inspect() + " error");
       }
     }
   };
@@ -117,6 +117,9 @@ test_trace_errors_in_reset()
   raiseResetException = true;
 
   sk::util::IllegalStateException exception("abcd");
+  CPPUNIT_ASSERT_EQUAL("<sample trace output>", exception.getTrace());
+  CPPUNIT_ASSERT_EQUAL("Illegal state: abcd\n<sample trace output>", exception.what());
+
   exception.finalize();
 
   CPPUNIT_ASSERT_EQUAL("<sample trace output><Error in trace reset: reset error>", exception.getTrace());

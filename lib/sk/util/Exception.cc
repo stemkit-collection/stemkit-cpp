@@ -103,7 +103,7 @@ void
 sk::util::Exception::
 finalize() const
 {
-  _tracer.finalize();
+  _tracer.finalizeFor("exception");
 }
 
 void 

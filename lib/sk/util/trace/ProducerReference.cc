@@ -9,7 +9,7 @@
 */
 
 #include <sk/util/Class.h>
-#include <sk/util/String.h>
+#include <sk/util/Strings.h>
 #include <sk/util/Holder.cxx>
 
 #include "ProducerReference.h"
@@ -79,20 +79,19 @@ traceWithMessage(const sk::util::String& message)
 
 void 
 sk::util::trace::ProducerReference::
-finalize()
+finalizeFor(const sk::util::String& scope)
 {
   if(_resetDone == true) {
     return;
   }
-  ensureTraceCollected();
   try { 
-    _producer.finalize();
+    _producer.finalizeFor(scope);
   }
   catch(const std::exception& exception) {
-    setError("finalize", exception.what());
+    setError("finalizeFor", sk::util::Strings(scope) << exception.what());
   }
   catch(...) {
-    setError("finalize", "Unknown exception");
+    setError("finalizeFor", sk::util::Strings(scope) << "Unknown exception");
   }
   reset();
 }
@@ -136,8 +135,8 @@ ensureTraceCollected()
 
 void 
 sk::util::trace::ProducerReference::
-setError(const sk::util::String& stage, const sk::util::String& message) 
+setError(const sk::util::String& stage, const sk::util::Strings& messages) 
 {
   _traceCollected = true;
-  _trace += "<Error in trace " + stage + ": " + message + ">";
+  _trace += "<Error in trace " + stage + ": " + messages.join(": ") + ">";
 }

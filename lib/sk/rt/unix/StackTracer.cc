@@ -29,9 +29,7 @@ static const sk::util::String __className("sk::rt::StackTracer");
 
 sk::rt::StackTracer::
 StackTracer()
-  : _scope(__className), _pid(-1), _channel(-1), 
-    _finalizeCores(_scope.getProperty("exception-finalize-core", sk::util::Boolean::B_FALSE)),
-    _finalizeWaits(_scope.getProperty("exception-finalize-wait", sk::util::Boolean::B_FALSE))
+  : _scope(__className), _pid(-1), _channel(-1)
 {
 
 }
@@ -210,33 +208,34 @@ produceTrace()
 
 void
 sk::rt::StackTracer::
-finalize()
+finalizeFor(const sk::util::String& scope)
 {
   if(_pid == -1) {
     return;
   }
 
   pid_t thisPid = ::getpid();
+  bool mustCore = _scope.getProperty(scope + "-must-core", sk::util::Boolean::B_FALSE);
+  bool mustWait = _scope.getProperty(scope + "-must-wait", sk::util::Boolean::B_FALSE);
 
   do {
-    if(_finalizeWaits == true) {
-
+    if(mustWait == true) {
       sk::util::Strings message("Suspending processes");
       message << sk::util::String::valueOf(thisPid);
       message << sk::util::String::valueOf(_pid);
 
       _scope.notice() << message.join(": ");
 
-      while(true) {
 #if defined(SIGSTOP)
-        ::kill(thisPid, SIGSTOP);
-#endif
+      ::kill(thisPid, SIGSTOP);
+#else
+      while(true) {
         ::sleep(60);
       }
-      break;
+#endif
     }
 
-    if(_finalizeCores == true) {
+    if(mustCore == true) {
       sk::util::Strings message("Dumping core");
       message << sk::util::String::valueOf(thisPid);
       message << sk::util::String::valueOf(_pid);

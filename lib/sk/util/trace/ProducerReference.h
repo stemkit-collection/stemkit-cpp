@@ -30,7 +30,7 @@ namespace sk {
 
           const sk::util::String& trace();
           const sk::util::String& traceWithMessage(const sk::util::String& message);
-          void finalize();
+          void finalizeFor(const sk::util::String& scope);
       
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
@@ -40,7 +40,7 @@ namespace sk {
           ProducerReference& operator = (const ProducerReference& other);
 
           void ensureTraceCollected();
-          void setError(const sk::util::String& stage, const sk::util::String& message);
+          void setError(const sk::util::String& stage, const sk::util::Strings& messages);
           void reset();
 
           sk::util::Holder<sk::util::trace::Producer>::Direct _producerHolder;

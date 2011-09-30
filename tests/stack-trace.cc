@@ -25,8 +25,8 @@ int main(int argc, const char* const argv[])
     sk::rt::config::InlineLocator(
       "<scope>\n"
       "  <log destination='std::cerr' level='notice' show-thread='true' show-time='true' />\n"
-      "  <property name='exception-finalize-core' value='false' />\n"
-      "  <property name='exception-finalize-wait' value='false' />\n"
+      "  <property name='exception-must-core' value='true' />\n"
+      "  <property name='exception-must-wait' value='true' />\n"
       "</scope>\n"
     )
   );
