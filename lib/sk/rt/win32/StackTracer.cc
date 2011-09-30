@@ -50,7 +50,7 @@ setup()
 
 void 
 sk::rt::StackTracer::
-finalize()
+finalizeFor(const sk::util::String& scope)
 {
   generate_unsupported_error();
 }
