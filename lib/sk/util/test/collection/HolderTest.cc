@@ -10,7 +10,7 @@
 #include <sk/util/Holder.cxx>
 #include <sk/util/MissingResourceException.h>
 #include <sk/util/UnsupportedOperationException.h>
-#include <sk/util/test/Probe.cxx>
+#include <sk/util/test/Probe.hxx>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::util::test::HolderTest);
 
