@@ -14,7 +14,7 @@
 #include <sk/util/Object.h>
 #include <sk/util/String.h>
 
-#include <sk/C/handle_provider.cxx>
+#include <sk/C/handle_provider.hxx>
 #include <sk/C/test/c_probe.h>
 
 namespace sk {

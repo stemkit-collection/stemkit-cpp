@@ -15,6 +15,8 @@
 #include <sk/C/test/Probe.h>
 #include "c_probe_implementation.h"
 
+template class sk::C::handle_provider<sk::C::test::Probe, sk_c_test_ProbeHandle>;
+
 static const sk::util::String __className("sk::C::test::Probe");
 int sk::C::test::Probe::__instanceCounter = 0;
 
