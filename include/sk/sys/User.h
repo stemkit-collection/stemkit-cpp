@@ -30,13 +30,15 @@ namespace sk {
         const sk::util::String getComment() const;
         const sk::util::String getHome() const;
         const sk::util::String getShell() const;
-        int getUid() const;
-        int getGid() const;
+        uint32_t getUid() const;
+        uint32_t getGid() const;
         bool authenticate(const sk::util::String& password) const;
         
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
         
+        static const User find(const uint32_t uid);
+        static bool find(const uint32_t uid, sk::util::Holder<sk::sys::User>& holder);
         static const User find(const sk::util::String& name);
         static bool find(const sk::util::String& name, sk::util::Holder<sk::sys::User>& holder);
         static void forEach(const sk::util::Processor<const sk::sys::User>& processor);
@@ -46,12 +48,12 @@ namespace sk {
         User& operator = (const User& other);
 
         const sk::rt::Scope _scope;
-        sk::util::String _name;
-        sk::util::String _home;
-        sk::util::String _shell;
-        sk::util::String _comment;
-        int _uid;
-        int _gid;
+        const sk::util::String _name;
+        const sk::util::String _home;
+        const sk::util::String _shell;
+        const sk::util::String _comment;
+        const uint32_t _uid;
+        const uint32_t _gid;
     };
   }
 }

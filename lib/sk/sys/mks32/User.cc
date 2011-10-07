@@ -117,6 +117,7 @@ find(const sk::util::String& name, sk::util::Holder<sk::sys::User>& holder)
     return false;
   }
   holder.set(new sk::sys::User(*pwd));
+  return true;
 }
 
 void

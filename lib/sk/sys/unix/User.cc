@@ -69,20 +69,19 @@ getShell() const
   return _shell;
 }
 
-int
+uint32_t
 sk::sys::User::
 getUid() const
 {
   return _uid;
 }
 
-int 
+uint32_t
 sk::sys::User::
 getGid() const
 {
   return _gid;
 }
-
 
 namespace {
   struct Authenticator : public sk::sys::AbstractProcessListener {
@@ -142,19 +141,27 @@ authenticate(const sk::util::String& password) const
   return process.isSuccess();
 }
 
-namespace {
-  struct NameComparator : public virtual sk::util::Processor<const sk::sys::User> {
-    NameComparator(const sk::util::String& name, sk::util::Holder<sk::sys::User>& holder)
-      : _name(name), _holder(holder) {}
+const sk::sys::User
+sk::sys::User::
+find(const uint32_t uid)
+{
+  sk::util::Holder<sk::sys::User> holder;
+  if(find(uid, holder) == true) {
+    return holder.get();
+  }
+  throw sk::util::MissingResourceException("User", sk::util::String::valueOf(uid));
+}
 
-    void process(const sk::sys::User& user) const {
-      if(user.getName() == _name) {
-        _holder.set(new sk::sys::User(user));
-      }
-    }
-    const sk::util::String& _name;
-    sk::util::Holder<sk::sys::User>& _holder;
-  };
+bool
+sk::sys::User::
+find(const uint32_t uid, sk::util::Holder<sk::sys::User>& holder)
+{
+  const struct passwd* pwd = getpwuid(uid);
+  if(pwd == 0) {
+    return false;
+  }
+  holder.set(new sk::sys::User(*pwd));
+  return true;
 }
 
 const sk::sys::User
@@ -165,15 +172,19 @@ find(const sk::util::String& name)
   if(find(name, holder) == true) {
     return holder.get();
   }
-  throw sk::util::MissingResourceException(name);
+  throw sk::util::MissingResourceException("User", name);
 }
 
 bool
 sk::sys::User::
 find(const sk::util::String& name, sk::util::Holder<sk::sys::User>& holder)
 {
-  forEach(NameComparator(name, holder));
-  return holder.isEmpty() == false;
+  const struct passwd* pwd = getpwnam(name.getChars());
+  if(pwd == 0) {
+    return false;
+  }
+  holder.set(new sk::sys::User(*pwd));
+  return true;
 }
 
 void
