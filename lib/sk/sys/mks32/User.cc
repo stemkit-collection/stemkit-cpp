@@ -76,14 +76,14 @@ getShell() const
   return _shell;
 }
 
-int
+uint32_t
 sk::sys::User::
 getUid() const
 {
   return _uid;
 }
 
-int 
+uint32_t 
 sk::sys::User::
 getGid() const
 {
@@ -99,13 +99,36 @@ authenticate(const sk::util::String& password) const
 
 const sk::sys::User
 sk::sys::User::
+find(const uint32_t uid)
+{
+  sk::util::Holder<sk::sys::User> holder;
+  if(find(uid, holder) == true) {
+    return holder.get();
+  }
+  throw sk::util::MissingResourceException("User", sk::util::String::valueOf(uid));
+}
+
+bool
+sk::sys::User::
+find(const uint32_t uid, sk::util::Holder<sk::sys::User>& holder)
+{
+  const struct passwd* pwd = getpwuid(uid);
+  if(pwd == 0) {
+    return false;
+  }
+  holder.set(new sk::sys::User(*pwd));
+  return true;
+}
+
+const sk::sys::User
+sk::sys::User::
 find(const sk::util::String& name)
 {
   sk::util::Holder<sk::sys::User> holder;
   if(find(name, holder) == true) {
     return holder.get();
   }
-  throw sk::util::MissingResourceException(name);
+  throw sk::util::MissingResourceException("User", name);
 }
 
 bool
