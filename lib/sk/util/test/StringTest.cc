@@ -266,18 +266,20 @@ testSubstring()
 {
   String s("aaabbbccc");
 
-  CPPUNIT_ASSERT_EQUAL(String("bccc").inspect(), s.substring(5).inspect());
-  CPPUNIT_ASSERT_EQUAL(String("").inspect(), s.substring(9).inspect());
-  CPPUNIT_ASSERT_EQUAL(String("aaabbbccc").inspect(), s.substring(0).inspect());
+  CPPUNIT_ASSERT_EQUAL("bccc", s.substring(5));
+  CPPUNIT_ASSERT_EQUAL("", s.substring(9));
+  CPPUNIT_ASSERT_EQUAL("aaabbbccc", s.substring(0));
   CPPUNIT_ASSERT_THROW(s.substring(-1), sk::util::IndexOutOfBoundsException);
-
   CPPUNIT_ASSERT_THROW(s.substring(10), sk::util::IndexOutOfBoundsException);
 
-  CPPUNIT_ASSERT_EQUAL(String("aaab").inspect(), s.substring(0, 4).inspect());
-  CPPUNIT_ASSERT_EQUAL(String("abbbc").inspect(), s.substring(2, 7).inspect());
-  CPPUNIT_ASSERT_EQUAL(String("bccc").inspect(), s.substring(5, 9).inspect());
-  CPPUNIT_ASSERT_EQUAL(String("aaabbbccc").inspect(), s.substring(0, 9).inspect());
-  CPPUNIT_ASSERT_EQUAL(String("").inspect(), s.substring(5, 5).inspect());
+  CPPUNIT_ASSERT_EQUAL("aaab", s.substring(0, 4));
+  CPPUNIT_ASSERT_EQUAL("abbbc", s.substring(2, 7));
+  CPPUNIT_ASSERT_EQUAL("bccc", s.substring(5, 9));
+  CPPUNIT_ASSERT_EQUAL("aaabbbccc", s.substring(0, 9));
+  CPPUNIT_ASSERT_EQUAL("", s.substring(5, 5));
+
+  CPPUNIT_ASSERT_EQUAL("bbbccc", s.substring(3, -1));
+  CPPUNIT_ASSERT_EQUAL("bbbcc", s.substring(3, -2));
 
   CPPUNIT_ASSERT_THROW(s.substring(-1, 5), sk::util::IndexOutOfBoundsException);
   CPPUNIT_ASSERT_THROW(s.substring(2, 10), sk::util::IndexOutOfBoundsException);

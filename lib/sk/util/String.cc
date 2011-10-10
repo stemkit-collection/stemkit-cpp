@@ -328,6 +328,9 @@ const sk::util::String
 sk::util::String::
 substring(int beginIndex, int endIndex) const
 {
+  if(endIndex < 0) {
+    endIndex += (size() + 1);
+  }
   if(beginIndex < 0 || endIndex > size() || beginIndex > endIndex) {
     throw IndexOutOfBoundsException("substring()");
   }
