@@ -24,7 +24,7 @@ static const char* __className("sk::sys::User");
 
 sk::sys::User::
 User(const struct passwd& entry)
-  : _scope(*this)
+  : _scope(*this), _uid(0), _gid(0)
 {
   throw sk::util::UnsupportedOperationException(SK_METHOD);
 }
@@ -69,14 +69,14 @@ getShell() const
   throw sk::util::UnsupportedOperationException(SK_METHOD);
 }
 
-int
+uint32_t
 sk::sys::User::
 getUid() const
 {
   throw sk::util::UnsupportedOperationException(SK_METHOD);
 }
 
-int 
+uint32_t
 sk::sys::User::
 getGid() const
 {
