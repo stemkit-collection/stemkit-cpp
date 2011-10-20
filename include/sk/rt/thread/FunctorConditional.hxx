@@ -21,7 +21,7 @@ namespace sk {
       class FunctorConditional : public virtual sk::rt::thread::Conditional
       {
         public:
-          FunctorConditional(const F& functor, P1 p1, P2 p2, P3 p3)
+          FunctorConditional(F& functor, P1 p1, P2 p2, P3 p3)
             : _callable(functor, p1, p2, p3) {}
 
           void process(sk::rt::thread::Condition& condition) const {
@@ -36,7 +36,7 @@ namespace sk {
       class FunctorConditional<F, P1, P2, void> : public virtual sk::rt::thread::Conditional
       {
         public:
-          FunctorConditional(const F& functor, P1 p1, P2 p2)
+          FunctorConditional(F& functor, P1 p1, P2 p2)
             : _callable(functor, p1, p2) {}
 
           void process(sk::rt::thread::Condition& condition) const {
@@ -51,7 +51,7 @@ namespace sk {
       class FunctorConditional<F, P1, void, void> : public virtual sk::rt::thread::Conditional
       {
         public:
-          FunctorConditional(const F& functor, P1 p1)
+          FunctorConditional(F& functor, P1 p1)
             : _callable(functor, p1) {}
 
           void process(sk::rt::thread::Condition& condition) const {
@@ -66,7 +66,7 @@ namespace sk {
       class FunctorConditional<F, void, void, void> : public virtual sk::rt::thread::Conditional
       {
         public:
-          FunctorConditional(const F& functor)
+          FunctorConditional(F& functor)
             : _callable(functor) {}
 
           void process(sk::rt::thread::Condition& condition) const {

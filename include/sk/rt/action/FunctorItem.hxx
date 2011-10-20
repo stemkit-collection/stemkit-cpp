@@ -21,7 +21,7 @@ namespace sk {
       class FunctorItem : public virtual sk::rt::action::Item
       {
         public:
-          FunctorItem(const sk::util::String& label, const F& functor, P1 p1, P2 p2, P3 p3)
+          FunctorItem(const sk::util::String& label, F& functor, P1 p1, P2 p2, P3 p3)
             : Item(label), _callable(functor, p1, p2, p3) {}
 
           void invoke() const {
@@ -36,7 +36,7 @@ namespace sk {
       class FunctorItem<F, P1, P2, void> : public virtual sk::rt::action::Item
       {
         public:
-          FunctorItem(const sk::util::String& label, const F& functor, P1 p1, P2 p2)
+          FunctorItem(const sk::util::String& label, F& functor, P1 p1, P2 p2)
             : Item(label), _callable(functor, p1, p2) {}
 
           void invoke() const {
@@ -51,7 +51,7 @@ namespace sk {
       class FunctorItem<F, P1, void, void> : public virtual sk::rt::action::Item
       {
         public:
-          FunctorItem(const sk::util::String& label, const F& functor, P1 p1)
+          FunctorItem(const sk::util::String& label, F& functor, P1 p1)
             : Item(label), _callable(functor, p1) {}
 
           void invoke() const {
@@ -66,7 +66,7 @@ namespace sk {
       class FunctorItem<F, void, void, void> : public virtual sk::rt::action::Item
       {
         public:
-          FunctorItem(const sk::util::String& label, const F& functor)
+          FunctorItem(const sk::util::String& label, F& functor)
             : Item(label), _callable(functor) {}
 
           void invoke() const {
