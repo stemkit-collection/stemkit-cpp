@@ -18,31 +18,31 @@ namespace ruby {
       LoggerAdaptor(const sk::rt::Scope& scope)
         : _scope(scope) {}
 
-      bool error(const sk::util::String& message) const {
+      bool logError(const sk::util::String& message) const {
         return (_scope.error() << message).isEnabled();
       }
       
-      bool stat(const sk::util::String& message) const {
+      bool logStat(const sk::util::String& message) const {
         return (_scope.stat() << message).isEnabled();
       }
       
-      bool warning(const sk::util::String& message) const {
+      bool logWarning(const sk::util::String& message) const {
         return (_scope.warning() << message).isEnabled();
       }
 
-      bool notice(const sk::util::String& message) const {
+      bool logNotice(const sk::util::String& message) const {
         return (_scope.notice() << message).isEnabled();
       }
 
-      bool info(const sk::util::String& message) const {
+      bool logInfo(const sk::util::String& message) const {
         return (_scope.info() << message).isEnabled();
       }
 
-      bool debug(const sk::util::String& message) const {
+      bool logDebug(const sk::util::String& message) const {
         return (_scope.debug() << message).isEnabled();
       }
 
-      bool detail(const sk::util::String& message) const {
+      bool logDetail(const sk::util::String& message) const {
         return (_scope.detail() << message).isEnabled();
       }
 
