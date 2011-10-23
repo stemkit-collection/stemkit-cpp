@@ -6,4 +6,4 @@ case "${1}" in
   ;;
 esac
 
-irb -I ${JAM_SRCDIR}/.. -I .. -r sk/rt/scope.rb
+irb -I "${PATH}" -I "${JAM_SRCDIR:?}/.." -I .. -r "sk/rt" -r "sk/rt/scope.rb"
