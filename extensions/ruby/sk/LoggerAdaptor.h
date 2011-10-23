@@ -18,6 +18,34 @@ namespace ruby {
       LoggerAdaptor(const sk::rt::Scope& scope)
         : _scope(scope) {}
 
+      bool isError() const {
+        return _scope.error().isEnabled();
+      }
+      
+      bool isStat() const {
+        return _scope.stat().isEnabled();
+      }
+      
+      bool isWarning() const {
+        return _scope.warning().isEnabled();
+      }
+
+      bool isInfo() const {
+        return _scope.info().isEnabled();
+      }
+
+      bool isNotice() const {
+        return _scope.notice().isEnabled();
+      }
+
+      bool isDetail() const {
+        return _scope.detail().isEnabled();
+      }
+
+      bool isDebug() const {
+        return _scope.debug().isEnabled();
+      }
+
       bool logError(const sk::util::String& message) const {
         return (_scope.error() << message).isEnabled();
       }
@@ -30,20 +58,20 @@ namespace ruby {
         return (_scope.warning() << message).isEnabled();
       }
 
-      bool logNotice(const sk::util::String& message) const {
-        return (_scope.notice() << message).isEnabled();
-      }
-
       bool logInfo(const sk::util::String& message) const {
         return (_scope.info() << message).isEnabled();
       }
 
-      bool logDebug(const sk::util::String& message) const {
-        return (_scope.debug() << message).isEnabled();
+      bool logNotice(const sk::util::String& message) const {
+        return (_scope.notice() << message).isEnabled();
       }
 
       bool logDetail(const sk::util::String& message) const {
         return (_scope.detail() << message).isEnabled();
+      }
+
+      bool logDebug(const sk::util::String& message) const {
+        return (_scope.debug() << message).isEnabled();
       }
 
     private:
