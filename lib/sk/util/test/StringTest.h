@@ -45,6 +45,7 @@ namespace sk {
           CPPUNIT_TEST(testCompareOperators);
           CPPUNIT_TEST(testReverseCompareOperators);
           CPPUNIT_TEST(testSplit);
+          CPPUNIT_TEST(testWhitespaceSplit);
         CPPUNIT_TEST_SUITE_END();
         
         public:
@@ -80,6 +81,7 @@ namespace sk {
           void testCompareOperators();
           void testReverseCompareOperators();
           void testSplit();
+          void testWhitespaceSplit();
           
         private:
           StringTest(const StringTest& other);

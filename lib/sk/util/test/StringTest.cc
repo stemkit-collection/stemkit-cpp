@@ -459,3 +459,15 @@ testSplit()
   CPPUNIT_ASSERT_EQUAL("bbb", data.get(1));
   CPPUNIT_ASSERT_EQUAL("ccc", data.get(2));
 }
+
+void
+sk::util::test::StringTest::
+testWhitespaceSplit()
+{
+  sk::util::Strings data = sk::util::String("     aaa   \tbbb ccc  ").split();
+
+  CPPUNIT_ASSERT_EQUAL(3, data.size());
+  CPPUNIT_ASSERT_EQUAL("aaa", data.get(0));
+  CPPUNIT_ASSERT_EQUAL("bbb", data.get(1));
+  CPPUNIT_ASSERT_EQUAL("ccc", data.get(2));
+}
