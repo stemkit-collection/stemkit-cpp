@@ -20,13 +20,9 @@
 
 const sk::util::String sk::util::String::EMPTY;
 
-static const sk::util::String __className("sk::util::String");
-
 namespace {
-  inline const sk::util::String& whitespace() {
-    static const sk::util::String whitespace(" \t\r\n\b\f");
-    return whitespace;
-  }
+  const sk::util::String __className("sk::util::String");
+  const sk::util::String __whitespace(" \t\r\n\b\f");
 }
 
 sk::util::String::
@@ -155,9 +151,9 @@ const sk::util::String
 sk::util::String::
 trim() const
 {
-  std::string::size_type start = find_first_not_of(whitespace());
+  const std::string::size_type start = find_first_not_of(__whitespace);
   if(start != std::string::npos) {
-    std::string::size_type end = find_last_not_of(whitespace());
+    const std::string::size_type end = find_last_not_of(__whitespace);
     return substr(start, end == std::string::npos ? end : end - start + 1);
   }
   return "";
@@ -548,7 +544,7 @@ const sk::util::Strings
 sk::util::String::
 split() const
 {
-  return split(whitespace());
+  return split(__whitespace);
 }
 
 const sk::util::String operator + (const sk::util::String& s1, const sk::util::String& s2)
