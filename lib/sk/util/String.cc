@@ -519,32 +519,59 @@ times(int multiplier) const
   return result;
 }
 
+namespace {
+  const sk::util::Strings sliceEachChar(const sk::util::String& item) {
+    sk::util::Strings result;
+    for(std::string::const_iterator iterator = item.begin(); iterator != item.end(); ++iterator) {
+      result << sk::util::String(*iterator);
+    }
+    return result;
+  }
+
+  const sk::util::Strings sliceSeparator(const sk::util::String& item, const sk::util::String& separator, const bool squeeze) {
+    sk::util::Strings result;
+    if(item.isEmpty() == true) {
+      return result;
+    }
+    std::string::size_type head_index = 0;
+    while(true) {
+      if(squeeze == true) {
+        head_index = item.find_first_not_of(separator, head_index);
+        if(head_index == std::string::npos) {
+          break;
+        }
+      }
+      const std::string::size_type tail_index = item.find_first_of(separator, head_index);
+      if(tail_index == std::string::npos) {
+        result << item.substr(head_index);
+        break;
+      } 
+      result << item.substr(head_index, tail_index - head_index);
+      head_index = tail_index + 1;
+    }
+    return result;
+  }
+}
+
 const sk::util::Strings
 sk::util::String::
 split(const sk::util::String& separator) const
 {
-  sk::util::Strings result;
-  if(isEmpty() == true) {
-    return result;
+  const int separator_size = separator.size();
+  if(separator_size == 0) {
+    return sliceEachChar(*this);
   }
-  std::string::size_type head_index = 0;
-  while(true) {
-    const std::string::size_type tail_index = find_first_of(separator, head_index);
-    if(tail_index == std::string::npos) {
-      result << substr(head_index);
-      break;
-    } 
-    result << substr(head_index, tail_index - head_index);
-    head_index = tail_index + 1;
+  if(separator_size == 1 && separator.charAt(0) == ' ') {
+    return split();
   }
-  return result;
+  return sliceSeparator(*this, separator, false);
 }
 
 const sk::util::Strings
 sk::util::String::
 split() const
 {
-  return split(__whitespace);
+  return sliceSeparator(*this, __whitespace, true);
 }
 
 const sk::util::String operator + (const sk::util::String& s1, const sk::util::String& s2)
