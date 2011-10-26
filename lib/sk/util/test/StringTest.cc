@@ -452,8 +452,7 @@ void
 sk::util::test::StringTest::
 testSplit()
 {
-  sk::util::Strings data;
-  data = sk::util::String("aaa bbb ccc").split();
+  sk::util::Strings data = sk::util::String("aaa:bbb:ccc").split(":");
 
   CPPUNIT_ASSERT_EQUAL(3, data.size());
   CPPUNIT_ASSERT_EQUAL("aaa", data.get(0));
