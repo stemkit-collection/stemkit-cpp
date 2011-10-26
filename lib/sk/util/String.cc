@@ -177,7 +177,7 @@ bool
 sk::util::String::
 endsWith(const sk::util::String& suffix) const
 {
-  int offset = length() - suffix.length();
+  const int offset = length() - suffix.length();
   return offset >= 0 && lastIndexOf(suffix) == offset;
 }
 
@@ -185,7 +185,7 @@ bool
 sk::util::String::
 endsWithIgnoreCase(const sk::util::String& suffix) const
 {
-  int offset = length() - suffix.length();
+  const int offset = length() - suffix.length();
   return offset >= 0 && lastIndexOfIgnoreCase(suffix) == offset;
 }
 
@@ -236,7 +236,7 @@ namespace {
     bool operator()(char c1, char c2) const {
       return c1 == c2 && c1 == _character;
     }
-    char _character;
+    const char _character;
   };
 }
 
@@ -254,7 +254,7 @@ int
 sk::util::String::
 indexOf(char character) const
 {
-  size_type pos = std::string::find_first_of(character);
+  const size_type pos = std::string::find_first_of(character);
   if(pos == std::string::npos) {
     return -1;
   }
@@ -265,12 +265,12 @@ int
 sk::util::String::
 indexOfIgnoreCase(char character) const
 {
-  char targets[] = {
+  const char targets[] = {
     toupper(character),
     tolower(character),
     0
   };
-  size_type pos = std::string::find_first_of(targets);
+  const size_type pos = std::string::find_first_of(targets);
   if(pos == std::string::npos) {
     return -1;
   }
@@ -281,7 +281,7 @@ int
 sk::util::String::
 lastIndexOf(char character) const
 {
-  size_type pos = std::string::find_last_of(character);
+  const size_type pos = std::string::find_last_of(character);
   if(pos == std::string::npos) {
     return -1;
   }
@@ -292,12 +292,12 @@ int
 sk::util::String::
 lastIndexOfIgnoreCase(char character) const
 {
-  char targets[] = {
+  const char targets[] = {
     toupper(character),
     tolower(character),
     0
   };
-  size_type pos = std::string::find_last_of(targets);
+  const size_type pos = std::string::find_last_of(targets);
   if(pos == std::string::npos) {
     return -1;
   }
@@ -379,8 +379,8 @@ namespace {
     char operator()(char current) {
       return current == _oldChar ? _newChar : current;
     }
-    char _oldChar;
-    char _newChar;
+    const char _oldChar;
+    const char _newChar;
   };
 }
 
@@ -430,11 +430,11 @@ int
 sk::util::String::
 indexOf(const sk::util::String& other) const
 {
-  int other_size = other.size();
+  const int other_size = other.size();
   if(other_size == 0) {
     return 0;
   }
-  int delta = size() - other_size;
+  const int delta = size() - other_size;
   for(int index=0; index <= delta ;++index) {
     if(compare(index, other_size, other) == 0) {
       return index;
@@ -447,11 +447,11 @@ int
 sk::util::String::
 indexOfIgnoreCase(const sk::util::String& other) const
 {
-  int other_size = other.size();
+  const int other_size = other.size();
   if(other_size == 0) {
     return 0;
   }
-  int delta = size() - other_size;
+  const int delta = size() - other_size;
   for(int index=0; index <= delta ;++index) {
     if(std::equal(begin() + index, begin() + index + other_size, other.begin(), compareCharsIgnoreCase) == true) {
       return index;
@@ -464,11 +464,11 @@ int
 sk::util::String::
 lastIndexOf(const sk::util::String& other) const
 {
-  int other_size = other.size();
+  const int other_size = other.size();
   if(other_size == 0) {
     return size();
   }
-  int delta = size() - other_size;
+  const int delta = size() - other_size;
   for(int index=delta; index >= 0 ;--index) {
     if(compare(index, other_size, other) == 0) {
       return index;
@@ -481,11 +481,11 @@ int
 sk::util::String::
 lastIndexOfIgnoreCase(const sk::util::String& other) const
 {
-  int other_size = other.size();
+  const int other_size = other.size();
   if(other_size == 0) {
     return 0;
   }
-  int delta = size() - other_size;
+  const int delta = size() - other_size;
   for(int index=delta; index >= 0 ;--index) {
     if(std::equal(begin() + index, begin() + index + other_size, other.begin(), compareCharsIgnoreCase) == true) {
       return index;
@@ -529,7 +529,7 @@ split(const sk::util::String& separator) const
   }
   std::string::size_type head_index = 0;
   while(true) {
-    std::string::size_type tail_index = find_first_of(separator, head_index);
+    const std::string::size_type tail_index = find_first_of(separator, head_index);
     if(tail_index == std::string::npos) {
       result << substr(head_index);
       break;
@@ -763,6 +763,6 @@ operator>=(const char* other) const
 std::ostream& 
 sk::util::operator<<(std::ostream& stream, const sk::util::String& object) 
 {
-  std::string s = object;
+  const std::string s = object;
   return stream << s;
 }
