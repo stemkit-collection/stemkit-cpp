@@ -3,3 +3,4 @@
 - Implement exception stack trace for native Windows.
 - Fix sk::util:pp library to produce results much faster (too slow now).
 - Make it possible to specify config files in YAML
+- IPv6 support for sk::net.
