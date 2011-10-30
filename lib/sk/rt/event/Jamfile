@@ -1,0 +1,10 @@
+# vim: ft=jam: sw=2:
+
+local library = sk.rt.event ;
+
+local objects = 
+  Dispatcher.cc
+  ../Event.cc
+;
+
+make-shared-library $(library) : $(objects) ;

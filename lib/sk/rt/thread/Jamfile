@@ -1,4 +1,4 @@
-# vim:sw=2:
+# vim: ft=jam: sw=2:
 
 local library = sk.rt.thread ;
 
