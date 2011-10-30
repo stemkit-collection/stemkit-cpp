@@ -1,27 +1,5 @@
-- Refactor sk::io::FileDescriptor to remove code duplication (in condition
-  checks).
-
-- Implement sk::util::ArrayList.
-
-- Implement sk::io::FileInputStream, sk::io::FileOutputStream.
-
-- Implement sk::sys::TrashDisposer
-
-- Implement sk::sys::Tracer
-
-- Implement sk::sys::Configurator
-
-- Add an IO class for handling pipes.
-
-- Add an IO class for handling processes.
-
-- Add ability for Exception to print out the execution stack. It must be
-  configurable, as there will be noticable performace penalty for using this
-  feature. In exception, a process must be spawned , however it should be
-  qureied only by a request of an interested party.
-
-- Socket library.
-
-- Thread library.
-
-
+[2011-10-29] 
+- Introduce signal/event handing facility.
+- Implement exception stack trace for native Windows.
+- Fix sk::util:pp library to produce results much faster (too slow now).
+- Make it possible to specify config files in YAML
