@@ -8,12 +8,17 @@
  *  Author: Gennady Bystritsky <bystr@mac.com>
 */
 
+#include <sk/rt/Event.h>
+#include <sk/rt/event/Dispatcher.h>
+
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
+#include <sk/util/Holder.cxx>
 
-#include <sk/rt/Event.h>
-
-static const sk::util::String __className("sk::rt::Event");
+namespace {
+  const sk::util::String __className("sk::rt::Event");
+  sk::util::Holder<sk::rt::event::Dispatcher> __dispatcherHolder;
+}
 
 sk::rt::Event::
 Event()
@@ -30,4 +35,29 @@ sk::rt::Event::
 getClass() const
 {
   return sk::util::Class(__className);
+}
+
+void 
+sk::rt::Event::
+setup()
+{
+  if(__dispatcherHolder.isEmpty() == true) {
+    __dispatcherHolder.set(new sk::rt::event::Dispatcher);
+  }
+}
+
+void 
+sk::rt::Event::
+reset()
+{
+  __dispatcherHolder.clear();
+}
+
+sk::rt::event::Dispatcher& 
+sk::rt::Event::
+dispatcher()
+{
+  setup();
+
+  return __dispatcherHolder.getMutable();
 }

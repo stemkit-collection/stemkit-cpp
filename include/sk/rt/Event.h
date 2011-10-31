@@ -12,6 +12,7 @@
 #define _SK_RT_EVENT_H_
 
 #include <sk/util/Object.h>
+#include <sk/rt/event/content.h>
 
 namespace sk {
   namespace rt {
@@ -21,6 +22,10 @@ namespace sk {
       public:
         Event();
         virtual ~Event();
+
+        static void setup();
+        static void reset();
+        static sk::rt::event::Dispatcher& dispatcher();
     
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
