@@ -8,13 +8,13 @@
  *  Author: Gennady Bystritsky <bystr@mac.com>
 */
 
-#ifndef _SK_RT_EVENT_DISPATCHER_H_
-#define _SK_RT_EVENT_DISPATCHER_H_
+#ifndef _SK_SYS_EVENT_DISPATCHER_H_
+#define _SK_SYS_EVENT_DISPATCHER_H_
 
 #include <sk/util/Object.h>
 
 namespace sk {
-  namespace rt {
+  namespace sys {
     class Event;
 
     namespace event {
@@ -27,10 +27,10 @@ namespace sk {
           Dispatcher();
           virtual ~Dispatcher();
 
-          void addEventObserver(const sk::rt::Event& event, const sk::rt::event::Observer& observer);
-          void removeEventObserver(const sk::rt::Event& event, const sk::rt::event::Observer& observer);
-          void removeEventObservers(const sk::rt::Event& event);
-          void removeEventsObserver(const sk::rt::event::Observer& observer);
+          void addEventObserver(const sk::sys::Event& event, const sk::sys::event::Observer& observer);
+          void removeEventObserver(const sk::sys::Event& event, const sk::sys::event::Observer& observer);
+          void removeEventObservers(const sk::sys::Event& event);
+          void removeEventsObserver(const sk::sys::event::Observer& observer);
           void clear();
 
           void listenAndDispatch();
@@ -46,4 +46,4 @@ namespace sk {
   }
 }
 
-#endif /* _SK_RT_EVENT_DISPATCHER_H_ */
+#endif /* _SK_SYS_EVENT_DISPATCHER_H_ */

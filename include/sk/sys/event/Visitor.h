@@ -8,13 +8,13 @@
  *  Author: Gennady Bystritsky <bystr@mac.com>
 */
 
-#ifndef _SK_RT_EVENT_VISITOR_H_
-#define _SK_RT_EVENT_VISITOR_H_
+#ifndef _SK_SYS_EVENT_VISITOR_H_
+#define _SK_SYS_EVENT_VISITOR_H_
 
 #include <sk/util/Object.h>
 
 namespace sk {
-  namespace rt {
+  namespace sys {
     namespace event {
       class Visitor 
         : public virtual sk::util::Object
@@ -25,4 +25,4 @@ namespace sk {
   }
 }
 
-#endif /* _SK_RT_EVENT_VISITOR_H_ */
+#endif /* _SK_SYS_EVENT_VISITOR_H_ */

@@ -8,14 +8,14 @@
  *  Author: Gennady Bystritsky <bystr@mac.com>
 */
 
-#ifndef _SK_RT_EVENT_H_
-#define _SK_RT_EVENT_H_
+#ifndef _SK_SYS_EVENT_H_
+#define _SK_SYS_EVENT_H_
 
 #include <sk/util/Object.h>
-#include <sk/rt/event/content.h>
+#include <sk/sys/event/content.h>
 
 namespace sk {
-  namespace rt {
+  namespace sys {
     class Event 
       : public virtual sk::util::Object
     {
@@ -25,9 +25,9 @@ namespace sk {
 
         static void setup();
         static void reset();
-        static sk::rt::event::Dispatcher& dispatcher();
+        static sk::sys::event::Dispatcher& dispatcher();
 
-        virtual void accept(const sk::rt::event::Visitor& visitor) const = 0;
+        virtual void accept(const sk::sys::event::Visitor& visitor) const = 0;
     
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
@@ -39,4 +39,4 @@ namespace sk {
   }
 }
 
-#endif /* _SK_RT_EVENT_H_ */
+#endif /* _SK_SYS_EVENT_H_ */

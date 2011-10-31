@@ -8,38 +8,38 @@
  *  Author: Gennady Bystritsky <bystr@mac.com>
 */
 
-#include <sk/rt/event/IgnoringObserver.h>
-#include <sk/rt/Event.h>
+#include <sk/sys/event/LoggingObserver.h>
+#include <sk/sys/Event.h>
 
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
 
 namespace {
-  const sk::util::String __className("sk::rt::event::IgnoringObserver");
+  const sk::util::String __className("sk::sys::event::LoggingObserver");
 }
 
-sk::rt::event::IgnoringObserver::
-IgnoringObserver()
-  : _scope(__className)
+sk::sys::event::LoggingObserver::
+LoggingObserver(const sk::rt::Scope& scope)
+  : _scope(scope)
 {
 }
 
-sk::rt::event::IgnoringObserver::
-~IgnoringObserver()
+sk::sys::event::LoggingObserver::
+~LoggingObserver()
 {
 }
 
 const sk::util::Class
-sk::rt::event::IgnoringObserver::
+sk::sys::event::LoggingObserver::
 getClass() const
 {
   return sk::util::Class(__className);
 }
 
 bool
-sk::rt::event::IgnoringObserver::
-processEvent(const sk::rt::Event& event)
+sk::sys::event::LoggingObserver::
+processEvent(const sk::sys::Event& event)
 {
-  _scope.notice("Ignoring") << event.inspect();
+  _scope.notice() << event.inspect();
   return true;
 }

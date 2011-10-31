@@ -8,34 +8,34 @@
  *  Author: Gennady Bystritsky <bystr@mac.com>
 */
 
-#ifndef _SK_RT_EVENT_POSIXSIGNAL_H_
-#define _SK_RT_EVENT_POSIXSIGNAL_H_
+#ifndef _SK_SYS_EVENT_POSIXSIGNAL_H_
+#define _SK_SYS_EVENT_POSIXSIGNAL_H_
 
 #include <sk/util/Object.h>
 #include <sk/util/String.h>
-#include <sk/rt/Event.h>
+#include <sk/sys/Event.h>
 
 namespace sk {
-  namespace rt {
+  namespace sys {
     namespace event {
       class PosixSignal 
-        : public sk::rt::Event
+        : public sk::sys::Event
       {
         public:
           virtual ~PosixSignal();
 
-          static const sk::rt::event::PosixSignal HUP;
-          static const sk::rt::event::PosixSignal INT;
-          static const sk::rt::event::PosixSignal QUIT;
-          static const sk::rt::event::PosixSignal PIPE;
-          static const sk::rt::event::PosixSignal CHLD;
-          static const sk::rt::event::PosixSignal TERM;
-          static const sk::rt::event::PosixSignal ALRM;
-          static const sk::rt::event::PosixSignal USR1;
-          static const sk::rt::event::PosixSignal USR2;
+          static const sk::sys::event::PosixSignal HUP;
+          static const sk::sys::event::PosixSignal INT;
+          static const sk::sys::event::PosixSignal QUIT;
+          static const sk::sys::event::PosixSignal PIPE;
+          static const sk::sys::event::PosixSignal CHLD;
+          static const sk::sys::event::PosixSignal TERM;
+          static const sk::sys::event::PosixSignal ALRM;
+          static const sk::sys::event::PosixSignal USR1;
+          static const sk::sys::event::PosixSignal USR2;
       
-          // sk::rt::Event implementation.
-          void accept(const sk::rt::event::Visitor& visitor) const;
+          // sk::sys::Event implementation.
+          void accept(const sk::sys::event::Visitor& visitor) const;
 
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
@@ -54,4 +54,4 @@ namespace sk {
   }
 }
 
-#endif /* _SK_RT_EVENT_POSIXSIGNAL_H_ */
+#endif /* _SK_SYS_EVENT_POSIXSIGNAL_H_ */

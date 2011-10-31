@@ -8,53 +8,53 @@
  *  Author: Gennady Bystritsky <bystr@mac.com>
 */
 
-#include <sk/rt/Event.h>
-#include <sk/rt/event/Dispatcher.h>
+#include <sk/sys/Event.h>
+#include <sk/sys/event/Dispatcher.h>
 
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
 #include <sk/util/Holder.cxx>
 
 namespace {
-  const sk::util::String __className("sk::rt::Event");
-  sk::util::Holder<sk::rt::event::Dispatcher> __dispatcherHolder;
+  const sk::util::String __className("sk::sys::Event");
+  sk::util::Holder<sk::sys::event::Dispatcher> __dispatcherHolder;
 }
 
-sk::rt::Event::
+sk::sys::Event::
 Event()
 {
 }
 
-sk::rt::Event::
+sk::sys::Event::
 ~Event()
 {
 }
 
 const sk::util::Class
-sk::rt::Event::
+sk::sys::Event::
 getClass() const
 {
   return sk::util::Class(__className);
 }
 
 void 
-sk::rt::Event::
+sk::sys::Event::
 setup()
 {
   if(__dispatcherHolder.isEmpty() == true) {
-    __dispatcherHolder.set(new sk::rt::event::Dispatcher);
+    __dispatcherHolder.set(new sk::sys::event::Dispatcher);
   }
 }
 
 void 
-sk::rt::Event::
+sk::sys::Event::
 reset()
 {
   __dispatcherHolder.clear();
 }
 
-sk::rt::event::Dispatcher& 
-sk::rt::Event::
+sk::sys::event::Dispatcher& 
+sk::sys::Event::
 dispatcher()
 {
   setup();

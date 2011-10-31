@@ -8,11 +8,11 @@
  *  Author: Gennady Bystritsky <bystr@mac.com>
 */
 
-#ifndef _SK_RT_EVENT_CONTENT_H_
-#define _SK_RT_EVENT_CONTENT_H_
+#ifndef _SK_SYS_EVENT_CONTENT_H_
+#define _SK_SYS_EVENT_CONTENT_H_
 
 namespace sk {
-  namespace rt {
+  namespace sys {
     namespace event {
       class Dispatcher;
       class PosixSignal;
@@ -22,4 +22,4 @@ namespace sk {
   }
 }
 
-#endif /* _SK_RT_EVENT_CONTENT_H_ */
+#endif /* _SK_SYS_EVENT_CONTENT_H_ */

@@ -26,4 +26,4 @@ add-project-library $(library) : $(library).json ;
 
 make-subdirs $(PLATFORM_IMPLEMENTATION) ;
 make-subdirs scope logger config action json bundle ;
-make-subdirs thread event bm tests performance ;
+make-subdirs thread bm tests performance ;

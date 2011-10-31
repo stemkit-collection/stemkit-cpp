@@ -8,24 +8,24 @@
  *  Author: Gennady Bystritsky <bystr@mac.com>
 */
 
-#ifndef _SK_RT_EVENT_EXITINGOBSERVER_H_
-#define _SK_RT_EVENT_EXITINGOBSERVER_H_
+#ifndef _SK_SYS_EVENT_EXITINGOBSERVER_H_
+#define _SK_SYS_EVENT_EXITINGOBSERVER_H_
 
-#include <sk/rt/event/Observer.h>
+#include <sk/sys/event/Observer.h>
 #include <sk/rt/Scope.h>
 
 namespace sk {
-  namespace rt {
+  namespace sys {
     namespace event {
       class ExitingObserver 
-        : public virtual sk::rt::event::Observer
+        : public virtual sk::sys::event::Observer
       {
         public:
           ExitingObserver(const int code);
           virtual ~ExitingObserver();
 
-          // sk::rt::event::Observer implementation.
-          bool processEvent(const sk::rt::Event& event);
+          // sk::sys::event::Observer implementation.
+          bool processEvent(const sk::sys::Event& event);
       
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
@@ -40,4 +40,4 @@ namespace sk {
   }
 }
 
-#endif /* _SK_RT_EVENT_EXITINGOBSERVER_H_ */
+#endif /* _SK_SYS_EVENT_EXITINGOBSERVER_H_ */
