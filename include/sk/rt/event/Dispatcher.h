@@ -15,13 +15,25 @@
 
 namespace sk {
   namespace rt {
+    class Event;
+
     namespace event {
+      class Observer;
+
       class Dispatcher 
         : public virtual sk::util::Object
       {
         public:
           Dispatcher();
           virtual ~Dispatcher();
+
+          void addEventObserver(const sk::rt::Event& event, const sk::rt::event::Observer& observer);
+          void removeEventObserver(const sk::rt::Event& event, const sk::rt::event::Observer& observer);
+          void removeEventObservers(const sk::rt::Event& event);
+          void removeEventsObserver(const sk::rt::event::Observer& observer);
+          void clear();
+
+          void listenAndDispatch();
       
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
