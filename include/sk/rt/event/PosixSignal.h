@@ -40,7 +40,7 @@ namespace sk {
           const sk::util::String inspect() const;
       
         private:
-          PosixSignal(int signal, const sk::util::String& name);
+          PosixSignal(const int signal, const sk::util::String& name);
           PosixSignal(const PosixSignal& other);
           PosixSignal& operator = (const PosixSignal& other);
 

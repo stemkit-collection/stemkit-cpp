@@ -14,7 +14,9 @@
 #include <sk/util/String.h>
 #include <sk/util/UnsupportedOperationException.h>
 
-static const sk::util::String __className("sk::rt::event::Dispatcher");
+namespace {
+  const sk::util::String __className("sk::rt::event::Dispatcher");
+}
 
 sk::rt::event::Dispatcher::
 Dispatcher()

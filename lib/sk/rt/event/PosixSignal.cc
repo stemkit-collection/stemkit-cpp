@@ -30,7 +30,7 @@ DEFINE_SIGNAL(USR1);
 DEFINE_SIGNAL(USR2);
 
 sk::rt::event::PosixSignal::
-PosixSignal(int signal, const sk::util::String& name)
+PosixSignal(const int signal, const sk::util::String& name)
   : _signal(signal), _name(name)
 {
 }

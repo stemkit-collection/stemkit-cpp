@@ -5,6 +5,9 @@ local library = sk.rt.event ;
 local objects = 
   Dispatcher.cc
   PosixSignal.cc
+  ExitingObserver.cc
+  LoggingObserver.cc
+  IgnoringObserver.cc
   ../Event.cc
 ;
 

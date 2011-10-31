@@ -22,7 +22,7 @@ namespace sk {
         : public virtual sk::util::Object
       {
         public:
-          virtual bool processEvent(const sk::rt::Event& event) const = 0;
+          virtual bool processEvent(const sk::rt::Event& event) = 0;
       };
     }
   }
