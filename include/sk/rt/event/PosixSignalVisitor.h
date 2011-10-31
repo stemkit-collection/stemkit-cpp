@@ -16,19 +16,21 @@
 namespace sk {
   namespace rt {
     namespace event {
+      class PosixSignal;
+
       class PosixSignalVisitor 
         : public virtual sk::rt::event::Visitor
       {
         public:
-          virtual void visitSIGHUP(const sk::rt::Event& event) const = 0;
-          virtual void visitSIGINT(const sk::rt::Event& event) const = 0;
-          virtual void visitSIGQUIT(const sk::rt::Event& event) const = 0;
-          virtual void visitSIGPIPE(const sk::rt::Event& event) const = 0;
-          virtual void visitSIGCHLD(const sk::rt::Event& event) const = 0;
-          virtual void visitSIGTERM(const sk::rt::Event& event) const = 0;
-          virtual void visitSIGALRM(const sk::rt::Event& event) const = 0;
-          virtual void visitSIGUSR1(const sk::rt::Event& event) const = 0;
-          virtual void visitSIGUSR2(const sk::rt::Event& event) const = 0;
+          virtual void visitSIGHUP(const sk::rt::event::PosixSignal& signal) const = 0;
+          virtual void visitSIGINT(const sk::rt::event::PosixSignal& signal) const = 0;
+          virtual void visitSIGQUIT(const sk::rt::event::PosixSignal& signal) const = 0;
+          virtual void visitSIGPIPE(const sk::rt::event::PosixSignal& signal) const = 0;
+          virtual void visitSIGCHLD(const sk::rt::event::PosixSignal& signal) const = 0;
+          virtual void visitSIGTERM(const sk::rt::event::PosixSignal& signal) const = 0;
+          virtual void visitSIGALRM(const sk::rt::event::PosixSignal& signal) const = 0;
+          virtual void visitSIGUSR1(const sk::rt::event::PosixSignal& signal) const = 0;
+          virtual void visitSIGUSR2(const sk::rt::event::PosixSignal& signal) const = 0;
       };
     }
   }

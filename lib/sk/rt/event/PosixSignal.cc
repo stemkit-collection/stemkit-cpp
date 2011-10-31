@@ -68,5 +68,48 @@ void
 sk::rt::event::PosixSignal::
 accept(const sk::rt::event::Visitor& visitor) const
 {
-  throw sk::util::UnsupportedOperationException(SK_METHOD);
+  const sk::rt::event::PosixSignalVisitor* pointer = dynamic_cast<const sk::rt::event::PosixSignalVisitor*>(&visitor);
+  if(pointer == 0) {
+    return;
+  }
+  const sk::rt::event::PosixSignalVisitor& posixSignalVisitor = *pointer;
+
+  switch(_signal) {
+    case SIGHUP: {
+      posixSignalVisitor.visitSIGHUP(*this);
+      break;
+    }
+    case SIGINT: {
+      posixSignalVisitor.visitSIGINT(*this);
+      break;
+    }
+    case SIGQUIT: {
+      posixSignalVisitor.visitSIGQUIT(*this);
+      break;
+    }
+    case SIGPIPE: {
+      posixSignalVisitor.visitSIGPIPE(*this);
+      break;
+    }
+    case SIGCHLD: {
+      posixSignalVisitor.visitSIGCHLD(*this);
+      break;
+    }
+    case SIGTERM: {
+      posixSignalVisitor.visitSIGTERM(*this);
+      break;
+    }
+    case SIGALRM: {
+      posixSignalVisitor.visitSIGALRM(*this);
+      break;
+    }
+    case SIGUSR1: {
+      posixSignalVisitor.visitSIGUSR1(*this);
+      break;
+    }
+    case SIGUSR2: {
+      posixSignalVisitor.visitSIGUSR2(*this);
+      break;
+    }
+  }
 }
