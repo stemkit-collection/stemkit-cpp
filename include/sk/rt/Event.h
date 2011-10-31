@@ -26,6 +26,8 @@ namespace sk {
         static void setup();
         static void reset();
         static sk::rt::event::Dispatcher& dispatcher();
+
+        virtual void accept(const sk::rt::event::Visitor& visitor) const = 0;
     
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;

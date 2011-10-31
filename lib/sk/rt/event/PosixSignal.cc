@@ -9,8 +9,11 @@
 */
 
 #include <sk/rt/event/PosixSignal.h>
+#include <sk/rt/event/PosixSignalVisitor.h>
 
 #include <sk/util/Class.h>
+#include <sk/util/UnsupportedOperationException.h>
+
 #include <signal.h>
 
 namespace {
@@ -59,4 +62,11 @@ sk::rt::event::PosixSignal::
 inspect() const
 {
   return "<" + getClass().getName() + ": " + toString() + "/" + sk::util::String::valueOf(_signal) + ">";
+}
+
+void 
+sk::rt::event::PosixSignal::
+accept(const sk::rt::event::Visitor& visitor) const
+{
+  throw sk::util::UnsupportedOperationException(SK_METHOD);
 }

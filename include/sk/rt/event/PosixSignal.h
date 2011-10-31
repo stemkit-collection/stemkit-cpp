@@ -34,6 +34,9 @@ namespace sk {
           static const sk::rt::event::PosixSignal USR1;
           static const sk::rt::event::PosixSignal USR2;
       
+          // sk::rt::Event implementation.
+          void accept(const sk::rt::event::Visitor& visitor) const;
+
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
           const sk::util::String toString() const;

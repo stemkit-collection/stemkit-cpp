@@ -8,18 +8,21 @@
  *  Author: Gennady Bystritsky <bystr@mac.com>
 */
 
-#ifndef _SK_RT_EVENT_CONTENT_H_
-#define _SK_RT_EVENT_CONTENT_H_
+#ifndef _SK_RT_EVENT_VISITOR_H_
+#define _SK_RT_EVENT_VISITOR_H_
+
+#include <sk/util/Object.h>
 
 namespace sk {
   namespace rt {
     namespace event {
-      class Dispatcher;
-      class PosixSignal;
-      class Visitor;
-      class PosixSignalVisitor;
+      class Visitor 
+        : public virtual sk::util::Object
+      {
+        public:
+      };
     }
   }
 }
 
-#endif /* _SK_RT_EVENT_CONTENT_H_ */
+#endif /* _SK_RT_EVENT_VISITOR_H_ */
