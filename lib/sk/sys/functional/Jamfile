@@ -2,6 +2,7 @@
 
 local tests = 
   user-probe
+  process-env
 ;
 
 use-project-library $(tests) : 
