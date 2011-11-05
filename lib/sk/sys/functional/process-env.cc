@@ -12,17 +12,26 @@
 #include <sk/sys/AbstractProcessListener.h>
 #include <sk/sys/ProcessConfigurator.h>
 
+#include <iostream>
+
 namespace {
     struct Listener : public sk::sys::AbstractProcessListener {
         void processConfiguring(sk::sys::ProcessConfigurator& configurator) {
-            configurator.setEnvironment("ORACLE", "he-he-he");
+            configurator.setEnvironment("ORACLE_HOME", "he-he-he");
         }
     };
 }
 
 int main(int argc, const char* const argv[])
 {
+    sk::sys::Process::setup();
+
     Listener listener;
-    sk::sys::Process process(sk::util::Strings() + "ruby" + "-e" + "p *ENV", listener);
-    process.join();
+    try { 
+        sk::sys::Process process(sk::util::Strings("ruby") << "-e" << "p *ENV", listener);
+        process.join();
+    }
+    catch(const sk::util::Exception& exception) {
+        std::cerr << "E: " << exception.getMessage() << std::endl;
+    }
 }
