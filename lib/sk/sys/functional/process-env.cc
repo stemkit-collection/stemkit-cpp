@@ -29,7 +29,7 @@ int main(int argc, const char* const argv[])
 
     Listener listener;
     try { 
-        sk::sys::Process process("./print-env");
+        sk::sys::Process process("./print-env", listener);
         process.join();
     }
     catch(const sk::util::Exception& exception) {
