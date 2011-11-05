@@ -1,0 +1,18 @@
+# vim: ft=jam: sw=2:
+
+local tests = 
+  user-probe
+;
+
+use-project-library $(tests) : 
+  sk.sys 
+  sk.io 
+  sk.rt.thread
+  sk.rt.bundle 
+  sk.util 
+;
+
+local _tests ;
+for _tests in $(tests) {
+  make-program $(_tests) : $(_tests).cc ;
+}

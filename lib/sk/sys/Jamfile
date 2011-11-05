@@ -25,19 +25,4 @@ if $(PLATFORM_IMPLEMENTATION) = "unix" && mks32 in $(project.PLATFORM_SPECIFICS)
 make-subdirs $(PLATFORM_IMPLEMENTATION) ;
 add-project-library $(library) : $(library).$(PLATFORM_IMPLEMENTATION) ;
 
-local probes = 
-  user-probe
-;
-
-use-project-library $(probes) : 
-  sk.sys 
-  sk.io 
-  sk.rt.thread
-  sk.rt.bundle 
-  sk.util 
-;
-
-local _probe ;
-for _probe in $(probes) {
-  make-program $(_probe) : $(_probe).cc ;
-}
+make-subdirs functional ;
