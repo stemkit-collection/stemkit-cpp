@@ -17,7 +17,8 @@
 namespace {
     struct Listener : public sk::sys::AbstractProcessListener {
         void processConfiguring(sk::sys::ProcessConfigurator& configurator) {
-            configurator.setEnvironment("ORACLE_HOME", "he-he-he");
+            configurator.setEnvironment("ORACLE_HOME", "D:\\oracle\\ora92");
+            configurator.setEnvironment("ZZZZZ", "D:\\oracle\\ora92");
         }
     };
 }
@@ -28,7 +29,7 @@ int main(int argc, const char* const argv[])
 
     Listener listener;
     try { 
-        sk::sys::Process process(sk::util::Strings("ruby") << "-e" << "p *ENV", listener);
+        sk::sys::Process process("./print-env");
         process.join();
     }
     catch(const sk::util::Exception& exception) {
