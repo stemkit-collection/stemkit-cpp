@@ -1,22 +1,22 @@
 # vim: ft=jam: sw=2:
 
-local test = sk-net-test ;
-
-local objects = 
-  TestSuite.cc
-  InetAddressTest.cc
-  InetSocketAddressTest.cc
-  DatagramSocketTest.cc
-;
-
-use-unit-test $(test) $(objects) ;
-use-project-libraries $(test) :
-  sk.net
-  sk.rt.thread
-  sk.cppunit
-;
-
 if $(PRODUCT_RELEASE) != "0.52.1" {
+  local test = sk-net-test ;
+
+  local objects = 
+    TestSuite.cc
+    InetAddressTest.cc
+    InetSocketAddressTest.cc
+    DatagramSocketTest.cc
+  ;
+
+  use-unit-test $(test) $(objects) ;
+  use-project-libraries $(test) :
+    sk.net
+    sk.rt.thread
+    sk.cppunit
+  ;
+
   make-cpp-test $(test) : $(objects) ;
 }
 make-subdirs functional ;
