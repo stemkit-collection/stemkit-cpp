@@ -8,7 +8,7 @@ Tool-specific initialization for tarball.
 ##to unpack on the fly...
 ##gunzip < FILE.tar.gz | tar xvf -
 ##to pack on the fly...
-##tar cvf - FILE-LIST | gzip -c > FILE.tar.gz 
+##tar cvf - FILE-LIST | gzip -c > FILE.tar.gz
 
 import os.path
 
@@ -32,7 +32,7 @@ if internal_targz:
             common_path = os.path.commonprefix( (base_dir, path) )
             archive_name = path[len(common_path):]
             return archive_name
-            
+
         def visit(tar, dirname, names):
             for name in names:
                 path = os.path.join(dirname, name)

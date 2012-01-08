@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2008, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -50,7 +50,7 @@ cycleFile()
     throw sk::util::SystemException(sk::util::String("rename():") + getPath());
   }
   _nextChunk += 1;
-  
+
   int chunks = getChunks();
   if(chunks > 0) {
     if(_nextChunk >= chunks) {

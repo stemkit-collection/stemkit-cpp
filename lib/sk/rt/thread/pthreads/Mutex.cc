@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky (gennady.bystritsky@quest.com)
 */
 
@@ -62,16 +62,16 @@ getHandle()
   return _mutexHandle;
 }
 
-void 
+void
 sk::rt::thread::pthreads::Mutex::
-destroyMutex() 
+destroyMutex()
 {
   SK_PTHREAD_RAISE_UNLESS_SUCCESS(pthread_mutex_destroy(&_mutexHandle));
 }
 
-void 
+void
 sk::rt::thread::pthreads::Mutex::
-destroyMutexAttributes() 
+destroyMutexAttributes()
 {
   SK_PTHREAD_RAISE_UNLESS_SUCCESS(pthread_mutexattr_destroy(&_attributes));
 }
@@ -83,21 +83,21 @@ getClass() const
   return sk::util::Class(__className);
 }
 
-void 
+void
 sk::rt::thread::pthreads::Mutex::
 lock()
 {
   SK_PTHREAD_RAISE_UNLESS_SUCCESS(pthread_mutex_lock(&_mutexHandle));
 }
 
-void 
+void
 sk::rt::thread::pthreads::Mutex::
 unlock()
 {
   SK_PTHREAD_RAISE_UNLESS_SUCCESS(pthread_mutex_unlock(&_mutexHandle));
 }
 
-void 
+void
 sk::rt::thread::pthreads::Mutex::
 reset()
 {
@@ -122,7 +122,7 @@ hasEnterCount() const
   return false;
 }
 
-int 
+int
 sk::rt::thread::pthreads::Mutex::
 getEnterCount() const
 {

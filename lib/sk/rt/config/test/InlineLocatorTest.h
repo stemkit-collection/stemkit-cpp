@@ -1,5 +1,5 @@
 /*  Copyright (c) 2007, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -21,13 +21,13 @@ namespace sk {
           CPPUNIT_TEST_SUITE(sk::rt::config::test::InlineLocatorTest);
             CPPUNIT_TEST(testStandAlone);
           CPPUNIT_TEST_SUITE_END();
-          
+
           public:
             InlineLocatorTest();
             virtual ~InlineLocatorTest();
-            
+
             void testStandAlone();
-            
+
           private:
             InlineLocatorTest(const InlineLocatorTest& other);
             InlineLocatorTest& operator = (const InlineLocatorTest& other);

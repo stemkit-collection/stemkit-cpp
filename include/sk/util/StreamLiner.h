@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -16,10 +16,10 @@
 
 namespace sk {
   namespace util {
-    class StreamLiner 
+    class StreamLiner
     {
       public:
-        StreamLiner(std::ostream& stream) 
+        StreamLiner(std::ostream& stream)
           : _stream(stream), _utilized(false) {}
 
         ~StreamLiner() {

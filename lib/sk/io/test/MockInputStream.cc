@@ -1,5 +1,5 @@
 /*  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -47,7 +47,7 @@ closeCounter() const
   return _closeCounter;
 }
 
-int 
+int
 sk::io::test::MockInputStream::
 read(char* buffer, int offset, int size)
 {

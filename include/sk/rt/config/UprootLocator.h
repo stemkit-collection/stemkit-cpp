@@ -1,5 +1,5 @@
 /*  Copyright (c) 2007, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -20,10 +20,10 @@ namespace sk {
           UprootLocator(const sk::util::String& item, const sk::util::Pathname& location, const SpotLocator& other);
           UprootLocator(const sk::util::String& item, const sk::util::Pathname& location);
           virtual ~UprootLocator();
-          
+
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
-          
+
         private:
           UprootLocator& operator = (const UprootLocator& other);
 

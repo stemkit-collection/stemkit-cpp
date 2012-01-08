@@ -1,5 +1,5 @@
 /*  Copyright (c) 2007, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -16,7 +16,7 @@ namespace sk {
   namespace rt {
     namespace config {
       class NamedStreamOpener
-        : public virtual sk::util::Object 
+        : public virtual sk::util::Object
       {
         public:
           // Not using std::auto_ptr<std::istream> here as it caused gcc-3.4.3

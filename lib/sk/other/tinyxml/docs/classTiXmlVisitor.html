@@ -18,7 +18,7 @@
     <li><a href="hierarchy.html"><span>Class&nbsp;Hierarchy</span></a></li>
     <li><a href="functions.html"><span>Class&nbsp;Members</span></a></li>
   </ul></div>
-<h1>TiXmlVisitor Class Reference</h1><!-- doxytag: class="TiXmlVisitor" -->If you call the Accept() method, it requires being passed a <a class="el" href="classTiXmlVisitor.html">TiXmlVisitor</a> class to handle callbacks.  
+<h1>TiXmlVisitor Class Reference</h1><!-- doxytag: class="TiXmlVisitor" -->If you call the Accept() method, it requires being passed a <a class="el" href="classTiXmlVisitor.html">TiXmlVisitor</a> class to handle callbacks.
 <a href="#_details">More...</a>
 <p>
 <code>#include &lt;<a class="el" href="tinyxml_8h-source.html">tinyxml.h</a>&gt;</code>
@@ -65,7 +65,7 @@ virtual bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Visit an unknow node. <br></td></tr>
 </table>
 <hr><a name="_details"></a><h2>Detailed Description</h2>
-If you call the Accept() method, it requires being passed a <a class="el" href="classTiXmlVisitor.html">TiXmlVisitor</a> class to handle callbacks. 
+If you call the Accept() method, it requires being passed a <a class="el" href="classTiXmlVisitor.html">TiXmlVisitor</a> class to handle callbacks.
 <p>
 For nodes that contain other nodes (Document, Element) you will get called with a VisitEnter/VisitExit pair. Nodes that are always leaves are simple called with <a class="el" href="classTiXmlVisitor.html#fad71c71ce6473fb9b4b64cd92de4a19">Visit()</a>.<p>
 If you return 'true' from a Visit method, recursive parsing will continue. If you return false, <b>no children of this node or its sibilings</b> will be Visited.<p>

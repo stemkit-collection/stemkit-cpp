@@ -18,7 +18,7 @@
     <li><a href="hierarchy.html"><span>Class&nbsp;Hierarchy</span></a></li>
     <li><a href="functions.html"><span>Class&nbsp;Members</span></a></li>
   </ul></div>
-<h1>TiXmlDocument Class Reference</h1><!-- doxytag: class="TiXmlDocument" --><!-- doxytag: inherits="TiXmlNode" -->Always the top level node.  
+<h1>TiXmlDocument Class Reference</h1><!-- doxytag: class="TiXmlDocument" --><!-- doxytag: inherits="TiXmlNode" -->Always the top level node.
 <a href="#_details">More...</a>
 <p>
 <code>#include &lt;<a class="el" href="tinyxml_8h-source.html">tinyxml.h</a>&gt;</code>
@@ -127,9 +127,9 @@ virtual bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Create an exact duplicate of this node and return it.  <a href="#4968661cab4a1f44a23329c6f8db1907"></a><br></td></tr>
 </table>
 <hr><a name="_details"></a><h2>Detailed Description</h2>
-Always the top level node. 
+Always the top level node.
 <p>
-A document binds together all the XML pieces. It can be saved, loaded, and printed to the screen. The 'value' of a document node is the xml file name. 
+A document binds together all the XML pieces. It can be saved, loaded, and printed to the screen. The 'value' of a document node is the xml file name.
 <p>
 <hr><h2>Member Function Documentation</h2>
 <a class="anchor" name="c66b8c28db86363315712a3574e87c35"></a><!-- doxytag: member="TiXmlDocument::ClearError" ref="c66b8c28db86363315712a3574e87c35" args="()" -->
@@ -148,9 +148,9 @@ A document binds together all the XML pieces. It can be saved, loaded, and print
 <div class="memdoc">
 
 <p>
-If you have handled the error, it can be reset with this call. 
+If you have handled the error, it can be reset with this call.
 <p>
-The error state is automatically cleared if you Parse a new XML block. 
+The error state is automatically cleared if you Parse a new XML block.
 </div>
 </div><p>
 <a class="anchor" name="4968661cab4a1f44a23329c6f8db1907"></a><!-- doxytag: member="TiXmlDocument::Clone" ref="4968661cab4a1f44a23329c6f8db1907" args="() const " -->
@@ -169,9 +169,9 @@ The error state is automatically cleared if you Parse a new XML block.
 <div class="memdoc">
 
 <p>
-Create an exact duplicate of this node and return it. 
+Create an exact duplicate of this node and return it.
 <p>
-The memory must be deleted by the caller. 
+The memory must be deleted by the caller.
 <p>
 Implements <a class="el" href="classTiXmlNode.html#4508cc3a2d7a98e96a54cc09c37a78a4">TiXmlNode</a>.
 </div>
@@ -192,7 +192,7 @@ Implements <a class="el" href="classTiXmlNode.html#4508cc3a2d7a98e96a54cc09c37a7
 <div class="memdoc">
 
 <p>
-If an error occurs, Error will be set to true. 
+If an error occurs, Error will be set to true.
 <p>
 Also,<ul>
 <li>The <a class="el" href="classTiXmlDocument.html#f96fc2f3f9ec6422782bfe916c9e778f">ErrorId()</a> will contain the integer identifier of the error (not generally useful)</li><li>The <a class="el" href="classTiXmlDocument.html#9d0f689f6e09ea494ea547be8d79c25e">ErrorDesc()</a> method will return the name of the error. (very useful)</li><li>The <a class="el" href="classTiXmlDocument.html#f30efc75e804aa2e92fb8be3a8cb676e">ErrorRow()</a> and <a class="el" href="classTiXmlDocument.html#a90bc630ee5203c6109ca5fad3323649">ErrorCol()</a> will return the location of the error (if known) </li></ul>
@@ -215,9 +215,9 @@ Also,<ul>
 <div class="memdoc">
 
 <p>
-Generally, you probably want the error string ( <a class="el" href="classTiXmlDocument.html#9d0f689f6e09ea494ea547be8d79c25e">ErrorDesc()</a> ). 
+Generally, you probably want the error string ( <a class="el" href="classTiXmlDocument.html#9d0f689f6e09ea494ea547be8d79c25e">ErrorDesc()</a> ).
 <p>
-But if you prefer the ErrorId, this function will fetch it. 
+But if you prefer the ErrorId, this function will fetch it.
 </div>
 </div><p>
 <a class="anchor" name="f30efc75e804aa2e92fb8be3a8cb676e"></a><!-- doxytag: member="TiXmlDocument::ErrorRow" ref="f30efc75e804aa2e92fb8be3a8cb676e" args="() const " -->
@@ -236,7 +236,7 @@ But if you prefer the ErrorId, this function will fetch it.
 <div class="memdoc">
 
 <p>
-Returns the location (if known) of the error. 
+Returns the location (if known) of the error.
 <p>
 The first column is column 1, and the first row is row 1. A value of 0 means the row and column wasn't applicable (memory errors, for example, have no row/column) or the parser lost the error. (An error in the error reporting, in that case.)<p>
 <dl compact><dt><b>See also:</b></dt><dd><a class="el" href="classTiXmlDocument.html#51dac56316f89b35bdb7d0d433ba988e">SetTabSize</a>, <a class="el" href="classTiXmlBase.html#024bceb070188df92c2a8d8852dd0853">Row</a>, <a class="el" href="classTiXmlBase.html#b54bfb9b70fe6dd276e7b279cab7f003">Column</a> </dd></dl>
@@ -303,9 +303,9 @@ STL std::string version. </td></tr>
 <div class="memdoc">
 
 <p>
-Load a file using the given FILE*. 
+Load a file using the given FILE*.
 <p>
-Returns true if successful. Note that this method doesn't stream - the entire object pointed at by the FILE* will be interpreted as an XML file. TinyXML doesn't stream in XML from the current file location. Streaming may be added in the future. 
+Returns true if successful. Note that this method doesn't stream - the entire object pointed at by the FILE* will be interpreted as an XML file. TinyXML doesn't stream in XML from the current file location. Streaming may be added in the future.
 </div>
 </div><p>
 <a class="anchor" name="4c852a889c02cf251117fd1d9fe1845f"></a><!-- doxytag: member="TiXmlDocument::LoadFile" ref="4c852a889c02cf251117fd1d9fe1845f" args="(TiXmlEncoding encoding=TIXML_DEFAULT_ENCODING)" -->
@@ -325,9 +325,9 @@ Returns true if successful. Note that this method doesn't stream - the entire ob
 <div class="memdoc">
 
 <p>
-Load a file using the current document value. 
+Load a file using the current document value.
 <p>
-Returns true if successful. Will delete any existing document data before loading. 
+Returns true if successful. Will delete any existing document data before loading.
 </div>
 </div><p>
 <a class="anchor" name="17ebabe36926ef398e78dec0d0ad0378"></a><!-- doxytag: member="TiXmlDocument::Parse" ref="17ebabe36926ef398e78dec0d0ad0378" args="(const char *p, TiXmlParsingData *data=0, TiXmlEncoding encoding=TIXML_DEFAULT_ENCODING)" -->
@@ -362,9 +362,9 @@ Returns true if successful. Will delete any existing document data before loadin
 <div class="memdoc">
 
 <p>
-Parse the given null terminated block of xml data. 
+Parse the given null terminated block of xml data.
 <p>
-Passing in an encoding to this method (either TIXML_ENCODING_LEGACY or TIXML_ENCODING_UTF8 will force TinyXml to use that encoding, regardless of what TinyXml might otherwise try to detect. 
+Passing in an encoding to this method (either TIXML_ENCODING_LEGACY or TIXML_ENCODING_UTF8 will force TinyXml to use that encoding, regardless of what TinyXml might otherwise try to detect.
 <p>
 Implements <a class="el" href="classTiXmlBase.html">TiXmlBase</a>.
 </div>
@@ -385,9 +385,9 @@ Implements <a class="el" href="classTiXmlBase.html">TiXmlBase</a>.
 <div class="memdoc">
 
 <p>
-Get the root element -- the only top level element -- of the document. 
+Get the root element -- the only top level element -- of the document.
 <p>
-In well formed XML, there should only be one. TinyXml is tolerant of multiple elements at the document level. 
+In well formed XML, there should only be one. TinyXml is tolerant of multiple elements at the document level.
 </div>
 </div><p>
 <a class="anchor" name="51dac56316f89b35bdb7d0d433ba988e"></a><!-- doxytag: member="TiXmlDocument::SetTabSize" ref="51dac56316f89b35bdb7d0d433ba988e" args="(int _tabsize)" -->
@@ -407,7 +407,7 @@ In well formed XML, there should only be one. TinyXml is tolerant of multiple el
 <div class="memdoc">
 
 <p>
-<a class="el" href="classTiXmlDocument.html#51dac56316f89b35bdb7d0d433ba988e">SetTabSize()</a> allows the error reporting functions (<a class="el" href="classTiXmlDocument.html#f30efc75e804aa2e92fb8be3a8cb676e">ErrorRow()</a> and <a class="el" href="classTiXmlDocument.html#a90bc630ee5203c6109ca5fad3323649">ErrorCol()</a>) to report the correct values for row and column. 
+<a class="el" href="classTiXmlDocument.html#51dac56316f89b35bdb7d0d433ba988e">SetTabSize()</a> allows the error reporting functions (<a class="el" href="classTiXmlDocument.html#f30efc75e804aa2e92fb8be3a8cb676e">ErrorRow()</a> and <a class="el" href="classTiXmlDocument.html#a90bc630ee5203c6109ca5fad3323649">ErrorCol()</a>) to report the correct values for row and column.
 <p>
 It does not change the output or input in any way.<p>
 By calling this method, with a tab size greater than 0, the row and column of each node and attribute is stored when the file is loaded. Very useful for tracking the DOM back in to the source file.<p>

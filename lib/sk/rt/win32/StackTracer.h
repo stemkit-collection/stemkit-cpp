@@ -1,10 +1,10 @@
 /*  vim: sw=2:
  *  Copyright (c) 2011, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky (gennady.bystritsky@quest.com)
 */
 
@@ -15,7 +15,7 @@
 
 namespace sk {
   namespace rt {
-    class StackTracer 
+    class StackTracer
       : public virtual sk::util::trace::Producer
     {
       public:
@@ -27,10 +27,10 @@ namespace sk {
         const sk::util::String produceTrace();
         void finalizeFor(const sk::util::String& scope);
         void reset();
-    
+
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
-    
+
       private:
         StackTracer(const StackTracer& other);
         StackTracer& operator = (const StackTracer& other);

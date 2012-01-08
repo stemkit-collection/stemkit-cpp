@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky (gennady.bystritsky@quest.com)
 */
 
@@ -16,7 +16,7 @@
 
 namespace sk {
   namespace util {
-    class Properties 
+    class Properties
       : public virtual sk::util::PropertyRegistry
     {
       public:
@@ -24,7 +24,7 @@ namespace sk {
         Properties(const Properties& other);
         Properties(const PropertyRegistry& registry);
         virtual ~Properties();
-    
+
         // sk::util::PropertyRegistry implementation.
         const sk::util::String getProperty(const sk::util::String& name) const;
         const sk::util::String getProperty(const sk::util::String& name, const sk::util::String& fallback) const;
@@ -54,7 +54,7 @@ namespace sk {
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
         const sk::util::String inspect() const;
-    
+
       private:
         Properties& operator = (const Properties& other);
         typedef std::map<sk::util::String, sk::util::String> container;

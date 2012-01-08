@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -34,7 +34,7 @@ getClass() const
   return sk::util::Class(__className);
 }
 
-sk::rt::thread::platform::ConditionMediator* 
+sk::rt::thread::platform::ConditionMediator*
 sk::rt::thread::mock::Implementation::
 makeConditionMediator(sk::rt::Lock& lock, int capacity) const
 {
@@ -69,7 +69,7 @@ wrapCurrentThread(sk::rt::thread::Generic& /*handle*/) const
   return new mock::Thread();
 }
 
-sk::rt::thread::Generic& 
+sk::rt::thread::Generic&
 sk::rt::thread::mock::Implementation::
 getGeneric() const
 {
@@ -78,12 +78,12 @@ getGeneric() const
 
 void
 sk::rt::thread::mock::Implementation::
-sleep(uint64_t /*milliseconds*/) const 
+sleep(uint64_t /*milliseconds*/) const
 {
   throw sk::util::UnsupportedOperationException(SK_CLASS_METHOD);
 }
 
-void 
+void
 sk::rt::thread::mock::Implementation::
 yield() const
 {

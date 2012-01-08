@@ -57,7 +57,7 @@ namespace YAML
 			TAG,
 			SCALAR
 		};
-				
+
 		// data
 		Token(TYPE type_, const Mark& mark_): status(VALID), type(type_), mark(mark_) {}
 

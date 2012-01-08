@@ -1,5 +1,5 @@
 /*  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -13,7 +13,7 @@
 namespace sk {
   namespace io {
     class DelegatingTty
-      : public virtual sk::io::Tty 
+      : public virtual sk::io::Tty
     {
       public:
         DelegatingTty();
@@ -25,7 +25,7 @@ namespace sk {
 
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
-        
+
       protected:
         virtual sk::io::Tty& getTty() = 0;
         virtual const sk::io::Tty& getTty() const = 0;

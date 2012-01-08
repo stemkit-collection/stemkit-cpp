@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky (gennady.bystritsky@quest.com)
 */
 
@@ -35,14 +35,14 @@ getClass() const
   return sk::util::Class(__className);
 }
 
-void 
+void
 sk::net::DataOutputStream::
 writeInt(uint32_t value)
 {
   sk::io::DataOutputStream::writeInt(htonl(value));
 }
 
-void 
+void
 sk::net::DataOutputStream::
 writeLong(uint64_t value)
 {
@@ -54,7 +54,7 @@ writeLong(uint64_t value)
   sk::io::DataOutputStream::writeLong(x);
 }
 
-void 
+void
 sk::net::DataOutputStream::
 writeShort(uint16_t value)
 {

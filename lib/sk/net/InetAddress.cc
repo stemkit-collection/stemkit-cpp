@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -135,21 +135,21 @@ getCanonicalHostName() const
   throw sk::util::UnsupportedOperationException(SK_METHOD);
 }
 
-sk::net::InetAddress& 
+sk::net::InetAddress&
 sk::net::InetAddress::
 getByAddress(const sk::util::bytes& components)
 {
   return InetAddressFactory::instance().findOrCreateByAddress(components);
 }
 
-const sk::net::InetAddress& 
+const sk::net::InetAddress&
 sk::net::InetAddress::
 getByName(const sk::util::String& name)
 {
   return InetAddressFactory::instance().findOrCreateByName(name);
 }
 
-const sk::net::InetAddress& 
+const sk::net::InetAddress&
 sk::net::InetAddress::
 getLocalHost()
 {

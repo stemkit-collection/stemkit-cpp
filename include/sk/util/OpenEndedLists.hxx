@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2010, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -16,7 +16,7 @@
 namespace sk {
   namespace util {
     template<typename T, typename Policy, typename Type>
-    class OpenEndedLists 
+    class OpenEndedLists
     {
       public:
         static inline void addFirst(typename Type::container_t& container, typename Policy::slot_storage_t storage);
@@ -50,7 +50,7 @@ addLast(typename Type::container_t& container, typename Policy::slot_storage_t s
 }
 
 template<typename T, typename Policy, typename Type>
-inline void 
+inline void
 sk::util::OpenEndedLists<T, Policy, Type>::
 removeFirstGeneric(typename Type::container_t& container)
 {
@@ -60,7 +60,7 @@ removeFirstGeneric(typename Type::container_t& container)
 }
 
 template<typename T, typename Policy, typename Type>
-inline void 
+inline void
 sk::util::OpenEndedLists<T, Policy, Type>::
 removeFirst(typename Type::container_t& container)
 {
@@ -70,7 +70,7 @@ removeFirst(typename Type::container_t& container)
 }
 
 template<typename T, typename Policy, typename Type>
-inline void 
+inline void
 sk::util::OpenEndedLists<T, Policy, Type>::
 removeLast(typename Type::container_t& container)
 {

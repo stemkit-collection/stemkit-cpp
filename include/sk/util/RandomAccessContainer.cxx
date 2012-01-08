@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -30,7 +30,7 @@ sk::util::RandomAccessContainer<T, Policy, Type>::
 }
 
 template<typename T, typename Policy, typename Type>
-const sk::util::Class 
+const sk::util::Class
 sk::util::RandomAccessContainer<T, Policy, Type>::
 getClass() const
 {
@@ -38,7 +38,7 @@ getClass() const
 }
 
 template<typename T, typename Policy, typename Type>
-void 
+void
 sk::util::RandomAccessContainer<T, Policy, Type>::
 sort(const sk::util::BinaryAssessor<T>& assessor)
 {
@@ -46,7 +46,7 @@ sort(const sk::util::BinaryAssessor<T>& assessor)
 }
 
 template<typename T, typename Policy, typename Type>
-void 
+void
 sk::util::RandomAccessContainer<T, Policy, Type>::
 shuffle()
 {
@@ -72,7 +72,7 @@ position(int index, int tailOffset) const
 }
 
 template<typename T, typename Policy, typename Type>
-void 
+void
 sk::util::RandomAccessContainer<T, Policy, Type>::
 add(int index, const T& object)
 {
@@ -80,7 +80,7 @@ add(int index, const T& object)
 }
 
 template<typename T, typename Policy, typename Type>
-void 
+void
 sk::util::RandomAccessContainer<T, Policy, Type>::
 add(int index, T& object)
 {
@@ -88,7 +88,7 @@ add(int index, T& object)
 }
 
 template<typename T, typename Policy, typename Type>
-void 
+void
 sk::util::RandomAccessContainer<T, Policy, Type>::
 add(int index, T* object)
 {
@@ -96,7 +96,7 @@ add(int index, T* object)
 }
 
 template<typename T, typename Policy, typename Type>
-const T& 
+const T&
 sk::util::RandomAccessContainer<T, Policy, Type>::
 get(int index) const
 {
@@ -104,7 +104,7 @@ get(int index) const
 }
 
 template<typename T, typename Policy, typename Type>
-T& 
+T&
 sk::util::RandomAccessContainer<T, Policy, Type>::
 getMutable(int index) const
 {
@@ -112,7 +112,7 @@ getMutable(int index) const
 }
 
 template<typename T, typename Policy, typename Type>
-void 
+void
 sk::util::RandomAccessContainer<T, Policy, Type>::
 remove(int index)
 {
@@ -120,7 +120,7 @@ remove(int index)
 }
 
 template<typename T, typename Policy, typename Type>
-T* 
+T*
 sk::util::RandomAccessContainer<T, Policy, Type>::
 cutoff(int index)
 {
@@ -128,7 +128,7 @@ cutoff(int index)
 }
 
 template<typename T, typename Policy, typename Type>
-T* 
+T*
 sk::util::RandomAccessContainer<T, Policy, Type>::
 release(int index)
 {
@@ -136,7 +136,7 @@ release(int index)
 }
 
 template<typename T, typename Policy, typename Type>
-void 
+void
 sk::util::RandomAccessContainer<T, Policy, Type>::
 set(int index, const T& object)
 {
@@ -144,7 +144,7 @@ set(int index, const T& object)
 }
 
 template<typename T, typename Policy, typename Type>
-void 
+void
 sk::util::RandomAccessContainer<T, Policy, Type>::
 set(int index, T& object)
 {
@@ -152,7 +152,7 @@ set(int index, T& object)
 }
 
 template<typename T, typename Policy, typename Type>
-void 
+void
 sk::util::RandomAccessContainer<T, Policy, Type>::
 set(int index, T* object)
 {

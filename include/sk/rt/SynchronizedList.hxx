@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky (gennady.bystritsky@quest.com)
 */
 
@@ -17,7 +17,7 @@
 namespace sk {
   namespace rt {
     template<typename T>
-    class SynchronizedList 
+    class SynchronizedList
       : public sk::rt::SynchronizedCollection<T>,
         public virtual sk::util::List<T>
     {
@@ -27,7 +27,7 @@ namespace sk {
         ~SynchronizedList();
 
         void process(T& object);
-    
+
       private:
         SynchronizedList(const SynchronizedList<T>& other);
         SynchronizedList<T>& operator = (const SynchronizedList<T>& other);

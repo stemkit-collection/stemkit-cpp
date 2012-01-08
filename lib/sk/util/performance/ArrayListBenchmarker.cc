@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -42,7 +42,7 @@ getClass() const
 
 namespace {
   struct Benchmark : public virtual sk::rt::Benchmark {
-    Benchmark(const uint32_t iterations) 
+    Benchmark(const uint32_t iterations)
       : _iterations(iterations) {}
 
     void run() {
@@ -53,7 +53,7 @@ namespace {
   };
 
   struct StandardDequeStore : public virtual Benchmark {
-    StandardDequeStore(const uint32_t iterations, std::deque<sk::util::String*>& storage) 
+    StandardDequeStore(const uint32_t iterations, std::deque<sk::util::String*>& storage)
       : Benchmark(iterations), _storage(storage) {}
 
     void run(const uint32_t iterations) {
@@ -65,7 +65,7 @@ namespace {
   };
 
   struct StandardDequeRetriever : public virtual Benchmark {
-    StandardDequeRetriever(const uint32_t iterations, std::deque<sk::util::String*>& storage) 
+    StandardDequeRetriever(const uint32_t iterations, std::deque<sk::util::String*>& storage)
       : Benchmark(iterations), _storage(storage) {}
 
     void run(const uint32_t iterations) {
@@ -77,7 +77,7 @@ namespace {
   };
 
   struct StandardDequeCleaner : public virtual Benchmark {
-    StandardDequeCleaner(const uint32_t iterations, std::deque<sk::util::String*>& storage) 
+    StandardDequeCleaner(const uint32_t iterations, std::deque<sk::util::String*>& storage)
       : Benchmark(iterations), _storage(storage) {}
 
     void run(const uint32_t iterations) {
@@ -92,7 +92,7 @@ namespace {
   };
 
   struct StemkitArrayListStore : public virtual Benchmark {
-    StemkitArrayListStore(const uint32_t iterations, sk::util::ArrayList<sk::util::String>& storage) 
+    StemkitArrayListStore(const uint32_t iterations, sk::util::ArrayList<sk::util::String>& storage)
       : Benchmark(iterations), _storage(storage) {}
 
     void run(const uint32_t iterations) {
@@ -104,7 +104,7 @@ namespace {
   };
 
   struct StemkitArrayListRetriever : public virtual Benchmark {
-    StemkitArrayListRetriever(const uint32_t iterations, sk::util::ArrayList<sk::util::String>& storage) 
+    StemkitArrayListRetriever(const uint32_t iterations, sk::util::ArrayList<sk::util::String>& storage)
       : Benchmark(iterations), _storage(storage) {}
 
     void run(const uint32_t iterations) {
@@ -116,7 +116,7 @@ namespace {
   };
 
   struct StemkitArrayListCleaner : public virtual Benchmark {
-    StemkitArrayListCleaner(const uint32_t iterations, sk::util::ArrayList<sk::util::String>& storage) 
+    StemkitArrayListCleaner(const uint32_t iterations, sk::util::ArrayList<sk::util::String>& storage)
       : Benchmark(iterations), _storage(storage) {}
 
     void run(const uint32_t iterations) {
@@ -126,7 +126,7 @@ namespace {
   };
 }
 
-void 
+void
 sk::util::performance::ArrayListBenchmarker::
 setUp()
 {

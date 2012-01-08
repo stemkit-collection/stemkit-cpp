@@ -1,10 +1,10 @@
 /*  vim: sw=2:
  *  Copyright (c) 2011, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -26,7 +26,7 @@ int main(int argc, const char* const argv[])
   server.setReuseAddress(true);
 
   std::cerr << "Listening on " << server.endpoint() << " (" << server.bind().localEndpoint() << ")" << std::endl;
-  
+
   try {
     while(true) {
       sk::net::Socket socket = server.accept();
@@ -35,7 +35,7 @@ int main(int argc, const char* const argv[])
       sk::io::DataInputStream inputStream(socket.inputStream());
       sk::io::DataOutputStream outputStream(socket.outputStream());
 
-      try { 
+      try {
         while(true) {
           const sk::util::String line = inputStream.readLine();
 

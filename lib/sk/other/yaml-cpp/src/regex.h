@@ -29,7 +29,7 @@ namespace YAML
 		friend RegEx operator || (const RegEx& ex1, const RegEx& ex2);
 		friend RegEx operator && (const RegEx& ex1, const RegEx& ex2);
 		friend RegEx operator + (const RegEx& ex1, const RegEx& ex2);
-		
+
 		bool Matches(char ch) const;
 		bool Matches(const std::string& str) const;
 		bool Matches(const Stream& in) const;
@@ -40,7 +40,7 @@ namespace YAML
 
 	private:
 		RegEx(REGEX_OP op);
-		
+
 		template <typename Source> bool IsValidSource(const Source& source) const;
 		template <typename Source> int Match(const Source& source) const;
 		template <typename Source> int MatchUnchecked(const Source& source) const;

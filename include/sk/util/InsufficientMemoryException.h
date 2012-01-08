@@ -1,5 +1,5 @@
 /*  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -19,7 +19,7 @@ namespace sk {
         InsufficientMemoryException(const sk::util::String& purpose, size_t amount);
 
         size_t getRequestedAmount() const;
-        
+
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
 

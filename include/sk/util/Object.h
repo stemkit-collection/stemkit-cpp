@@ -1,6 +1,6 @@
 /*  vi: sw=2:
  *  Copyright (c) 2005, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -18,15 +18,15 @@ namespace sk {
     class String;
 
     /**  The common base class. It provides querying abilities all objects
-     *   must provide. A particular object may override the methods to 
+     *   must provide. A particular object may override the methods to
      *   provide specifics about itself.
      */
-    class Object 
+    class Object
     {
       public:
         virtual ~Object();
 
-        /// Instantiates another object of the same class as a copy 
+        /// Instantiates another object of the same class as a copy
         /// of itself.
         virtual Object* clone() const;
 

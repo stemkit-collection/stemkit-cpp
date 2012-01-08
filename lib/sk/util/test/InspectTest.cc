@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -61,7 +61,7 @@ testStrings()
   CPPUNIT_ASSERT_EQUAL("\"abcd\\n\\r\\x05\"", sk::util::inspect(o));
 }
 
-void 
+void
 sk::util::test::InspectTest::
 testVectors()
 {
@@ -74,7 +74,7 @@ testVectors()
   CPPUNIT_ASSERT_EQUAL("[2: 0=\"aaa\", 1=\"zzz\" ]", sk::util::inspect(depot));
 }
 
-void 
+void
 sk::util::test::InspectTest::
 testLists()
 {
@@ -87,7 +87,7 @@ testLists()
   CPPUNIT_ASSERT_EQUAL("[2: 0=\"aaa\", 1=\"zzz\" ]", sk::util::inspect(depot));
 }
 
-void 
+void
 sk::util::test::InspectTest::
 testDeques()
 {
@@ -100,7 +100,7 @@ testDeques()
   CPPUNIT_ASSERT_EQUAL("[2: 0=\"aaa\", 1=\"zzz\" ]", sk::util::inspect(depot));
 }
 
-void 
+void
 sk::util::test::InspectTest::
 testContent()
 {

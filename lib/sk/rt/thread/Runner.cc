@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky (gennady.bystritsky@quest.com)
 */
 
@@ -23,7 +23,7 @@ static const char* __className("sk::rt::thread::Runner");
 
 sk::rt::thread::Runner::
 Runner(sk::rt::Runnable& target, sk::rt::thread::Generic& thread)
-  : _scope(__className), _target(target), _generic(thread), _stateHolder(thread::State::SK_T_NEW), 
+  : _scope(__className), _target(target), _generic(thread), _stateHolder(thread::State::SK_T_NEW),
     _exitStatus(-1), _interrupted(false), _detached(false), _stateMutex(false)
 {
 }
@@ -54,7 +54,7 @@ setState(const thread::State& state)
   (sk::rt::Locker(_stateMutex), _stateHolder.set(state));
 }
 
-sk::rt::Scope& 
+sk::rt::Scope&
 sk::rt::thread::Runner::
 getScope()
 {
@@ -99,7 +99,7 @@ stop()
   }
 }
 
-void 
+void
 sk::rt::thread::Runner::
 detach()
 {
@@ -118,7 +118,7 @@ isDetached()
 
 void
 sk::rt::thread::Runner::
-run() 
+run()
 {
   setState(thread::State::SK_T_RUNNING);
   try {

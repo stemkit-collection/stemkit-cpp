@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -26,7 +26,7 @@ namespace sk {
     }
 
     template<typename T, typename Policy = slot::policy::Storing<T> >
-    class LinkedList 
+    class LinkedList
       : public sk::util::StandardContainer<T, Policy, type::list<T, Policy> >
     {
       typedef type::list<T, Policy> type_t;
@@ -43,7 +43,7 @@ namespace sk {
       public:
         LinkedList();
         ~LinkedList();
-    
+
         void sort(const sk::util::BinaryAssessor<T>& assessor);
         using super_t::sort;
 
@@ -56,7 +56,7 @@ namespace sk {
 
         void removeFirst();
         T* cutoffFirst();
-        
+
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
     };

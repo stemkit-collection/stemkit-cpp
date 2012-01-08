@@ -2,7 +2,7 @@
 
 local library = sk.rt.action ;
 
-local objects = 
+local objects =
   Item.cc
 ;
 

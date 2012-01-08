@@ -1,5 +1,5 @@
 /*  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -26,11 +26,11 @@ namespace sk {
           CPPUNIT_TEST(testAlltogether);
           CPPUNIT_TEST(testInputRedirect);
         CPPUNIT_TEST_SUITE_END();
-        
+
         public:
           PipeProcessTest();
           virtual ~PipeProcessTest();
-          
+
           void setUp();
           void tearDown();
           void testTranslate();
@@ -40,7 +40,7 @@ namespace sk {
           void testErrorsAfterJoin();
           void testAlltogether();
           void testInputRedirect();
-          
+
         private:
           PipeProcessTest(const PipeProcessTest& other);
           PipeProcessTest& operator = (const PipeProcessTest& other);

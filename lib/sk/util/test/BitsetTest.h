@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -27,11 +27,11 @@ namespace sk {
           CPPUNIT_TEST(testBulk);
           CPPUNIT_TEST(testCompact);
         CPPUNIT_TEST_SUITE_END();
-      
+
         public:
           BitsetTest();
           virtual ~BitsetTest();
-      
+
           void setUp();
           void tearDown();
           void testEmpty();
@@ -39,7 +39,7 @@ namespace sk {
           void testImplicitCapacityAdjustment();
           void testBulk();
           void testCompact();
-      
+
         private:
           BitsetTest(const BitsetTest& other);
           BitsetTest& operator = (const BitsetTest& other);

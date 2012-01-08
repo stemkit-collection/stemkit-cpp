@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky (gennady.bystritsky@quest.com)
 */
 
@@ -32,7 +32,7 @@ sk::rt::thread::Dispatcher::
 {
 }
 
-sk::rt::thread::Dispatcher& 
+sk::rt::thread::Dispatcher&
 sk::rt::thread::Dispatcher::
 main()
 {
@@ -78,7 +78,7 @@ makeSequence()
 
 sk::rt::thread::Generic&
 sk::rt::thread::Dispatcher::
-currentThread() 
+currentThread()
 {
   return Implementation::instance().getGeneric();
 }

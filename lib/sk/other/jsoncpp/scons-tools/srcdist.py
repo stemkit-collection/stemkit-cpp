@@ -52,7 +52,7 @@ import targz
 ##
 ##      last_token = token
 ##      token = lex.get_token()
-##      
+##
 ##      if last_token == '\\' and token != '\n':
 ##         new_data = False
 ##         append_data( data, key, new_data, '\\' )

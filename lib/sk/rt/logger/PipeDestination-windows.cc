@@ -1,7 +1,7 @@
 /*  vim: set sw=2:
  *
  *  Copyright (c) 2007, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -33,7 +33,7 @@ sk::rt::logger::PipeDestination::
 {
 }
 
-void 
+void
 sk::rt::logger::PipeDestination::
 cleanup()
 {
@@ -53,7 +53,7 @@ clone() const
   throw sk::util::UnsupportedOperationException("sk::rt::logger::PipeDestination::clone()");
 }
 
-int 
+int
 sk::rt::logger::PipeDestination::
 cloneDescriptor() const
 {

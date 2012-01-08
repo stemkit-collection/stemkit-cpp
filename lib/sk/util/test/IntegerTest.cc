@@ -1,5 +1,5 @@
 /*  Copyright (c) 2005, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -86,7 +86,7 @@ testParseIntGuess()
   CPPUNIT_ASSERT_EQUAL(0x67B, Integer::parseInt("0X67b"));
   CPPUNIT_ASSERT_EQUAL(0x25, Integer::parseInt("0b100101"));
   CPPUNIT_ASSERT_EQUAL(0764, Integer::parseInt("0764"));
-  
+
   CPPUNIT_ASSERT_EQUAL(1024, Integer::parseInt("1K"));
   CPPUNIT_ASSERT_EQUAL(15 * 1024, Integer::parseInt("15K"));
 

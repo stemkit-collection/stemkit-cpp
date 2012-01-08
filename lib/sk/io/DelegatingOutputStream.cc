@@ -1,6 +1,6 @@
 /*  vi: sw=2:
  *  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -38,26 +38,26 @@ getClass() const
 
 sk::io::OutputStream&
 sk::io::DelegatingOutputStream::
-getOutputStream() const 
+getOutputStream() const
 {
   return _streamHolder.getMutable();
 }
 
-void 
+void
 sk::io::DelegatingOutputStream::
 close()
 {
   _streamHolder.getMutable().close();
 }
 
-void 
+void
 sk::io::DelegatingOutputStream::
 flush()
 {
   _streamHolder.getMutable().flush();
 }
 
-int 
+int
 sk::io::DelegatingOutputStream::
 write(const char* buffer, int offset, int length)
 {

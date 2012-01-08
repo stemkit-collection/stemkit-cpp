@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -53,7 +53,7 @@ close()
   }
 }
 
-void 
+void
 sk::io::Dir::
 forEachEntry(const sk::util::Processor<const sk::util::Pathname>& processor) const
 {
@@ -92,7 +92,7 @@ forEachEntry(const sk::util::Processor<const sk::util::Pathname>& processor) con
   }
 }
 
-void 
+void
 sk::io::Dir::
 change(const sk::util::String& path)
 {
@@ -101,7 +101,7 @@ change(const sk::util::String& path)
   }
 }
 
-void 
+void
 sk::io::Dir::
 make(const sk::util::String& path)
 {
@@ -110,7 +110,7 @@ make(const sk::util::String& path)
   }
 }
 
-const sk::util::Pathname 
+const sk::util::Pathname
 sk::io::Dir::
 current()
 {
@@ -124,7 +124,7 @@ current()
   return sk::util::String(&buffer.front());
 }
 
-void 
+void
 sk::io::Dir::
 unlink(const sk::util::String& path)
 {

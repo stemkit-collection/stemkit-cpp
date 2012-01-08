@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -19,14 +19,14 @@ struct addrinfo;
 namespace sk {
   namespace net {
     namespace ip6 {
-      class InetAddress 
+      class InetAddress
         : public sk::net::InetAddress
       {
         public:
           InetAddress(const sk::util::String& name, const struct addrinfo& info);
           InetAddress(const sk::util::bytes& components);
           virtual ~InetAddress();
-      
+
           // sk::net::InetAddress implementation.
           const sk::util::String getHostAddress() const;
           bool isLoopbackAddress() const;
@@ -40,7 +40,7 @@ namespace sk {
 
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
-      
+
         protected:
           // sk::net::InetAddress implementation.
           const sk::util::String lookupHostName() const;

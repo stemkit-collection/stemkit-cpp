@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -16,17 +16,17 @@
 namespace sk {
   namespace C {
     template<typename T, typename R>
-    class invocator 
+    class invocator
       : public virtual sk_c_handle::runnable
     {
       public:
         invocator(const sk::util::Mapper<T, R>& mapper, T& object, R& result);
         invocator(const invocator<T, R>& other);
         ~invocator();
-    
+
         // sk_c_handle::Runnable implementation.
         void run() const;
-    
+
       private:
         invocator<T, R>& operator = (const invocator<T, R>& other);
 

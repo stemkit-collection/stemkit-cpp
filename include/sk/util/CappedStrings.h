@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2010, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -15,7 +15,7 @@
 
 namespace sk {
   namespace util {
-    class CappedStrings 
+    class CappedStrings
       : public sk::util::Strings
     {
       public:
@@ -39,13 +39,13 @@ namespace sk {
         void set(int index, sk::util::String& item);
 
         int maxItemSize() const;
-    
+
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
-    
+
       private:
         const sk::util::String ensureCap(const sk::util::String& item);
-        
+
         int _cap;
     };
   }

@@ -1,6 +1,6 @@
 # vim: ft=jam: sw=2:
 
-local objects = 
+local objects =
   sample.cc.erb
 ;
 

@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -24,16 +24,16 @@ namespace sk {
           CPPUNIT_TEST(testFailingNonConstUpcastFromObject);
           CPPUNIT_TEST(testFailingConstUpcastFromObject);
         CPPUNIT_TEST_SUITE_END();
-      
+
         public:
           UpcastTest();
           virtual ~UpcastTest();
-      
+
           void setUp();
           void tearDown();
           void testFailingNonConstUpcastFromObject();
           void testFailingConstUpcastFromObject();
-      
+
         private:
           UpcastTest(const UpcastTest& other);
           UpcastTest& operator = (const UpcastTest& other);

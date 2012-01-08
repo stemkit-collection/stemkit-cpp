@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -17,14 +17,14 @@
 namespace sk {
   namespace util {
     namespace pp {
-      class AbstractValueNode 
+      class AbstractValueNode
         : public virtual sk::util::pp::Node
       {
         public:
           AbstractValueNode();
           AbstractValueNode(const std::vector<char>& data, int start, int end);
           virtual ~AbstractValueNode();
-      
+
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
           const sk::util::String toString() const;
@@ -34,7 +34,7 @@ namespace sk {
           int endPosition() const;
           void output(const Configurator& configurator, const sk::util::String& indent, std::ostream& stream) const;
           bool isGonnaBreak() const;
-      
+
         private:
           AbstractValueNode(const AbstractValueNode& other);
           AbstractValueNode& operator = (const AbstractValueNode& other);

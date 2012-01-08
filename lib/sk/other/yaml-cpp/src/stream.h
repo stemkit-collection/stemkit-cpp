@@ -20,7 +20,7 @@ namespace YAML
 	{
 	public:
 		friend class StreamCharSource;
-		
+
 		Stream(std::istream& input);
 		~Stream();
 
@@ -33,7 +33,7 @@ namespace YAML
 		void eat(int n = 1);
 
 		static char eof() { return 0x04; }
-		
+
 		const Mark mark() const { return m_mark; }
 		int pos() const { return m_mark.pos; }
 		int line() const { return m_mark.line; }
@@ -45,7 +45,7 @@ namespace YAML
 
 		std::istream& m_input;
 		Mark m_mark;
-		
+
 		CharacterSet m_charSet;
 		unsigned char m_bufPushback[MAX_PARSER_PUSHBACK];
 		mutable size_t m_nPushedBack;
@@ -53,7 +53,7 @@ namespace YAML
 		unsigned char* const m_pPrefetched;
 		mutable size_t m_nPrefetchedAvailable;
 		mutable size_t m_nPrefetchedUsed;
-		
+
 		void AdvanceCurrent();
 		char CharAt(size_t i) const;
 		bool ReadAheadTo(size_t i) const;
@@ -69,12 +69,12 @@ namespace YAML
 	inline char Stream::CharAt(size_t i) const {
 		return m_readahead[i];
 	}
-	
+
 	inline bool Stream::ReadAheadTo(size_t i) const {
 		if(m_readahead.size() > i)
 			return true;
 		return _ReadAheadTo(i);
-	}	
+	}
 }
 
 #endif // STREAM_H_62B23520_7C8E_11DE_8A39_0800200C9A66

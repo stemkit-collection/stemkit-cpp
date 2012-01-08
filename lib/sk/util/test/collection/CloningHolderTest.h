@@ -1,5 +1,5 @@
 /*  Copyright (c) 2007, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -25,11 +25,11 @@ namespace sk {
           CPPUNIT_TEST(testAssignment);
           CPPUNIT_TEST(testAssignmentFromOther);
         CPPUNIT_TEST_SUITE_END();
-        
+
         public:
           CloningHolderTest();
           virtual ~CloningHolderTest();
-          
+
           void setUp();
           void tearDown();
           void testClone();
@@ -38,7 +38,7 @@ namespace sk {
           void testStringLiteral();
           void testAssignment();
           void testAssignmentFromOther();
-          
+
         private:
           CloningHolderTest(const CloningHolderTest& other);
           CloningHolderTest& operator = (const CloningHolderTest& other);

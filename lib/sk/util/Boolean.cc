@@ -1,5 +1,5 @@
 /*  Copyright (c) 2007, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -92,12 +92,12 @@ toString() const
 
 const sk::util::String
 sk::util::Boolean::
-toString(bool value) 
+toString(bool value)
 {
   return valueOf(value).toString();
 }
 
-std::ostream& sk::util::operator << (std::ostream& stream, const sk::util::Boolean& value) 
+std::ostream& sk::util::operator << (std::ostream& stream, const sk::util::Boolean& value)
 {
   stream << value.toString();
   return stream;

@@ -1,5 +1,5 @@
 /*  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -27,14 +27,14 @@ getClass() const
   return sk::util::Class("sk::io::DelegatingTty");
 }
 
-void 
+void
 sk::io::DelegatingTty::
 setLines(int lines)
 {
   getTty().setLines(lines);
 }
 
-void 
+void
 sk::io::DelegatingTty::
 setColumns(int columns)
 {

@@ -1,5 +1,5 @@
 /*  Copyright (c) 2007, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -25,16 +25,16 @@ namespace sk {
             CPPUNIT_TEST(testBigPicture);
             CPPUNIT_TEST(testSubScopes);
           CPPUNIT_TEST_SUITE_END();
-          
+
           public:
             XmlConfigLoaderTest();
             virtual ~XmlConfigLoaderTest();
-            
+
             void setUp();
             void tearDown();
             void testBigPicture();
             void testSubScopes();
-            
+
           private:
             XmlConfigLoaderTest(const XmlConfigLoaderTest& other);
             XmlConfigLoaderTest& operator = (const XmlConfigLoaderTest& other);

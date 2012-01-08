@@ -1,6 +1,6 @@
 /*  vim:sw=2:
  *  Copyright (c) 2007, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -18,7 +18,7 @@ namespace sk {
     namespace slot {
       namespace policy {
         template<typename T>
-        class Sharing 
+        class Sharing
           : public Storing<T, slot::mixin::LinkCounter>
         {
           typedef Storing<T, slot::mixin::LinkCounter> Super;
@@ -36,7 +36,7 @@ namespace sk {
                 getSlot(storage).linkUp();
               }
             }
-            
+
             static void setObject(typename Super::slot_storage_t& storage, T& object) {
               if(hasSlot(storage) == true) {
                 throw sk::util::IllegalStateException("Non-replacable shared content");
@@ -56,7 +56,7 @@ namespace sk {
                 getSlot(storage).linkUp();
               }
             }
-            
+
             static void clearSlot(typename Super::slot_storage_t& storage) {
               if(hasSlot(storage) == true) {
                 if(getSlot(storage).linkDown() == true) {

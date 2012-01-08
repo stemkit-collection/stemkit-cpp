@@ -1,5 +1,5 @@
 /*  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -12,7 +12,7 @@
 
 namespace sk {
   namespace io {
-    /** This class provides default some of the sk::io::InputStream 
+    /** This class provides default some of the sk::io::InputStream
      *  operations as well as implements different flavours of read()
      *  via the basic one (still abstract).
     */

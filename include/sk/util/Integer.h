@@ -1,6 +1,6 @@
 /*  vi: sw=2:
  *  Copyright (c) 2005, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -14,7 +14,7 @@
 namespace sk {
   namespace util {
     class Integer
-      : public virtual sk::util::Object 
+      : public virtual sk::util::Object
     {
       public:
         /// Constructs a newly allocated Integer object that represents the
@@ -53,14 +53,14 @@ namespace sk {
         /// Parses the string argument as a signed integer in the radix
         /// specified by the second argument.
         static int parseInt(const sk::util::String& value, int radix);
-        
+
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
         const sk::util::String inspect() const;
 
         /// Returns a String object representing this Integer's value.
         const sk::util::String toString() const;
-      
+
       private:
         Integer& operator = (const Integer& other);
 

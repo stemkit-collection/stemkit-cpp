@@ -2,7 +2,7 @@
 
 local test = sk-net-test ;
 
-local objects = 
+local objects =
   TestSuite.cc
   InetAddressTest.cc
   InetSocketAddressTest.cc

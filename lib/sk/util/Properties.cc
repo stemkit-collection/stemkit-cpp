@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky (gennady.bystritsky@quest.com)
 */
 
@@ -50,7 +50,7 @@ getClass() const
   return sk::util::Class(__className);
 }
 
-const sk::util::String 
+const sk::util::String
 sk::util::Properties::
 getProperty(const sk::util::String& name) const
 {
@@ -61,7 +61,7 @@ getProperty(const sk::util::String& name) const
   throw sk::util::NoSuchElementException(name);
 }
 
-const sk::util::String 
+const sk::util::String
 sk::util::Properties::
 getProperty(const sk::util::String& name, const sk::util::String& fallback) const
 {
@@ -72,14 +72,14 @@ getProperty(const sk::util::String& name, const sk::util::String& fallback) cons
   return fallback;
 }
 
-const sk::util::String 
+const sk::util::String
 sk::util::Properties::
 getProperty(const sk::util::String& name, const char* fallback) const
 {
   return getProperty(name, sk::util::String(fallback));
 }
 
-bool 
+bool
 sk::util::Properties::
 getProperty(const sk::util::String& name, const sk::util::Boolean& fallback) const
 {
@@ -90,7 +90,7 @@ getProperty(const sk::util::String& name, const sk::util::Boolean& fallback) con
   return fallback.booleanValue();
 }
 
-int 
+int
 sk::util::Properties::
 getProperty(const sk::util::String& name, int fallback) const
 {
@@ -104,63 +104,63 @@ getProperty(const sk::util::String& name, int fallback) const
   return fallback;
 }
 
-int 
+int
 sk::util::Properties::
 size() const
 {
   return _depot.size();
 }
 
-bool 
+bool
 sk::util::Properties::
 hasProperty(const sk::util::String& name) const
 {
   return _depot.find(name) != _depot.end();
 }
 
-const sk::util::String 
+const sk::util::String
 sk::util::Properties::
 dumpProperty(const sk::util::String& name) const
 {
   return name + "=" + getProperty(name);
 }
 
-void 
+void
 sk::util::Properties::
 setProperty(const sk::util::String& name, const sk::util::String& value)
 {
   _depot[name] = value;
 }
 
-void 
+void
 sk::util::Properties::
 setProperty(const sk::util::String& name, const char* value)
 {
   setProperty(name, sk::util::String(value));
 }
 
-void 
+void
 sk::util::Properties::
 setProperty(const sk::util::String& name, const sk::util::Boolean& value)
 {
   setProperty(name, value.toString());
 }
 
-void 
+void
 sk::util::Properties::
 setProperty(const sk::util::String& name, int value)
 {
   setProperty(name, sk::util::String::valueOf(value));
 }
 
-bool 
+bool
 sk::util::Properties::
 deleteProperty(const sk::util::String& name)
 {
   return _depot.erase(name) == 0 ? false : true;
 }
-  
-void 
+
+void
 sk::util::Properties::
 parseProperty(const sk::util::String& specification)
 {
@@ -175,14 +175,14 @@ parseProperty(const sk::util::String& specification)
   throw sk::util::IllegalArgumentException(specification.inspect());
 }
 
-void 
+void
 sk::util::Properties::
 clear()
 {
   _depot.clear();
 }
 
-void 
+void
 sk::util::Properties::
 forEach(const sk::util::BinaryProcessor<const sk::util::String, const sk::util::String>& processor) const
 {
@@ -220,7 +220,7 @@ namespace {
 
 void
 sk::util::Properties::
-copyFrom(const sk::util::PropertyRegistry& registry) 
+copyFrom(const sk::util::PropertyRegistry& registry)
 {
   registry.forEach(Propagator(*this));
 }

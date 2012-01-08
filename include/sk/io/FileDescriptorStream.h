@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -21,7 +21,7 @@
 
 namespace sk {
   namespace io {
-    class FileDescriptorStream 
+    class FileDescriptorStream
       : public virtual sk::io::Stream,
         public virtual sk::io::FileDescriptorProvider,
         public virtual sk::io::StreamProvider
@@ -32,7 +32,7 @@ namespace sk {
         explicit FileDescriptorStream(const sk::io::FileDescriptor& descriptor);
         FileDescriptorStream(const FileDescriptorStream& other);
         virtual ~FileDescriptorStream();
-    
+
         // sk::io::Stream implementation.
         void close();
         sk::util::Object* clone() const;
@@ -47,7 +47,7 @@ namespace sk {
 
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
-    
+
       private:
         FileDescriptorStream& operator = (const FileDescriptorStream& other);
 

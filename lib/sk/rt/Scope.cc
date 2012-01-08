@@ -1,6 +1,6 @@
 /*  vim: sw=2:
  *  Copyright (c) 2007, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -55,7 +55,7 @@ sk::rt::Scope::
   detail().memory() << "Leave";
 }
 
-sk::rt::Scope& 
+sk::rt::Scope&
 sk::rt::Scope::
 operator = (const Scope& other)
 {
@@ -96,7 +96,7 @@ getObject() const
 
 sk::rt::scope::Controller&
 sk::rt::Scope::
-controller() 
+controller()
 {
   if(_controller == 0) {
     _controller = new scope::Controller;
@@ -120,7 +120,7 @@ currentThreadId() const
 
 sk::rt::Lock&
 sk::rt::Scope::
-getLock() const 
+getLock() const
 {
   return _aggregator.getArbitrator();
 }
@@ -188,42 +188,42 @@ scope(const sk::util::String& name) const
   return Scope(*this, name);
 }
 
-const sk::util::String 
+const sk::util::String
 sk::rt::Scope::
 getProperty(const sk::util::String& name) const
 {
   return getConfig().getProperty(name);
 }
 
-bool 
+bool
 sk::rt::Scope::
 hasProperty(const sk::util::String& name) const
 {
   return getConfig().hasProperty(name);
 }
 
-const sk::util::String 
+const sk::util::String
 sk::rt::Scope::
 getProperty(const sk::util::String& name, const sk::util::String& fallback) const
 {
   return getConfig().getProperty(name, fallback);
 }
 
-const sk::util::String 
+const sk::util::String
 sk::rt::Scope::
 getProperty(const sk::util::String& name, const char* fallback) const
 {
   return getConfig().getProperty(name, fallback);
 }
 
-int 
+int
 sk::rt::Scope::
 getProperty(const sk::util::String& name, int fallback) const
 {
   return getConfig().getProperty(name, fallback);
 }
 
-bool 
+bool
 sk::rt::Scope::
 getProperty(const sk::util::String& name, const sk::util::Boolean& fallback) const
 {

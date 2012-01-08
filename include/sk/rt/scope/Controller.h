@@ -1,5 +1,5 @@
 /*  Copyright (c) 2007, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -35,7 +35,7 @@ namespace sk {
           void loadXmlConfig(const sk::util::Strings& top, const config::Locator& locator, const std::map<std::string, std::string>& values);
 
           scope::Aggregator& getAggregator();
-          
+
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
 

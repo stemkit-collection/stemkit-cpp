@@ -1,7 +1,7 @@
 import fnmatch
 import os
 
-def generate( env ): 
+def generate( env ):
    def Glob( env, includes = None, excludes = None, dir = '.' ):
       """Adds Glob( includes = Split( '*' ), excludes = None, dir = '.')
        helper function to environment.

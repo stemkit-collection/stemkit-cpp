@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -39,7 +39,7 @@ getClass() const
 }
 
 template<typename T, typename Policy>
-void 
+void
 sk::util::LinkedList<T, Policy>::
 sort(const sk::util::BinaryAssessor<T>& assessor)
 {
@@ -47,7 +47,7 @@ sort(const sk::util::BinaryAssessor<T>& assessor)
 }
 
 template<typename T, typename Policy>
-void 
+void
 sk::util::LinkedList<T, Policy>::
 shuffle()
 {
@@ -61,7 +61,7 @@ shuffle()
 }
 
 template<typename T, typename Policy>
-void 
+void
 sk::util::LinkedList<T, Policy>::
 reverse()
 {
@@ -69,7 +69,7 @@ reverse()
 }
 
 template<typename T, typename Policy>
-void 
+void
 sk::util::LinkedList<T, Policy>::
 addFirst(const T& object)
 {
@@ -77,7 +77,7 @@ addFirst(const T& object)
 }
 
 template<typename T, typename Policy>
-void 
+void
 sk::util::LinkedList<T, Policy>::
 addFirst(T& object)
 {
@@ -85,7 +85,7 @@ addFirst(T& object)
 }
 
 template<typename T, typename Policy>
-void 
+void
 sk::util::LinkedList<T, Policy>::
 addFirst(T* object)
 {
@@ -93,7 +93,7 @@ addFirst(T* object)
 }
 
 template<typename T, typename Policy>
-void 
+void
 sk::util::LinkedList<T, Policy>::
 removeFirst()
 {

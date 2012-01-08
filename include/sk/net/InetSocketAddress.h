@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -19,7 +19,7 @@ namespace sk {
     class InetAddress;
     class DirectedSocket;
 
-    class InetSocketAddress 
+    class InetSocketAddress
       : public sk::net::SocketAddress
     {
       public:
@@ -39,7 +39,7 @@ namespace sk {
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
         const sk::util::String toString() const;
-    
+
       private:
         InetSocketAddress& operator = (const InetSocketAddress& other);
 

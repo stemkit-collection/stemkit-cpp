@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -24,16 +24,16 @@ getClass() const
   return sk::util::Class(__className);
 }
 
-void 
+void
 sk::sys::StreamPortalPropagator::
-process(const sk::util::String& descriptor) const 
+process(const sk::util::String& descriptor) const
 {
   propagate(sk::util::Integer::parseInt(descriptor));
 }
 
-int 
+int
 sk::sys::StreamPortalPropagator::
-propagate(int fd) const 
+propagate(int fd) const
 {
   sk::io::LooseFileDescriptor descriptor(fd);
   descriptor.inheritable(true);

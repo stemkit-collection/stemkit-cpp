@@ -1,7 +1,7 @@
 
 local library = sk.sys.mks32 ;
 
-local objects = 
+local objects =
   Process.cc
   DaemonProcess.cc
   ManagedProcess.cc
@@ -10,7 +10,7 @@ local objects =
   StreamPortalExporter.cc
   StreamPortalPropagator.cc
   User.cc
-  [ util.make-path .. win32 PtyProcess.cc ] 
+  [ util.make-path .. win32 PtyProcess.cc ]
 ;
 
 make-library $(library) : $(objects) ;

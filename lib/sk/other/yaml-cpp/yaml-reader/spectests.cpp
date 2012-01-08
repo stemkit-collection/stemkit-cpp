@@ -10,7 +10,7 @@ namespace {
 		TEST(): ok(false) {}
 		TEST(bool ok_): ok(ok_) {}
 		TEST(const char *error_): ok(false), error(error_) {}
-		
+
 		bool ok;
 		std::string error;
 	};
@@ -34,12 +34,12 @@ namespace Test {
 				ret.ok = false;
 				ret.error = "  Exception caught: " + e.msg;
 			}
-			
+
 			if(!ret.ok) {
 				std::cout << "Spec test " << index << " failed: " << name << "\n";
 				std::cout << ret.error << "\n";
 			}
-			
+
 			if(ret.ok)
 				passed++;
 			total++;
@@ -61,7 +61,7 @@ namespace Test {
 			YAML_ASSERT(doc[2] == "Ken Griffey");
 			return true;
 		}
-		
+
 		// 2.2
 		TEST MappingScalarsToScalars() {
 			std::string input =
@@ -76,7 +76,7 @@ namespace Test {
 			YAML_ASSERT(doc["rbi"] == "147");
 			return true;
 		}
-		
+
 		// 2.3
 		TEST MappingScalarsToSequences() {
 			std::string input =
@@ -101,7 +101,7 @@ namespace Test {
 			YAML_ASSERT(doc["national"][2] == "Atlanta Braves");
 			return true;
 		}
-		
+
 		// 2.4
 		TEST SequenceOfMappings()
 		{
@@ -127,7 +127,7 @@ namespace Test {
 			YAML_ASSERT(doc[1]["avg"] == "0.288");
 			return true;
 		}
-		
+
 		// 2.5
 		TEST SequenceOfSequences()
 		{
@@ -152,7 +152,7 @@ namespace Test {
 			YAML_ASSERT(doc[2][2] == "0.288");
 			return true;
 		}
-		
+
 		// 2.6
 		TEST MappingOfMappings()
 		{
@@ -173,7 +173,7 @@ namespace Test {
 			YAML_ASSERT(doc["Sammy Sosa"]["avg"] == "0.288");
 			return true;
 		}
-		
+
 		// 2.7
 		TEST TwoDocumentsInAStream()
 		{
@@ -201,7 +201,7 @@ namespace Test {
 			YAML_ASSERT(doc[1] == "St Louis Cardinals");
 			return true;
 		}
-		
+
 		// 2.8
 		TEST PlayByPlayFeed()
 		{
@@ -230,7 +230,7 @@ namespace Test {
 			YAML_ASSERT(doc["action"] == "grand slam");
 			return true;
 		}
-		
+
 		// 2.9
 		TEST SingleDocumentWithTwoComments()
 		{
@@ -254,7 +254,7 @@ namespace Test {
 			YAML_ASSERT(doc["rbi"][1] == "Ken Griffey");
 			return true;
 		}
-		
+
 		// 2.10
 		TEST SimpleAnchor()
 		{
@@ -278,22 +278,22 @@ namespace Test {
 			YAML_ASSERT(doc["rbi"][1] == "Ken Griffey");
 			return true;
 		}
-		
+
 		struct Pair {
 			Pair() {}
 			Pair(const std::string& f, const std::string& s): first(f), second(s) {}
 			std::string first, second;
 		};
-		
+
 		bool operator == (const Pair& p, const Pair& q) {
 			return p.first == q.first && p.second == q.second;
 		}
-		
+
 		void operator >> (const YAML::Node& node, Pair& p) {
 			node[0] >> p.first;
 			node[1] >> p.second;
 		}
-		
+
 		// 2.11
 		TEST MappingBetweenSequences()
 		{
@@ -318,7 +318,7 @@ namespace Test {
 			YAML_ASSERT(doc[Pair("New York Yankees", "Atlanta Braves")][2] == "2001-08-14");
 			return true;
 		}
-		
+
 		// 2.12
 		TEST CompactNestedMapping()
 		{
@@ -345,7 +345,7 @@ namespace Test {
 			YAML_ASSERT(doc[2]["quantity"] == 1);
 			return true;
 		}
-		
+
 		// 2.13
 		TEST InLiteralsNewlinesArePreserved()
 		{
@@ -361,7 +361,7 @@ namespace Test {
 						"// ||  ||__");
 			return true;
 		}
-		
+
 		// 2.14
 		TEST InFoldedScalarsNewlinesBecomeSpaces()
 		{
@@ -375,7 +375,7 @@ namespace Test {
 			YAML_ASSERT(doc == "Mark McGwire's year was crippled by a knee injury.");
 			return true;
 		}
-		
+
 		// 2.15
 		TEST FoldedNewlinesArePreservedForMoreIndentedAndBlankLines()
 		{
@@ -397,7 +397,7 @@ namespace Test {
 						"What a year!");
 			return true;
 		}
-		
+
 		// 2.16
 		TEST IndentationDeterminesScope()
 		{
@@ -417,7 +417,7 @@ namespace Test {
 			YAML_ASSERT(doc["stats"] == "65 Home Runs\n0.278 Batting Average\n");
 			return true;
 		}
-		
+
 		// 2.17
 		TEST QuotedScalars()
 		{
@@ -440,7 +440,7 @@ namespace Test {
 			YAML_ASSERT(doc["tie-fighter"] == "|\\-*-/|");
 			return true;
 		}
-		
+
 		// 2.18
 		TEST MultiLineFlowScalars()
 		{
@@ -458,9 +458,9 @@ namespace Test {
 			YAML_ASSERT(doc["quoted"] == "So does this quoted scalar.\n");
 			return true;
 		}
-		
+
 		// TODO: 2.19 - 2.26 tags
-		
+
 		// 2.27
 		TEST Invoice()
 		{
@@ -531,7 +531,7 @@ namespace Test {
 			YAML_ASSERT(doc["comments"] == "Late afternoon is best. Backup contact is Nancy Billsmer @ 338-4338.");
 			return true;
 		}
-		
+
 		// 2.28
 		TEST LogFile()
 		{
@@ -591,9 +591,9 @@ namespace Test {
 			YAML_ASSERT(doc["Stack"][1]["code"] == "foo = bar");
 			return true;
 		}
-		
+
 		// TODO: 5.1 - 5.2 BOM
-		
+
 		// 5.3
 		TEST BlockStructureIndicators()
 		{
@@ -616,7 +616,7 @@ namespace Test {
 			YAML_ASSERT(doc["mapping"]["sea"] == "green");
 			return true;
 		}
-		
+
 		// 5.4
 		TEST FlowStructureIndicators()
 		{
@@ -634,9 +634,9 @@ namespace Test {
 			YAML_ASSERT(doc["mapping"]["sea"] == "green");
 			return true;
 		}
-		
+
 		// TODO: 5.5 comment only
-		
+
 		// 5.6
 		TEST NodePropertyIndicators()
 		{
@@ -650,7 +650,7 @@ namespace Test {
 			YAML_ASSERT(doc["alias"] == "value");
 			return true;
 		}
-		
+
 		// 5.7
 		TEST BlockScalarIndicators()
 		{
@@ -668,7 +668,7 @@ namespace Test {
 			YAML_ASSERT(doc["folded"] == "some text\n");
 			return true;
 		}
-		
+
 		// 5.8
 		TEST QuotedScalarIndicators()
 		{
@@ -682,10 +682,10 @@ namespace Test {
 			YAML_ASSERT(doc["double"] == "text");
 			return true;
 		}
-		
+
 		// TODO: 5.9 directive
 		// TODO: 5.10 reserved indicator
-		
+
 		// 5.11
 		TEST LineBreakCharacters()
 		{
@@ -698,7 +698,7 @@ namespace Test {
 			YAML_ASSERT(doc == "Line break (no glyph)\nLine break (glyphed)\n");
 			return true;
 		}
-		
+
 		// 5.12
 		TEST TabsAndSpaces()
 		{
@@ -719,7 +719,7 @@ namespace Test {
 						"}");
 			return true;
 		}
-		
+
 		// 5.13
 		TEST EscapedCharacters()
 		{
@@ -734,7 +734,7 @@ namespace Test {
 			YAML_ASSERT(doc == "Fun with \x5C \x22 \x07 \x08 \x1B \x0C \x0A \x0D \x09 \x0B " + std::string("\x00", 1) + " \x20 \xA0 \x85 \xe2\x80\xa8 \xe2\x80\xa9 A A A");
 			return true;
 		}
-		
+
 		// 5.14
 		TEST InvalidEscapedCharacters()
 		{
@@ -742,7 +742,7 @@ namespace Test {
 				"Bad escapes:\n"
 				"  \"\\c\n"
 				"  \\xq-\"";
-			
+
 			std::stringstream stream(input);
 			try {
 				YAML::Parser parser(stream);
@@ -752,10 +752,10 @@ namespace Test {
 				YAML_ASSERT(e.msg == YAML::ErrorMsg::INVALID_ESCAPE + "c");
 				return true;
 			}
-			
+
 			return false;
 		}
-		
+
 		// 6.1
 		TEST IndentationSpaces()
 		{
@@ -783,7 +783,7 @@ namespace Test {
 			YAML_ASSERT(doc["Not indented"]["Flow style"][2] == "Still by two");
 			return true;
 		}
-		
+
 		// 6.2
 		TEST IndentationIndicators()
 		{
@@ -802,7 +802,7 @@ namespace Test {
 			YAML_ASSERT(doc["a"][1][1] == "d");
 			return true;
 		}
-		
+
 		// 6.3
 		TEST SeparationSpaces()
 		{
@@ -820,7 +820,7 @@ namespace Test {
 			YAML_ASSERT(doc[1][1] == "baz");
 			return true;
 		}
-		
+
 		// 6.4
 		TEST LinePrefixes()
 		{
@@ -840,7 +840,7 @@ namespace Test {
 			YAML_ASSERT(doc["block"] == "text\n \tlines\n");
 			return true;
 		}
-		
+
 		// 6.5
 		TEST EmptyLines()
 		{
@@ -859,7 +859,7 @@ namespace Test {
 			YAML_ASSERT(doc["Chomping"] == "Clipped empty lines\n");
 			return true;
 		}
-		
+
 		// 6.6
 		TEST LineFolding()
 		{
@@ -876,7 +876,7 @@ namespace Test {
 			YAML_ASSERT(doc == "trimmed\n\n\nas space");
 			return true;
 		}
-		
+
 		// 6.7
 		TEST BlockFolding()
 		{
@@ -892,7 +892,7 @@ namespace Test {
 			YAML_ASSERT(doc == "foo \n\n\t bar\n\nbaz\n");
 			return true;
 		}
-		
+
 		// 6.8
 		TEST FlowFolding()
 		{
@@ -905,11 +905,11 @@ namespace Test {
 				"  baz\n"
 				"\"";
 
-			PARSE(doc, input);			
+			PARSE(doc, input);
 			YAML_ASSERT(doc == " foo\nbar\nbaz ");
 			return true;
 		}
-		
+
 		// 6.9
 		TEST SeparatedComment()
 		{
@@ -922,7 +922,7 @@ namespace Test {
 			YAML_ASSERT(doc["key"] == "value");
 			return true;
 		}
-		
+
 		// 6.10
 		TEST CommentLines()
 		{
@@ -932,11 +932,11 @@ namespace Test {
 				"\n";
 			std::stringstream stream(input);
 			YAML::Parser parser(stream);
-			
+
 			YAML_ASSERT(!parser);
 			return true;
 		}
-		
+
 		// 6.11
 		TEST MultiLineComments()
 		{
@@ -956,11 +956,11 @@ namespace Test {
 			typedef std::map<std::string, std::string> Map;
 			Map _;
 		};
-		
+
 		bool operator == (const StringMap& m, const StringMap& n) {
 			return m._ == n._;
 		}
-		
+
 		void operator >> (const YAML::Node& node, StringMap& m) {
 			m._.clear();
 			for(YAML::Iterator it=node.begin();it!=node.end();++it) {
@@ -970,7 +970,7 @@ namespace Test {
 			}
 		}
 
-		
+
 		// 6.12
 		TEST SeparationSpacesII()
 		{
@@ -992,7 +992,7 @@ namespace Test {
 			YAML_ASSERT(doc[key]["avg"] == "0.278");
 			return true;
 		}
-		
+
 		// TODO: 6.13 - 6.17 directives
 		// TODO: 6.18 - 6.28 tags
 
@@ -1009,7 +1009,7 @@ namespace Test {
 			YAML_ASSERT(doc["Second occurrence"] == "Value");
 			return true;
 		}
-		
+
 		// 7.1
 		TEST AliasNodes()
 		{
@@ -1027,7 +1027,7 @@ namespace Test {
 			YAML_ASSERT(doc["Reuse anchor"] == "Bar");
 			return true;
 		}
-		
+
 		// 7.2
 		TEST EmptyNodes()
 		{
@@ -1043,7 +1043,7 @@ namespace Test {
 			YAML_ASSERT(doc[""] == "bar");
 			return true;
 		}
-		
+
 		// 7.3
 		TEST CompletelyEmptyNodes()
 		{
@@ -1059,7 +1059,7 @@ namespace Test {
 			YAML_ASSERT(doc[YAML::Null] == "bar");
 			return true;
 		}
-		
+
 		// 7.4
 		TEST DoubleQuotedImplicitKeys()
 		{
@@ -1075,7 +1075,7 @@ namespace Test {
 			YAML_ASSERT(doc["implicit block key"][0]["implicit flow key"] == "value");
 			return true;
 		}
-		
+
 		// 7.5
 		TEST DoubleQuotedLineBreaks()
 		{
@@ -1090,7 +1090,7 @@ namespace Test {
 			YAML_ASSERT(doc == "folded to a space,\nto a line feed, or \t \tnon-content");
 			return true;
 		}
-		
+
 		// 7.6
 		TEST DoubleQuotedLines()
 		{
@@ -1104,7 +1104,7 @@ namespace Test {
 			YAML_ASSERT(doc == " 1st non-empty\n2nd non-empty 3rd non-empty ");
 			return true;
 		}
-		
+
 		// 7.7
 		TEST SingleQuotedCharacters()
 		{
@@ -1114,7 +1114,7 @@ namespace Test {
 			YAML_ASSERT(doc == "here's to \"quotes\"");
 			return true;
 		}
-		
+
 		// 7.8
 		TEST SingleQuotedImplicitKeys()
 		{
@@ -1122,7 +1122,7 @@ namespace Test {
 				"'implicit block key' : [\n"
 				"  'implicit flow key' : value,\n"
 				" ]";
-			
+
 			PARSE(doc, input);
 			YAML_ASSERT(doc.size() == 1);
 			YAML_ASSERT(doc["implicit block key"].size() == 1);
@@ -1130,7 +1130,7 @@ namespace Test {
 			YAML_ASSERT(doc["implicit block key"][0]["implicit flow key"] == "value");
 			return true;
 		}
-		
+
 		// 7.9
 		TEST SingleQuotedLines()
 		{
@@ -1139,12 +1139,12 @@ namespace Test {
 				"\n"
 				" 2nd non-empty \n"
 				"\t3rd non-empty '";
-			
+
 			PARSE(doc, input);
 			YAML_ASSERT(doc == " 1st non-empty\n2nd non-empty 3rd non-empty ");
 			return true;
 		}
-		
+
 		// 7.10
 		TEST PlainCharacters()
 		{
@@ -1161,7 +1161,7 @@ namespace Test {
 				"  \"Up, up, and away!\",\n"
 				"  -123,\n"
 				"  http://example.com/foo#bar ]";
-			
+
 			PARSE(doc, input);
 			YAML_ASSERT(doc.size() == 6);
 			YAML_ASSERT(doc[0] == "::vector");
@@ -1177,7 +1177,7 @@ namespace Test {
 			YAML_ASSERT(doc[5][4] == "http://example.com/foo#bar");
 			return true;
 		}
-		
+
 		// 7.11
 		TEST PlainImplicitKeys()
 		{
@@ -1193,7 +1193,7 @@ namespace Test {
 			YAML_ASSERT(doc["implicit block key"][0]["implicit flow key"] == "value");
 			return true;
 		}
-		
+
 		// 7.12
 		TEST PlainLines()
 		{
@@ -1202,7 +1202,7 @@ namespace Test {
 				"\n"
 				" 2nd non-empty \n"
 				"\t3rd non-empty";
-			
+
 			PARSE(doc, input);
 			YAML_ASSERT(doc == "1st non-empty\n2nd non-empty 3rd non-empty");
 			return true;
@@ -1231,10 +1231,10 @@ namespace Test {
 		RunSpecTest(&Spec::IndentationDeterminesScope, "2.16", "Indentation determines scope", passed, total);
 		RunSpecTest(&Spec::QuotedScalars, "2.17", "Quoted scalars", passed, total);
 		RunSpecTest(&Spec::MultiLineFlowScalars, "2.18", "Multi-line flow scalars", passed, total);
-		
+
 		RunSpecTest(&Spec::Invoice, "2.27", "Invoice", passed, total);
 		RunSpecTest(&Spec::LogFile, "2.28", "Log File", passed, total);
-		
+
 		RunSpecTest(&Spec::BlockStructureIndicators, "5.3", "Block Structure Indicators", passed, total);
 		RunSpecTest(&Spec::FlowStructureIndicators, "5.4", "Flow Structure Indicators", passed, total);
 		RunSpecTest(&Spec::NodePropertyIndicators, "5.6", "Node Property Indicators", passed, total);
@@ -1244,7 +1244,7 @@ namespace Test {
 		RunSpecTest(&Spec::TabsAndSpaces, "5.12", "Tabs and Spaces", passed, total);
 		RunSpecTest(&Spec::EscapedCharacters, "5.13", "Escaped Characters", passed, total);
 		RunSpecTest(&Spec::InvalidEscapedCharacters, "5.14", "Invalid Escaped Characters", passed, total);
-		
+
 		RunSpecTest(&Spec::IndentationSpaces, "6.1", "Indentation Spaces", passed, total);
 		RunSpecTest(&Spec::IndentationIndicators, "6.2", "Indentation Indicators", passed, total);
 		RunSpecTest(&Spec::SeparationSpaces, "6.3", "Separation Spaces", passed, total);
@@ -1256,9 +1256,9 @@ namespace Test {
 		RunSpecTest(&Spec::SeparatedComment, "6.9", "Separated Comment", passed, total);
 		RunSpecTest(&Spec::CommentLines, "6.10", "Comment Lines", passed, total);
 		RunSpecTest(&Spec::SeparationSpacesII, "6.11", "Separation Spaces", passed, total);
-		
+
 		RunSpecTest(&Spec::NodeAnchors, "6.29", "Node Anchors", passed, total);
-		
+
 		RunSpecTest(&Spec::AliasNodes, "7.1", "Alias Nodes", passed, total);
 		RunSpecTest(&Spec::EmptyNodes, "7.2", "Empty Nodes", passed, total);
 		RunSpecTest(&Spec::CompletelyEmptyNodes, "7.3", "Completely Empty Nodes", passed, total);
@@ -1275,6 +1275,6 @@ namespace Test {
 		std::cout << "Spec tests: " << passed << "/" << total << " passed\n";
 		return passed == total;
 	}
-	
+
 }
 

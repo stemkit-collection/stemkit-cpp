@@ -10,7 +10,7 @@ void writeData(sk::io::DataOutput& data) {
 }
 
 int main(int argc, const char* const argv[]) {
-  try { 
+  try {
     sk::io::File f1("host_ordered_data", "w");
     sk::io::BufferedOutputStream host_stream(f1.outputStream());
     sk::io::DataOutputStream host_data(host_stream);

@@ -1,5 +1,5 @@
 /*  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -23,7 +23,7 @@
 namespace sk {
   namespace io {
     class PtyStream
-      : public virtual sk::util::Object 
+      : public virtual sk::util::Object
     {
       public:
         PtyStream(sk::io::PtySpecifics& specifics) {
@@ -37,7 +37,7 @@ namespace sk {
           }
           _fd = specifics.makeSlave(ptsname(fd));
         }
-        
+
         void push(const sk::util::String& module) {
           if(ioctl(_fd, I_PUSH, module.getChars()) < 0) {
             throw sk::util::SystemException(sk::util::String("ioctl(") + sk::util::Integer::toString(_fd) + ", I_PUSH, " + module.inspect() + ")");

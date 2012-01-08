@@ -1,5 +1,5 @@
 /*  Copyright (c) 2007, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -29,11 +29,11 @@ namespace sk {
             CPPUNIT_TEST(testCycling);
             CPPUNIT_TEST(testEnsureChunks);
           CPPUNIT_TEST_SUITE_END();
-          
+
           public:
             PointingCyclerTest();
             virtual ~PointingCyclerTest();
-            
+
             void setUp();
             void tearDown();
             void testDefaults();
@@ -41,7 +41,7 @@ namespace sk {
             void testDelayedDispatch();
             void testCycling();
             void testEnsureChunks();
-            
+
           private:
             PointingCyclerTest(const PointingCyclerTest& other);
             PointingCyclerTest& operator = (const PointingCyclerTest& other);

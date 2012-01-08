@@ -1,5 +1,5 @@
 /*  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -16,7 +16,7 @@ namespace sk {
   namespace util {
     class Container
       : public std::vector<char>,
-        public virtual sk::util::Object 
+        public virtual sk::util::Object
     {
       public:
         Container();
@@ -39,7 +39,7 @@ namespace sk {
         Container& operator += (const std::vector<char>& other);
 
         Container& append(const std::vector<char>& other);
-        
+
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
         const sk::util::String inspect() const;

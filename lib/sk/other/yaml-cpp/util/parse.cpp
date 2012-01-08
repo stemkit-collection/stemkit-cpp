@@ -7,7 +7,7 @@ int main(int argc, char **argv)
 	std::ifstream fin;
 	if(argc > 1)
 		fin.open(argv[1]);
-	
+
 	std::istream& input = (argc > 1 ? fin : std::cin);
 	try {
 		YAML::Parser parser(input);

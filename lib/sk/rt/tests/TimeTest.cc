@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -48,7 +48,7 @@ testBasics()
   CPPUNIT_ASSERT_EQUAL("<Time: date=69/12/31, time=16:02:07.478>", sk::rt::Time::at(127, 478).inspect());
 }
 
-void 
+void
 sk::rt::tests::TimeTest::
 testOrdering()
 {

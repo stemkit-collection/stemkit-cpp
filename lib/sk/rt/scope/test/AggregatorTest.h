@@ -1,5 +1,5 @@
 /*  Copyright (c) 2007, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -21,15 +21,15 @@ namespace sk {
           CPPUNIT_TEST_SUITE(sk::rt::scope::test::AggregatorTest);
             CPPUNIT_TEST(testInner);
           CPPUNIT_TEST_SUITE_END();
-          
+
           public:
             AggregatorTest();
             virtual ~AggregatorTest();
-            
+
             void setUp();
             void tearDown();
             void testInner();
-            
+
           private:
             AggregatorTest(const AggregatorTest& other);
             AggregatorTest& operator = (const AggregatorTest& other);

@@ -1,5 +1,5 @@
 /*  Copyright (c) 2005, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -24,11 +24,11 @@ namespace sk {
           CPPUNIT_TEST(testParseInt);
           CPPUNIT_TEST(testParseIntGuess);
         CPPUNIT_TEST_SUITE_END();
-        
+
         public:
           IntegerTest();
           virtual ~IntegerTest();
-          
+
           void setUp();
           void tearDown();
           void testClassName();
@@ -36,7 +36,7 @@ namespace sk {
           void testStaticToHexString();
           void testParseInt();
           void testParseIntGuess();
-          
+
         private:
           IntegerTest(const IntegerTest& other);
           IntegerTest& operator = (const IntegerTest& other);

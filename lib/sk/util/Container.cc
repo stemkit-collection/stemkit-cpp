@@ -1,6 +1,6 @@
 /*  vi: sw=2:
  *  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -100,28 +100,28 @@ isEmpty() const
   return empty();
 }
 
-sk::util::Container& 
+sk::util::Container&
 sk::util::Container::
 operator += (const std::vector<char>& other)
 {
   return append(other);
 }
 
-sk::util::Container& 
+sk::util::Container&
 sk::util::Container::
 operator += (const char* buffer)
 {
   return append(Container(buffer));
 }
 
-sk::util::Container& 
+sk::util::Container&
 sk::util::Container::
 operator += (const std::string& string)
 {
   return append(Container(string));
 }
 
-sk::util::Container& 
+sk::util::Container&
 sk::util::Container::
 append(const std::vector<char>& other)
 {
@@ -131,7 +131,7 @@ append(const std::vector<char>& other)
   return *this;
 }
 
-const char* 
+const char*
 sk::util::Container::
 getChars() const
 {

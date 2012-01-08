@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -41,7 +41,7 @@ getClass() const
 }
 
 
-void 
+void
 sk::C::test::Probe::
 raiseException(const sk::util::String& message) const
 {
@@ -50,14 +50,14 @@ raiseException(const sk::util::String& message) const
 
 const sk::util::String
 sk::C::test::Probe::
-inspect() const 
+inspect() const
 {
   return getClass().getName() + "=" + _name.inspect();
 }
 
-int 
+int
 sk::C::test::Probe::
-getInstanceCouner() 
+getInstanceCouner()
 {
   return __instanceCounter;
 }

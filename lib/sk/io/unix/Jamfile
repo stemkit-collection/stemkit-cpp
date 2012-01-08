@@ -1,7 +1,7 @@
 
 local library = sk.io.unix ;
 
-objects = 
+objects =
   AnonymousPipe.cc
   LooseFileDescriptor.cc
   Dir.cc
@@ -10,13 +10,13 @@ objects =
 ;
 
 if mks32 in $(project.PLATFORM_SPECIFICS) {
-  objects += 
-    [ util.make-path .. win32 TtyDevice.cc ] 
-    [ util.make-path .. win32 TtyFileDescriptor.cc ] 
-    [ util.make-path .. win32 Pty.cc ] 
+  objects +=
+    [ util.make-path .. win32 TtyDevice.cc ]
+    [ util.make-path .. win32 TtyFileDescriptor.cc ]
+    [ util.make-path .. win32 Pty.cc ]
   ;
 }
-else objects += 
+else objects +=
   TtyDevice.cc
   TtyFileDescriptor.cc
   PtyImpl.cc
@@ -27,7 +27,7 @@ else objects +=
 make-library $(library) : $(objects) ;
 make-subdirs test ;
 
-probes = 
+probes =
   pty-probe
 ;
 

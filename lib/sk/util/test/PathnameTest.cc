@@ -1,6 +1,6 @@
 /*  vim: sw=2:
  *  Copyright (c) 2007, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -170,7 +170,7 @@ testExtension()
   CPPUNIT_ASSERT_EQUAL(".zip", Pathname("a/b/c.zip").extension());
 }
 
-void 
+void
 sk::util::test::PathnameTest::
 testIsTerminal()
 {

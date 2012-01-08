@@ -1,6 +1,6 @@
 /*  vi: sw=2:
  *  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -37,12 +37,12 @@ markSupported() const
 
 void
 sk::io::AbstractInputStream::
-mark(int /*readlimit*/) 
+mark(int /*readlimit*/)
 {
   throw sk::util::UnsupportedOperationException(SK_METHOD);
 }
 
-void 
+void
 sk::io::AbstractInputStream::
 reset()
 {
@@ -56,7 +56,7 @@ available() const
   throw sk::util::UnsupportedOperationException(SK_METHOD);
 }
 
-/* 
+/*
  * Most ineffective implementation. It is to be refined in derrived classes.
 */
 int
@@ -85,7 +85,7 @@ read()
   return int(c) & 0xff;
 }
 
-std::vector<char> 
+std::vector<char>
 sk::io::AbstractInputStream::
 read(int number)
 {
@@ -93,7 +93,7 @@ read(int number)
   return read(buffer, number);
 }
 
-std::vector<char>& 
+std::vector<char>&
 sk::io::AbstractInputStream::
 read(std::vector<char>& buffer, int number)
 {

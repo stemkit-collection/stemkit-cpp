@@ -39,7 +39,7 @@ public: // overridden from ValueArrayAllocator
       delete array;
    }
 
-   virtual void reallocateArrayPageIndex( Value **&indexes, 
+   virtual void reallocateArrayPageIndex( Value **&indexes,
                                           ValueInternalArray::PageIndex &indexCount,
                                           ValueInternalArray::PageIndex minNewIndexCount )
    {
@@ -52,7 +52,7 @@ public: // overridden from ValueArrayAllocator
       indexCount = newIndexCount;
       indexes = static_cast<Value **>( newIndexes );
    }
-   virtual void releaseArrayPageIndex( Value **indexes, 
+   virtual void releaseArrayPageIndex( Value **indexes,
                                        ValueInternalArray::PageIndex indexCount )
    {
       if ( indexes )
@@ -103,7 +103,7 @@ public: // overridden from ValueArrayAllocator
       }
    }
 
-   virtual void reallocateArrayPageIndex( Value **&indexes, 
+   virtual void reallocateArrayPageIndex( Value **&indexes,
                                           ValueInternalArray::PageIndex &indexCount,
                                           ValueInternalArray::PageIndex minNewIndexCount )
    {
@@ -116,7 +116,7 @@ public: // overridden from ValueArrayAllocator
       indexCount = newIndexCount;
       indexes = static_cast<Value **>( newIndexes );
    }
-   virtual void releaseArrayPageIndex( Value **indexes, 
+   virtual void releaseArrayPageIndex( Value **indexes,
                                        ValueInternalArray::PageIndex indexCount )
    {
       if ( indexes )
@@ -147,7 +147,7 @@ static ValueArrayAllocator *&arrayAllocator()
 }
 
 static struct DummyArrayAllocatorInitializer {
-   DummyArrayAllocatorInitializer() 
+   DummyArrayAllocatorInitializer()
    {
       arrayAllocator();      // ensure arrayAllocator() statics are initialized before main().
    }
@@ -156,17 +156,17 @@ static struct DummyArrayAllocatorInitializer {
 // //////////////////////////////////////////////////////////////////
 // class ValueInternalArray
 // //////////////////////////////////////////////////////////////////
-bool 
-ValueInternalArray::equals( const IteratorState &x, 
+bool
+ValueInternalArray::equals( const IteratorState &x,
                             const IteratorState &other )
 {
-   return x.array_ == other.array_  
-          &&  x.currentItemIndex_ == other.currentItemIndex_  
+   return x.array_ == other.array_
+          &&  x.currentItemIndex_ == other.currentItemIndex_
           &&  x.currentPageIndex_ == other.currentPageIndex_;
 }
 
 
-void 
+void
 ValueInternalArray::increment( IteratorState &it )
 {
    JSON_ASSERT_MESSAGE( it.array_  &&
@@ -182,10 +182,10 @@ ValueInternalArray::increment( IteratorState &it )
 }
 
 
-void 
+void
 ValueInternalArray::decrement( IteratorState &it )
 {
-   JSON_ASSERT_MESSAGE( it.array_  &&  it.currentPageIndex_ == it.array_->pages_ 
+   JSON_ASSERT_MESSAGE( it.array_  &&  it.currentPageIndex_ == it.array_->pages_
                         &&  it.currentItemIndex_ == 0,
       "ValueInternalArray::decrement(): moving iterator beyond end" );
    if ( it.currentItemIndex_ == 0 )
@@ -217,7 +217,7 @@ ValueInternalArray::dereference( const IteratorState &it )
    return unsafeDereference( it );
 }
 
-void 
+void
 ValueInternalArray::makeBeginIterator( IteratorState &it ) const
 {
    it.array_ = const_cast<ValueInternalArray *>( this );
@@ -226,7 +226,7 @@ ValueInternalArray::makeBeginIterator( IteratorState &it ) const
 }
 
 
-void 
+void
 ValueInternalArray::makeIterator( IteratorState &it, ArrayIndex index ) const
 {
    it.array_ = const_cast<ValueInternalArray *>( this );
@@ -235,7 +235,7 @@ ValueInternalArray::makeIterator( IteratorState &it, ArrayIndex index ) const
 }
 
 
-void 
+void
 ValueInternalArray::makeEndIterator( IteratorState &it ) const
 {
    makeIterator( it, size_ );
@@ -257,7 +257,7 @@ ValueInternalArray::ValueInternalArray( const ValueInternalArray &other )
 {
    PageIndex minNewPages = other.size_ / itemsPerPage;
    arrayAllocator()->reallocateArrayPageIndex( pages_, pageCount_, minNewPages );
-   JSON_ASSERT_MESSAGE( pageCount_ >= minNewPages, 
+   JSON_ASSERT_MESSAGE( pageCount_ >= minNewPages,
                         "ValueInternalArray::reserve(): bad reallocation" );
    IteratorState itOther;
    other.makeBeginIterator( itOther );
@@ -305,7 +305,7 @@ ValueInternalArray::~ValueInternalArray()
 }
 
 
-void 
+void
 ValueInternalArray::swap( ValueInternalArray &other )
 {
    Value **tempPages = pages_;
@@ -319,7 +319,7 @@ ValueInternalArray::swap( ValueInternalArray &other )
    other.pageCount_ = tempPageCount;
 }
 
-void 
+void
 ValueInternalArray::clear()
 {
    ValueInternalArray dummy;
@@ -327,7 +327,7 @@ ValueInternalArray::clear()
 }
 
 
-void 
+void
 ValueInternalArray::resize( ArrayIndex newSize )
 {
    if ( newSize == 0 )
@@ -354,7 +354,7 @@ ValueInternalArray::resize( ArrayIndex newSize )
 }
 
 
-void 
+void
 ValueInternalArray::makeIndexValid( ArrayIndex index )
 {
    // Need to enlarge page index ?
@@ -366,7 +366,7 @@ ValueInternalArray::makeIndexValid( ArrayIndex index )
    }
 
    // Need to allocate new pages ?
-   ArrayIndex nextPageIndex = 
+   ArrayIndex nextPageIndex =
       (size_ % itemsPerPage) != 0 ? size_ - (size_%itemsPerPage) + itemsPerPage
                                   : size_;
    if ( nextPageIndex <= index )
@@ -406,40 +406,40 @@ ValueInternalArray::find( ArrayIndex index ) const
    return &(pages_[index/itemsPerPage][index%itemsPerPage]);
 }
 
-ValueInternalArray::ArrayIndex 
+ValueInternalArray::ArrayIndex
 ValueInternalArray::size() const
 {
    return size_;
 }
 
-int 
+int
 ValueInternalArray::distance( const IteratorState &x, const IteratorState &y )
 {
    return indexOf(y) - indexOf(x);
 }
 
 
-ValueInternalArray::ArrayIndex 
+ValueInternalArray::ArrayIndex
 ValueInternalArray::indexOf( const IteratorState &iterator )
 {
    if ( !iterator.array_ )
       return ArrayIndex(-1);
    return ArrayIndex(
-      (iterator.currentPageIndex_ - iterator.array_->pages_) * itemsPerPage 
+      (iterator.currentPageIndex_ - iterator.array_->pages_) * itemsPerPage
       + iterator.currentItemIndex_ );
 }
 
 
-int 
+int
 ValueInternalArray::compare( const ValueInternalArray &other ) const
 {
    int sizeDiff( size_ - other.size_ );
    if ( sizeDiff != 0 )
       return sizeDiff;
-   
+
    for ( ArrayIndex index =0; index < size_; ++index )
    {
-      int diff = pages_[index/itemsPerPage][index%itemsPerPage].compare( 
+      int diff = pages_[index/itemsPerPage][index%itemsPerPage].compare(
          other.pages_[index/itemsPerPage][index%itemsPerPage] );
       if ( diff != 0 )
          return diff;

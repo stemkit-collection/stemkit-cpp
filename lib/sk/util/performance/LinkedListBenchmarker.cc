@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -42,7 +42,7 @@ getClass() const
 
 namespace {
   struct Benchmark : public virtual sk::rt::Benchmark {
-    Benchmark(const uint32_t iterations) 
+    Benchmark(const uint32_t iterations)
       : _iterations(iterations) {}
 
     void run() {
@@ -53,7 +53,7 @@ namespace {
   };
 
   struct StandardListStore : public virtual Benchmark {
-    StandardListStore(const uint32_t iterations, std::list<sk::util::String*>& storage) 
+    StandardListStore(const uint32_t iterations, std::list<sk::util::String*>& storage)
       : Benchmark(iterations), _storage(storage) {}
 
     void run(const uint32_t iterations) {
@@ -65,7 +65,7 @@ namespace {
   };
 
   struct StandardListRetriever : public virtual Benchmark {
-    StandardListRetriever(const uint32_t iterations, std::list<sk::util::String*>& storage) 
+    StandardListRetriever(const uint32_t iterations, std::list<sk::util::String*>& storage)
       : Benchmark(iterations), _storage(storage) {}
 
     void run(const uint32_t iterations) {
@@ -81,7 +81,7 @@ namespace {
   };
 
   struct StandardListCleaner : public virtual Benchmark {
-    StandardListCleaner(const uint32_t iterations, std::list<sk::util::String*>& storage) 
+    StandardListCleaner(const uint32_t iterations, std::list<sk::util::String*>& storage)
       : Benchmark(iterations), _storage(storage) {}
 
     void run(const uint32_t iterations) {
@@ -96,7 +96,7 @@ namespace {
   };
 
   struct StemkitLinkedListStore : public virtual Benchmark {
-    StemkitLinkedListStore(const uint32_t iterations, sk::util::LinkedList<sk::util::String>& storage) 
+    StemkitLinkedListStore(const uint32_t iterations, sk::util::LinkedList<sk::util::String>& storage)
       : Benchmark(iterations), _storage(storage) {}
 
     void run(const uint32_t iterations) {
@@ -108,7 +108,7 @@ namespace {
   };
 
   struct StemkitLinkedListRetriever : public virtual Benchmark {
-    StemkitLinkedListRetriever(const uint32_t iterations, sk::util::LinkedList<sk::util::String>& storage) 
+    StemkitLinkedListRetriever(const uint32_t iterations, sk::util::LinkedList<sk::util::String>& storage)
       : Benchmark(iterations), _storage(storage) {}
 
     void run(const uint32_t iterations) {
@@ -120,7 +120,7 @@ namespace {
   };
 
   struct StemkitLinkedListCleaner : public virtual Benchmark {
-    StemkitLinkedListCleaner(const uint32_t iterations, sk::util::LinkedList<sk::util::String>& storage) 
+    StemkitLinkedListCleaner(const uint32_t iterations, sk::util::LinkedList<sk::util::String>& storage)
       : Benchmark(iterations), _storage(storage) {}
 
     void run(const uint32_t iterations) {
@@ -130,7 +130,7 @@ namespace {
   };
 }
 
-void 
+void
 sk::util::performance::LinkedListBenchmarker::
 setUp()
 {

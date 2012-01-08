@@ -16,11 +16,11 @@ namespace YAML
 		str += ch;
 		return Matches(str);
 	}
-	
+
 	inline bool RegEx::Matches(const std::string& str) const {
 		return Match(str) >= 0;
 	}
-	
+
 	inline bool RegEx::Matches(const Stream& in) const {
 		return Match(in) >= 0;
 	}
@@ -36,13 +36,13 @@ namespace YAML
 	// . Returns -1 if no characters were matched (the reason for
 	//   not returning zero is that we may have an empty regex
 	//   which is ALWAYS successful at matching zero characters).
-	// . REMEMBER that we only match from the start of the buffer!	
+	// . REMEMBER that we only match from the start of the buffer!
 	inline int RegEx::Match(const std::string& str) const
 	{
 		StringCharSource source(str.c_str(), str.size());
 		return Match(source);
 	}
-	
+
 	inline int RegEx::Match(const Stream& in) const
 	{
 		StreamCharSource source(in);
@@ -54,7 +54,7 @@ namespace YAML
 	{
 		return source;
 	}
-	
+
 	template<>
 	inline bool RegEx::IsValidSource<StringCharSource>(const StringCharSource&source) const
 	{
@@ -66,7 +66,7 @@ namespace YAML
 	{
 		return IsValidSource(source) ? MatchUnchecked(source) : -1;
 	}
-	
+
 	template <typename Source>
 	inline int RegEx::MatchUnchecked(const Source& source) const
 	{
@@ -89,7 +89,7 @@ namespace YAML
 			case REGEX_SEQ:
 				return MatchOpSeq(source);
 		}
-		
+
 		return -1;
 	}
 
@@ -97,13 +97,13 @@ namespace YAML
 	// Operators
 	// Note: the convention MatchOp*<Source> is that we can assume IsSourceValid(source).
 	//       So we do all our checks *before* we call these functions
-	
+
 	// EmptyOperator
 	template <typename Source>
 	inline int RegEx::MatchOpEmpty(const Source& source) const {
 		return source[0] == Stream::eof() ? 0 : -1;
 	}
-	
+
 	template <>
 	inline int RegEx::MatchOpEmpty<StringCharSource>(const StringCharSource& source) const {
 		return !source ? 0 : -1;  // the empty regex only is successful on the empty string
@@ -116,7 +116,7 @@ namespace YAML
 			return -1;
 		return 1;
 	}
-	
+
 	// RangeOperator
 	template <typename Source>
 	inline int RegEx::MatchOpRange(const Source& source) const {
@@ -124,7 +124,7 @@ namespace YAML
 			return -1;
 		return 1;
 	}
-	
+
 	// OrOperator
 	template <typename Source>
 	inline int RegEx::MatchOpOr(const Source& source) const {
@@ -135,7 +135,7 @@ namespace YAML
 		}
 		return -1;
 	}
-	
+
 	// AndOperator
 	// Note: 'AND' is a little funny, since we may be required to match things
 	//       of different lengths. If we find a match, we return the length of
@@ -152,7 +152,7 @@ namespace YAML
 		}
 		return first;
 	}
-	
+
 	// NotOperator
 	template <typename Source>
 	inline int RegEx::MatchOpNot(const Source& source) const {
@@ -162,7 +162,7 @@ namespace YAML
 			return -1;
 		return 1;
 	}
-	
+
 	// SeqOperator
 	template <typename Source>
 	inline int RegEx::MatchOpSeq(const Source& source) const {
@@ -173,7 +173,7 @@ namespace YAML
 				return -1;
 			offset += n;
 		}
-		
+
 		return offset;
 	}
 }

@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2010, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -18,13 +18,13 @@
 namespace sk {
   namespace util {
     template<typename F, typename T = F>
-    class Injector 
+    class Injector
       : public virtual sk::util::Object
     {
       public:
         Injector(const sk::util::List<F>& list);
         ~Injector();
-    
+
         const T inject(const sk::util::Mapper<const F, const T>& mapper, const sk::util::Reducer<F, T>& reducer) const;
         const T inject(const sk::util::Reducer<F, T>& reducer) const;
         const T inject(const T& initial, const sk::util::Mapper<const F, const T>& mapper, const sk::util::Reducer<F, T>& reducer) const;
@@ -32,7 +32,7 @@ namespace sk {
 
         inline const T inject(const T& initial, const sk::util::Reducer<F, T>& reducer) const;
         inline T& inject(T& memo, const sk::util::Reducer<F, T>& reducer) const;
-    
+
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
 

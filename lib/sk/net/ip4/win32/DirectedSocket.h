@@ -1,10 +1,10 @@
 /*  vim: sw=2:
  *  Copyright (c) 2011, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -20,7 +20,7 @@
 namespace sk {
   namespace net {
     namespace ip4 {
-      class DirectedSocket 
+      class DirectedSocket
         : public virtual sk::net::DirectedSocket
       {
         public:
@@ -48,10 +48,10 @@ namespace sk {
 
           // sk::net::ConfigurableSocket implementation.
           void setReuseAddress(bool state);
-      
+
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
-      
+
         private:
           DirectedSocket(const uint32_t number, const uint16_t port, const int socket);
           DirectedSocket(const struct sockaddr_in& address, const int socket);

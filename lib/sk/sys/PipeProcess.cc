@@ -1,6 +1,6 @@
 /*  vi: sw=2:
  *  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -20,8 +20,8 @@
 
 #include <unistd.h>
 
-struct sk::sys::PipeProcess::Listener 
-  : public sk::sys::AbstractProcessListener 
+struct sk::sys::PipeProcess::Listener
+  : public sk::sys::AbstractProcessListener
 {
     void processConfiguring(sk::sys::ProcessConfigurator& configurator);
     void processStopping();
@@ -77,14 +77,14 @@ getClass() const
   return sk::util::Class("sk::sys::PipeProcess");
 }
 
-sk::io::InputStream& 
+sk::io::InputStream&
 sk::sys::PipeProcess::
 inputStream() const
 {
   return _listenerHolder.get().stdoutPipe.inputStream();
 }
 
-sk::io::InputStream& 
+sk::io::InputStream&
 sk::sys::PipeProcess::
 inputErrorStream() const
 {
@@ -98,14 +98,14 @@ outputStream() const
   return _listenerHolder.get().stdinPipe.outputStream();
 }
 
-const sk::util::Strings& 
+const sk::util::Strings&
 sk::sys::PipeProcess::
 errors() const
 {
   return _listenerHolder.get().errors;
 }
 
-void 
+void
 sk::sys::PipeProcess::Listener::
 processConfiguring(sk::sys::ProcessConfigurator& configurator)
 {
@@ -120,7 +120,7 @@ processStopping()
   stdinPipe.outputStream().close();
 }
 
-void 
+void
 sk::sys::PipeProcess::Listener::
 processJoining()
 {

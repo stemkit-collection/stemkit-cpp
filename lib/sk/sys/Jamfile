@@ -2,7 +2,7 @@
 
 local library = sk.sys ;
 
-local objects = 
+local objects =
   ProcessLaunchException.cc
   AbstractProcessListener.cc
   DelegatingExecutable.cc

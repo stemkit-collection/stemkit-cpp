@@ -1,5 +1,5 @@
 /*  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -21,10 +21,10 @@ namespace sk {
       public:
         DataInputStream(sk::io::InputStream& stream);
         virtual ~DataInputStream();
-        
+
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
-        
+
         // sk::io::DataInput implementation.
         uint32_t readInt();
         uint64_t readLong();

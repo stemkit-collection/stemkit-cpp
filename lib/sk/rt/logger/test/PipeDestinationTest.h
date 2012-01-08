@@ -1,5 +1,5 @@
 /*  Copyright (c) 2007, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -31,11 +31,11 @@ namespace sk {
             CPPUNIT_TEST(testMessageOnExit);
             CPPUNIT_TEST(testWriteErrorAfterClose);
           CPPUNIT_TEST_SUITE_END();
-          
+
           public:
             PipeDestinationTest();
             virtual ~PipeDestinationTest();
-            
+
             void setUp();
             void tearDown();
             void testDefaults();
@@ -43,7 +43,7 @@ namespace sk {
             void testDelayedDispatch();
             void testMessageOnExit();
             void testWriteErrorAfterClose();
-            
+
           private:
             PipeDestinationTest(const PipeDestinationTest& other);
             PipeDestinationTest& operator = (const PipeDestinationTest& other);

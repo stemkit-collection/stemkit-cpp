@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky (gennady.bystritsky@quest.com)
 */
 
@@ -108,7 +108,7 @@ reset()
 
 bool
 sk::rt::Thread::
-isReady() 
+isReady()
 {
   return sk::rt::thread::Dispatcher::isMainAvailable();
 }
@@ -150,7 +150,7 @@ start()
   _runnerHolder.getMutable().start(*this);
 }
 
-void 
+void
 sk::rt::Thread::
 join()
 {
@@ -160,7 +160,7 @@ join()
   _runnerHolder.get().getThreadImplementation().join();
 }
 
-void 
+void
 sk::rt::Thread::
 interrupt()
 {
@@ -188,7 +188,7 @@ isRegular() const
   return true;
 }
 
-bool 
+bool
 sk::rt::Thread::
 isAlive() const
 {
@@ -196,7 +196,7 @@ isAlive() const
   return state == thread::State::SK_T_RUNNING || state == thread::State::SK_T_STARTED;
 }
 
-bool 
+bool
 sk::rt::Thread::
 isInterrupted() const
 {
@@ -217,7 +217,7 @@ getState() const
   return _runnerHolder.getMutable().getState();
 }
 
-sk::rt::thread::Generic& 
+sk::rt::thread::Generic&
 sk::rt::Thread::
 currentThread()
 {
@@ -231,21 +231,21 @@ sleep(uint64_t milliseconds)
   sk::rt::thread::Implementation::instance().sleep(milliseconds);
 }
 
-int 
+int
 sk::rt::Thread::
 activeCount()
 {
   throw sk::util::UnsupportedOperationException(SK_CLASS_METHOD);
 }
 
-void 
+void
 sk::rt::Thread::
 yield()
 {
   sk::rt::thread::Implementation::instance().yield();
 }
 
-void 
+void
 sk::rt::Thread::
 pass()
 {
@@ -266,21 +266,21 @@ getDefaultUncaughtExceptionHandler()
   return sk::rt::thread::Dispatcher::main().getUncaughtExceptionHandler();
 }
 
-bool 
+bool
 sk::rt::Thread::
 isException() const
 {
   return false;
 }
 
-bool 
+bool
 sk::rt::Thread::
 isExited() const
 {
   return getState() == thread::State::SK_T_EXITED;
 }
 
-int 
+int
 sk::rt::Thread::
 exitStatus() const
 {

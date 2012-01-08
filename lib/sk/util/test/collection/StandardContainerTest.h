@@ -1,6 +1,6 @@
 /*  vi: sw=2:
  *  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -59,11 +59,11 @@ namespace sk {
             CPPUNIT_TEST(testStandardContainerShuffle);
             CPPUNIT_TEST(testStandardContainerReverse);
           CPPUNIT_TEST_SUITE_END();
-          
+
           public:
             StandardContainerTest();
             virtual ~StandardContainerTest();
-            
+
             void setUp();
             void tearDown();
             void testStandardContainerCreate();
@@ -78,7 +78,7 @@ namespace sk {
             void testStandardContainerRemoveAll();
             void testStandardContainerShuffle();
             void testStandardContainerReverse();
-            
+
           protected:
             virtual sk::util::List<sk::util::String>* makeStoringList();
 

@@ -10,11 +10,11 @@ local simple-programs =
 
 local _program ;
 for _program in $(simple-programs) {
-  use-project-libraries $(_program) : 
-    sk.net 
-    sk.rt.thread 
-    sk.rt.bundle 
-    sk.util 
+  use-project-libraries $(_program) :
+    sk.net
+    sk.rt.thread
+    sk.rt.bundle
+    sk.util
   ;
   make-program $(_program) : $(_program).cc ;
 }

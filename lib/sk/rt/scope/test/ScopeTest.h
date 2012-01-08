@@ -1,5 +1,5 @@
 /*  Copyright (c) 2007, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -26,11 +26,11 @@ namespace sk {
           CPPUNIT_TEST(testScope);
           CPPUNIT_TEST(testDefaultProperties);
         CPPUNIT_TEST_SUITE_END();
-        
+
         public:
           ScopeTest();
           virtual ~ScopeTest();
-          
+
           void setUp();
           void tearDown();
           void testDefaultNoOutputButError();
@@ -38,7 +38,7 @@ namespace sk {
           void testConcatenation();
           void testScope();
           void testDefaultProperties();
-          
+
         private:
           ScopeTest(const ScopeTest& other);
           ScopeTest& operator = (const ScopeTest& other);

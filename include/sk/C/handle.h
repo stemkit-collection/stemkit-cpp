@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -29,7 +29,7 @@ const char* sk_c_handle_errorMessage(const struct sk_c_handle* handle, char* buf
 #include <sk/util/String.h>
 #include <vector>
 
-class sk_c_handle 
+class sk_c_handle
 {
   public:
     struct runnable : public virtual sk::util::Object {

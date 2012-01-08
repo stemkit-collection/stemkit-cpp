@@ -1,5 +1,5 @@
 /*  Copyright (c) 2005, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -22,17 +22,17 @@ namespace sk {
           CPPUNIT_TEST(testToString);
           CPPUNIT_TEST(testMethodName);
         CPPUNIT_TEST_SUITE_END();
-        
+
         public:
           ClassTest();
           virtual ~ClassTest();
-          
+
           void setUp();
           void tearDown();
           void testBasics();
           void testToString();
           void testMethodName();
-          
+
         private:
           ClassTest(const ClassTest& other);
           ClassTest& operator = (const ClassTest& other);

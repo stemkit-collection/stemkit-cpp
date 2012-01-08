@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -59,7 +59,7 @@ testQuotedOnly()
   CPPUNIT_ASSERT_EQUAL(21, nodeHolder.get().endPosition());
 }
 
-void 
+void
 sk::util::pp::test::TextNodeTest::
 testQuotedThenRegularUpto()
 {
@@ -70,7 +70,7 @@ testQuotedThenRegularUpto()
   CPPUNIT_ASSERT_EQUAL(0, nodeHolder.get().startPosition());
   CPPUNIT_ASSERT_EQUAL(11, nodeHolder.get().endPosition());
 }
-void 
+void
 sk::util::pp::test::TextNodeTest::
 testQuotedThenRegular()
 {

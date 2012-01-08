@@ -1,6 +1,6 @@
 /*  vi: sw=2:
  *  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -26,14 +26,14 @@ namespace {
   sk::util::Holder<sk::util::trace::ProducerFactory>::Direct __factoryHolder(new NullProducerFactory);
 }
 
-void 
+void
 sk::util::Exception::
 setTraceProducerFactory(const sk::util::trace::ProducerFactory& factory)
 {
   __factoryHolder.set(sk::util::covariant<sk::util::trace::ProducerFactory>(factory.clone()));
 }
 
-void 
+void
 sk::util::Exception::
 clearTraceProducerFactory()
 {
@@ -87,26 +87,26 @@ getTrace() const
 
 int
 sk::util::Exception::
-defaultExitCode() const 
+defaultExitCode() const
 {
   return 4;
 }
 
 void
 sk::util::Exception::
-exit() const 
+exit() const
 {
   exit(defaultExitCode());
 }
 
-void 
+void
 sk::util::Exception::
 finalize() const
 {
   _tracer.finalizeFor("exception");
 }
 
-void 
+void
 sk::util::Exception::
 exit(int code) const
 {

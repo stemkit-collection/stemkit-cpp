@@ -1,6 +1,6 @@
 /*  vi: sw=2:
  *  Copyright (c) 2007, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -51,7 +51,7 @@ testAssignment()
 {
   Holder<String>::Aliasing holder(new String("aaa"));
   Holder<String>::Aliasing other(new String("zzz"));
-  
+
   CPPUNIT_ASSERT_EQUAL(true, holder.isOwner());
   CPPUNIT_ASSERT_EQUAL(true, other.isOwner());
   CPPUNIT_ASSERT_EQUAL(String("zzz").inspect(), other.get().inspect());
@@ -68,7 +68,7 @@ testAssignmentFromOther()
 {
   Holder<String>::Copying holder("aaa");
   Holder<String>::Aliasing other(new String("zzz"));
-  
+
   CPPUNIT_ASSERT_EQUAL(true, holder.isOwner());
   CPPUNIT_ASSERT_EQUAL(true, other.isOwner());
   CPPUNIT_ASSERT_EQUAL("zzz", other.get());

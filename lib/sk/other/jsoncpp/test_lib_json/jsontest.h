@@ -35,7 +35,7 @@ namespace JsonTest {
 
 
    /// Context used to create the assertion callstack on failure.
-   /// Must be a POD to allow inline initialisation without stepping 
+   /// Must be a POD to allow inline initialisation without stepping
    /// into the debugger.
    struct PredicateContext
    {
@@ -92,7 +92,7 @@ namespace JsonTest {
       /// Adds a failure or a predicate context
       void addFailureInfo( const char *file, unsigned int line,
                            const char *expr, unsigned int nestingLevel  );
-      static std::string indentText( const std::string &text, 
+      static std::string indentText( const std::string &text,
                                      const std::string &indent );
 
       typedef std::deque<Failure> Failures;
@@ -170,7 +170,7 @@ namespace JsonTest {
 
    template<typename T>
    TestResult &
-   checkEqual( TestResult &result, const T &expected, const T &actual, 
+   checkEqual( TestResult &result, const T &expected, const T &actual,
                const char *file, unsigned int line, const char *expr )
    {
       if ( expected != actual )
@@ -183,7 +183,7 @@ namespace JsonTest {
    }
 
    TestResult &
-   checkStringEqual( TestResult &result, 
+   checkStringEqual( TestResult &result,
                      const std::string &expected, const std::string &actual,
                      const char *file, unsigned int line, const char *expr );
 

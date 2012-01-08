@@ -1,10 +1,10 @@
 /*  vim: sw=2:
  *  Copyright (c) 2011, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -20,7 +20,7 @@ static const sk::util::String __className("sk::util::CompoundException");
 
 namespace {
   struct Populator : sk::util::Processor<const sk::util::Exception> {
-    Populator(sk::util::List<sk::util::Exception>& list) 
+    Populator(sk::util::List<sk::util::Exception>& list)
       : _list(list) {}
 
     void process(const sk::util::Exception& exception) const {
@@ -50,14 +50,14 @@ getClass() const
   return sk::util::Class(__className);
 }
 
-int 
+int
 sk::util::CompoundException::
 size() const
 {
   return _list.size();
 }
 
-const sk::util::Exception& 
+const sk::util::Exception&
 sk::util::CompoundException::
 exceptionAt(int index) const
 {

@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -45,49 +45,49 @@ getId() const
   return 0;
 }
 
-void 
+void
 sk::rt::thread::Main::
 start()
 {
   throw sk::util::UnsupportedOperationException(SK_METHOD);
 }
 
-void 
+void
 sk::rt::thread::Main::
 stop()
 {
   throw sk::util::UnsupportedOperationException(SK_METHOD);
 }
 
-void 
+void
 sk::rt::thread::Main::
 join()
 {
   throw sk::util::UnsupportedOperationException(SK_METHOD);
 }
 
-void 
+void
 sk::rt::thread::Main::
 interrupt()
 {
   throw sk::util::UnsupportedOperationException(SK_METHOD);
 }
 
-const sk::util::String 
+const sk::util::String
 sk::rt::thread::Main::
 getName() const
 {
   return "Main";
 }
 
-const sk::rt::thread::State& 
+const sk::rt::thread::State&
 sk::rt::thread::Main::
 getState() const
 {
   return State::SK_T_RUNNING;
 }
 
-bool 
+bool
 sk::rt::thread::Main::
 isAlive() const
 {
@@ -115,28 +115,28 @@ isRegular() const
   return false;
 }
 
-bool 
+bool
 sk::rt::thread::Main::
 isInterrupted() const
 {
   return false;
 }
 
-bool 
+bool
 sk::rt::thread::Main::
 isException() const
 {
   return false;
 }
 
-bool 
+bool
 sk::rt::thread::Main::
 isExited() const
 {
   return false;
 }
 
-int 
+int
 sk::rt::thread::Main::
 exitStatus() const
 {

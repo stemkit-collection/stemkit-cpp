@@ -1,6 +1,6 @@
 /*  vi: sw=2:
  *  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -45,7 +45,7 @@ getClass() const
   return sk::util::Class("sk::io::LooseFileDescriptor");
 }
 
-void 
+void
 sk::io::LooseFileDescriptor::
 close()
 {
@@ -56,7 +56,7 @@ close()
   _fd = -1;
 }
 
-int 
+int
 sk::io::LooseFileDescriptor::
 read(char* buffer, int offset, int length)
 {

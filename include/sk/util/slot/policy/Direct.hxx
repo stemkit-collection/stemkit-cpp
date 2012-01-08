@@ -1,6 +1,6 @@
 /*  vi: sw=2:
  *  Copyright (c) 2007, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -21,7 +21,7 @@ namespace sk {
         template<typename T>
         class Direct
         {
-          public: 
+          public:
             typedef T slot_t;
             typedef slot_t* slot_storage_t;
             typedef const slot_t* const_slot_storage_t;

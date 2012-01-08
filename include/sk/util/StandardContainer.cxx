@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -51,7 +51,7 @@ sk::util::StandardContainer<T, Policy, Type>::
 }
 
 template<typename T, typename Policy, typename Type>
-sk::util::StandardContainer<T, Policy, Type>& 
+sk::util::StandardContainer<T, Policy, Type>&
 sk::util::StandardContainer<T, Policy, Type>::
 operator = (const sk::util::StandardContainer<T, Policy, Type>& other)
 {
@@ -61,7 +61,7 @@ operator = (const sk::util::StandardContainer<T, Policy, Type>& other)
 }
 
 template<typename T, typename Policy, typename Type>
-const sk::util::Class 
+const sk::util::Class
 sk::util::StandardContainer<T, Policy, Type>::
 getClass() const
 {
@@ -69,7 +69,7 @@ getClass() const
 }
 
 template<typename T, typename Policy, typename Type>
-inline void 
+inline void
 sk::util::StandardContainer<T, Policy, Type>::
 add(typename Type::container_t::iterator position, typename Policy::slot_storage_t storage)
 {
@@ -86,7 +86,7 @@ remove(typename Type::container_t::iterator position)
 }
 
 template<typename T, typename Policy, typename Type>
-inline T* 
+inline T*
 sk::util::StandardContainer<T, Policy, Type>::
 cutoff(typename Type::container_t::iterator position)
 {
@@ -97,7 +97,7 @@ cutoff(typename Type::container_t::iterator position)
 }
 
 template<typename T, typename Policy, typename Type>
-inline T* 
+inline T*
 sk::util::StandardContainer<T, Policy, Type>::
 release(typename Type::container_t::iterator position)
 {
@@ -108,7 +108,7 @@ release(typename Type::container_t::iterator position)
 }
 
 template<typename T, typename Policy, typename Type>
-bool 
+bool
 sk::util::StandardContainer<T, Policy, Type>::
 isEmpty() const
 {
@@ -116,7 +116,7 @@ isEmpty() const
 }
 
 template<typename T, typename Policy, typename Type>
-int 
+int
 sk::util::StandardContainer<T, Policy, Type>::
 size() const
 {
@@ -151,7 +151,7 @@ struct sk::util::StandardContainer<T, Policy, Type>::SelectingFunctor : std::una
 };
 
 template<typename T, typename Policy, typename Type>
-const T& 
+const T&
 sk::util::StandardContainer<T, Policy, Type>::
 get(const Selector<T>& selector) const
 {
@@ -162,7 +162,7 @@ get(const Selector<T>& selector) const
 }
 
 template<typename T, typename Policy, typename Type>
-T& 
+T&
 sk::util::StandardContainer<T, Policy, Type>::
 getMutable(const Selector<T>& selector) const
 {
@@ -173,7 +173,7 @@ getMutable(const Selector<T>& selector) const
 }
 
 template<typename T, typename Policy, typename Type>
-bool 
+bool
 sk::util::StandardContainer<T, Policy, Type>::
 find(sk::util::Holder<T>& holder, const Selector<T>& selector) const
 {
@@ -186,7 +186,7 @@ find(sk::util::Holder<T>& holder, const Selector<T>& selector) const
 }
 
 template<typename T, typename Policy, typename Type>
-bool 
+bool
 sk::util::StandardContainer<T, Policy, Type>::
 findMutable(sk::util::Holder<T>& holder, const Selector<T>& selector) const
 {
@@ -210,7 +210,7 @@ struct sk::util::StandardContainer<T, Policy, Type>::ConstProcessingFunctor : st
 };
 
 template<typename T, typename Policy, typename Type>
-void 
+void
 sk::util::StandardContainer<T, Policy, Type>::
 forEach(const Processor<const T>& processor) const
 {
@@ -232,7 +232,7 @@ struct sk::util::StandardContainer<T, Policy, Type>::ProcessingFunctor : std::un
 };
 
 template<typename T, typename Policy, typename Type>
-void 
+void
 sk::util::StandardContainer<T, Policy, Type>::
 forEach(const Processor<T>& processor)
 {
@@ -243,7 +243,7 @@ forEach(const Processor<T>& processor)
 }
 
 template<typename T, typename Policy, typename Type>
-bool 
+bool
 sk::util::StandardContainer<T, Policy, Type>::
 contains(const T& object) const
 {
@@ -251,7 +251,7 @@ contains(const T& object) const
 }
 
 template<typename T, typename Policy, typename Type>
-bool 
+bool
 sk::util::StandardContainer<T, Policy, Type>::
 contains(const Selector<T>& selector) const
 {
@@ -259,7 +259,7 @@ contains(const Selector<T>& selector) const
 }
 
 template<typename T, typename Policy, typename Type>
-bool 
+bool
 sk::util::StandardContainer<T, Policy, Type>::
 containsAll(const Collection<T>& other) const
 {
@@ -267,7 +267,7 @@ containsAll(const Collection<T>& other) const
 }
 
 template<typename T, typename Policy, typename Type>
-bool 
+bool
 sk::util::StandardContainer<T, Policy, Type>::
 containsAll(const Collection<T>& other, const sk::util::BinaryAssessor<T>& assessor) const
 {
@@ -275,16 +275,16 @@ containsAll(const Collection<T>& other, const sk::util::BinaryAssessor<T>& asses
 }
 
 template<typename T, typename Policy, typename Type>
-bool 
+bool
 sk::util::StandardContainer<T, Policy, Type>::
-add(const T& object) 
+add(const T& object)
 {
   OpenEndedLists<T, Policy, Type>::addLast(_container, Collections<T, Policy>::makeStorage(object));
   return true;
 }
 
 template<typename T, typename Policy, typename Type>
-bool 
+bool
 sk::util::StandardContainer<T, Policy, Type>::
 add(T& object)
 {
@@ -293,7 +293,7 @@ add(T& object)
 }
 
 template<typename T, typename Policy, typename Type>
-bool 
+bool
 sk::util::StandardContainer<T, Policy, Type>::
 add(T* object)
 {
@@ -302,7 +302,7 @@ add(T* object)
 }
 
 template<typename T, typename Policy, typename Type>
-bool 
+bool
 sk::util::StandardContainer<T, Policy, Type>::
 remove(const T& object)
 {
@@ -310,7 +310,7 @@ remove(const T& object)
 }
 
 template<typename T, typename Policy, typename Type>
-bool 
+bool
 sk::util::StandardContainer<T, Policy, Type>::
 remove(const Selector<T>& selector)
 {
@@ -323,7 +323,7 @@ remove(const Selector<T>& selector)
 }
 
 template<typename T, typename Policy, typename Type>
-T* 
+T*
 sk::util::StandardContainer<T, Policy, Type>::
 cutoff(const T& object)
 {
@@ -331,7 +331,7 @@ cutoff(const T& object)
 }
 
 template<typename T, typename Policy, typename Type>
-T* 
+T*
 sk::util::StandardContainer<T, Policy, Type>::
 cutoff(const Selector<T>& selector)
 {
@@ -342,7 +342,7 @@ cutoff(const Selector<T>& selector)
 }
 
 template<typename T, typename Policy, typename Type>
-T* 
+T*
 sk::util::StandardContainer<T, Policy, Type>::
 release(const T& object)
 {
@@ -350,7 +350,7 @@ release(const T& object)
 }
 
 template<typename T, typename Policy, typename Type>
-T* 
+T*
 sk::util::StandardContainer<T, Policy, Type>::
 release(const Selector<T>& selector)
 {
@@ -361,7 +361,7 @@ release(const Selector<T>& selector)
 }
 
 template<typename T, typename Policy, typename Type>
-bool 
+bool
 sk::util::StandardContainer<T, Policy, Type>::
 removeAll(const Collection<T>& other)
 {
@@ -369,7 +369,7 @@ removeAll(const Collection<T>& other)
 }
 
 template<typename T, typename Policy, typename Type>
-bool 
+bool
 sk::util::StandardContainer<T, Policy, Type>::
 removeAll(const Collection<T>& other, const sk::util::BinaryAssessor<T>& assessor)
 {
@@ -377,12 +377,12 @@ removeAll(const Collection<T>& other, const sk::util::BinaryAssessor<T>& assesso
 }
 
 template<typename T, typename Policy, typename Type>
-bool 
+bool
 sk::util::StandardContainer<T, Policy, Type>::
 removeAll(const Selector<T>& selector)
 {
   bool modified = false;
-  typename Type::container_t::iterator iterator = _container.begin(); 
+  typename Type::container_t::iterator iterator = _container.begin();
   while(iterator != _container.end()) {
     if(selector.assess(Policy::getObject(*iterator)) == true) {
       iterator = remove(iterator);
@@ -396,7 +396,7 @@ removeAll(const Selector<T>& selector)
 }
 
 template<typename T, typename Policy, typename Type>
-bool 
+bool
 sk::util::StandardContainer<T, Policy, Type>::
 retainAll(const Collection<T>& other)
 {
@@ -404,7 +404,7 @@ retainAll(const Collection<T>& other)
 }
 
 template<typename T, typename Policy, typename Type>
-bool 
+bool
 sk::util::StandardContainer<T, Policy, Type>::
 retainAll(const Collection<T>& other, const sk::util::BinaryAssessor<T>& assessor)
 {
@@ -412,7 +412,7 @@ retainAll(const Collection<T>& other, const sk::util::BinaryAssessor<T>& assesso
 }
 
 template<typename T, typename Policy, typename Type>
-bool 
+bool
 sk::util::StandardContainer<T, Policy, Type>::
 retainAll(const Selector<T>& selector)
 {
@@ -420,7 +420,7 @@ retainAll(const Selector<T>& selector)
 }
 
 template<typename T, typename Policy, typename Type>
-int 
+int
 sk::util::StandardContainer<T, Policy, Type>::
 indexOf(const T& object) const
 {
@@ -428,7 +428,7 @@ indexOf(const T& object) const
 }
 
 template<typename T, typename Policy, typename Type>
-int 
+int
 sk::util::StandardContainer<T, Policy, Type>::
 indexOf(const Selector<T>& selector) const
 {
@@ -442,7 +442,7 @@ indexOf(const Selector<T>& selector) const
 }
 
 template<typename T, typename Policy, typename Type>
-int 
+int
 sk::util::StandardContainer<T, Policy, Type>::
 lastIndexOf(const T& object) const
 {
@@ -450,7 +450,7 @@ lastIndexOf(const T& object) const
 }
 
 template<typename T, typename Policy, typename Type>
-int 
+int
 sk::util::StandardContainer<T, Policy, Type>::
 lastIndexOf(const Selector<T>& selector) const
 {
@@ -490,7 +490,7 @@ position(int index, int tailOffset) const
 }
 
 template<typename T, typename Policy, typename Type>
-void 
+void
 sk::util::StandardContainer<T, Policy, Type>::
 add(int index, const T& object)
 {
@@ -498,7 +498,7 @@ add(int index, const T& object)
 }
 
 template<typename T, typename Policy, typename Type>
-void 
+void
 sk::util::StandardContainer<T, Policy, Type>::
 add(int index, T& object)
 {
@@ -506,7 +506,7 @@ add(int index, T& object)
 }
 
 template<typename T, typename Policy, typename Type>
-void 
+void
 sk::util::StandardContainer<T, Policy, Type>::
 add(int index, T* object)
 {
@@ -514,7 +514,7 @@ add(int index, T* object)
 }
 
 template<typename T, typename Policy, typename Type>
-const T& 
+const T&
 sk::util::StandardContainer<T, Policy, Type>::
 get(int index) const
 {
@@ -522,7 +522,7 @@ get(int index) const
 }
 
 template<typename T, typename Policy, typename Type>
-T& 
+T&
 sk::util::StandardContainer<T, Policy, Type>::
 getMutable(int index) const
 {
@@ -530,7 +530,7 @@ getMutable(int index) const
 }
 
 template<typename T, typename Policy, typename Type>
-void 
+void
 sk::util::StandardContainer<T, Policy, Type>::
 remove(int index)
 {
@@ -538,7 +538,7 @@ remove(int index)
 }
 
 template<typename T, typename Policy, typename Type>
-T* 
+T*
 sk::util::StandardContainer<T, Policy, Type>::
 cutoff(int index)
 {
@@ -546,7 +546,7 @@ cutoff(int index)
 }
 
 template<typename T, typename Policy, typename Type>
-T* 
+T*
 sk::util::StandardContainer<T, Policy, Type>::
 release(int index)
 {
@@ -554,7 +554,7 @@ release(int index)
 }
 
 template<typename T, typename Policy, typename Type>
-void 
+void
 sk::util::StandardContainer<T, Policy, Type>::
 set(int index, const T& object)
 {
@@ -562,7 +562,7 @@ set(int index, const T& object)
 }
 
 template<typename T, typename Policy, typename Type>
-void 
+void
 sk::util::StandardContainer<T, Policy, Type>::
 set(int index, T& object)
 {
@@ -570,7 +570,7 @@ set(int index, T& object)
 }
 
 template<typename T, typename Policy, typename Type>
-void 
+void
 sk::util::StandardContainer<T, Policy, Type>::
 set(int index, T* object)
 {
@@ -579,7 +579,7 @@ set(int index, T* object)
 
 template<typename T, typename Policy, typename Type>
 struct sk::util::StandardContainer<T, Policy, Type>::AssessingBinaryFunctor : std::binary_function<typename Policy::slot_storage_t, typename Policy::slot_storage_t, void> {
-  AssessingBinaryFunctor(const sk::util::BinaryAssessor<T>& assessor) 
+  AssessingBinaryFunctor(const sk::util::BinaryAssessor<T>& assessor)
     : _assessor(assessor) {}
 
   bool operator()(const typename Policy::slot_storage_t first, const typename Policy::slot_storage_t second) const {
@@ -589,7 +589,7 @@ struct sk::util::StandardContainer<T, Policy, Type>::AssessingBinaryFunctor : st
 };
 
 template<typename T, typename Policy, typename Type>
-void 
+void
 sk::util::StandardContainer<T, Policy, Type>::
 sort()
 {
@@ -597,7 +597,7 @@ sort()
 }
 
 template<typename T, typename Policy, typename Type>
-void 
+void
 sk::util::StandardContainer<T, Policy, Type>::
 sort(const sk::util::BinaryAssessor<T>& assessor)
 {
@@ -605,7 +605,7 @@ sort(const sk::util::BinaryAssessor<T>& assessor)
 }
 
 template<typename T, typename Policy, typename Type>
-void 
+void
 sk::util::StandardContainer<T, Policy, Type>::
 shuffle()
 {
@@ -613,7 +613,7 @@ shuffle()
 }
 
 template<typename T, typename Policy, typename Type>
-void 
+void
 sk::util::StandardContainer<T, Policy, Type>::
 reverse()
 {
@@ -621,7 +621,7 @@ reverse()
 }
 
 template<typename T, typename Policy, typename Type>
-const sk::util::String 
+const sk::util::String
 sk::util::StandardContainer<T, Policy, Type>::
 inspect() const
 {
@@ -635,7 +635,7 @@ inspect() const
 }
 
 template<typename T, typename Policy, typename Type>
-const sk::util::String 
+const sk::util::String
 sk::util::StandardContainer<T, Policy, Type>::
 toString() const
 {
@@ -643,7 +643,7 @@ toString() const
 }
 
 template<typename T, typename Policy, typename Type>
-void 
+void
 sk::util::StandardContainer<T, Policy, Type>::
 addFirst(const T& object)
 {
@@ -651,7 +651,7 @@ addFirst(const T& object)
 }
 
 template<typename T, typename Policy, typename Type>
-void 
+void
 sk::util::StandardContainer<T, Policy, Type>::
 addFirst(T& object)
 {
@@ -659,7 +659,7 @@ addFirst(T& object)
 }
 
 template<typename T, typename Policy, typename Type>
-void 
+void
 sk::util::StandardContainer<T, Policy, Type>::
 addFirst(T* object)
 {
@@ -667,7 +667,7 @@ addFirst(T* object)
 }
 
 template<typename T, typename Policy, typename Type>
-void 
+void
 sk::util::StandardContainer<T, Policy, Type>::
 addLast(const T& object)
 {
@@ -675,7 +675,7 @@ addLast(const T& object)
 }
 
 template<typename T, typename Policy, typename Type>
-void 
+void
 sk::util::StandardContainer<T, Policy, Type>::
 addLast(T& object)
 {
@@ -683,7 +683,7 @@ addLast(T& object)
 }
 
 template<typename T, typename Policy, typename Type>
-void 
+void
 sk::util::StandardContainer<T, Policy, Type>::
 addLast(T* object)
 {
@@ -691,7 +691,7 @@ addLast(T* object)
 }
 
 template<typename T, typename Policy, typename Type>
-const T& 
+const T&
 sk::util::StandardContainer<T, Policy, Type>::
 getFirst() const
 {
@@ -700,7 +700,7 @@ getFirst() const
 }
 
 template<typename T, typename Policy, typename Type>
-const T& 
+const T&
 sk::util::StandardContainer<T, Policy, Type>::
 getLast() const
 {
@@ -709,7 +709,7 @@ getLast() const
 }
 
 template<typename T, typename Policy, typename Type>
-T& 
+T&
 sk::util::StandardContainer<T, Policy, Type>::
 getMutableFirst() const
 {
@@ -718,7 +718,7 @@ getMutableFirst() const
 }
 
 template<typename T, typename Policy, typename Type>
-T& 
+T&
 sk::util::StandardContainer<T, Policy, Type>::
 getMutableLast() const
 {
@@ -727,7 +727,7 @@ getMutableLast() const
 }
 
 template<typename T, typename Policy, typename Type>
-void 
+void
 sk::util::StandardContainer<T, Policy, Type>::
 removeFirst()
 {
@@ -759,7 +759,7 @@ cutoffLast()
 }
 
 template<typename T, typename Policy, typename Type>
-const sk::util::String 
+const sk::util::String
 sk::util::StandardContainer<T, Policy, Type>::
 join(const sk::util::String& separator, const sk::util::Mapper<const T, const sk::util::String>& mapper) const
 {
@@ -767,7 +767,7 @@ join(const sk::util::String& separator, const sk::util::Mapper<const T, const sk
 }
 
 template<typename T, typename Policy, typename Type>
-const sk::util::String 
+const sk::util::String
 sk::util::StandardContainer<T, Policy, Type>::
 join(const sk::util::String& separator) const
 {
@@ -775,7 +775,7 @@ join(const sk::util::String& separator) const
 }
 
 template<typename T, typename Policy, typename Type>
-const sk::util::String 
+const sk::util::String
 sk::util::StandardContainer<T, Policy, Type>::
 join() const
 {

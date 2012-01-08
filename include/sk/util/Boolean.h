@@ -1,5 +1,5 @@
 /*  Copyright (c) 2007, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -17,7 +17,7 @@ namespace sk {
     class String;
 
     class Boolean
-      : public virtual sk::util::Object 
+      : public virtual sk::util::Object
     {
       public:
         Boolean(bool value);
@@ -26,10 +26,10 @@ namespace sk {
 
         bool booleanValue() const;
         const sk::util::String toString() const;
-        
+
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
-        
+
         static bool parseBoolean(const sk::util::String& value);
 
         static const Boolean& valueOf(bool value);

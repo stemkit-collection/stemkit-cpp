@@ -1,6 +1,6 @@
 /*  vi: sw=2:
  *  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -168,7 +168,7 @@ testParseWithSeparator()
   CPPUNIT_ASSERT_EQUAL("DDD", strings.get(4));
 }
 
-void 
+void
 sk::util::test::StringsTest::
 testJoin()
 {
@@ -197,7 +197,7 @@ testLastFirst()
   CPPUNIT_ASSERT_EQUAL("aaa", sk::util::String("aaa").split().last());
 }
 
-void 
+void
 sk::util::test::StringsTest::
 testPopShift()
 {
@@ -238,7 +238,7 @@ testSlice()
   CPPUNIT_ASSERT_EQUAL("aaa", s3.get(0));
   CPPUNIT_ASSERT_EQUAL("bbb", s3.get(1));
   CPPUNIT_ASSERT_EQUAL("ccc", s3.get(2));
-                       
+
   CPPUNIT_ASSERT_EQUAL(3, data.slice(-1).size());
   CPPUNIT_ASSERT_EQUAL(0, data.slice(3, 4).size());
 }
@@ -252,7 +252,7 @@ testMap()
   CPPUNIT_ASSERT_EQUAL("aaa/bbb/ccc", data.map(sk::util::mapper::Downcasing()).join("/"));
 }
 
-void 
+void
 sk::util::test::StringsTest::
 testCopy()
 {

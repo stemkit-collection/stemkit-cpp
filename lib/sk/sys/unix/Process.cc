@@ -1,6 +1,6 @@
 /*  vi: sw=2:
  *  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -36,10 +36,10 @@
 #include <signal.h>
 #include <iostream>
 
-struct sk::sys::Process::Implementation 
+struct sk::sys::Process::Implementation
   : public virtual sk::util::Object
 {
-  Implementation() 
+  Implementation()
     : status(0) {}
 
   volatile int status;
@@ -95,13 +95,13 @@ sk::sys::Process::
   }
 }
 
-void 
+void
 sk::sys::Process::
 setup()
 {
 }
 
-void 
+void
 sk::sys::Process::
 reset()
 {
@@ -324,7 +324,7 @@ namespace {
 
 void
 sk::sys::Process::
-stop() 
+stop()
 {
   if(_running == false) {
     return;
@@ -336,7 +336,7 @@ stop()
 
   terminator.start();
   join();
-  
+
   cleaner.cancel();
   terminator.join();
 }
@@ -373,7 +373,7 @@ interrupt()
 
 void
 sk::sys::Process::
-processJoining() 
+processJoining()
 {
 }
 

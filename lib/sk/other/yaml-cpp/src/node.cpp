@@ -45,12 +45,12 @@ namespace YAML
 		m_anchor.clear();
 		m_tag.clear();
 	}
-	
+
 	std::auto_ptr<Node> Node::Clone() const
 	{
 		if(m_alias)
 			throw std::runtime_error("yaml-cpp: Can't clone alias");  // TODO: what to do about aliases?
-		
+
 		return std::auto_ptr<Node> (new Node(m_mark, m_anchor, m_tag, m_pContent));
 	}
 
@@ -82,7 +82,7 @@ namespace YAML
 			Content *pAliasedContent = pReferencedNode->m_pContent;
 			if(pAliasedContent)
 				m_pContent = new AliasContent(pAliasedContent);
-			
+
 			return;
 		}
 
@@ -144,7 +144,7 @@ namespace YAML
 			m_tag += token.params[i];
 		pScanner->pop();
 	}
-	
+
 	void Node::ParseAnchor(Scanner *pScanner, const ParserState& /*state*/)
 	{
 		Token& token = pScanner->peek();
@@ -180,7 +180,7 @@ namespace YAML
 			return CT_SEQUENCE;
 		else if(m_pContent->IsMap())
 			return CT_MAP;
-			
+
 		return CT_NONE;
 	}
 
@@ -235,7 +235,7 @@ namespace YAML
 	{
 		if(!m_pContent)
 			return 0;
-		
+
 		return m_pContent->GetNode(i);
 	}
 
@@ -245,7 +245,7 @@ namespace YAML
 			s = "~";
 			return true;
 		}
-		
+
 		return m_pContent->GetScalar(s);
 	}
 

@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -15,7 +15,7 @@
 #include <sk/rt/Scope.h>
 
 namespace test {
-  class Handler 
+  class Handler
     : public virtual sk::util::Object
   {
     public:
@@ -23,10 +23,10 @@ namespace test {
       virtual ~Handler();
 
       void start();
-  
+
       // sk::util::Object re-implementation.
       const sk::util::Class getClass() const;
-  
+
     private:
       Handler(const Handler& other);
       Handler& operator = (const Handler& other);

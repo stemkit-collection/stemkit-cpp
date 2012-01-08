@@ -1,5 +1,5 @@
 /*  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -32,7 +32,7 @@ namespace sk {
 
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
-        
+
         // sk::io::PtySpecifics implementation.
         int makeSlave(const sk::util::String& name);
         int makeMaster(const sk::io::FileDescriptor& descriptor);

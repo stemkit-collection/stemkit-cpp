@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -58,9 +58,9 @@ getClass() const
   return sk::util::Class(__className);
 }
 
-const sk::util::Pathname& 
+const sk::util::Pathname&
 sk::io::FileInfo::
-getPath() const 
+getPath() const
 {
   if(_path.isEmpty() == false) {
     return _path;
@@ -74,7 +74,7 @@ getSize() const
 {
   return _dataHolder.get().status.st_size;
 }
- 
+
 bool
 sk::io::FileInfo::
 isDirectory() const
@@ -156,6 +156,6 @@ inspect() const
   depot << "accessed_at=" + getTimeAccessed().inspect();
   depot << "modified_at=" + getTimeModified().inspect();
   depot << "updated_at=" + getTimeUpdated().inspect();
-  
+
   return "<FileInfo: " + depot.join(", ") + '>';
 }

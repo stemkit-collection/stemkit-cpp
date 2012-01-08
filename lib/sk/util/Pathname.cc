@@ -1,6 +1,6 @@
 /*  vim: sw=2:
  *  Copyright (c) 2007, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -120,7 +120,7 @@ normalize(const sk::util::String& component)
           if(position != std::string::npos) {
             _path = _path.substring(position).trim();
           }
-          else { 
+          else {
             _path.clear();
           }
         }

@@ -1,10 +1,10 @@
 /*  vim: sw=2:
  *  Copyright (c) 2011, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -15,7 +15,7 @@
 
 namespace sk {
   namespace rt {
-    class ReentrantReadWriteLock 
+    class ReentrantReadWriteLock
       : public virtual sk::rt::ReadWriteLock
     {
       public:
@@ -25,10 +25,10 @@ namespace sk {
         // sk::rt::ReadWriteLock implementation.
         sk::rt::Lock& readLock();
         sk::rt::Lock& writeLock();
-    
+
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
-    
+
       private:
         ReentrantReadWriteLock(const ReentrantReadWriteLock& other);
         ReentrantReadWriteLock& operator = (const ReentrantReadWriteLock& other);

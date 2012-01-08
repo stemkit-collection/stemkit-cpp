@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky (gennady.bystritsky@quest.com)
 */
 
@@ -15,7 +15,7 @@
 
 namespace sk {
   namespace rt {
-    class SystemException 
+    class SystemException
       : public sk::util::Exception
     {
       public:
@@ -26,10 +26,10 @@ namespace sk {
 
         static bool raiseUnlessSuccess(const sk::util::String& statement, int status, int other = 0);
         uint32_t getCode() const;
-    
+
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
-    
+
       private:
         uint32_t _code;
     };

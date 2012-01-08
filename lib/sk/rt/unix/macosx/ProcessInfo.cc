@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky (gennady.bystritsky@quest.com)
 */
 
@@ -25,7 +25,7 @@
 //
 // Thanks to Michael Knight for posting it.
 //
-struct sk::rt::ProcessInfo::Data 
+struct sk::rt::ProcessInfo::Data
   : public virtual sk::util::Object
 {
   Data(pid_t pid) : _task(MACH_PORT_NULL) {
@@ -34,7 +34,7 @@ struct sk::rt::ProcessInfo::Data
     }
   }
 
-  const struct task_basic_info info() const 
+  const struct task_basic_info info() const
   {
     struct task_basic_info t_info;
     mach_msg_type_number_t t_info_count = TASK_BASIC_INFO_COUNT;

@@ -36,7 +36,7 @@ def do_subst_in_file(targetfile, sourcefile, dict):
         print "Can't read source file %s"%sourcefile
         raise
     for (k,v) in dict.items():
-        v = v.replace('\\','\\\\') 
+        v = v.replace('\\','\\\\')
         contents = re.sub(k, v, contents)
     try:
         f = open(targetfile, 'wb')
@@ -138,7 +138,7 @@ def main():
     Generates doxygen documentation in build/doxygen.
     Optionaly makes a tarball of the documentation to dist/.
 
-    Must be started in the project top directory.    
+    Must be started in the project top directory.
     """
     from optparse import OptionParser
     parser = OptionParser(usage=usage)

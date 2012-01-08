@@ -1,5 +1,5 @@
 /*  Copyright (c) 2007, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -40,7 +40,7 @@ sk::rt::logger::Level::
 
 bool
 sk::rt::logger::Level::
-isReady() 
+isReady()
 {
     return _counter > 0 ? true : false;
 }
@@ -54,12 +54,12 @@ getClass() const
 
 const sk::util::String&
 sk::rt::logger::Level::
-getName() const 
+getName() const
 {
   return _name;
 }
 
-int 
+int
 sk::rt::logger::Level::
 toInt() const
 {

@@ -1,7 +1,7 @@
 /*  vim: set sw=2:
  *
  *  Copyright (c) 2007, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -171,7 +171,7 @@ getCycler() const
 
 sk::rt::logger::Cycler&
 sk::rt::logger::FileDestination::
-getCycler() 
+getCycler()
 {
   return _cyclerHolder.getMutable();
 }

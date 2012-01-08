@@ -1,10 +1,10 @@
 /*  vim: sw=2:
  *  Copyright (c) 2011, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -35,7 +35,7 @@ sk::rt::thread::tests::ConditionMediatorTest::
 
 sk::rt::Lock&
 sk::rt::thread::tests::ConditionMediatorTest::
-mutex() 
+mutex()
 {
   return _mutexHolder.getMutable();
 }
@@ -110,7 +110,7 @@ test_non_blocking_locks_when_available_and_fails_otherwise()
 
 namespace {
   struct UnlockWaitingInvocator : public virtual sk::rt::Runnable {
-    UnlockWaitingInvocator(sk::rt::thread::ConditionMediator& m) 
+    UnlockWaitingInvocator(sk::rt::thread::ConditionMediator& m)
       : mediator(m), moment(0), status(false) {}
 
     void registerTime(sk::rt::thread::Condition& condition) {
@@ -166,7 +166,7 @@ namespace {
     }
 
     void run() {
-      try { 
+      try {
         status = mediator.syncMethod(*this, &ConditionWaiter::waitCondition, milliseconds);
       }
       catch(const sk::rt::TimeoutException& exception) {
@@ -287,7 +287,7 @@ namespace {
   void preserve(sk::rt::thread::Condition& condition, const sk::util::String& s) {
     __strings << "preserve:" + s;
   }
-  
+
   void make_zero(sk::rt::thread::Condition& condition, int& value) {
     __strings << "make_zero:" + sk::util::String::valueOf(value);
     value = 0;
@@ -312,7 +312,7 @@ namespace {
   }
 }
 
-void 
+void
 sk::rt::thread::tests::ConditionMediatorTest::
 test_invoking_multi_param_functors()
 {
@@ -354,7 +354,7 @@ namespace {
     void preserveMethod(sk::rt::thread::Condition& condition, const sk::util::String& s) {
       preserve(condition, s);
     }
-    
+
     void make_zeroMethod(sk::rt::thread::Condition& condition, int& value) {
       make_zero(condition, value);
     }
@@ -377,7 +377,7 @@ namespace {
   };
 }
 
-void 
+void
 sk::rt::thread::tests::ConditionMediatorTest::
 test_invoking_multi_param_methods()
 {

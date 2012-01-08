@@ -227,15 +227,15 @@ namespace Test
 			YAML::Parser parser(stream);
 			YAML::Node doc;
 			parser.GetNextDocument(doc);
-			
+
 			std::string output;
 			doc[YAML::Null] >> output;
 			if(output != "omitted key")
 				return false;
-			
+
 			return true;
 		}
-		
+
 		bool FlowMapWithOmittedValue()
 		{
 			std::string input = "{a: b, c:, d:}";
@@ -263,7 +263,7 @@ namespace Test
 			YAML::Parser parser(stream);
 			YAML::Node doc;
 			parser.GetNextDocument(doc);
-			
+
 			std::string output;
 			doc["a"] >> output;
 			if(output != "b")
@@ -273,10 +273,10 @@ namespace Test
 			doc["d"] >> output;
 			if(output != "e")
 				return false;
-			
+
 			return true;
 		}
-		
+
 		bool FlowMapEndingWithSoloEntry()
 		{
 			std::string input = "{a: b, c}";
@@ -284,21 +284,21 @@ namespace Test
 			YAML::Parser parser(stream);
 			YAML::Node doc;
 			parser.GetNextDocument(doc);
-			
+
 			std::string output;
 			doc["a"] >> output;
 			if(output != "b")
 				return false;
 			if(!IsNull(doc["c"]))
 				return false;
-			
+
 			return true;
 		}
-		
+
 		bool QuotedSimpleKeys()
 		{
 			std::string KeyValue[3] = { "\"double\": double\n", "'single': single\n", "plain: plain\n" };
-			
+
 			int perm[3] = { 0, 1, 2 };
 			do {
 				std::string input = KeyValue[perm[0]] + KeyValue[perm[1]] + KeyValue[perm[2]];
@@ -307,7 +307,7 @@ namespace Test
 				YAML::Parser parser(stream);
 				YAML::Node doc;
 				parser.GetNextDocument(doc);
-				
+
 				std::string output;
 				doc["double"] >> output;
 				if(output != "double")
@@ -319,23 +319,23 @@ namespace Test
 				if(output != "plain")
 					return false;
 			} while(std::next_permutation(perm, perm + 3));
-				
+
 			return true;
 		}
 
 		bool CompressedMapAndSeq()
 		{
 			std::string input = "key:\n- one\n- two";
-			
+
 			std::stringstream stream(input);
 			YAML::Parser parser(stream);
 			YAML::Node doc;
 			parser.GetNextDocument(doc);
-			
+
 			const YAML::Node& seq = doc["key"];
 			if(seq.size() != 2)
 				return false;
-				
+
 			std::string output;
 			seq[0] >> output;
 			if(output != "one")
@@ -350,12 +350,12 @@ namespace Test
 		bool NullBlockSeqEntry()
 		{
 			std::string input = "- hello\n-\n- world";
-			
+
 			std::stringstream stream(input);
 			YAML::Parser parser(stream);
 			YAML::Node doc;
 			parser.GetNextDocument(doc);
-			
+
 			std::string output;
 			doc[0] >> output;
 			if(output != "hello")
@@ -365,115 +365,91 @@ namespace Test
 			doc[2] >> output;
 			if(output != "world")
 				return false;
-			
+
 			return true;
 		}
-		
+
 		bool NullBlockMapKey()
 		{
 			std::string input = ": empty key";
-			
+
 			std::stringstream stream(input);
 			YAML::Parser parser(stream);
 			YAML::Node doc;
 			parser.GetNextDocument(doc);
-			
+
 			std::string output;
 			doc[YAML::Null] >> output;
 			if(output != "empty key")
 				return false;
-			
+
 			return true;
 		}
-		
+
 		bool NullBlockMapValue()
 		{
 			std::string input = "empty value:";
-			
+
 			std::stringstream stream(input);
 			YAML::Parser parser(stream);
 			YAML::Node doc;
 			parser.GetNextDocument(doc);
-			
+
 			if(!IsNull(doc["empty value"]))
 				return false;
-			
+
 			return true;
 		}
 
 		bool SimpleAlias()
 		{
 			std::string input = "- &alias test\n- *alias";
-			
+
 			std::stringstream stream(input);
 			YAML::Parser parser(stream);
 			YAML::Node doc;
 			parser.GetNextDocument(doc);
-			
+
 			std::string output;
 			doc[0] >> output;
 			if(output != "test")
 				return false;
-			
+
 			doc[1] >> output;
 			if(output != "test")
 				return false;
-			
+
 			if(doc.size() != 2)
 				return false;
-			
+
 			return true;
 		}
-		
+
 		bool AliasWithNull()
 		{
 			std::string input = "- &alias\n- *alias";
-			
+
 			std::stringstream stream(input);
 			YAML::Parser parser(stream);
 			YAML::Node doc;
 			parser.GetNextDocument(doc);
-			
+
 			if(!IsNull(doc[0]))
 				return false;
-			
+
 			if(!IsNull(doc[1]))
 				return false;
-			
+
 			if(doc.size() != 2)
 				return false;
-			
+
 			return true;
 		}
 
 		bool AnchorInSimpleKey()
 		{
 			std::string input = "- &a b: c\n- *a";
-			
-			std::stringstream stream(input);
-			YAML::Parser parser(stream);
-			YAML::Node doc;
-			parser.GetNextDocument(doc);
-			
-			if(doc.size() != 2)
-				return false;
-	
-			std::string output;
-			doc[0]["b"] >> output;
-			if(output != "c")
-				return false;
-			
-			doc[1] >> output;
-			if(output != "b")
-				return false;
-			
-			return true;
-		}
-		
-		bool AliasAsSimpleKey()
-		{
-			std::string input = "- &a b\n- *a: c";
-			
+
 			std::stringstream stream(input);
 			YAML::Parser parser(stream);
 			YAML::Node doc;
@@ -481,31 +457,55 @@ namespace Test
 
 			if(doc.size() != 2)
 				return false;
-			
+
+			std::string output;
+			doc[0]["b"] >> output;
+			if(output != "c")
+				return false;
+
+			doc[1] >> output;
+			if(output != "b")
+				return false;
+
+			return true;
+		}
+
+		bool AliasAsSimpleKey()
+		{
+			std::string input = "- &a b\n- *a: c";
+
+			std::stringstream stream(input);
+			YAML::Parser parser(stream);
+			YAML::Node doc;
+			parser.GetNextDocument(doc);
+
+			if(doc.size() != 2)
+				return false;
+
 			std::string output;
 			doc[0] >> output;
 			if(output != "b")
 				return false;
-			
+
 			doc[1]["b"] >> output;
 			if(output != "c")
 				return false;
 
 			return true;
 		}
-		
+
 		bool ExplicitDoc()
 		{
 			std::string input = "---\n- one\n- two";
-			
+
 			std::stringstream stream(input);
 			YAML::Parser parser(stream);
 			YAML::Node doc;
 			parser.GetNextDocument(doc);
-			
+
 			if(doc.size() != 2)
 				return false;
-			
+
 			std::string output;
 			doc[0] >> output;
 			if(output != "one")
@@ -513,14 +513,14 @@ namespace Test
 			doc[1] >> output;
 			if(output != "two")
 				return false;
-			
+
 			return true;
 		}
 
 		bool MultipleDocs()
 		{
 			std::string input = "---\nname: doc1\n---\nname: doc2";
-			
+
 			std::stringstream stream(input);
 			YAML::Parser parser(stream);
 			YAML::Node doc;
@@ -530,30 +530,30 @@ namespace Test
 			doc["name"] >> output;
 			if(output != "doc1")
 				return false;
-			
+
 			if(!parser)
 				return false;
-			
+
 			parser.GetNextDocument(doc);
 			doc["name"] >> output;
 			if(output != "doc2")
 				return false;
-			
+
 			return true;
 		}
-		
+
 		bool ExplicitEndDoc()
 		{
 			std::string input = "- one\n- two\n...\n...";
-			
+
 			std::stringstream stream(input);
 			YAML::Parser parser(stream);
 			YAML::Node doc;
 			parser.GetNextDocument(doc);
-			
+
 			if(doc.size() != 2)
 				return false;
-			
+
 			std::string output;
 			doc[0] >> output;
 			if(output != "one")
@@ -561,10 +561,10 @@ namespace Test
 			doc[1] >> output;
 			if(output != "two")
 				return false;
-			
+
 			return true;
 		}
-		
+
 		bool MultipleDocsWithSomeExplicitIndicators()
 		{
 			std::string input =
@@ -572,7 +572,7 @@ namespace Test
 				"---\nkey: value\n...\n...\n"
 				"- three\n- four\n"
 				"---\nkey: value";
-			
+
 			std::stringstream stream(input);
 			YAML::Parser parser(stream);
 			YAML::Node doc;
@@ -587,12 +587,12 @@ namespace Test
 			doc[1] >> output;
 			if(output != "two")
 				return false;
-			
+
 			parser.GetNextDocument(doc);
 			doc["key"] >> output;
 			if(output != "value")
 				return false;
-			
+
 			parser.GetNextDocument(doc);
 			if(doc.size() != 2)
 				return false;
@@ -602,16 +602,16 @@ namespace Test
 			doc[1] >> output;
 			if(output != "four")
 				return false;
-			
+
 			parser.GetNextDocument(doc);
 			doc["key"] >> output;
 			if(output != "value")
 				return false;
-			
+
 			return true;
 		}
 	}
-	
+
 	namespace {
 		void RunScalarParserTest(void (*test)(std::string&, std::string&), const std::string& name, int& passed, int& total) {
 			std::string error;
@@ -727,7 +727,7 @@ namespace Test
 
 		void EncodeToUtf32LE(std::ostream& stream, int ch)
 		{
-			stream << Byte(ch & 0xFF) << Byte((ch >> 8) & 0xFF) 
+			stream << Byte(ch & 0xFF) << Byte((ch >> 8) & 0xFF)
 				<< Byte((ch >> 16) & 0xFF) << Byte((ch >> 24) & 0xFF);
 		}
 
@@ -869,7 +869,7 @@ namespace Test
 		RunParserTest(&Parser::MultipleDocs, "multiple docs", passed, total);
 		RunParserTest(&Parser::ExplicitEndDoc, "explicit end doc", passed, total);
 		RunParserTest(&Parser::MultipleDocsWithSomeExplicitIndicators, "multiple docs with some explicit indicators", passed, total);
-		
+
 		RunEncodingTest(&EncodeToUtf8, false, "UTF-8, no BOM", passed, total);
 		RunEncodingTest(&EncodeToUtf8, true, "UTF-8 with BOM", passed, total);
 		RunEncodingTest(&EncodeToUtf16LE, false, "UTF-16LE, no BOM", passed, total);

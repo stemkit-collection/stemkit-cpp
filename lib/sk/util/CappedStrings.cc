@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2010, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -41,7 +41,7 @@ getClass() const
   return sk::util::Class(__className);
 }
 
-int 
+int
 sk::util::CappedStrings::
 maxItemSize() const
 {
@@ -50,70 +50,70 @@ maxItemSize() const
   );
 }
 
-bool 
+bool
 sk::util::CappedStrings::
 add(const sk::util::String& item)
 {
   return sk::util::Strings::add(ensureCap(item));
 }
 
-bool 
+bool
 sk::util::CappedStrings::
 add(sk::util::String& item)
 {
   return sk::util::Strings::add(ensureCap(item));
 }
 
-void 
+void
 sk::util::CappedStrings::
 addFirst(const sk::util::String& item)
 {
   sk::util::Strings::addFirst(ensureCap(item));
 }
 
-void 
+void
 sk::util::CappedStrings::
 addFirst(sk::util::String& item)
 {
   sk::util::Strings::addFirst(ensureCap(item));
 }
 
-void 
+void
 sk::util::CappedStrings::
 addLast(const sk::util::String& item)
 {
   sk::util::Strings::addLast(ensureCap(item));
 }
 
-void 
+void
 sk::util::CappedStrings::
 addLast(sk::util::String& item)
 {
   sk::util::Strings::addLast(ensureCap(item));
 }
 
-void 
+void
 sk::util::CappedStrings::
 add(int index, const sk::util::String& item)
 {
   sk::util::Strings::add(index, ensureCap(item));
 }
 
-void 
+void
 sk::util::CappedStrings::
 add(int index, sk::util::String& item)
 {
   sk::util::Strings::add(index, ensureCap(item));
 }
 
-void 
+void
 sk::util::CappedStrings::
 set(int index, const sk::util::String& item)
 {
   sk::util::Strings::set(index, ensureCap(item));
 }
 
-void 
+void
 sk::util::CappedStrings::
 set(int index, sk::util::String& item)
 {

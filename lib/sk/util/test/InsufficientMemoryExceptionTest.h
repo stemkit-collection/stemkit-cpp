@@ -1,5 +1,5 @@
 /*  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -20,15 +20,15 @@ namespace sk {
         CPPUNIT_TEST_SUITE(sk::util::test::InsufficientMemoryExceptionTest);
           CPPUNIT_TEST(testThrow);
         CPPUNIT_TEST_SUITE_END();
-        
+
         public:
           InsufficientMemoryExceptionTest();
           virtual ~InsufficientMemoryExceptionTest();
-          
+
           void setUp();
           void tearDown();
           void testThrow();
-          
+
         private:
           InsufficientMemoryExceptionTest(const InsufficientMemoryExceptionTest& other);
           InsufficientMemoryExceptionTest& operator = (const InsufficientMemoryExceptionTest& other);

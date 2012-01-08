@@ -2,7 +2,7 @@
 
 local library = sk.cppunit ;
 
-local objects = 
+local objects =
   SingleLineOutputter.cc
   TestRunner.cc
   SourcePath.cc

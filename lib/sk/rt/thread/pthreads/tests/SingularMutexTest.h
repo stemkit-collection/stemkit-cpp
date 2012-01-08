@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -28,17 +28,17 @@ namespace sk {
               CPPUNIT_TEST(testLockUnlock);
               CPPUNIT_TEST(testTryLock);
             CPPUNIT_TEST_SUITE_END();
-          
+
             public:
               SingularMutexTest();
               virtual ~SingularMutexTest();
-          
+
               void setUp();
               void tearDown();
               void testUnlockFailsOnNonLocked();
               void testLockUnlock();
               void testTryLock();
-          
+
             private:
               SingularMutexTest(const SingularMutexTest& other);
               SingularMutexTest& operator = (const SingularMutexTest& other);

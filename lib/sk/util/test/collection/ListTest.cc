@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -25,21 +25,21 @@ ListTest()
 {
 }
 
-sk::util::Collection<sk::util::String>* 
+sk::util::Collection<sk::util::String>*
 sk::util::test::collection::ListTest::
 makeCopyingCollection()
 {
   return makeCopyingList();
 }
 
-sk::util::List<sk::util::String>* 
+sk::util::List<sk::util::String>*
 sk::util::test::collection::ListTest::
 makeCopyingList()
 {
   throw sk::util::UnsupportedOperationException("makeCopyingList()");
 }
 
-void 
+void
 sk::util::test::collection::ListTest::
 testListAdd()
 {
@@ -61,7 +61,7 @@ testListAdd()
   CPPUNIT_ASSERT_EQUAL("ccc", depot.at(2));
 }
 
-void 
+void
 sk::util::test::collection::ListTest::
 testListGet()
 {
@@ -81,7 +81,7 @@ testListGet()
   CPPUNIT_ASSERT_THROW(list.get().get(-1), sk::util::IndexOutOfBoundsException);
 }
 
-void 
+void
 sk::util::test::collection::ListTest::
 testListGetMutable()
 {
@@ -101,7 +101,7 @@ testListGetMutable()
   CPPUNIT_ASSERT_THROW(list.getMutable().getMutable(-1), sk::util::IndexOutOfBoundsException);
 }
 
-void 
+void
 sk::util::test::collection::ListTest::
 testListIndexOf()
 {
@@ -124,7 +124,7 @@ testListIndexOf()
   CPPUNIT_ASSERT_EQUAL(3, list.get().lastIndexOf(sk::util::selector::EqualValue<sk::util::String>("zzz")));
 }
 
-void 
+void
 sk::util::test::collection::ListTest::
 testListRemove()
 {
@@ -151,7 +151,7 @@ testListRemove()
   CPPUNIT_ASSERT_THROW(list.getMutable().remove(0), sk::util::IndexOutOfBoundsException);
 }
 
-void 
+void
 sk::util::test::collection::ListTest::
 testListSet()
 {
@@ -267,7 +267,7 @@ testListGetMutableFirstLast()
   CPPUNIT_ASSERT_EQUAL("c", list.getMutable().getMutableLast());
 }
 
-void 
+void
 sk::util::test::collection::ListTest::
 testListRemoveFirstLast()
 {
@@ -298,7 +298,7 @@ testListRemoveFirstLast()
   CPPUNIT_ASSERT_THROW(list.getMutable().removeLast(), sk::util::NoSuchElementException);
 }
 
-void 
+void
 sk::util::test::collection::ListTest::
 testListCutoffFirstLast()
 {

@@ -1,6 +1,6 @@
 /*  vi: sw=2:
  *  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -13,8 +13,8 @@
 #include <sk/sys/PtyProcess.h>
 #include <sk/sys/AbstractProcessListener.h>
 
-struct sk::sys::PtyProcess::Listener 
-  : public sk::sys::AbstractProcessListener 
+struct sk::sys::PtyProcess::Listener
+  : public sk::sys::AbstractProcessListener
 {
 };
 
@@ -59,14 +59,14 @@ getPty()
   throw sk::util::UnsupportedOperationException(SK_METHOD);
 }
 
-sk::io::InputStream& 
+sk::io::InputStream&
 sk::sys::PtyProcess::
 inputStream() const
 {
   throw sk::util::UnsupportedOperationException(SK_METHOD);
 }
 
-sk::io::InputStream& 
+sk::io::InputStream&
 sk::sys::PtyProcess::
 inputErrorStream() const
 {
@@ -80,7 +80,7 @@ outputStream() const
   throw sk::util::UnsupportedOperationException(SK_METHOD);
 }
 
-const sk::util::Strings& 
+const sk::util::Strings&
 sk::sys::PtyProcess::
 errors() const
 {

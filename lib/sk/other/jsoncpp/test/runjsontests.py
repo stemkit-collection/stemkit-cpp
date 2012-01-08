@@ -30,7 +30,7 @@ def compareOutputs( expected, actual, message ):
 """ % (message, diff_line,
        safeGetLine(expected,diff_line),
        safeGetLine(actual,diff_line) )
-        
+
 def safeReadFile( path ):
     try:
         return file( path, 'rt' ).read()

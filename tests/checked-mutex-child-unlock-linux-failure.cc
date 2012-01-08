@@ -1,32 +1,32 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky (gennady.bystritsky@quest.com)
 */
 
 #if 0
   This program demonstrates a problem with linux implementation of
-  pthread_mutex when attribute PTHREAD_MUTEX_ERRORCHECK is used. In 
-  this case, unlocking in child fails both in direct calls or from 
-  pthread_atfork() despite rationale in pthread doc. 
+  pthread_mutex when attribute PTHREAD_MUTEX_ERRORCHECK is used. In
+  this case, unlocking in child fails both in direct calls or from
+  pthread_atfork() despite rationale in pthread doc.
 
-  A bug report for exactly same problem was filed for Linux glibc, 
+  A bug report for exactly same problem was filed for Linux glibc,
   available from at http://sourceware.org/ml/glibc-bugs/2006-06/msg00016.html
 
   Looks like it will not be fixed as a bonehead at redhat.com who got
-  this assigned (Ulrich Drepper) refused to admit the problem in a very 
+  this assigned (Ulrich Drepper) refused to admit the problem in a very
   rude and unprofessional manner.
 
   Another guy suggested that only pthread_init() may be called on mutex in
-  a child process. It works, however according to PTHREAD documentation 
+  a child process. It works, however according to PTHREAD documentation
   mutex unlock must work as well, it is even presented in examples.
 
-  The way this file is checked in, it uses pthread_mutex_init() for 
-  pthread_atfork() child handler. Replace reset_mutex with unlock_mutex to 
+  The way this file is checked in, it uses pthread_mutex_init() for
+  pthread_atfork() child handler. Replace reset_mutex with unlock_mutex to
   see the problem on Linux. Works on all other platforms as expected.
 #endif
 
@@ -62,7 +62,7 @@ extern "C" void reset_mutex() {
 
 int main(int argc, const char* argv[])
 {
-  int code; 
+  int code;
   if((code = pthread_mutexattr_init(&mattr)) != 0) {
     std::cerr << "E: attr: init: " << code << ": " << strerror(code) << std::endl;
     exit(3);
@@ -92,7 +92,7 @@ int main(int argc, const char* argv[])
     std::cerr << "E: lock: " << code << ": " << strerror(code) << std::endl;
     exit(3);
   }
-  
+
   if(fork() == 0) {
   }
   else {

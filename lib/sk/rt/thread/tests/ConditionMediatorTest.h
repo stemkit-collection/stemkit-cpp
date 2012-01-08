@@ -1,10 +1,10 @@
 /*  vim: sw=2:
  *  Copyright (c) 2011, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -37,11 +37,11 @@ namespace sk {
             CPPUNIT_TEST(test_invoking_multi_param_functors);
             CPPUNIT_TEST(test_invoking_multi_param_methods);
           CPPUNIT_TEST_SUITE_END();
-        
+
           public:
             ConditionMediatorTest();
             virtual ~ConditionMediatorTest();
-        
+
             void setUp();
             void tearDown();
             void test_default_blocking_but_can_be_changed();
@@ -55,7 +55,7 @@ namespace sk {
             void test_invoking_multi_param_methods();
 
             void ensureLocked(sk::rt::thread::Condition& condition, bool& indicator);
-        
+
           private:
             ConditionMediatorTest(const ConditionMediatorTest& other);
             ConditionMediatorTest& operator = (const ConditionMediatorTest& other);

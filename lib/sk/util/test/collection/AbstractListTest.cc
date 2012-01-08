@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -37,7 +37,7 @@ namespace {
       if((index < 0) && (index > size())) {
         throw sk::util::IndexOutOfBoundsException("add");
       }
-      
+
       container::iterator iterator = _content.begin();
       while(index--) {
         ++iterator;
@@ -76,7 +76,7 @@ sk::util::test::collection::AbstractListTest::
 {
 }
 
-sk::util::List<sk::util::String>* 
+sk::util::List<sk::util::String>*
 sk::util::test::collection::AbstractListTest::
 makeCopyingList()
 {

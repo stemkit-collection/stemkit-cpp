@@ -1,5 +1,5 @@
 /*  Copyright (c) 2007, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -24,13 +24,13 @@ namespace sk {
           public:
             MockingTestFixture();
             virtual ~MockingTestFixture();
-            
+
             void setUp();
             void tearDown();
 
             // sk::rt::config::NamedStreamOpener implementtion.
             std::istream* openStream(const sk::util::Pathname& name) const;
-            
+
           private:
             MockingTestFixture(const MockingTestFixture& other);
             MockingTestFixture& operator = (const MockingTestFixture& other);

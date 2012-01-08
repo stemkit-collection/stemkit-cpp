@@ -1,10 +1,10 @@
 /*  vim: sw=2:
  *  Copyright (c) 2011, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky (gennady.bystritsky@quest.com)
 */
 
@@ -23,7 +23,7 @@ static const sk::util::String __className("sk::rt::thread::generic::ConditionMed
 
 sk::rt::thread::generic::ConditionMediator::
 ConditionMediator(const sk::rt::Scope& scope, sk::rt::Lock& lock, int capacity)
-  : _scope(scope), _lock(lock), 
+  : _scope(scope), _lock(lock),
     _delay(std::max(1, scope.getProperty("generic-condition-mediator-delay", 100))),
     _yields(scope.getProperty("condition-mediator-yields", sk::util::Boolean::B_FALSE)),
     _broadcasts(scope.getProperty("condition-mediator-broadcasts", sk::util::Boolean::B_TRUE))

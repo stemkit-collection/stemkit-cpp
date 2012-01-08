@@ -2,7 +2,7 @@
 
 local test = sk-io-unix-test ;
 
-local test-objects = 
+local test-objects =
   FileDescriptorTest.cc
   FileDescriptorStreamsTest.cc
   AnonymousPipeTest.cc

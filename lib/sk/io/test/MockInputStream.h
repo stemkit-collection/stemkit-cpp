@@ -1,5 +1,5 @@
 /*  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -28,7 +28,7 @@ namespace sk {
           int chunks() const;
           const sk::util::Container chunk(int index) const;
           void setData(const sk::util::Container& container);
-          
+
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
 
@@ -37,7 +37,7 @@ namespace sk {
           int read(char* buffer, int offset, int size);
           using AbstractInputStream::read;
           void inheritable(bool state);
-          
+
         private:
           MockInputStream(const MockInputStream& other);
           MockInputStream& operator = (const MockInputStream& other);

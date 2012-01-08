@@ -6,18 +6,18 @@ if $(project.DO_ABORT_TEST) = true {
   categories += abort ;
 }
 
-local test-objects-normal = 
+local test-objects-normal =
   TestSuite.cc
   BridgeTest.cc
   test_probe_factory.c
 ;
 
-local test-objects-abort = 
+local test-objects-abort =
   TestSuiteAbort.cc
   AbortTest.cc
 ;
 
-local objects = 
+local objects =
   Probe.cc
   ProbeFactory.cc
   c_probe.cc

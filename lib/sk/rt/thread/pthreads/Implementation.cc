@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -103,7 +103,7 @@ clearGeneric() const
   SK_PTHREAD_RAISE_UNLESS_SUCCESS(pthread_setspecific(_currentThreadKey, 0));
 }
 
-sk::rt::thread::Generic& 
+sk::rt::thread::Generic&
 sk::rt::thread::pthreads::Implementation::
 getGeneric() const
 {

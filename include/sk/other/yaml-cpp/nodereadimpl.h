@@ -8,7 +8,7 @@ namespace YAML
 	// http://stackoverflow.com/questions/1386183/how-to-call-a-templated-function-if-it-exists-and-something-else-otherwise/1386390#1386390
 
 	// Note: this doesn't work on gcc 3.2, but does on gcc 3.4 and above. I'm not sure about 3.3.
-	
+
 #if __GNUC__ && (__GNUC__ < 3 || (__GNUC__ == 3 && __GNUC_MINOR__ <= 3))
 	// trick doesn't work? Just fall back to ConvertScalar.
 	// This means that we can't use any user-defined types as keys in a map
@@ -20,7 +20,7 @@ namespace YAML
 	// usual case: the trick!
 	template<bool>
 	struct read_impl;
-	
+
 	// ConvertScalar available
 	template<>
 	struct read_impl<true> {
@@ -43,17 +43,17 @@ namespace YAML
 			return true;
 		}
 	};
-	
+
 	namespace fallback {
 		// sizeof > 1
 		struct flag { char c[2]; };
 		flag Convert(...);
-		
+
 		int operator,(flag, flag);
-		
+
 		template<typename T>
 		void operator,(flag, T const&);
-		
+
 		char operator,(int, flag);
 	}
 
@@ -64,14 +64,14 @@ namespace YAML
 		return read_impl<sizeof (fallback::flag(), Convert(std::string(), value), fallback::flag()) != 1>::read(*this, value);
 	}
 #endif // done with trick
-	
+
 	// the main conversion function
 	template <typename T>
 	inline bool ConvertScalar(const Node& node, T& value) {
 		std::string scalar;
 		if(!node.GetScalar(scalar))
 			return false;
-		
+
 		return Convert(scalar, value);
 	}
 }

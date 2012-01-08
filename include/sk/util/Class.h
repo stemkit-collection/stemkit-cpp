@@ -1,5 +1,5 @@
 /*  Copyright (c) 2005, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -15,12 +15,12 @@
 namespace sk {
   namespace util {
     class Class
-      : public virtual sk::util::Object 
+      : public virtual sk::util::Object
     {
       public:
         Class(const sk::util::String& name);
         virtual ~Class();
-        
+
         const sk::util::String getName() const;
         const sk::util::Method getMethod(const sk::util::String& name) const;
         const sk::util::Method getClassMethod(const sk::util::String& name) const;
@@ -29,7 +29,7 @@ namespace sk {
         const sk::util::Class getClass() const;
         const sk::util::String toString() const;
         const sk::util::String inspect() const;
-      
+
       private:
         Class& operator = (const Class& other);
 

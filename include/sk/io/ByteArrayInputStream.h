@@ -1,5 +1,5 @@
 /*  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -23,7 +23,7 @@ namespace sk {
         virtual ~ByteArrayInputStream();
 
         int getByteCount() const;
-        
+
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
 
@@ -37,7 +37,7 @@ namespace sk {
         void mark(int readlimit);
         void reset();
         void inheritable(bool state);
-        
+
       private:
         ByteArrayInputStream(const ByteArrayInputStream& other);
         ByteArrayInputStream& operator = (const ByteArrayInputStream& other);

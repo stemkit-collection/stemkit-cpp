@@ -1,6 +1,6 @@
 /*  vim: sw=2:
  *  Copyright (c) 2005, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -114,7 +114,7 @@ testAssignment()
   s1 = "zzz";
   CPPUNIT_ASSERT_EQUAL(String("zzz"), s1);
   CPPUNIT_ASSERT_EQUAL(String("abcdefg"), s2);
-  
+
   s2 = s1;
   CPPUNIT_ASSERT_EQUAL(String("zzz"), s2);
 }
@@ -134,7 +134,7 @@ testTrim()
 
 void
 sk::util::test::StringTest::
-testInspect() 
+testInspect()
 {
   CPPUNIT_ASSERT_EQUAL(String("\"abcdefg\""), String("abcdefg").inspect());
   // CPPUNIT_ASSERT_EQUAL(String("\"\\x01\\x8A\\r\\n\""), String("\01\x8a\015\012").inspect());
@@ -145,7 +145,7 @@ sk::util::test::StringTest::
 testConstructFromStringWithLength()
 {
   std::string s("abcd\0zzz", 8);
-  
+
   CPPUNIT_ASSERT_EQUAL(String("abc").inspect(), String(s, 3).inspect());
   CPPUNIT_ASSERT_EQUAL(3, String(s, 3).length());
 
@@ -158,7 +158,7 @@ sk::util::test::StringTest::
 testConstructFromCharsWithLength()
 {
   sk::util::String s("abcdefg", 8);
-  
+
   CPPUNIT_ASSERT_EQUAL(7, s.size());
   CPPUNIT_ASSERT_EQUAL("abcdefg", s);
 }
@@ -170,7 +170,7 @@ testConstructFromCharVectorWithLength()
   const char* chars = "abcdefg";
   std::vector<char> data(chars, chars + 7);
   sk::util::String s(&data.front(), 7);
-  
+
   CPPUNIT_ASSERT_EQUAL(7, s.size());
   CPPUNIT_ASSERT_EQUAL("abcdefg", s);
 }
@@ -387,7 +387,7 @@ testValueOf()
   CPPUNIT_ASSERT_EQUAL("0", String::valueOf(0));
 }
 
-void 
+void
 sk::util::test::StringTest::
 testMultiply()
 {
@@ -399,7 +399,7 @@ testMultiply()
   CPPUNIT_ASSERT_THROW(sk::util::String("zzzzzzz") * -2, sk::util::IllegalArgumentException);
 }
 
-void 
+void
 sk::util::test::StringTest::
 testCompareOperators()
 {
@@ -427,7 +427,7 @@ testCompareOperators()
   CPPUNIT_ASSERT(sample <= std::string("eeee"));
 }
 
-void 
+void
 sk::util::test::StringTest::
 testReverseCompareOperators()
 {

@@ -1,5 +1,5 @@
 /*  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -29,18 +29,18 @@ namespace sk {
           CPPUNIT_TEST(testCloseOnDestruction);
           CPPUNIT_TEST(testPartialReadOnEof);
         CPPUNIT_TEST_SUITE_END();
-        
+
         public:
           FileDescriptorStreamsTest();
           virtual ~FileDescriptorStreamsTest();
-          
+
           void setUp();
           void tearDown();
           void testReadWrite();
           void testClose();
           void testCloseOnDestruction();
           void testPartialReadOnEof();
-          
+
         private:
           FileDescriptorStreamsTest(const FileDescriptorStreamsTest& other);
           FileDescriptorStreamsTest& operator = (const FileDescriptorStreamsTest& other);

@@ -1,6 +1,6 @@
 # vim: set sw=2:
 
-local tests = 
+local tests =
   thread-demo
   scope-demo
   util-demo

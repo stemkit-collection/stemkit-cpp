@@ -2,7 +2,7 @@
 
 local test = sk-util-pp-test ;
 
-local objects = 
+local objects =
   TestSuite.cc
   PrimeNodeTest.cc
   PointerNodeTest.cc

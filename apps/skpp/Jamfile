@@ -2,7 +2,7 @@
 
 local program = skpp ;
 
-local objects = 
+local objects =
   skpp.cc
 ;
 

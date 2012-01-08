@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky (gennady.bystritsky@quest.com)
 */
 
@@ -122,7 +122,7 @@ int accept_connection(int sock) {
 namespace {
   struct Configurator : public sk::sys::AbstractProcessListener {
     Configurator(sk::rt::Scope& scope, const sk::io::InputStream& inputStream, const sk::io::OutputStream& outputStream)
-      : _scope(scope), _inputStream(inputStream), _outputStream(outputStream) 
+      : _scope(scope), _inputStream(inputStream), _outputStream(outputStream)
     {
       _scope.notice() << "Input:  " << sk::util::upcast<sk::io::FileDescriptorProvider>(inputStream).getFileDescriptor().getFileNumber();
       _scope.notice() << "Output: " << sk::util::upcast<sk::io::FileDescriptorProvider>(outputStream).getFileDescriptor().getFileNumber();
@@ -156,15 +156,15 @@ void process_request(int fd) {
   sk::io::FileDescriptorInputStream inputStream(fd);
   sk::io::FileDescriptorOutputStream outputStream(inputStream.getFileDescriptor());
   Configurator configurator(scope, inputStream, outputStream);
-  
+
   /*
   sk::io::AnonymousPipe inPipe;
   sk::io::AnonymousPipe outPipe;
   Configurator configurator(scope, outPipe.inputStream(), inPipe.outputStream());
   */
-  
+
   sk::sys::Process process(sk::util::Strings("tcp-echo-client"), configurator);
-  
+
   inputStream.close();
   outputStream.close();
 

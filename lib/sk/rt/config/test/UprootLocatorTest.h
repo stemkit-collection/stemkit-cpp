@@ -1,5 +1,5 @@
 /*  Copyright (c) 2007, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -24,17 +24,17 @@ namespace sk {
             CPPUNIT_TEST(testMultiLevelFromRoot);
             CPPUNIT_TEST(testMultiLevelCascading);
           CPPUNIT_TEST_SUITE_END();
-          
+
           public:
             UprootLocatorTest();
             virtual ~UprootLocatorTest();
-            
+
             void testOneLevel();
             void testOneLevelCascading();
             void testMultiLevel();
             void testMultiLevelFromRoot();
             void testMultiLevelCascading();
-            
+
           private:
             UprootLocatorTest(const UprootLocatorTest& other);
             UprootLocatorTest& operator = (const UprootLocatorTest& other);

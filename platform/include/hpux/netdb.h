@@ -1,8 +1,8 @@
 /*  Copyright (c) 2006, Quest Software, http://www.quest.com
- *  
+ *
  *  This software is property of the mentioned copyright
- *  holder and cannot be used or distrubuted  other than 
- *  under a written consent agreement between individual 
+ *  holder and cannot be used or distrubuted  other than
+ *  under a written consent agreement between individual
  *  parties.
 */
 

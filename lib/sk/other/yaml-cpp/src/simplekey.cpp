@@ -31,13 +31,13 @@ namespace YAML
 		if(pKey)
 			pKey->status = Token::INVALID;
 	}
-	
+
 	// CanInsertPotentialSimpleKey
 	bool Scanner::CanInsertPotentialSimpleKey() const
 	{
 		if(!m_simpleKeyAllowed)
 			return false;
-		
+
 		if(InFlowContext() && m_flows.top() != FLOW_MAP)
 			return false;
 
@@ -51,7 +51,7 @@ namespace YAML
 	{
 		if(m_simpleKeys.empty())
 			return false;
-		
+
 		const SimpleKey& key = m_simpleKeys.top();
 		return key.flowLevel == GetFlowLevel();
 	}
@@ -63,7 +63,7 @@ namespace YAML
 	{
 		if(!CanInsertPotentialSimpleKey())
 			return;
-		
+
 		SimpleKey key(INPUT.mark(), GetFlowLevel());
 
 		// first add a map start, if necessary
@@ -88,12 +88,12 @@ namespace YAML
 	{
 		if(m_simpleKeys.empty())
 			return;
-		
+
 		// grab top key
 		SimpleKey& key = m_simpleKeys.top();
 		if(key.flowLevel != GetFlowLevel())
 			return;
-		
+
 		key.Invalidate();
 		m_simpleKeys.pop();
 	}

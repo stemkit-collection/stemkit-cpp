@@ -1,6 +1,6 @@
 /*  vi: sw=2:
  *  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -117,14 +117,14 @@ processStopping()
 
 void
 sk::sys::Process::
-stop() 
+stop()
 {
   throw sk::util::UnsupportedOperationException(SK_METHOD);
 }
 
 void
 sk::sys::Process::
-processJoining() 
+processJoining()
 {
 }
 

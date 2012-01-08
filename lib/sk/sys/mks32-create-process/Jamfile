@@ -1,7 +1,7 @@
 
 local library = sk.sys.mks32 ;
 
-local objects = 
+local objects =
   Process.cc
   DaemonProcess.cc
   ManagedProcess.cc
@@ -12,9 +12,9 @@ local objects =
 ;
 
 if mks32 in $(project.PLATFORM_SPECIFICS) {
-  objects += 
-    [ util.make-path .. win32 User.cc ] 
-    [ util.make-path .. win32 PtyProcess.cc ] 
+  objects +=
+    [ util.make-path .. win32 User.cc ]
+    [ util.make-path .. win32 PtyProcess.cc ]
   ;
 }
 else objects += User.cc PtyProcess.cc ;

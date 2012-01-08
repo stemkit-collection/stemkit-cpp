@@ -2,7 +2,7 @@
 
 local library = sk.net ;
 
-local objects = 
+local objects =
   SocketException.cc
   BindException.cc
   ConnectException.cc

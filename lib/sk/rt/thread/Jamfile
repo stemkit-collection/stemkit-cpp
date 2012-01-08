@@ -2,7 +2,7 @@
 
 local library = sk.rt.thread ;
 
-local objects = 
+local objects =
   Main.cc
   Dispatcher.cc
   Implementation.cc
@@ -27,10 +27,10 @@ if windows in $(project.PLATFORM_SPECIFICS) {
 }
 else implementation = pthreads ;
 
-use-project-libraries $(library). : 
-  sk.rt.thread.$(implementation) 
-  sk.rt.bundle 
-  sk.util 
+use-project-libraries $(library). :
+  sk.rt.thread.$(implementation)
+  sk.rt.bundle
+  sk.util
 ;
 
 make-shared-library $(library) : $(objects) ;

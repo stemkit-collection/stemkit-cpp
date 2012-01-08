@@ -1,22 +1,22 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky (gennady.bystritsky@quest.com)
 */
 
 #if 0
   The whole purpose of this file is as a temporary work around Microsoft
-  Visual Studio 2005 C++ compiler problem with covariant return types in 
+  Visual Studio 2005 C++ compiler problem with covariant return types in
   a virtual inheritance chain.
 
   Program ../../../tests/test-covariants.cc clearly demonstrates this bug.
   This works as expected on all other C++ compilers tested, and it should
   indeed according to the C++ Standard.
-   
+
   When compiled with the this command line:
     cl /TP /EHsc /nologo test-covariants.cc
 

@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2010, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -18,7 +18,7 @@
 namespace sk {
   namespace util {
     template<typename T>
-    class Items 
+    class Items
       : public sk::util::ArrayList<T>::Copying
     {
       public:
@@ -47,7 +47,7 @@ namespace sk {
         sk::util::Items<T>& operator = (const sk::util::Items<T>& other);
         sk::util::Items<T>& operator << (const T& item);
         sk::util::Items<T>& operator << (const sk::util::Items<T>& other);
-        
+
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
         const sk::util::String toString() const;

@@ -1,5 +1,5 @@
 /*  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -20,15 +20,15 @@ namespace sk {
         CPPUNIT_TEST_SUITE(sk::sys::test::PipelineTest);
           CPPUNIT_TEST(testCreate);
         CPPUNIT_TEST_SUITE_END();
-        
+
         public:
           PipelineTest();
           virtual ~PipelineTest();
-          
+
           void setUp();
           void tearDown();
           void testCreate();
-          
+
         private:
           PipelineTest(const PipelineTest& other);
           PipelineTest& operator = (const PipelineTest& other);

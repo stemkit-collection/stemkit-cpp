@@ -1,10 +1,10 @@
 /*  vim: sw=2:
  *  Copyright (c) 2011, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -61,7 +61,7 @@ size() const
   return _items.size();
 }
 
-void 
+void
 sk::rt::Actions::
 addItem(sk::rt::action::Item* item)
 {
@@ -123,7 +123,7 @@ runActionsCollectExceptions(bool untilSuccess)
   return _items.contains(GuardingExecutor(_scope, _notice, untilSuccess, _exceptions));
 }
 
-void 
+void
 sk::rt::Actions::
 perform()
 {
@@ -162,7 +162,7 @@ performIgnoreErrors()
   return number_of_errors;
 }
 
-void 
+void
 sk::rt::Actions::
 performThrow(const sk::util::Exception& exception)
 {

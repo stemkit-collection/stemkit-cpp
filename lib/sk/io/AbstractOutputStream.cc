@@ -1,5 +1,5 @@
 /*  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -26,13 +26,13 @@ clone() const
   throw sk::util::UnsupportedOperationException(SK_METHOD);
 }
 
-void 
+void
 sk::io::AbstractOutputStream::
 flush()
 {
 }
 
-int 
+int
 sk::io::AbstractOutputStream::
 write(const std::vector<char>& data, int offset)
 {
@@ -50,14 +50,14 @@ write(const std::vector<char>& data, int offset)
   return n;
 }
 
-int 
+int
 sk::io::AbstractOutputStream::
 write(const std::vector<char>& data)
 {
   return write(data, 0);
 }
 
-int 
+int
 sk::io::AbstractOutputStream::
 write(char byte)
 {

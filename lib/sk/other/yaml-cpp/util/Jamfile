@@ -2,8 +2,8 @@
 
 local program = parse ;
 
-local objects = 
-  parse.cpp 
+local objects =
+  parse.cpp
 ;
 
 use-project-includes $(objects) : include/sk/other/yaml-cpp ;

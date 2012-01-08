@@ -1,5 +1,5 @@
 /*  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -22,17 +22,17 @@ namespace sk {
           CPPUNIT_TEST(testTty);
           // CPPUNIT_TEST(testSu);
         CPPUNIT_TEST_SUITE_END();
-        
+
         public:
           PtyProcessTest();
           virtual ~PtyProcessTest();
-          
+
           void setUp();
           void tearDown();
           void testTranslate();
           void testTty();
           void testSu();
-          
+
         private:
           PtyProcessTest(const PtyProcessTest& other);
           PtyProcessTest& operator = (const PtyProcessTest& other);

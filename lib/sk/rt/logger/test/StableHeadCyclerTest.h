@@ -1,5 +1,5 @@
 /*  Copyright (c) 2007, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -27,17 +27,17 @@ namespace sk {
             CPPUNIT_TEST(testEarlyMakeReady);
             CPPUNIT_TEST(testDelayedDispatch);
           CPPUNIT_TEST_SUITE_END();
-          
+
           public:
             StableHeadCyclerTest();
             virtual ~StableHeadCyclerTest();
-            
+
             void setUp();
             void tearDown();
             void testDefaults();
             void testEarlyMakeReady();
             void testDelayedDispatch();
-            
+
           private:
             StableHeadCyclerTest(const StableHeadCyclerTest& other);
             StableHeadCyclerTest& operator = (const StableHeadCyclerTest& other);

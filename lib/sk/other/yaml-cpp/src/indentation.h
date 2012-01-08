@@ -13,7 +13,7 @@ namespace YAML
 		Indentation(unsigned n_): n(n_) {}
 		unsigned n;
 	};
-	
+
 	inline ostream& operator << (ostream& out, const Indentation& indent) {
 		for(unsigned i=0;i<indent.n;i++)
 			out << ' ';
@@ -24,7 +24,7 @@ namespace YAML
 		IndentTo(unsigned n_): n(n_) {}
 		unsigned n;
 	};
-	
+
 	inline ostream& operator << (ostream& out, const IndentTo& indent) {
 		while(out.col() < indent.n)
 			out << ' ';

@@ -1,10 +1,10 @@
 /*  vim: sw=2:
  *  Copyright (c) 2011, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -43,7 +43,7 @@ test_transmits_simple_data()
 {
   sk::net::DatagramSocket s1;
   sk::net::DatagramSocket s2;
-  
+
   s1.send(sk::util::Container("Hello"), sk::net::ip4::InetAddress::getLoopbackAddress(), s2.localPort());
 
   std::vector<char> buffer(127, 0);

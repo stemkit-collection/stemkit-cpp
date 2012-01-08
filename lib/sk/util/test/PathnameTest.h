@@ -1,5 +1,5 @@
 /*  Copyright (c) 2007, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -30,11 +30,11 @@ namespace sk {
           CPPUNIT_TEST(testLocation);
           CPPUNIT_TEST(testWindowsResourcePath);
         CPPUNIT_TEST_SUITE_END();
-        
+
         public:
           PathnameTest();
           virtual ~PathnameTest();
-          
+
           void setUp();
           void tearDown();
           void testEmpty();
@@ -48,7 +48,7 @@ namespace sk {
           void testBasename();
           void testLocation();
           void testWindowsResourcePath();
-          
+
         private:
           PathnameTest(const PathnameTest& other);
           PathnameTest& operator = (const PathnameTest& other);

@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2010, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -25,16 +25,16 @@ namespace sk {
             CPPUNIT_TEST(testBasics);
             CPPUNIT_TEST(testJoinStrings);
           CPPUNIT_TEST_SUITE_END();
-        
+
           public:
             InjectorTest();
             virtual ~InjectorTest();
-        
+
             void setUp();
             void tearDown();
             void testBasics();
             void testJoinStrings();
-        
+
           private:
             InjectorTest(const InjectorTest& other);
             InjectorTest& operator = (const InjectorTest& other);

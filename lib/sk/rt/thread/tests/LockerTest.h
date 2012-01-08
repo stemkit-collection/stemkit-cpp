@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky (gennady.bystritsky@quest.com)
 */
 
@@ -31,11 +31,11 @@ namespace sk {
             CPPUNIT_TEST(testReturning);
             CPPUNIT_TEST(testThrowing);
           CPPUNIT_TEST_SUITE_END();
-        
+
           public:
             LockerTest();
             virtual ~LockerTest();
-        
+
             void setUp();
             void tearDown();
             void testStatementScope();
@@ -43,7 +43,7 @@ namespace sk {
             void testCopying();
             void testReturning();
             void testThrowing();
-        
+
           private:
             LockerTest(const LockerTest& other);
             LockerTest& operator = (const LockerTest& other);

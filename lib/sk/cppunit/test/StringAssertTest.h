@@ -1,10 +1,10 @@
 /*  vim: set sw=4:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky (gennady.bystritsky@quest.com)
 */
 
@@ -34,14 +34,14 @@ namespace sk {
                     CPPUNIT_TEST(testStdStringNullPointer);
                     CPPUNIT_TEST(testBothNullPointers);
                 CPPUNIT_TEST_SUITE_END();
-            
+
                 public:
                     StringAssertTest();
                     virtual ~StringAssertTest();
-            
+
                     void setUp();
                     void tearDown();
-            
+
                     void testBothStdStrings();
                     void testBothCharPointers();
                     void testBothSkUtilStrings();

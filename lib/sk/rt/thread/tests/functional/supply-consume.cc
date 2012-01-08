@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky (gennady.bystritsky@quest.com)
 */
 
@@ -66,8 +66,8 @@ namespace {
       BUNCH_SIZE = 3,
       QUEUE_CAPACITY = 5
     };
-    
-    public: 
+
+    public:
       Workshop()
         : _scope("Workshop"), _mediator(_mutex, WS_COND_NUMBER) {}
 
@@ -113,7 +113,7 @@ namespace {
   };
 
   struct Consumer : public virtual sk::rt::Runnable {
-    Consumer(Workshop& workshop) 
+    Consumer(Workshop& workshop)
       : _scope("Consumer"), _workshop(workshop) {}
 
     void run() {
@@ -131,7 +131,7 @@ namespace {
   };
 
   struct Supplier : public virtual sk::rt::Runnable {
-    Supplier(Workshop& workshop) 
+    Supplier(Workshop& workshop)
       : _scope("Supplier"), _workshop(workshop), _counter(0) {}
 
     void run() {

@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -94,14 +94,14 @@ isError() const
   return result;
 }
 
-const sk::util::String& 
+const sk::util::String&
 sk_c_handle::
 errorType() const
 {
   return _errorType;
 }
 
-const sk::util::String& 
+const sk::util::String&
 sk_c_handle::
 errorMessage() const
 {
@@ -171,7 +171,7 @@ execute(const sk_c_handle::runnable& runnable) const
   _error = true;
 }
 
-char* 
+char*
 sk_c_handle::
 copy(const std::string& s, char* buffer, int size)
 {
@@ -184,7 +184,7 @@ copy(const std::string& s, char* buffer, int size)
   return buffer;
 }
 
-char* 
+char*
 sk_c_handle::
 copy(const std::vector<char>& data, char* buffer, int size)
 {
@@ -196,7 +196,7 @@ copy(const std::vector<char>& data, char* buffer, int size)
 }
 
 extern "C"
-int sk_c_handle_isError(const sk_c_handle* handle) 
+int sk_c_handle_isError(const sk_c_handle* handle)
 {
   sk_c_handle::ensure_not_null(handle);
   return handle->isError() == true ? 1 : 0;

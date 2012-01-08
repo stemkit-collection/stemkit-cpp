@@ -2,7 +2,7 @@
 
 local program = yaml-reader ;
 
-local objects = 
+local objects =
   emittertests.cpp
   main.cpp
   parsertests.cpp

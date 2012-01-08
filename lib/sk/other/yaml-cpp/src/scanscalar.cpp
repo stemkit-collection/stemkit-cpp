@@ -30,7 +30,7 @@ namespace YAML
 		while(INPUT) {
 			// ********************************
 			// Phase #1: scan until line ending
-			
+
 			std::size_t lastNonWhitespaceChar = scalar.size();
 			while(!params.end.Matches(INPUT) && !Exp::Break.Matches(INPUT)) {
 				if(!INPUT)
@@ -87,11 +87,11 @@ namespace YAML
 					INPUT.eat(n);
 				break;
 			}
-			
+
 			// do we remove trailing whitespace?
 			if(params.fold == FOLD_FLOW)
 				scalar.erase(lastNonWhitespaceChar);
-			
+
 			// ********************************
 			// Phase #2: eat line ending
 			n = Exp::Break.Match(INPUT);
@@ -139,7 +139,7 @@ namespace YAML
 							foldedNewlineCount++;
 						else
 							scalar += "\n";
-						
+
 						if(!nextEmptyLine && foldedNewlineCount > 0) {
 							scalar += std::string(foldedNewlineCount - 1, '\n');
 							if(foldedNewlineStartedMoreIndented || nextMoreIndented)

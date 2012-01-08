@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -17,26 +17,26 @@
 namespace sk {
   namespace rt {
     namespace thread {
-      class ScopeArbitrator 
+      class ScopeArbitrator
         : public virtual sk::rt::scope::Arbitrator
       {
         public:
           ScopeArbitrator();
           virtual ~ScopeArbitrator();
-      
+
           // sk::rt::Lock implementation.
           void lock();
           bool tryLock();
           bool isLocked() const;
           void unlock();
           void reset();
-          
+
           // sk::rt::scope::Arbitrator implementation.
           uint64_t currentThreadId() const;
 
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
-      
+
         private:
           ScopeArbitrator(const ScopeArbitrator& other);
           ScopeArbitrator& operator = (const ScopeArbitrator& other);

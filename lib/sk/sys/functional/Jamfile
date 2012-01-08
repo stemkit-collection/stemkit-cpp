@@ -1,17 +1,17 @@
 # vim: ft=jam: sw=2:
 
-local tests = 
+local tests =
   user-probe
   process-env
   print-env
 ;
 
-use-project-library $(tests) : 
-  sk.sys 
-  sk.io 
+use-project-library $(tests) :
+  sk.sys
+  sk.io
   sk.rt.thread
-  sk.rt.bundle 
-  sk.util 
+  sk.rt.bundle
+  sk.util
 ;
 
 local _tests ;

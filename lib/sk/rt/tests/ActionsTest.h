@@ -1,10 +1,10 @@
 /*  vim: sw=2:
  *  Copyright (c) 2011, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -40,11 +40,11 @@ namespace sk {
           CPPUNIT_TEST(test_can_add_global_one_param_function);
           CPPUNIT_TEST(test_can_add_global_multi_param_function);
         CPPUNIT_TEST_SUITE_END();
-      
+
         public:
           ActionsTest();
           virtual ~ActionsTest();
-      
+
           void setUp();
           void tearDown();
           void test_set_reverse_and_no_actions_no_problems();
@@ -65,7 +65,7 @@ namespace sk {
           void test_can_add_global_no_param_function();
           void test_can_add_global_one_param_function();
           void test_can_add_global_multi_param_function();
-      
+
         private:
           ActionsTest(const ActionsTest& other);
           ActionsTest& operator = (const ActionsTest& other);

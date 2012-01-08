@@ -1,10 +1,10 @@
 /*  vim: sw=2:
  *  Copyright (c) 2011, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -17,7 +17,7 @@
 #include <sk/rt/Scope.h>
 
 namespace echo {
-  class Producer 
+  class Producer
     : public virtual sk::util::Mapper<const sk::util::String>
   {
     public:
@@ -26,10 +26,10 @@ namespace echo {
 
       bool start();
       bool start(const sk::util::Mapper<const sk::util::String>& mapper);
-  
+
       // sk::util::Object re-implementation.
       const sk::util::Class getClass() const;
-  
+
     private:
       Producer(const Producer& other);
       Producer& operator = (const Producer& other);

@@ -1,10 +1,10 @@
 /*  vi: sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky (gennady.bystritsky@quest.com)
 */
 
@@ -57,7 +57,7 @@ detach()
   _detached = true;
 }
 
-void 
+void
 sk::sys::DaemonProcess::
 startDetached()
 {
@@ -65,7 +65,7 @@ startDetached()
   start();
 }
 
-void 
+void
 sk::sys::DaemonProcess::
 start()
 {
@@ -84,7 +84,7 @@ getClass() const
   return sk::util::Class(__className);
 }
 
-sk::sys::Executable& 
+sk::sys::Executable&
 sk::sys::DaemonProcess::
 getExecutable()
 {
@@ -94,7 +94,7 @@ getExecutable()
   return _executableHolder.getMutable();
 }
 
-const sk::sys::Executable& 
+const sk::sys::Executable&
 sk::sys::DaemonProcess::
 getExecutable() const
 {
@@ -104,31 +104,31 @@ getExecutable() const
   return _executableHolder.get();
 }
 
-void 
+void
 sk::sys::DaemonProcess::
-processStarting(sk::io::Stream& umbilical) 
+processStarting(sk::io::Stream& umbilical)
 {
 }
 
 void
 sk::sys::DaemonProcess::
-processStopping() 
+processStopping()
 {
 }
 
-void 
+void
 sk::sys::DaemonProcess::
-processJoining() 
+processJoining()
 {
 }
 
-void 
+void
 sk::sys::DaemonProcess::
-processFailing(const sk::util::String& message) 
+processFailing(const sk::util::String& message)
 {
 }
 
-void 
+void
 sk::sys::DaemonProcess::
 processConfiguring(sk::sys::ProcessConfigurator& configurator)
 {

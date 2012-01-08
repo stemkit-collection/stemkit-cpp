@@ -1,6 +1,6 @@
 /*  vi: sw=2:
  *  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -10,7 +10,7 @@
 #include <fstream>
 #include <memory>
 
-class MyStream 
+class MyStream
 {
   public:
     MyStream(const char* name)
@@ -21,7 +21,7 @@ class MyStream
 };
 
 int main(int argc, char **argv)
-{     
+{
   try {
     // MyStream* stream = new MyStream("abc"); // NO CRASH
     std::ifstream* stream = new std::ifstream("abc"); // CRASH

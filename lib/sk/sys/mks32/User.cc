@@ -1,6 +1,6 @@
 /*  vim: sw=2:
  *  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -64,7 +64,7 @@ getComment() const
 
 const sk::util::String
 sk::sys::User::
-getHome() const 
+getHome() const
 {
   return _home;
 }
@@ -83,7 +83,7 @@ getUid() const
   return _uid;
 }
 
-uint32_t 
+uint32_t
 sk::sys::User::
 getGid() const
 {
@@ -92,7 +92,7 @@ getGid() const
 
 bool
 sk::sys::User::
-authenticate(const sk::util::String& password) const 
+authenticate(const sk::util::String& password) const
 {
     return _NutValidatePassword(_name.getChars(), password.getChars()) == 0 ? false : true;
 }

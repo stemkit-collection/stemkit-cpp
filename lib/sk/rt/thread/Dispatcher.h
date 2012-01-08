@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky (gennady.bystritsky@quest.com)
 */
 
@@ -21,7 +21,7 @@
 namespace sk {
   namespace rt {
     namespace thread {
-      class Dispatcher 
+      class Dispatcher
         : public virtual sk::util::Object
       {
         public:
@@ -34,14 +34,14 @@ namespace sk {
           void setUncaughtExceptionHandler(thread::UncaughtExceptionHandler& handler);
           void setUncaughtExceptionHandler(thread::UncaughtExceptionHandler* handler);
           thread::UncaughtExceptionHandler& getUncaughtExceptionHandler() const;
-      
+
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
 
           static Dispatcher& main();
           static void reset();
           static bool isMainAvailable();
-      
+
         private:
           Dispatcher(const Dispatcher& other);
           Dispatcher& operator = (const Dispatcher& other);

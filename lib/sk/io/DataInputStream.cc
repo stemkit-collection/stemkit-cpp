@@ -1,6 +1,6 @@
 /*  vi: sw=2:
  *  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -54,21 +54,21 @@ readInt()
   return readBytesNumber<uint32_t>(*this);
 }
 
-uint64_t 
+uint64_t
 sk::io::DataInputStream::
 readLong()
 {
   return readBytesNumber<uint64_t>(*this);
 }
 
-uint16_t 
+uint16_t
 sk::io::DataInputStream::
 readShort()
 {
   return readBytesNumber<uint16_t>(*this);
 }
 
-char 
+char
 sk::io::DataInputStream::
 readChar()
 {
@@ -78,28 +78,28 @@ readChar()
   return c;
 }
 
-double 
+double
 sk::io::DataInputStream::
 readDouble()
 {
   throw sk::util::UnsupportedOperationException("readDouble()");
 }
 
-float 
+float
 sk::io::DataInputStream::
 readFloat()
 {
   throw sk::util::UnsupportedOperationException("readFloat()");
 }
 
-int 
+int
 sk::io::DataInputStream::
 skipBytes(int number)
 {
   return getInputStream().skip(number);
 }
 
-const sk::util::String 
+const sk::util::String
 sk::io::DataInputStream::
 readLine()
 {
@@ -122,7 +122,7 @@ readLine()
   return stream.str();
 }
 
-std::vector<char>& 
+std::vector<char>&
 sk::io::DataInputStream::
 readFully(std::vector<char>& buffer, int number)
 {
@@ -133,7 +133,7 @@ readFully(std::vector<char>& buffer, int number)
   return buffer;
 }
 
-std::vector<char> 
+std::vector<char>
 sk::io::DataInputStream::
 readFully(int number)
 {
@@ -141,7 +141,7 @@ readFully(int number)
   return readFully(buffer, number);
 }
 
-void 
+void
 sk::io::DataInputStream::
 readFully(char* buffer, int length)
 {

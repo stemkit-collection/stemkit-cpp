@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2008, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -34,12 +34,12 @@ getClass() const
 
 sk::util::Object*
 sk::rt::logger::PointingCycler::
-clone() const 
+clone() const
 {
   return new PointingCycler(*this);
 }
 
-const sk::util::String 
+const sk::util::String
 sk::rt::logger::PointingCycler::
 getPath() const
 {
@@ -64,7 +64,7 @@ scanFile()
   return false;
 }
 
-void 
+void
 sk::rt::logger::PointingCycler::
 initFile()
 {
@@ -72,9 +72,9 @@ initFile()
   writeMarker(getPath(), _chunk);
 }
 
-void 
+void
 sk::rt::logger::PointingCycler::
-cycleFile() 
+cycleFile()
 {
   _chunk += 1;
 

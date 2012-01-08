@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -20,7 +20,7 @@ namespace sk {
     namespace pp {
       class Configurator;
     }
-    class PrettyPrinter 
+    class PrettyPrinter
       : public virtual sk::util::Object
     {
       public:
@@ -30,10 +30,10 @@ namespace sk {
 
         void setCompact(bool state);
         void print(const sk::util::String& input) const;
-    
+
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
-    
+
       private:
         PrettyPrinter& operator = (const PrettyPrinter& other);
 

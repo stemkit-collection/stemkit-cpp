@@ -18,7 +18,7 @@ namespace YAML
 			emitter << *it;
 		emitter << EndSeq;
 		return emitter;
-	}	
+	}
 
 	template <typename T>
 	inline Emitter& operator << (Emitter& emitter, const std::list <T>& v) {
@@ -29,7 +29,7 @@ namespace YAML
 		emitter << EndSeq;
 		return emitter;
 	}
-	
+
 	template <typename K, typename V>
 	inline Emitter& operator << (Emitter& emitter, const std::map <K, V>& m) {
 		typedef typename std::map <K, V> map;

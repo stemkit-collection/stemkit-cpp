@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky (gennady.bystritsky@quest.com)
 */
 
@@ -49,7 +49,7 @@ int main(int argc, const char* const argv[])
 
 namespace {
   struct Consumer : public virtual sk::rt::Runnable, public virtual sk::rt::thread::Conditional {
-    Consumer(sk::rt::thread::ConditionMediator& mediator, sk::util::Integers& depot) 
+    Consumer(sk::rt::thread::ConditionMediator& mediator, sk::util::Integers& depot)
       : _scope("Consumer"), _mediator(mediator), _depot(depot) {}
 
     void process(sk::rt::thread::Condition& condition) const {
@@ -74,7 +74,7 @@ namespace {
   };
 
   struct Supplier : public virtual sk::rt::Runnable, public virtual sk::rt::thread::Conditional {
-    Supplier(sk::rt::thread::ConditionMediator& mediator, sk::util::Integers& depot) 
+    Supplier(sk::rt::thread::ConditionMediator& mediator, sk::util::Integers& depot)
       : _scope("Supplier"), _mediator(mediator), _depot(depot), _counter(0) {}
 
     void process(sk::rt::thread::Condition& condition) const {

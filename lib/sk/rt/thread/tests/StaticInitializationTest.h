@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky (gennady.bystritsky@quest.com)
 */
 
@@ -24,15 +24,15 @@ namespace sk {
           CPPUNIT_TEST_SUITE(sk::rt::thread::tests::StaticInitializationTest);
             CPPUNIT_TEST(testBasics);
           CPPUNIT_TEST_SUITE_END();
-        
+
           public:
             StaticInitializationTest();
             virtual ~StaticInitializationTest();
-        
+
             void setUp();
             void tearDown();
             void testBasics();
-        
+
           private:
             StaticInitializationTest(const StaticInitializationTest& other);
             StaticInitializationTest& operator = (const StaticInitializationTest& other);

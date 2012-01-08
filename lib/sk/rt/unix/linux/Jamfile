@@ -1,7 +1,7 @@
 
 local library = sk.rt.unix.linux ;
 
-objects = 
+objects =
   ProcessInfo.cc
 ;
 

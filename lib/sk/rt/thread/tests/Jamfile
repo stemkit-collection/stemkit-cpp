@@ -1,11 +1,11 @@
 # vim: set sw=2:
 
-local test-areas = 
-  general 
-  static 
+local test-areas =
+  general
+  static
 ;
 
-local general-objects = 
+local general-objects =
   TestSuite.cc
   ThreadTest.cc
   DispatcherTest.cc

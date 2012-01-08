@@ -1,6 +1,6 @@
 /*  vi: sw=2:
  *  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -37,7 +37,7 @@ getClass() const
   return sk::util::Class("sk::io::BufferedOutputStream");
 }
 
-int 
+int
 sk::io::BufferedOutputStream::
 write(const char* buffer, int offset, int length)
 {
@@ -55,7 +55,7 @@ write(const char* buffer, int offset, int length)
   return length;
 }
 
-int 
+int
 sk::io::BufferedOutputStream::
 collect(const char* buffer, size_t length)
 {
@@ -92,7 +92,7 @@ writeFully(const char* buffer, size_t length)
   for(int index = 0; index < length; index += _stream.write(buffer, index, length - index));
 }
 
-void 
+void
 sk::io::BufferedOutputStream::
 flush()
 {
@@ -100,7 +100,7 @@ flush()
   _stream.flush();
 }
 
-void 
+void
 sk::io::BufferedOutputStream::
 close()
 {

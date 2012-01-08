@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky (gennady.bystritsky@quest.com)
 */
 
@@ -21,7 +21,7 @@
 
 namespace sk {
   namespace rt {
-    class Benchmarker 
+    class Benchmarker
       : public virtual sk::rt::bm::Runner
     {
       typedef void (function_t)(void);
@@ -40,7 +40,7 @@ namespace sk {
         void init();
         void start() throw();
         void report(int indent, std::ostream& stream) const;
-    
+
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
 

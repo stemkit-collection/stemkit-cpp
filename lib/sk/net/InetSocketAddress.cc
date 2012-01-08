@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -19,19 +19,19 @@ static const sk::util::String __className("sk::net::InetSocketAddress");
 
 sk::net::InetSocketAddress::
 InetSocketAddress(const sk::net::InetAddress& address, uint16_t port)
-  : _addressHolder(address), _port(port) 
+  : _addressHolder(address), _port(port)
 {
 }
 
 sk::net::InetSocketAddress::
 InetSocketAddress(const sk::util::String& hostname, uint16_t port)
-  : _addressHolder(sk::net::InetAddress::getByName(hostname)), _port(port) 
+  : _addressHolder(sk::net::InetAddress::getByName(hostname)), _port(port)
 {
 }
 
 sk::net::InetSocketAddress::
 InetSocketAddress(uint16_t port)
-  : _addressHolder(sk::net::ip4::InetAddress::getAnyLocalAddress()), _port(port) 
+  : _addressHolder(sk::net::ip4::InetAddress::getAnyLocalAddress()), _port(port)
 {
 }
 
@@ -54,7 +54,7 @@ toString() const
   return _addressHolder.get().toString() + ':' + sk::util::String::valueOf(_port);
 }
 
-uint16_t 
+uint16_t
 sk::net::InetSocketAddress::
 getPort() const
 {
@@ -63,7 +63,7 @@ getPort() const
 
 const sk::net::InetAddress&
 sk::net::InetSocketAddress::
-getAddress() const 
+getAddress() const
 {
   return _addressHolder.get();
 }
@@ -77,7 +77,7 @@ getHostName() const
 
 bool
 sk::net::InetSocketAddress::
-isResolved() const 
+isResolved() const
 {
   return _addressHolder.get().isResolved();
 }

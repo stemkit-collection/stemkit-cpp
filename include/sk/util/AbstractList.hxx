@@ -1,5 +1,5 @@
 /*  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -17,16 +17,16 @@ namespace sk {
     template<typename T, typename Policy = slot::policy::Storing<T> >
     class AbstractList
       : public sk::util::AbstractCollection<T, Policy>,
-        public virtual sk::util::List<T> 
+        public virtual sk::util::List<T>
     {
       public:
         AbstractList();
         virtual ~AbstractList();
-        
+
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
         const sk::util::String inspect() const;
-        
+
         // sk::util::List<T> implementation.
         bool add(const T& object);
         bool add(T& object);
@@ -37,7 +37,7 @@ namespace sk {
         void add(int index, T* object);
 
         using AbstractCollection<T, Policy>::add;
-        
+
         const T& get(int index) const;
         T& getMutable(int index) const;
 

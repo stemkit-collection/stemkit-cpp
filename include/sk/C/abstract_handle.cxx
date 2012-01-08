@@ -1,6 +1,6 @@
 /*  vi: sw=2:
  *  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -66,7 +66,7 @@ clear()
   _owner = false;
   _object = 0;
 }
-  
+
 template<class T>
 bool
 sk::C::abstract_handle<T>::
@@ -89,7 +89,7 @@ get() const
 template<class T>
 T*
 sk::C::abstract_handle<T>::
-release() 
+release()
 {
   if(_owner == false) {
     throw sk::util::IllegalStateException("sk::C::abstract_handle<T>::release(): not owner");
@@ -100,7 +100,7 @@ release()
 
 template<class T>
 template<typename F, typename R>
-R 
+R
 sk::C::abstract_handle<T>::
 invoke(const sk::util::Mapper<F, R>& mapper) const
 {

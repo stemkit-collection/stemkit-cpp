@@ -1,9 +1,9 @@
 /*  Copyright (c) 2008, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -22,7 +22,7 @@ namespace sk {
         public:
           PointingCycler(const sk::util::Pathname& pathname);
           virtual ~PointingCycler();
-          
+
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
 
@@ -36,7 +36,7 @@ namespace sk {
           bool scanFile();
           void initFile();
           void cycleFile();
-          
+
         private:
           PointingCycler& operator = (const PointingCycler& other);
 

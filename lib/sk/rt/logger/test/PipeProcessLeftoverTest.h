@@ -1,5 +1,5 @@
 /*  Copyright (c) 2007, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -21,15 +21,15 @@ namespace sk {
           CPPUNIT_TEST_SUITE(sk::rt::logger::test::PipeProcessLeftoverTest);
             CPPUNIT_TEST(testNoLeftovers);
           CPPUNIT_TEST_SUITE_END();
-          
+
           public:
             PipeProcessLeftoverTest();
             virtual ~PipeProcessLeftoverTest();
-            
+
             void setUp();
             void tearDown();
             void testNoLeftovers();
-            
+
           private:
             PipeProcessLeftoverTest(const PipeProcessLeftoverTest& other);
             PipeProcessLeftoverTest& operator = (const PipeProcessLeftoverTest& other);

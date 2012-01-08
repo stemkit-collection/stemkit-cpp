@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2010, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -21,7 +21,7 @@
 namespace sk {
   namespace util {
     template<typename T, typename Policy>
-    class Lists 
+    class Lists
     {
       public:
         class SlotInspector;
@@ -33,7 +33,7 @@ namespace sk {
     };
 
     template<typename T, typename Policy>
-    class Lists<T, Policy>::SlotInspector 
+    class Lists<T, Policy>::SlotInspector
     {
       public:
         SlotInspector(sk::util::String& depot, int& index);
@@ -47,7 +47,7 @@ namespace sk {
     };
 
     template<typename T, typename Policy>
-    class Lists<T, Policy>::ProcessingSlotInspector 
+    class Lists<T, Policy>::ProcessingSlotInspector
       : public Lists<T, Policy>::SlotInspector,
         public virtual sk::util::Processor<const typename Policy::slot_t>
     {
@@ -70,15 +70,15 @@ namespace sk {
 template<typename T, typename Policy>
 sk::util::Lists<T, Policy>::SlotInspector::
 SlotInspector(sk::util::String& depot, int& index)
-  : _depot(depot), _index(index) 
+  : _depot(depot), _index(index)
 {
   _index = 0;
 }
 
 template<typename T, typename Policy>
-inline void 
+inline void
 sk::util::Lists<T, Policy>::SlotInspector::
-operator()(const typename Policy::const_slot_storage_t& storage) const 
+operator()(const typename Policy::const_slot_storage_t& storage) const
 {
   if(_index != 0) {
     _depot += ", ";
@@ -105,15 +105,15 @@ ProcessingSlotInspector()
 }
 
 template<typename T, typename Policy>
-void 
+void
 sk::util::Lists<T, Policy>::ProcessingSlotInspector::
-process(const typename Policy::slot_t& slot) const 
+process(const typename Policy::slot_t& slot) const
 {
   (*this)(&slot);
 }
 
 template<typename T, typename Policy>
-inline const sk::util::String 
+inline const sk::util::String
 sk::util::Lists<T, Policy>::
 join(const sk::util::List<T>& list, const sk::util::String& separator, const sk::util::Mapper<const T, const sk::util::String>& mapper)
 {
@@ -121,7 +121,7 @@ join(const sk::util::List<T>& list, const sk::util::String& separator, const sk:
 }
 
 template<typename T, typename Policy>
-inline const sk::util::String 
+inline const sk::util::String
 sk::util::Lists<T, Policy>::
 join(const sk::util::List<T>& list, const sk::util::String& separator)
 {
@@ -129,7 +129,7 @@ join(const sk::util::List<T>& list, const sk::util::String& separator)
 }
 
 template<typename T, typename Policy>
-inline const sk::util::String 
+inline const sk::util::String
 sk::util::Lists<T, Policy>::
 join(const sk::util::List<T>& list)
 {

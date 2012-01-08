@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky (gennady.bystritsky@quest.com)
 */
 
@@ -16,13 +16,13 @@
 
 namespace sk {
   namespace net {
-    class DataInputStream 
+    class DataInputStream
       : public sk::io::DataInputStream
     {
       public:
         DataInputStream(sk::io::InputStream& stream);
         virtual ~DataInputStream();
-    
+
         // sk::io::DataInputStream re-implementation.
         uint32_t readInt();
         uint64_t readLong();
@@ -30,7 +30,7 @@ namespace sk {
 
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
-    
+
       private:
         DataInputStream(const DataInputStream& other);
         DataInputStream& operator = (const DataInputStream& other);

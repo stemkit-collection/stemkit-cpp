@@ -2,16 +2,16 @@
 
 local program = process-handler ;
 
-local objects = 
+local objects =
   app.cc
   Handler.cc
 ;
 
-use-project-libraries $(program) : 
+use-project-libraries $(program) :
   sk.sys
   sk.io
-  sk.rt.thread 
-  sk.rt.bundle 
-  sk.util 
+  sk.rt.thread
+  sk.rt.bundle
+  sk.util
 ;
 make-program $(program) : $(objects) ;

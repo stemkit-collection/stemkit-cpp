@@ -1,5 +1,5 @@
 /*  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -30,7 +30,7 @@ getClass() const
   return sk::util::Class("sk::io::PtyImpl");
 }
 
-int 
+int
 sk::io::PtyImpl::
 makeMaster(const sk::io::FileDescriptor& descriptor)
 {
@@ -55,7 +55,7 @@ getName() const
   return _name;
 }
 
-sk::io::FileDescriptor& 
+sk::io::FileDescriptor&
 sk::io::PtyImpl::
 getMaster()
 {

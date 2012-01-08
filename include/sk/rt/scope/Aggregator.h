@@ -1,5 +1,5 @@
 /*  Copyright (c) 2007, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -20,13 +20,13 @@ namespace sk {
       class Arbitrator;
 
       class Aggregator
-        : public virtual sk::util::Object 
+        : public virtual sk::util::Object
       {
         public:
           Aggregator();
           Aggregator(const Aggregator& other);
           virtual ~Aggregator();
-          
+
           const IConfig& getConfig() const;
           IConfig& getConfigForUpdate();
           Aggregator& obtain(const sk::util::String& name);
@@ -35,7 +35,7 @@ namespace sk {
           void setArbitrator(scope::Arbitrator* arbitrator);
           void resetArbitrator();
           scope::Arbitrator& getArbitrator() const;
-          
+
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
 

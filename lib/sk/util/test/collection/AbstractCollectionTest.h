@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -32,11 +32,11 @@ namespace sk {
             CPPUNIT_TEST(testCollectionSelectorRetainAll);
             CPPUNIT_TEST(testCollectionCollectionRetainAll);
           CPPUNIT_TEST_SUITE_END();
-        
+
           public:
             AbstractCollectionTest();
             virtual ~AbstractCollectionTest();
-        
+
           protected:
             sk::util::Collection<sk::util::String>* makeCopyingCollection();
 

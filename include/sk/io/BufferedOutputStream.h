@@ -1,5 +1,5 @@
 /*  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -20,7 +20,7 @@ namespace sk {
         BufferedOutputStream(sk::io::OutputStream& stream);
         BufferedOutputStream(sk::io::OutputStream& stream, int size);
         virtual ~BufferedOutputStream();
-        
+
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
 
@@ -29,7 +29,7 @@ namespace sk {
         void close();
         int write(const char* buffer, int offset, int size);
         using DelegatingOutputStream::write;
-        
+
       private:
         BufferedOutputStream(const BufferedOutputStream& other);
         BufferedOutputStream& operator = (const BufferedOutputStream& other);

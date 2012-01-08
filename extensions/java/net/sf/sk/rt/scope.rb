@@ -1,7 +1,7 @@
 # vim: set sw=2:
 =begin
   Copyright (c) 2008, Gennady Bystritsky <bystr@mac.com>
-  
+
   Distributed under the MIT Licence.
   This is free software. See 'LICENSE' for details.
   You must read and accept the license prior to use.
@@ -23,7 +23,7 @@ class Java::net::sf::sk::rt::Scope
   def method_missing(name, *args, &block)
     if adaptor.respond_to?(name)
       adaptor.warning "#{name}: Unsupported invocation with a block" if block
-      
+
       make_singleton_method(name) { |*args|
         catch :break do
           foreach_line_in args do |_line|
@@ -33,7 +33,7 @@ class Java::net::sf::sk::rt::Scope
           true
         end
       }
-      send(name, *args) or make_singleton_method(name) { |*args| 
+      send(name, *args) or make_singleton_method(name) { |*args|
       }
     else
       adaptor.error "#{name}: #{args.inspect} (block=#{block.inspect})"
@@ -64,6 +64,6 @@ class Java::net::sf::sk::rt::Scope
   def make_singleton_method(*args, &block)
     singleton_class.send :define_method, *args, &block
   end
-  
+
 end
 

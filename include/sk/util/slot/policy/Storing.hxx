@@ -1,6 +1,6 @@
 /*  vi: sw=2:
  *  Copyright (c) 2007, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -22,7 +22,7 @@ namespace sk {
         template<typename T, typename SlotMixin = slot::mixin::None>
         class Storing
         {
-          public: 
+          public:
             typedef sk::util::Slot<T, SlotMixin> slot_t;
             typedef slot_t* slot_storage_t;
             typedef const slot_t* const_slot_storage_t;
@@ -53,7 +53,7 @@ namespace sk {
             }
 
             // Deliberately leaving this method here instead of moving it to
-            // the aliasing one even though it is dangerous in a way that it 
+            // the aliasing one even though it is dangerous in a way that it
             // allows adding references to temporaries. Otherwise it would
             // require too many changes and interface adjustments.
             static void setObject(slot_storage_t& storage, const T& object) {

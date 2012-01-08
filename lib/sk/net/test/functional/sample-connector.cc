@@ -1,10 +1,10 @@
 /*  vim: sw=2:
  *  Copyright (c) 2011, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -25,7 +25,7 @@ int main(int argc, const char* const argv[])
 {
   // sk::util::Exception::setTraceProducerFactory(sk::rt::StackTracerFactory());
 
-  try { 
+  try {
     const sk::net::InetSocketAddress endpoint(sk::net::ip4::InetAddress::getLoopbackAddress().resolve(), 8787);
     std::cerr << "Connecting to " << endpoint << std::endl;
 

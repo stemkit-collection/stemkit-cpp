@@ -2,7 +2,7 @@
 
 local library = sk.util.trace ;
 
-local objects = 
+local objects =
   ProducerReference.cc
 ;
 

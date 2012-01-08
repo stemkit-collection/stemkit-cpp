@@ -53,7 +53,7 @@ namespace YAML
 
 		template <typename T>
 		const T Read() const;
-		
+
 		template <typename T>
 		operator T() const;
 
@@ -66,7 +66,7 @@ namespace YAML
 
 		template <typename T>
 		const Node& operator [] (const T& key) const;
-		
+
 		// specific to maps
 		const Node *FindValue(const char *key) const;
 		const Node& operator [] (const char *key) const;
@@ -87,14 +87,14 @@ namespace YAML
 		// helper for sequences
 		template <typename, bool> friend struct _FindFromNodeAtIndex;
 		const Node *FindAtIndex(std::size_t i) const;
-		
+
 		// helper for maps
 		template <typename T>
 		const Node& GetValue(const T& key) const;
 
 		template <typename T>
 		const Node *FindValueForKey(const T& key) const;
-		
+
 		// helper for cloning
 		Node(const Mark& mark, const std::string& anchor, const std::string& tag, const Content *pContent);
 
@@ -112,20 +112,20 @@ namespace YAML
 		const Node *m_pIdentity;
 		mutable bool m_referenced;
 	};
-	
+
 	// comparisons with auto-conversion
 	template <typename T>
 	bool operator == (const T& value, const Node& node);
-	
+
 	template <typename T>
 	bool operator == (const Node& node, const T& value);
-	
+
 	template <typename T>
 	bool operator != (const T& value, const Node& node);
-	
+
 	template <typename T>
 	bool operator != (const Node& node, const T& value);
-	
+
 	bool operator == (const char *value, const Node& node);
 	bool operator == (const Node& node, const char *value);
 	bool operator != (const char *value, const Node& node);

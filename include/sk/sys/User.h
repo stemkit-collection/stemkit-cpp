@@ -1,5 +1,5 @@
 /*  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -19,7 +19,7 @@ struct passwd;
 namespace sk {
   namespace sys {
     class User
-      : public virtual sk::util::Object 
+      : public virtual sk::util::Object
     {
       public:
         // Default copy constructor is sufficient for now.
@@ -33,10 +33,10 @@ namespace sk {
         uint32_t getUid() const;
         uint32_t getGid() const;
         bool authenticate(const sk::util::String& password) const;
-        
+
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
-        
+
         static const User find(const uint32_t uid);
         static bool find(const uint32_t uid, sk::util::Holder<sk::sys::User>& holder);
         static const User find(const sk::util::String& name);

@@ -1,5 +1,5 @@
 /*  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -20,8 +20,8 @@
 
 #include <unistd.h>
 
-struct sk::sys::PtyProcess::Listener 
-  : public sk::sys::AbstractProcessListener 
+struct sk::sys::PtyProcess::Listener
+  : public sk::sys::AbstractProcessListener
 {
     void processConfiguring(sk::sys::ProcessConfigurator& configurator);
     void processStopping();
@@ -74,14 +74,14 @@ getPty()
   return _listenerHolder.get().pty;
 }
 
-sk::io::InputStream& 
+sk::io::InputStream&
 sk::sys::PtyProcess::
 inputStream() const
 {
   return _listenerHolder.get().pty.getSlaveMasterPipe().inputStream();
 }
 
-sk::io::InputStream& 
+sk::io::InputStream&
 sk::sys::PtyProcess::
 inputErrorStream() const
 {
@@ -95,19 +95,19 @@ outputStream() const
   return _listenerHolder.get().pty.getMasterSlavePipe().outputStream();
 }
 
-const sk::util::Strings& 
+const sk::util::Strings&
 sk::sys::PtyProcess::
 errors() const
 {
   return _listenerHolder.get().errors;
 }
 
-void 
+void
 sk::sys::PtyProcess::Listener::
 processConfiguring(sk::sys::ProcessConfigurator& configurator)
 {
   setsid();
-  
+
   sk::io::File ctty(pty.getName(), "r+");
   configurator.setInputStream(ctty.inputStream());
   configurator.setOutputStream(ctty.outputStream());
@@ -123,7 +123,7 @@ processStopping()
   pty.getMasterSlavePipe().outputStream().close();
 }
 
-void 
+void
 sk::sys::PtyProcess::Listener::
 processJoining()
 {

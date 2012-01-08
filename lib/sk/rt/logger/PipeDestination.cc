@@ -1,7 +1,7 @@
 /*  vim: set sw=2:
  *
  *  Copyright (c) 2007, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -46,7 +46,7 @@ sk::rt::logger::PipeDestination::
   cleanup();
 }
 
-void 
+void
 sk::rt::logger::PipeDestination::
 cleanup()
 {
@@ -70,7 +70,7 @@ clone() const
   return new PipeDestination(*this);
 }
 
-int 
+int
 sk::rt::logger::PipeDestination::
 cloneDescriptor() const
 {
@@ -177,11 +177,11 @@ makePipe()
 }
 
 namespace {
-  struct OutputScope 
+  struct OutputScope
     : public virtual sk::rt::logger::IScope,
       public virtual sk::rt::logger::IConfig
   {
-    OutputScope(sk::rt::logger::Destination& destination) 
+    OutputScope(sk::rt::logger::Destination& destination)
       : _destination(destination) {}
 
     const sk::rt::logger::IConfig& getConfig() const {

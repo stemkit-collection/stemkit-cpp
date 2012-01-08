@@ -1,6 +1,6 @@
 /*  vi: sw=2:
  *  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -117,7 +117,7 @@ testRelease()
   CPPUNIT_ASSERT_EQUAL(probe, &holder.getMutable());
 
   CPPUNIT_ASSERT_THROW(holder.release(), UnsupportedOperationException);
-  
+
   delete released;
   CPPUNIT_ASSERT_EQUAL(0, test::Probe<String>::getCounter());
 }

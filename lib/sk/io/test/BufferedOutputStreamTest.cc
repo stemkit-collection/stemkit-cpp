@@ -1,5 +1,5 @@
 /*  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -116,7 +116,7 @@ testWriteLargerChunkAfterSmall()
   CPPUNIT_ASSERT_EQUAL(sk::util::String("zz").inspect(), mock().chunk(3).inspect());
 }
 
-void 
+void
 sk::io::test::BufferedOutputStreamTest::
 testNoBuffer()
 {

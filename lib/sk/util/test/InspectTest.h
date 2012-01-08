@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -28,11 +28,11 @@ namespace sk {
           CPPUNIT_TEST(testDeques);
           CPPUNIT_TEST(testContent);
         CPPUNIT_TEST_SUITE_END();
-      
+
         public:
           InspectTest();
           virtual ~InspectTest();
-      
+
           void setUp();
           void tearDown();
           void testCharBuffers();
@@ -41,7 +41,7 @@ namespace sk {
           void testLists();
           void testDeques();
           void testContent();
-      
+
         private:
           InspectTest(const InspectTest& other);
           InspectTest& operator = (const InspectTest& other);

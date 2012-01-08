@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky (gennady.bystritsky@quest.com)
 */
 
@@ -19,7 +19,7 @@ namespace sk {
   namespace rt {
     namespace thread {
       namespace pthreads {
-        class Mutex 
+        class Mutex
           : public virtual sk::rt::thread::platform::Mutex
         {
           public:
@@ -34,13 +34,13 @@ namespace sk {
             void reset();
             bool hasEnterCount() const;
             int getEnterCount() const;
-        
+
             // sk::util::Object re-implementation.
             const sk::util::Class getClass() const;
 
             static Mutex* makeRecursive(const sk::rt::Scope& scope);
             static Mutex* makeSingular(const sk::rt::Scope& scope);
-        
+
           private:
             Mutex(int mutex_type, const sk::rt::Scope& scope);
             Mutex(const Mutex& other);

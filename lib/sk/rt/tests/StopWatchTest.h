@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -26,18 +26,18 @@ namespace sk {
           CPPUNIT_TEST(testChangesUntilStopped);
           CPPUNIT_TEST(testInspect);
         CPPUNIT_TEST_SUITE_END();
-      
+
         public:
           StopWatchTest();
           virtual ~StopWatchTest();
-      
+
           void setUp();
           void tearDown();
           void testTicking();
           void testNotStarted();
           void testChangesUntilStopped();
           void testInspect();
-      
+
         private:
           StopWatchTest(const StopWatchTest& other);
           StopWatchTest& operator = (const StopWatchTest& other);

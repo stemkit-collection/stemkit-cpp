@@ -2,19 +2,19 @@
 
 test = sk-sys-test ;
 
-test-objects = 
+test-objects =
   PipelineTest.cc
   GroupTest.cc
   TestSuite.cc
 ;
 
-use-project-library $(test) : 
-  sk.sys 
-  sk.io 
-  sk.rt.bundle 
+use-project-library $(test) :
+  sk.sys
+  sk.io
+  sk.rt.bundle
   sk.rt.thread
-  sk.cppunit 
-  sk.util 
+  sk.cppunit
+  sk.util
 ;
 
 use-unit-test $(test) $(test-objects) ;

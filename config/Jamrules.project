@@ -15,7 +15,7 @@ rule project.generate-proto-libraries
 }
 
 rule project.generate-proto-library
-{ 
+{
   local _name = $(1[1]) ;
   local _proto = cp$(_name) ;
   local _target = [ system.project-lib-target-path $(_proto) ] ;
@@ -53,13 +53,13 @@ rule project.generate-proto-library
 
 actions project.action.generate-proto-library
 {
-  $(GENERATOR) -v -l cpp -o $(PROTOGENDIR) -t $(TEMPLATEDIR) $(>) 
+  $(GENERATOR) -v -l cpp -o $(PROTOGENDIR) -t $(TEMPLATEDIR) $(>)
 }
 
-# NOTE: Construct "` echo $(VAR) `" is used here to ensure proper VAR 
-#   expansion (mind the space before the closing back quote, the space 
-#   after the opening back quote is for visual symmetry only). Otherwise, 
-#   every element of VAR would be joined with immediatelly preceeding or 
+# NOTE: Construct "` echo $(VAR) `" is used here to ensure proper VAR
+#   expansion (mind the space before the closing back quote, the space
+#   after the opening back quote is for visual symmetry only). Otherwise,
+#   every element of VAR would be joined with immediatelly preceeding or
 #   following non-space characters.
 #
 actions project.action.build-proto-library

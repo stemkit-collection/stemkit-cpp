@@ -1,10 +1,10 @@
 /*  vim: sw=2:
  *  Copyright (c) 2011, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -50,7 +50,7 @@ getClass() const
   return sk::util::Class(__className);
 }
 
-void 
+void
 sk::net::InetAddressFactory::
 clearCache()
 {
@@ -70,7 +70,7 @@ namespace {
     void tryIPv4() const {
       _holder.set(new sk::net::ip4::InetAddress(_components));
     }
-    
+
     void tryIPv6() const {
       _holder.set(new sk::net::ip6::InetAddress(_components));
     }
@@ -94,7 +94,7 @@ namespace {
   };
 }
 
-sk::net::InetAddress& 
+sk::net::InetAddress&
 sk::net::InetAddressFactory::
 findOrCreateByAddress(const sk::util::bytes& components)
 {

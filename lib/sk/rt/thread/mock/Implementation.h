@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -20,7 +20,7 @@ namespace sk {
   namespace rt {
     namespace thread {
       namespace mock {
-        class Implementation 
+        class Implementation
           : public virtual sk::rt::thread::platform::Implementation
         {
           public:
@@ -36,10 +36,10 @@ namespace sk {
             sk::rt::thread::Generic& getGeneric() const;
             void sleep(uint64_t milliseconds) const;
             void yield() const;
-        
+
             // sk::util::Object re-implementation.
             const sk::util::Class getClass() const;
-        
+
           private:
             Implementation(const Implementation& other);
             Implementation& operator = (const Implementation& other);

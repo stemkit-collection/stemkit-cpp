@@ -107,7 +107,7 @@ namespace YAML
 		// *****
 		// And now branch based on the next few characters!
 		// *****
-		
+
 		// end of stream
 		if(!INPUT)
 			return EndStream();
@@ -128,7 +128,7 @@ namespace YAML
 
 		if(INPUT.peek() == Keys::FlowSeqEnd || INPUT.peek() == Keys::FlowMapEnd)
 			return ScanFlowEnd();
-	
+
 		if(INPUT.peek() == Keys::FlowEntry)
 			return ScanFlowEntry();
 
@@ -257,7 +257,7 @@ namespace YAML
 		// are we in flow?
 		if(InFlowContext())
 			return 0;
-		
+
 		IndentMarker indent(column, type);
 		const IndentMarker& lastIndent = m_indents.top();
 
@@ -297,11 +297,11 @@ namespace YAML
 				break;
 			if(indent.column == INPUT.column() && !(indent.type == IndentMarker::SEQ && !Exp::BlockEntry.Matches(INPUT)))
 				break;
-				
+
 			PopIndent();
 		}
 	}
-	
+
 	// PopAllIndents
 	// . Pops all indentations (except for the base empty one) off the stack,
 	//   and enqueues the proper token each time.
@@ -316,11 +316,11 @@ namespace YAML
 			const IndentMarker& indent = m_indents.top();
 			if(indent.type == IndentMarker::NONE)
 				break;
-			
+
 			PopIndent();
 		}
 	}
-	
+
 	// PopIndent
 	// . Pops a single indent, pushing the proper token
 	void Scanner::PopIndent()
@@ -332,7 +332,7 @@ namespace YAML
 			InvalidateSimpleKey();
 			return;
 		}
-		
+
 		if(type == IndentMarker::SEQ)
 			m_tokens.push(Token(Token::BLOCK_SEQ_END, INPUT.mark()));
 		else if(type == IndentMarker::MAP)

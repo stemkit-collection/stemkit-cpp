@@ -67,8 +67,8 @@ printValueTree( FILE *fout, Json::Value &value, const std::string &path = "." )
          Json::Value::Members members( value.getMemberNames() );
          std::sort( members.begin(), members.end() );
          std::string suffix = *(path.end()-1) == '.' ? "" : ".";
-         for ( Json::Value::Members::iterator it = members.begin(); 
-               it != members.end(); 
+         for ( Json::Value::Members::iterator it = members.begin();
+               it != members.end();
                ++it )
          {
             const std::string &name = *it;
@@ -83,7 +83,7 @@ printValueTree( FILE *fout, Json::Value &value, const std::string &path = "." )
 
 
 static int
-parseAndSaveValueTree( const std::string &input, 
+parseAndSaveValueTree( const std::string &input,
                        const std::string &actual,
                        const std::string &kind,
                        Json::Value &root,
@@ -94,7 +94,7 @@ parseAndSaveValueTree( const std::string &input,
    bool parsingSuccessful = reader.parse( input, root );
    if ( !parsingSuccessful )
    {
-      printf( "Failed to parse %s file: \n%s\n", 
+      printf( "Failed to parse %s file: \n%s\n",
               kind.c_str(),
               reader.getFormatedErrorMessages().c_str() );
       return 1;
@@ -116,8 +116,8 @@ parseAndSaveValueTree( const std::string &input,
 
 
 static int
-rewriteValueTree( const std::string &rewritePath, 
-                  const Json::Value &root, 
+rewriteValueTree( const std::string &rewritePath,
+                  const Json::Value &root,
                   std::string &rewrite )
 {
    //Json::FastWriter writer;
@@ -137,7 +137,7 @@ rewriteValueTree( const std::string &rewritePath,
 
 
 static std::string
-removeSuffix( const std::string &path, 
+removeSuffix( const std::string &path,
               const std::string &extension )
 {
    if ( extension.length() >= path.length() )
@@ -148,7 +148,7 @@ removeSuffix( const std::string &path,
    return path.substr( 0, path.length() - extension.length() );
 }
 
-static int 
+static int
 printUsage( const char *argv[] )
 {
    printf( "Usage: %s [--strict] input-json-file", argv[0] );
@@ -157,7 +157,7 @@ printUsage( const char *argv[] )
 
 
 int
-parseCommandLine( int argc, const char *argv[], 
+parseCommandLine( int argc, const char *argv[],
                   Json::Features &features, std::string &path,
                   bool &parseOnly )
 {
@@ -223,7 +223,7 @@ int main( int argc, const char *argv[] )
       if ( exitCode == 0 )
       {
          Json::Value rewriteRoot;
-         exitCode = parseAndSaveValueTree( rewrite, rewriteActualPath, 
+         exitCode = parseAndSaveValueTree( rewrite, rewriteActualPath,
             "rewrite", rewriteRoot, features, parseOnly );
       }
    }

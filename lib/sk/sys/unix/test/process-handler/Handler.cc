@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -59,13 +59,13 @@ namespace {
       }
     }
 
-    private: 
+    private:
       sk::rt::Scope _scope;
       pid_t _pid;
   };
 
   struct Forker : public virtual sk::rt::Runnable {
-    Forker() 
+    Forker()
       : _scope("Forker") {}
 
     void run() {
@@ -106,7 +106,7 @@ namespace {
   };
 }
 
-void 
+void
 test::Handler::
 start()
 {

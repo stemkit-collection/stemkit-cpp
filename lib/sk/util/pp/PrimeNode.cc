@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky (gennady.bystritsky@quest.com)
 */
 
@@ -62,7 +62,7 @@ namespace {
   };
 }
 
-sk::util::pp::Node* 
+sk::util::pp::Node*
 sk::util::pp::PrimeNode::
 parse(const std::vector<char>& data, int offset, const std::vector<char>& terminators) const
 {
@@ -75,7 +75,7 @@ parse(const std::vector<char>& data, int offset, const std::vector<char>& termin
   return 0;
 }
 
-void 
+void
 sk::util::pp::PrimeNode::
 pushOpenBraket(std::vector<char>& brakets) const
 {
@@ -91,21 +91,21 @@ pushOpenBraket(std::vector<char>& brakets) const
   _parsers.forEach(OpenBraketPusher(brakets));
 }
 
-int 
+int
 sk::util::pp::PrimeNode::
 startPosition() const
 {
   throw sk::util::UnsupportedOperationException(SK_METHOD);
 }
 
-int 
+int
 sk::util::pp::PrimeNode::
 endPosition() const
 {
   throw sk::util::UnsupportedOperationException(SK_METHOD);
 }
 
-void 
+void
 sk::util::pp::PrimeNode::
 output(const Configurator& /*configurator*/, const sk::util::String& /*indent*/, std::ostream& /*stream*/) const
 {
@@ -114,7 +114,7 @@ output(const Configurator& /*configurator*/, const sk::util::String& /*indent*/,
 
 bool
 sk::util::pp::PrimeNode::
-isGonnaBreak() const 
+isGonnaBreak() const
 {
   throw sk::util::UnsupportedOperationException(SK_METHOD);
 }

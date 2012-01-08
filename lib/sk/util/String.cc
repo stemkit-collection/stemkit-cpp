@@ -1,6 +1,6 @@
 /*  vim: sw=2:
  *  Copyright (c) 2005, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -112,7 +112,7 @@ getClass() const
   return sk::util::Class(__className);
 }
 
-const sk::util::String 
+const sk::util::String
 sk::util::String::
 toString() const
 {
@@ -126,14 +126,14 @@ isEmpty() const
   return empty();
 }
 
-int 
+int
 sk::util::String::
 size() const
 {
   return std::string::size();
 }
 
-int 
+int
 sk::util::String::
 length() const
 {
@@ -166,7 +166,7 @@ startsWith(const sk::util::String& prefix) const
   return indexOf(prefix) == 0;
 }
 
-bool 
+bool
 sk::util::String::
 startsWithIgnoreCase(const sk::util::String& prefix) const
 {
@@ -181,7 +181,7 @@ endsWith(const sk::util::String& suffix) const
   return offset >= 0 && lastIndexOf(suffix) == offset;
 }
 
-bool 
+bool
 sk::util::String::
 endsWithIgnoreCase(const sk::util::String& suffix) const
 {
@@ -189,7 +189,7 @@ endsWithIgnoreCase(const sk::util::String& suffix) const
   return offset >= 0 && lastIndexOfIgnoreCase(suffix) == offset;
 }
 
-bool 
+bool
 sk::util::String::
 equals(const sk::util::String& other) const
 {
@@ -202,7 +202,7 @@ namespace {
   }
 }
 
-bool 
+bool
 sk::util::String::
 equalsIgnoreCase(const sk::util::String& other) const
 {
@@ -261,7 +261,7 @@ indexOf(char character) const
   return pos - 0;
 }
 
-int 
+int
 sk::util::String::
 indexOfIgnoreCase(char character) const
 {
@@ -288,7 +288,7 @@ lastIndexOf(char character) const
   return pos - 0;
 }
 
-int 
+int
 sk::util::String::
 lastIndexOfIgnoreCase(char character) const
 {
@@ -373,7 +373,7 @@ charAt(int index) const
 
 namespace {
   struct CharReplacer {
-    CharReplacer(char oldChar, char newChar) 
+    CharReplacer(char oldChar, char newChar)
       : _oldChar(oldChar), _newChar(newChar) {}
 
     char operator()(char current) {
@@ -412,21 +412,21 @@ replace(const sk::util::String& target, const sk::util::String& replacement) con
   return result;
 }
 
-bool 
+bool
 sk::util::String::
-contains(const sk::util::String& other) const 
+contains(const sk::util::String& other) const
 {
   return indexOf(other) < 0 ? false : true;
 }
 
-bool 
+bool
 sk::util::String::
 containsIgnoreCase(const sk::util::String& other) const
 {
   return indexOfIgnoreCase(other) < 0 ? false : true;
 }
 
-int 
+int
 sk::util::String::
 indexOf(const sk::util::String& other) const
 {
@@ -443,7 +443,7 @@ indexOf(const sk::util::String& other) const
   return -1;
 }
 
-int 
+int
 sk::util::String::
 indexOfIgnoreCase(const sk::util::String& other) const
 {
@@ -460,7 +460,7 @@ indexOfIgnoreCase(const sk::util::String& other) const
   return -1;
 }
 
-int 
+int
 sk::util::String::
 lastIndexOf(const sk::util::String& other) const
 {
@@ -477,7 +477,7 @@ lastIndexOf(const sk::util::String& other) const
   return -1;
 }
 
-int 
+int
 sk::util::String::
 lastIndexOfIgnoreCase(const sk::util::String& other) const
 {
@@ -494,14 +494,14 @@ lastIndexOfIgnoreCase(const sk::util::String& other) const
   return -1;
 }
 
-const sk::util::String 
+const sk::util::String
 sk::util::String::
 valueOf(int value)
 {
   return Integer::toString(value);
 }
 
-const sk::util::String 
+const sk::util::String
 sk::util::String::
 times(int multiplier) const
 {
@@ -545,7 +545,7 @@ namespace {
       if(tail_index == std::string::npos) {
         result << item.substr(head_index);
         break;
-      } 
+      }
       result << item.substr(head_index, tail_index - head_index);
       head_index = tail_index + 1;
     }
@@ -614,12 +614,12 @@ const sk::util::String operator + (const sk::util::String& s1, const std::string
   return s + s2;
 }
 
-const sk::util::String operator * (const sk::util::String& string, int multiplier) 
+const sk::util::String operator * (const sk::util::String& string, int multiplier)
 {
   return string.times(multiplier);
 }
 
-bool 
+bool
 sk::util::String::
 operator<(const sk::util::String& other) const
 {
@@ -629,7 +629,7 @@ operator<(const sk::util::String& other) const
   return f < s;
 }
 
-bool 
+bool
 sk::util::String::
 operator<(const std::string& other) const
 {
@@ -638,7 +638,7 @@ operator<(const std::string& other) const
   return f < other;
 }
 
-bool 
+bool
 sk::util::String::
 operator<(const char* other) const
 {
@@ -647,7 +647,7 @@ operator<(const char* other) const
   return f < other;
 }
 
-bool 
+bool
 sk::util::String::
 operator>(const sk::util::String& other) const
 {
@@ -657,7 +657,7 @@ operator>(const sk::util::String& other) const
   return f > s;
 }
 
-bool 
+bool
 sk::util::String::
 operator>(const std::string& other) const
 {
@@ -666,7 +666,7 @@ operator>(const std::string& other) const
   return f > other;
 }
 
-bool 
+bool
 sk::util::String::
 operator>(const char* other) const
 {
@@ -675,7 +675,7 @@ operator>(const char* other) const
   return f > other;
 }
 
-bool 
+bool
 sk::util::String::
 operator==(const sk::util::String& other) const
 {
@@ -685,7 +685,7 @@ operator==(const sk::util::String& other) const
   return f == s;
 }
 
-bool 
+bool
 sk::util::String::
 operator==(const std::string& other) const
 {
@@ -694,7 +694,7 @@ operator==(const std::string& other) const
   return f == other;
 }
 
-bool 
+bool
 sk::util::String::
 operator==(const char* other) const
 {
@@ -703,7 +703,7 @@ operator==(const char* other) const
   return f == other;
 }
 
-bool 
+bool
 sk::util::String::
 operator!=(const sk::util::String& other) const
 {
@@ -713,7 +713,7 @@ operator!=(const sk::util::String& other) const
   return f != s;
 }
 
-bool 
+bool
 sk::util::String::
 operator!=(const std::string& other) const
 {
@@ -722,7 +722,7 @@ operator!=(const std::string& other) const
   return f != other;
 }
 
-bool 
+bool
 sk::util::String::
 operator!=(const char* other) const
 {
@@ -731,7 +731,7 @@ operator!=(const char* other) const
   return f != other;
 }
 
-bool 
+bool
 sk::util::String::
 operator<=(const sk::util::String& other) const
 {
@@ -741,7 +741,7 @@ operator<=(const sk::util::String& other) const
   return f <= s;
 }
 
-bool 
+bool
 sk::util::String::
 operator<=(const std::string& other) const
 {
@@ -750,7 +750,7 @@ operator<=(const std::string& other) const
   return f <= other;
 }
 
-bool 
+bool
 sk::util::String::
 operator<=(const char* other) const
 {
@@ -759,7 +759,7 @@ operator<=(const char* other) const
   return f <= other;
 }
 
-bool 
+bool
 sk::util::String::
 operator>=(const sk::util::String& other) const
 {
@@ -769,7 +769,7 @@ operator>=(const sk::util::String& other) const
   return f >= s;
 }
 
-bool 
+bool
 sk::util::String::
 operator>=(const std::string& other) const
 {
@@ -778,7 +778,7 @@ operator>=(const std::string& other) const
   return f >= other;
 }
 
-bool 
+bool
 sk::util::String::
 operator>=(const char* other) const
 {
@@ -787,8 +787,8 @@ operator>=(const char* other) const
   return f >= other;
 }
 
-std::ostream& 
-sk::util::operator<<(std::ostream& stream, const sk::util::String& object) 
+std::ostream&
+sk::util::operator<<(std::ostream& stream, const sk::util::String& object)
 {
   const std::string s = object;
   return stream << s;

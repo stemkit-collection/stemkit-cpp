@@ -1,4 +1,4 @@
-[2011-10-29] 
+[2011-10-29]
 - Introduce signal/event handing facility.
 - Implement exception stack trace for native Windows.
 - Fix sk::util:pp library to produce results much faster (too slow now).

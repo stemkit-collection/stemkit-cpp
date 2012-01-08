@@ -1,9 +1,9 @@
 /*  Copyright (c) 2008, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -16,15 +16,15 @@ namespace sk {
   namespace rt {
     namespace logger {
       class StableCycler
-        : public virtual sk::util::Object 
+        : public virtual sk::util::Object
       {
         public:
           StableCycler();
           virtual ~StableCycler();
-          
+
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
-          
+
         private:
           StableCycler(const StableCycler& other);
           StableCycler& operator = (const StableCycler& other);

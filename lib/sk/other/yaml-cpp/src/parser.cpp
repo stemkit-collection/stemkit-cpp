@@ -11,7 +11,7 @@ namespace YAML
 	Parser::Parser()
 	{
 	}
-	
+
 	Parser::Parser(std::istream& in)
 	{
 		Load(in);
@@ -39,7 +39,7 @@ namespace YAML
 	{
 		if(!m_pScanner.get())
 			return false;
-		
+
 		// clear node
 		document.Clear();
 
@@ -63,7 +63,7 @@ namespace YAML
 
 		// clear anchors from the scanner, which are no longer relevant
 		m_pScanner->ClearAnchors();
-		
+
 		return true;
 	}
 
@@ -135,7 +135,7 @@ namespace YAML
 	{
 		if(!m_pScanner.get())
 			return;
-		
+
 		while(1) {
 			if(m_pScanner->empty())
 				break;

@@ -1,7 +1,7 @@
 /*  vim: set sw=2:
  *
  *  Copyright (c) 2007, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -75,7 +75,7 @@ start(const sk::util::Strings& top)
 
 TiXmlElement*
 sk::rt::scope::XmlProcessor::
-findScopeElement(const TiXmlHandle& handle, const sk::util::String& name) 
+findScopeElement(const TiXmlHandle& handle, const sk::util::String& name)
 {
   TiXmlElement* default_item = 0;
   for(TiXmlElement* item=handle.FirstChild("scope").ToElement(); item ;item=item->NextSiblingElement(item->Value())) {
@@ -94,7 +94,7 @@ findScopeElement(const TiXmlHandle& handle, const sk::util::String& name)
 
 void
 sk::rt::scope::XmlProcessor::
-process(const TiXmlHandle& handle, const sk::util::String& scopeBuffer, const sk::util::Strings& array, scope::Aggregator& aggregator) 
+process(const TiXmlHandle& handle, const sk::util::String& scopeBuffer, const sk::util::Strings& array, scope::Aggregator& aggregator)
 {
   _scopeBuffer = scopeBuffer;
   _values["scope"] = _scopeBuffer;
@@ -127,9 +127,9 @@ updateConfig(const TiXmlHandle& handle, scope::IConfig& config)
   updateProperties(handle, config);
 }
 
-bool 
+bool
 sk::rt::scope::XmlProcessor::
-attribute(TiXmlElement* element, const sk::util::String& name, bool fallback) 
+attribute(TiXmlElement* element, const sk::util::String& name, bool fallback)
 {
   if(element) {
     const char* value = element->Attribute(name.getChars());
@@ -140,9 +140,9 @@ attribute(TiXmlElement* element, const sk::util::String& name, bool fallback)
   return fallback;
 }
 
-const sk::util::String 
+const sk::util::String
 sk::rt::scope::XmlProcessor::
-attribute(TiXmlElement* element, const sk::util::String& name, const sk::util::String& fallback) 
+attribute(TiXmlElement* element, const sk::util::String& name, const sk::util::String& fallback)
 {
   if(element) {
     const char* value = element->Attribute(name.getChars());
@@ -153,16 +153,16 @@ attribute(TiXmlElement* element, const sk::util::String& name, const sk::util::S
   return fallback;
 }
 
-const sk::util::String 
+const sk::util::String
 sk::rt::scope::XmlProcessor::
-attribute(TiXmlElement* element, const sk::util::String& name, const char* fallback) 
+attribute(TiXmlElement* element, const sk::util::String& name, const char* fallback)
 {
   return attribute(element, name, sk::util::String(fallback));
 }
 
-void 
+void
 sk::rt::scope::XmlProcessor::
-updateLogInfo(const TiXmlHandle& handle, scope::IConfig& config) 
+updateLogInfo(const TiXmlHandle& handle, scope::IConfig& config)
 {
   config.setLogObject(attribute(handle.ToElement(), "show-object", config.isLogObject()));
   config.setLogThread(attribute(handle.ToElement(), "show-thread", config.isLogThread()));
@@ -230,7 +230,7 @@ namespace {
 
 void
 sk::rt::scope::XmlProcessor::
-updateProperties(const TiXmlHandle& handle, scope::IConfig& config) 
+updateProperties(const TiXmlHandle& handle, scope::IConfig& config)
 {
   for(TiXmlElement* item=handle.FirstChild("property").ToElement(); item ;item=item->NextSiblingElement(item->Value())) {
     const sk::util::String name = attribute(item, "name", "");
@@ -240,7 +240,7 @@ updateProperties(const TiXmlHandle& handle, scope::IConfig& config)
   }
 }
 
-const sk::util::String 
+const sk::util::String
 sk::rt::scope::XmlProcessor::
 expand(const sk::util::String& value)
 {
@@ -266,7 +266,7 @@ expand(const sk::util::String& value)
 
 void
 sk::rt::scope::XmlProcessor::
-updateFileDestination(const TiXmlHandle& handle, scope::IConfig& config) 
+updateFileDestination(const TiXmlHandle& handle, scope::IConfig& config)
 {
   sk::util::Pathname name(attribute(handle.ToElement(), "name", _scopeBuffer), "log");
   sk::util::Pathname location(attribute(handle.ToElement(), "location", "."));
@@ -296,7 +296,7 @@ std::ostream& operator<<(std::ostream& stream, const TiXmlHandle& /*handle*/)
   return stream << "<TiXmlHandle>";
 }
 
-std::ostream& operator<<(std::ostream& stream, const TiXmlDocument& /*document*/) 
+std::ostream& operator<<(std::ostream& stream, const TiXmlDocument& /*document*/)
 {
   return stream << "<TiXmlDocument>";
 }

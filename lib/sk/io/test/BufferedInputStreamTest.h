@@ -1,5 +1,5 @@
 /*  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -25,15 +25,15 @@ namespace sk {
         CPPUNIT_TEST_SUITE(sk::io::test::BufferedInputStreamTest);
           CPPUNIT_TEST(testBuffer);
         CPPUNIT_TEST_SUITE_END();
-        
+
         public:
           BufferedInputStreamTest();
           virtual ~BufferedInputStreamTest();
-          
+
           void setUp();
           void tearDown();
           void testBuffer();
-          
+
         private:
           BufferedInputStreamTest(const BufferedInputStreamTest& other);
           BufferedInputStreamTest& operator = (const BufferedInputStreamTest& other);

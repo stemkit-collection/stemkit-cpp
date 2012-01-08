@@ -1,5 +1,5 @@
 /*  Copyright (c) 2007, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -23,18 +23,18 @@ namespace sk {
           CPPUNIT_TEST(testReplacement);
           CPPUNIT_TEST(testReplacementAfterClear);
         CPPUNIT_TEST_SUITE_END();
-        
+
         public:
           SharingHolderTest();
           virtual ~SharingHolderTest();
-          
+
           void setUp();
           void tearDown();
           void testBasics();
           void testAssignment();
           void testReplacementAfterClear();
           void testReplacement();
-          
+
         private:
           SharingHolderTest(const SharingHolderTest& other);
           SharingHolderTest& operator = (const SharingHolderTest& other);

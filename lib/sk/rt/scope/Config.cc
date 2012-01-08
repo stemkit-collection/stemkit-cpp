@@ -1,5 +1,5 @@
 /*  Copyright (c) 2007, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -21,7 +21,7 @@
 
 sk::rt::scope::Config::
 Config()
-  : _destinationHolder(new logger::StreamDestination(std::cerr)), 
+  : _destinationHolder(new logger::StreamDestination(std::cerr)),
     _levelHolder(logger::Level::SK_L_INFO), _timeFormat("%y/%m/%d %H:%M:%S"),
     _logPid(false), _logTime(false), _logObject(false), _logThread(false),
     _lineTerminator("\n"), _logMemory(false)
@@ -47,28 +47,28 @@ setLogDestination(const logger::Destination& destination)
   _destinationHolder.set(sk::util::covariant<sk::rt::logger::Destination>(destination.clone()));
 }
 
-void 
+void
 sk::rt::scope::Config::
 setLogLevel(const logger::Level& level)
 {
   _levelHolder.set(level);
 }
 
-void 
+void
 sk::rt::scope::Config::
 setTimeFormat(const sk::util::String& format)
 {
   _timeFormat = format;
 }
 
-void 
+void
 sk::rt::scope::Config::
 setLineTerminator(const sk::util::String& terminator)
 {
   _lineTerminator = terminator;
 }
 
-sk::rt::logger::Destination& 
+sk::rt::logger::Destination&
 sk::rt::scope::Config::
 getLogDestination() const
 {
@@ -98,19 +98,19 @@ getLineTerminator() const
 
 void
 sk::rt::scope::Config::
-setLogPid(bool state) 
+setLogPid(bool state)
 {
   _logPid = state;
 }
 
 void
 sk::rt::scope::Config::
-setLogMemory(bool state) 
+setLogMemory(bool state)
 {
   _logMemory = state;
 }
 
-void 
+void
 sk::rt::scope::Config::
 setLogTime(bool state)
 {
@@ -133,7 +133,7 @@ setLogThread(bool state)
 
 bool
 sk::rt::scope::Config::
-isLogPid() const 
+isLogPid() const
 {
   return _logPid;
 }
@@ -161,7 +161,7 @@ isLogThread() const
 
 bool
 sk::rt::scope::Config::
-isLogMemory() const 
+isLogMemory() const
 {
   return _logMemory;
 }
@@ -177,7 +177,7 @@ getProperty(const sk::util::String& name) const
   throw sk::util::MissingResourceException(name);
 }
 
-const sk::util::String 
+const sk::util::String
 sk::rt::scope::Config::
 getProperty(const sk::util::String& name, const sk::util::String& fallback) const
 {
@@ -188,14 +188,14 @@ getProperty(const sk::util::String& name, const sk::util::String& fallback) cons
   return fallback;
 }
 
-const sk::util::String 
+const sk::util::String
 sk::rt::scope::Config::
 getProperty(const sk::util::String& name, const char* fallback) const
 {
   return getProperty(name, sk::util::String(fallback));
 }
 
-bool 
+bool
 sk::rt::scope::Config::
 getProperty(const sk::util::String& name, const sk::util::Boolean& fallback) const
 {
@@ -206,7 +206,7 @@ getProperty(const sk::util::String& name, const sk::util::Boolean& fallback) con
   return fallback.booleanValue();
 }
 
-int 
+int
 sk::rt::scope::Config::
 getProperty(const sk::util::String& name, int fallback) const
 {

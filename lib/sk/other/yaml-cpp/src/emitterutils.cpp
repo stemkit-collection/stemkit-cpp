@@ -43,7 +43,7 @@ namespace YAML
 
 				return true;
 			}
-			
+
 			int Utf8BytesIndicated(char ch) {
 				int byteVal = static_cast<unsigned char>(ch);
 				switch (byteVal >> 4) {
@@ -63,11 +63,11 @@ namespace YAML
 			bool IsTrailingByte(char ch) {
 				return (ch & 0xC0) == 0x80;
 			}
-			
+
 			bool GetNextCodePointAndAdvance(int& codePoint, std::string::const_iterator& first, std::string::const_iterator last) {
 				if (first == last)
 					return false;
-				
+
 				int nBytes = Utf8BytesIndicated(*first);
 				if (nBytes < 1) {
 					// Bad lead byte
@@ -75,12 +75,12 @@ namespace YAML
 					codePoint = REPLACEMENT_CHARACTER;
 					return true;
 				}
-				
+
 				if (nBytes == 1) {
 					codePoint = *first++;
 					return true;
 				}
-				
+
 				// Gather bits from trailing bytes
 				codePoint = static_cast<unsigned char>(*first) & ~(0xFF << (7 - nBytes));
 				++first;
@@ -105,7 +105,7 @@ namespace YAML
 					codePoint = REPLACEMENT_CHARACTER;
 				return true;
 			}
-			
+
 			void WriteCodePoint(ostream& out, int codePoint) {
 				if (codePoint < 0 || codePoint > 0x10FFFF) {
 					codePoint = REPLACEMENT_CHARACTER;
@@ -126,13 +126,13 @@ namespace YAML
 					    << static_cast<char>(0x80 | (codePoint & 0x3F));
 				}
 			}
-			
+
 			bool IsValidPlainScalar(const std::string& str, bool inFlow, bool allowOnlyAscii) {
 				// first check the start
 				const RegEx& start = (inFlow ? Exp::PlainScalarInFlow : Exp::PlainScalar);
 				if(!start.Matches(str))
 					return false;
-				
+
 				// and check the end for plain whitespace (which can't be faithfully kept in a plain scalar)
 				if(!str.empty() && *str.rbegin() == ' ')
 					return false;
@@ -148,11 +148,11 @@ namespace YAML
 				while(buffer) {
 					if(disallowed.Matches(buffer))
 						return false;
-					if(allowOnlyAscii && (0x7F < static_cast<unsigned char>(buffer[0]))) 
+					if(allowOnlyAscii && (0x7F < static_cast<unsigned char>(buffer[0])))
 						return false;
 					++buffer;
 				}
-				
+
 				return true;
 			}
 
@@ -193,7 +193,7 @@ namespace YAML
 				return true;
 			}
 		}
-		
+
 		bool WriteString(ostream& out, const std::string& str, bool inFlow, bool escapeNonAscii)
 		{
 			if(IsValidPlainScalar(str, inFlow, escapeNonAscii)) {
@@ -202,14 +202,14 @@ namespace YAML
 			} else
 				return WriteDoubleQuotedString(out, str, escapeNonAscii);
 		}
-		
+
 		bool WriteSingleQuotedString(ostream& out, const std::string& str)
 		{
 			out << "'";
 			int codePoint;
 			for(std::string::const_iterator i = str.begin();
 				GetNextCodePointAndAdvance(codePoint, i, str.end());
-				) 
+				)
 			{
 				if (codePoint == '\n')
 					return false;  // We can't handle a new line and the attendant indentation yet
@@ -222,14 +222,14 @@ namespace YAML
 			out << "'";
 			return true;
 		}
-		
+
 		bool WriteDoubleQuotedString(ostream& out, const std::string& str, bool escapeNonAscii)
 		{
 			out << "\"";
 			int codePoint;
 			for(std::string::const_iterator i = str.begin();
 				GetNextCodePointAndAdvance(codePoint, i, str.end());
-				) 
+				)
 			{
 				if (codePoint == '\"')
 					out << "\\\"";
@@ -237,7 +237,7 @@ namespace YAML
 					out << "\\\\";
 				else if (codePoint < 0x20 || (codePoint >= 0x80 && codePoint <= 0xA0)) // Control characters and non-breaking space
 					WriteDoubleQuoteEscapeSequence(out, codePoint);
-				else if (codePoint == 0xFEFF) // Byte order marks (ZWNS) should be escaped (YAML 1.2, sec. 5.2)	
+				else if (codePoint == 0xFEFF) // Byte order marks (ZWNS) should be escaped (YAML 1.2, sec. 5.2)
 					WriteDoubleQuoteEscapeSequence(out, codePoint);
 				else if (escapeNonAscii && codePoint > 0x7E)
 					WriteDoubleQuoteEscapeSequence(out, codePoint);
@@ -264,7 +264,7 @@ namespace YAML
 			}
 			return true;
 		}
-		
+
 		bool WriteComment(ostream& out, const std::string& str, int postCommentIndent)
 		{
 			unsigned curIndent = out.col();
@@ -287,7 +287,7 @@ namespace YAML
 			out << "*";
 			return WriteAliasName(out, str);
 		}
-		
+
 		bool WriteAnchor(ostream& out, const std::string& str)
 		{
 			out << "&";

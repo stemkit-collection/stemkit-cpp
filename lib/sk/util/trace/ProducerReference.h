@@ -1,10 +1,10 @@
 /*  vim: sw=2:
  *  Copyright (c) 2011, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky (gennady.bystritsky@quest.com)
 */
 
@@ -18,7 +18,7 @@
 namespace sk {
   namespace util {
     namespace trace {
-      class ProducerReference 
+      class ProducerReference
         : public virtual sk::util::Object
       {
         public:
@@ -31,10 +31,10 @@ namespace sk {
           const sk::util::String& trace();
           const sk::util::String& traceWithMessage(const sk::util::String& message);
           void finalizeFor(const sk::util::String& scope);
-      
+
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
-      
+
         private:
           ProducerReference(const ProducerReference& other);
           ProducerReference& operator = (const ProducerReference& other);

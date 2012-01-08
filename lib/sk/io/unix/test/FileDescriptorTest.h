@@ -1,5 +1,5 @@
 /*  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -22,15 +22,15 @@ namespace sk {
         CPPUNIT_TEST_SUITE(sk::io::test::FileDescriptorTest);
           CPPUNIT_TEST(testClone);
         CPPUNIT_TEST_SUITE_END();
-        
+
         public:
           FileDescriptorTest();
           virtual ~FileDescriptorTest();
-          
+
           void setUp();
           void tearDown();
           void testClone();
-          
+
         private:
           FileDescriptorTest(const FileDescriptorTest& other);
           FileDescriptorTest& operator = (const FileDescriptorTest& other);

@@ -2,7 +2,7 @@
 
 local library = sk.rt.thread.generic. ;
 
-local objects = 
+local objects =
   ConditionMediator.cc
 ;
 

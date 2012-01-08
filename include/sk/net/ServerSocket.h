@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -16,7 +16,7 @@
 
 namespace sk {
   namespace net {
-    class ServerSocket 
+    class ServerSocket
        : public sk::net::AbstractSocket
     {
       public:
@@ -33,7 +33,7 @@ namespace sk {
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
         const sk::util::String toString() const;
-    
+
       private:
         ServerSocket(const ServerSocket& other);
         ServerSocket& operator = (const ServerSocket& other);

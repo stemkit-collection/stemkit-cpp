@@ -2,7 +2,7 @@
 
 local library = sk.C. ;
 
-local objects = 
+local objects =
   handle.cc
 ;
 

@@ -1,6 +1,6 @@
 /*  vim:sw=2:
  *  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -23,7 +23,7 @@ sk::util::test::collection::StandardContainerTest::
 {
 }
 
-sk::util::List<sk::util::String>* 
+sk::util::List<sk::util::String>*
 sk::util::test::collection::StandardContainerTest::
 makeStoringList()
 {
@@ -65,7 +65,7 @@ testStandardContainerAdd()
 
   test::Probe<String> p1("aaa");
   test::Probe<String> p2("bbb");
-  
+
   list.getMutable().add(p1);
   list.getMutable().add(p2);
   list.getMutable().add(new test::Probe<String>("ccc"));
@@ -112,7 +112,7 @@ testStandardContainerForEach()
   list.getMutable().add(new String("uuu"));
 
   struct Copier : public virtual sk::util::Processor<const String> {
-    Copier(std::vector<String>& target) 
+    Copier(std::vector<String>& target)
       : _target(target) {}
 
     void process(const String& item) const {
@@ -146,7 +146,7 @@ testStandardContainerFind()
   CPPUNIT_ASSERT(list.get().find(holder, selector::EqualValue<String>("zzz")) == false);
 }
 
-void 
+void
 sk::util::test::collection::StandardContainerTest::
 testStandardContainerContains()
 {
@@ -203,7 +203,7 @@ namespace {
   };
 }
 
-void 
+void
 sk::util::test::collection::StandardContainerTest::
 testStandardContainerSort()
 {
@@ -231,7 +231,7 @@ testStandardContainerSort()
   CPPUNIT_ASSERT_EQUAL("aaa", list.get().get(2));
 }
 
-void 
+void
 sk::util::test::collection::StandardContainerTest::
 testStandardContainerInspect()
 {
@@ -297,7 +297,7 @@ testStandardContainerShuffle()
   CPPUNIT_ASSERT(l1.get().inspect() != l2.get().inspect());
 }
 
-void 
+void
 sk::util::test::collection::StandardContainerTest::
 testStandardContainerReverse()
 {

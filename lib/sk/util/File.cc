@@ -1,9 +1,9 @@
 /*  Copyright (c) 2008, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -15,7 +15,7 @@
 #include <sk/util/IllegalStateException.h>
 
 sk::util::File::
-File(const sk::util::String& name) 
+File(const sk::util::String& name)
   : _name(name), _file(_name.getChars())
 {
    if(_file.good() == false) {
@@ -23,9 +23,9 @@ File(const sk::util::String& name)
    }
 }
 
-const sk::util::String 
+const sk::util::String
 sk::util::File::
-getLine() 
+getLine()
 {
   sk::util::String depot;
 
@@ -35,9 +35,9 @@ getLine()
   return depot;
 }
 
-const sk::util::String 
+const sk::util::String
 sk::util::File::
-getLines(int number) 
+getLines(int number)
 {
   sk::util::Strings depot;
   while(number-- > 0) {
@@ -46,9 +46,9 @@ getLines(int number)
   return depot.inspect();
 }
 
-const sk::util::String 
+const sk::util::String
 sk::util::File::
-getLines() 
+getLines()
 {
   sk::util::Strings depot;
 
@@ -62,9 +62,9 @@ getLines()
   }
 }
 
-bool 
+bool
 sk::util::File::
-exists(const sk::util::String& name) 
+exists(const sk::util::String& name)
 {
   return std::ifstream(name.getChars()).good();
 }

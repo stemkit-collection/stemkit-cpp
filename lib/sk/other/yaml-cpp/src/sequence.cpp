@@ -91,14 +91,14 @@ namespace YAML
 
 			Node *pNode = new Node;
 			m_data.push_back(pNode);
-			
+
 			// check for null
 			if(!pScanner->empty()) {
 				const Token& token = pScanner->peek();
 				if(token.type == Token::BLOCK_ENTRY || token.type == Token::BLOCK_SEQ_END)
 					continue;
 			}
-			
+
 			pNode->Parse(pScanner, state);
 		}
 	}

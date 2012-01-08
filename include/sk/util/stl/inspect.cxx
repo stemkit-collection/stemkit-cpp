@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky (gennady.bystritsky@quest.com)
 */
 
@@ -15,9 +15,9 @@
 #include <sk/util/slot/policy/Value.hxx>
 #include <algorithm>
 
-template<typename T> 
-const sk::util::String 
-sk::util::inspect(const std::vector<T>& container) 
+template<typename T>
+const sk::util::String
+sk::util::inspect(const std::vector<T>& container)
 {
   sk::util::String depot;
   int index = 0;
@@ -28,9 +28,9 @@ sk::util::inspect(const std::vector<T>& container)
   return inspector.collect();
 }
 
-template<typename T> 
-const sk::util::String 
-sk::util::inspect(const std::deque<T>& container) 
+template<typename T>
+const sk::util::String
+sk::util::inspect(const std::deque<T>& container)
 {
   sk::util::String depot;
   int index = 0;
@@ -41,9 +41,9 @@ sk::util::inspect(const std::deque<T>& container)
   return inspector.collect();
 }
 
-template<typename T> 
-const sk::util::String 
-sk::util::inspect(const std::list<T>& container) 
+template<typename T>
+const sk::util::String
+sk::util::inspect(const std::list<T>& container)
 {
   sk::util::String depot;
   int index = 0;

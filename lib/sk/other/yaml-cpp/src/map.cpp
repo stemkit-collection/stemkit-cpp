@@ -12,7 +12,7 @@ namespace YAML
 	Map::Map()
 	{
 	}
-	
+
 	Map::Map(const node_map& data)
 	{
 		for(node_map::const_iterator it=data.begin();it!=data.end();++it) {
@@ -40,7 +40,7 @@ namespace YAML
 	{
 		return new Map(m_data);
 	}
-	
+
 	bool Map::GetBegin(std::map <Node *, Node *, ltnode>::const_iterator& it) const
 	{
 		it = m_data.begin();
@@ -89,7 +89,7 @@ namespace YAML
 			}
 
 			std::auto_ptr <Node> pKey(new Node), pValue(new Node);
-			
+
 			// grab key (if non-null)
 			if(token.type == Token::KEY) {
 				pScanner->pop();
@@ -122,7 +122,7 @@ namespace YAML
 				pScanner->pop();
 				break;
 			}
-			
+
 			std::auto_ptr <Node> pKey(new Node), pValue(new Node);
 
 			// grab key (if non-null)
@@ -130,13 +130,13 @@ namespace YAML
 				pScanner->pop();
 				pKey->Parse(pScanner, state);
 			}
-			
+
 			// now grab value (optional)
 			if(!pScanner->empty() && pScanner->peek().type == Token::VALUE) {
 				pScanner->pop();
 				pValue->Parse(pScanner, state);
 			}
-			
+
 			// now eat the separator (or could be a map end, which we ignore - but if it's neither, then it's a bad node)
 			Token& nextToken = pScanner->peek();
 			if(nextToken.type == Token::FLOW_ENTRY)

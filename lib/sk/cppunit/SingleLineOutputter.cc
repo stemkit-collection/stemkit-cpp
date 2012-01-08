@@ -1,6 +1,6 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -12,24 +12,24 @@
 #include <cppunit/Exception.h>
 
 sk::cppunit::SingleLineOutputter::
-SingleLineOutputter(CppUnit::TextUi::TestRunner& runner) 
-  : CppUnit::CompilerOutputter(&runner.result(), std::cerr, "%p:%l"), _stream(std::cerr) 
+SingleLineOutputter(CppUnit::TextUi::TestRunner& runner)
+  : CppUnit::CompilerOutputter(&runner.result(), std::cerr, "%p:%l"), _stream(std::cerr)
 {
 }
 
 void
 sk::cppunit::SingleLineOutputter::
-printFailureType(CppUnit::TestFailure* failure) 
+printFailureType(CppUnit::TestFailure* failure)
 {
   _stream  << ':' << (failure->isError() ? 'E' : 'F') << ':';
 }
 
-void 
+void
 sk::cppunit::SingleLineOutputter::
-printFailedTestName(CppUnit::TestFailure* failure) 
+printFailedTestName(CppUnit::TestFailure* failure)
 {
   _stream  <<  " "  <<  stripNamespace(failure->failedTestName());
-} 
+}
 
 namespace {
   const std::string trim(const std::string item) {
@@ -61,9 +61,9 @@ namespace {
   }
 }
 
-void 
+void
 sk::cppunit::SingleLineOutputter::
-printFailureMessage(CppUnit::TestFailure* failure) 
+printFailureMessage(CppUnit::TestFailure* failure)
 {
   CppUnit::Exception *thrownException = failure->thrownException();
 
@@ -74,9 +74,9 @@ printFailureMessage(CppUnit::TestFailure* failure)
   _stream << std::endl;
 }
 
-const std::string 
+const std::string
 sk::cppunit::SingleLineOutputter::
-stripNamespace(const std::string& name) const 
+stripNamespace(const std::string& name) const
 {
   std::string::size_type index = name.find_last_of(":");
   if(index == std::string::npos) {

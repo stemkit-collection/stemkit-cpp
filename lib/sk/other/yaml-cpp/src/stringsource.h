@@ -25,7 +25,7 @@ namespace YAML
 				source.m_offset = 0;
 			return source;
 		}
-			
+
 		StringCharSource& operator ++ () {
 			++m_offset;
 			return *this;

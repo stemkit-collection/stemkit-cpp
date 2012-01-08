@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -68,14 +68,14 @@ send(const std::vector<char>& data, const sk::net::InetSocketAddress& endpoint)
   directedSocket().sendto(data, endpoint.getAddress(), endpoint.getPort());
 }
 
-void 
+void
 sk::net::DatagramSocket::
 send(const std::vector<char>& data, const sk::net::InetAddress& address, const uint16_t port)
 {
   directedSocket().sendto(data, address, port);
 }
 
-bool 
+bool
 sk::net::DatagramSocket::
 isBound() const
 {

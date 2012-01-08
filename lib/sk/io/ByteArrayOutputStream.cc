@@ -1,6 +1,6 @@
 /*  vi: sw=2:
  *  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -17,14 +17,14 @@
 
 sk::io::ByteArrayOutputStream::
 ByteArrayOutputStream(std::vector<char>& buffer)
-  : _vectorHolder(buffer), _depot(0), _depotSize(0), _depotOffset(0), 
+  : _vectorHolder(buffer), _depot(0), _depotSize(0), _depotOffset(0),
     _closed(false)
 {
 }
 
 sk::io::ByteArrayOutputStream::
 ByteArrayOutputStream(char* buffer, uint64_t size)
-  : _depot(buffer), _depotSize(size), _depotOffset(0), 
+  : _depot(buffer), _depotSize(size), _depotOffset(0),
     _closed(false)
 {
   if(_depot == 0) {
@@ -44,7 +44,7 @@ getClass() const
   return sk::util::Class("sk::io::ByteArrayOutputStream");
 }
 
-int 
+int
 sk::io::ByteArrayOutputStream::
 write(const char* buffer, int offset, int length)
 {

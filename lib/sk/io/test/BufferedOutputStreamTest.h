@@ -1,5 +1,5 @@
 /*  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -32,11 +32,11 @@ namespace sk {
           CPPUNIT_TEST(testBufferLimitedWrite);
           CPPUNIT_TEST(testZeroWrite);
         CPPUNIT_TEST_SUITE_END();
-        
+
         public:
           BufferedOutputStreamTest();
           virtual ~BufferedOutputStreamTest();
-          
+
           void setUp();
           void tearDown();
           void testBuffer();
@@ -46,7 +46,7 @@ namespace sk {
           void testNoBuffer();
           void testBufferLimitedWrite();
           void testZeroWrite();
-          
+
         private:
           BufferedOutputStreamTest(const BufferedOutputStreamTest& other);
           BufferedOutputStreamTest& operator = (const BufferedOutputStreamTest& other);

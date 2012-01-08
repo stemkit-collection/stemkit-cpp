@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky (gennady.bystritsky@quest.com)
 */
 
@@ -59,7 +59,7 @@ tearDown()
 
 sk::rt::scope::XmlProcessor&
 sk::rt::scope::test::ConfigBlockLookupTest::
-processor() 
+processor()
 {
   return _processorHolder.getMutable();
 }
@@ -97,9 +97,9 @@ testNonExistentAndNoDefault()
       <scope name='abc'> \n\
         <property name='attr' value='ooo' />\n\
       </scope>\n\
-    ", 
-    "", 
-    _aggregatorHolder.getMutable(), 
+    ",
+    "",
+    _aggregatorHolder.getMutable(),
     std::map<std::string, std::string>())
   );
   processor().start(sk::util::Strings("some"));

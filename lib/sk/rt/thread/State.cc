@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky (gennady.bystritsky@quest.com)
 */
 
@@ -26,8 +26,8 @@ DEFINE_STATE(EXITED);
 DEFINE_STATE(STOPPED);
 DEFINE_STATE(EXCEPTION);
 
-std::ostream& 
-sk::rt::thread::operator<<(std::ostream& stream, const State& state) 
+std::ostream&
+sk::rt::thread::operator<<(std::ostream& stream, const State& state)
 {
   stream << state.inspect();
   return stream;
@@ -59,7 +59,7 @@ getName() const
   return _name;
 }
 
-int 
+int
 sk::rt::thread::State::
 toInt() const
 {

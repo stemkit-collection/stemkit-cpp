@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -18,14 +18,14 @@ namespace sk {
   namespace rt {
     namespace thread {
       namespace mock {
-        class Thread 
+        class Thread
           : public virtual sk::rt::thread::platform::Thread
         {
           public:
             Thread();
             Thread(sk::rt::Runnable& target);
             virtual ~Thread();
-        
+
             void start();
             void stop();
             void interrupt();
@@ -34,7 +34,7 @@ namespace sk {
 
             // sk::util::Object re-implementation.
             const sk::util::Class getClass() const;
-        
+
           private:
             Thread(const Thread& other);
             Thread& operator = (const Thread& other);

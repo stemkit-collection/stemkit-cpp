@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -101,7 +101,7 @@ testUpperBounds()
   CPPUNIT_ASSERT_EQUAL(1, bitset.capacity());
 }
 
-void 
+void
 sk::util::test::BitsetTest::
 testImplicitCapacityAdjustment()
 {
@@ -126,9 +126,9 @@ testImplicitCapacityAdjustment()
   CPPUNIT_ASSERT_EQUAL("992<00000000000000000000000000000010>1024", bitset.inspect());
 }
 
-void 
+void
 sk::util::test::BitsetTest::
-testBulk() 
+testBulk()
 {
   Bitset bitset;
 
@@ -140,7 +140,7 @@ testBulk()
 
   bitset.flipAll();
   CPPUNIT_ASSERT_EQUAL("0<11110101011111111111111111111111>32", bitset.inspect());
-  
+
   bitset.clearAll();
   CPPUNIT_ASSERT_EQUAL("0<00000000000000000000000000000000>32", bitset.inspect());
 
@@ -148,7 +148,7 @@ testBulk()
   CPPUNIT_ASSERT_EQUAL("0<11111111111111111111111111111111>32", bitset.inspect());
 }
 
-void 
+void
 sk::util::test::BitsetTest::
 testCompact()
 {

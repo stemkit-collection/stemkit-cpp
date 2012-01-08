@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -212,7 +212,7 @@ testParseAndInspect()
   CPPUNIT_ASSERT_EQUAL("{ aaa => \" zzz \", bbb => \"124\" }", registry.inspect());
 }
 
-void 
+void
 sk::util::test::PropertiesTest::
 testCopyConstructor()
 {
@@ -226,7 +226,7 @@ testCopyConstructor()
   CPPUNIT_ASSERT_EQUAL("u1", other.getProperty("bbb"));
 }
 
-void 
+void
 sk::util::test::PropertiesTest::
 testCopyRegistry()
 {

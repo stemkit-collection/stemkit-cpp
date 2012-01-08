@@ -1,11 +1,11 @@
 /*  vi: set sw=2:
  *
  *  Copyright (c) 2008, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -41,7 +41,7 @@ getClass() const
 const sk::util::Pathname&
 sk::rt::logger::AbstractCycler::
 getMasterPathname() const
-{ 
+{
   return _masterPathname;
 }
 
@@ -69,7 +69,7 @@ setSize(int size)
   _size = size;
 }
 
-int 
+int
 sk::rt::logger::AbstractCycler::
 getChunks() const
 {
@@ -122,7 +122,7 @@ advance(off_t size)
 
 void
 sk::rt::logger::AbstractCycler::
-init() 
+init()
 {
   if(scanFile() == false) {
     initFile();

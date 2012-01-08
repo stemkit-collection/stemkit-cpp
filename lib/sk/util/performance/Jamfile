@@ -2,7 +2,7 @@
 
 local program = sk-util-benchmarks ;
 
-local objects = 
+local objects =
   Suite.cc
   StringBenchmarker.cc
   VectorBenchmarker.cc

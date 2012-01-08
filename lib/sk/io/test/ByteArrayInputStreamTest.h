@@ -1,5 +1,5 @@
 /*  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -24,11 +24,11 @@ namespace sk {
           CPPUNIT_TEST(testSkip);
           CPPUNIT_TEST(testMarkReset);
         CPPUNIT_TEST_SUITE_END();
-        
+
         public:
           ByteArrayInputStreamTest();
           virtual ~ByteArrayInputStreamTest();
-          
+
           void setUp();
           void tearDown();
           void testEmpty();
@@ -36,7 +36,7 @@ namespace sk {
           void testReadByVector();
           void testSkip();
           void testMarkReset();
-          
+
         private:
           ByteArrayInputStreamTest(const ByteArrayInputStreamTest& other);
           ByteArrayInputStreamTest& operator = (const ByteArrayInputStreamTest& other);

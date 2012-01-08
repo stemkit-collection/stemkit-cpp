@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -12,7 +12,7 @@
 #include <sk/C/test/c_probe_factory.h>
 #include <string.h>
 
-const char* test_probe_factory(char* error_buffer, int error_buffer_size) 
+const char* test_probe_factory(char* error_buffer, int error_buffer_size)
 {
   struct sk_c_test_ProbeFactoryHandle* factory = sk_c_test_ProbeFactory_create();
   if(factory == 0) {

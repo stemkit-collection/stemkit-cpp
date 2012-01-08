@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky (gennady.bystritsky@quest.com)
 */
 
@@ -30,7 +30,7 @@ namespace {
 
 sk::rt::thread::pthreads::Thread::
 Thread(const sk::rt::Scope& scope, const Provider& provider, sk::rt::thread::Generic& handle)
-  : _scope(scope), _provider(provider), _handle(handle), _target(DUMMY_TARGET), 
+  : _scope(scope), _provider(provider), _handle(handle), _target(DUMMY_TARGET),
     _thread(pthread_self()), _wrapper(true), _stopping(false)
 {
   _provider.installGeneric(_handle);
@@ -38,7 +38,7 @@ Thread(const sk::rt::Scope& scope, const Provider& provider, sk::rt::thread::Gen
 
 sk::rt::thread::pthreads::Thread::
 Thread(const sk::rt::Scope& scope, const Provider& provider, sk::rt::Runnable& target, sk::rt::thread::Generic& handle)
-  : _scope(scope), _provider(provider), _target(target), _handle(handle), 
+  : _scope(scope), _provider(provider), _target(target), _handle(handle),
   _thread(0), _wrapper(false), _stopping(false)
 {
 }
@@ -58,7 +58,7 @@ getClass() const
   return sk::util::Class(__className);
 }
 
-void 
+void
 sk::rt::thread::pthreads::Thread::
 start()
 {
@@ -68,7 +68,7 @@ start()
   SK_PTHREAD_RAISE_UNLESS_SUCCESS(pthread_create(&_thread, 0, runner, this));
 }
 
-void 
+void
 sk::rt::thread::pthreads::Thread::
 stop()
 {
@@ -82,28 +82,28 @@ stop()
   }
 }
 
-void 
+void
 sk::rt::thread::pthreads::Thread::
 interrupt()
 {
   throw sk::util::UnsupportedOperationException(SK_METHOD);
 }
 
-void 
+void
 sk::rt::thread::pthreads::Thread::
 join()
 {
   SK_PTHREAD_RAISE_UNLESS_SUCCESS(pthread_join(_thread, 0));
 }
 
-void 
+void
 sk::rt::thread::pthreads::Thread::
 detach()
 {
   SK_PTHREAD_RAISE_UNLESS_SUCCESS(pthread_detach(_thread));
 }
 
-void 
+void
 sk::rt::thread::pthreads::Thread::
 run()
 {

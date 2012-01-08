@@ -1,10 +1,10 @@
 /*  vim: sw=2:
  *  Copyright (c) 2008, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -53,7 +53,7 @@ toNetworkOrder(const uint32_t number)
   return htonl(number);
 }
 
-const sk::util::String 
+const sk::util::String
 sk::net::ip4::InetAddress::
 lookupHostName() const
 {

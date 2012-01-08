@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -46,7 +46,7 @@ lock()
   registerOwnership();
 }
 
-void 
+void
 sk::rt::thread::AbstractLock::
 registerOwnership()
 {
@@ -124,14 +124,14 @@ inspect() const
   return stream.str();
 }
 
-const sk::util::Object& 
+const sk::util::Object&
 sk::rt::thread::AbstractLock::
 getObject() const
 {
   return _mutexHolder.get().getObject();
 }
 
-sk::util::Object& 
+sk::util::Object&
 sk::rt::thread::AbstractLock::
 getObject()
 {

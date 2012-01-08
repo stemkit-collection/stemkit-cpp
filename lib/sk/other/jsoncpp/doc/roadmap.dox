@@ -5,9 +5,9 @@
 	- Add enable/disable flag for static and shared library build
 	- Enhance help
   - Platform portability check: (Notes: was ok on last check)
-	- linux/gcc, 
-	- solaris/cc, 
-	- windows/msvc678, 
+	- linux/gcc,
+	- solaris/cc,
+	- windows/msvc678,
 	- aix/vacpp
   - Add JsonCpp version to header as numeric for use in preprocessor test
   - Remove buggy experimental hash stuff

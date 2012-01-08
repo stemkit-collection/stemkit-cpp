@@ -1,10 +1,10 @@
 /*  vim: sw=2:
  *  Copyright (c) 2008, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -83,28 +83,28 @@ toString(const sk::util::bytes& components)
   return components.join(".");
 }
 
-const sk::util::String 
+const sk::util::String
 sk::net::ip4::InetAddress::
 getHostAddress() const
 {
   return toString(getAddress());
 }
 
-bool 
+bool
 sk::net::ip4::InetAddress::
 isLoopbackAddress() const
 {
   return getAddress()[0] == 0x7F;
 }
 
-bool 
+bool
 sk::net::ip4::InetAddress::
 isAnyLocalAddress() const
 {
   return _number == 0;
 }
 
-bool 
+bool
 sk::net::ip4::InetAddress::
 isSiteLocalAddress() const
 {
@@ -127,7 +127,7 @@ isSiteLocalAddress() const
   return false;
 }
 
-bool 
+bool
 sk::net::ip4::InetAddress::
 isMulticastAddress() const
 {

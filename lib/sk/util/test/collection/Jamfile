@@ -2,7 +2,7 @@
 
 test = sk-util-test ;
 
-test-objects = 
+test-objects =
   TestSuite.cc
   AliasingProcessorTest.cc
 

@@ -1,5 +1,5 @@
 /*  Copyright (c) 2005, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -44,7 +44,7 @@ testBasics()
 
 namespace {
   struct Class : public sk::util::Class {
-    Class() 
+    Class()
       : sk::util::Class("abc") {}
 
     uint64_t getId() const {

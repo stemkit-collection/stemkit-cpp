@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -26,17 +26,17 @@ namespace sk {
             CPPUNIT_TEST(testOne);
             CPPUNIT_TEST(testMany);
           CPPUNIT_TEST_SUITE_END();
-        
+
           public:
             StructNodeTest();
             virtual ~StructNodeTest();
-        
+
             void setUp();
             void tearDown();
             void testEmpty();
             void testOne();
             void testMany();
-        
+
           private:
             StructNodeTest(const StructNodeTest& other);
             StructNodeTest& operator = (const StructNodeTest& other);

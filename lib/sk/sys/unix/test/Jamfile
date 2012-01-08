@@ -2,7 +2,7 @@
 
 local test = sk-sys-test ;
 
-local objects = 
+local objects =
   ProcessTest.cc
   PipeProcessTest.cc
   DaemonProcessTest.cc
@@ -12,13 +12,13 @@ local objects =
   TestSuite.cc
 ;
 
-use-project-library $(test) : 
-  sk.cppunit 
-  sk.sys 
-  sk.io 
+use-project-library $(test) :
+  sk.cppunit
+  sk.sys
+  sk.io
   sk.rt.thread
-  sk.rt.bundle 
-  sk.util 
+  sk.rt.bundle
+  sk.util
 ;
 
 use-unit-test $(test) $(objects) ;

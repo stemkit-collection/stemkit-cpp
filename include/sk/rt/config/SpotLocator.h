@@ -1,5 +1,5 @@
 /*  Copyright (c) 2007, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -40,14 +40,14 @@ namespace sk {
 
         protected:
           static const SpotLocator DUMMY;
-          
+
         private:
           SpotLocator();
           SpotLocator& operator = (const SpotLocator& other);
 
           // sk::rt::config::NamedStreamOpener imlementation.
           std::istream* openStream(const sk::util::Pathname& pathname) const;
-          
+
           void becomeDummy();
           bool isDummy() const;
           const NamedStreamOpener& getStreamOpener() const;

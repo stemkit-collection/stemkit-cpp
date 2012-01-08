@@ -1,10 +1,10 @@
 /*  vim: sw=2:
  *  Copyright (c) 2011, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -65,14 +65,14 @@ sk::net::ip4::DirectedSocket::
   }
 }
 
-sk::net::DirectedSocket* 
+sk::net::DirectedSocket*
 sk::net::ip4::DirectedSocket::
 streamSocket(const uint32_t number, const uint16_t port)
 {
   return new sk::net::ip4::DirectedSocket(number, port, ::socket(PF_INET, SOCK_STREAM, 0));
 }
 
-sk::net::DirectedSocket* 
+sk::net::DirectedSocket*
 sk::net::ip4::DirectedSocket::
 datagramSocket(const uint32_t number, const uint16_t port)
 {
@@ -98,7 +98,7 @@ bind() const
   }
 }
 
-void 
+void
 sk::net::ip4::DirectedSocket::
 listen(const int backlog) const
 {
@@ -107,7 +107,7 @@ listen(const int backlog) const
   }
 }
 
-void 
+void
 sk::net::ip4::DirectedSocket::
 connect() const
 {
@@ -122,7 +122,7 @@ connect() const
   }
 }
 
-sk::net::DirectedSocket* 
+sk::net::DirectedSocket*
 sk::net::ip4::DirectedSocket::
 accept() const
 {
@@ -139,7 +139,7 @@ accept() const
   return new sk::net::ip4::DirectedSocket(addr, socket);
 }
 
-void 
+void
 sk::net::ip4::DirectedSocket::
 sendto(const std::vector<char>& data, const sk::net::InetAddress& address, const uint16_t port) const
 {
@@ -161,7 +161,7 @@ sendto(const std::vector<char>& data, const sk::net::InetAddress& address, const
   }
 }
 
-const sk::net::InetSocketAddress 
+const sk::net::InetSocketAddress
 sk::net::ip4::DirectedSocket::
 recvfrom(std::vector<char>& data) const
 {

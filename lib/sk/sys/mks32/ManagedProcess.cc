@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky (gennady.bystritsky@quest.com)
 */
 
@@ -49,7 +49,7 @@ getPid() const
   return _pid;
 }
 
-void 
+void
 sk::sys::ManagedProcess::
 stop()
 {
@@ -58,7 +58,7 @@ stop()
   }
 }
 
-void 
+void
 sk::sys::ManagedProcess::
 kill()
 {
@@ -67,7 +67,7 @@ kill()
   }
 }
 
-void 
+void
 sk::sys::ManagedProcess::
 terminate()
 {
@@ -76,7 +76,7 @@ terminate()
   }
 }
 
-void 
+void
 sk::sys::ManagedProcess::
 interrupt()
 {
@@ -98,7 +98,7 @@ tryTerminate(int tolerance)
   return isAlive() == false;
 }
 
-void 
+void
 sk::sys::ManagedProcess::
 join()
 {
@@ -107,34 +107,34 @@ join()
   }
 }
 
-void 
+void
 sk::sys::ManagedProcess::
 detach()
 {
 }
 
-bool 
+bool
 sk::sys::ManagedProcess::
 isSuccess() const
 {
   throw sk::util::UnsupportedOperationException(SK_METHOD);
 }
 
-bool 
+bool
 sk::sys::ManagedProcess::
 isExited() const
 {
   throw sk::util::UnsupportedOperationException(SK_METHOD);
 }
 
-bool 
+bool
 sk::sys::ManagedProcess::
 isKilled() const
 {
   throw sk::util::UnsupportedOperationException(SK_METHOD);
 }
 
-bool 
+bool
 sk::sys::ManagedProcess::
 isAlive() const
 {
@@ -146,14 +146,14 @@ isAlive() const
   return true;
 }
 
-int 
+int
 sk::sys::ManagedProcess::
 exitStatus() const
 {
   throw sk::util::UnsupportedOperationException(SK_METHOD);
 }
 
-int 
+int
 sk::sys::ManagedProcess::
 signal() const
 {

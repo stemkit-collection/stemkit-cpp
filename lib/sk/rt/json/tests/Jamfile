@@ -2,7 +2,7 @@
 
 local test = sk-rt-json-test ;
 
-local objects = 
+local objects =
   TestSuite.cc
   ItemTest.cc
 ;

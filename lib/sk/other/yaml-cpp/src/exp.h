@@ -27,8 +27,8 @@ namespace YAML
 		const RegEx AlphaNumeric = Alpha || Digit;
 		const RegEx Hex = Digit || RegEx('A', 'F') || RegEx('a', 'f');
 		// Valid Unicode code points that are not part of c-printable (YAML 1.2, sec. 5.1)
-		const RegEx NotPrintable = RegEx(0) || 
-			RegEx("\x01\x02\x03\x04\x05\x06\x07\x08\x0B\x0C\x7F", REGEX_OR) || 
+		const RegEx NotPrintable = RegEx(0) ||
+			RegEx("\x01\x02\x03\x04\x05\x06\x07\x08\x0B\x0C\x7F", REGEX_OR) ||
 			RegEx(0x0E, 0x1F) ||
 			(RegEx('\xC2') + (RegEx('\x80', '\x84') || RegEx('\x86', '\x9F')));
 		const RegEx Utf8_ByteOrderMark = RegEx("\xEF\xBB\xBF");

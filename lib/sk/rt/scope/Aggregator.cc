@@ -1,6 +1,6 @@
 /*  vim:sw=2:
  *  Copyright (c) 2007, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -36,7 +36,7 @@ sk::rt::scope::Aggregator::
 {
 }
 
-void 
+void
 sk::rt::scope::Aggregator::
 resetArbitrator()
 {

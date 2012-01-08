@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky (gennady.bystritsky@quest.com)
 */
 
@@ -18,7 +18,7 @@
 
 namespace sk {
   namespace io {
-    class Console 
+    class Console
       : public virtual sk::util::Object
     {
       public:
@@ -28,10 +28,10 @@ namespace sk {
         void close();
         sk::io::InputStream& inputStream() const ;
         sk::io::OutputStream& outputStream() const ;
-    
+
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
-    
+
       private:
         Console(const Console& other);
         Console& operator = (const Console& other);

@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -39,14 +39,14 @@ getClass() const
   return sk::util::Class(__className);
 }
 
-void 
+void
 sk::rt::bm::Executor::
 init() {
 }
 
-void 
+void
 sk::rt::bm::Executor::
-start() throw() 
+start() throw()
 {
   _scope.info(_title) << "started";
   sk::rt::Benchmarkable& code = _codeHolder.getMutable();
@@ -69,9 +69,9 @@ start() throw()
   code.reset();
 }
 
-void 
+void
 sk::rt::bm::Executor::
-report(int indent, std::ostream& stream) const 
+report(int indent, std::ostream& stream) const
 {
   sk::util::String prefix = sk::util::String(' ') * indent;
   stream << prefix << std::setw(_maxTitleSize) << _title << ":";

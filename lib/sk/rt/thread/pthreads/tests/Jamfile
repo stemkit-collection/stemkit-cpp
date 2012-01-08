@@ -1,6 +1,6 @@
 # vim: ft=jam: sw=2:
 
-local generic-objects = 
+local generic-objects =
   TestSuite.cc
   SingularMutexTest.cc
   RecursiveMutexTest.cc
@@ -9,7 +9,7 @@ local generic-objects =
   ../../tests/ConditionMediatorTest.cc
 ;
 
-local condition-mediator-objects = 
+local condition-mediator-objects =
   ConditionMediatorTestSuite.cc
   ConditionMediatorImplementationTest.cc
 ;

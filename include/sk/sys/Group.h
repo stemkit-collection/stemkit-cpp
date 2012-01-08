@@ -1,5 +1,5 @@
 /*  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -14,7 +14,7 @@
 namespace sk {
   namespace sys {
     class Group
-      : public virtual sk::util::Object 
+      : public virtual sk::util::Object
     {
       public:
         // Default copy constructor is sufficient for now.
@@ -23,12 +23,12 @@ namespace sk {
 
         const sk::util::String getName() const;
         int getGid() const;
-        
+
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
 
         static const sk::sys::Group find(const sk::util::String& name);
-        
+
       private:
         Group(const sk::util::String& name, int id);
         Group& operator = (const Group& other);

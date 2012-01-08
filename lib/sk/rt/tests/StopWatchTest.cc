@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -54,9 +54,9 @@ testTicking()
   CPPUNIT_ASSERT(stopwatch.isTicking() == false);
 }
 
-void 
+void
 sk::rt::tests::StopWatchTest::
-testNotStarted() 
+testNotStarted()
 {
   sk::rt::StopWatch stopwatch;
 
@@ -68,7 +68,7 @@ testNotStarted()
   CPPUNIT_ASSERT(stopwatch.getMilliseconds() == 0);
 }
 
-void 
+void
 sk::rt::tests::StopWatchTest::
 testChangesUntilStopped()
 {
@@ -95,9 +95,9 @@ testChangesUntilStopped()
   CPPUNIT_ASSERT(stopwatch.getMilliseconds() == saved);
 }
 
-void 
+void
 sk::rt::tests::StopWatchTest::
-testInspect() 
+testInspect()
 {
   sk::rt::StopWatch stopwatch;
   CPPUNIT_ASSERT_EQUAL("<StopWatch: not started, 00:00:00.000,000>", stopwatch.inspect());

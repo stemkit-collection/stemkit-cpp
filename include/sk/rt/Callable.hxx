@@ -1,10 +1,10 @@
 /*  vim: sw=2:
  *  Copyright (c) 2011, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -14,12 +14,12 @@
 namespace sk {
   namespace rt {
     template<typename C, typename P1 = void, typename P2 = void, typename P3 = void>
-    class Callable 
+    class Callable
     {
       public:
         Callable(const C callable, P1 p1, P2 p2, P3 p3)
           : _callable(callable), _p1(p1), _p2(p2), _p3(p3) {}
-    
+
         template<typename T>
         void callTarget(T& target) const {
           (target.*_callable)(_p1, _p2, _p3);
@@ -49,7 +49,7 @@ namespace sk {
       public:
         Callable(const C callable, P1 p1, P2 p2)
           : _callable(callable), _p1(p1), _p2(p2) {}
-    
+
         template<typename T>
         void callTarget(T& target) const {
           (target.*_callable)(_p1, _p2);
@@ -78,7 +78,7 @@ namespace sk {
       public:
         Callable(const C callable, P1 p1)
           : _callable(callable), _p1(p1) {}
-    
+
         template<typename T>
         void callTarget(T& target) const {
           (target.*_callable)(_p1);
@@ -106,7 +106,7 @@ namespace sk {
       public:
         Callable(const C callable)
           : _callable(callable) {}
-    
+
         template<typename T>
         void callTarget(T& target) const {
           (target.*_callable)();

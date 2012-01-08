@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -41,7 +41,7 @@ namespace {
   struct RecursiveLockingBenchmark : public virtual sk::rt::Benchmark {
     RecursiveLockingBenchmark(sk::rt::Lock* lock)
       : _lockHolder(lock), _lock(_lockHolder.getMutable()) {}
-      
+
     void run() {
       for(int iterations = 30000; iterations; --iterations) {
         for(int lock_counter=100; lock_counter; --lock_counter)  {
@@ -59,7 +59,7 @@ namespace {
   struct FlatLockingBenchmark : public virtual sk::rt::Benchmark {
     FlatLockingBenchmark(sk::rt::Lock* lock)
       : _lockHolder(lock), _lock(_lockHolder.getMutable()) {}
-      
+
     void run() {
       for(int iterations = 30000; iterations; --iterations) {
         for(int lock_counter=100; lock_counter; --lock_counter)  {
@@ -74,7 +74,7 @@ namespace {
 
 }
 
-void 
+void
 sk::util::performance::LockBenchmarker::
 setUp()
 {

@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky (gennady.bystritsky@quest.com)
 */
 
@@ -25,17 +25,17 @@ namespace sk {
           CPPUNIT_TEST(testCastSucceeds);
           CPPUNIT_TEST(testFailedCastDeletesProbe);
         CPPUNIT_TEST_SUITE_END();
-      
+
         public:
           CovariantWorkaroundTest();
           virtual ~CovariantWorkaroundTest();
-      
+
           void setUp();
           void tearDown();
           void testProbe();
           void testCastSucceeds();
           void testFailedCastDeletesProbe();
-      
+
         private:
           CovariantWorkaroundTest(const CovariantWorkaroundTest& other);
           CovariantWorkaroundTest& operator = (const CovariantWorkaroundTest& other);

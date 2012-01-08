@@ -1,6 +1,6 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -25,7 +25,7 @@ namespace sk {
 
         int getCode() const;
         const std::string getMessage() const;
-        
+
       private:
         int _code;
         const std::string _message;

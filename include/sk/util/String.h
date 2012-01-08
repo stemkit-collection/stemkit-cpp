@@ -1,6 +1,6 @@
 /*  vi: sw=2:
  *  Copyright (c) 2005, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -48,8 +48,8 @@ namespace sk {
         const String strip() const;
         //@}
 
-        /// Returns a new string where runs of a specified characters are 
-        /// replaced by a single character. 
+        /// Returns a new string where runs of a specified characters are
+        /// replaced by a single character.
         const String squeeze(char character) const;
 
         /// Returns a new string concatenated from specified number of copies
@@ -58,7 +58,7 @@ namespace sk {
 
         /// Returns true if this string contains the specified substring.
         bool contains(const sk::util::String& other) const;
-        
+
         /// Returns true if this string contains the specified substring,
         /// ignoring case considerations.
         bool containsIgnoreCase(const sk::util::String& other) const;
@@ -72,8 +72,8 @@ namespace sk {
 
         /// Tests if this string ends with the specified suffix.
         bool endsWith(const sk::util::String& suffix) const;
-        
-        /// Tests if this string ends with the specified suffix with 
+
+        /// Tests if this string ends with the specified suffix with
         /// ignoring case considerations.
         bool endsWithIgnoreCase(const sk::util::String& suffix) const;
 
@@ -108,7 +108,7 @@ namespace sk {
 
         /// Returns a new string that is a substring of this string.
         const String substring(int beginIndex) const;
-        
+
         /// Returns a new string that is a substring of this string.
         const String substring(int beginIndex, int endIndex) const;
 

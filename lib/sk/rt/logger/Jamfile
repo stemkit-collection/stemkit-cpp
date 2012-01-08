@@ -1,7 +1,7 @@
 
 library = sk.rt.logger ;
 
-local objects = 
+local objects =
   Spot.cc
   Level.cc
   Stream.cc

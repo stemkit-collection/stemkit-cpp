@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -17,8 +17,8 @@ CPPUNIT_TEST_SUITE_REGISTRATION(sk::C::test::AbortTest);
 
 static bool abort_raised = false;
 
-extern "C" 
-void abort() 
+extern "C"
+void abort()
 {
   if(abort_raised == true) {
     std::cerr << "!!! ANOTHER ABORT ACTIVATED. EXITTING !!!";
@@ -117,7 +117,7 @@ testCanContinueAfterClear()
   try {
     sk::C::test::Probe probe("abc");
     sk_c_test_ProbeHandle* handle = probe.get_c_handle();
-    
+
     char error_buffer[512];
     sk_c_test_Probe_raiseException(handle, "abc");
     CPPUNIT_ASSERT(sk_c_handle_isError(sk_c_test_ProbeHandle_toHandle(handle)));
@@ -132,14 +132,14 @@ testCanContinueAfterClear()
   }
 }
 
-void 
+void
 sk::C::test::AbortTest::
 testAbortsOnNextCallWhenNotCleared()
 {
   try {
     sk::C::test::Probe probe("abc");
     sk_c_test_ProbeHandle* handle = probe.get_c_handle();
-    
+
     char error_buffer[512];
     sk_c_test_Probe_raiseException(handle, "abc");
 

@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -31,11 +31,11 @@ namespace sk {
           CPPUNIT_TEST(testCopyConstructor);
           CPPUNIT_TEST(testCopyRegistry);
         CPPUNIT_TEST_SUITE_END();
-      
+
         public:
           PropertiesTest();
           virtual ~PropertiesTest();
-      
+
           void setUp();
           void tearDown();
           void testBasics();
@@ -47,7 +47,7 @@ namespace sk {
           void testParseAndInspect();
           void testCopyConstructor();
           void testCopyRegistry();
-      
+
         private:
           PropertiesTest(const PropertiesTest& other);
           PropertiesTest& operator = (const PropertiesTest& other);

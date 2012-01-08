@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -19,7 +19,7 @@ namespace sk {
     namespace test {
       class Probe;
 
-      class ProbeFactory 
+      class ProbeFactory
         : public virtual sk::util::Object
       {
         public:
@@ -28,10 +28,10 @@ namespace sk {
 
           int getSize() const;
           sk::C::test::Probe& makeProbe(const sk::util::String& name);
-      
+
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
-      
+
         private:
           ProbeFactory(const ProbeFactory& other);
           ProbeFactory& operator = (const ProbeFactory& other);

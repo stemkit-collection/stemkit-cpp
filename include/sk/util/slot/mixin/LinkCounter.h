@@ -1,5 +1,5 @@
 /*  Copyright (c) 2007, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -16,13 +16,13 @@ namespace sk {
       namespace mixin {
         class LinkCounter {
           public:
-            LinkCounter() 
+            LinkCounter()
               : _counter(0) {}
 
             bool linkUp() {
               return _counter++ == 0;
             }
-            
+
             bool linkDown() {
               return _counter > 0 ? --_counter == 0 : true;
             }

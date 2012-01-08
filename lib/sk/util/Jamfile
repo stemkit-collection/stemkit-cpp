@@ -1,7 +1,7 @@
 
 library = sk.util ;
 
-objects = 
+objects =
   Object.cc
   Class.cc
   Method.cc
@@ -47,9 +47,9 @@ make-shared-library $(library) : $(objects) ;
 add-project-library $(library) : $(library).trace ;
 add-project-library $(library) : $(library).pp ;
 
-make-subdir 
+make-subdir
   trace
-  pp 
-  test 
-  performance 
+  pp
+  test
+  performance
 ;

@@ -1,5 +1,5 @@
 /*  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -21,16 +21,16 @@ namespace sk {
           CPPUNIT_TEST(testFind);
           CPPUNIT_TEST(testAuthenticate);
         CPPUNIT_TEST_SUITE_END();
-        
+
         public:
           UserTest();
           virtual ~UserTest();
-          
+
           void setUp();
           void tearDown();
           void testFind();
           void testAuthenticate();
-          
+
         private:
           UserTest(const UserTest& other);
           UserTest& operator = (const UserTest& other);

@@ -1,9 +1,9 @@
 /*  Copyright (c) 2008, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -39,7 +39,7 @@ namespace sk {
           bool isAnyLocalAddress() const;
           bool isSiteLocalAddress() const;
           bool isMulticastAddress() const;
-          
+
           // sk::net::InetAddress implementation.
           sk::net::DirectedSocket* directedStreamSocket(const uint16_t port) const;
           sk::net::DirectedSocket* directedDatagramSocket(const uint16_t port) const;
@@ -47,7 +47,7 @@ namespace sk {
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
           sk::util::Object* clone() const;
-          
+
         protected:
           // sk::net::InetAddress implementation.
           const sk::util::String lookupHostName() const;

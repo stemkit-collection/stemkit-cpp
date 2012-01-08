@@ -4,8 +4,8 @@ local programs = tcp-echo tcp-echo-client ;
 
 local _program ;
 for program in $(programs) {
-  use-project-libraries $(program) : 
-    sk.sys sk.io sk.rt.thread sk.rt.bundle sk.util 
+  use-project-libraries $(program) :
+    sk.sys sk.io sk.rt.thread sk.rt.bundle sk.util
   ;
   make-program $(program) : $(program).cc ;
 }

@@ -37,27 +37,27 @@ namespace YAML
 		struct IndentMarker {
 			enum INDENT_TYPE { MAP, SEQ, NONE };
 			IndentMarker(int column_, INDENT_TYPE type_): column(column_), type(type_), isValid(true), pStartToken(0) {}
-		
+
 			int column;
 			INDENT_TYPE type;
 			bool isValid;
 			Token *pStartToken;
 		};
-		
+
 		enum FLOW_MARKER { FLOW_MAP, FLOW_SEQ };
-	
-	private:	
+
+	private:
 		// scanning
 		void EnsureTokensInQueue();
 		void ScanNextToken();
 		void ScanToNextToken();
 		void StartStream();
 		void EndStream();
-		
+
 		bool InFlowContext() const { return !m_flows.empty(); }
 		bool InBlockContext() const { return m_flows.empty(); }
 		int GetFlowLevel() const { return m_flows.size(); }
-		
+
 		IndentMarker *PushIndentTo(int column, IndentMarker::INDENT_TYPE type);
 		void PopIndentToHere();
 		void PopAllIndents();
@@ -71,7 +71,7 @@ namespace YAML
 		void InvalidateSimpleKey();
 		bool VerifySimpleKey();
 		void PopAllSimpleKeys();
-		
+
 		void ThrowParserException(const std::string& msg) const;
 
 		bool IsWhitespaceToBeEaten(char ch);
@@ -81,7 +81,7 @@ namespace YAML
 
 			void Validate();
 			void Invalidate();
-			
+
 			Mark mark;
 			int flowLevel;
 			IndentMarker *pIndent;

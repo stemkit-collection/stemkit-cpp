@@ -1,14 +1,14 @@
 
 library = sk.rt.scope ;
 
-objects = 
+objects =
   Controller.cc
   Config.cc
   Aggregator.cc
   XmlConfigLoader.cc
 ;
 
-xml-objects = 
+xml-objects =
   XmlProcessor.cc
 ;
 

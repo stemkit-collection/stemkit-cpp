@@ -1,10 +1,10 @@
 /*  vim: sw=2:
  *  Copyright (c) 2011, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky (gennady.bystritsky@quest.com)
 */
 
@@ -18,7 +18,7 @@ static const sk::util::String __className("sk::util::ProducerReference");
 
 sk::util::trace::ProducerReference::
 ProducerReference(sk::util::trace::Producer* producer)
-  : _producerHolder(producer), _producer(_producerHolder.getMutable()), 
+  : _producerHolder(producer), _producer(_producerHolder.getMutable()),
     _links(0), _traceCollected(false), _resetDone(false)
 {
   try {
@@ -61,7 +61,7 @@ unlink()
 
 const sk::util::String&
 sk::util::trace::ProducerReference::
-trace() 
+trace()
 {
   ensureTraceCollected();
   return _trace;
@@ -69,7 +69,7 @@ trace()
 
 const sk::util::String&
 sk::util::trace::ProducerReference::
-traceWithMessage(const sk::util::String& message) 
+traceWithMessage(const sk::util::String& message)
 {
   ensureTraceCollected();
   _buffer = message + "\n" + _trace;
@@ -77,14 +77,14 @@ traceWithMessage(const sk::util::String& message)
   return _buffer;
 }
 
-void 
+void
 sk::util::trace::ProducerReference::
 finalizeFor(const sk::util::String& scope)
 {
   if(_resetDone == true) {
     return;
   }
-  try { 
+  try {
     _producer.finalizeFor(scope);
   }
   catch(const std::exception& exception) {
@@ -133,9 +133,9 @@ ensureTraceCollected()
   }
 }
 
-void 
+void
 sk::util::trace::ProducerReference::
-setError(const sk::util::String& stage, const sk::util::Strings& messages) 
+setError(const sk::util::String& stage, const sk::util::Strings& messages)
 {
   _traceCollected = true;
   _trace += "<Error in trace " + stage + ": " + messages.join(": ") + ">";

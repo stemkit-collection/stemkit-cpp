@@ -1,5 +1,5 @@
 /*  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -38,56 +38,56 @@ close()
   closeOutput();
 }
 
-void 
+void
 sk::io::AbstractFileDescriptorPipe::
 closeInput()
 {
   _inputStreamHolder.getMutable().close();
 }
 
-void 
+void
 sk::io::AbstractFileDescriptorPipe::
 closeOutput()
 {
   _outputStreamHolder.getMutable().close();
 }
 
-sk::io::FileDescriptorInputStream& 
+sk::io::FileDescriptorInputStream&
 sk::io::AbstractFileDescriptorPipe::
 inputStream() const
 {
   return _inputStreamHolder.getMutable();
 }
 
-sk::io::FileDescriptorOutputStream& 
+sk::io::FileDescriptorOutputStream&
 sk::io::AbstractFileDescriptorPipe::
 outputStream() const
 {
   return _outputStreamHolder.getMutable();
 }
 
-void 
+void
 sk::io::AbstractFileDescriptorPipe::
 setInputFileDescriptor(int fd)
 {
   _inputStreamHolder.set(new FileDescriptorInputStream(fd));
 }
 
-void 
+void
 sk::io::AbstractFileDescriptorPipe::
 setOutputFileDescriptor(int fd)
 {
   _outputStreamHolder.set(new FileDescriptorOutputStream(fd));
 }
 
-void 
+void
 sk::io::AbstractFileDescriptorPipe::
 setInputFileDescriptor(const sk::io::FileDescriptor& descriptor)
 {
   _inputStreamHolder.set(new FileDescriptorInputStream(descriptor));
 }
 
-void 
+void
 sk::io::AbstractFileDescriptorPipe::
 setOutputFileDescriptor(const sk::io::FileDescriptor& descriptor)
 {

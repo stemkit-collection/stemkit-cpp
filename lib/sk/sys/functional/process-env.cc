@@ -1,10 +1,10 @@
 /*  vim: sw=4:
  *  Copyright (c) 2011, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -28,7 +28,7 @@ int main(int argc, const char* const argv[])
     sk::sys::Process::setup();
 
     Listener listener;
-    try { 
+    try {
         sk::sys::Process process("./print-env", listener);
         process.join();
     }

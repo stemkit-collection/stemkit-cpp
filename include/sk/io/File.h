@@ -1,6 +1,6 @@
 /*  vi: sw=2:
  *  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -56,7 +56,7 @@ namespace sk {
         static bool isDevice(const sk::util::String& path);
         static void unlink(const sk::util::String& path);
         static void rename(const sk::util::String& oldpath, const sk::util::String& newpath);
-        
+
       private:
         File& operator = (const File& other);
 
@@ -96,5 +96,5 @@ namespace sk {
    "b" |  (DOS/Windows only) Binary file mode (may appear with
        |  any of the key letters listed above).
 #endif
-  
+
 #endif /* _SK_IO_FILE_ */

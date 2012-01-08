@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky (gennady.bystritsky@quest.com)
 */
 
@@ -28,11 +28,11 @@ namespace sk {
           CPPUNIT_TEST(testFailedCommand);
           CPPUNIT_TEST(testStreamCommunication);
         CPPUNIT_TEST_SUITE_END();
-      
+
         public:
           DaemonProcessTest();
           virtual ~DaemonProcessTest();
-      
+
           void setUp();
           void tearDown();
           void testStartStop();
@@ -41,7 +41,7 @@ namespace sk {
           void testDestroyLeavesProcessWhenExplicitlyDetached();
           void testFailedCommand();
           void testStreamCommunication();
-      
+
         private:
           DaemonProcessTest(const DaemonProcessTest& other);
           DaemonProcessTest& operator = (const DaemonProcessTest& other);

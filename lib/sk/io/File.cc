@@ -1,6 +1,6 @@
 /*  vi: sw=2:
  *  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -182,42 +182,42 @@ size() const
   return info().getSize();
 }
 
-bool 
+bool
 sk::io::File::
 exists(const sk::util::String& path)
 {
   return std::ifstream(path.getChars()).good();
 }
 
-bool 
+bool
 sk::io::File::
 isRegular(const sk::util::String& path)
 {
   return sk::io::FileInfo(path).isRegular();
 }
 
-bool 
+bool
 sk::io::File::
 isDirectory(const sk::util::String& path)
 {
   return sk::io::FileInfo(path).isDirectory();
 }
 
-bool 
+bool
 sk::io::File::
 isPipe(const sk::util::String& path)
 {
   return sk::io::FileInfo(path).isPipe();
 }
 
-bool 
+bool
 sk::io::File::
 isDevice(const sk::util::String& path)
 {
   return sk::io::FileInfo(path).isDevice();
 }
 
-void 
+void
 sk::io::File::
 unlink(const sk::util::String& path)
 {
@@ -226,7 +226,7 @@ unlink(const sk::util::String& path)
   }
 }
 
-void 
+void
 sk::io::File::
 rename(const sk::util::String& oldpath, const sk::util::String& newpath)
 {

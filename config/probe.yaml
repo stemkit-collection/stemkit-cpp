@@ -1,9 +1,9 @@
 # vim: ft=yaml: sw=2:
 #
 log:
-  destination: std::cerr 
-  level: info 
-  show-time: true 
+  destination: std::cerr
+  level: info
+  show-time: true
   show-object: true
 
 scopes:
@@ -14,10 +14,10 @@ scopes:
       show-object: true
       show-pid: true
       show-time: false
-      file: 
+      file:
         location: logs
         size: 2K
-        chunks: 3 
+        chunks: 3
         use-pipe: true
 
     scopes:
@@ -32,12 +32,12 @@ scopes:
       destination: file
       level: debug
       time-format: %d-%H%M%S
-      show-pid: true 
+      show-pid: true
       show-time: true
       show-object: true
-      file: 
+      file:
         location: logs
-        size: 3K 
+        size: 3K
         chunks: 4
         ensure-chunks: true
         policy: pointing

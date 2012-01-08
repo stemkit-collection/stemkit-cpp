@@ -1,5 +1,5 @@
 /*  Copyright (c) 2008, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -21,11 +21,11 @@ namespace ruby {
       bool error(const sk::util::String& message) const {
         return (_scope.error() << message).isEnabled();
       }
-      
+
       bool stat(const sk::util::String& message) const {
         return (_scope.stat() << message).isEnabled();
       }
-      
+
       bool warning(const sk::util::String& message) const {
         return (_scope.warning() << message).isEnabled();
       }

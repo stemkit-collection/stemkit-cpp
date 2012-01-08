@@ -5,7 +5,7 @@
 #include <iostream>
 
 struct Ticker : public virtual sk::rt::Runnable {
-  Ticker(sk::rt::Lock& lock) 
+  Ticker(sk::rt::Lock& lock)
     : _lock(lock) {}
 
   void run() {

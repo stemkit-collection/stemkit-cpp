@@ -1,5 +1,5 @@
 /*  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -35,28 +35,28 @@ getClass() const
   return sk::util::Class("sk::io::DelegatingInputStream");
 }
 
-sk::io::InputStream& 
+sk::io::InputStream&
 sk::io::DelegatingInputStream::
 getInputStream() const
 {
   return _streamHolder.getMutable();
 }
 
-int 
+int
 sk::io::DelegatingInputStream::
 read(char* buffer, int offset, int length)
 {
   return _streamHolder.getMutable().read(buffer, offset, length);
 }
 
-void 
+void
 sk::io::DelegatingInputStream::
 close()
 {
   _streamHolder.getMutable().close();
 }
 
-int 
+int
 sk::io::DelegatingInputStream::
 skip(int number)
 {
@@ -70,28 +70,28 @@ available() const
   return _streamHolder.get().available();
 }
 
-bool 
+bool
 sk::io::DelegatingInputStream::
 markSupported() const
 {
   return _streamHolder.get().markSupported();
 }
 
-void 
+void
 sk::io::DelegatingInputStream::
 mark(int readlimit)
 {
   _streamHolder.getMutable().mark(readlimit);
 }
 
-void 
+void
 sk::io::DelegatingInputStream::
 reset()
 {
   _streamHolder.getMutable().reset();
 }
 
-void 
+void
 sk::io::DelegatingInputStream::
 inheritable(bool state)
 {

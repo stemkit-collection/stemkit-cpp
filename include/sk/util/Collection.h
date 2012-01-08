@@ -1,6 +1,6 @@
 /*  vi: sw=2:
  *  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -19,29 +19,29 @@ namespace sk {
   namespace util {
     template<typename T>
     class Collection
-      : public virtual sk::util::Object 
+      : public virtual sk::util::Object
     {
       public:
-        /// Returns an immutalbe element for which the specified selector 
+        /// Returns an immutalbe element for which the specified selector
         /// assesses to true. Throws sk::util::NoSuchElementException if
         /// such an element is not present in this collection.
         virtual const T& get(const Selector<T>& selector) const = 0;
-        
-        /// Returns a mutalbe element for which the specified selector assesses 
-        /// to true. Throws sk::util::NoSuchElementException if such an element 
+
+        /// Returns a mutalbe element for which the specified selector assesses
+        /// to true. Throws sk::util::NoSuchElementException if such an element
         /// is not present in this collection. In case the found element is not
         /// mutalbe, exception sk::util::IllegalStateException is thrown.
         virtual T& getMutable(const Selector<T>& selector) const = 0;
 
-        /// Finds an immutable element for which the specified selector 
-        /// assesses to true and places it into the specified holder. 
-        /// Returns true if such an element was found, false otherwise. 
+        /// Finds an immutable element for which the specified selector
+        /// assesses to true and places it into the specified holder.
+        /// Returns true if such an element was found, false otherwise.
         virtual bool find(sk::util::Holder<T>& holder, const Selector<T>& selector) const = 0;
 
-        /// Finds an immutable element for which the specified selector 
-        /// assesses to true and places it into the specified holder. 
-        /// Returns true if such an element was found, false otherwise. 
-        /// In case the found element is not mutalbe, exception 
+        /// Finds an immutable element for which the specified selector
+        /// assesses to true and places it into the specified holder.
+        /// Returns true if such an element was found, false otherwise.
+        /// In case the found element is not mutalbe, exception
         /// sk::util::IllegalStateException is thrown.
         virtual bool findMutable(sk::util::Holder<T>& holder, const Selector<T>& selector) const = 0;
 
@@ -94,64 +94,64 @@ namespace sk {
         virtual bool remove(const T& object) = 0;
 
         /// Removes a single element from this collection for which the
-        /// specified selector assesses to true. Returns true if such an 
+        /// specified selector assesses to true. Returns true if such an
         /// element was present, false otherwise.
         virtual bool remove(const Selector<T>& selector) = 0;
 
         /// Removes a single instance of the specified element from this
-        /// collection, and returns the element as a pointer. The caller 
+        /// collection, and returns the element as a pointer. The caller
         /// is responsible for deleting the pointer. Throws exception
-        /// sk::util::NoSuchElementException when the element was not 
+        /// sk::util::NoSuchElementException when the element was not
         /// present in this collection. When the collection does not own
         /// the element exception sk::util::UnsupportedOperationException
         /// is thrown.
         virtual T* cutoff(const T& object) = 0;
-        
+
         /// Removes a single element from this colleciton for which the
-        /// specified selector assesses to true and returns the element 
-        /// as a pointer. The caller is responsible for deleting the 
-        /// pointer. Throws exception sk::util::NoSuchElementException 
-        /// when the element was not present in this collection. When 
+        /// specified selector assesses to true and returns the element
+        /// as a pointer. The caller is responsible for deleting the
+        /// pointer. Throws exception sk::util::NoSuchElementException
+        /// when the element was not present in this collection. When
         /// the collection does not own the elemen, exception
         /// sk::util::NoSuchElementException is thrown.
         virtual T* cutoff(const Selector<T>& selector) = 0;
 
         //@{
         /// Same as for cutoff(), however the element is not removed from the
-        /// collection, being replaced by a reference instead. It performs 
-        /// just the ownership release. Again, the caller is responsible for 
+        /// collection, being replaced by a reference instead. It performs
+        /// just the ownership release. Again, the caller is responsible for
         /// the actual poiner deletion.
         virtual T* release(const T& object) = 0;
         virtual T* release(const Selector<T>& selector) = 0;
         //@}
 
         /// Removes all of this collection's elements that are also contained in
-        /// the specified collection. Returns true if the collection has been 
+        /// the specified collection. Returns true if the collection has been
         /// modified, false otherwise.
         virtual bool removeAll(const Collection<T>& other) = 0;
-        
+
         /// Removes all of this collection's elements that are also contained in
-        /// the specified collection according to the specified assessor. 
+        /// the specified collection according to the specified assessor.
         /// Returns true if the collection has been modified, false otherwise.
         virtual bool removeAll(const Collection<T>& other, const sk::util::BinaryAssessor<T>& assessor) = 0;
 
         /// Removes all of this collection's elements for which the specified
-        /// selector assesses to true. Returns true if the collection has been 
+        /// selector assesses to true. Returns true if the collection has been
         /// modified, false otherwise.
         virtual bool removeAll(const Selector<T>& selector) = 0;
 
         /// Retains only the elements in this collection that are contained in
-        /// the specified collection. Returns true if the collection has been 
+        /// the specified collection. Returns true if the collection has been
         /// modified, false otherwise.
         virtual bool retainAll(const Collection<T>& other) = 0;
-        
+
         /// Retains only the elements in this collection that are contained in
-        /// the specified collection according to the specified assessor. 
+        /// the specified collection according to the specified assessor.
         /// Returns true if the collection has been modified, false otherwise.
         virtual bool retainAll(const Collection<T>& other, const sk::util::BinaryAssessor<T>& assessor) = 0;
 
         /// Retains only the elements in this collection for which the
-        /// specified selector assesses to true. Returns true if the 
+        /// specified selector assesses to true. Returns true if the
         /// collection has been modified, false otherwise.
         virtual bool retainAll(const Selector<T>& selector) = 0;
     };

@@ -1,5 +1,5 @@
 /*  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -31,7 +31,7 @@ namespace sk {
 
         template<typename F, typename R>
         R invoke(const sk::util::Mapper<F, R>& mapper) const;
-        
+
       protected:
         bool hasObject() const;
 

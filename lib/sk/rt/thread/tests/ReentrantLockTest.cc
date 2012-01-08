@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -120,7 +120,7 @@ testSynchronizeFunctionObject()
   CPPUNIT_ASSERT_EQUAL(true, visited);
 }
 
-void 
+void
 sk::rt::thread::tests::ReentrantLockTest::
 criticalSectionWithoutParam()
 {
@@ -140,7 +140,7 @@ testSynchronizeMethodWithoutParam()
   CPPUNIT_ASSERT_EQUAL(true, _visited);
 }
 
-void 
+void
 sk::rt::thread::tests::ReentrantLockTest::
 constCriticalSectionWithoutParam() const
 {
@@ -160,7 +160,7 @@ testSynchronizeConstMethodWithoutParam()
   CPPUNIT_ASSERT_EQUAL(true, _visited);
 }
 
-void 
+void
 sk::rt::thread::tests::ReentrantLockTest::
 criticalSectionWithParam(bool& flag)
 {
@@ -180,7 +180,7 @@ testSynchronizeMethodWithParam()
   CPPUNIT_ASSERT_EQUAL(true, visited);
 }
 
-void 
+void
 sk::rt::thread::tests::ReentrantLockTest::
 constCriticalSectionWithParam(bool& flag) const
 {
@@ -239,7 +239,7 @@ testSynchronizeFunctionExternC()
   CPPUNIT_ASSERT_EQUAL(true, global_c_flag);
 }
 
-void 
+void
 sk::rt::thread::tests::ReentrantLockTest::
 testBasics()
 {

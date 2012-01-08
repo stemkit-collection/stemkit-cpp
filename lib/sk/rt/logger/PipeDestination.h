@@ -1,5 +1,5 @@
 /*  Copyright (c) 2007, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -22,17 +22,17 @@ namespace sk {
           PipeDestination(const logger::Destination& destination);
           PipeDestination(const PipeDestination& other);
           virtual ~PipeDestination();
-          
+
           void close();
 
           // sk::rt::logger::Destination implementation.
           void dispatch(const char* buffer, int size);
           const std::vector<int> makeReady();
-          
+
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
           sk::util::Object* clone() const;
-          
+
         private:
           PipeDestination& operator = (const PipeDestination& other);
 

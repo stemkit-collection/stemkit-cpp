@@ -1,10 +1,10 @@
 /*  vim: sw=2:
  *  Copyright (c) 2011, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky (gennady.bystritsky@quest.com)
 */
 
@@ -25,7 +25,7 @@ namespace sk {
       namespace pthreads {
         class Condition;
 
-        class ConditionMediator 
+        class ConditionMediator
           : public virtual sk::rt::thread::platform::ConditionMediator
         {
           public:
@@ -39,7 +39,7 @@ namespace sk {
 
             // sk::util::Object re-implementation.
             const sk::util::Class getClass() const;
-        
+
           private:
             ConditionMediator(const ConditionMediator& other);
             ConditionMediator& operator = (const ConditionMediator& other);

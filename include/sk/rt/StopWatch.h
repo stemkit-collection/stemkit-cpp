@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky (gennady.bystritsky@quest.com)
 */
 
@@ -16,7 +16,7 @@
 
 namespace sk {
   namespace rt {
-    class StopWatch 
+    class StopWatch
       : public virtual sk::util::Object
     {
       public:
@@ -30,12 +30,12 @@ namespace sk {
         uint64_t getMilliseconds() const;
 
         static const sk::util::String toString(uint64_t microseconds);
-    
+
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
         const sk::util::String toString() const;
         const sk::util::String inspect() const;
-    
+
       private:
         StopWatch(const StopWatch& other);
         StopWatch& operator = (const StopWatch& other);

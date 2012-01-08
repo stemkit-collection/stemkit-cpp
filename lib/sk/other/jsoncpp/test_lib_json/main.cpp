@@ -211,7 +211,7 @@ ValueTest::IsCheck::IsCheck()
 }
 
 
-void 
+void
 ValueTest::checkIs( const Json::Value &value, const IsCheck &check )
 {
    JSONTEST_ASSERT_EQUAL( check.isObject_, value.isObject() );

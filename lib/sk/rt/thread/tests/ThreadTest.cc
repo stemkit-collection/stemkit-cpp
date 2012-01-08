@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky (gennady.bystritsky@quest.com)
 */
 
@@ -62,7 +62,7 @@ testCreateRegular()
   CPPUNIT_ASSERT_THROW(thread.exitStatus(), sk::util::IllegalStateException);
 }
 
-void 
+void
 sk::rt::thread::tests::ThreadTest::
 testMain()
 {
@@ -132,7 +132,7 @@ testDefaultRunSucceeds()
 
 namespace {
   struct Block : public virtual sk::rt::Runnable {
-    Block() 
+    Block()
       : exitCode(-1) {}
 
     void run() {
@@ -150,7 +150,7 @@ namespace {
   };
 };
 
-void 
+void
 sk::rt::thread::tests::ThreadTest::
 testStartStop()
 {

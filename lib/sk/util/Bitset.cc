@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -110,9 +110,9 @@ namespace {
   };
 }
 
-void 
+void
 sk::util::Bitset::
-flipAll() 
+flipAll()
 {
   std::for_each(_container.begin(), _container.end(), Flipper());
 }
@@ -124,9 +124,9 @@ setAll()
   std::fill(_container.begin(), _container.end(), std::numeric_limits<uint32_t>::max());
 }
 
-void 
+void
 sk::util::Bitset::
-compact() 
+compact()
 {
   container::iterator first = std::find_if(_container.begin(), _container.end(), std::bind2nd(std::not_equal_to<uint32_t>(), 0));
   if(first == _container.end()) {
@@ -139,7 +139,7 @@ compact()
 
 void
 sk::util::Bitset::
-ensure(uint32_t index) 
+ensure(uint32_t index)
 {
   if(index < _min) {
     setLowerBound(index);
@@ -149,21 +149,21 @@ ensure(uint32_t index)
   }
 }
 
-void 
+void
 sk::util::Bitset::
 setLowerBound(uint32_t bound)
 {
   setBounds(bound, _max - 1);
 }
 
-void 
+void
 sk::util::Bitset::
 setUpperBound(uint32_t bound)
 {
   setBounds(_min, bound);
 }
 
-void 
+void
 sk::util::Bitset::
 setBounds(uint32_t lowerBound, uint32_t upperBound)
 {
@@ -214,9 +214,9 @@ setBounds(uint32_t lowerBound, uint32_t upperBound)
   _max = upper << 5;
 }
 
-int 
+int
 sk::util::Bitset::
-capacity() const 
+capacity() const
 {
   return _container.size();
 }

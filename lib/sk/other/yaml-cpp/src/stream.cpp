@@ -180,7 +180,7 @@ namespace YAML
 
 	Stream::Stream(std::istream& input)
 		: m_input(input), m_nPushedBack(0),
-		m_pPrefetched(new unsigned char[YAML_PREFETCH_SIZE]), 
+		m_pPrefetched(new unsigned char[YAML_PREFETCH_SIZE]),
 		m_nPrefetchedAvailable(0), m_nPrefetchedUsed(0)
 	{
 		typedef std::istream::traits_type char_traits;
@@ -202,7 +202,7 @@ namespace YAML
 			if (nUngets > 0) {
 				for (; nUngets > 0; --nUngets) {
 					if (char_traits::eof() != intro[--nIntroUsed]) {
-						m_bufPushback[m_nPushedBack++] = 
+						m_bufPushback[m_nPushedBack++] =
 							char_traits::to_char_type(intro[nIntroUsed]);
 					}
 				}
@@ -236,7 +236,7 @@ namespace YAML
 
 		return m_readahead[0];
 	}
-	
+
 	Stream::operator bool() const
 	{
 		return m_input.good() || (!m_readahead.empty() && m_readahead[0] != Stream::eof());
@@ -249,12 +249,12 @@ namespace YAML
 		char ch = peek();
 		AdvanceCurrent();
 		m_mark.column++;
-		
+
 		if(ch == '\n') {
 			m_mark.column = 0;
 			m_mark.line++;
 		}
-		
+
 		return ch;
 	}
 
@@ -301,7 +301,7 @@ namespace YAML
 			case utf32be: StreamInUtf32(); break;
 			}
 		}
-		
+
 		// signal end of stream
 		if(!m_input.good())
 			m_readahead.push_back(Stream::eof());
@@ -407,7 +407,7 @@ namespace YAML
 		if (m_nPrefetchedUsed >= m_nPrefetchedAvailable)
 		{
 			std::streambuf *pBuf = m_input.rdbuf();
-			m_nPrefetchedAvailable = pBuf->sgetn(ReadBuffer(m_pPrefetched), 
+			m_nPrefetchedAvailable = pBuf->sgetn(ReadBuffer(m_pPrefetched),
 				YAML_PREFETCH_SIZE);
 			m_nPrefetchedUsed = 0;
 			if (!m_nPrefetchedAvailable)

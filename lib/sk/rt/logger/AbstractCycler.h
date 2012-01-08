@@ -1,11 +1,11 @@
 /*  vi: set sw=2:
  *
  *  Copyright (c) 2008, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -28,7 +28,7 @@ namespace sk {
 
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
-          
+
           // Cycler re-implementation.
           void ensureChunks();
           int getSize() const;
@@ -50,7 +50,7 @@ namespace sk {
           virtual bool scanFile() = 0;
           virtual void initFile() = 0;
           virtual void cycleFile() = 0;
-          
+
         private:
           AbstractCycler& operator = (const AbstractCycler& other);
 

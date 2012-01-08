@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -42,7 +42,7 @@ getClass() const
   return sk::util::Class(__className);
 }
 
-void 
+void
 test::Spawner::
 start()
 {
@@ -62,10 +62,10 @@ namespace {
   };
 
   struct Block : public virtual sk::rt::Runnable {
-    Block(int id, sk::io::Pipe& pipe) 
+    Block(int id, sk::io::Pipe& pipe)
       : _configurator(pipe), _process(sk::util::Strings("ksh") + "-c" + figureScript(id), _configurator) {}
 
-    static const sk::util::String figureScript(int id) {                                   
+    static const sk::util::String figureScript(int id) {
       sk::util::String location(getenv("JAM_SRCDIR"));
       if(location.isEmpty() == true) {
         location = ".";
@@ -94,11 +94,11 @@ namespace {
   };
 
   struct Reader : public virtual sk::rt::Runnable {
-    Reader(sk::io::InputStream& stream) 
+    Reader(sk::io::InputStream& stream)
       : _scope("Reader"), _stream(stream) {}
 
     void run() {
-      try { 
+      try {
         while(true) {
           _scope.info("I") << _stream.readLine().trim();
         }
@@ -110,7 +110,7 @@ namespace {
   };
 }
 
-void 
+void
 test::Spawner::
 perform()
 {

@@ -1,5 +1,5 @@
 /*  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -34,15 +34,15 @@ getClass() const
 
 void
 sk::io::test::MockOutputStream::
-close() 
-{ 
+close()
+{
   _closeCounter++;
 }
 
 int
 sk::io::test::MockOutputStream::
 closeCounter() const
-{ 
+{
   return _closeCounter;
 }
 
@@ -60,7 +60,7 @@ flushCounter() const
   return _flushCounter;
 }
 
-int 
+int
 sk::io::test::MockOutputStream::
 write(const char* buffer, int offset, int size)
 {
@@ -69,14 +69,14 @@ write(const char* buffer, int offset, int size)
   return amount;
 }
 
-void 
+void
 sk::io::test::MockOutputStream::
 setDataLimit(int limit)
 {
   _limit = limit;
 }
 
-int 
+int
 sk::io::test::MockOutputStream::
 chunks() const
 {
@@ -96,7 +96,7 @@ namespace {
   };
 }
 
-int 
+int
 sk::io::test::MockOutputStream::
 dataSize() const
 {
@@ -137,7 +137,7 @@ chunk(int index) const
   return _dataChunks[index];
 }
 
-void 
+void
 sk::io::test::MockOutputStream::
 inheritable(bool /*state*/)
 {

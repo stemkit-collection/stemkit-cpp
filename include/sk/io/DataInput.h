@@ -1,5 +1,5 @@
 /*  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -14,7 +14,7 @@
 namespace sk {
   namespace io {
     class DataInput
-      : public virtual sk::util::Object 
+      : public virtual sk::util::Object
     {
       public:
         /// Reads four input bytes and returns an int value.
@@ -47,10 +47,10 @@ namespace sk {
         /// a reference to the same vector.
         virtual std::vector<char>& readFully(std::vector<char>& buffer, int number) = 0;
 
-        /// Reads exactly number input bytes and returns them as a vector of chars. 
+        /// Reads exactly number input bytes and returns them as a vector of chars.
         /// Blocks if the data is not yet available.
         virtual std::vector<char> readFully(int number) = 0;
-        
+
         /// Reads exactly number input bytes and stores them in the specified
         /// character buffer. Blocks if the data is not yet available.
         virtual void readFully(char* buffer, int number) = 0;

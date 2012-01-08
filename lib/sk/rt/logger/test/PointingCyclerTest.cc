@@ -1,6 +1,6 @@
-/* vim: set sw=2: 
+/* vim: set sw=2:
  *  Copyright (c) 2007, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -77,7 +77,7 @@ testEarlyMakeReady()
 
   CPPUNIT_ASSERT_EQUAL("[abc 1 of 3]", master.getLine());
   CPPUNIT_ASSERT_THROW(master.getLine(), sk::util::IllegalStateException);
-  
+
   CPPUNIT_ASSERT_EQUAL("[abc 1 of 3]", data.getLine());
   CPPUNIT_ASSERT_THROW(data.getLine(), sk::util::IllegalStateException);
 }
@@ -94,7 +94,7 @@ testDelayedDispatch()
 
   File master("abc");
   File data("abc-1");
-  
+
   CPPUNIT_ASSERT_EQUAL("[abc 1 of 3]", master.getLine());
   CPPUNIT_ASSERT_THROW(master.getLine(), sk::util::IllegalStateException);
 

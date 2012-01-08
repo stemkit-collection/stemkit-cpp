@@ -1,7 +1,7 @@
 
 test = sk-util-test ;
 
-test-objects = 
+test-objects =
   ProbeTest.cc
   ObjectTest.cc
   ClassTest.cc

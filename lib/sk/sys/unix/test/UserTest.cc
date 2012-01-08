@@ -1,5 +1,5 @@
 /*  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -38,18 +38,18 @@ sk::sys::test::UserTest::
 testFind()
 {
   sk::util::Holder<sk::sys::User> holder;
-  
+
   CPPUNIT_ASSERT_EQUAL(true, sk::sys::User::find("root", holder));
   CPPUNIT_ASSERT_EQUAL(sk::util::String("root"), holder.get().getName());
   CPPUNIT_ASSERT_EQUAL(0U, holder.get().getUid());
 }
 
-void 
+void
 sk::sys::test::UserTest::
 testAuthenticate()
 {
-  sk::util::Holder<sk::sys::User> holder; 
-  
+  sk::util::Holder<sk::sys::User> holder;
+
   CPPUNIT_ASSERT_EQUAL(true, sk::sys::User::find("root", holder));
   CPPUNIT_ASSERT_EQUAL(false, holder.get().authenticate("root"));
 }

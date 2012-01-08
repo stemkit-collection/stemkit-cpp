@@ -1,5 +1,5 @@
 /*  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -22,17 +22,17 @@ namespace sk {
           CPPUNIT_TEST(testDeprive);
           CPPUNIT_TEST(testMisc);
         CPPUNIT_TEST_SUITE_END();
-        
+
         public:
           ReferenceSlotTest();
           virtual ~ReferenceSlotTest();
-          
+
           void setUp();
           void tearDown();
           void testGet();
           void testDeprive();
           void testMisc();
-          
+
         private:
           ReferenceSlotTest(const ReferenceSlotTest& other);
           ReferenceSlotTest& operator = (const ReferenceSlotTest& other);

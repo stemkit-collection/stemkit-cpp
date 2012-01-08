@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky (gennady.bystritsky@quest.com)
 */
 
@@ -38,7 +38,7 @@ getClass() const
 
 const sk::rt::Time
 sk::rt::Time::
-now() 
+now()
 {
   struct timeval moment;
   obtainCurrentTime(moment);
@@ -91,7 +91,7 @@ toString() const
 time_t
 sk::rt::Time::
 getSeconds() const
-{ 
+{
   return _seconds;
 }
 
@@ -109,23 +109,23 @@ offsetMilliseconds(uint64_t milliseconds) const
   return Time(_seconds + (milliseconds / 1000), _microseconds + ((milliseconds % 1000) * 1000));
 }
 
-bool 
+bool
 sk::rt::
 operator==(const sk::rt::Time& first, const sk::rt::Time& second)
 {
   return (first.getSeconds() == second.getSeconds()) && (first.getMicroseconds() == second.getMicroseconds());
 }
 
-bool 
+bool
 sk::rt::
 operator!=(const sk::rt::Time& first, const sk::rt::Time& second)
 {
   return !(first == second);
 }
 
-bool 
+bool
 sk::rt::
-operator<(const sk::rt::Time& first, const sk::rt::Time& second) 
+operator<(const sk::rt::Time& first, const sk::rt::Time& second)
 {
   time_t s1 = first.getSeconds();
   time_t s2 = second.getSeconds();
@@ -139,21 +139,21 @@ operator<(const sk::rt::Time& first, const sk::rt::Time& second)
   return false;
 }
 
-bool 
+bool
 sk::rt::
 operator<=(const sk::rt::Time& first, const sk::rt::Time& second)
 {
   return (first == second) || (first < second);
 }
 
-bool 
+bool
 sk::rt::
 operator>(const sk::rt::Time& first, const sk::rt::Time& second)
 {
   return !(first <= second);
 }
 
-bool 
+bool
 sk::rt::
 operator>=(const sk::rt::Time& first, const sk::rt::Time& second)
 {

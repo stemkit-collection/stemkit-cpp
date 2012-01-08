@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -22,13 +22,13 @@ namespace sk {
         public:
           RejectingProcessor(const sk::util::Processor<T>& processor, const sk::util::Selector<T>& selector)
             : _processor(processor), _selector(selector) {}
-      
+
           void process(T& object) const {
             if(_selector.assess(object) == false) {
               _processor.process(object);
             }
           }
-      
+
         private:
           // RejectingProcessor(const RejectingProcessor<T>& other);
           RejectingProcessor<T>& operator = (const RejectingProcessor<T>& other);

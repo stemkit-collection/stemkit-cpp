@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky (gennady.bystritsky@quest.com)
 */
 
@@ -18,7 +18,7 @@
 namespace sk {
   namespace rt {
     namespace thread {
-      class State 
+      class State
         : public virtual sk::util::Object
       {
         public:
@@ -26,7 +26,7 @@ namespace sk {
           static const State& valueOf(const sk::util::String& name);
           int toInt() const;
           const sk::util::String& getName() const;
-      
+
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
           const sk::util::String toString() const;
@@ -39,7 +39,7 @@ namespace sk {
           static const State SK_T_EXITED;
           static const State SK_T_STOPPED;
           static const State SK_T_EXCEPTION;
-      
+
         private:
           State(const sk::util::String& name);
           State(const State& other);

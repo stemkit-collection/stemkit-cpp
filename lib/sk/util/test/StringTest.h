@@ -1,5 +1,5 @@
 /*  Copyright (c) 2005, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -48,11 +48,11 @@ namespace sk {
           CPPUNIT_TEST(testWhitespaceSplit);
           CPPUNIT_TEST(testEachCharSplit);
         CPPUNIT_TEST_SUITE_END();
-        
+
         public:
           StringTest();
           virtual ~StringTest();
-          
+
           void setUp();
           void tearDown();
           void testMisc();
@@ -84,7 +84,7 @@ namespace sk {
           void testSeparatorSplit();
           void testWhitespaceSplit();
           void testEachCharSplit();
-          
+
         private:
           StringTest(const StringTest& other);
           StringTest& operator = (const StringTest& other);

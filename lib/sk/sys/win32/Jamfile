@@ -1,7 +1,7 @@
 
 local library = sk.sys.win32 ;
 
-local objects = 
+local objects =
   Process.cc
   PtyProcess.cc
   DaemonProcess.cc

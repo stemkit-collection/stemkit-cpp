@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -17,7 +17,7 @@
 namespace sk {
   namespace io {
     namespace selector {
-      class Directory 
+      class Directory
         : public virtual sk::util::Selector<const sk::io::FileInfo>
       {
         bool assess(const sk::io::FileInfo& info) const {

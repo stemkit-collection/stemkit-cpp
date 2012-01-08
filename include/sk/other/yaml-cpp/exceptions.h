@@ -50,7 +50,7 @@ namespace YAML
 		const std::string INVALID_SCALAR         = "invalid scalar";
 		const std::string KEY_NOT_FOUND          = "key not found";
 		const std::string BAD_DEREFERENCE        = "bad dereference";
-		
+
 		const std::string UNMATCHED_GROUP_TAG    = "unmatched group tag";
 		const std::string UNEXPECTED_END_SEQ     = "unexpected end sequence token";
 		const std::string UNEXPECTED_END_MAP     = "unexpected end map token";
@@ -76,7 +76,7 @@ namespace YAML
 
 		Mark mark;
 		std::string msg;
-		
+
 	private:
 		std::string what_;
 	};
@@ -126,7 +126,7 @@ namespace YAML
 		BadDereference()
 		: RepresentationException(Mark::null(), ErrorMsg::BAD_DEREFERENCE) {}
 	};
-	
+
 	class EmitterException: public Exception {
 	public:
 		EmitterException(const std::string& msg_)

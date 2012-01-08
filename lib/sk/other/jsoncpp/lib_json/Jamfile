@@ -2,7 +2,7 @@
 
 local library = lib_json ;
 
-local objects = 
+local objects =
   json_reader.cpp
   json_value.cpp
   json_writer.cpp

@@ -1,5 +1,5 @@
 /*  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -30,10 +30,10 @@ namespace sk {
         // sk::io::DelegatingTty implementation.
         sk::io::Tty& getTty();
         const sk::io::Tty& getTty() const;
-        
+
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
-        
+
       private:
         TtyDevice(const TtyDevice& other);
         TtyDevice& operator = (const TtyDevice& other);

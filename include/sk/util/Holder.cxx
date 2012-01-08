@@ -1,6 +1,6 @@
 /*  vi: sw=2:
  *  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -155,7 +155,7 @@ operator=(const Sharing& other)
 }
 
 template<typename T, typename Policy>
-const typename Policy::slot_t& 
+const typename Policy::slot_t&
 sk::util::Holder<T, Policy>::
 getSlot() const
 {
@@ -272,7 +272,7 @@ release()
 template<typename T, typename Policy>
 T*
 sk::util::Holder<T, Policy>::
-deprive() 
+deprive()
 {
   return Policy::depriveObject(_storage);
 }

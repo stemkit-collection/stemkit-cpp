@@ -1,5 +1,5 @@
 /*  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -29,7 +29,7 @@ namespace sk {
           const sk::util::Container chunk(int index) const;
           int dataSize() const;
           const sk::util::Container data() const;
-          
+
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
 
@@ -39,7 +39,7 @@ namespace sk {
           int write(const char* buffer, int offset, int size);
           using AbstractOutputStream::write;
           void inheritable(bool state);
-          
+
         private:
           MockOutputStream(const MockOutputStream& other);
           MockOutputStream& operator = (const MockOutputStream& other);

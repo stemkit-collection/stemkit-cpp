@@ -1,5 +1,5 @@
 /*  Copyright (c) 2007, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -50,7 +50,7 @@ namespace sk {
         const sk::util::String getProperty(const sk::util::String& name, const char* fallback) const;
         int getProperty(const sk::util::String& name, int fallback) const;
         bool getProperty(const sk::util::String& name, const sk::util::Boolean& fallback) const;
-        
+
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
 
@@ -63,7 +63,7 @@ namespace sk {
 
         // sk::rt::scope::ThreadInfo implementation.
         uint64_t currentThreadId() const;
-        
+
       private:
         Scope(const Scope& parent, const sk::util::String& name);
 

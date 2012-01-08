@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky (gennady.bystritsky@quest.com)
 */
 
@@ -41,7 +41,7 @@ getClass() const
   return sk::util::Class(__className);
 }
 
-sk::util::pp::Node* 
+sk::util::pp::Node*
 sk::util::pp::CollectionNode::
 parse(const std::vector<char>& data, int offset, const std::vector<char>& /*terminators*/) const
 {
@@ -97,7 +97,7 @@ parse(const std::vector<char>& data, int offset, const std::vector<char>& /*term
   return 0;
 }
 
-void 
+void
 sk::util::pp::CollectionNode::
 pushOpenBraket(std::vector<char>& brakets) const
 {
@@ -113,12 +113,12 @@ inspect() const
 
 void
 sk::util::pp::CollectionNode::
-setPrefix(const sk::util::String& prefix) 
+setPrefix(const sk::util::String& prefix)
 {
   _prefix = prefix;
 }
 
-void 
+void
 sk::util::pp::CollectionNode::
 output(const Configurator& configurator, const sk::util::String& indent, std::ostream& stream) const
 {

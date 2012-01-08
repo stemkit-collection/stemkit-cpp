@@ -10,11 +10,11 @@ local test-objects =
   TestSuite.cc
 ;
 
-use-project-libraries $(test) : 
-  sk.rt.thread 
-  sk.rt.bundle 
-  sk.util 
-  sk.cppunit 
+use-project-libraries $(test) :
+  sk.rt.thread
+  sk.rt.bundle
+  sk.util
+  sk.cppunit
 ;
 
 use-unit-test $(test) $(test-objects) ;

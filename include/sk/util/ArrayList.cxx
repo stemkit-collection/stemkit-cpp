@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -38,7 +38,7 @@ getClass() const
 }
 
 template<typename T, typename Policy>
-void 
+void
 sk::util::ArrayList<T, Policy>::
 addFirst(const T& object)
 {
@@ -46,7 +46,7 @@ addFirst(const T& object)
 }
 
 template<typename T, typename Policy>
-void 
+void
 sk::util::ArrayList<T, Policy>::
 addFirst(T& object)
 {
@@ -54,7 +54,7 @@ addFirst(T& object)
 }
 
 template<typename T, typename Policy>
-void 
+void
 sk::util::ArrayList<T, Policy>::
 addFirst(T* object)
 {
@@ -62,7 +62,7 @@ addFirst(T* object)
 }
 
 template<typename T, typename Policy>
-void 
+void
 sk::util::ArrayList<T, Policy>::
 removeFirst()
 {

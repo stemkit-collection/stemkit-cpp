@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky (gennady.bystritsky@quest.com)
 */
 
@@ -38,7 +38,7 @@ getClass() const
   return sk::util::Class(__className);
 }
 
-void 
+void
 sk::rt::StopWatch::
 start()
 {
@@ -102,10 +102,10 @@ toString(uint64_t microseconds)
 
   std::ostringstream stream;
   stream.fill('0');
-  stream 
-    << std::setw(2) << minutes / 60 << ':' 
-    << std::setw(2) << minutes % 60 << ':' 
-    << std::setw(2) << seconds % 60 << '.' 
+  stream
+    << std::setw(2) << minutes / 60 << ':'
+    << std::setw(2) << minutes % 60 << ':'
+    << std::setw(2) << seconds % 60 << '.'
     << std::setw(3) << milliseconds % 1000 << ','
     << std::setw(3) << microseconds % 1000
   ;

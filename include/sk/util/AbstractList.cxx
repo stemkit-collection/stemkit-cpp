@@ -1,6 +1,6 @@
 /*  vi: sw=2:
  *  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -28,7 +28,7 @@ sk::util::AbstractList<T, Policy>::
 }
 
 template<typename T, typename Policy>
-const sk::util::Class 
+const sk::util::Class
 sk::util::AbstractList<T, Policy>::
 getClass() const
 {
@@ -38,7 +38,7 @@ getClass() const
 template<typename T, typename Policy>
 bool
 sk::util::AbstractList<T, Policy>::
-add(const T& object) 
+add(const T& object)
 {
   add(size(), object);
   return true;
@@ -47,7 +47,7 @@ add(const T& object)
 template<typename T, typename Policy>
 bool
 sk::util::AbstractList<T, Policy>::
-add(T& object) 
+add(T& object)
 {
   add(size(), object);
   return true;
@@ -56,32 +56,32 @@ add(T& object)
 template<typename T, typename Policy>
 bool
 sk::util::AbstractList<T, Policy>::
-add(T* object) 
+add(T* object)
 {
   add(size(), object);
   return true;
 }
 
 template<typename T, typename Policy>
-void 
+void
 sk::util::AbstractList<T, Policy>::
-add(int /*index*/, const T& /*object*/) 
+add(int /*index*/, const T& /*object*/)
 {
   throw UnsupportedOperationException(SK_METHOD);
 }
 
 template<typename T, typename Policy>
-void 
+void
 sk::util::AbstractList<T, Policy>::
-add(int /*index*/, T& /*object*/) 
+add(int /*index*/, T& /*object*/)
 {
   throw UnsupportedOperationException(SK_METHOD);
 }
 
 template<typename T, typename Policy>
-void 
+void
 sk::util::AbstractList<T, Policy>::
-add(int /*index*/, T* /*object*/) 
+add(int /*index*/, T* /*object*/)
 {
   throw UnsupportedOperationException(SK_METHOD);
 }
@@ -99,15 +99,15 @@ struct sk::util::AbstractList<T, Policy>::IndexSelector : public virtual sk::uti
 };
 
 template<typename T, typename Policy>
-const T& 
+const T&
 sk::util::AbstractList<T, Policy>::
-get(int index) const 
+get(int index) const
 {
   return get(IndexSelector(index, size()));
 }
 
 template<typename T, typename Policy>
-T& 
+T&
 sk::util::AbstractList<T, Policy>::
 getMutable(int index) const
 {
@@ -115,9 +115,9 @@ getMutable(int index) const
 }
 
 template<typename T, typename Policy>
-int 
+int
 sk::util::AbstractList<T, Policy>::
-indexOf(const T& object) const 
+indexOf(const T& object) const
 {
   return indexOf(typename Policy::equal_selector_t(object));
 }
@@ -142,9 +142,9 @@ struct sk::util::AbstractList<T, Policy>::IndexScanningSelector : public virtual
 };
 
 template<typename T, typename Policy>
-int 
+int
 sk::util::AbstractList<T, Policy>::
-indexOf(const sk::util::Selector<T>& selector) const 
+indexOf(const sk::util::Selector<T>& selector) const
 {
   int index = -1;
   contains(IndexScanningSelector(selector, index, true));
@@ -152,17 +152,17 @@ indexOf(const sk::util::Selector<T>& selector) const
 }
 
 template<typename T, typename Policy>
-int 
+int
 sk::util::AbstractList<T, Policy>::
-lastIndexOf(const T& object) const 
+lastIndexOf(const T& object) const
 {
   return lastIndexOf(typename Policy::equal_selector_t(object));
 }
 
 template<typename T, typename Policy>
-int 
+int
 sk::util::AbstractList<T, Policy>::
-lastIndexOf(const Selector<T>& selector) const 
+lastIndexOf(const Selector<T>& selector) const
 {
   int index = -1;
   contains(IndexScanningSelector(selector, index, false));
@@ -172,56 +172,56 @@ lastIndexOf(const Selector<T>& selector) const
 template<typename T, typename Policy>
 void
 sk::util::AbstractList<T, Policy>::
-remove(int index) 
+remove(int index)
 {
   remove(IndexSelector(index, size()));
 }
 
 template<typename T, typename Policy>
-T* 
+T*
 sk::util::AbstractList<T, Policy>::
-cutoff(int index) 
+cutoff(int index)
 {
   return cutoff(IndexSelector(index, size()));
 }
 
 template<typename T, typename Policy>
-T* 
+T*
 sk::util::AbstractList<T, Policy>::
-release(int index) 
+release(int index)
 {
   return release(IndexSelector(index, size()));
 }
 
 template<typename T, typename Policy>
-void 
+void
 sk::util::AbstractList<T, Policy>::
-set(int index, const T& object) 
+set(int index, const T& object)
 {
   remove(index);
   add(index, object);
 }
 
 template<typename T, typename Policy>
-void 
+void
 sk::util::AbstractList<T, Policy>::
-set(int index, T& object) 
+set(int index, T& object)
 {
   remove(index);
   add(index, object);
 }
 
 template<typename T, typename Policy>
-void 
+void
 sk::util::AbstractList<T, Policy>::
-set(int index, T* object) 
+set(int index, T* object)
 {
   remove(index);
   add(index, object);
 }
 
 template<typename T, typename Policy>
-void 
+void
 sk::util::AbstractList<T, Policy>::
 sort()
 {
@@ -229,7 +229,7 @@ sort()
 }
 
 template<typename T, typename Policy>
-void 
+void
 sk::util::AbstractList<T, Policy>::
 sort(const sk::util::BinaryAssessor<T>& assessor)
 {
@@ -237,7 +237,7 @@ sort(const sk::util::BinaryAssessor<T>& assessor)
 }
 
 template<typename T, typename Policy>
-void 
+void
 sk::util::AbstractList<T, Policy>::
 shuffle()
 {
@@ -245,7 +245,7 @@ shuffle()
 }
 
 template<typename T, typename Policy>
-void 
+void
 sk::util::AbstractList<T, Policy>::
 reverse()
 {
@@ -253,7 +253,7 @@ reverse()
 }
 
 template<typename T, typename Policy>
-const sk::util::String 
+const sk::util::String
 sk::util::AbstractList<T, Policy>::
 inspect() const
 {
@@ -264,7 +264,7 @@ inspect() const
 }
 
 template<typename T, typename Policy>
-void 
+void
 sk::util::AbstractList<T, Policy>::
 addFirst(const T& object)
 {
@@ -272,7 +272,7 @@ addFirst(const T& object)
 }
 
 template<typename T, typename Policy>
-void 
+void
 sk::util::AbstractList<T, Policy>::
 addFirst(T& object)
 {
@@ -280,7 +280,7 @@ addFirst(T& object)
 }
 
 template<typename T, typename Policy>
-void 
+void
 sk::util::AbstractList<T, Policy>::
 addFirst(T* object)
 {
@@ -288,7 +288,7 @@ addFirst(T* object)
 }
 
 template<typename T, typename Policy>
-void 
+void
 sk::util::AbstractList<T, Policy>::
 addLast(const T& object)
 {
@@ -296,7 +296,7 @@ addLast(const T& object)
 }
 
 template<typename T, typename Policy>
-void 
+void
 sk::util::AbstractList<T, Policy>::
 addLast(T& object)
 {
@@ -304,7 +304,7 @@ addLast(T& object)
 }
 
 template<typename T, typename Policy>
-void 
+void
 sk::util::AbstractList<T, Policy>::
 addLast(T* object)
 {
@@ -312,7 +312,7 @@ addLast(T* object)
 }
 
 template<typename T, typename Policy>
-const T& 
+const T&
 sk::util::AbstractList<T, Policy>::
 getFirst() const
 {
@@ -321,7 +321,7 @@ getFirst() const
 }
 
 template<typename T, typename Policy>
-const T& 
+const T&
 sk::util::AbstractList<T, Policy>::
 getLast() const
 {
@@ -330,7 +330,7 @@ getLast() const
 }
 
 template<typename T, typename Policy>
-T& 
+T&
 sk::util::AbstractList<T, Policy>::
 getMutableFirst() const
 {
@@ -339,7 +339,7 @@ getMutableFirst() const
 }
 
 template<typename T, typename Policy>
-T& 
+T&
 sk::util::AbstractList<T, Policy>::
 getMutableLast() const
 {
@@ -348,7 +348,7 @@ getMutableLast() const
 }
 
 template<typename T, typename Policy>
-void 
+void
 sk::util::AbstractList<T, Policy>::
 removeFirst()
 {
@@ -357,7 +357,7 @@ removeFirst()
 }
 
 template<typename T, typename Policy>
-void 
+void
 sk::util::AbstractList<T, Policy>::
 removeLast()
 {
@@ -384,7 +384,7 @@ cutoffLast()
 }
 
 template<typename T, typename Policy>
-const sk::util::String 
+const sk::util::String
 sk::util::AbstractList<T, Policy>::
 join(const sk::util::String& separator, const sk::util::Mapper<const T, const sk::util::String>& mapper) const
 {
@@ -392,7 +392,7 @@ join(const sk::util::String& separator, const sk::util::Mapper<const T, const sk
 }
 
 template<typename T, typename Policy>
-const sk::util::String 
+const sk::util::String
 sk::util::AbstractList<T, Policy>::
 join(const sk::util::String& separator) const
 {
@@ -400,7 +400,7 @@ join(const sk::util::String& separator) const
 }
 
 template<typename T, typename Policy>
-const sk::util::String 
+const sk::util::String
 sk::util::AbstractList<T, Policy>::
 join() const
 {

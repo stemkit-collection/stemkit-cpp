@@ -1,6 +1,6 @@
 /*  vi: sw=2:
  *  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -19,7 +19,7 @@ FileDescriptor(int fd)
 
 sk::io::FileDescriptor::
 FileDescriptor(const sk::io::FileDescriptor& other)
-  // For some weird reason Visual Studio compiled code crashes when 
+  // For some weird reason Visual Studio compiled code crashes when
   // just other.duplicateLoose() is used instead of getFileNumber().
   : sk::io::LooseFileDescriptor(other.duplicateLoose().getFileNumber())
 {
@@ -27,7 +27,7 @@ FileDescriptor(const sk::io::FileDescriptor& other)
 
 sk::io::FileDescriptor::
 FileDescriptor(const sk::io::LooseFileDescriptor& other)
-  // For some weird reason Visual Studio compiled code crashes when 
+  // For some weird reason Visual Studio compiled code crashes when
   // just other.duplicateLoose() is used instead of getFileNumber().
   : sk::io::LooseFileDescriptor(other.duplicateLoose().getFileNumber())
 {

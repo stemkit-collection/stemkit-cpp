@@ -1,5 +1,5 @@
 /*  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -26,7 +26,7 @@ namespace sk {
 
         // sk::io::FileDescriptorProvider implementation.
         const sk::io::FileDescriptor& getFileDescriptor() const;
-        
+
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
         sk::util::Object* clone() const;
@@ -37,7 +37,7 @@ namespace sk {
         using AbstractOutputStream::write;
         void close();
         void inheritable(bool state);
-        
+
       private:
         FileDescriptorOutputStream& operator = (const FileDescriptorOutputStream& other);
 

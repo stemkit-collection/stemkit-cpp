@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -18,7 +18,7 @@ namespace sk {
   namespace util {
     class Class;
 
-    class Method 
+    class Method
       : public virtual sk::util::Object
     {
       public:
@@ -28,11 +28,11 @@ namespace sk {
         const sk::util::String getName() const;
         const sk::util::String getFullName() const;
         const sk::util::String getScopeName() const;
-    
+
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
         const sk::util::String toString() const;
-    
+
       private:
         Method& operator = (const Method& other);
 

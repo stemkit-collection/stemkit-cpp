@@ -1,5 +1,5 @@
 /*  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -64,7 +64,7 @@ testSlaveMasterPipe()
   CPPUNIT_ASSERT_EQUAL(sk::util::String("Hello\r\n").inspect(), data.readLine().inspect());
 }
 
-void 
+void
 sk::io::test::PtyTest::
 testSlaveTty()
 {

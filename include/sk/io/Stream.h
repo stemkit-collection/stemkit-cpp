@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky (gennady.bystritsky@quest.com)
 */
 
@@ -15,19 +15,19 @@
 
 namespace sk {
   namespace io {
-    class Stream 
+    class Stream
       : public virtual sk::util::Object
     {
       public:
         /// Closes this stream and releases any system resources
         /// associated with the stream.
         virtual void close() = 0;
-        
-        /// Instantiates another object of the same class as a copy 
+
+        /// Instantiates another object of the same class as a copy
         /// of itself.
         virtual sk::util::Object* clone() const = 0;
-        
-        /// Specified whether a stream should be inheritable by child 
+
+        /// Specified whether a stream should be inheritable by child
         /// processes.
         virtual void inheritable(bool state) = 0;
     };

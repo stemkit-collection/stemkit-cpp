@@ -1,6 +1,6 @@
 /*  vi: sw=2:
  *  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -97,7 +97,7 @@ sk::sys::Process::
   }
 }
 
-void 
+void
 sk::sys::Process::
 setup()
 {
@@ -106,7 +106,7 @@ setup()
   }
 }
 
-void 
+void
 sk::sys::Process::
 reset()
 {
@@ -129,7 +129,7 @@ getPid() const
 
 namespace {
   struct Configurator : public virtual sk::sys::ProcessConfigurator {
-    Configurator(const sk::rt::Scope& scope, sk::util::PropertyRegistry& environment) 
+    Configurator(const sk::rt::Scope& scope, sk::util::PropertyRegistry& environment)
       : _scope(scope), _environment(environment), isProcessGroup(false), isConsole(true) {}
 
     void setEnvironment(const sk::util::String& name, const sk::util::String& value) {
@@ -328,7 +328,7 @@ namespace {
 
 void
 sk::sys::Process::
-stop() 
+stop()
 {
   if(_running == false) {
     return;
@@ -340,7 +340,7 @@ stop()
 
   terminator.start();
   join();
-  
+
   cleaner.cancel();
   terminator.join();
 }
@@ -378,7 +378,7 @@ interrupt()
 
 void
 sk::sys::Process::
-processJoining() 
+processJoining()
 {
 }
 

@@ -1,10 +1,10 @@
 /*  vim: sw=2:
  *  Copyright (c) 2011, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
 *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky (bystr@mac.com)
 */
 
@@ -23,7 +23,7 @@
 namespace sk {
   namespace rt {
     namespace thread {
-      class ConditionMediator 
+      class ConditionMediator
         : public virtual sk::util::Object
       {
         public:
@@ -35,53 +35,53 @@ namespace sk {
 
           bool sync(const sk::rt::thread::Conditional& block);
 
-          template<typename T, typename TMF> 
+          template<typename T, typename TMF>
           bool syncMethod(T& target, const TMF& method);
-      
-          template<typename T, typename TMF, typename P1> 
+
+          template<typename T, typename TMF, typename P1>
           bool syncMethod(T& target, const TMF& method, P1& p1);
-      
-          template<typename T, typename TMF, typename P1> 
+
+          template<typename T, typename TMF, typename P1>
           bool syncMethod(T& target, const TMF& method, const P1& p1);
-      
-          template<typename T, typename TMF, typename P1, typename P2> 
+
+          template<typename T, typename TMF, typename P1, typename P2>
           bool syncMethod(T& target, const TMF& method, const P1& p1, P2& p2);
-      
-          template<typename T, typename TMF, typename P1, typename P2> 
+
+          template<typename T, typename TMF, typename P1, typename P2>
           bool syncMethod(T& target, const TMF& method, const P1& p1, const P2& p2);
-      
-          template<typename T, typename TMF, typename P1, typename P2, typename P3> 
+
+          template<typename T, typename TMF, typename P1, typename P2, typename P3>
           bool syncMethod(T& target, const TMF& method, const P1& p1, const P2& p2, P3& p3);
-      
-          template<typename T, typename TMF, typename P1, typename P2, typename P3> 
+
+          template<typename T, typename TMF, typename P1, typename P2, typename P3>
           bool syncMethod(T& target, const TMF& method, const P1& p1, const P2& p2, const P3& p3);
 
-          template<typename F> 
+          template<typename F>
           bool syncFunctor(const F& functor);
-      
-          template<typename F, typename P1> 
+
+          template<typename F, typename P1>
           bool syncFunctor(const F& functor, P1& p1);
-      
-          template<typename F, typename P1> 
+
+          template<typename F, typename P1>
           bool syncFunctor(const F& functor, const P1& p1);
-      
-          template<typename F, typename P1, typename P2> 
+
+          template<typename F, typename P1, typename P2>
           bool syncFunctor(const F& functor, const P1& p1, P2& p2);
-      
-          template<typename F, typename P1, typename P2> 
+
+          template<typename F, typename P1, typename P2>
           bool syncFunctor(const F& functor, const P1& p1, const P2& p2);
-      
-          template<typename F, typename P1, typename P2, typename P3> 
+
+          template<typename F, typename P1, typename P2, typename P3>
           bool syncFunctor(const F& functor, const P1& p1, const P2& p2, P3& p3);
-      
-          template<typename F, typename P1, typename P2, typename P3> 
+
+          template<typename F, typename P1, typename P2, typename P3>
           bool syncFunctor(const F& functor, const P1& p1, const P2& p2, const P3& p3);
-      
+
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
           const sk::util::Object& getObject() const;
           sk::util::Object& getObject();
-      
+
         private:
           ConditionMediator(const ConditionMediator& other);
           ConditionMediator& operator = (const ConditionMediator& other);

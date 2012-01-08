@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -43,7 +43,7 @@ getClass() const
   return sk::util::Class(__className);
 }
 
-int 
+int
 sk::util::pp::AbstractCompositeNode::
 addNode(sk::util::pp::Node* node)
 {
@@ -54,21 +54,21 @@ addNode(sk::util::pp::Node* node)
   return 0;
 }
 
-int 
+int
 sk::util::pp::AbstractCompositeNode::
 startPosition() const
 {
   return _start;
 }
 
-int 
+int
 sk::util::pp::AbstractCompositeNode::
 endPosition() const
 {
   return _end;
 }
 
-void 
+void
 sk::util::pp::AbstractCompositeNode::
 setLength(int length)
 {
@@ -96,21 +96,21 @@ inspect() const
   return depot.join(", ");
 }
 
-void 
+void
 sk::util::pp::AbstractCompositeNode::
-forEachNode(const sk::util::Processor<const sk::util::pp::Node>& processor) const 
+forEachNode(const sk::util::Processor<const sk::util::pp::Node>& processor) const
 {
   _nodes.forEach(processor);
 }
 
-void 
+void
 sk::util::pp::AbstractCompositeNode::
 output(const Configurator& configurator, const sk::util::String& indent, std::ostream& stream) const
 {
   output(configurator, indent, stream, hasBreakingNode() || (_nodes.size() > 1 && configurator.isCompact() == false));
 }
 
-void 
+void
 sk::util::pp::AbstractCompositeNode::
 output(const Configurator& configurator, const sk::util::String& indent, std::ostream& stream, bool breaking) const
 {
@@ -149,7 +149,7 @@ output(const Configurator& configurator, const sk::util::String& indent, std::os
   }
 }
 
-const sk::util::pp::Node& 
+const sk::util::pp::Node&
 sk::util::pp::AbstractCompositeNode::
 getNode(int index) const
 {

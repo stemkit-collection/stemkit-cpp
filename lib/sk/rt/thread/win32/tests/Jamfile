@@ -2,7 +2,7 @@
 
 local test = sk-rt-thread-win32-test ;
 
-local objects = 
+local objects =
   TestSuite.cc
   CriticalSectionTest.cc
 ;

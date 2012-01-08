@@ -1,5 +1,5 @@
 /*  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -23,7 +23,7 @@ namespace sk {
       public:
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
-        
+
         // sk::io::Pipe implementation.
         void close();
         void closeInput();

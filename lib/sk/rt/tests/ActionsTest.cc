@@ -1,10 +1,10 @@
 /*  vim: sw=2:
  *  Copyright (c) 2011, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -75,7 +75,7 @@ namespace {
   };
 }
 
-void 
+void
 sk::rt::tests::ActionsTest::
 test_non_problem_actions_work_in_direct_order()
 {
@@ -97,7 +97,7 @@ test_non_problem_actions_work_in_direct_order()
   CPPUNIT_ASSERT_EQUAL("m3", workshop.strings.get(2));
 }
 
-void 
+void
 sk::rt::tests::ActionsTest::
 test_non_problem_actions_work_in_reverse_order()
 {
@@ -119,7 +119,7 @@ test_non_problem_actions_work_in_reverse_order()
   CPPUNIT_ASSERT_EQUAL("m1", workshop.strings.get(2));
 }
 
-void 
+void
 sk::rt::tests::ActionsTest::
 test_non_problem_actions_work_out_of_scope_without_perform()
 {
@@ -139,7 +139,7 @@ test_non_problem_actions_work_out_of_scope_without_perform()
   CPPUNIT_ASSERT_EQUAL("m1", workshop.strings.get(2));
 }
 
-void 
+void
 sk::rt::tests::ActionsTest::
 test_all_executed_despite_errors_with_compound_exception()
 {
@@ -179,7 +179,7 @@ test_all_executed_despite_errors_with_compound_exception()
   CPPUNIT_ASSERT_EQUAL("m6", workshop.strings.get(1));
 }
 
-void 
+void
 sk::rt::tests::ActionsTest::
 test_all_reversed_executed_despite_errors_with_compound_exception()
 {
@@ -220,7 +220,7 @@ test_all_reversed_executed_despite_errors_with_compound_exception()
   CPPUNIT_ASSERT_EQUAL("m1", workshop.strings.get(1));
 }
 
-void 
+void
 sk::rt::tests::ActionsTest::
 test_all_executed_despite_errors_no_exception_when_ignored()
 {
@@ -393,7 +393,7 @@ test_no_actions_after_clear()
   CPPUNIT_ASSERT_NO_THROW(actions.perform());
 }
 
-void 
+void
 sk::rt::tests::ActionsTest::
 test_on_error_throws_with_undo_exceptions()
 {
@@ -428,7 +428,7 @@ test_on_error_throws_with_undo_exceptions()
   }
 }
 
-void 
+void
 sk::rt::tests::ActionsTest::
 test_performing_until_success_succeeds_when_one_successful()
 {
@@ -445,7 +445,7 @@ test_performing_until_success_succeeds_when_one_successful()
   CPPUNIT_ASSERT_EQUAL(1, workshop.strings.size());
 }
 
-void 
+void
 sk::rt::tests::ActionsTest::
 test_performing_until_success_fails_on_all_errors()
 {

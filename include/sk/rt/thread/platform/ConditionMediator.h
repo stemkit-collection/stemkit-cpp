@@ -1,10 +1,10 @@
 /*  vim: sw=2:
  *  Copyright (c) 2011, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -17,11 +17,11 @@ namespace sk {
   namespace rt {
     namespace thread {
       namespace platform {
-        class ConditionMediator 
+        class ConditionMediator
           : public virtual sk::util::Object
         {
           public:
-            virtual bool invoke(bool blocking, const sk::rt::thread::Conditional& block) = 0; 
+            virtual bool invoke(bool blocking, const sk::rt::thread::Conditional& block) = 0;
         };
       }
     }

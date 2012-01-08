@@ -1,5 +1,5 @@
 /*  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -33,7 +33,7 @@ namespace sk {
         sk::io::OutputStream& outputStream() const;
 
         const sk::util::Strings& errors() const;
-        
+
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
 
@@ -44,7 +44,7 @@ namespace sk {
         // sk::sys::DelegatingExecutable implementation.
         sk::sys::Executable& getExecutable();
         const sk::sys::Executable& getExecutable() const;
-        
+
         struct Listener;
 
         const sk::rt::Scope _scope;

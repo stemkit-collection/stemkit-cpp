@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -49,28 +49,28 @@ getClass() const
   return sk::util::Class(__className);
 }
 
-const sk::util::Pathname& 
+const sk::util::Pathname&
 sk::io::Dir::
 getPath() const
 {
   return _path;
 }
 
-void 
+void
 sk::io::Dir::
 forEachEntry(const sk::util::Processor<const sk::io::FileInfo>& processor) const
 {
   forEachEntry(sk::util::processor::Mapping<const sk::util::Pathname, const sk::io::FileInfo>(processor, sk::io::mapper::PathnameToFileInfo()));
 }
 
-void 
+void
 sk::io::Dir::
 forEachDirectory(const sk::util::Processor<const sk::io::FileInfo>& processor) const
 {
   forEachEntry(sk::util::processor::Selecting<const sk::io::FileInfo>(processor, sk::io::selector::Directory()));
 }
 
-void 
+void
 sk::io::Dir::
 forEachRegularFile(const sk::util::Processor<const sk::io::FileInfo>& processor) const
 {

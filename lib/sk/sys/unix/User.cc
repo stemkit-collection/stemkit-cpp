@@ -1,5 +1,5 @@
 /*  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -57,7 +57,7 @@ getComment() const
 
 const sk::util::String
 sk::sys::User::
-getHome() const 
+getHome() const
 {
   return _home;
 }
@@ -89,14 +89,14 @@ namespace {
       : _user(user), _password(password) {}
 
     void processStarting(sk::io::Stream& umbilical) {
-      // This is needed to be able to open a pty when EUID != UID. Without it 
+      // This is needed to be able to open a pty when EUID != UID. Without it
       // opening of a pty slave device fails on AIX.
       //
       umbilical.close();
       seteuid(getuid());
-      
+
       // The following "trick" of keeping at least 3 file descriptors open before
-      // using PtyProcess is needed for the case may 0, 1 or 2 be closed for some 
+      // using PtyProcess is needed for the case may 0, 1 or 2 be closed for some
       // reason.
       //
       sk::io::AnonymousPipe p1;
@@ -130,7 +130,7 @@ namespace {
 
 bool
 sk::sys::User::
-authenticate(const sk::util::String& password) const 
+authenticate(const sk::util::String& password) const
 {
   const sk::rt::Scope& scope = _scope.scope(__FUNCTION__);
 

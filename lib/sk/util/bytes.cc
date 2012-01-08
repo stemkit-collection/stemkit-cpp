@@ -1,10 +1,10 @@
 /*  vim: sw=2:
  *  Copyright (c) 2011, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -13,20 +13,20 @@
 #include <sstream>
 
 sk::util::bytes::
-bytes() 
-  : std::vector<uint8_t>() 
+bytes()
+  : std::vector<uint8_t>()
 {
 }
 
 sk::util::bytes::
 bytes(uint8_t value)
-  : std::vector<uint8_t>(1, value) 
+  : std::vector<uint8_t>(1, value)
 {
 }
 
 sk::util::bytes::
 bytes(const std::vector<uint8_t>& other)
-  : std::vector<uint8_t>(other) 
+  : std::vector<uint8_t>(other)
 {
 }
 
@@ -44,7 +44,7 @@ namespace {
   }
 }
 
-const sk::util::String 
+const sk::util::String
 sk::util::bytes::
 join(const sk::util::String& delimiter) const
 {
@@ -61,32 +61,32 @@ inspect() const
   return sk::util::inspect(*this);
 }
 
-sk::util::bytes& 
+sk::util::bytes&
 sk::util::bytes::
-operator << (uint8_t value) 
+operator << (uint8_t value)
 {
   push_back(value);
   return *this;
 }
 
-const sk::util::bytes 
+const sk::util::bytes
 sk::util::bytes::
-operator + (uint8_t value) const 
+operator + (uint8_t value) const
 {
   return sk::util::bytes(*this) << value;
 }
 
-const sk::util::bytes 
+const sk::util::bytes
 sk::util::bytes::
-operator + (const sk::util::bytes& other) const 
+operator + (const sk::util::bytes& other) const
 {
   std::vector<uint8_t> result(*this);
   result.insert(result.end(), other.begin(), other.end());
   return result;
 }
 
-std::ostream& 
-sk::util::operator << (std::ostream& stream, const sk::util::bytes& items) 
+std::ostream&
+sk::util::operator << (std::ostream& stream, const sk::util::bytes& items)
 {
   stream << "[ ";
   if(output_with_delimiter(stream, items, ", ") == true) {

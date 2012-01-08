@@ -49,7 +49,7 @@ PLATFORM_IMPLEMENTATION = unix ;
 
 project.DO_ABORT_TEST = false ;
 
-rule local.mswin-x86.setup 
+rule local.mswin-x86.setup
 {
   local _mode = $(1) ;
   local _block = $(2) ;
@@ -64,7 +64,7 @@ rule local.mswin-x86.setup
   project.CURSES_LIBS = ;
 
   project.JAVA_HOME = [ util.make-path "C:" "Program Files (x86)" "Java" "jdk1.5.0_15" ] ;
-  project.JAVA_INCLUDES = 
+  project.JAVA_INCLUDES =
     [ util.make-path $(project.JAVA_HOME) include ]
     [ util.make-path $(project.JAVA_HOME) include win32 ]
   ;
@@ -97,21 +97,21 @@ rule local.mswin-x86.setup
   CCOFLAGS = /Od ;
 
   switch $(_mode) {
-    case 32 : 
+    case 32 :
       LINKER_FLAGS += /MACHINE:X86 ;
       DEFINES += _USE_32BIT_TIME_T ;
 
-    case 64 : 
+    case 64 :
       LINKER_FLAGS += /MACHINE:X64 ;
   }
   AR = $(AR) /LTCG ;
 
-  LINKER_FLAGS += 
-    /STACK:9000000 
+  LINKER_FLAGS +=
+    /STACK:9000000
     /LTCG
     /NODEFAULTLIB:LIBCMT.LIB
-    /NODEFAULTLIB:LIBCP.LIB 
-    /DEBUG 
+    /NODEFAULTLIB:LIBCP.LIB
+    /DEBUG
   ;
   DEFINES += NDEBUG WINVER=0x0501 _WIN32_WINNT=0x0501 _LARGEFILE64_SOURCE ;
   SYSLIBS = shlwapi advapi32 user32 psapi $(windows.EXTRA_SYSLIBS) ;
@@ -147,10 +147,10 @@ rule local.mswin-x86.mks
   core.ensure-defined JAM_MKS_ROOT_$(_mode) ;
   mswin.setup-mks-toolkit8-m$(_mode) "$(JAM_MKS_ROOT_$(_mode):J= )" ;
 
-  LINKER_FLAGS += 
-    /NODEFAULTLIB:MSVCRT.LIB 
-    /NODEFAULTLIB:MSVCPRT.LIB 
-    /NODEFAULTLIB:LIBC.LIB 
+  LINKER_FLAGS +=
+    /NODEFAULTLIB:MSVCRT.LIB
+    /NODEFAULTLIB:MSVCPRT.LIB
+    /NODEFAULTLIB:LIBC.LIB
   ;
 
   jam.NO_PTHREAD_LIB = true ;
@@ -182,7 +182,7 @@ rule platform-mswin-x86
 
 rule platform-linux-x86-m32
 {
-  ABI_CC_FLAGS = -m32 ; 
+  ABI_CC_FLAGS = -m32 ;
   ABI_LD_FLAGS = -melf_i386 ;
   C++FLAGS += -fpic ;
   CCFLAGS += -fpic ;
@@ -192,7 +192,7 @@ rule platform-linux-x86-m32
 
 rule platform-linux-x86-m64
 {
-  ABI_CC_FLAGS = -m64 ; 
+  ABI_CC_FLAGS = -m64 ;
   C++FLAGS += -fPIC ;
   CCFLAGS += -fPIC ;
 }
@@ -238,14 +238,14 @@ rule platform-osf-alpha
 
 rule platform-aix-ppc-m32
 {
-  ABI_CC_FLAGS = -maix32 ; 
+  ABI_CC_FLAGS = -maix32 ;
   ABI_AR_FLAGS = -X32 ;
   platform.setup-abi-lib lib/pthread ;
 }
 
 rule platform-aix-ppc-m64
 {
-  ABI_CC_FLAGS = -maix64 ; 
+  ABI_CC_FLAGS = -maix64 ;
   ABI_AR_FLAGS = -X64 ;
   platform.setup-abi-lib lib64/pthread ;
 }
@@ -260,8 +260,8 @@ rule platform-aix-ppc
   C++LDFLAGS =
     -Wl,-bmaxdata:0x50000000
     -Wl,-bh:5
-    -Wl,-u__TSC_BUILD__    
-    -pthread 
+    -Wl,-u__TSC_BUILD__
+    -pthread
   ;
   CC_SONAME_FLAG = ;
   DLLFLAGS += -shared -Wl,-bexpfull ;
@@ -319,12 +319,12 @@ rule platform-darwin-x86
 
 rule platform-solaris-sparc-m32
 {
-  ABI_CC_FLAGS = -m32 ; 
+  ABI_CC_FLAGS = -m32 ;
 }
 
 rule platform-solaris-sparc-m64
 {
-  ABI_CC_FLAGS = -m64 ; 
+  ABI_CC_FLAGS = -m64 ;
 }
 
 rule platform-solaris-sparc
@@ -349,13 +349,13 @@ rule platform-solaris-sparc
 
 rule platform-solaris-x86-m32
 {
-  ABI_CC_FLAGS = -m32 ; 
+  ABI_CC_FLAGS = -m32 ;
 }
 
 rule platform-solaris-x86-m64
 {
   GCC_VERSION = 4.3 ;
-  ABI_CC_FLAGS = -m64 ; 
+  ABI_CC_FLAGS = -m64 ;
 }
 
 rule platform-solaris-x86
@@ -404,7 +404,7 @@ rule platform-hpux-ia64-m32
 
 rule platform-hpux-ia64-m64
 {
-  ABI_CC_FLAGS = -mlp64 ; 
+  ABI_CC_FLAGS = -mlp64 ;
 }
 
 rule platform-hpux-ia64

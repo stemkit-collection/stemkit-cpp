@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky (gennady.bystritsky@quest.com)
 */
 
@@ -82,7 +82,7 @@ sk::rt::Benchmarker::
 add(const sk::util::String& title, sk::rt::Runnable* code)
 {
   struct Adaptor : public sk::rt::Benchmark {
-    Adaptor(sk::rt::Runnable* code) 
+    Adaptor(sk::rt::Runnable* code)
       : _codeHolder(code) {}
 
     void run() {
@@ -98,7 +98,7 @@ sk::rt::Benchmarker::
 add(const sk::util::String& title, function_t code)
 {
   struct FunctionAdaptor : public sk::rt::Runnable {
-    FunctionAdaptor(function_t* code) 
+    FunctionAdaptor(function_t* code)
       : _code(code) {}
 
     void run() {
@@ -136,7 +136,7 @@ namespace {
   };
 }
 
-void 
+void
 sk::rt::Benchmarker::
 report(int indent, std::ostream& stream) const
 {
@@ -146,7 +146,7 @@ report(int indent, std::ostream& stream) const
   _runners.forEach(Reporter(indent + 2, stream));
 }
 
-void 
+void
 sk::rt::Benchmarker::
 setUp()
 {

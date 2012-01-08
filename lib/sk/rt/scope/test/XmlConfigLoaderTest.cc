@@ -1,6 +1,6 @@
 /*  vi: sw=2:
  *  Copyright (c) 2007, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -42,7 +42,7 @@ tearDown()
 
 sk::rt::scope::Aggregator&
 sk::rt::scope::test::XmlConfigLoaderTest::
-aggregator() 
+aggregator()
 {
   return _aggregatorHolder.getMutable();
 }
@@ -53,7 +53,7 @@ testBigPicture()
 {
   XmlConfigLoader loader(sk::util::Strings("app"), aggregator(), std::map<std::string, std::string>());
   std::istringstream stream(
-    "<scope name='app'>\n" 
+    "<scope name='app'>\n"
     "  <log show-pid='true'>\n"
     "    <level severity='warning' />\n"
     "  </log>\n"
@@ -101,7 +101,7 @@ testSubScopes()
 {
   XmlConfigLoader loader(sk::util::Strings("app") + "a1", aggregator(), std::map<std::string, std::string>());
   std::istringstream stream(
-    "<scope name='app'>\n" 
+    "<scope name='app'>\n"
     "  <log show-pid='true'>\n"
     "    <level severity='warning' />\n"
     "  </log>\n"

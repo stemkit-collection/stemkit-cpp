@@ -1,5 +1,5 @@
 /*  Copyright (c) 2008, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -20,15 +20,15 @@ namespace sk {
         CPPUNIT_TEST_SUITE(sk::util::test::StringHashTest);
           CPPUNIT_TEST(testBasics);
         CPPUNIT_TEST_SUITE_END();
-        
+
         public:
           StringHashTest();
           virtual ~StringHashTest();
-          
+
           void setUp();
           void testBasics();
           void tearDown();
-          
+
         private:
           StringHashTest(const StringHashTest& other);
           StringHashTest& operator = (const StringHashTest& other);

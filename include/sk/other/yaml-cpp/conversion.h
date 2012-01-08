@@ -14,17 +14,17 @@ namespace YAML
 		output = input;
 		return true;
 	}
-	
+
 	bool Convert(const std::string& input, bool& output);
 	bool Convert(const std::string& input, _Null& output);
-	
+
 #define YAML_MAKE_STREAM_CONVERT(type) \
 	inline bool Convert(const std::string& input, type& output) { \
 		std::stringstream stream(input); \
 		stream >> output; \
 		return !stream.fail(); \
 	}
-	
+
 	YAML_MAKE_STREAM_CONVERT(char)
 	YAML_MAKE_STREAM_CONVERT(unsigned char)
 	YAML_MAKE_STREAM_CONVERT(int)
@@ -36,7 +36,7 @@ namespace YAML
 	YAML_MAKE_STREAM_CONVERT(float)
 	YAML_MAKE_STREAM_CONVERT(double)
 	YAML_MAKE_STREAM_CONVERT(long double)
-	
+
 #undef YAML_MAKE_STREAM_CONVERT
 }
 

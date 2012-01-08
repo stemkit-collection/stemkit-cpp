@@ -18,7 +18,7 @@
     <li><a href="hierarchy.html"><span>Class&nbsp;Hierarchy</span></a></li>
     <li><a href="functions.html"><span>Class&nbsp;Members</span></a></li>
   </ul></div>
-<h1>TiXmlElement Class Reference</h1><!-- doxytag: class="TiXmlElement" --><!-- doxytag: inherits="TiXmlNode" -->The element is a container class.  
+<h1>TiXmlElement Class Reference</h1><!-- doxytag: class="TiXmlElement" --><!-- doxytag: inherits="TiXmlNode" -->The element is a container class.
 <a href="#_details">More...</a>
 <p>
 <code>#include &lt;<a class="el" href="tinyxml_8h-source.html">tinyxml.h</a>&gt;</code>
@@ -118,9 +118,9 @@ virtual bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Walk the XML tree visiting this node and all of its children. <br></td></tr>
 </table>
 <hr><a name="_details"></a><h2>Detailed Description</h2>
-The element is a container class. 
+The element is a container class.
 <p>
-It has a value, the element name, and can contain other elements, text, comments, and unknowns. Elements also contain an arbitrary number of attributes. 
+It has a value, the element name, and can contain other elements, text, comments, and unknowns. Elements also contain an arbitrary number of attributes.
 <p>
 <hr><h2>Member Function Documentation</h2>
 <a class="anchor" name="eaff99d4f0ea5b34f7aee202aad457ba"></a><!-- doxytag: member="TiXmlElement::Attribute" ref="eaff99d4f0ea5b34f7aee202aad457ba" args="(const char *name, double *d) const " -->
@@ -149,9 +149,9 @@ It has a value, the element name, and can contain other elements, text, comments
 <div class="memdoc">
 
 <p>
-Given an attribute name, <a class="el" href="classTiXmlElement.html#e419a442a9701a62b0c3d8fd1cbdd12d">Attribute()</a> returns the value for the attribute of that name, or null if none exists. 
+Given an attribute name, <a class="el" href="classTiXmlElement.html#e419a442a9701a62b0c3d8fd1cbdd12d">Attribute()</a> returns the value for the attribute of that name, or null if none exists.
 <p>
-If the attribute exists and can be converted to an double, the double value will be put in the return 'd', if 'd' is non-null. 
+If the attribute exists and can be converted to an double, the double value will be put in the return 'd', if 'd' is non-null.
 </div>
 </div><p>
 <a class="anchor" name="0ed8348fdc56b72a6b4900ce5bac1849"></a><!-- doxytag: member="TiXmlElement::Attribute" ref="0ed8348fdc56b72a6b4900ce5bac1849" args="(const char *name, int *i) const " -->
@@ -180,9 +180,9 @@ If the attribute exists and can be converted to an double, the double value will
 <div class="memdoc">
 
 <p>
-Given an attribute name, <a class="el" href="classTiXmlElement.html#e419a442a9701a62b0c3d8fd1cbdd12d">Attribute()</a> returns the value for the attribute of that name, or null if none exists. 
+Given an attribute name, <a class="el" href="classTiXmlElement.html#e419a442a9701a62b0c3d8fd1cbdd12d">Attribute()</a> returns the value for the attribute of that name, or null if none exists.
 <p>
-If the attribute exists and can be converted to an integer, the integer value will be put in the return 'i', if 'i' is non-null. 
+If the attribute exists and can be converted to an integer, the integer value will be put in the return 'i', if 'i' is non-null.
 </div>
 </div><p>
 <a class="anchor" name="f3282294986cdb216646ea1f67af2c87"></a><!-- doxytag: member="TiXmlElement::GetText" ref="f3282294986cdb216646ea1f67af2c87" args="() const " -->
@@ -201,7 +201,7 @@ If the attribute exists and can be converted to an integer, the integer value wi
 <div class="memdoc">
 
 <p>
-Convenience function for easy access to the text inside an element. 
+Convenience function for easy access to the text inside an element.
 <p>
 Although easy and concise, <a class="el" href="classTiXmlElement.html#f3282294986cdb216646ea1f67af2c87">GetText()</a> is limited compared to getting the <a class="el" href="classTiXmlText.html">TiXmlText</a> child and accessing it directly.<p>
 If the first child of 'this' is a <a class="el" href="classTiXmlText.html">TiXmlText</a>, the <a class="el" href="classTiXmlElement.html#f3282294986cdb216646ea1f67af2c87">GetText()</a> returns the character string of the Text node, else null is returned.<p>
@@ -209,11 +209,11 @@ This is a convenient method for getting the text of simple contained text: <div 
 		const char* str = fooElement-&gt;GetText();
 		</pre></div><p>
 'str' will be a pointer to "This is text".<p>
-Note that this function can be misleading. If the element foo was created from this XML: <div class="fragment"><pre class="fragment">		&lt;foo&gt;&lt;b&gt;This is text&lt;/b&gt;&lt;/foo&gt; 
+Note that this function can be misleading. If the element foo was created from this XML: <div class="fragment"><pre class="fragment">		&lt;foo&gt;&lt;b&gt;This is text&lt;/b&gt;&lt;/foo&gt;
 		</pre></div><p>
-then the value of str would be null. The first child node isn't a text node, it is another element. From this XML: <div class="fragment"><pre class="fragment">		&lt;foo&gt;This is &lt;b&gt;text&lt;/b&gt;&lt;/foo&gt; 
+then the value of str would be null. The first child node isn't a text node, it is another element. From this XML: <div class="fragment"><pre class="fragment">		&lt;foo&gt;This is &lt;b&gt;text&lt;/b&gt;&lt;/foo&gt;
 		</pre></div> <a class="el" href="classTiXmlElement.html#f3282294986cdb216646ea1f67af2c87">GetText()</a> will return "This is ".<p>
-WARNING: <a class="el" href="classTiXmlElement.html#f3282294986cdb216646ea1f67af2c87">GetText()</a> accesses a child node - don't become confused with the similarly named <a class="el" href="classTiXmlHandle.html#9fc739c8a18d160006f82572fc143d13">TiXmlHandle::Text()</a> and <a class="el" href="classTiXmlNode.html#3ddfbcac78fbea041fad57e5c6d60a03">TiXmlNode::ToText()</a> which are safe type casts on the referenced node. 
+WARNING: <a class="el" href="classTiXmlElement.html#f3282294986cdb216646ea1f67af2c87">GetText()</a> accesses a child node - don't become confused with the similarly named <a class="el" href="classTiXmlHandle.html#9fc739c8a18d160006f82572fc143d13">TiXmlHandle::Text()</a> and <a class="el" href="classTiXmlNode.html#3ddfbcac78fbea041fad57e5c6d60a03">TiXmlNode::ToText()</a> which are safe type casts on the referenced node.
 </div>
 </div><p>
 <a class="anchor" name="fbf52736e70fc91ec9d760721d6f4fd2"></a><!-- doxytag: member="TiXmlElement::Print" ref="fbf52736e70fc91ec9d760721d6f4fd2" args="(FILE *cfile, int depth) const " -->
@@ -242,11 +242,11 @@ WARNING: <a class="el" href="classTiXmlElement.html#f3282294986cdb216646ea1f67af
 <div class="memdoc">
 
 <p>
-All TinyXml classes can print themselves to a filestream or the string class (TiXmlString in non-STL mode, std::string in STL mode. 
+All TinyXml classes can print themselves to a filestream or the string class (TiXmlString in non-STL mode, std::string in STL mode.
 <p>
 ) Either or both cfile and str can be null.<p>
 This is a formatted print, and will insert tabs and newlines.<p>
-(For an unformatted stream, use the &lt;&lt; operator.) 
+(For an unformatted stream, use the &lt;&lt; operator.)
 <p>
 Implements <a class="el" href="classTiXmlBase.html#0de56b3f2ef14c65091a3b916437b512">TiXmlBase</a>.
 </div>
@@ -277,9 +277,9 @@ Implements <a class="el" href="classTiXmlBase.html#0de56b3f2ef14c65091a3b916437b
 <div class="memdoc">
 
 <p>
-QueryIntAttribute examines the attribute - it is an alternative to the <a class="el" href="classTiXmlElement.html#e419a442a9701a62b0c3d8fd1cbdd12d">Attribute()</a> method with richer error checking. 
+QueryIntAttribute examines the attribute - it is an alternative to the <a class="el" href="classTiXmlElement.html#e419a442a9701a62b0c3d8fd1cbdd12d">Attribute()</a> method with richer error checking.
 <p>
-If the attribute is an integer, it is stored in 'value' and the call returns TIXML_SUCCESS. If it is not an integer, it returns TIXML_WRONG_TYPE. If the attribute does not exist, then TIXML_NO_ATTRIBUTE is returned. 
+If the attribute is an integer, it is stored in 'value' and the call returns TIXML_SUCCESS. If it is not an integer, it returns TIXML_WRONG_TYPE. If the attribute does not exist, then TIXML_NO_ATTRIBUTE is returned.
 </div>
 </div><p>
 <a class="anchor" name="e3b9a03b0a56663a40801c7256683576"></a><!-- doxytag: member="TiXmlElement::QueryValueAttribute" ref="e3b9a03b0a56663a40801c7256683576" args="(const std::string &amp;name, T *outValue) const " -->
@@ -310,7 +310,7 @@ template&lt;typename T&gt; </div>
 <div class="memdoc">
 
 <p>
-Template form of the attribute query which will try to read the attribute into the specified type. 
+Template form of the attribute query which will try to read the attribute into the specified type.
 <p>
 Very easy, very powerful, but be careful to make sure to call this with the correct type.<p>
 NOTE: This method doesn't work correctly for 'string' types.<p>
@@ -344,9 +344,9 @@ NOTE: This method doesn't work correctly for 'string' types.<p>
 <div class="memdoc">
 
 <p>
-Sets an attribute of name to a given value. 
+Sets an attribute of name to a given value.
 <p>
-The attribute will be created if it does not exist, or changed if it does. 
+The attribute will be created if it does not exist, or changed if it does.
 </div>
 </div><p>
 <a class="anchor" name="bf0b3bd7f0e4c746a89ec6e7f101fc32"></a><!-- doxytag: member="TiXmlElement::SetAttribute" ref="bf0b3bd7f0e4c746a89ec6e7f101fc32" args="(const char *name, const char *_value)" -->
@@ -375,9 +375,9 @@ The attribute will be created if it does not exist, or changed if it does.
 <div class="memdoc">
 
 <p>
-Sets an attribute of name to a given value. 
+Sets an attribute of name to a given value.
 <p>
-The attribute will be created if it does not exist, or changed if it does. 
+The attribute will be created if it does not exist, or changed if it does.
 </div>
 </div><p>
 <a class="anchor" name="0d1dd975d75496778177e35abfe0ec0b"></a><!-- doxytag: member="TiXmlElement::SetDoubleAttribute" ref="0d1dd975d75496778177e35abfe0ec0b" args="(const char *name, double value)" -->
@@ -406,9 +406,9 @@ The attribute will be created if it does not exist, or changed if it does.
 <div class="memdoc">
 
 <p>
-Sets an attribute of name to a given value. 
+Sets an attribute of name to a given value.
 <p>
-The attribute will be created if it does not exist, or changed if it does. 
+The attribute will be created if it does not exist, or changed if it does.
 </div>
 </div><p>
 <hr>The documentation for this class was generated from the following file:<ul>

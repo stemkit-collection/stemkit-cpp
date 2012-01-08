@@ -1,5 +1,5 @@
 /*  Copyright (c) 2007, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -33,7 +33,7 @@ getClass() const
 
 void
 sk::rt::scope::XmlConfigLoader::
-process(std::istream& stream, const sk::util::Pathname& location) const 
+process(std::istream& stream, const sk::util::Pathname& location) const
 {
   std::string incoming;
   std::ostringstream content;

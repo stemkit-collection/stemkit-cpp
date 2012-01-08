@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -63,11 +63,11 @@ namespace sk {
 
             CPPUNIT_TEST(testCopying);
           CPPUNIT_TEST_SUITE_END();
-        
+
           public:
             ArrayListTest();
             virtual ~ArrayListTest();
-        
+
           protected:
             sk::util::List<sk::util::String>* makeCopyingList();
             sk::util::List<sk::util::String>* makeStoringList();

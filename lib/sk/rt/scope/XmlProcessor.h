@@ -1,6 +1,6 @@
 /*  vi: sw=2:
  *  Copyright (c) 2007, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -27,7 +27,7 @@ namespace sk {
       class IConfig;
 
       class XmlProcessor
-        : public virtual sk::util::Object 
+        : public virtual sk::util::Object
       {
         public:
           XmlProcessor(const std::string& xml, const sk::util::Pathname& location, scope::Aggregator& aggregator, const std::map<std::string, std::string>& values);
@@ -38,10 +38,10 @@ namespace sk {
           const TiXmlHandle& getHandle() const;
           const sk::util::Pathname& getLocation() const;
           TiXmlElement* findScopeElement(const TiXmlHandle& handle, const sk::util::String& name = sk::util::String::EMPTY);
-          
+
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
-          
+
         private:
           XmlProcessor(const XmlProcessor& other);
           XmlProcessor& operator = (const XmlProcessor& other);

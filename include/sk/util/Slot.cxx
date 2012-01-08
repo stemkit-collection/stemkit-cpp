@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky (gennady.bystritsky@quest.com)
 */
 
@@ -55,7 +55,7 @@ sk::util::Slot<T, Mixin>::
 template<typename T, typename Mixin>
 void
 sk::util::Slot<T, Mixin>::
-setMutable(bool state) 
+setMutable(bool state)
 {
   _traits.set(0, state);
 }
@@ -63,7 +63,7 @@ setMutable(bool state)
 template<typename T, typename Mixin>
 void
 sk::util::Slot<T, Mixin>::
-setOwner(bool state) 
+setOwner(bool state)
 {
   _traits.set(1, state);
 }

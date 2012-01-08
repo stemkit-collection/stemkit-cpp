@@ -1,5 +1,5 @@
 /*  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -63,7 +63,7 @@ getName() const
   return _name;
 }
 
-void 
+void
 sk::io::Pty::
 close()
 {
@@ -80,28 +80,28 @@ closeTty()
   _ttyHolder.getMutable().close();
 }
 
-sk::io::Tty& 
+sk::io::Tty&
 sk::io::Pty::
 getTty()
 {
   return _ttyHolder.getMutable();
 }
 
-const sk::io::Tty& 
+const sk::io::Tty&
 sk::io::Pty::
 getTty() const
 {
   return _ttyHolder.get();
 }
 
-sk::io::FileDescriptorPipe& 
+sk::io::FileDescriptorPipe&
 sk::io::Pty::
 getMasterSlavePipe()
 {
   return _masterSlavePipeHolder.getMutable();
 }
 
-sk::io::FileDescriptorPipe& 
+sk::io::FileDescriptorPipe&
 sk::io::Pty::
 getSlaveMasterPipe()
 {

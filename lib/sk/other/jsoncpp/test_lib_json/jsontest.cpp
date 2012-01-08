@@ -81,7 +81,7 @@ TestResult::TestResult()
 }
 
 
-void 
+void
 TestResult::setTestName( const std::string &name )
 {
    name_ = name;
@@ -101,7 +101,7 @@ TestResult::addFailure( const char *file, unsigned int line,
          lastUsedPredicateId_ = lastNode->id_;
          addFailureInfo( lastNode->file_, lastNode->line_, lastNode->expr_,
                          nestingLevel );
-         // Link the PredicateContext to the failure for message target when 
+         // Link the PredicateContext to the failure for message target when
          // popping the PredicateContext.
          lastNode->failure_ = &( failures_.back() );
       }
@@ -115,7 +115,7 @@ TestResult::addFailure( const char *file, unsigned int line,
 }
 
 
-void 
+void
 TestResult::addFailureInfo( const char *file, unsigned int line,
                             const char *expr, unsigned int nestingLevel )
 {
@@ -152,14 +152,14 @@ TestResult::popPredicateContext()
 }
 
 
-bool 
+bool
 TestResult::failed() const
 {
    return !failures_.empty();
 }
 
 
-unsigned int 
+unsigned int
 TestResult::getAssertionNestingLevel() const
 {
    unsigned int level = 0;
@@ -173,7 +173,7 @@ TestResult::getAssertionNestingLevel() const
 }
 
 
-void 
+void
 TestResult::printFailure( bool printTestName ) const
 {
    if ( failures_.empty() )
@@ -213,8 +213,8 @@ TestResult::printFailure( bool printTestName ) const
 }
 
 
-std::string 
-TestResult::indentText( const std::string &text, 
+std::string
+TestResult::indentText( const std::string &text,
                         const std::string &indent )
 {
    std::string reindented;
@@ -282,7 +282,7 @@ TestResult::operator << ( double value )
 TestResult &
 TestResult::operator << ( const char *value )
 {
-   return addToLastFailure( value ? value 
+   return addToLastFailure( value ? value
                                   : "<NULL>" );
 }
 
@@ -309,7 +309,7 @@ TestCase::~TestCase()
 }
 
 
-void 
+void
 TestCase::run( TestResult &result )
 {
    result_ = &result;
@@ -334,14 +334,14 @@ Runner::add( TestCaseFactory factory )
 }
 
 
-unsigned int 
+unsigned int
 Runner::testCount() const
 {
    return static_cast<unsigned int>( tests_.size() );
 }
 
 
-std::string 
+std::string
 Runner::testNameAt( unsigned int index ) const
 {
    TestCase *test = tests_[index]();
@@ -351,7 +351,7 @@ Runner::testNameAt( unsigned int index ) const
 }
 
 
-void 
+void
 Runner::runTestAt( unsigned int index, TestResult &result ) const
 {
    TestCase *test = tests_[index]();
@@ -359,27 +359,27 @@ Runner::runTestAt( unsigned int index, TestResult &result ) const
    printf( "Testing %s: ", test->testName() );
    fflush( stdout );
 #if JSON_USE_EXCEPTION
-   try 
+   try
    {
 #endif // if JSON_USE_EXCEPTION
       test->run( result );
 #if JSON_USE_EXCEPTION
-   } 
-   catch ( const std::exception &e ) 
+   }
+   catch ( const std::exception &e )
    {
-      result.addFailure( __FILE__, __LINE__, 
+      result.addFailure( __FILE__, __LINE__,
          "Unexpected exception caugth:" ) << e.what();
    }
 #endif // if JSON_USE_EXCEPTION
    delete test;
-   const char *status = result.failed() ? "FAILED" 
+   const char *status = result.failed() ? "FAILED"
                                         : "OK";
    printf( "%s\n", status );
    fflush( stdout );
 }
 
 
-bool 
+bool
 Runner::runAllTest( bool printSummary ) const
 {
    unsigned int count = testCount();
@@ -421,8 +421,8 @@ Runner::runAllTest( bool printSummary ) const
 }
 
 
-bool 
-Runner::testIndex( const std::string &testName, 
+bool
+Runner::testIndex( const std::string &testName,
                    unsigned int &indexOut ) const
 {
    unsigned int count = testCount();
@@ -438,7 +438,7 @@ Runner::testIndex( const std::string &testName,
 }
 
 
-void 
+void
 Runner::listTests() const
 {
    unsigned int count = testCount();
@@ -449,7 +449,7 @@ Runner::listTests() const
 }
 
 
-int 
+int
 Runner::runCommandLine( int argc, const char *argv[] ) const
 {
    typedef std::deque<std::string> TestNames;
@@ -503,22 +503,22 @@ Runner::runCommandLine( int argc, const char *argv[] ) const
    {
       succeeded = runAllTest( true );
    }
-   return succeeded ? 0 
+   return succeeded ? 0
                     : 1;
 }
 
 
 #if defined(_MSC_VER)
 // Hook MSVCRT assertions to prevent dialog from appearing
-static int 
+static int
 msvcrtSilentReportHook( int reportType, char *message, int *returnValue )
 {
    // The default CRT handling of error and assertion is to display
    // an error dialog to the user.
-   // Instead, when an error or an assertion occurs, we force the 
+   // Instead, when an error or an assertion occurs, we force the
    // application to terminate using abort() after display
-   // the message on stderr. 
-   if ( reportType == _CRT_ERROR  ||  
+   // the message on stderr.
+   if ( reportType == _CRT_ERROR  ||
         reportType == _CRT_ASSERT )
    {
       // calling abort() cause the ReportHook to be called
@@ -526,7 +526,7 @@ msvcrtSilentReportHook( int reportType, char *message, int *returnValue )
       // error handler fallback on its default behaviour (
       // display a warning message)
       static volatile bool isAborting = false;
-      if ( isAborting ) 
+      if ( isAborting )
       {
          return TRUE;
       }
@@ -542,7 +542,7 @@ msvcrtSilentReportHook( int reportType, char *message, int *returnValue )
 #endif // if defined(_MSC_VER)
 
 
-void 
+void
 Runner::preventDialogOnCrash()
 {
 #if defined(_MSC_VER)
@@ -557,16 +557,16 @@ Runner::preventDialogOnCrash()
 #if defined(_WIN32)
    // Prevents the system from popping a dialog for debugging if the
    // application fails due to invalid memory access.
-   SetErrorMode( SEM_FAILCRITICALERRORS 
-                 | SEM_NOGPFAULTERRORBOX 
+   SetErrorMode( SEM_FAILCRITICALERRORS
+                 | SEM_NOGPFAULTERRORBOX
                  | SEM_NOOPENFILEERRORBOX );
 #endif // if defined(_WIN32)
 }
 
-void 
+void
 Runner::printUsage( const char *appName )
 {
-   printf( 
+   printf(
       "Usage: %s [options]\n"
       "\n"
       "If --test is not specified, then all the test cases be run.\n"
@@ -586,7 +586,7 @@ Runner::printUsage( const char *appName )
 // //////////////////////////////////////////////////////////////////
 
 TestResult &
-checkStringEqual( TestResult &result, 
+checkStringEqual( TestResult &result,
                   const std::string &expected, const std::string &actual,
                   const char *file, unsigned int line, const char *expr )
 {

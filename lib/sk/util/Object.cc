@@ -1,6 +1,6 @@
 /*  vi: sw=2:
  *  Copyright (c) 2005, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -13,7 +13,7 @@
 #include <sstream>
 
 sk::util::Object::
-Object() 
+Object()
 {
 }
 
@@ -54,63 +54,63 @@ toString() const
   return stream.str();
 }
 
-const sk::util::String 
+const sk::util::String
 sk::util::Object::
 inspect() const
 {
   return toString();
 }
 
-sk::util::Object& 
+sk::util::Object&
 sk::util::Object::
 getObject()
 {
   return *this;
 }
 
-const sk::util::Object& 
+const sk::util::Object&
 sk::util::Object::
 getObject() const
 {
   return *this;
 }
 
-bool 
+bool
 sk::util::
 operator<(const sk::util::Object& first, const sk::util::Object& second)
 {
   return &first < &second;
 }
 
-bool 
+bool
 sk::util::
 operator>(const sk::util::Object& first, const sk::util::Object& second)
 {
   return &first > &second;
 }
 
-bool 
+bool
 sk::util::
 operator==(const sk::util::Object& first, const sk::util::Object& second)
 {
   return &first == &second;
 }
 
-bool 
+bool
 sk::util::
 operator!=(const sk::util::Object& first, const sk::util::Object& second)
 {
   return &first != &second;
 }
 
-bool 
+bool
 sk::util::
 operator<=(const sk::util::Object& first, const sk::util::Object& second)
 {
   return &first <= &second;
 }
 
-bool 
+bool
 sk::util::
 operator>=(const sk::util::Object& first, const sk::util::Object& second)
 {

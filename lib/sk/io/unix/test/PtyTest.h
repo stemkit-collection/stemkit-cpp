@@ -1,5 +1,5 @@
 /*  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -22,17 +22,17 @@ namespace sk {
           CPPUNIT_TEST(testSlaveMasterPipe);
           CPPUNIT_TEST(testSlaveTty);
         CPPUNIT_TEST_SUITE_END();
-        
+
         public:
           PtyTest();
           virtual ~PtyTest();
-          
+
           void setUp();
           void tearDown();
           void testMasterSlavePipe();
           void testSlaveMasterPipe();
           void testSlaveTty();
-          
+
         private:
           PtyTest(const PtyTest& other);
           PtyTest& operator = (const PtyTest& other);

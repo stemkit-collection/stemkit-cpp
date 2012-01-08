@@ -1,6 +1,6 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -18,7 +18,7 @@ namespace sk {
   namespace util {
     class Exception
       : public std::exception,
-        public virtual sk::util::Object 
+        public virtual sk::util::Object
     {
       public:
         Exception(const util::Strings& strings);
@@ -32,7 +32,7 @@ namespace sk {
         void exit(int code) const;
 
         virtual int defaultExitCode() const;
-        
+
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
         const sk::util::String inspect() const;
@@ -42,10 +42,10 @@ namespace sk {
 
         template<typename S, typename T, typename TMF>
         static void guard(const S& stream, T& target, TMF method, const char* spot = 0);
-        
+
         static void setTraceProducerFactory(const sk::util::trace::ProducerFactory& factory);
         static void clearTraceProducerFactory();
-    
+
       private:
         const sk::util::String _message;
         const sk::util::Tracer _tracer;
@@ -54,9 +54,9 @@ namespace sk {
 }
 
 template<typename S, typename T, typename TMF>
-void 
+void
 sk::util::Exception::
-guard(const S& stream, T& target, TMF method, const char* spot) 
+guard(const S& stream, T& target, TMF method, const char* spot)
 {
   try {
     (target.*method)();

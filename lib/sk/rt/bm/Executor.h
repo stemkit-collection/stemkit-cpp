@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -21,21 +21,21 @@
 namespace sk {
   namespace rt {
     namespace bm {
-      class Executor 
+      class Executor
         : public virtual sk::rt::bm::Runner
       {
         public:
           Executor(const int& maxTitleSize, const sk::util::String& title, sk::rt::Benchmarkable* code);
           virtual ~Executor();
-      
+
           // sk::rt::bt::Runner implementation.
           void init();
           void start() throw();
           void report(int indent, std::ostream& stream) const;
-          
+
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
-      
+
         private:
           Executor(const Executor& other);
           Executor& operator = (const Executor& other);

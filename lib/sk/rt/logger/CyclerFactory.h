@@ -1,9 +1,9 @@
 /*  Copyright (c) 2008, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -23,7 +23,7 @@ namespace sk {
       {
         public:
           static sk::util::Holder<Cycler>::Sharing create(const sk::util::Pathname& pathname, const sk::util::String& policy);
-          
+
         private:
           CyclerFactory();
           CyclerFactory(const CyclerFactory& other);

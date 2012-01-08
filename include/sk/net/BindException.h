@@ -1,10 +1,10 @@
 /*  vim: sw=2:
  *  Copyright (c) 2011, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -15,7 +15,7 @@
 
 namespace sk {
   namespace net {
-    class BindException 
+    class BindException
       : public sk::net::SocketException
     {
       public:
@@ -24,7 +24,7 @@ namespace sk {
 
         const sk::util::String getAddress() const;
         const uint16_t getPort() const;
-    
+
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
 

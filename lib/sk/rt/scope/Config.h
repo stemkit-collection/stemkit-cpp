@@ -1,5 +1,5 @@
 /*  Copyright (c) 2007, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -21,7 +21,7 @@ namespace sk {
         public:
           Config();
           virtual ~Config();
-          
+
           void setLogDestination(const logger::Destination& destination);
           void setLogLevel(const logger::Level& level);
           void setTimeFormat(const sk::util::String& format);
@@ -44,7 +44,7 @@ namespace sk {
           bool isLogObject() const;
           bool isLogThread() const;
           bool isLogMemory() const;
-          
+
           // sk::rt::scope::Config implementation.
           const sk::util::String getProperty(const sk::util::String& name) const;
           const sk::util::String getProperty(const sk::util::String& name, const sk::util::String& fallback) const;
@@ -52,10 +52,10 @@ namespace sk {
           bool getProperty(const sk::util::String& name, const sk::util::Boolean& fallback) const;
           int getProperty(const sk::util::String& name, int fallback) const;
           bool hasProperty(const sk::util::String& name) const;
-          
+
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
-          
+
         private:
           Config& operator = (const Config& other);
 

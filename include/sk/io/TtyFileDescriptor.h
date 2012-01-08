@@ -1,5 +1,5 @@
 /*  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -23,14 +23,14 @@ namespace sk {
         // Enabling copy constructor, the default one will do for now.
         // TtyFileDescriptor(const TtyFileDescriptor& other);
         virtual ~TtyFileDescriptor();
-        
+
         // sk::io::Tty implementation.
         void setLines(int lines);
         void setColumns(int columns);
-        
+
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
-        
+
       private:
         TtyFileDescriptor& operator = (const TtyFileDescriptor& other);
 

@@ -18,7 +18,7 @@ int main(int argc, const char* const argv[])
   sk::util::ArrayList<sk::util::String> array_list;
   array_list.add(s);
   array_list.add(new sk::util::String("zzz"));
-  
+
   sk::util::LinkedList<sk::util::String> linked_list;
   linked_list.add(s);
 

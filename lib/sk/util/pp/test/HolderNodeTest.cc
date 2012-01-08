@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -55,7 +55,7 @@ testEmpty()
   CPPUNIT_ASSERT_EQUAL("<HolderNode: empty>", nodeHolder.get().inspect());
 }
 
-void 
+void
 sk::util::pp::test::HolderNodeTest::
 testHoldPointer()
 {
@@ -66,7 +66,7 @@ testHoldPointer()
   CPPUNIT_ASSERT_EQUAL("<HolderNode: *<PointerNode: <null>>>", nodeHolder.get().inspect());
 }
 
-void 
+void
 sk::util::pp::test::HolderNodeTest::
 testHoldText()
 {
@@ -77,7 +77,7 @@ testHoldText()
   CPPUNIT_ASSERT_EQUAL("<HolderNode: &<TextNode: \"HELLO\">>", nodeHolder.get().inspect());
 }
 
-void 
+void
 sk::util::pp::test::HolderNodeTest::
 testHoldQuotedText()
 {
@@ -88,7 +88,7 @@ testHoldQuotedText()
   CPPUNIT_ASSERT_EQUAL("<HolderNode: &<TextNode: \"\\\"world\\\"\">>", nodeHolder.get().inspect());
 }
 
-void 
+void
 sk::util::pp::test::HolderNodeTest::
 testHoldHolder()
 {

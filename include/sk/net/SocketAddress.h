@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -15,16 +15,16 @@
 
 namespace sk {
   namespace net {
-    class SocketAddress 
+    class SocketAddress
       : public virtual sk::util::Object
     {
       public:
         SocketAddress();
         virtual ~SocketAddress();
-    
+
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
-    
+
       private:
         SocketAddress& operator = (const SocketAddress& other);
     };

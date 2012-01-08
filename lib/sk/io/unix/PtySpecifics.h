@@ -1,5 +1,5 @@
 /*  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -16,14 +16,14 @@ namespace sk {
     class FileDescriptor;
 
     class PtySpecifics
-      : public virtual sk::util::Object 
+      : public virtual sk::util::Object
     {
       public:
-        PtySpecifics() 
+        PtySpecifics()
           : _scope("sk::io::PtySpecifics") {}
 
         void setup();
-        
+
         virtual int makeSlave(const sk::util::String& name) = 0;
         virtual int makeMaster(const sk::io::FileDescriptor& descriptor) = 0;
 

@@ -1,6 +1,6 @@
 /*  vi: sw=2:
  *  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -313,7 +313,7 @@ namespace {
 
 void
 sk::sys::Process::
-stop() 
+stop()
 {
   if(_running == false) {
     return;
@@ -325,7 +325,7 @@ stop()
 
   terminator.start();
   join();
-  
+
   cleaner.cancel();
   terminator.join();
 }
@@ -343,7 +343,7 @@ kill()
 
 void
 sk::sys::Process::
-processJoining() 
+processJoining()
 {
 }
 

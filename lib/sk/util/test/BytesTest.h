@@ -1,10 +1,10 @@
 /*  vim: sw=2:
  *  Copyright (c) 2011, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -23,15 +23,15 @@ namespace sk {
         CPPUNIT_TEST_SUITE(sk::util::test::BytesTest);
           CPPUNIT_TEST(testBasics);
         CPPUNIT_TEST_SUITE_END();
-      
+
         public:
           BytesTest();
           virtual ~BytesTest();
-      
+
           void setUp();
           void tearDown();
           void testBasics();
-      
+
         private:
           BytesTest(const BytesTest& other);
           BytesTest& operator = (const BytesTest& other);

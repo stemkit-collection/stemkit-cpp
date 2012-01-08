@@ -1,6 +1,6 @@
 /*  vi: sw=2:
  *  Copyright (c) 2005, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -35,54 +35,54 @@ getClass() const
 
 const sk::util::String
 sk::util::Integer::
-toString() const 
+toString() const
 {
   return sk::util::Integer::toString(_value);
 }
 
 const sk::util::String
 sk::util::Integer::
-inspect() const 
+inspect() const
 {
   return toString();
 }
 
-char 
+char
 sk::util::Integer::
 byteValue() const
 {
   return _value;
 }
 
-int 
+int
 sk::util::Integer::
 intValue() const
 {
   return _value;
 }
 
-short 
+short
 sk::util::Integer::
 shortValue() const
 {
   return _value;
 }
 
-int64_t 
+int64_t
 sk::util::Integer::
 longValue() const
 {
   return _value;
 }
 
-float 
+float
 sk::util::Integer::
 floatValue() const
 {
   return _value;
 }
 
-double 
+double
 sk::util::Integer::
 doubleValue() const
 {
@@ -137,12 +137,12 @@ namespace {
 
 int
 sk::util::Integer::
-parseInt(const sk::util::String& value, int radix) 
+parseInt(const sk::util::String& value, int radix)
 {
   return parse(value.getChars(), value.size(), 0, radix);
 }
 
-int 
+int
 sk::util::Integer::
 parseInt(const sk::util::String& value)
 {

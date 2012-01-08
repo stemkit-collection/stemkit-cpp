@@ -18,7 +18,7 @@
     <li><a href="hierarchy.html"><span>Class&nbsp;Hierarchy</span></a></li>
     <li><a href="functions.html"><span>Class&nbsp;Members</span></a></li>
   </ul></div>
-<h1>TiXmlNode Class Reference</h1><!-- doxytag: class="TiXmlNode" --><!-- doxytag: inherits="TiXmlBase" -->The parent class for everything in the Document Object Model.  
+<h1>TiXmlNode Class Reference</h1><!-- doxytag: class="TiXmlNode" --><!-- doxytag: inherits="TiXmlBase" -->The parent class for everything in the Document Object Model.
 <a href="#_details">More...</a>
 <p>
 <code>#include &lt;<a class="el" href="tinyxml_8h-source.html">tinyxml.h</a>&gt;</code>
@@ -276,9 +276,9 @@ std::string &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="e
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Appends the XML node or attribute to a std::string. <br></td></tr>
 </table>
 <hr><a name="_details"></a><h2>Detailed Description</h2>
-The parent class for everything in the Document Object Model. 
+The parent class for everything in the Document Object Model.
 <p>
-(Except for attributes). Nodes have siblings, a parent, and children. A node can be in a document, or stand on its own. The type of a <a class="el" href="classTiXmlNode.html">TiXmlNode</a> can be queried, and it can be cast to its more defined type. 
+(Except for attributes). Nodes have siblings, a parent, and children. A node can be in a document, or stand on its own. The type of a <a class="el" href="classTiXmlNode.html">TiXmlNode</a> can be queried, and it can be cast to its more defined type.
 <p>
 <hr><h2>Member Enumeration Documentation</h2>
 <a class="anchor" name="836eded4920ab9e9ef28496f48cd95a2"></a><!-- doxytag: member="TiXmlNode::NodeType" ref="836eded4920ab9e9ef28496f48cd95a2" args="" -->
@@ -293,9 +293,9 @@ The parent class for everything in the Document Object Model.
 <div class="memdoc">
 
 <p>
-The types of XML nodes supported by TinyXml. 
+The types of XML nodes supported by TinyXml.
 <p>
-(All the unsupported types are picked up by UNKNOWN.) 
+(All the unsupported types are picked up by UNKNOWN.)
 </div>
 </div><p>
 <hr><h2>Member Function Documentation</h2>
@@ -316,7 +316,7 @@ The types of XML nodes supported by TinyXml.
 <div class="memdoc">
 
 <p>
-Accept a hierchical visit the nodes in the TinyXML DOM. 
+Accept a hierchical visit the nodes in the TinyXML DOM.
 <p>
 Every node in the XML tree will be conditionally visited and the host will be called back via the <a class="el" href="classTiXmlVisitor.html">TiXmlVisitor</a> interface.<p>
 This is essentially a SAX interface for TinyXML. (Note however it doesn't re-parse the XML for the callbacks, so the performance of TinyXML is unchanged by using this interface versus any other.)<p>
@@ -328,7 +328,7 @@ Which are both good references for "visiting".<p>
 An example of using <a class="el" href="classTiXmlNode.html#cc0f88b7462c6cb73809d410a4f5bb86">Accept()</a>: <div class="fragment"><pre class="fragment">		TiXmlPrinter printer;
 		tinyxmlDoc.Accept( &amp;printer );
 		const char* xmlcstr = printer.CStr();
-		</pre></div> 
+		</pre></div>
 <p>
 Implemented in <a class="el" href="classTiXmlElement.html#71a81b2afb0d42be1543d1c404dee6f5">TiXmlElement</a>, <a class="el" href="classTiXmlComment.html#f3ac1b99fbbe9ea4fb6e14146156e43e">TiXmlComment</a>, <a class="el" href="classTiXmlText.html#8483d4415ce9de6c4fa8f63d067d5de6">TiXmlText</a>, <a class="el" href="classTiXmlDeclaration.html#22315a535983b86535cdba3458669e3e">TiXmlDeclaration</a>, <a class="el" href="classTiXmlUnknown.html#d7122e5135581b3c832a1a3217760a93">TiXmlUnknown</a>, and <a class="el" href="classTiXmlDocument.html#a545aae325d9752ad64120bc4ecf939a">TiXmlDocument</a>.
 </div>
@@ -349,9 +349,9 @@ Implemented in <a class="el" href="classTiXmlElement.html#71a81b2afb0d42be1543d1
 <div class="memdoc">
 
 <p>
-Create an exact duplicate of this node and return it. 
+Create an exact duplicate of this node and return it.
 <p>
-The memory must be deleted by the caller. 
+The memory must be deleted by the caller.
 <p>
 Implemented in <a class="el" href="classTiXmlElement.html#a464535ea1994db337cb6a8ce4b588b5">TiXmlElement</a>, <a class="el" href="classTiXmlComment.html#0d6662bdc52488b9e12b3c7a0453d028">TiXmlComment</a>, <a class="el" href="classTiXmlText.html#0c411e93a27537369479d034cc82da3b">TiXmlText</a>, <a class="el" href="classTiXmlDeclaration.html#7cf459186040141cda7a180a6585ce2e">TiXmlDeclaration</a>, <a class="el" href="classTiXmlUnknown.html#0960bb7428b3f341da46244229604d73">TiXmlUnknown</a>, and <a class="el" href="classTiXmlDocument.html#4968661cab4a1f44a23329c6f8db1907">TiXmlDocument</a>.
 </div>
@@ -373,9 +373,9 @@ Implemented in <a class="el" href="classTiXmlElement.html#a464535ea1994db337cb6a
 <div class="memdoc">
 
 <p>
-The first child of this node with the matching 'value'. 
+The first child of this node with the matching 'value'.
 <p>
-Will be null if none found. 
+Will be null if none found.
 </div>
 </div><p>
 <a class="anchor" name="80e397fa973cf5323e33b07154b024f3"></a><!-- doxytag: member="TiXmlNode::GetDocument" ref="80e397fa973cf5323e33b07154b024f3" args="() const " -->
@@ -394,9 +394,9 @@ Will be null if none found.
 <div class="memdoc">
 
 <p>
-Return a pointer to the Document this node lives in. 
+Return a pointer to the Document this node lives in.
 <p>
-Returns null if not in a document. 
+Returns null if not in a document.
 </div>
 </div><p>
 <a class="anchor" name="d9b75e54ec19301c8b4d5ff583d0b3d5"></a><!-- doxytag: member="TiXmlNode::InsertAfterChild" ref="d9b75e54ec19301c8b4d5ff583d0b3d5" args="(TiXmlNode *afterThis, const TiXmlNode &amp;addThis)" -->
@@ -425,9 +425,9 @@ Returns null if not in a document.
 <div class="memdoc">
 
 <p>
-Add a new node related to this. 
+Add a new node related to this.
 <p>
-Adds a child after the specified child. Returns a pointer to the new object or NULL if an error occured. 
+Adds a child after the specified child. Returns a pointer to the new object or NULL if an error occured.
 </div>
 </div><p>
 <a class="anchor" name="0c146fa2fff0157b681594102f48cbc7"></a><!-- doxytag: member="TiXmlNode::InsertBeforeChild" ref="0c146fa2fff0157b681594102f48cbc7" args="(TiXmlNode *beforeThis, const TiXmlNode &amp;addThis)" -->
@@ -456,9 +456,9 @@ Adds a child after the specified child. Returns a pointer to the new object or N
 <div class="memdoc">
 
 <p>
-Add a new node related to this. 
+Add a new node related to this.
 <p>
-Adds a child before the specified child. Returns a pointer to the new object or NULL if an error occured. 
+Adds a child before the specified child. Returns a pointer to the new object or NULL if an error occured.
 </div>
 </div><p>
 <a class="anchor" name="d7d4630e1a2a916edda16be22448a8ba"></a><!-- doxytag: member="TiXmlNode::InsertEndChild" ref="d7d4630e1a2a916edda16be22448a8ba" args="(const TiXmlNode &amp;addThis)" -->
@@ -478,9 +478,9 @@ Adds a child before the specified child. Returns a pointer to the new object or 
 <div class="memdoc">
 
 <p>
-Add a new node related to this. 
+Add a new node related to this.
 <p>
-Adds a child past the LastChild. Returns a pointer to the new object or NULL if an error occured. 
+Adds a child past the LastChild. Returns a pointer to the new object or NULL if an error occured.
 </div>
 </div><p>
 <a class="anchor" name="8621196ba3705fa226bef4a761cc51b6"></a><!-- doxytag: member="TiXmlNode::IterateChildren" ref="8621196ba3705fa226bef4a761cc51b6" args="(const TiXmlNode *previous) const " -->
@@ -500,14 +500,14 @@ Adds a child past the LastChild. Returns a pointer to the new object or NULL if 
 <div class="memdoc">
 
 <p>
-An alternate way to walk the children of a node. 
+An alternate way to walk the children of a node.
 <p>
 One way to iterate over nodes is: <div class="fragment"><pre class="fragment">			for( child = parent-&gt;FirstChild(); child; child = child-&gt;NextSibling() )
 		</pre></div><p>
 IterateChildren does the same thing with the syntax: <div class="fragment"><pre class="fragment">			child = 0;
 			while( child = parent-&gt;IterateChildren( child ) )
 		</pre></div><p>
-IterateChildren takes the previous child as input and finds the next one. If the previous child is null, it returns the first. IterateChildren will return null when done. 
+IterateChildren takes the previous child as input and finds the next one. If the previous child is null, it returns the first. IterateChildren will return null when done.
 </div>
 </div><p>
 <a class="anchor" name="5d29442ae46de6d0168429156197bfc6"></a><!-- doxytag: member="TiXmlNode::LinkEndChild" ref="5d29442ae46de6d0168429156197bfc6" args="(TiXmlNode *addThis)" -->
@@ -527,7 +527,7 @@ IterateChildren takes the previous child as input and finds the next one. If the
 <div class="memdoc">
 
 <p>
-Add a new node related to this. 
+Add a new node related to this.
 <p>
 Adds a child past the LastChild.<p>
 NOTE: the node to be added is passed by pointer, and will be henceforth owned (and deleted) by tinyXml. This method is efficient and avoids an extra copy, but should be used with care as it uses a different memory model than the other insert functions.<p>
@@ -552,9 +552,9 @@ NOTE: the node to be added is passed by pointer, and will be henceforth owned (a
 <div class="memdoc">
 
 <p>
-Convenience function to get through elements. 
+Convenience function to get through elements.
 <p>
-Calls NextSibling and ToElement. Will skip all non-Element nodes. Returns 0 if there is not another element. 
+Calls NextSibling and ToElement. Will skip all non-Element nodes. Returns 0 if there is not another element.
 </div>
 </div><p>
 <a class="anchor" name="73acf929d49d10bd0e5fb3d31b0372d1"></a><!-- doxytag: member="TiXmlNode::NextSiblingElement" ref="73acf929d49d10bd0e5fb3d31b0372d1" args="() const " -->
@@ -573,9 +573,9 @@ Calls NextSibling and ToElement. Will skip all non-Element nodes. Returns 0 if t
 <div class="memdoc">
 
 <p>
-Convenience function to get through elements. 
+Convenience function to get through elements.
 <p>
-Calls NextSibling and ToElement. Will skip all non-Element nodes. Returns 0 if there is not another element. 
+Calls NextSibling and ToElement. Will skip all non-Element nodes. Returns 0 if there is not another element.
 </div>
 </div><p>
 <a class="anchor" name="0c49e739a17b9938050c22cd89617fbd"></a><!-- doxytag: member="TiXmlNode::ReplaceChild" ref="0c49e739a17b9938050c22cd89617fbd" args="(TiXmlNode *replaceThis, const TiXmlNode &amp;withThis)" -->
@@ -604,9 +604,9 @@ Calls NextSibling and ToElement. Will skip all non-Element nodes. Returns 0 if t
 <div class="memdoc">
 
 <p>
-Replace a child of this node. 
+Replace a child of this node.
 <p>
-Returns a pointer to the new object or NULL if an error occured. 
+Returns a pointer to the new object or NULL if an error occured.
 </div>
 </div><p>
 <a class="anchor" name="2a38329ca5d3f28f98ce932b8299ae90"></a><!-- doxytag: member="TiXmlNode::SetValue" ref="2a38329ca5d3f28f98ce932b8299ae90" args="(const char *_value)" -->
@@ -626,14 +626,14 @@ Returns a pointer to the new object or NULL if an error occured.
 <div class="memdoc">
 
 <p>
-Changes the value of the node. 
+Changes the value of the node.
 <p>
 Defined as: <div class="fragment"><pre class="fragment">		Document:	filename of the xml file
 		Element:	name of the element
 		Comment:	the comment text
 		Unknown:	the tag contents
 		Text:		the text string
-		</pre></div> 
+		</pre></div>
 </div>
 </div><p>
 <a class="anchor" name="57b99d5c97d67a42b9752f5210a1ba5e"></a><!-- doxytag: member="TiXmlNode::Type" ref="57b99d5c97d67a42b9752f5210a1ba5e" args="() const " -->
@@ -652,9 +652,9 @@ Defined as: <div class="fragment"><pre class="fragment">		Document:	filename of 
 <div class="memdoc">
 
 <p>
-Query the type (as an enumerated value, above) of this node. 
+Query the type (as an enumerated value, above) of this node.
 <p>
-The possible types are: DOCUMENT, ELEMENT, COMMENT, UNKNOWN, TEXT, and DECLARATION. 
+The possible types are: DOCUMENT, ELEMENT, COMMENT, UNKNOWN, TEXT, and DECLARATION.
 </div>
 </div><p>
 <a class="anchor" name="77943eb90d12c2892b1337a9f5918b41"></a><!-- doxytag: member="TiXmlNode::Value" ref="77943eb90d12c2892b1337a9f5918b41" args="() const " -->
@@ -673,7 +673,7 @@ The possible types are: DOCUMENT, ELEMENT, COMMENT, UNKNOWN, TEXT, and DECLARATI
 <div class="memdoc">
 
 <p>
-The meaning of 'value' changes for the specific type of <a class="el" href="classTiXmlNode.html">TiXmlNode</a>. 
+The meaning of 'value' changes for the specific type of <a class="el" href="classTiXmlNode.html">TiXmlNode</a>.
 <p>
 <div class="fragment"><pre class="fragment">		Document:	filename of the xml file
 		Element:	name of the element
@@ -681,7 +681,7 @@ The meaning of 'value' changes for the specific type of <a class="el" href="clas
 		Unknown:	the tag contents
 		Text:		the text string
 		</pre></div><p>
-The subclasses will wrap this function. 
+The subclasses will wrap this function.
 </div>
 </div><p>
 <a class="anchor" name="6d9e505619d39bf50bfd9609c9169ea5"></a><!-- doxytag: member="TiXmlNode::ValueStr" ref="6d9e505619d39bf50bfd9609c9169ea5" args="() const " -->
@@ -700,9 +700,9 @@ The subclasses will wrap this function.
 <div class="memdoc">
 
 <p>
-Return <a class="el" href="classTiXmlNode.html#77943eb90d12c2892b1337a9f5918b41">Value()</a> as a std::string. 
+Return <a class="el" href="classTiXmlNode.html#77943eb90d12c2892b1337a9f5918b41">Value()</a> as a std::string.
 <p>
-If you only use STL, this is more efficient than calling <a class="el" href="classTiXmlNode.html#77943eb90d12c2892b1337a9f5918b41">Value()</a>. Only available in STL mode. 
+If you only use STL, this is more efficient than calling <a class="el" href="classTiXmlNode.html#77943eb90d12c2892b1337a9f5918b41">Value()</a>. Only available in STL mode.
 </div>
 </div><p>
 <hr><h2>Friends And Related Function Documentation</h2>
@@ -732,12 +732,12 @@ If you only use STL, this is more efficient than calling <a class="el" href="cla
 <div class="memdoc">
 
 <p>
-An output stream operator, for every class. 
+An output stream operator, for every class.
 <p>
 Note that this outputs without any newlines or formatting, as opposed to <a class="el" href="classTiXmlBase.html#0de56b3f2ef14c65091a3b916437b512">Print()</a>, which includes tabs and new lines.<p>
 The operator&lt;&lt; and operator&gt;&gt; are not completely symmetric. Writing a node to a stream is very well defined. You'll get a nice stream of output, without any extra whitespace or newlines.<p>
 But reading is not as well defined. (As it always is.) If you create a <a class="el" href="classTiXmlElement.html">TiXmlElement</a> (for example) and read that from an input stream, the text needs to define an element or junk will result. This is true of all input streams, but it's worth keeping in mind.<p>
-A <a class="el" href="classTiXmlDocument.html">TiXmlDocument</a> will read nodes until it reads a root element, and all the children of that root element. 
+A <a class="el" href="classTiXmlDocument.html">TiXmlDocument</a> will read nodes until it reads a root element, and all the children of that root element.
 </div>
 </div><p>
 <a class="anchor" name="b57bd426563c926844f65a78412e18b9"></a><!-- doxytag: member="TiXmlNode::operator&gt;&gt;" ref="b57bd426563c926844f65a78412e18b9" args="(std::istream &amp;in, TiXmlNode &amp;base)" -->
@@ -766,9 +766,9 @@ A <a class="el" href="classTiXmlDocument.html">TiXmlDocument</a> will read nodes
 <div class="memdoc">
 
 <p>
-An input stream operator, for every class. 
+An input stream operator, for every class.
 <p>
-Tolerant of newlines and formatting, but doesn't expect them. 
+Tolerant of newlines and formatting, but doesn't expect them.
 </div>
 </div><p>
 <hr>The documentation for this class was generated from the following file:<ul>

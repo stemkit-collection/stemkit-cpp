@@ -1,5 +1,5 @@
 /*  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -34,11 +34,11 @@ namespace sk {
           CPPUNIT_TEST(testMap);
           CPPUNIT_TEST(testCopy);
         CPPUNIT_TEST_SUITE_END();
-        
+
         public:
           StringsTest();
           virtual ~StringsTest();
-          
+
           void setUp();
           void tearDown();
           void testEmpty();
@@ -56,7 +56,7 @@ namespace sk {
           void testSlice();
           void testMap();
           void testCopy();
-          
+
         private:
           StringsTest(const StringsTest& other);
           StringsTest& operator = (const StringsTest& other);

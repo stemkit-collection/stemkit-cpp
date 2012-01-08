@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2010, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -16,7 +16,7 @@
 namespace sk {
   namespace util {
     template<typename F, typename T = F>
-    class Reducer 
+    class Reducer
     {
       public:
         virtual T reduce(const T& memo, const F& object, const sk::util::Mapper<const F, const T>& mapper) const = 0;

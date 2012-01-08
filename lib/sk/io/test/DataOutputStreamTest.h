@@ -1,5 +1,5 @@
 /*  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -28,18 +28,18 @@ namespace sk {
           CPPUNIT_TEST(testWriteInt);
           CPPUNIT_TEST(testWriteContainer);
         CPPUNIT_TEST_SUITE_END();
-        
+
         public:
           DataOutputStreamTest();
           virtual ~DataOutputStreamTest();
-          
+
           void setUp();
           void tearDown();
           void testWriteChar();
           void testWriteChars();
           void testWriteInt();
           void testWriteContainer();
-          
+
         private:
           DataOutputStreamTest(const DataOutputStreamTest& other);
           DataOutputStreamTest& operator = (const DataOutputStreamTest& other);

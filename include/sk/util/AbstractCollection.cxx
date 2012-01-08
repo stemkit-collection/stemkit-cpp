@@ -1,6 +1,6 @@
 /*  vim:sw=2:
  *  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -33,7 +33,7 @@ sk::util::AbstractCollection<T, Policy>::
 }
 
 template<typename T, typename Policy>
-const sk::util::Class 
+const sk::util::Class
 sk::util::AbstractCollection<T, Policy>::
 getClass() const
 {
@@ -41,9 +41,9 @@ getClass() const
 }
 
 template<typename T, typename Policy>
-const T& 
+const T&
 sk::util::AbstractCollection<T, Policy>::
-get(const Selector<T>& selector) const 
+get(const Selector<T>& selector) const
 {
   sk::util::Holder<T> holder;
   sk::util::Validator::ensureElement(find(holder, selector));
@@ -51,7 +51,7 @@ get(const Selector<T>& selector) const
 }
 
 template<typename T, typename Policy>
-T& 
+T&
 sk::util::AbstractCollection<T, Policy>::
 getMutable(const Selector<T>& selector) const
 {
@@ -77,7 +77,7 @@ struct sk::util::AbstractCollection<T, Policy>::Finder : public virtual sk::util
 };
 
 template<typename T, typename Policy>
-bool 
+bool
 sk::util::AbstractCollection<T, Policy>::
 find(sk::util::Holder<T>& holder, const sk::util::Selector<T>& selector) const
 {
@@ -105,7 +105,7 @@ struct sk::util::AbstractCollection<T, Policy>::MutableFinder : public virtual s
 };
 
 template<typename T, typename Policy>
-bool 
+bool
 sk::util::AbstractCollection<T, Policy>::
 findMutable(sk::util::Holder<T>& holder, const Selector<T>& selector) const
 {
@@ -129,9 +129,9 @@ struct sk::util::AbstractCollection<T, Policy>::Invocator : public virtual sk::u
 };
 
 template<typename T, typename Policy>
-void 
+void
 sk::util::AbstractCollection<T, Policy>::
-forEach(const Processor<const T>& processor) const 
+forEach(const Processor<const T>& processor) const
 {
   try {
     forEachSlot(Invocator(processor));
@@ -151,7 +151,7 @@ struct sk::util::AbstractCollection<T, Policy>::MutableInvocator : public virtua
 };
 
 template<typename T, typename Policy>
-void 
+void
 sk::util::AbstractCollection<T, Policy>::
 forEach(const Processor<T>& processor)
 {
@@ -162,130 +162,130 @@ forEach(const Processor<T>& processor)
 }
 
 template<typename T, typename Policy>
-bool 
+bool
 sk::util::AbstractCollection<T, Policy>::
-isEmpty() const 
+isEmpty() const
 {
   return size() == 0;
 }
 
 template<typename T, typename Policy>
-int 
+int
 sk::util::AbstractCollection<T, Policy>::
-size() const 
+size() const
 {
   throw UnsupportedOperationException(SK_METHOD);
 }
 
 template<typename T, typename Policy>
-bool 
+bool
 sk::util::AbstractCollection<T, Policy>::
-contains(const T& object) const 
+contains(const T& object) const
 {
   return contains(typename Policy::equal_selector_t(object));
 }
 
 template<typename T, typename Policy>
-bool 
+bool
 sk::util::AbstractCollection<T, Policy>::
-contains(const Selector<T>& selector) const 
+contains(const Selector<T>& selector) const
 {
   sk::util::Holder<T> holder;
   return find(holder, selector);
 }
 
 template<typename T, typename Policy>
-bool 
+bool
 sk::util::AbstractCollection<T, Policy>::
-containsAll(const Collection<T>& other) const 
+containsAll(const Collection<T>& other) const
 {
   return containsAll(other, sk::util::assessor::EqualPointers<T>());
 }
 
 template<typename T, typename Policy>
-bool 
+bool
 sk::util::AbstractCollection<T, Policy>::
-containsAll(const Collection<T>& other, const sk::util::BinaryAssessor<T>& assessor) const 
+containsAll(const Collection<T>& other, const sk::util::BinaryAssessor<T>& assessor) const
 {
   return other.contains(selector::Not<T>(selector::Belongs<T>(*this, assessor))) == false;
 }
 
 template<typename T, typename Policy>
-bool 
+bool
 sk::util::AbstractCollection<T, Policy>::
-add(const T& /*object*/) 
+add(const T& /*object*/)
 {
   throw UnsupportedOperationException(SK_METHOD);
 }
 
 template<typename T, typename Policy>
-bool 
+bool
 sk::util::AbstractCollection<T, Policy>::
-add(T& /*object*/) 
+add(T& /*object*/)
 {
   throw UnsupportedOperationException(SK_METHOD);
 }
 
 template<typename T, typename Policy>
-bool 
+bool
 sk::util::AbstractCollection<T, Policy>::
-add(T* /*object*/) 
+add(T* /*object*/)
 {
   throw UnsupportedOperationException(SK_METHOD);
 }
 
 template<typename T, typename Policy>
-void 
+void
 sk::util::AbstractCollection<T, Policy>::
-clear() 
+clear()
 {
   removeAll(sk::util::selector::Any<T>());
 }
 
 template<typename T, typename Policy>
-bool 
+bool
 sk::util::AbstractCollection<T, Policy>::
-remove(const T& object) 
+remove(const T& object)
 {
   return remove(typename Policy::equal_selector_t(object));
 }
 
 template<typename T, typename Policy>
-bool 
+bool
 sk::util::AbstractCollection<T, Policy>::
-remove(const Selector<T>& /*selector*/) 
+remove(const Selector<T>& /*selector*/)
 {
   throw UnsupportedOperationException(SK_METHOD);
 }
 
 template<typename T, typename Policy>
-T* 
+T*
 sk::util::AbstractCollection<T, Policy>::
-cutoff(const T& object) 
+cutoff(const T& object)
 {
   return cutoff(typename Policy::equal_selector_t(object));
 }
 
 template<typename T, typename Policy>
-T* 
+T*
 sk::util::AbstractCollection<T, Policy>::
-cutoff(const Selector<T>& /*selector*/) 
+cutoff(const Selector<T>& /*selector*/)
 {
   throw UnsupportedOperationException(SK_METHOD);
 }
 
 template<typename T, typename Policy>
-T* 
+T*
 sk::util::AbstractCollection<T, Policy>::
-release(const T& object) 
+release(const T& object)
 {
   return release(typename Policy::equal_selector_t(object));
 }
 
 template<typename T, typename Policy>
-T* 
+T*
 sk::util::AbstractCollection<T, Policy>::
-release(const Selector<T>& selector) 
+release(const Selector<T>& selector)
 {
   sk::util::Holder<T> holder(cutoff(selector));
   add(holder.get());
@@ -294,15 +294,15 @@ release(const Selector<T>& selector)
 }
 
 template<typename T, typename Policy>
-bool 
+bool
 sk::util::AbstractCollection<T, Policy>::
-removeAll(const Collection<T>& other) 
+removeAll(const Collection<T>& other)
 {
   return removeAll(other, sk::util::assessor::EqualPointers<T>());
 }
 
 template<typename T, typename Policy>
-bool 
+bool
 sk::util::AbstractCollection<T, Policy>::
 removeAll(const sk::util::Collection<T>& other, const sk::util::BinaryAssessor<T>& assessor)
 {
@@ -310,9 +310,9 @@ removeAll(const sk::util::Collection<T>& other, const sk::util::BinaryAssessor<T
 }
 
 template<typename T, typename Policy>
-bool 
+bool
 sk::util::AbstractCollection<T, Policy>::
-removeAll(const Selector<T>& selector) 
+removeAll(const Selector<T>& selector)
 {
   bool result = false;
   while(true) {
@@ -325,15 +325,15 @@ removeAll(const Selector<T>& selector)
 }
 
 template<typename T, typename Policy>
-bool 
+bool
 sk::util::AbstractCollection<T, Policy>::
-retainAll(const Collection<T>& other) 
+retainAll(const Collection<T>& other)
 {
   return retainAll(other, sk::util::assessor::EqualPointers<T>());
 }
 
 template<typename T, typename Policy>
-bool 
+bool
 sk::util::AbstractCollection<T, Policy>::
 retainAll(const Collection<T>& other, const sk::util::BinaryAssessor<T>& assessor)
 {
@@ -341,9 +341,9 @@ retainAll(const Collection<T>& other, const sk::util::BinaryAssessor<T>& assesso
 }
 
 template<typename T, typename Policy>
-bool 
+bool
 sk::util::AbstractCollection<T, Policy>::
-retainAll(const Selector<T>& selector) 
+retainAll(const Selector<T>& selector)
 {
   return removeAll(sk::util::selector::Not<T>(selector));
 }

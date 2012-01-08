@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky (gennady.bystritsky@quest.com)
 */
 
@@ -18,14 +18,14 @@
 namespace sk {
   namespace rt {
     template<typename T>
-    class SynchronizedCollection 
+    class SynchronizedCollection
       : public virtual sk::util::Collection<T>
     {
       public:
         SynchronizedCollection(sk::util::Collection<T>& collection);
         SynchronizedCollection(sk::util::Collection<T>* collection);
         ~SynchronizedCollection();
-    
+
         T& get(const Selector<T>& selector) const;
         void forEach(const Processor<T>& processor) const;
         bool find(sk::util::Holder<T>& holder, const Selector<T>& selector) const;
@@ -49,7 +49,7 @@ namespace sk {
         bool removeAll(const Selector<T>& selector);
         bool retainAll(const Collection<T>& other);
         bool retainAll(const Selector<T>& selector);
-    
+
       protected:
         sk::rt::Mutex _mutex;
 

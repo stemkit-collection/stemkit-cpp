@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky (gennady.bystritsky@quest.com)
 */
 
@@ -22,7 +22,7 @@ static const char* __className("sk::rt::Environment");
 
 namespace {
   struct Populator : public virtual sk::util::Processor<const sk::util::String> {
-    Populator(sk::util::PropertyRegistry& registry) 
+    Populator(sk::util::PropertyRegistry& registry)
       : _registry(registry) {}
 
     void process(const sk::util::String& item) const {
@@ -108,7 +108,7 @@ serialize(std::vector<char>& block) const
 
 namespace {
   struct Installer : public virtual sk::util::BinaryProcessor<const sk::util::String, const sk::util::String> {
-    Installer(sk::util::PropertyRegistry& registry) 
+    Installer(sk::util::PropertyRegistry& registry)
       : _registry(registry) {}
 
     void process(const sk::util::String& key, const sk::util::String& /*value*/) const {

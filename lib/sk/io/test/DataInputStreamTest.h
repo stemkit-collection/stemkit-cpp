@@ -1,5 +1,5 @@
 /*  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -28,18 +28,18 @@ namespace sk {
           CPPUNIT_TEST(testReadLine);
           CPPUNIT_TEST(testReadInt);
         CPPUNIT_TEST_SUITE_END();
-        
+
         public:
           DataInputStreamTest();
           virtual ~DataInputStreamTest();
-          
+
           void setUp();
           void tearDown();
           void testReadFromEmpty();
           void testReadChar();
           void testReadLine();
           void testReadInt();
-          
+
         private:
           DataInputStreamTest(const DataInputStreamTest& other);
           DataInputStreamTest& operator = (const DataInputStreamTest& other);

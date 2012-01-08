@@ -49,7 +49,7 @@ namespace YAML
 
 			params.push_back(param);
 		}
-		
+
 		Token token(Token::DIRECTIVE, mark);
 		token.value = name;
 		token.params = params;
@@ -119,7 +119,7 @@ namespace YAML
 		if(m_flows.top() != flowType)
 			throw ParserException(mark, ErrorMsg::FLOW_END);
 		m_flows.pop();
-		
+
 		Token::TYPE type = (flowType ? Token::FLOW_SEQ_END : Token::FLOW_MAP_END);
 		m_tokens.push(Token(type, mark));
 	}
@@ -130,7 +130,7 @@ namespace YAML
 		 // we might have a solo entry in the flow context
 		if(VerifySimpleKey())
 			m_tokens.push(Token(Token::VALUE, INPUT.mark()));
-		
+
 		m_simpleKeyAllowed = true;
 
 		// eat
@@ -184,7 +184,7 @@ namespace YAML
 	{
 		// and check that simple key
 		bool isSimpleKey = VerifySimpleKey();
-		
+
 		if(isSimpleKey) {
 			// can't follow a simple key with another simple key (dunno why, though - it seems fine)
 			m_simpleKeyAllowed = false;
@@ -340,7 +340,7 @@ namespace YAML
 
 		// now eat that opening quote
 		INPUT.get();
-		
+
 		// and scan
 		scalar = ScanScalar(INPUT, params);
 		m_simpleKeyAllowed = false;

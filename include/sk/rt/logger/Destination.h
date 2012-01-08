@@ -1,5 +1,5 @@
 /*  Copyright (c) 2007, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -15,7 +15,7 @@ namespace sk {
   namespace rt {
     namespace logger {
       class Destination
-        : public virtual sk::util::Object 
+        : public virtual sk::util::Object
       {
         public:
           virtual void dispatch(const char* buffer, int size) = 0;

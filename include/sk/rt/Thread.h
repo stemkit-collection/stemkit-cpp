@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky (gennady.bystritsky@quest.com)
 */
 
@@ -25,7 +25,7 @@ namespace sk {
       class Runner;
     }
 
-    class Thread 
+    class Thread
       : public virtual sk::rt::thread::Generic,
         public virtual sk::rt::Runnable
     {
@@ -74,7 +74,7 @@ namespace sk {
         static void sleep(uint64_t milliseconds);
 
         static void setDefaultUncaughtExceptionHandler(thread::UncaughtExceptionHandler& handler);
-        static thread::UncaughtExceptionHandler& getDefaultUncaughtExceptionHandler(); 
+        static thread::UncaughtExceptionHandler& getDefaultUncaughtExceptionHandler();
 
         static void setup();
         static void reset();
@@ -82,7 +82,7 @@ namespace sk {
 
       protected:
         virtual void run();
-    
+
       private:
         Thread(const Thread& other);
         Thread& operator = (const Thread& other);

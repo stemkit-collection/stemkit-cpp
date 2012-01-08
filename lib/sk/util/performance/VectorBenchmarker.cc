@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -44,7 +44,7 @@ getClass() const
 
 namespace {
   struct Benchmark : public virtual sk::rt::Benchmark {
-    Benchmark(const uint32_t iterations) 
+    Benchmark(const uint32_t iterations)
       : _iterations(iterations) {}
 
     void run() {
@@ -55,7 +55,7 @@ namespace {
   };
 
   struct StandardVectorStore : public virtual Benchmark {
-    StandardVectorStore(const uint32_t iterations, std::vector<sk::util::String*>& storage) 
+    StandardVectorStore(const uint32_t iterations, std::vector<sk::util::String*>& storage)
       : Benchmark(iterations), _storage(storage) {}
 
     void run(const uint32_t iterations) {
@@ -67,7 +67,7 @@ namespace {
   };
 
   struct StandardVectorRetriever : public virtual Benchmark {
-    StandardVectorRetriever(const uint32_t iterations, const std::vector<sk::util::String*>& storage) 
+    StandardVectorRetriever(const uint32_t iterations, const std::vector<sk::util::String*>& storage)
       : Benchmark(iterations), _storage(storage) {}
 
     void run(const uint32_t iterations) {
@@ -79,11 +79,11 @@ namespace {
   };
 
   struct StandardVectorAlgorithmChecker : public virtual Benchmark {
-    StandardVectorAlgorithmChecker(const uint32_t iterations, const std::vector<sk::util::String*>& storage) 
+    StandardVectorAlgorithmChecker(const uint32_t iterations, const std::vector<sk::util::String*>& storage)
       : Benchmark(iterations), _storage(storage) {}
 
     struct Checker {
-      Checker() 
+      Checker()
         : _value("zzz") {}
 
       bool operator()(const sk::util::String* s) const {
@@ -106,7 +106,7 @@ namespace {
   };
 
   struct StandardVectorIteratorChecker : public virtual Benchmark {
-    StandardVectorIteratorChecker(const uint32_t iterations, const std::vector<sk::util::String*>& storage) 
+    StandardVectorIteratorChecker(const uint32_t iterations, const std::vector<sk::util::String*>& storage)
       : Benchmark(iterations), _storage(storage) {}
 
     void run(const uint32_t iterations) {
@@ -130,7 +130,7 @@ namespace {
   };
 
   struct StandardVectorCleaner : public virtual Benchmark {
-    StandardVectorCleaner(const uint32_t iterations, std::vector<sk::util::String*>& storage) 
+    StandardVectorCleaner(const uint32_t iterations, std::vector<sk::util::String*>& storage)
       : Benchmark(iterations), _storage(storage) {}
 
     void run(const uint32_t iterations) {
@@ -145,7 +145,7 @@ namespace {
   };
 
   struct StemkitVectorStore : public virtual Benchmark {
-    StemkitVectorStore(const uint32_t iterations, sk::util::List<sk::util::String>& storage) 
+    StemkitVectorStore(const uint32_t iterations, sk::util::List<sk::util::String>& storage)
       : Benchmark(iterations), _storage(storage) {}
 
     void run(const uint32_t iterations) {
@@ -157,7 +157,7 @@ namespace {
   };
 
   struct StemkitVectorRetriever : public virtual Benchmark {
-    StemkitVectorRetriever(const uint32_t iterations, const sk::util::List<sk::util::String>& storage) 
+    StemkitVectorRetriever(const uint32_t iterations, const sk::util::List<sk::util::String>& storage)
       : Benchmark(iterations), _storage(storage) {}
 
     void run(const uint32_t iterations) {
@@ -169,7 +169,7 @@ namespace {
   };
 
   struct StemkitVectorChecker : public virtual Benchmark {
-    StemkitVectorChecker(const uint32_t iterations, const sk::util::List<sk::util::String>& storage) 
+    StemkitVectorChecker(const uint32_t iterations, const sk::util::List<sk::util::String>& storage)
       : Benchmark(iterations), _storage(storage) {}
 
     void run(const uint32_t iterations) {
@@ -186,7 +186,7 @@ namespace {
   };
 
   struct StemkitVectorCleaner : public virtual Benchmark {
-    StemkitVectorCleaner(const uint32_t iterations, sk::util::List<sk::util::String>& storage) 
+    StemkitVectorCleaner(const uint32_t iterations, sk::util::List<sk::util::String>& storage)
       : Benchmark(iterations), _storage(storage) {}
 
     void run(const uint32_t iterations) {
@@ -196,7 +196,7 @@ namespace {
   };
 }
 
-void 
+void
 sk::util::performance::VectorBenchmarker::
 setUp()
 {

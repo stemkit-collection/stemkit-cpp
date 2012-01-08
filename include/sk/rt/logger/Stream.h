@@ -1,5 +1,5 @@
 /*  Copyright (c) 2007, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -19,7 +19,7 @@ namespace sk {
       class Level;
 
       class Stream
-        : public virtual sk::util::Object 
+        : public virtual sk::util::Object
       {
         public:
           Stream(const sk::util::String& label, const Level& level, const logger::IScope& scope);
@@ -31,10 +31,10 @@ namespace sk {
 
           bool isEnabled() const;
           std::ostream& getStream() const;
-          
+
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
-          
+
         private:
           Stream& operator = (const Stream& other);
 

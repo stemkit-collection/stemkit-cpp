@@ -1,5 +1,5 @@
 /*  Copyright (c) 2007, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -24,10 +24,10 @@ namespace sk {
           void dispatch(const char* buffer, int size);
           const std::vector<int> makeReady();
           sk::util::Object* clone() const;
-          
+
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
-          
+
         private:
           TrashDestination& operator = (const TrashDestination& other);
       };

@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -38,42 +38,42 @@ getClass() const
   return sk::util::Class(__className);
 }
 
-const sk::util::String 
+const sk::util::String
 sk::net::ip6::InetAddress::
 getHostAddress() const
 {
   throw sk::util::UnsupportedOperationException(SK_METHOD);
 }
 
-const sk::util::String 
+const sk::util::String
 sk::net::ip6::InetAddress::
 lookupHostName() const
 {
   throw sk::util::UnsupportedOperationException(SK_METHOD);
 }
 
-bool 
+bool
 sk::net::ip6::InetAddress::
 isLoopbackAddress() const
 {
   throw sk::util::UnsupportedOperationException(SK_METHOD);
 }
 
-bool 
+bool
 sk::net::ip6::InetAddress::
 isAnyLocalAddress() const
 {
   throw sk::util::UnsupportedOperationException(SK_METHOD);
 }
 
-bool 
+bool
 sk::net::ip6::InetAddress::
 isSiteLocalAddress() const
 {
   throw sk::util::UnsupportedOperationException(SK_METHOD);
 }
 
-bool 
+bool
 sk::net::ip6::InetAddress::
 isMulticastAddress() const
 {

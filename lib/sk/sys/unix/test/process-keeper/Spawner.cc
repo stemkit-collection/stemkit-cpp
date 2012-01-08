@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -43,7 +43,7 @@ getClass() const
   return sk::util::Class(__className);
 }
 
-void 
+void
 test::Spawner::
 start()
 {
@@ -63,7 +63,7 @@ namespace {
   };
 
   struct Block : public virtual sk::rt::Runnable {
-    Block(sk::io::Pipe& pipe) 
+    Block(sk::io::Pipe& pipe)
       : _scope("Block"), _configurator(pipe), _process(sk::util::Strings("date"), _configurator) {}
 
     void run() {
@@ -89,11 +89,11 @@ namespace {
   };
 
   struct Reader : public virtual sk::rt::Runnable {
-    Reader(sk::io::InputStream& stream) 
+    Reader(sk::io::InputStream& stream)
       : _scope("Reader"), _stream(stream) {}
 
     void run() {
-      try { 
+      try {
         while(true) {
           _scope.info("D") << _stream.readLine().trim();
         }
@@ -105,7 +105,7 @@ namespace {
   };
 }
 
-void 
+void
 test::Spawner::
 perform()
 {

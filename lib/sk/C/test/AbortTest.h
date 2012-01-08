@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -27,11 +27,11 @@ namespace sk {
           CPPUNIT_TEST(testCanContinueAfterClear);
           CPPUNIT_TEST(testAbortsOnNextCallWhenNotCleared);
         CPPUNIT_TEST_SUITE_END();
-      
+
         public:
           AbortTest();
           virtual ~AbortTest();
-      
+
           void setUp();
           void tearDown();
           void testAbortWrapper();
@@ -39,7 +39,7 @@ namespace sk {
           void testAbortsOnBadBuffer();
           void testCanContinueAfterClear();
           void testAbortsOnNextCallWhenNotCleared();
-      
+
         private:
           AbortTest(const AbortTest& other);
           AbortTest& operator = (const AbortTest& other);

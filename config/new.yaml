@@ -12,7 +12,7 @@ cpp:
 
   default:
     like: sk-default
-        
+
   test:
     like: cppunit-test
 

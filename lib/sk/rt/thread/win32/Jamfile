@@ -2,7 +2,7 @@
 
 local library = sk.rt.thread.win32 ;
 
-local objects = 
+local objects =
   Factory.cc
   Implementation.cc
   Thread.cc

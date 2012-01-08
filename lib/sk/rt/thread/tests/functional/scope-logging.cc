@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky (gennady.bystritsky@quest.com)
 */
 
@@ -41,7 +41,7 @@ int main(int /*argc*/, const char* /*argv*/[])
 
 namespace {
   struct Block : public virtual sk::rt::Runnable {
-    Block(const sk::util::String& name) 
+    Block(const sk::util::String& name)
       : _scope(name) {}
 
     void run() {

@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -16,7 +16,7 @@
 
 namespace sk {
   namespace util {
-    class Bitset 
+    class Bitset
       : public virtual sk::util::Object
     {
       public:
@@ -39,7 +39,7 @@ namespace sk {
         uint32_t getMax() const;
 
         int capacity() const;
-    
+
         void setUpperBound(uint32_t upper);
         void setLowerBound(uint32_t upper);
         void setBounds(uint32_t lower, uint32_t upper);
@@ -49,7 +49,7 @@ namespace sk {
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
         const sk::util::String inspect() const;
-    
+
       private:
         Bitset(const Bitset& other);
         Bitset& operator = (const Bitset& other);
@@ -96,7 +96,7 @@ isOff(uint32_t index) const
 
 inline bool
 sk::util::Bitset::
-clear(uint32_t index) 
+clear(uint32_t index)
 {
   if(isOn(index) == true) {
     _depot[block(index - _min)] &= ~bit(index);
@@ -107,7 +107,7 @@ clear(uint32_t index)
 
 inline bool
 sk::util::Bitset::
-flip(uint32_t index) 
+flip(uint32_t index)
 {
   ensure(index);
   return !(_depot[block(index - _min)] ^= bit(index));
@@ -115,7 +115,7 @@ flip(uint32_t index)
 
 inline bool
 sk::util::Bitset::
-set(uint32_t index) 
+set(uint32_t index)
 {
   if(isOn(index) == false) {
     ensure(index);

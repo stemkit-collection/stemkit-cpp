@@ -1,5 +1,5 @@
 /*  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -14,7 +14,7 @@ namespace sk {
   namespace util {
     template<typename T>
     class Processor
-      : public virtual sk::util::Object 
+      : public virtual sk::util::Object
     {
       public:
         virtual void process(T& o) const = 0;
@@ -22,7 +22,7 @@ namespace sk {
 
     template<typename T1, typename T2 = T1>
     class BinaryProcessor
-      : public virtual sk::util::Object 
+      : public virtual sk::util::Object
     {
       public:
         virtual void process(T1& o1, T2& o2) const = 0;

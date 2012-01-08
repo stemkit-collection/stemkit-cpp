@@ -2,7 +2,7 @@
 
 local library = sk.rt ;
 
-local objects = 
+local objects =
   Scope.cc
   Environment.cc
   Time.cc

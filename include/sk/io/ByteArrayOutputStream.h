@@ -1,5 +1,5 @@
 /*  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -23,10 +23,10 @@ namespace sk {
         virtual ~ByteArrayOutputStream();
 
         uint64_t getByteCount() const;
-        
+
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
-        
+
         // sk::io::OutputStream implementation.
         int write(const char* buffer, int offset, int length);
         using AbstractOutputStream::write;

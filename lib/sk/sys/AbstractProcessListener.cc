@@ -1,6 +1,6 @@
 /*  vim: sw=2:
  *  Copyright (c) 2007, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -28,7 +28,7 @@ getClass() const
   return sk::util::Class("sk::sys::AbstractProcessListener");
 }
 
-void 
+void
 sk::sys::AbstractProcessListener::
 processStarting(sk::io::Stream& umbilical)
 {
@@ -37,23 +37,23 @@ processStarting(sk::io::Stream& umbilical)
 
 void
 sk::sys::AbstractProcessListener::
-processStopping() 
+processStopping()
 {
 }
 
-void 
+void
 sk::sys::AbstractProcessListener::
 processJoining()
 {
 }
 
-void 
+void
 sk::sys::AbstractProcessListener::
 processFailing(const sk::util::String& message)
 {
 }
 
-void 
+void
 sk::sys::AbstractProcessListener::
 processConfiguring(sk::sys::ProcessConfigurator& configurator)
 {

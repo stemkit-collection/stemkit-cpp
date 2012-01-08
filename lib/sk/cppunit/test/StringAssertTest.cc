@@ -1,10 +1,10 @@
 /*  vim: set sw=4:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky (gennady.bystritsky@quest.com)
 */
 
@@ -38,7 +38,7 @@ void
 sk::cppunit::test::StringAssertTest::
 testBothStdStrings()
 {
-    try { 
+    try {
         CPPUNIT_ASSERT_EQUAL(std::string("aaa"), std::string("bbb"));
         CPPUNIT_FAIL("Must fail");
     }

@@ -1,7 +1,7 @@
 
 local test = sk-io-test ;
 
-local objects = 
+local objects =
   MockOutputStream.cc
   MockInputStream.cc
   ByteArrayInputStreamTest.cc

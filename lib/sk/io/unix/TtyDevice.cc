@@ -1,5 +1,5 @@
 /*  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -37,14 +37,14 @@ getFileDescriptor() const
   return _descriptorHolder.getMutable();
 }
 
-sk::io::Tty& 
+sk::io::Tty&
 sk::io::TtyDevice::
-getTty() 
+getTty()
 {
   return _descriptorHolder.getMutable();
 }
 
-const sk::io::Tty& 
+const sk::io::Tty&
 sk::io::TtyDevice::
 getTty() const
 {

@@ -1,5 +1,5 @@
 /*  Copyright (c) 2007, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -25,11 +25,11 @@ namespace sk {
           CPPUNIT_TEST(testToString);
           CPPUNIT_TEST(testStreamOutput);
         CPPUNIT_TEST_SUITE_END();
-        
+
         public:
           BooleanTest();
           virtual ~BooleanTest();
-          
+
           void setUp();
           void tearDown();
           void testBasics();
@@ -38,7 +38,7 @@ namespace sk {
           void testValueOf();
           void testToString();
           void testStreamOutput();
-          
+
         private:
           BooleanTest(const BooleanTest& other);
           BooleanTest& operator = (const BooleanTest& other);

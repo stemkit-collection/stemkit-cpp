@@ -1,5 +1,5 @@
 /*  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -14,7 +14,7 @@ namespace sk {
   namespace util {
     template<typename T>
     class Selector
-      : public virtual sk::util::Object 
+      : public virtual sk::util::Object
     {
       public:
         virtual bool assess(const T& object) const = 0;

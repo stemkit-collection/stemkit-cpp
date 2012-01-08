@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -22,7 +22,7 @@ CollectionTest()
 {
 }
 
-sk::util::Collection<sk::util::String>* 
+sk::util::Collection<sk::util::String>*
 sk::util::test::collection::CollectionTest::
 makeCopyingCollection()
 {
@@ -116,7 +116,7 @@ testCollectionContainsAll()
   CPPUNIT_ASSERT(c1.get().containsAll(c2.get(), sk::util::assessor::EqualValues<sk::util::String>()) == false);
 }
 
-void 
+void
 sk::util::test::collection::CollectionTest::
 testCollectionClear()
 {
@@ -156,7 +156,7 @@ testCollectionSelectorRemoveAll()
   CPPUNIT_ASSERT(collection.get().contains(sk::util::selector::EqualValue<sk::util::String>("ccc")) == true);
 }
 
-void 
+void
 sk::util::test::collection::CollectionTest::
 testCollectionCollectionRemoveAll()
 {
@@ -197,7 +197,7 @@ testCollectionSelectorRetainAll()
   CPPUNIT_ASSERT(collection.get().contains(sk::util::selector::EqualValue<sk::util::String>("ccc")) == false);
 }
 
-void 
+void
 sk::util::test::collection::CollectionTest::
 testCollectionCollectionRetainAll()
 {

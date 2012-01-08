@@ -7,7 +7,7 @@ namespace YAML
 	{
 		// start up
 		m_stateStack.push(ES_WAITING_FOR_DOC);
-		
+
 		// set default global manipulators
 		m_charset.set(EmitNonAscii);
 		m_strFmt.set(Auto);
@@ -22,18 +22,18 @@ namespace YAML
 		m_mapFmt.set(Block);
 		m_mapKeyFmt.set(Auto);
 	}
-	
+
 	EmitterState::~EmitterState()
 	{
 		while(!m_groups.empty())
 			_PopGroup();
 	}
-	
+
 	std::auto_ptr <EmitterState::Group> EmitterState::_PopGroup()
 	{
 		if(m_groups.empty())
 			return std::auto_ptr <Group> (0);
-		
+
 		std::auto_ptr <Group> pGroup(m_groups.top());
 		m_groups.pop();
 		return pGroup;
@@ -54,14 +54,14 @@ namespace YAML
 		SetFlowType(GT_MAP, value, LOCAL);
 		SetMapKeyFormat(value, LOCAL);
 	}
-	
+
 	void EmitterState::BeginGroup(GROUP_TYPE type)
 	{
 		unsigned lastIndent = (m_groups.empty() ? 0 : m_groups.top()->indent);
 		m_curIndent += lastIndent;
-		
+
 		std::auto_ptr <Group> pGroup(new Group(type));
-		
+
 		// transfer settings (which last until this group is done)
 		pGroup->modifiedSettings = m_modifiedSettings;
 
@@ -72,12 +72,12 @@ namespace YAML
 
 		m_groups.push(pGroup.release());
 	}
-	
+
 	void EmitterState::EndGroup(GROUP_TYPE type)
 	{
 		if(m_groups.empty())
 			return SetError(ErrorMsg::UNMATCHED_GROUP_TAG);
-		
+
 		// get rid of the current group
 		{
 			std::auto_ptr <Group> pFinishedGroup = _PopGroup();
@@ -89,41 +89,41 @@ namespace YAML
 		unsigned lastIndent = (m_groups.empty() ? 0 : m_groups.top()->indent);
 		assert(m_curIndent >= lastIndent);
 		m_curIndent -= lastIndent;
-		
+
 		// some global settings that we changed may have been overridden
 		// by a local setting we just popped, so we need to restore them
 		m_globalModifiedSettings.restore();
 	}
-		
+
 	GROUP_TYPE EmitterState::GetCurGroupType() const
 	{
 		if(m_groups.empty())
 			return GT_NONE;
-		
+
 		return m_groups.top()->type;
 	}
-	
+
 	FLOW_TYPE EmitterState::GetCurGroupFlowType() const
 	{
 		if(m_groups.empty())
 			return FT_NONE;
-		
+
 		return (m_groups.top()->flow == Flow ? FT_FLOW : FT_BLOCK);
 	}
-	
+
 	bool EmitterState::CurrentlyInLongKey()
 	{
 		if(m_groups.empty())
 			return false;
 		return m_groups.top()->usingLongKey;
 	}
-	
+
 	void EmitterState::StartLongKey()
 	{
 		if(!m_groups.empty())
 			m_groups.top()->usingLongKey = true;
 	}
-	
+
 	void EmitterState::StartSimpleKey()
 	{
 		if(!m_groups.empty())
@@ -146,7 +146,7 @@ namespace YAML
 				return false;
 		}
 	}
-	
+
 	bool EmitterState::SetStringFormat(EMITTER_MANIP value, FMT_SCOPE scope)
 	{
 		switch(value) {
@@ -160,7 +160,7 @@ namespace YAML
 				return false;
 		}
 	}
-	
+
 	bool EmitterState::SetBoolFormat(EMITTER_MANIP value, FMT_SCOPE scope)
 	{
 		switch(value) {
@@ -216,7 +216,7 @@ namespace YAML
 	{
 		if(value == 0)
 			return false;
-		
+
 		_Set(m_indent, value, scope);
 		return true;
 	}
@@ -225,16 +225,16 @@ namespace YAML
 	{
 		if(value == 0)
 			return false;
-		
+
 		_Set(m_preCommentIndent, value, scope);
 		return true;
 	}
-	
+
 	bool EmitterState::SetPostCommentIndent(unsigned value, FMT_SCOPE scope)
 	{
 		if(value == 0)
 			return false;
-		
+
 		_Set(m_postCommentIndent, value, scope);
 		return true;
 	}
@@ -257,11 +257,11 @@ namespace YAML
 		FLOW_TYPE flowType = GetCurGroupFlowType();
 		if(flowType == FT_FLOW)
 			return Flow;
-		
+
 		// otherwise, go with what's asked of use
 		return (groupType == GT_SEQ ? m_seqFmt.get() : m_mapFmt.get());
 	}
-	
+
 	bool EmitterState::SetMapKeyFormat(EMITTER_MANIP value, FMT_SCOPE scope)
 	{
 		switch(value) {

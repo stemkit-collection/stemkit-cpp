@@ -1,10 +1,10 @@
 /*  vim: sw=2:
  *  Copyright (c) 2011, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -33,7 +33,7 @@ getClass() const
   return sk::util::Class(__className);
 }
 
-void 
+void
 sk::net::AbstractSocket::
 close()
 {
@@ -47,7 +47,7 @@ directedSocket() const
   return _directedSocketHolder.get();
 }
 
-const sk::net::InetSocketAddress& 
+const sk::net::InetSocketAddress&
 sk::net::AbstractSocket::
 localEndpoint() const
 {
@@ -58,7 +58,7 @@ localEndpoint() const
   return _localEndpointHolder.get();
 }
 
-const sk::net::InetAddress& 
+const sk::net::InetAddress&
 sk::net::AbstractSocket::
 localAddress() const
 {
@@ -72,7 +72,7 @@ localPort() const
   return localEndpoint().getPort();
 }
 
-const sk::net::InetSocketAddress& 
+const sk::net::InetSocketAddress&
 sk::net::AbstractSocket::
 endpoint() const
 {
@@ -82,7 +82,7 @@ endpoint() const
   return _endpointHolder.get();
 }
 
-const sk::net::InetAddress& 
+const sk::net::InetAddress&
 sk::net::AbstractSocket::
 address() const
 {
@@ -104,14 +104,14 @@ setReuseAddress(bool state)
   _directedSocketHolder.getMutable().setReuseAddress(state);
 }
 
-sk::io::InputStream& 
+sk::io::InputStream&
 sk::net::AbstractSocket::
 inputStream() const
 {
   return directedSocket().inputStream();
 }
 
-sk::io::OutputStream& 
+sk::io::OutputStream&
 sk::net::AbstractSocket::
 outputStream() const
 {

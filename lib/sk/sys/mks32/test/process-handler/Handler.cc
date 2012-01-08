@@ -1,10 +1,10 @@
 /*  vim: set sw=2:
  *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
- *  
+ *
  *  Author: Gennady Bystritsky
 */
 
@@ -75,13 +75,13 @@ namespace {
       _scope.info() << "Pid " << pid << " added (" << _pids.join(", ") << ")";
     }
 
-    private: 
+    private:
       sk::rt::Scope _scope;
       sk::util::ArrayList<pid_t>::Copying _pids;
   };
 
   struct Forker : public virtual sk::rt::Runnable {
-    Forker(sk::rt::Lock& lock, Waiter& waiter) 
+    Forker(sk::rt::Lock& lock, Waiter& waiter)
       : _scope("Forker"), _lock(lock), _waiter(waiter) {}
 
     void run() {
@@ -120,7 +120,7 @@ namespace {
   };
 }
 
-void 
+void
 test::Handler::
 start()
 {

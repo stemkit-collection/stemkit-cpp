@@ -1,5 +1,5 @@
 /*  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
- *  
+ *
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
@@ -138,7 +138,7 @@ testAlltogether()
   CPPUNIT_ASSERT_THROW(data.readLine(), sk::io::EOFException);
 
   CPPUNIT_ASSERT_EQUAL("BAD: first", errors.readLine().trim());
-      
+
   process.join();
   CPPUNIT_ASSERT_EQUAL(true, process.isSuccess());
 

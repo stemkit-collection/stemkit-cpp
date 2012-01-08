@@ -10,13 +10,13 @@ local programs =
 ;
 
 if linux in $(project.PLATFORM_SPECIFICS) {
-  programs += 
+  programs +=
     linux-memcheck
   ;
 }
 
 if ! windows in $(project.PLATFORM_SPECIFICS) {
-  programs += 
+  programs +=
     checked-mutex-child-unlock-linux-failure
   ;
   use-pthreads checked-mutex-child-unlock-linux-failure ;
