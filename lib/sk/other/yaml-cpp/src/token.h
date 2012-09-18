@@ -9,7 +9,7 @@
 #include <string>
 #include <vector>
 
-namespace YAML
+namespace LOCAL_YAML
 {
 	const std::string TokenNames[] = {
 		"DIRECTIVE",

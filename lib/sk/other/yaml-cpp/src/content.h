@@ -10,7 +10,7 @@
 #include "exceptions.h"
 #include "ltnode.h"
 
-namespace YAML
+namespace LOCAL_YAML
 {
 	class Scanner;
 	class Parser;

@@ -7,7 +7,7 @@
 #include <vector>
 #include <string>
 
-namespace YAML
+namespace LOCAL_YAML
 {
 	class Stream;
 

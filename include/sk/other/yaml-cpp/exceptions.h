@@ -9,7 +9,7 @@
 #include <string>
 #include <sstream>
 
-namespace YAML
+namespace LOCAL_YAML
 {
 	// error messages
 	namespace ErrorMsg

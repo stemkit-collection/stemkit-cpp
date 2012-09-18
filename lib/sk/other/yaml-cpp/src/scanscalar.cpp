@@ -5,7 +5,7 @@
 #include "exceptions.h"
 #include "token.h"
 
-namespace YAML
+namespace LOCAL_YAML
 {
 	// ScanScalar
 	// . This is where the scalar magic happens.

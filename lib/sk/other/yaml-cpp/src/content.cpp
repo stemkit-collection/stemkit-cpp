@@ -1,7 +1,7 @@
 #include "crt.h"
 #include "content.h"
 
-namespace YAML
+namespace LOCAL_YAML
 {
 	Content::Content()
 	{

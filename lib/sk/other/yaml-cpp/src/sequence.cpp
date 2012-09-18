@@ -6,7 +6,7 @@
 #include "emitter.h"
 #include <stdexcept>
 
-namespace YAML
+namespace LOCAL_YAML
 {
 	Sequence::Sequence()
 	{

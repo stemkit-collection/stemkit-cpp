@@ -6,7 +6,7 @@
 #include "scanscalar.h"
 #include <sstream>
 
-namespace YAML
+namespace LOCAL_YAML
 {
 	///////////////////////////////////////////////////////////////////////
 	// Specialization for scanning specific tokens

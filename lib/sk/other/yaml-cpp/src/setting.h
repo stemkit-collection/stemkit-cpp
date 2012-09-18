@@ -8,7 +8,7 @@
 #include <vector>
 #include "noncopyable.h"
 
-namespace YAML
+namespace LOCAL_YAML
 {
 	class SettingChangeBase;
 

@@ -3,7 +3,7 @@
 #include "exceptions.h"
 #include "iterpriv.h"
 
-namespace YAML
+namespace LOCAL_YAML
 {
 	Iterator::Iterator(): m_pData(0)
 	{

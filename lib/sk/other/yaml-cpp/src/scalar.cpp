@@ -6,7 +6,7 @@
 #include "node.h"
 #include "emitter.h"
 
-namespace YAML
+namespace LOCAL_YAML
 {
 	Scalar::Scalar()
 	{

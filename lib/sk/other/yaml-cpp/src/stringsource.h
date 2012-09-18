@@ -6,7 +6,7 @@
 
 #include <cstddef>
 
-namespace YAML
+namespace LOCAL_YAML
 {
 	class StringCharSource
 	{

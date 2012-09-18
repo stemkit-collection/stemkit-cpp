@@ -1,6 +1,6 @@
 #pragma once
 
-namespace YAML
+namespace LOCAL_YAML
 {
 	// implementation for Node::Read
 	// (the goal is to call ConvertScalar if we can, and fall back to operator >> if not)

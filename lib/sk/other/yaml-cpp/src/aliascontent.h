@@ -6,7 +6,7 @@
 
 #include "content.h"
 
-namespace YAML
+namespace LOCAL_YAML
 {
 	class AliasContent : public Content
 	{

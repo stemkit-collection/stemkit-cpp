@@ -4,7 +4,7 @@
 #define MARK_H_62B23520_7C8E_11DE_8A39_0800200C9A66
 
 
-namespace YAML
+namespace LOCAL_YAML
 {
 	struct Mark {
 		Mark(): pos(0), line(0), column(0) {}

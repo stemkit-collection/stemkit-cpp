@@ -1,7 +1,7 @@
 #include "null.h"
 #include "node.h"
 
-namespace YAML
+namespace LOCAL_YAML
 {
 	_Null Null;
 

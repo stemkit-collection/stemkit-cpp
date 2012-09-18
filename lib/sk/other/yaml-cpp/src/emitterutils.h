@@ -7,7 +7,7 @@
 #include "ostream.h"
 #include <string>
 
-namespace YAML
+namespace LOCAL_YAML
 {
 	namespace Utils
 	{

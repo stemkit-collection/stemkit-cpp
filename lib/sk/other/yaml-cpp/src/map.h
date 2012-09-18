@@ -7,7 +7,7 @@
 #include "content.h"
 #include <map>
 
-namespace YAML
+namespace LOCAL_YAML
 {
 	class Node;
 

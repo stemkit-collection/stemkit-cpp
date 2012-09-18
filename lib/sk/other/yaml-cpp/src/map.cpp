@@ -7,7 +7,7 @@
 #include "emitter.h"
 #include <memory>
 
-namespace YAML
+namespace LOCAL_YAML
 {
 	Map::Map()
 	{

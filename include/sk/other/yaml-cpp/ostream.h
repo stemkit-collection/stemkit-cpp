@@ -6,7 +6,7 @@
 
 #include <string>
 
-namespace YAML
+namespace LOCAL_YAML
 {
 	class ostream
 	{
