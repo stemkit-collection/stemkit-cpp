@@ -6,7 +6,7 @@
 
 #include "nodeutil.h"
 
-namespace LOCAL_YAML
+namespace SK_YAML
 {
 	// implementation of templated things
 	template <typename T>

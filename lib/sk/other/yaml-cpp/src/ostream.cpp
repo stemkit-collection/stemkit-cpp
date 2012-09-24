@@ -1,7 +1,7 @@
 #include "ostream.h"
 #include <cstring>
 
-namespace LOCAL_YAML
+namespace SK_YAML
 {
 	ostream::ostream(): m_buffer(0), m_pos(0), m_size(0), m_row(0), m_col(0)
 	{

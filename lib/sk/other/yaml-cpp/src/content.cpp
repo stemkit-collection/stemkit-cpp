@@ -1,7 +1,7 @@
 #include "crt.h"
 #include "content.h"
 
-namespace LOCAL_YAML
+namespace SK_YAML
 {
 	Content::Content()
 	{

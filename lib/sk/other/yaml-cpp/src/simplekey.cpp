@@ -4,7 +4,7 @@
 #include "exceptions.h"
 #include "exp.h"
 
-namespace LOCAL_YAML
+namespace SK_YAML
 {
 	Scanner::SimpleKey::SimpleKey(const Mark& mark_, int flowLevel_)
 		: mark(mark_), flowLevel(flowLevel_), pIndent(0), pMapStart(0), pKey(0)

@@ -1,7 +1,7 @@
 #include "crt.h"
 #include "parserstate.h"
 
-namespace LOCAL_YAML
+namespace SK_YAML
 {
 	void ParserState::Reset()
 	{

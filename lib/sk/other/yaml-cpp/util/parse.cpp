@@ -10,14 +10,14 @@ int main(int argc, char **argv)
 
 	std::istream& input = (argc > 1 ? fin : std::cin);
 	try {
-		LOCAL_YAML::Parser parser(input);
-		LOCAL_YAML::Node doc;
+		SK_YAML::Parser parser(input);
+		SK_YAML::Node doc;
 		while(parser.GetNextDocument(doc)) {
-			LOCAL_YAML::Emitter emitter;
+			SK_YAML::Emitter emitter;
 			emitter << doc;
 			std::cout << emitter.c_str() << "\n";
 		}
-	} catch(const LOCAL_YAML::Exception& e) {
+	} catch(const SK_YAML::Exception& e) {
 		std::cerr << e.what() << "\n";
 	}
 	return 0;

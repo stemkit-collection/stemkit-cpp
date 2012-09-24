@@ -7,7 +7,7 @@
 #include "content.h"
 #include <string>
 
-namespace LOCAL_YAML
+namespace SK_YAML
 {
 	class Scalar: public Content
 	{

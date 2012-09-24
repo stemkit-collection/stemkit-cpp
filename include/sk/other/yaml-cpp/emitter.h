@@ -10,7 +10,7 @@
 #include <memory>
 #include <string>
 
-namespace LOCAL_YAML
+namespace SK_YAML
 {
 	class EmitterState;
 

@@ -13,7 +13,7 @@
 #include <map>
 #include <memory>
 
-namespace LOCAL_YAML
+namespace SK_YAML
 {
 	class Scanner;
 	struct Token;

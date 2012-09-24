@@ -7,7 +7,7 @@
 #include "ostream.h"
 #include <iostream>
 
-namespace LOCAL_YAML
+namespace SK_YAML
 {
 	struct Indentation {
 		Indentation(unsigned n_): n(n_) {}

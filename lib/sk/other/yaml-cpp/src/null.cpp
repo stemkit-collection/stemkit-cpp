@@ -1,7 +1,7 @@
 #include "null.h"
 #include "node.h"
 
-namespace LOCAL_YAML
+namespace SK_YAML
 {
 	_Null Null;
 

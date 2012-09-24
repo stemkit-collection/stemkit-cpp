@@ -1,7 +1,7 @@
 #include "emitterstate.h"
 #include "exceptions.h"
 
-namespace LOCAL_YAML
+namespace SK_YAML
 {
 	EmitterState::EmitterState(): m_isGood(true), m_curIndent(0), m_requiresSeparation(false)
 	{

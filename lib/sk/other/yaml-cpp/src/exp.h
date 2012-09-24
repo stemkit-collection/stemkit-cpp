@@ -9,7 +9,7 @@
 #include <ios>
 #include "stream.h"
 
-namespace LOCAL_YAML
+namespace SK_YAML
 {
 	////////////////////////////////////////////////////////////////////////////////
 	// Here we store a bunch of expressions for matching different parts of the file.

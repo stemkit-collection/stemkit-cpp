@@ -6,7 +6,7 @@
 #include <sstream>
 #include <cstdio>
 
-namespace LOCAL_YAML
+namespace SK_YAML
 {
 	Parser::Parser()
 	{

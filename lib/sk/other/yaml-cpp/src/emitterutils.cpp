@@ -6,7 +6,7 @@
 #include <sstream>
 #include <iomanip>
 
-namespace LOCAL_YAML
+namespace SK_YAML
 {
 	namespace Utils
 	{

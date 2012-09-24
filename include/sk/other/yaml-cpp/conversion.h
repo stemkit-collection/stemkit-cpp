@@ -8,7 +8,7 @@
 #include <string>
 #include <sstream>
 
-namespace LOCAL_YAML
+namespace SK_YAML
 {
 	inline bool Convert(const std::string& input, std::string& output) {
 		output = input;
@@ -18,26 +18,26 @@ namespace LOCAL_YAML
 	bool Convert(const std::string& input, bool& output);
 	bool Convert(const std::string& input, _Null& output);
 
-#define LOCAL_YAML_MAKE_STREAM_CONVERT(type) \
+#define SK_YAML_MAKE_STREAM_CONVERT(type) \
 	inline bool Convert(const std::string& input, type& output) { \
 		std::stringstream stream(input); \
 		stream >> output; \
 		return !stream.fail(); \
 	}
 
-	LOCAL_YAML_MAKE_STREAM_CONVERT(char)
-	LOCAL_YAML_MAKE_STREAM_CONVERT(unsigned char)
-	LOCAL_YAML_MAKE_STREAM_CONVERT(int)
-	LOCAL_YAML_MAKE_STREAM_CONVERT(unsigned int)
-	LOCAL_YAML_MAKE_STREAM_CONVERT(short)
-	LOCAL_YAML_MAKE_STREAM_CONVERT(unsigned short)
-	LOCAL_YAML_MAKE_STREAM_CONVERT(long)
-	LOCAL_YAML_MAKE_STREAM_CONVERT(unsigned long)
-	LOCAL_YAML_MAKE_STREAM_CONVERT(float)
-	LOCAL_YAML_MAKE_STREAM_CONVERT(double)
-	LOCAL_YAML_MAKE_STREAM_CONVERT(long double)
+	SK_YAML_MAKE_STREAM_CONVERT(char)
+	SK_YAML_MAKE_STREAM_CONVERT(unsigned char)
+	SK_YAML_MAKE_STREAM_CONVERT(int)
+	SK_YAML_MAKE_STREAM_CONVERT(unsigned int)
+	SK_YAML_MAKE_STREAM_CONVERT(short)
+	SK_YAML_MAKE_STREAM_CONVERT(unsigned short)
+	SK_YAML_MAKE_STREAM_CONVERT(long)
+	SK_YAML_MAKE_STREAM_CONVERT(unsigned long)
+	SK_YAML_MAKE_STREAM_CONVERT(float)
+	SK_YAML_MAKE_STREAM_CONVERT(double)
+	SK_YAML_MAKE_STREAM_CONVERT(long double)
 
-#undef LOCAL_YAML_MAKE_STREAM_CONVERT
+#undef SK_YAML_MAKE_STREAM_CONVERT
 }
 
 #endif // CONVERSION_H_62B23520_7C8E_11DE_8A39_0800200C9A66

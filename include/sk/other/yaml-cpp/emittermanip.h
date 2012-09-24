@@ -6,7 +6,7 @@
 
 #include <string>
 
-namespace LOCAL_YAML
+namespace SK_YAML
 {
 	enum EMITTER_MANIP {
 		// general manipulators

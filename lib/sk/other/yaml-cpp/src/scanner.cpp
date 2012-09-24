@@ -5,7 +5,7 @@
 #include "exp.h"
 #include <cassert>
 
-namespace LOCAL_YAML
+namespace SK_YAML
 {
 	Scanner::Scanner(std::istream& in)
 		: INPUT(in), m_startedStream(false), m_endedStream(false), m_simpleKeyAllowed(false)

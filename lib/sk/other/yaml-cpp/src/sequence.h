@@ -7,7 +7,7 @@
 #include "content.h"
 #include <vector>
 
-namespace LOCAL_YAML
+namespace SK_YAML
 {
 	class Node;
 
