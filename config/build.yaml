@@ -1,7 +1,7 @@
 --- 
 product: sk
 name: stemkit-cpp
-release: "0.52.1"
-build: 4
+release: "0.52.2"
+build: 1
 library-prefix: sk
-library-major: 3
+library-major: 1
