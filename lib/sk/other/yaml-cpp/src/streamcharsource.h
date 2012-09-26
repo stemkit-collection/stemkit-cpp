@@ -7,7 +7,7 @@
 #include "noncopyable.h"
 #include <cstddef>
 
-namespace YAML
+namespace SK_YAML
 {
 	class StreamCharSource
 	{

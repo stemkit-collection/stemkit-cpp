@@ -16,7 +16,7 @@
 #include <map>
 #include <memory>
 
-namespace YAML
+namespace SK_YAML
 {
 	class Content;
 	class Scanner;

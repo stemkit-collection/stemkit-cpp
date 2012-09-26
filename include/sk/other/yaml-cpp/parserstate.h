@@ -7,7 +7,7 @@
 #include <string>
 #include <map>
 
-namespace YAML
+namespace SK_YAML
 {
 	struct Version {
 		int major, minor;

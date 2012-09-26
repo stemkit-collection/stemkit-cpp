@@ -3,7 +3,7 @@
 #include "exceptions.h"
 #include <sstream>
 
-namespace YAML
+namespace SK_YAML
 {
 	namespace Exp
 	{

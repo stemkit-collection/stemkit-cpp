@@ -7,7 +7,7 @@
 #include "emitter.h"
 #include <memory>
 
-namespace YAML
+namespace SK_YAML
 {
 	Map::Map()
 	{

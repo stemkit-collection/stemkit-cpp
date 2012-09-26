@@ -1,7 +1,7 @@
 #include "crt.h"
 #include "regex.h"
 
-namespace YAML
+namespace SK_YAML
 {
 	// constructors
 	RegEx::RegEx(): m_op(REGEX_EMPTY)

@@ -7,7 +7,7 @@
 #include <vector>
 #include <string>
 
-namespace YAML
+namespace SK_YAML
 {
 	class Stream;
 

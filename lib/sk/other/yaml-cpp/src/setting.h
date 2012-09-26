@@ -8,7 +8,7 @@
 #include <vector>
 #include "noncopyable.h"
 
-namespace YAML
+namespace SK_YAML
 {
 	class SettingChangeBase;
 	

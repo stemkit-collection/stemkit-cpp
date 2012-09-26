@@ -127,8 +127,8 @@ namespace Test
 				"- milk";
 
 			std::stringstream stream(input);
-			YAML::Parser parser(stream);
-			YAML::Node doc;
+			SK_YAML::Parser parser(stream);
+			SK_YAML::Node doc;
 			parser.GetNextDocument(doc);
 
 			std::string output;
@@ -153,8 +153,8 @@ namespace Test
 				"bats: L";
 
 			std::stringstream stream(input);
-			YAML::Parser parser(stream);
-			YAML::Node doc;
+			SK_YAML::Parser parser(stream);
+			SK_YAML::Node doc;
 			parser.GetNextDocument(doc);
 
 			std::string output;
@@ -176,8 +176,8 @@ namespace Test
 			std::string input = "[ 2 , 3, 5  ,  7,   11]";
 
 			std::stringstream stream(input);
-			YAML::Parser parser(stream);
-			YAML::Node doc;
+			SK_YAML::Parser parser(stream);
+			SK_YAML::Node doc;
 			parser.GetNextDocument(doc);
 
 			int output;
@@ -205,8 +205,8 @@ namespace Test
 			std::string input = "{hr: 65, avg: 0.278}";
 
 			std::stringstream stream(input);
-			YAML::Parser parser(stream);
-			YAML::Node doc;
+			SK_YAML::Parser parser(stream);
+			SK_YAML::Node doc;
 			parser.GetNextDocument(doc);
 
 			std::string output;
@@ -224,12 +224,12 @@ namespace Test
 		{
 			std::string input = "{: omitted key}";
 			std::stringstream stream(input);
-			YAML::Parser parser(stream);
-			YAML::Node doc;
+			SK_YAML::Parser parser(stream);
+			SK_YAML::Node doc;
 			parser.GetNextDocument(doc);
 			
 			std::string output;
-			doc[YAML::Null] >> output;
+			doc[SK_YAML::Null] >> output;
 			if(output != "omitted key")
 				return false;
 			
@@ -240,8 +240,8 @@ namespace Test
 		{
 			std::string input = "{a: b, c:, d:}";
 			std::stringstream stream(input);
-			YAML::Parser parser(stream);
-			YAML::Node doc;
+			SK_YAML::Parser parser(stream);
+			SK_YAML::Node doc;
 			parser.GetNextDocument(doc);
 
 			std::string output;
@@ -260,8 +260,8 @@ namespace Test
 		{
 			std::string input = "{a: b, c, d: e}";
 			std::stringstream stream(input);
-			YAML::Parser parser(stream);
-			YAML::Node doc;
+			SK_YAML::Parser parser(stream);
+			SK_YAML::Node doc;
 			parser.GetNextDocument(doc);
 			
 			std::string output;
@@ -281,8 +281,8 @@ namespace Test
 		{
 			std::string input = "{a: b, c}";
 			std::stringstream stream(input);
-			YAML::Parser parser(stream);
-			YAML::Node doc;
+			SK_YAML::Parser parser(stream);
+			SK_YAML::Node doc;
 			parser.GetNextDocument(doc);
 			
 			std::string output;
@@ -304,8 +304,8 @@ namespace Test
 				std::string input = KeyValue[perm[0]] + KeyValue[perm[1]] + KeyValue[perm[2]];
 
 				std::stringstream stream(input);
-				YAML::Parser parser(stream);
-				YAML::Node doc;
+				SK_YAML::Parser parser(stream);
+				SK_YAML::Node doc;
 				parser.GetNextDocument(doc);
 				
 				std::string output;
@@ -328,11 +328,11 @@ namespace Test
 			std::string input = "key:\n- one\n- two";
 			
 			std::stringstream stream(input);
-			YAML::Parser parser(stream);
-			YAML::Node doc;
+			SK_YAML::Parser parser(stream);
+			SK_YAML::Node doc;
 			parser.GetNextDocument(doc);
 			
-			const YAML::Node& seq = doc["key"];
+			const SK_YAML::Node& seq = doc["key"];
 			if(seq.size() != 2)
 				return false;
 				
@@ -352,8 +352,8 @@ namespace Test
 			std::string input = "- hello\n-\n- world";
 			
 			std::stringstream stream(input);
-			YAML::Parser parser(stream);
-			YAML::Node doc;
+			SK_YAML::Parser parser(stream);
+			SK_YAML::Node doc;
 			parser.GetNextDocument(doc);
 			
 			std::string output;
@@ -374,12 +374,12 @@ namespace Test
 			std::string input = ": empty key";
 			
 			std::stringstream stream(input);
-			YAML::Parser parser(stream);
-			YAML::Node doc;
+			SK_YAML::Parser parser(stream);
+			SK_YAML::Node doc;
 			parser.GetNextDocument(doc);
 			
 			std::string output;
-			doc[YAML::Null] >> output;
+			doc[SK_YAML::Null] >> output;
 			if(output != "empty key")
 				return false;
 			
@@ -391,8 +391,8 @@ namespace Test
 			std::string input = "empty value:";
 			
 			std::stringstream stream(input);
-			YAML::Parser parser(stream);
-			YAML::Node doc;
+			SK_YAML::Parser parser(stream);
+			SK_YAML::Node doc;
 			parser.GetNextDocument(doc);
 			
 			if(!IsNull(doc["empty value"]))
@@ -406,8 +406,8 @@ namespace Test
 			std::string input = "- &alias test\n- *alias";
 			
 			std::stringstream stream(input);
-			YAML::Parser parser(stream);
-			YAML::Node doc;
+			SK_YAML::Parser parser(stream);
+			SK_YAML::Node doc;
 			parser.GetNextDocument(doc);
 			
 			std::string output;
@@ -430,8 +430,8 @@ namespace Test
 			std::string input = "- &alias\n- *alias";
 			
 			std::stringstream stream(input);
-			YAML::Parser parser(stream);
-			YAML::Node doc;
+			SK_YAML::Parser parser(stream);
+			SK_YAML::Node doc;
 			parser.GetNextDocument(doc);
 			
 			if(!IsNull(doc[0]))
@@ -451,8 +451,8 @@ namespace Test
 			std::string input = "- &a b: c\n- *a";
 			
 			std::stringstream stream(input);
-			YAML::Parser parser(stream);
-			YAML::Node doc;
+			SK_YAML::Parser parser(stream);
+			SK_YAML::Node doc;
 			parser.GetNextDocument(doc);
 			
 			if(doc.size() != 2)
@@ -475,8 +475,8 @@ namespace Test
 			std::string input = "- &a b\n- *a: c";
 			
 			std::stringstream stream(input);
-			YAML::Parser parser(stream);
-			YAML::Node doc;
+			SK_YAML::Parser parser(stream);
+			SK_YAML::Node doc;
 			parser.GetNextDocument(doc);
 
 			if(doc.size() != 2)
@@ -499,8 +499,8 @@ namespace Test
 			std::string input = "---\n- one\n- two";
 			
 			std::stringstream stream(input);
-			YAML::Parser parser(stream);
-			YAML::Node doc;
+			SK_YAML::Parser parser(stream);
+			SK_YAML::Node doc;
 			parser.GetNextDocument(doc);
 			
 			if(doc.size() != 2)
@@ -522,8 +522,8 @@ namespace Test
 			std::string input = "---\nname: doc1\n---\nname: doc2";
 			
 			std::stringstream stream(input);
-			YAML::Parser parser(stream);
-			YAML::Node doc;
+			SK_YAML::Parser parser(stream);
+			SK_YAML::Node doc;
 			parser.GetNextDocument(doc);
 
 			std::string output;
@@ -547,8 +547,8 @@ namespace Test
 			std::string input = "- one\n- two\n...\n...";
 			
 			std::stringstream stream(input);
-			YAML::Parser parser(stream);
-			YAML::Node doc;
+			SK_YAML::Parser parser(stream);
+			SK_YAML::Node doc;
 			parser.GetNextDocument(doc);
 			
 			if(doc.size() != 2)
@@ -574,8 +574,8 @@ namespace Test
 				"---\nkey: value";
 			
 			std::stringstream stream(input);
-			YAML::Parser parser(stream);
-			YAML::Node doc;
+			SK_YAML::Parser parser(stream);
+			SK_YAML::Node doc;
 			std::string output;
 
 			parser.GetNextDocument(doc);
@@ -621,11 +621,11 @@ namespace Test
 			try {
 				test(inputScalar, desiredOutput);
 				std::stringstream stream(inputScalar);
-				YAML::Parser parser(stream);
-				YAML::Node doc;
+				SK_YAML::Parser parser(stream);
+				SK_YAML::Node doc;
 				parser.GetNextDocument(doc);
 				doc >> output;
-			} catch(const YAML::Exception& e) {
+			} catch(const SK_YAML::Exception& e) {
 				ok = false;
 				error = e.msg;
 			}
@@ -648,7 +648,7 @@ namespace Test
 			bool ok = true;
 			try {
 				ok = test();
-			} catch(const YAML::Exception& e) {
+			} catch(const SK_YAML::Exception& e) {
 				ok = false;
 				error = e.msg;
 			}
@@ -797,11 +797,11 @@ namespace Test
 			std::string error;
 			bool ok = true;
 			try {
-				YAML::Parser parser(tester.stream());
-				YAML::Node doc;
+				SK_YAML::Parser parser(tester.stream());
+				SK_YAML::Node doc;
 				parser.GetNextDocument(doc);
 
-				YAML::Iterator itNode = doc.begin();
+				SK_YAML::Iterator itNode = doc.begin();
 				std::vector<std::string>::const_iterator itEntry = tester.entries().begin();
 				for (; (itNode != doc.end()) && (itEntry != tester.entries().end()); ++itNode, ++itEntry)
 				{
@@ -816,7 +816,7 @@ namespace Test
 				{
 					ok = false;
 				}
-			} catch(const YAML::Exception& e) {
+			} catch(const SK_YAML::Exception& e) {
 				ok = false;
 				error = e.msg;
 			}

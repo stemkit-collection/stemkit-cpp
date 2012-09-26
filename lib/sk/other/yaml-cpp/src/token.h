@@ -9,7 +9,7 @@
 #include <string>
 #include <vector>
 
-namespace YAML
+namespace SK_YAML
 {
 	const std::string TokenNames[] = {
 		"DIRECTIVE",

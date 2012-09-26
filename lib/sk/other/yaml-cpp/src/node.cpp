@@ -12,7 +12,7 @@
 #include "emitter.h"
 #include <stdexcept>
 
-namespace YAML
+namespace SK_YAML
 {
 	// the ordering!
 	bool ltnode::operator ()(const Node *pNode1, const Node *pNode2) const

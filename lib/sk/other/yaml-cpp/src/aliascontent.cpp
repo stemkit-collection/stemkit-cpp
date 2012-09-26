@@ -1,7 +1,7 @@
 #include "crt.h"
 #include "aliascontent.h"
 
-namespace YAML
+namespace SK_YAML
 {
 	AliasContent::AliasContent(Content* pNodeContent)
 		: m_pRef(pNodeContent)
