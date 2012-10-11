@@ -17,6 +17,7 @@ namespace sk {
     {
       public:
         ImmutableObjectException(const sk::util::String& message);
+        ~ImmutableObjectException() throw() {};
         
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;

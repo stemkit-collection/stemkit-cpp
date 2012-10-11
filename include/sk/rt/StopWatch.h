@@ -12,7 +12,7 @@
 #define _SK_RT_STOPWATCH_H_
 
 #include <sk/util/Object.h>
-#include <time.h>
+#include <sys/time.h>
 
 namespace sk {
   namespace rt {

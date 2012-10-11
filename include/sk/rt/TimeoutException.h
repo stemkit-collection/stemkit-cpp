@@ -21,6 +21,7 @@ namespace sk {
       public:
         TimeoutException();
         TimeoutException(const sk::util::String& message);
+        ~TimeoutException() throw() {};
     
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;

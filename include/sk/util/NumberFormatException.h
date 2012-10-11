@@ -17,6 +17,7 @@ namespace sk {
     {
       public:
         NumberFormatException(const sk::util::String& message);
+        ~NumberFormatException() throw() {};
         
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;

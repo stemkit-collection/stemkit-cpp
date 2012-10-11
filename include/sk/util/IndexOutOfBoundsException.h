@@ -17,6 +17,7 @@ namespace sk {
     {
       public:
         IndexOutOfBoundsException(const sk::util::String& message);
+        ~IndexOutOfBoundsException() throw() {};
         
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;

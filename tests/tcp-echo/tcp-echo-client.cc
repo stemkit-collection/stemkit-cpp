@@ -11,7 +11,7 @@
 #include <iostream>
 #include <iomanip>
 #include <exception>
-#include <string>
+#include <cstring>
 
 #include <sk/sys/StreamPortal.h>
 #include <sk/sys/Process.h>

@@ -17,6 +17,7 @@ namespace sk {
     {
       public:
         InsufficientMemoryException(const sk::util::String& purpose, size_t amount);
+        ~InsufficientMemoryException() throw() {};
 
         size_t getRequestedAmount() const;
         

@@ -21,6 +21,7 @@ namespace sk {
       public:
         StandardException(const sk::util::Strings& strings, const std::exception& exception);
         StandardException(const std::exception& exception);
+        ~StandardException() throw() {};
     
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;

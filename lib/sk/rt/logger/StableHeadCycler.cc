@@ -14,6 +14,7 @@
 
 #include "StableHeadCycler.h"
 #include <unistd.h>
+#include <cstdio>
 
 sk::rt::logger::StableHeadCycler::
 StableHeadCycler(const sk::util::Pathname& pathname)

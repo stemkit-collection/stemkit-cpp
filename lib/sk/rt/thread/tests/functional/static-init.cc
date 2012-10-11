@@ -41,6 +41,6 @@ int main(int /*argc*/, const char* /*argv*/[])
 
 int sample_f()
 {
-  fprintf(stderr, ">>> sample_f()\n");
+  std::cerr << ">>> sample_f()" << std::endl;
   return 5;
 }

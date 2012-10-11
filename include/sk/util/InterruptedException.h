@@ -17,6 +17,7 @@ namespace sk {
     {
       public:
         InterruptedException(const sk::util::String& message);
+        ~InterruptedException() throw() {};
         
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;

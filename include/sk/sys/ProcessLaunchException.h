@@ -22,6 +22,7 @@ namespace sk {
     {
       public:
         ProcessLaunchException(const sk::util::String& message, const sk::util::Strings& cmdline);
+        ~ProcessLaunchException() throw() {};
     
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;

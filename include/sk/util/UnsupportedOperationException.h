@@ -18,6 +18,7 @@ namespace sk {
       public:
         UnsupportedOperationException(const sk::util::String& message);
         UnsupportedOperationException(const sk::util::String& message, const sk::util::Strings& details);
+        ~UnsupportedOperationException() throw();
         
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;

@@ -20,6 +20,7 @@ namespace sk {
     {
       public:
         NoRouteToHostException(const sk::util::String& host, const uint16_t port);
+        ~NoRouteToHostException() throw() {};
     
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;

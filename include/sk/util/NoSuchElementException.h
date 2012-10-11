@@ -17,6 +17,7 @@ namespace sk {
     {
       public:
         NoSuchElementException(const sk::util::String& message);
+        ~NoSuchElementException() throw() {};
         
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;

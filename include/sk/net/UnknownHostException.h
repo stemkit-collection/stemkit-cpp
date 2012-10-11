@@ -21,6 +21,7 @@ namespace sk {
       public:
         UnknownHostException(const sk::util::String& hostid);
         UnknownHostException(const sk::util::Strings& messages, const sk::util::String& hostid);
+        ~UnknownHostException() throw() {};
     
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;

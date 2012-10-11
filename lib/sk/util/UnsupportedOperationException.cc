@@ -22,6 +22,9 @@ UnsupportedOperationException(const sk::util::String& message, const sk::util::S
 {
 }
 
+sk::util::UnsupportedOperationException::
+~UnsupportedOperationException() throw() { }
+
 const sk::util::Class
 sk::util::UnsupportedOperationException::
 getClass() const

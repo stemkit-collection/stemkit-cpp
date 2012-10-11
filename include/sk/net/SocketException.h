@@ -21,6 +21,7 @@ namespace sk {
       public:
         SocketException(const sk::util::String& message);
         SocketException(const sk::util::String& message, const sk::util::Strings& details);
+        ~SocketException() throw() {};
     
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;

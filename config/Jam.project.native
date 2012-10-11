@@ -16,7 +16,7 @@ project.DISTRIB_PRODINFO = $(SRCTOP:J=/)/install/prodinfo ;
 
 INSTALL_LAUNCHER = sudo ;
 
-GCC_VERSION = 3.4.3 ;
+GCC_VERSION = 4.6.3 ;
 
 BOOST_VERSION = 1_32 ;
 CPPUNIT_VERSION = 1.10 ;

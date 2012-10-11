@@ -13,7 +13,7 @@
 #include <sk/util/IllegalArgumentException.h>
 #include <sk/rt/Environment.h>
 
-#include <strings.h>
+#include <cstring>
 #include <algorithm>
 
 #include "foreach_environment_item.h"

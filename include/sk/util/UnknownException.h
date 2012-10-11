@@ -21,6 +21,7 @@ namespace sk {
       public:
         UnknownException(const sk::util::Strings& strings);
         UnknownException();
+        ~UnknownException() throw() {};
     
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;

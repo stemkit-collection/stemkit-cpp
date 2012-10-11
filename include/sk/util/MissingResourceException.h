@@ -18,6 +18,7 @@ namespace sk {
       public:
         MissingResourceException(const sk::util::String& message);
         MissingResourceException(const sk::util::String& message, const sk::util::Strings& details);
+        ~MissingResourceException() throw() {};
         
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;

@@ -19,6 +19,7 @@ namespace sk {
       public:
         SystemException(const sk::util::String& message);
         SystemException(const sk::util::String& message, int code);
+        ~SystemException() throw() {};
 
         static bool raiseUnlessSuccess(const sk::util::String& statement, int status, int other = 0);
         int getCode() const;

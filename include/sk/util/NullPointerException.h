@@ -17,6 +17,7 @@ namespace sk {
     {
       public:
         NullPointerException(const sk::util::String& message);
+        ~NullPointerException() throw() {};
         
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;

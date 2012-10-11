@@ -17,6 +17,7 @@ namespace sk {
     {
       public:
         ClosedChannelException();
+        ~ClosedChannelException() throw() {};
         
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
