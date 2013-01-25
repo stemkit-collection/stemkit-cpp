@@ -32,7 +32,7 @@ namespace sk {
             virtual ~Thread();
 
             // sk::rt::thread::platform::Thread implementation.
-            void start();
+            void start(int stackSize);
             void stop();
             void interrupt();
             void join();
@@ -50,6 +50,7 @@ namespace sk {
 
             const sk::rt::Scope& _scope;
             pthread_t _thread;
+			pthread_attr_t _threadattr;
             sk::rt::Runnable& _target;
             sk::rt::thread::Generic& _handle;
             const Provider& _provider;

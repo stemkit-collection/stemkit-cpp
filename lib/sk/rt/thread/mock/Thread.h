@@ -26,7 +26,7 @@ namespace sk {
             Thread(sk::rt::Runnable& target);
             virtual ~Thread();
         
-            void start();
+            void start(int stackSize);
             void stop();
             void interrupt();
             void join();

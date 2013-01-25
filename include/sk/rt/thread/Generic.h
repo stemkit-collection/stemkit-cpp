@@ -22,7 +22,7 @@ namespace sk {
         : public virtual sk::util::Object
       {
         public:
-          virtual void start() = 0;
+          virtual void start(int stackSize = 0) = 0;
           virtual void stop() = 0;
           virtual void join() = 0;
           virtual void detach() = 0;

@@ -72,12 +72,12 @@ getClass() const
 
 void 
 sk::rt::thread::win32::Thread::
-start()
+start(int stackSize)
 {
   if(_wrapper == true) {
     throw sk::util::IllegalStateException(SK_METHOD);
   }
-  _threadHandle = CreateThread(0, 0, runner, this, 0, &_threadId);
+  _threadHandle = CreateThread(0, stackSize, runner, this, 0, &_threadId);
   if(_threadHandle == 0) {
     throw sk::util::IllegalStateException("Cannot create thread");
   }

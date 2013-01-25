@@ -145,7 +145,7 @@ stop()
 
 void
 sk::rt::Thread::
-start()
+start(int stackSize)
 {
   _runnerHolder.getMutable().start(*this);
 }

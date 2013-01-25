@@ -26,7 +26,7 @@ namespace sk {
           virtual ~Main();
       
           // sk::rt::thread::Generic implementation
-          void start();
+          void start(int stackSize = 0);
           void stop();
           void join();
           void detach();

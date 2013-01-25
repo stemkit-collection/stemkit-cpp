@@ -40,7 +40,7 @@ getClass() const
 
 void 
 sk::rt::thread::mock::Thread::
-start()
+start(int stackSize = 0)
 {
   throw sk::util::UnsupportedOperationException(SK_METHOD);
 }

@@ -47,7 +47,7 @@ getId() const
 
 void 
 sk::rt::thread::Main::
-start()
+start(int stackSize)
 {
   throw sk::util::UnsupportedOperationException(SK_METHOD);
 }
