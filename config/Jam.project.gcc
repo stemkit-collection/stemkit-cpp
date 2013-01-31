@@ -252,6 +252,8 @@ rule platform-aix-ppc-m64
 
 rule platform-aix-ppc
 {
+  GCC_VERSION = 3.4 ;
+
   core.load-config Jam.aix ;
 
   C++FLAGS += -fPIC -pthread ;
@@ -380,6 +382,8 @@ rule platform-hpux-pa-m64
 
 rule platform-hpux-pa
 {
+  GCC_VERSION = 3.4 ;
+
   C++FLAGS += -fPIC -pthread ;
   CCFLAGS += -fPIC -pthread ;
   DEFINES += _FILE_OFFSET_BITS=64 _LARGEFILE64_SOURCE _REENTRANT ;
@@ -409,6 +413,8 @@ rule platform-hpux-ia64-m64
 
 rule platform-hpux-ia64
 {
+  GCC_VERSION = 3.4 ;
+
   C++FLAGS += -fPIC -pthread ;
   CCFLAGS += -fPIC -pthread ;
   DEFINES += _FILE_OFFSET_BITS=64 _LARGEFILE64_SOURCE _REENTRANT ;
