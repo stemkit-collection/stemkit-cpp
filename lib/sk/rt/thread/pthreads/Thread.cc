@@ -58,7 +58,6 @@ getClass() const
   return sk::util::Class(__className);
 }
 
-#define STACKSIZE (1024 * 2000)
 
 void 
 sk::rt::thread::pthreads::Thread::
@@ -69,7 +68,7 @@ start(int stackSize)
   }
   if(stackSize) {
     SK_PTHREAD_RAISE_UNLESS_SUCCESS(pthread_attr_init(&_threadattr));
-    SK_PTHREAD_RAISE_UNLESS_SUCCESS(pthread_attr_setstacksize(&_threadattr, STACKSIZE));
+    SK_PTHREAD_RAISE_UNLESS_SUCCESS(pthread_attr_setstacksize(&_threadattr, stackSize));
     SK_PTHREAD_RAISE_UNLESS_SUCCESS(pthread_create(&_thread, &_threadattr, runner, this));
   }
   else {

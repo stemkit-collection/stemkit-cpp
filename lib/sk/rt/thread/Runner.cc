@@ -73,7 +73,7 @@ getThreadImplementation() const
 
 void
 sk::rt::thread::Runner::
-start(sk::rt::thread::Generic& handle)
+start(sk::rt::thread::Generic& handle, int stackSize)
 {
   if(_threadHolder.isEmpty() == false) {
     throw sk::util::IllegalStateException("thread already started");
@@ -81,7 +81,7 @@ start(sk::rt::thread::Generic& handle)
   _threadHolder.set(thread::Implementation::instance().makeThread(*this, handle));
 
   setState(thread::State::SK_T_STARTED);
-  _threadHolder.getMutable().start();
+  _threadHolder.getMutable().start(stackSize);
 }
 
 void
