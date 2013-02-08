@@ -147,7 +147,7 @@ void
 sk::rt::Thread::
 start(int stackSize)
 {
-  _runnerHolder.getMutable().start(*this);
+  _runnerHolder.getMutable().start(*this,stackSize);
 }
 
 void 

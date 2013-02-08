@@ -31,7 +31,7 @@ namespace sk {
 
           sk::rt::Scope& getScope();
       
-          void start(sk::rt::thread::Generic& handle, int stackSize);
+          void start(sk::rt::thread::Generic& handle, int stackSize = 0);
           void stop();
           void interrupt();
           void detach();
