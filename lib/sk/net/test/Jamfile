@@ -1,6 +1,6 @@
 # vim: ft=jam: sw=2:
 
-if $(PRODUCT_RELEASE) != "0.52.1" {
+if $(PRODUCT_RELEASE) != "0.52.3" {
   local test = sk-net-test ;
 
   local objects = 
