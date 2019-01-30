@@ -3,6 +3,7 @@
 local library = sk.util.pp ;
 
 local objects =
+    Configurator.cc
     AbstractValueNode.cc
     AbstractCompositeNode.cc
     PrimeNode.cc

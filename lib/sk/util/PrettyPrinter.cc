@@ -15,12 +15,13 @@
 #include <sk/util/PrettyPrinter.h>
 
 #include "pp/PrimeNode.h"
+#include "pp/Configurator.h"
 
 static const sk::util::String __className("sk::util::PrettyPrinter");
 
 sk::util::PrettyPrinter::
 PrettyPrinter(std::ostream& stream)
-  : _stream(stream)
+  : _stream(stream), _configuratorSlot(new pp::Configurator())
 {
 }
 
@@ -45,7 +46,15 @@ print(const sk::util::String& input) const
     _stream << input;
   }
   else {
-    nodeHolder.get().output("", _stream);
+    nodeHolder.get().output(_configuratorSlot.get(), "", _stream);
   }
   _stream << std::endl;
 }
+
+void
+sk::util::PrettyPrinter::
+setCompact(bool state) 
+{
+  _configuratorSlot.get().setCompact(state);
+}
+

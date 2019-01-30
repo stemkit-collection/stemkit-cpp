@@ -36,7 +36,7 @@ namespace sk {
           // sk::util::pp::Node implementation.
           int startPosition() const;
           int endPosition() const;
-          void output(const sk::util::String& indent, std::ostream& stream) const;
+          void output(const Configurator& configurator, const sk::util::String& indent, std::ostream& stream) const;
           bool isGonnaBreak() const;
 
         protected:
@@ -44,7 +44,7 @@ namespace sk {
           int getNodeCount() const;
           void forEachNode(const sk::util::Processor<sk::util::pp::Node>& processor) const;
           bool hasBreakingNode() const;
-          void output(const sk::util::String& indent, std::ostream& stream, bool breaking) const;
+          void output(const Configurator& configurator, const sk::util::String& indent, std::ostream& stream, bool breaking) const;
 
         private:
           AbstractCompositeNode(const AbstractCompositeNode& other);

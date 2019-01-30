@@ -93,8 +93,8 @@ inspect() const
 
 void 
 sk::util::pp::NamedNode::
-output(const sk::util::String& indent, std::ostream& stream) const
+output(const Configurator& configurator, const sk::util::String& indent, std::ostream& stream) const
 {
   stream << _name << " => ";
-  getNode(0).output(indent, stream);
+  getNode(0).output(configurator, indent, stream);
 }

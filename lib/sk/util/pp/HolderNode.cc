@@ -101,12 +101,12 @@ inspect() const
 
 void 
 sk::util::pp::HolderNode::
-output(const sk::util::String& indent, std::ostream& stream) const
+output(const Configurator& configurator, const sk::util::String& indent, std::ostream& stream) const
 {
   stream << '(';
   if(getNodeCount() > 0) {
     stream << ' ';
-    AbstractCompositeNode::output(indent, stream);
+    AbstractCompositeNode::output(configurator, indent, stream);
   }
   stream << ')';
 }

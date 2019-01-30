@@ -12,10 +12,14 @@
 #define _SK_UTIL_PRETTYPRINTER_H_
 
 #include <sk/util/Object.h>
+#include <sk/util/slot/Pointer.hxx>
 #include <ostream>
 
 namespace sk {
   namespace util {
+    namespace pp {
+      class Configurator;
+    }
     class PrettyPrinter 
       : public virtual sk::util::Object
     {
@@ -23,6 +27,7 @@ namespace sk {
         PrettyPrinter(std::ostream& stream);
         virtual ~PrettyPrinter();
 
+        void setCompact(bool state);
         void print(const sk::util::String& input) const;
     
         // sk::util::Object re-implementation.
@@ -33,6 +38,7 @@ namespace sk {
         PrettyPrinter& operator = (const PrettyPrinter& other);
 
         std::ostream& _stream;
+        sk::util::slot::Pointer<pp::Configurator> _configuratorSlot;
     };
   }
 }

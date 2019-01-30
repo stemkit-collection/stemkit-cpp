@@ -37,7 +37,7 @@ namespace sk {
           void pushOpenBraket(std::vector<char>& brakets) const;
 
           // sk::util::pp::Node implementation.
-          void output(const sk::util::String& indent, std::ostream& stream) const;
+          void output(const Configurator& configurator, const sk::util::String& indent, std::ostream& stream) const;
 
         private:
           HolderNode(const HolderNode& other);

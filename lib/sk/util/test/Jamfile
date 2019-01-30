@@ -41,6 +41,7 @@ test-objects =
   InspectTest.cc
   PrettyPrinterTest.cc
   BitsetTest.cc
+  AliasingProcessorTest.cc
 ;
 
 use-project-library $(test) : sk.util sk.cppunit ;

@@ -32,7 +32,7 @@ namespace sk {
           // sk::util::pp::Node implementation.
           int startPosition() const;
           int endPosition() const;
-          void output(const sk::util::String& indent, std::ostream& stream) const;
+          void output(const Configurator& configurator, const sk::util::String& indent, std::ostream& stream) const;
           bool isGonnaBreak() const;
       
         private:
