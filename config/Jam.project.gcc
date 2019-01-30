@@ -117,8 +117,7 @@ rule platform-macos-ppc
 {
   project.MAKE_DLL = false ;
 
-  GCC_VERSION = 4.0.0 ;
-  GCC_ROOT = /usr/local/gcc-$(GCC_VERSION) ;
+  GCC_VERSION = 4.0.1 ;
 
   CC = gcc-4.0 ;
   C++ = g++-4.0 ;
@@ -135,6 +134,7 @@ rule platform-macos-ppc
   C++LDFLAGS += ;
   CC_SONAME_FLAG = -Wl,+h ;
   jam.DSO_EXTENTION = dylib ;
+  RANLIB = ranlib -s ;
 
   project.PTY_SPECIFICS = posix ;
 }
@@ -241,12 +241,8 @@ CONTRIB_ROOT ?= $(GCC_ROOT)/contrib ;
 
 C++ ?= $(GCC_ROOT)/bin/g++ ;
 CC ?= $(GCC_ROOT)/bin/gcc ;
-# C++ ?= g++-4.0 ;
-# CC ?= gcc-4.0 ;
 
 LIBDIRS += $(GCC_ROOT)/lib ;
-
-AR ?= ar -cq ;
 
 CCOFLAGS ?= -O0 -fno-guess-branch-probability ;
 DLLFLAGS ?= -shared ;

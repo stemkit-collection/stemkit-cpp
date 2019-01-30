@@ -13,6 +13,10 @@ test-objects =
   ReferenceSlotTest.cc
   PointerSlotTest.cc
   HolderTest.cc
+  SharingHolderTest.cc
+  AliasingHolderTest.cc
+  CloningHolderTest.cc
+  CopyingHolderTest.cc
 # AbstractCollectionTest.cc
 # AbstractListTest.cc
   ArrayListTest.cc

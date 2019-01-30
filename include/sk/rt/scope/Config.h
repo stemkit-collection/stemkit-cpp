@@ -52,8 +52,8 @@ namespace sk {
         private:
           Config& operator = (const Config& other);
 
-          sk::util::Holder<logger::Destination> _destinationHolder;
-          sk::util::Holder<const logger::Level> _levelHolder;
+          sk::util::Holder<logger::Destination>::Sharing _destinationHolder;
+          sk::util::Holder<const logger::Level>::Aliasing _levelHolder;
 
           bool _logPid;
           bool _logTime;
