@@ -1,2 +1,9 @@
+# vim:set sw=2:
 
-make-subdirs ruby java ;
+if $(project.RUBY_DIR) {
+  make-subdirs ruby ;
+}
+
+if $(project.RUBY_DIR) {
+  make-subdirs java ;
+}
