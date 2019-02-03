@@ -55,12 +55,15 @@ namespace {
           break;
         }
         default: {
-          if(!(character&0x80) && isprint(character)) {
+          if(!(character & 0x80) && isprint(character)) {
             _stream << character;
           }
           else {
-            _stream << "\\x" << std::hex << std::setw(2) << std::setfill('0') << std::uppercase;
-            _stream << (int(character) & 0xff);
+            _stream 
+              << "\\x" 
+              << std::hex << std::setw(2) << std::setfill('0') << std::uppercase 
+              << (int(character) & 0xff)
+            ;
           }
           break;
         }
@@ -77,13 +80,11 @@ sk::util::inspect(const char* buffer, int size)
     return "<null>";
   }
   std::ostringstream stream;
-  CharacterConverter converter(stream);
 
-  stream << "\"";
-  for(int index=0; index<size ;index++) {
-    converter(buffer[index]);
-  }
-  stream << "\"";
+  stream << '"';
+  std::for_each(buffer, buffer + size, CharacterConverter(stream));
+  stream << '"';
+
   return stream.str();
 }
 
