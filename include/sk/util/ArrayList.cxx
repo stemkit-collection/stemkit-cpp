@@ -106,6 +106,7 @@ removeAll(const sk::util::Selector<T>& selector)
   typename container::iterator iterator = _container.begin();
   while(iterator != _container.end()) {
     if(selector.assess((*iterator)->get())) {
+      delete *iterator;
       iterator = _container.erase(iterator);
       ++removed;
     }
@@ -150,7 +151,9 @@ remove(int index)
   if((index < 0) || (index >= _container.size())) {
     throw sk::util::IndexOutOfBoundsException("sk::util::ArrayList<T>#remove(), index=" + sk::util::String::valueOf(index) + ", size=" + sk::util::String::valueOf(_container.size()));
   }
-  _container.erase(_container.begin() + index);
+  typename container::iterator iterator = _container.begin() + index;
+  delete *iterator;
+  _container.erase(iterator);
 }
 
 template<class T>
@@ -162,7 +165,9 @@ cutoff(int index)
     throw sk::util::IndexOutOfBoundsException("sk::util::ArrayList<T>#remove(), index=" + sk::util::String::valueOf(index) + ", size=" + sk::util::String::valueOf(_container.size()));
   }
   T* object = _container[index]->deprive();
-  _container.erase(_container.begin() + index);
+  typename container::iterator iterator = _container.begin() + index;
+  delete *iterator;
+  _container.erase(iterator);
 
   return object;
 }

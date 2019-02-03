@@ -1,4 +1,5 @@
-/*  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
+/*  vi: sw=2:
+ *  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
  *  
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
@@ -9,6 +10,7 @@
 #define _SK_UTIL_SLOT_REFERENCE_CXX_
 
 #include <sk/util/slot/Reference.hxx>
+#include <sk/util/Slot.cxx>
 #include <sk/util/UnsupportedOperationException.h>
 #include <sk/util/Class.h>
 #include <sk/util/inspect.h>
@@ -16,7 +18,7 @@
 template<typename T, typename Mixin>
 sk::util::slot::Reference<T, Mixin>::
 Reference(T& object)
-  : _object(object)
+  : Slot<T, Mixin>(object)
 {
 }
 
@@ -43,14 +45,6 @@ isOwner() const
 }
 
 template<typename T, typename Mixin>
-T&
-sk::util::slot::Reference<T, Mixin>::
-get() const
-{
-  return _object;
-}
-
-template<typename T, typename Mixin>
 T*
 sk::util::slot::Reference<T, Mixin>::
 deprive()
@@ -71,7 +65,7 @@ const sk::util::String
 sk::util::slot::Reference<T, Mixin>::
 inspect() const
 {
-  return "&" + sk::util::inspect(_object);
+  return "&" + sk::util::inspect(*sk::util::Slot<T, Mixin>::_object);
 }
 
 #endif /* _SK_UTIL_SLOT_REFERENCE_CXX_ */

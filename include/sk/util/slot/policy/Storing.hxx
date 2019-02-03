@@ -8,7 +8,7 @@
 #ifndef _SK_UTIL_SLOT_POLICY_STORING_HXX_
 #define _SK_UTIL_SLOT_POLICY_STORING_HXX_
 
-#include <sk/util/slot/Mixable.hxx>
+#include <sk/util/Slot.hxx>
 #include <sk/util/MissingResourceException.h>
 #include <sk/util/slot/Reference.hxx>
 #include <sk/util/slot/Pointer.hxx>
@@ -24,7 +24,7 @@ namespace sk {
             Storing() 
               : _slot(0) {}
 
-            void setSlot(slot::Mixable<T, SlotMixin>* slot) {
+            void setSlot(sk::util::Slot<T, SlotMixin>* slot) {
               _slot = slot;
             }
 
@@ -53,14 +53,14 @@ namespace sk {
               _slot = 0;
             }
 
-            slot::Mixable<T, SlotMixin>& getSlot() const {
+            sk::util::Slot<T, SlotMixin>& getSlot() const {
               if(hasSlot() == false) {
                 throw MissingResourceException("sk::util::slot::policy::Storing#getSlot()");
               }
               return *_slot;
             }
 
-            static slot::Mixable<T, SlotMixin>& getSlot(const Storing<T, SlotMixin>& other) {
+            static sk::util::Slot<T, SlotMixin>& getSlot(const Storing<T, SlotMixin>& other) {
               return other.getSlot();
             }
 
@@ -68,7 +68,7 @@ namespace sk {
             Storing(const Storing<T, SlotMixin>& other);
             Storing<T, SlotMixin>& operator = (const Storing<T, SlotMixin>& other);
 
-            slot::Mixable<T, SlotMixin>* _slot;
+            sk::util::Slot<T, SlotMixin>* _slot;
         };
       }
     }

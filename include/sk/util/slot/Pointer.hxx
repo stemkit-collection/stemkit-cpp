@@ -8,7 +8,7 @@
 #ifndef _SK_UTIL_SLOT_POINTER_HXX_
 #define _SK_UTIL_SLOT_POINTER_HXX_
 
-#include <sk/util/slot/Mixable.hxx>
+#include <sk/util/Slot.hxx>
 #include <sk/util/slot/mixin/None.h>
 #include <sk/util/String.h>
 
@@ -17,7 +17,7 @@ namespace sk {
     namespace slot {
       template<typename T, typename Mixin = mixin::None>
       class Pointer
-        : public sk::util::slot::Mixable<T, Mixin>
+        : public sk::util::Slot<T, Mixin>
       {
         public:
           Pointer(T* object);
@@ -25,18 +25,12 @@ namespace sk {
           
           // sk::util::Slot re-implementation.
           bool isOwner() const;
-          T& get() const;
           T* deprive();
           T* replace(T* object);
           
           // sk::util::Object re-implementation.
           const sk::util::String inspect() const;
-          
-        private:
-          Pointer(const Pointer<T, Mixin>& other);
-          Pointer<T, Mixin>& operator = (const Pointer<T, Mixin>& other);
-
-          T* _object;
+          const sk::util::Class getClass() const;
       };
     }
   }

@@ -8,7 +8,7 @@
 #ifndef _SK_UTIL_SLOT_REFERENCE_HXX_
 #define _SK_UTIL_SLOT_REFERENCE_HXX_
 
-#include <sk/util/slot/Mixable.hxx>
+#include <sk/util/Slot.hxx>
 #include <sk/util/slot/mixin/None.h>
 #include <sk/util/String.h>
 
@@ -17,27 +17,20 @@ namespace sk {
     namespace slot {
       template<typename T, typename Mixin = mixin::None>
       class Reference
-        : public sk::util::slot::Mixable<T, Mixin>
+        : public sk::util::Slot<T, Mixin>
       {
         public:
           Reference(T& object);
-          Reference(const Reference<T, Mixin>& other);
           virtual ~Reference();
           
           // sk::util::Slot re-implementation.
           bool isOwner() const;
-          T& get() const;
           T* deprive();
           T* replace(T* object);
           
           // sk::util::Object re-implementation.
           const sk::util::String inspect() const;
           const sk::util::Class getClass() const;
-          
-        private:
-          Reference<T, Mixin>& operator = (const Reference<T, Mixin>& other);
-
-          T& _object;
       };
     }
   }
