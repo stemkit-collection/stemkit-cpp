@@ -10,6 +10,11 @@
 
 #include "InspectTest.h"
 #include <sk/util/inspect.h>
+#include <sk/util/stl/inspect.h>
+
+#include <vector>
+#include <deque>
+#include <list>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::util::test::InspectTest);
 
@@ -61,6 +66,32 @@ sk::util::test::InspectTest::
 testVectors()
 {
   std::vector<sk::util::String> depot;
+  CPPUNIT_ASSERT_EQUAL("[]", sk::util::inspect(depot));
+
+  depot.push_back("aaa");
+  depot.push_back("zzz");
+
+  CPPUNIT_ASSERT_EQUAL("[2: 0=\"aaa\", 1=\"zzz\" ]", sk::util::inspect(depot));
+}
+
+void 
+sk::util::test::InspectTest::
+testLists()
+{
+  std::list<sk::util::String> depot;
+  CPPUNIT_ASSERT_EQUAL("[]", sk::util::inspect(depot));
+
+  depot.push_back("aaa");
+  depot.push_back("zzz");
+
+  CPPUNIT_ASSERT_EQUAL("[2: 0=\"aaa\", 1=\"zzz\" ]", sk::util::inspect(depot));
+}
+
+void 
+sk::util::test::InspectTest::
+testDeques()
+{
+  std::deque<sk::util::String> depot;
   CPPUNIT_ASSERT_EQUAL("[]", sk::util::inspect(depot));
 
   depot.push_back("aaa");

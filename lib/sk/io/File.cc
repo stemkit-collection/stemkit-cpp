@@ -85,14 +85,14 @@ sk::io::InputStream&
 sk::io::File::
 inputStream() const
 {
-    return _inputStreamHolder.get();
+    return _inputStreamHolder.getMutable();
 }
 
 sk::io::OutputStream&
 sk::io::File::
 outputStream() const
 {
-    return _outputStreamHolder.get();
+    return _outputStreamHolder.getMutable();
 }
 
 void
@@ -111,7 +111,7 @@ getFileDescriptor() const
   if(_descriptorHolder.isEmpty() == true) {
     throw sk::io::ClosedChannelException();
   }
-  return _descriptorHolder.get();
+  return _descriptorHolder.getMutable();
 }
 
 void

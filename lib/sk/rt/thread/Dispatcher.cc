@@ -40,7 +40,7 @@ main()
     _mainHolder.set(new Dispatcher);
     _mainAvailable = true;
   }
-  return _mainHolder.get();
+  return _mainHolder.getMutable();
 }
 
 void
@@ -94,6 +94,6 @@ sk::rt::thread::UncaughtExceptionHandler&
 sk::rt::thread::Dispatcher::
 getUncaughtExceptionHandler() const
 {
-  return _uncaughtExceptionHandlerHolder.get();
+  return _uncaughtExceptionHandlerHolder.getMutable();
 }
 

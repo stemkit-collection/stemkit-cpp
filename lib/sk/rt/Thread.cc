@@ -73,7 +73,7 @@ sk::rt::Thread::
 ~Thread()
 {
   if(isAlive() == true) {
-    _runnerHolder.get().getScope().warning(__FUNCTION__) << "still running: " << inspect();
+    _runnerHolder.getMutable().getScope().warning(__FUNCTION__) << "still running: " << inspect();
   }
 }
 
@@ -82,7 +82,7 @@ sk::rt::Thread::
 init()
 {
   _id = sk::rt::thread::Dispatcher::main().makeSequence();
-  _runnerHolder.set(new thread::Runner(_targetHolder.get(), *this));
+  _runnerHolder.set(new thread::Runner(_targetHolder.getMutable(), *this));
 
   if(_name.isEmpty() == true) {
     std::ostringstream stream;
@@ -139,7 +139,7 @@ sk::rt::Thread::
 stop()
 {
   if(getState() == thread::State::SK_T_RUNNING) {
-    _runnerHolder.get().stop();
+    _runnerHolder.getMutable().stop();
   }
 }
 
@@ -147,7 +147,7 @@ void
 sk::rt::Thread::
 start()
 {
-  _runnerHolder.get().start(*this);
+  _runnerHolder.getMutable().start(*this);
 }
 
 void 
@@ -164,7 +164,7 @@ void
 sk::rt::Thread::
 interrupt()
 {
-  _runnerHolder.get().interrupt();
+  _runnerHolder.getMutable().interrupt();
 }
 
 bool
@@ -200,7 +200,7 @@ bool
 sk::rt::Thread::
 isInterrupted() const
 {
-  return _runnerHolder.get().isInterrupted();
+  return _runnerHolder.getMutable().isInterrupted();
 }
 
 const sk::util::String
@@ -214,7 +214,7 @@ const sk::rt::thread::State&
 sk::rt::Thread::
 getState() const
 {
-  return _runnerHolder.get().getState();
+  return _runnerHolder.getMutable().getState();
 }
 
 sk::rt::thread::Generic& 
@@ -294,14 +294,14 @@ void
 sk::rt::Thread::
 detach()
 {
-  _runnerHolder.get().detach();
+  _runnerHolder.getMutable().detach();
 }
 
 bool
 sk::rt::Thread::
 isDetached() const
 {
-  return _runnerHolder.get().isDetached();
+  return _runnerHolder.getMutable().isDetached();
 }
 
 const sk::util::String

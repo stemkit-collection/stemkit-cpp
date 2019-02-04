@@ -107,7 +107,7 @@ getExecutable()
   if(_executableHolder.isEmpty() == true) {
     throw sk::util::IllegalStateException("Process not started");
   }
-  return _executableHolder.get();
+  return _executableHolder.getMutable();
 }
 
 const sk::sys::Executable& 

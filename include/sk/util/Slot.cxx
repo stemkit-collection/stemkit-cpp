@@ -13,23 +13,96 @@
 
 #include <sk/util/Slot.hxx>
 #include <sk/util/NullPointerException.h>
-#include <sk/util/Class.h>
+#include <sk/util/UnsupportedOperationException.h>
+#include <sk/util/inspect.h>
 
 template<typename T, typename Mixin>
 sk::util::Slot<T, Mixin>::
-Slot(T* object)
-  : _object(object) 
+Slot(const T& object)
+  : _object(const_cast<T*>(&object))
 {
-  if(_object == 0) {
-    throw sk::util::NullPointerException(SK_METHOD);
-  }
+  setMutable(false);
+  setOwner(false);
 }
 
 template<typename T, typename Mixin>
 sk::util::Slot<T, Mixin>::
 Slot(T& object)
-  : _object(&object) 
+  : _object(&object)
 {
+  setMutable(true);
+  setOwner(false);
+}
+
+template<typename T, typename Mixin>
+sk::util::Slot<T, Mixin>::
+Slot(T* object)
+  : _object(object)
+{
+  if(_object == 0) {
+    throw sk::util::NullPointerException("sk::util::Slot<>::Slot()");
+  }
+  setMutable(true);
+  setOwner(true);
+}
+
+template<typename T, typename Mixin>
+sk::util::Slot<T, Mixin>::
+~Slot()
+{
+}
+
+template<typename T, typename Mixin>
+void
+sk::util::Slot<T, Mixin>::
+setMutable(bool state) 
+{
+  _traits.set(0, state);
+}
+
+template<typename T, typename Mixin>
+void
+sk::util::Slot<T, Mixin>::
+setOwner(bool state) 
+{
+  _traits.set(1, state);
+}
+
+template<typename T, typename Mixin>
+T*
+sk::util::Slot<T, Mixin>::
+deprive()
+{
+  if(isOwner() == false) {
+    throw sk::util::UnsupportedOperationException("deprive()");
+  }
+  if(sk::util::Slot<T, Mixin>::_object == 0) {
+    throw MissingResourceException("deprive()");
+  }
+  T* object = sk::util::Slot<T, Mixin>::_object;
+  sk::util::Slot<T, Mixin>::_object = 0;
+
+  return object;
+}
+
+template<typename T, typename Mixin>
+T*
+sk::util::Slot<T, Mixin>::
+replace(T* object)
+{
+  if(isOwner() == false) {
+    throw sk::util::UnsupportedOperationException("replace()");
+  }
+  if(object == 0) {
+    throw sk::util::NullPointerException("replace()");
+  }
+  if(sk::util::Slot<T, Mixin>::_object == 0) {
+    throw MissingResourceException("replace()");
+  }
+  T* original = sk::util::Slot<T, Mixin>::_object;
+  sk::util::Slot<T, Mixin>::_object = object;
+
+  return original;
 }
 
 #endif /* _SK_UTIL_SLOT_CXX_ */

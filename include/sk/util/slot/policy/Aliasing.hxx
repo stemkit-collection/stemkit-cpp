@@ -1,4 +1,5 @@
-/*  Copyright (c) 2007, Gennady Bystritsky <bystr@mac.com>
+/*  vi: sw=2:
+ *  Copyright (c) 2007, Gennady Bystritsky <bystr@mac.com>
  *  
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
@@ -8,8 +9,9 @@
 #ifndef _SK_UTIL_SLOT_POLICY_ALIASING_HXX_
 #define _SK_UTIL_SLOT_POLICY_ALIASING_HXX_
 
+#include <sk/util/slot/policy/Direct.hxx>
 #include <sk/util/slot/policy/Storing.hxx>
-#include <sk/util/slot/mixin/LinkCounter.h>
+#include <sk/util/slot/policy/Acceptor.hxx>
 
 namespace sk {
   namespace util {
@@ -17,37 +19,19 @@ namespace sk {
       namespace policy {
         template<typename T>
         class Aliasing 
-          : public Storing<T> 
+          : public Storing<T>
         {
           public:
-            Aliasing() {}
+            typedef Storing<T> super_t;
+            typedef typename super_t::slot_t slot_t;
+            typedef typename super_t::slot_storage_t slot_storage_t;
 
-            Aliasing(const Aliasing<T>& other) {
-              alias(other);
+            static void acceptSlot(slot_storage_t& storage, slot_storage_t other) {
+              Acceptor<T, Aliasing<T> >::acceptSlot(storage, other);
             }
 
-            Aliasing(const Storing<T>& other) {
-              alias(other);
-            }
-
-            void operator=(const Aliasing<T>& other) {
-              alias(other);
-            }
-
-            void operator=(const Storing<T>& other) {
-              alias(other);
-            }
-
-          private:
-            void alias(const Storing<T>& other) {
-              if(&other == this) {
-                return;
-              } 
-              Storing<T>::clearSlot();
-
-              if(hasSlot(other) == true) {
-                setObject(getSlot(other).get());
-              }
+            static void acceptSlot(slot_storage_t& storage, typename Direct<T>::slot_storage_t other) {
+              Acceptor<T, Aliasing<T>, Direct<T> >::acceptSlot(storage, other);
             }
         };
       }

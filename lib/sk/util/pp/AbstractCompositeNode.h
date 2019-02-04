@@ -42,7 +42,7 @@ namespace sk {
         protected:
           const sk::util::pp::Node& getNode(int index) const;
           int getNodeCount() const;
-          void forEachNode(const sk::util::Processor<sk::util::pp::Node>& processor) const;
+          void forEachNode(const sk::util::Processor<const sk::util::pp::Node>& processor) const;
           bool hasBreakingNode() const;
           void output(const Configurator& configurator, const sk::util::String& indent, std::ostream& stream, bool breaking) const;
 

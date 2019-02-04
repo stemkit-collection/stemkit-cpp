@@ -112,7 +112,7 @@ sk::sys::Process::Implementation&
 sk::sys::Process::
 process() const
 {
-  return _implementationHolder.get();
+  return _implementationHolder.getMutable();
 }
 
 const sk::util::Class
@@ -194,7 +194,7 @@ namespace {
     private:
       const sk::rt::Scope& _scope;
       sk::util::PropertyRegistry& _environment;
-      sk::util::ArrayList<const sk::io::Stream> _streams;
+      sk::util::ArrayList<sk::io::Stream> _streams;
   };
 }
 
@@ -248,7 +248,7 @@ start(sk::io::InputStream& inputStream, const sk::util::StringArray& cmdline)
       _listener.processStarting(pipe.outputStream());
       _scope.notice("start") << cmdline.inspect();
 
-      if(cmdline.empty() == false) {
+      if(cmdline.isEmpty() == false) {
         std::vector<char*> arguments;
         cmdline.forEach(ExecArgumentCollector(arguments));
         arguments.push_back(0);

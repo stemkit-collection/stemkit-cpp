@@ -45,10 +45,10 @@ namespace sk {
           DataInputStreamTest& operator = (const DataInputStreamTest& other);
 
           std::vector<char>& buffer() {
-            return _bufferHolder.get();
+            return _bufferHolder.getMutable();
           }
           sk::io::DataInput& stream() {
-            return _dataStreamHolder.get();
+            return _dataStreamHolder.getMutable();
           }
           sk::util::Holder<std::vector<char> > _bufferHolder;
           sk::util::Holder<sk::io::InputStream> _inputStreamHolder;

@@ -1,4 +1,5 @@
-/*  Copyright (c) 2007, Gennady Bystritsky <bystr@mac.com>
+/*  vi: sw=2:
+ *  Copyright (c) 2007, Gennady Bystritsky <bystr@mac.com>
  *  
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
@@ -8,7 +9,9 @@
 #ifndef _SK_UTIL_SLOT_POLICY_CLONING_HXX_
 #define _SK_UTIL_SLOT_POLICY_CLONING_HXX_
 
+#include <sk/util/slot/policy/Direct.hxx>
 #include <sk/util/slot/policy/Storing.hxx>
+#include <sk/util/slot/policy/Acceptor.hxx>
 #include <sk/util/covariant.h>
 
 namespace sk {
@@ -17,46 +20,35 @@ namespace sk {
       namespace policy {
         template<typename T>
         struct Cloning 
-          : public Storing<T> 
+          : public Direct<T>
         {
           public:
-            Cloning() {}
+            typedef Direct<T> super_t;
+            typedef typename super_t::slot_t slot_t;
+            typedef typename super_t::slot_storage_t slot_storage_t;
 
-            Cloning(const Cloning<T>& other) {
-              makeClone(other);
+            static void setObject(slot_storage_t& storage, const T& object) {
+              super_t::setObject(storage, sk::util::covariant<T>(object.clone()));
             }
 
-            Cloning(const Storing<T>& other) {
-              makeClone(other);
+            static void setObject(slot_storage_t& storage, T& object) {
+              super_t::setObject(storage, sk::util::covariant<T>(object.clone()));
             }
 
-            void operator=(const Cloning<T>& other) {
-              makeClone(other);
+            static void setObject(slot_storage_t& storage, T* object) {
+              super_t::setObject(storage, object);
             }
 
-            void operator=(const Storing<T>& other) {
-              makeClone(other);
+            static void acceptSlot(slot_storage_t& storage, slot_storage_t other) {
+              Acceptor<T, Cloning<T> >::acceptSlot(storage, other);
             }
-            
+
+            static void acceptSlot(slot_storage_t& storage, typename Storing<T>::slot_storage_t other) {
+              Acceptor<T, Cloning<T>, Storing<T> >::acceptSlot(storage, other);
+            }
+
           protected:
-            void setObject(T& object) {
-              Storing<T>::setObject(sk::util::covariant<T>(object.clone()));
-            }
-
-            void setObject(T* object) {
-              Storing<T>::setObject(object);
-            }
-
-            void makeClone(const Storing<T>& other) {
-              if(&other == this) {
-                return;
-              }
-              Storing<T>::clearSlot();
-
-              if(hasSlot(other) == true) {
-                setObject(getSlot(other).get());
-              }
-            }
+            Cloning();
         };
       }
     }

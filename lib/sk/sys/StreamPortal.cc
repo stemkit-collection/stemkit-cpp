@@ -60,12 +60,12 @@ sk::io::Stream&
 sk::sys::StreamPortal::
 getStream(int index) const
 {
-  return _streams.get(index);
+  return _streams.getMutable(index);
 }
 
 void 
 sk::sys::StreamPortal::
-forEachStream(const sk::util::Processor<sk::io::Stream>& processor) const
+forEachStream(const sk::util::Processor<const sk::io::Stream>& processor) const
 {
   _streams.forEach(processor);
 }
@@ -82,12 +82,12 @@ const sk::util::StringArray
 sk::sys::StreamPortal::
 descriptors(const sk::util::PropertyRegistry& registry)
 {
-  return sk::util::StringArray::parse(registry.getProperty("SK_STREAMS", ""), "|");
+  return registry.getProperty("SK_STREAMS", "").split("|");
 }
 
 void 
 sk::sys::StreamPortal::
-exportStreams(const sk::util::List<const sk::io::Stream>& streams, sk::util::PropertyRegistry& registry)
+exportStreams(const sk::util::List<sk::io::Stream>& streams, sk::util::PropertyRegistry& registry)
 {
   if(streams.isEmpty() == false) {
     sk::util::StringArray descriptors;

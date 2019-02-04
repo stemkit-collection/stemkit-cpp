@@ -133,7 +133,7 @@ testSynchronizeMethodWithoutParam()
 {
   _visited = false;
   _lockHolder.set(new ReentrantLock);
-  _lockHolder.get().synchronize(*this, &ReentrantLockTest::criticalSectionWithoutParam);
+  _lockHolder.getMutable().synchronize(*this, &ReentrantLockTest::criticalSectionWithoutParam);
 
   CPPUNIT_ASSERT_EQUAL(true, _visited);
 }
@@ -153,7 +153,7 @@ testSynchronizeConstMethodWithoutParam()
 {
   _visited = false;
   _lockHolder.set(new ReentrantLock);
-  _lockHolder.get().synchronize(*this, &ReentrantLockTest::constCriticalSectionWithoutParam);
+  _lockHolder.getMutable().synchronize(*this, &ReentrantLockTest::constCriticalSectionWithoutParam);
 
   CPPUNIT_ASSERT_EQUAL(true, _visited);
 }
@@ -173,7 +173,7 @@ testSynchronizeMethodWithParam()
 {
   bool visited = false;
   _lockHolder.set(new ReentrantLock);
-  _lockHolder.get().synchronize(*this, &ReentrantLockTest::criticalSectionWithParam, visited);
+  _lockHolder.getMutable().synchronize(*this, &ReentrantLockTest::criticalSectionWithParam, visited);
 
   CPPUNIT_ASSERT_EQUAL(true, visited);
 }
@@ -193,7 +193,7 @@ testSynchronizeConstMethodWithParam()
 {
   bool visited = false;
   _lockHolder.set(new ReentrantLock);
-  _lockHolder.get().synchronize(*this, &ReentrantLockTest::constCriticalSectionWithParam, visited);
+  _lockHolder.getMutable().synchronize(*this, &ReentrantLockTest::constCriticalSectionWithParam, visited);
 
   CPPUNIT_ASSERT_EQUAL(true, visited);
 }

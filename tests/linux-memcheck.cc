@@ -19,7 +19,7 @@ void print_memory(const sk::util::String& label)
 {
   static sk::util::String statfile = "/proc/" + sk::util::String::valueOf(getpid()) + "/stat";
   sk::util::File f(statfile);
-  std::cerr << sk::util::Integer::parseInt(sk::util::StringArray::parse(f.getLine()).get(22))/1024 << std::endl;
+  std::cerr << sk::util::Integer::parseInt(f.getLine().split().get(22))/1024 << std::endl;
 
   getchar();
 }

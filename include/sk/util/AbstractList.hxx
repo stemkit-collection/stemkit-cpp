@@ -14,9 +14,9 @@
 
 namespace sk {
   namespace util {
-    template<class T>
+    template<typename T, typename Policy = slot::policy::Storing<T> >
     class AbstractList
-      : public sk::util::AbstractCollection<T>,
+      : public sk::util::AbstractCollection<T, Policy>,
         public virtual sk::util::List<T> 
     {
       public:
@@ -28,18 +28,21 @@ namespace sk {
         const sk::util::String inspect() const;
         
         // sk::util::List<T> implementation.
+        bool add(const T& object);
+        bool add(T& object);
+        bool add(T* object);
+
+        void add(int index, const T& object);
         void add(int index, T& object);
         void add(int index, T* object);
-        using AbstractCollection<T>::add;
+
+        using AbstractCollection<T, Policy>::add;
         
-        bool addAll(int index, const Collection<T>& other);
-        using AbstractCollection<T>::addAll;
+        const T& get(int index) const;
+        T& getMutable(int index) const;
 
-        bool moveAll(int index, Collection<T>& other);
-        using AbstractCollection<T>::moveAll;
-
-        T& get(int index) const;
-        using AbstractCollection<T>::get;
+        using AbstractCollection<T, Policy>::get;
+        using AbstractCollection<T, Policy>::getMutable;
 
         int indexOf(const T& object) const;
         int indexOf(const Selector<T>& selector) const;
@@ -47,27 +50,59 @@ namespace sk {
         int lastIndexOf(const T& object) const;
         int lastIndexOf(const Selector<T>& selector) const;
 
-        using AbstractCollection<T>::removeAll;
-
         void remove(int index);
-        using AbstractCollection<T>::remove;
+        using AbstractCollection<T, Policy>::remove;
+
+        using AbstractCollection<T, Policy>::removeAll;
+        using AbstractCollection<T, Policy>::retainAll;
 
         T* cutoff(int index);
-        using AbstractCollection<T>::cutoff;
+        using AbstractCollection<T, Policy>::cutoff;
 
         T* release(int index);
-        using AbstractCollection<T>::release;
+        using AbstractCollection<T, Policy>::release;
 
+        void set(int index, const T& object);
         void set(int index, T& object);
         void set(int index, T* object);
 
         void sort();
-        void sort(const sk::util::OrderingChecker<T>& checker);
+        void sort(const sk::util::BinaryAssessor<T>& assessor);
         void shuffle();
+        void reverse();
+
+        void addFirst(const T& object);
+        void addFirst(T& object);
+        void addFirst(T* object);
+
+        void addLast(const T& object);
+        void addLast(T& object);
+        void addLast(T* object);
+
+        const T& getFirst() const;
+        const T& getLast() const;
+        T& getMutableFirst() const;
+        T& getMutableLast() const;
+
+        void removeFirst();
+        void removeLast();
+        T* cutoffFirst();
+        T* cutoffLast();
+
+        const sk::util::String join(const sk::util::String& separator, const sk::util::Mapper<const T, const sk::util::String>& mapper) const;
+        const sk::util::String join(const sk::util::String& separator) const;
+        const sk::util::String join() const;
+
+        using AbstractCollection<T, Policy>::forEach;
+        using AbstractCollection<T, Policy>::size;
+        using AbstractCollection<T, Policy>::isEmpty;
 
       private:
-        AbstractList(const AbstractList<T>& other);
-        AbstractList<T>& operator = (const AbstractList<T>& other);
+        AbstractList(const AbstractList<T, Policy>& other);
+        AbstractList<T, Policy>& operator = (const AbstractList<T, Policy>& other);
+
+        struct IndexSelector;
+        struct IndexScanningSelector;
     };
   }
 }

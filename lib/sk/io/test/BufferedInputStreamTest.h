@@ -39,10 +39,10 @@ namespace sk {
           BufferedInputStreamTest& operator = (const BufferedInputStreamTest& other);
 
           MockInputStream& mock() {
-            return _mockHolder.get();
+            return _mockHolder.getMutable();
           }
           InputStream& stream() {
-            return _streamHolder.get();
+            return _streamHolder.getMutable();
           }
 
           sk::util::Holder<MockInputStream> _mockHolder;

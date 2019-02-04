@@ -12,7 +12,7 @@
 #define _SK_UTIL_INSPECT_CXX_
 
 #include <sstream>
-#include <sk/util/StringArray.h>
+#include <sk/util/String.h>
 
 template<typename T>
 const sk::util::String 
@@ -38,21 +38,6 @@ sk::util::inspect(const T& data)
   stream << data;
 
   return stream.str();
-}
-
-template<typename T> 
-const sk::util::String 
-sk::util::inspect(const std::vector<T>& container) 
-{
-  if(container.empty() == true) {
-    return "[]";
-  }
-  sk::util::StringArray depot;
-  int index = 0;
-  for(typename std::vector<T>::const_iterator iterator = container.begin(); iterator != container.end(); ++iterator) {
-    depot << sk::util::String::valueOf(index++) + "=" + sk::util::inspect(*iterator);
-  }
-  return "[" + sk::util::String::valueOf(container.size()) + ": " + depot.join(", ") + " ]";
 }
 
 #endif /* _SK_UTIL_INSPECT_CXX_ */

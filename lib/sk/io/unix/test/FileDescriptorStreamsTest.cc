@@ -37,8 +37,8 @@ setUp()
   }
   _inputStreamHolder.set(new sk::io::FileDescriptorInputStream(fds[0]));
   _outputStreamHolder.set(new sk::io::FileDescriptorOutputStream(fds[1]));
-  _dataInputStreamHolder.set(new sk::io::DataInputStream(_inputStreamHolder.get()));
-  _dataOutputStreamHolder.set(new sk::io::DataOutputStream(_outputStreamHolder.get()));
+  _dataInputStreamHolder.set(new sk::io::DataInputStream(_inputStreamHolder.getMutable()));
+  _dataOutputStreamHolder.set(new sk::io::DataOutputStream(_outputStreamHolder.getMutable()));
 }
 
 void

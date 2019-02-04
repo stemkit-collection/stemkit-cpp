@@ -11,14 +11,10 @@
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
 #include <sk/util/Holder.cxx>
-#include <sk/util/MappingProcessor.cxx>
-#include <sk/util/SelectingProcessor.cxx>
 #include <sk/util/MissingResourceException.h>
 #include <sk/io/ClosedChannelException.h>
 #include <sk/rt/SystemException.h>
 #include <sk/io/mapper/PathnameToFileInfo.h>
-#include <sk/io/selector/Directory.h>
-#include <sk/io/selector/RegularFile.h>
 
 #include <sk/io/Dir.h>
 #include <sk/io/FileInfo.h>
@@ -43,14 +39,14 @@ init()
   if(handle == 0) {
     throw sk::util::MissingResourceException("directory " + _path.inspect());
   }
-  _dataHolder.get().handle = handle;
+  _dataHolder.getMutable().handle = handle;
 }
 
 void
 sk::io::Dir::
 close()
 {
-  DIR** handle = &_dataHolder.get().handle;
+  DIR** handle = &_dataHolder.getMutable().handle;
   if(*handle != 0) {
     ::closedir(*handle);
     *handle = 0;

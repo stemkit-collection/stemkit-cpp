@@ -15,7 +15,7 @@
 
 namespace sk {
   namespace util {
-    template<typename F, typename T>
+    template<typename F, typename T = F>
     class Mapper 
       : public virtual sk::util::Object
     {

@@ -1,4 +1,5 @@
-/*  Copyright (c) 2007, Gennady Bystritsky <bystr@mac.com>
+/*  vi: sw=2:
+ *  Copyright (c) 2007, Gennady Bystritsky <bystr@mac.com>
  *  
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
@@ -8,7 +9,9 @@
 #ifndef _SK_UTIL_SLOT_POLICY_COPYING_HXX_
 #define _SK_UTIL_SLOT_POLICY_COPYING_HXX_
 
+#include <sk/util/slot/policy/Direct.hxx>
 #include <sk/util/slot/policy/Storing.hxx>
+#include <sk/util/slot/policy/Acceptor.hxx>
 
 namespace sk {
   namespace util {
@@ -16,46 +19,35 @@ namespace sk {
       namespace policy {
         template<typename T>
         struct Copying 
-          : public Storing<T> 
+          : public Direct<T>
         {
           public:
-            Copying() {}
+            typedef Direct<T> super_t;
+            typedef typename super_t::slot_t slot_t;
+            typedef typename super_t::slot_storage_t slot_storage_t;
 
-            Copying(const Copying<T>& other) {
-              makeCopy(other);
+            static void setObject(slot_storage_t& storage, const T& object) {
+              super_t::setObject(storage, new T(object));
             }
 
-            Copying(const Storing<T>& other) {
-              makeCopy(other);
-            }
-            
-            void operator=(const Copying<T>& other) {
-              makeCopy(other);
+            static void setObject(slot_storage_t& storage, T& object) {
+              super_t::setObject(storage, new T(object));
             }
 
-            void operator=(const Storing<T>& other) {
-              makeCopy(other);
+            static void setObject(slot_storage_t& storage, T* object) {
+              super_t::setObject(storage, object);
+            }
+
+            static void acceptSlot(slot_storage_t& storage, slot_storage_t other) {
+              Acceptor<T, Copying<T> >::acceptSlot(storage, other);
+            }
+
+            static void acceptSlot(slot_storage_t& storage, typename Storing<T>::slot_storage_t other) {
+              Acceptor<T, Copying<T>, Storing<T> >::acceptSlot(storage, other);
             }
 
           protected:
-            void setObject(T& object) {
-              Storing<T>::setObject(new T(object));
-            }
-
-            void setObject(T* object) {
-              Storing<T>::setObject(object);
-            }
-
-            void makeCopy(const Storing<T>& other) {
-              if(&other == this) {
-                return;
-              }
-              Storing<T>::clearSlot();
-
-              if(hasSlot(other) == true) {
-                setObject(getSlot(other).get());
-              }
-            }
+            Copying();
         };
       }
     }

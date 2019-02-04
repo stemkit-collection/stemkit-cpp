@@ -79,7 +79,7 @@ testCastSucceeds()
   sk::util::Holder<sk::util::Object> holder(new Probe(counter));
   CPPUNIT_ASSERT_EQUAL(1, counter);
 
-  Probe* p = sk::util::covariant<Probe>(&holder.get());
+  Probe* p = sk::util::covariant<Probe>(&holder.getMutable());
   CPPUNIT_ASSERT_EQUAL(1, counter);
 }
 

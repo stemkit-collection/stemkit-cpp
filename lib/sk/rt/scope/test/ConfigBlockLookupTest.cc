@@ -43,7 +43,7 @@ setUp()
         </scope>\n\
       ",
       "/config/abc",
-      _aggregatorHolder.get(),
+      _aggregatorHolder.getMutable(),
       std::map<std::string, std::string>()
     )
   );
@@ -61,7 +61,7 @@ sk::rt::scope::XmlProcessor&
 sk::rt::scope::test::ConfigBlockLookupTest::
 processor() 
 {
-  return _processorHolder.get();
+  return _processorHolder.getMutable();
 }
 
 void
@@ -99,7 +99,7 @@ testNonExistentAndNoDefault()
       </scope>\n\
     ", 
     "", 
-    _aggregatorHolder.get(), 
+    _aggregatorHolder.getMutable(), 
     std::map<std::string, std::string>())
   );
   processor().start(sk::util::StringArray("some"));

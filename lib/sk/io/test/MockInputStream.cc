@@ -51,7 +51,7 @@ int
 sk::io::test::MockInputStream::
 read(char* buffer, int offset, int size)
 {
-  int n = _streamHolder.get().read(buffer, offset, size);
+  int n = _streamHolder.getMutable().read(buffer, offset, size);
   _chunks.push_back(sk::util::Container(buffer+offset, n));
 
   return n;

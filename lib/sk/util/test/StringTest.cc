@@ -11,6 +11,7 @@
 #include <sk/util/IndexOutOfBoundsException.h>
 #include <sk/util/IllegalArgumentException.h>
 #include <sk/util/Class.h>
+#include <sk/util/StringArray.h>
 #include <string.h>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::util::test::StringTest);
@@ -443,4 +444,17 @@ testReverseCompareOperators()
   CPPUNIT_ASSERT("eeee" > sample);
   CPPUNIT_ASSERT("aaaa" <= sample);
   CPPUNIT_ASSERT("eeee" >= sample);
+}
+
+void
+sk::util::test::StringTest::
+testSplit()
+{
+  sk::util::StringArray data;
+  data = sk::util::String("aaa bbb ccc").split();
+
+  CPPUNIT_ASSERT_EQUAL(3, data.size());
+  CPPUNIT_ASSERT_EQUAL("aaa", data.get(0));
+  CPPUNIT_ASSERT_EQUAL("bbb", data.get(1));
+  CPPUNIT_ASSERT_EQUAL("ccc", data.get(2));
 }

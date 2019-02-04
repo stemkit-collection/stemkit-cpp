@@ -42,28 +42,28 @@ void
 sk::io::AbstractFileDescriptorPipe::
 closeInput()
 {
-  _inputStreamHolder.get().close();
+  _inputStreamHolder.getMutable().close();
 }
 
 void 
 sk::io::AbstractFileDescriptorPipe::
 closeOutput()
 {
-  _outputStreamHolder.get().close();
+  _outputStreamHolder.getMutable().close();
 }
 
 sk::io::FileDescriptorInputStream& 
 sk::io::AbstractFileDescriptorPipe::
 inputStream() const
 {
-  return _inputStreamHolder.get();
+  return _inputStreamHolder.getMutable();
 }
 
 sk::io::FileDescriptorOutputStream& 
 sk::io::AbstractFileDescriptorPipe::
 outputStream() const
 {
-  return _outputStreamHolder.get();
+  return _outputStreamHolder.getMutable();
 }
 
 void 

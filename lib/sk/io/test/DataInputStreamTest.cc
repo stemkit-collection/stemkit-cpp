@@ -31,7 +31,7 @@ setUp()
 {
   _bufferHolder.set(new std::vector<char>());
   _inputStreamHolder.set(new sk::io::ByteArrayInputStream(_bufferHolder.get()));
-  _dataStreamHolder.set(new sk::io::DataInputStream(_inputStreamHolder.get()));
+  _dataStreamHolder.set(new sk::io::DataInputStream(_inputStreamHolder.getMutable()));
 }
 
 void

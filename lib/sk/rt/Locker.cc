@@ -21,7 +21,7 @@ Locker(sk::rt::Lock& lock)
 sk::rt::Locker::
 ~Locker()
 {
-  if(_lockHolder.getLinks() == 1) {
+  if(_lockHolder.getSlot().getLinks() == 1) {
     unlock();
   }
 }
@@ -31,7 +31,7 @@ sk::rt::Locker::
 unlock()
 {
   if(_locked == true) {
-    _lockHolder.get().unlock();
+    _lockHolder.getMutable().unlock();
     _locked = false;
   }
 }

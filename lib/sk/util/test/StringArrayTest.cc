@@ -11,6 +11,8 @@
 #include <sk/util/Class.h>
 #include <sk/util/IndexOutOfBoundsException.h>
 #include <sk/util/NoSuchElementException.h>
+#include <sk/util/mapper/Upcasing.h>
+#include <sk/util/mapper/Downcasing.h>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::util::test::StringArrayTest);
 
@@ -135,9 +137,9 @@ void
 sk::util::test::StringArrayTest::
 testParseDefault()
 {
-  CPPUNIT_ASSERT_EQUAL(0, sk::util::StringArray::parse("").size());
+  CPPUNIT_ASSERT_EQUAL(0, sk::util::String("").split().size());
 
-  sk::util::StringArray strings = sk::util::StringArray::parse("aaa bbb ccc");
+  sk::util::StringArray strings = sk::util::String("aaa bbb ccc").split();
   CPPUNIT_ASSERT_EQUAL(3, strings.size());
 
   CPPUNIT_ASSERT_EQUAL("aaa", strings.get(0));
@@ -149,9 +151,9 @@ void
 sk::util::test::StringArrayTest::
 testParseWithSeparator()
 {
-  CPPUNIT_ASSERT_EQUAL(0, sk::util::StringArray::parse("", ":").size());
+  CPPUNIT_ASSERT_EQUAL(0, sk::util::String("").split(":").size());
 
-  sk::util::StringArray strings = sk::util::StringArray::parse("AAA:BBB:CCC::DDD", ":");
+  sk::util::StringArray strings = sk::util::String("AAA:BBB:CCC::DDD").split(":");
   CPPUNIT_ASSERT_EQUAL(5, strings.size());
 
   CPPUNIT_ASSERT_EQUAL("AAA", strings.get(0));
@@ -169,7 +171,7 @@ testJoin()
   CPPUNIT_ASSERT_EQUAL("", sk::util::StringArray().join("> ", ":"));
   CPPUNIT_ASSERT_EQUAL("", sk::util::StringArray().join(" [", ":", "]"));
 
-  sk::util::StringArray data = sk::util::StringArray::parse("aaa bbb ccc");
+  sk::util::StringArray data = sk::util::String("aaa bbb ccc").split();
 
   CPPUNIT_ASSERT_EQUAL("aaa:bbb:ccc", data.join(":"));
   CPPUNIT_ASSERT_EQUAL("> aaa:bbb:ccc", data.join("> ", ":"));
@@ -183,18 +185,18 @@ testLastFirst()
   CPPUNIT_ASSERT_THROW(sk::util::StringArray().first(), sk::util::NoSuchElementException);
   CPPUNIT_ASSERT_THROW(sk::util::StringArray().last(), sk::util::NoSuchElementException);
 
-  CPPUNIT_ASSERT_EQUAL("aaa", sk::util::StringArray::parse("aaa bbb ccc").first());
-  CPPUNIT_ASSERT_EQUAL("ccc", sk::util::StringArray::parse("aaa bbb ccc").last());
+  CPPUNIT_ASSERT_EQUAL("aaa", sk::util::String("aaa bbb ccc").split().first());
+  CPPUNIT_ASSERT_EQUAL("ccc", sk::util::String("aaa bbb ccc").split().last());
 
-  CPPUNIT_ASSERT_EQUAL("aaa", sk::util::StringArray::parse("aaa").first());
-  CPPUNIT_ASSERT_EQUAL("aaa", sk::util::StringArray::parse("aaa").last());
+  CPPUNIT_ASSERT_EQUAL("aaa", sk::util::String("aaa").split().first());
+  CPPUNIT_ASSERT_EQUAL("aaa", sk::util::String("aaa").split().last());
 }
 
 void 
 sk::util::test::StringArrayTest::
 testPopShift()
 {
-  sk::util::StringArray array = sk::util::StringArray::parse("aaa bbb ccc");
+  sk::util::StringArray array = sk::util::String("aaa bbb ccc").split();
 
   CPPUNIT_ASSERT_EQUAL("aaa", array.shift());
   CPPUNIT_ASSERT_EQUAL(2, array.size());
@@ -213,7 +215,8 @@ void
 sk::util::test::StringArrayTest::
 testSlice()
 {
-  sk::util::StringArray data = sk::util::StringArray::parse("aaa bbb ccc");
+  sk::util::StringArray data = sk::util::String("aaa bbb ccc").split();
+  CPPUNIT_ASSERT_EQUAL(3, data.size());
   CPPUNIT_ASSERT_EQUAL(0, data.slice(0).size());
 
   sk::util::StringArray s1 = data.slice(1);
@@ -230,7 +233,16 @@ testSlice()
   CPPUNIT_ASSERT_EQUAL("aaa", s3.get(0));
   CPPUNIT_ASSERT_EQUAL("bbb", s3.get(1));
   CPPUNIT_ASSERT_EQUAL("ccc", s3.get(2));
+                       
+  CPPUNIT_ASSERT_EQUAL(3, data.slice(-1).size());
+  CPPUNIT_ASSERT_EQUAL(0, data.slice(3, 4).size());
+}
 
-  CPPUNIT_ASSERT_THROW(data.slice(-1), sk::util::NoSuchElementException);
-  CPPUNIT_ASSERT_THROW(data.slice(4), sk::util::NoSuchElementException);
+void
+sk::util::test::StringArrayTest::
+testMap()
+{
+  sk::util::StringArray data = sk::util::String("aaa BBB ccc").split();
+  CPPUNIT_ASSERT_EQUAL("AAA - BBB - CCC", data.map(sk::util::mapper::Upcasing()).join(" - "));
+  CPPUNIT_ASSERT_EQUAL("aaa/bbb/ccc", data.map(sk::util::mapper::Downcasing()).join("/"));
 }

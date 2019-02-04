@@ -18,7 +18,7 @@
 #include <fstream>
 
 const sk::rt::config::SpotLocator sk::rt::config::SpotLocator::DUMMY;
-sk::util::Holder<const sk::rt::config::NamedStreamOpener> sk::rt::config::SpotLocator::_streamOpenerHolder;
+sk::util::Holder<sk::rt::config::NamedStreamOpener> sk::rt::config::SpotLocator::_streamOpenerHolder;
 
 void
 sk::rt::config::SpotLocator::

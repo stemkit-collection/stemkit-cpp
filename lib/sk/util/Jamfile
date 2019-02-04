@@ -25,10 +25,12 @@ objects =
   InsufficientMemoryException.cc
   ClassCastException.cc
   IllegalArgumentException.cc
+  ImmutableObjectException.cc
   SystemExit.cc
   File.cc
   Properties.cc
   inspect.cc
+  Break.cc
   PrettyPrinter.cc
   Bitset.cc
 ;
@@ -36,4 +38,8 @@ objects =
 make-library $(library) : $(objects) ;
 add-project-library $(library) : $(library).pp ;
 
-make-subdir pp test performance ;
+make-subdir 
+  pp 
+  test 
+  performance 
+;

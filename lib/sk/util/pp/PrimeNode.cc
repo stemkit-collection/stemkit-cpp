@@ -45,11 +45,11 @@ getClass() const
 }
 
 namespace {
-  struct Invocator : public virtual sk::util::Processor<sk::util::pp::Parser> {
+  struct Invocator : public virtual sk::util::Processor<const sk::util::pp::Parser> {
     Invocator(const std::vector<char>& data, int offset, const std::vector<char>& terminators)
       : _data(data), _offset(offset), _terminators(terminators) {}
 
-    void process(sk::util::pp::Parser& parser) const {
+    void process(const sk::util::pp::Parser& parser) const {
       sk::util::pp::Node* node = parser.parse(_data, _offset, _terminators);
       if(node) {
         throw node;
@@ -79,11 +79,11 @@ void
 sk::util::pp::PrimeNode::
 pushOpenBraket(std::vector<char>& brakets) const
 {
-  struct OpenBraketPusher : public virtual sk::util::Processor<sk::util::pp::Parser> {
+  struct OpenBraketPusher : public virtual sk::util::Processor<const sk::util::pp::Parser> {
     OpenBraketPusher(std::vector<char>& brakets)
       : _brakets(brakets) {}
 
-    void process(sk::util::pp::Parser& parser) const {
+    void process(const sk::util::pp::Parser& parser) const {
       parser.pushOpenBraket(_brakets);
     }
     std::vector<char>& _brakets;

@@ -26,10 +26,6 @@ namespace sk {
       public:
         virtual ~Object();
 
-        /// Returns a reference to itself.
-        virtual Object& self();
-        virtual const Object& self() const;
-
         /// Instantiates another object of the same class as a copy 
         /// of itself.
         virtual Object* clone() const;

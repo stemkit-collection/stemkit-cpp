@@ -11,6 +11,7 @@
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
 #include <sk/util/Holder.cxx>
+#include <sk/util/StringArray.h>
 #include <sk/util/MissingResourceException.h>
 
 #include <sk/io/FileInfo.h>
@@ -25,8 +26,7 @@ sk::io::FileInfo::
 FileInfo(const sk::util::Pathname& path)
   : _path(path), _dataHolder(new Data)
 {
-  sk::util::String name = _path.toString();
-  if(::stat(name.getChars(), &_dataHolder.get().status) != 0) {
+  if(::stat(_path.toString().getChars(), &_dataHolder.getMutable().status) != 0) {
     throw sk::rt::SystemException("stat()");
   }
 }
@@ -35,7 +35,7 @@ sk::io::FileInfo::
 FileInfo(int descriptor)
   : _dataHolder(new Data), _path("")
 {
-  if(::fstat(descriptor, &_dataHolder.get().status) != 0) {
+  if(::fstat(descriptor, &_dataHolder.getMutable().status) != 0) {
     throw sk::rt::SystemException("fstat()");
   }
 }

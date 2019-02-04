@@ -43,15 +43,15 @@ const sk::rt::thread::State&
 sk::rt::thread::Runner::
 getState()
 {
-  return _stateMutex.synchronize<const State&>(_stateHolder, &util::Holder<const State>::get);
+  return _stateMutex.synchronize<const State&>(_stateHolder, &util::Holder<State>::get);
 }
 
 void
 sk::rt::thread::Runner::
 setState(const thread::State& state)
 {
-  typedef void (util::Holder<const State>::*member_function_t)(const State&);
-  member_function_t set = &util::Holder<const State>::set;
+  typedef void (util::Holder<State>::*member_function_t)(const State&);
+  member_function_t set = &util::Holder<State>::set;
 
   _stateMutex.synchronize(_stateHolder, set, state);
 }
@@ -70,7 +70,7 @@ getThreadImplementation() const
   if(_threadHolder.isEmpty() == true) {
     throw sk::util::IllegalStateException("thread not started");
   }
-  return _threadHolder.get();
+  return _threadHolder.getMutable();
 }
 
 void
@@ -83,7 +83,7 @@ start(sk::rt::thread::Generic& handle)
   _threadHolder.set(thread::Implementation::instance().makeThread(*this, handle));
 
   setState(thread::State::SK_T_STARTED);
-  _threadHolder.get().start();
+  _threadHolder.getMutable().start();
 }
 
 void

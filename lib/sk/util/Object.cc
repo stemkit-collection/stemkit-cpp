@@ -22,20 +22,6 @@ sk::util::Object::
 {
 }
 
-sk::util::Object&
-sk::util::Object::
-self()
-{
-  return *this;
-}
-
-const sk::util::Object&
-sk::util::Object::
-self() const
-{
-  return *this;
-}
-
 sk::util::Object*
 sk::util::Object::
 clone() const

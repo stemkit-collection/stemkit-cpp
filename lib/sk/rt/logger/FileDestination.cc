@@ -94,7 +94,7 @@ dispatch(const char* buffer, int size)
   ensureFile();
   writeData(buffer, size);
 
-  if(_cyclerHolder.get().advance(size) == false) {
+  if(_cyclerHolder.getMutable().advance(size) == false) {
     writeData("[---Switched---]\n");
     closeFile();
   }
@@ -108,7 +108,7 @@ ensureFile()
     return;
   }
   closeFile();
-  _cyclerHolder.get().init();
+  _cyclerHolder.getMutable().init();
 
   _descriptor = ::open(_cyclerHolder.get().getPath().getChars(), O_RDWR);
   if(_descriptor < 0) {
@@ -118,7 +118,7 @@ ensureFile()
   if(offset == -1) {
     throw sk::util::SystemException("lseek():" + _cyclerHolder.get().getPath());
   }
-  _cyclerHolder.get().advance(offset);
+  _cyclerHolder.getMutable().advance(offset);
 }
 
 void
@@ -173,5 +173,5 @@ sk::rt::logger::Cycler&
 sk::rt::logger::FileDestination::
 getCycler() 
 {
-  return _cyclerHolder.get();
+  return _cyclerHolder.getMutable();
 }

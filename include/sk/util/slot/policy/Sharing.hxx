@@ -24,67 +24,65 @@ namespace sk {
           typedef Storing<T, slot::mixin::LinkCounter> Super;
 
           public:
-            Sharing() {}
-
-            Sharing(const Sharing<T>& other) {
-              accept(other);
-            }
-
-            void operator=(const Sharing<T>& other) {
-              accept(other);
-            }
-
-            int getLinks() const {
-              return Super::getSlot().getCounter();
-            }
-
-          protected:
-            void setObject(T* object) {
-              if(Super::hasSlot() == true) {
-                if(Super::getSlot().isOwner() == false) {
+            static void setObject(typename Super::slot_storage_t& storage, T* object) {
+              if(hasSlot(storage) == true) {
+                if(getSlot(storage).isOwner() == false) {
                   throw sk::util::IllegalStateException("Non-replacable shared content");
                 }
-                delete Super::getSlot().replace(object);
+                delete getSlot(storage).replace(object);
               }
               else {
-                Super::setObject(object);
-                Super::getSlot().link();
+                Super::setObject(storage, object);
+                getSlot(storage).link();
               }
             }
             
-            void setObject(T& object) {
-              if(Super::hasSlot() == true) {
+            static void setObject(typename Super::slot_storage_t& storage, T& object) {
+              if(hasSlot(storage) == true) {
                 throw sk::util::IllegalStateException("Non-replacable shared content");
               }
               else {
-                Super::setObject(object);
-                Super::getSlot().link();
+                Super::setObject(storage, object);
+                getSlot(storage).link();
+              }
+            }
+
+            static void setObject(typename Super::slot_storage_t& storage, const T& object) {
+              if(hasSlot(storage) == true) {
+                throw sk::util::IllegalStateException("Non-replacable shared content");
+              }
+              else {
+                Super::setObject(storage, object);
+                getSlot(storage).link();
               }
             }
             
-            void clearSlot() {
-              if(Super::hasSlot() == true) {
-                if(Super::getSlot().unlink() == true) {
-                  Super::clearSlot();
+            static void clearSlot(typename Super::slot_storage_t& storage) {
+              if(hasSlot(storage) == true) {
+                if(getSlot(storage).unlink() == true) {
+                  Super::clearSlot(storage);
                 }
                 else {
-                  Super::setSlot(0);
+                  setSlot(storage, 0);
                 }
               }
             }
 
-          private:
-            void accept(const Sharing<T>& other) {
-              if(&other == this) {
+            static void acceptSlot(typename Super::slot_storage_t& storage, typename Super::slot_storage_t other) {
+              if(storage == other) {
                 return;
               }
-              clearSlot();
-
-              if(other.hasSlot() == true) {
-                Super::setSlot(&other.getSlot());
-                Super::getSlot().link();
+              if(hasSlot(other) == true) {
+                setSlot(storage, &getSlot(other));
+                getSlot(storage).link();
+              }
+              else {
+                clearSlot(storage);
               }
             }
+
+          protected:
+            Sharing();
         };
       }
     }

@@ -85,7 +85,7 @@ const sk::rt::Locker
 sk::rt::thread::tests::LockerTest::
 locker_originator()
 {
-  return Locker(_mutexHolder.get());
+  return Locker(_mutexHolder.getMutable());
 }
 
 void
@@ -105,7 +105,7 @@ void
 sk::rt::thread::tests::LockerTest::
 locker_pitcher()
 {
-  throw sk::rt::Locker(_mutexHolder.get());
+  throw sk::rt::Locker(_mutexHolder.getMutable());
 }
 
 void

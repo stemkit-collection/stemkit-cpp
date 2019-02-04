@@ -8,7 +8,8 @@
 #ifndef _SK_UTIL_HOLDER_HXX_
 #define _SK_UTIL_HOLDER_HXX_
 
-#include <sk/util/slot/mixin/None.h>
+#include <sk/util/Object.h>
+
 #include <sk/util/slot/policy/Storing.hxx>
 #include <sk/util/slot/policy/Sharing.hxx>
 #include <sk/util/slot/policy/Cloning.hxx>
@@ -19,32 +20,50 @@ namespace sk {
   namespace util {
     template<typename T, typename Policy = slot::policy::Storing<T> >
     class Holder
-      : public Policy, 
-        public virtual sk::util::Object
+      : public virtual sk::util::Object
     {
       public:
-        typedef Holder<T, slot::policy::Sharing<T> > Sharing;
+        typedef Holder<T, slot::policy::Storing<T> > Storing;
+        typedef Holder<T, slot::policy::Direct<T> > Direct;
         typedef Holder<T, slot::policy::Cloning<T> > Cloning;
         typedef Holder<T, slot::policy::Copying<T> > Copying;
         typedef Holder<T, slot::policy::Aliasing<T> > Aliasing;
+        typedef Holder<T, slot::policy::Sharing<T> > Sharing;
 
       public:
         Holder();
-        Holder(const slot::policy::Storing<T>& other);
+        Holder(const Storing& other);
+        Holder(const Direct& other);
+        Holder(const Copying& other);
+        Holder(const Cloning& other);
+        Holder(const Aliasing& other);
+        Holder(const Sharing& other);
+
         explicit Holder(T* object);
         explicit Holder(T& object);
+        explicit Holder(const T& object);
         virtual ~Holder();
 
-        Holder<T, Policy>& operator=(const Holder<T, Policy>& other);
-        Holder<T, Policy>& operator=(const slot::policy::Storing<T>& other);
+        Holder<T, Policy>& operator=(const Storing& other);
+        Holder<T, Policy>& operator=(const Direct& other);
+        Holder<T, Policy>& operator=(const Copying& other);
+        Holder<T, Policy>& operator=(const Cloning& other);
+        Holder<T, Policy>& operator=(const Aliasing& other);
+        Holder<T, Policy>& operator=(const Sharing& other);
+
+        const typename Policy::slot_t& getSlot() const;
 
         bool contains(const T& object) const;
         bool isEmpty() const;
         bool isOwner() const;
-        T& get() const;
+        bool isMutable() const;
+
+        const T& get() const;
+        T& getMutable() const;
 
         void set(T* object);
         void set(T& object);
+        void set(const T& object);
 
         bool remove();
         void clear();
@@ -54,6 +73,16 @@ namespace sk {
 
         // sk::util::Object re-implementation.
         const sk::util::String inspect() const;
+
+      private:
+        friend class Holder<T, slot::policy::Storing<T> >;
+        friend class Holder<T, slot::policy::Direct<T> >;
+        friend class Holder<T, slot::policy::Copying<T> >;
+        friend class Holder<T, slot::policy::Cloning<T> >;
+        friend class Holder<T, slot::policy::Aliasing<T> >;
+        friend class Holder<T, slot::policy::Sharing<T> >;
+
+        typename Policy::slot_storage_t _storage;
     };
   }
 }

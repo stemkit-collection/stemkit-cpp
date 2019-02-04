@@ -23,7 +23,7 @@ sk::io::File&
 sk::io::FileStreamCoupler<S>::
 getFile() const
 {
-  return _fileHolder.get();
+  return _fileHolder.getMutable();
 }
 
 #endif /* _SK_IO_FILESTREAMCOUPLER_ */

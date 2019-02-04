@@ -28,13 +28,13 @@ namespace sk {
         StreamPortal(sk::util::PropertyRegistry& registry);
         virtual ~StreamPortal();
 
-        static void exportStreams(const sk::util::List<const sk::io::Stream>& streams, sk::util::PropertyRegistry& registry);
+        static void exportStreams(const sk::util::List<sk::io::Stream>& streams, sk::util::PropertyRegistry& registry);
         static void clear();
         static sk::rt::Scope& scope();
 
         int size() const;
         sk::io::Stream& getStream(int index) const;
-        void forEachStream(const sk::util::Processor<sk::io::Stream>& processor) const;
+        void forEachStream(const sk::util::Processor<const sk::io::Stream>& processor) const;
     
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;

@@ -24,7 +24,7 @@ struct sk::rt::ProcessInfo::Data
 
   uint64_t numericEntryAt(int index) {
     sk::util::File file(_statfile);
-    return sk::util::Integer::parseInt(sk::util::StringArray::parse(file.getLine()).get(index));
+    return sk::util::Integer::parseInt(file.getLine().split().get(index));
   }
 
   private:
@@ -50,7 +50,7 @@ uint64_t
 sk::rt::ProcessInfo::
 virtualMemory() const
 {
-  return _dataHolder.get().numericEntryAt(22);
+  return _dataHolder.getMutable().numericEntryAt(22);
 }
 
 uint64_t
@@ -65,5 +65,5 @@ uint64_t
 sk::rt::ProcessInfo::
 residentMemory() const
 {
-  return _dataHolder.get().numericEntryAt(23);
+  return _dataHolder.getMutable().numericEntryAt(23);
 }

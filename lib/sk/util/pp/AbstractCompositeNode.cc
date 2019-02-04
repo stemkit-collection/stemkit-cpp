@@ -11,6 +11,7 @@
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
 #include <sk/util/ArrayList.cxx>
+#include <sk/util/StringArray.h>
 
 #include "AbstractCompositeNode.h"
 #include "Configurator.h"
@@ -82,11 +83,11 @@ inspect() const
     return "empty";
   }
   sk::util::StringArray depot;
-  struct InspectingProcessor : public virtual sk::util::Processor<Node> {
+  struct InspectingProcessor : public virtual sk::util::Processor<const Node> {
     InspectingProcessor(sk::util::StringArray& depot)
       : _depot(depot) {}
 
-    void process(Node& node) const {
+    void process(const Node& node) const {
       _depot << node.inspect();
     }
     sk::util::StringArray& _depot;
@@ -97,7 +98,7 @@ inspect() const
 
 void 
 sk::util::pp::AbstractCompositeNode::
-forEachNode(const sk::util::Processor<sk::util::pp::Node>& processor) const 
+forEachNode(const sk::util::Processor<const sk::util::pp::Node>& processor) const 
 {
   _nodes.forEach(processor);
 }
@@ -113,11 +114,11 @@ void
 sk::util::pp::AbstractCompositeNode::
 output(const Configurator& configurator, const sk::util::String& indent, std::ostream& stream, bool breaking) const
 {
-  struct Printer : public virtual sk::util::Processor<Node> {
+  struct Printer : public virtual sk::util::Processor<const Node> {
     Printer(const sk::util::String& indent, std::ostream& stream, bool breaking, const Configurator& configurator)
       : _indent(indent), _stream(stream), _breaking(breaking), _configurator(configurator) {}
 
-    void process(Node& node) const {
+    void process(const Node& node) const {
       if(_breaking == true) {
         _stream << _indent;
       }

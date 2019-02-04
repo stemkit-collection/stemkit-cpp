@@ -40,33 +40,33 @@ sk::io::OutputStream&
 sk::io::DelegatingOutputStream::
 getOutputStream() const 
 {
-  return _streamHolder.get();
+  return _streamHolder.getMutable();
 }
 
 void 
 sk::io::DelegatingOutputStream::
 close()
 {
-  _streamHolder.get().close();
+  _streamHolder.getMutable().close();
 }
 
 void 
 sk::io::DelegatingOutputStream::
 flush()
 {
-  _streamHolder.get().flush();
+  _streamHolder.getMutable().flush();
 }
 
 int 
 sk::io::DelegatingOutputStream::
 write(const char* buffer, int offset, int length)
 {
-  return _streamHolder.get().write(buffer, offset, length);
+  return _streamHolder.getMutable().write(buffer, offset, length);
 }
 
 void
 sk::io::DelegatingOutputStream::
 inheritable(bool state)
 {
-  _streamHolder.get().inheritable(state);
+  _streamHolder.getMutable().inheritable(state);
 }

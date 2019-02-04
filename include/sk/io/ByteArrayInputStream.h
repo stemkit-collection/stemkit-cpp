@@ -46,7 +46,7 @@ namespace sk {
         void initMark();
 
         int _depotSize;
-        sk::util::Holder<const std::vector<char> > _vectorHolder;
+        sk::util::Holder<std::vector<char> > _vectorHolder;
         const char* _depot;
         int _depotOffset;
         bool _closed;

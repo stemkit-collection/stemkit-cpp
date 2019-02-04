@@ -1,0 +1,33 @@
+# vim: ft=jam: sw=2:
+
+test = sk-util-test ;
+
+test-objects = 
+  TestSuite.cc
+  AliasingProcessorTest.cc
+
+  PointerSlotTest.cc
+  ReferenceSlotTest.cc
+
+  HolderTest.cc
+  CopyingHolderTest.cc
+  CloningHolderTest.cc
+  AliasingHolderTest.cc
+  SharingHolderTest.cc
+
+  CollectionTest.cc
+  ListTest.cc
+  AbstractCollectionTest.cc
+  AbstractListTest.cc
+
+  StandardContainerTest.cc
+  VectorTest.cc
+  ArrayListTest.cc
+  LinkedListTest.cc
+  InjectorTest.cc
+;
+
+use-project-library $(test) : sk.util sk.cppunit ;
+
+use-unit-test $(test) $(test-objects) ;
+make-cpp-test $(test) : $(test-objects) ;

@@ -11,8 +11,8 @@
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
 #include <sk/util/Holder.cxx>
-#include <sk/util/MappingProcessor.cxx>
-#include <sk/util/SelectingProcessor.cxx>
+#include <sk/util/processor/Mapping.hxx>
+#include <sk/util/processor/Selecting.hxx>
 #include <sk/util/MissingResourceException.h>
 #include <sk/io/ClosedChannelException.h>
 #include <sk/rt/SystemException.h>
@@ -60,20 +60,20 @@ void
 sk::io::Dir::
 forEachEntry(const sk::util::Processor<const sk::io::FileInfo>& processor) const
 {
-  forEachEntry(sk::util::MappingProcessor<const sk::util::Pathname, const sk::io::FileInfo>(processor, sk::io::mapper::PathnameToFileInfo()));
+  forEachEntry(sk::util::processor::Mapping<const sk::util::Pathname, const sk::io::FileInfo>(processor, sk::io::mapper::PathnameToFileInfo()));
 }
 
 void 
 sk::io::Dir::
 forEachDirectory(const sk::util::Processor<const sk::io::FileInfo>& processor) const
 {
-  forEachEntry(sk::util::SelectingProcessor<const sk::io::FileInfo>(processor, sk::io::selector::Directory()));
+  forEachEntry(sk::util::processor::Selecting<const sk::io::FileInfo>(processor, sk::io::selector::Directory()));
 }
 
 void 
 sk::io::Dir::
 forEachRegularFile(const sk::util::Processor<const sk::io::FileInfo>& processor) const
 {
-  forEachEntry(sk::util::SelectingProcessor<const sk::io::FileInfo>(processor, sk::io::selector::RegularFile()));
+  forEachEntry(sk::util::processor::Selecting<const sk::io::FileInfo>(processor, sk::io::selector::RegularFile()));
 }
 

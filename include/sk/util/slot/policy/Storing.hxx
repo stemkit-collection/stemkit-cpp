@@ -1,4 +1,5 @@
-/*  Copyright (c) 2007, Gennady Bystritsky <bystr@mac.com>
+/*  vi: sw=2:
+ *  Copyright (c) 2007, Gennady Bystritsky <bystr@mac.com>
  *  
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
@@ -8,10 +9,10 @@
 #ifndef _SK_UTIL_SLOT_POLICY_STORING_HXX_
 #define _SK_UTIL_SLOT_POLICY_STORING_HXX_
 
-#include <sk/util/Slot.hxx>
+#include <sk/util/Slot.cxx>
 #include <sk/util/MissingResourceException.h>
-#include <sk/util/slot/Reference.hxx>
-#include <sk/util/slot/Pointer.hxx>
+#include <sk/util/slot/Reference.cxx>
+#include <sk/util/slot/Pointer.cxx>
 
 namespace sk {
   namespace util {
@@ -20,55 +21,95 @@ namespace sk {
         template<typename T, typename SlotMixin = slot::mixin::None>
         class Storing
         {
-          protected: 
-            Storing() 
-              : _slot(0) {}
+          public: 
+            typedef sk::util::Slot<T, SlotMixin> slot_t;
+            typedef slot_t* slot_storage_t;
+            typedef const slot_t* const_slot_storage_t;
 
-            void setSlot(sk::util::Slot<T, SlotMixin>* slot) {
-              _slot = slot;
+            static const T& getObject(const const_slot_storage_t storage) {
+              return getConstSlot(storage).get();
             }
 
-            void setObject(T& object) {
-              clearSlot();
-              setSlot(new slot::Reference<T, SlotMixin>(object));
+            static T& getMutableObject(const slot_storage_t storage) {
+              return getSlot(storage).getMutable();
             }
 
-            void setObject(T* object) {
-              clearSlot();
+            static bool isObjectOwner(const slot_storage_t storage) {
+              return getSlot(storage).isOwner();
+            }
+
+            static T* depriveObject(const slot_storage_t storage) {
+              return getSlot(storage).deprive();
+            }
+
+            static const sk::util::String inspectSlot(const const_slot_storage_t storage) {
+              return getConstSlot(storage).inspect();
+            }
+
+            static void setSlot(slot_storage_t& storage, slot_t* slot) {
+              storage = slot;
+            }
+
+            // Deliberately leaving this method here instead of moving it to
+            // the aliasing one even though it is dangerous in a way that it 
+            // allows adding references to temporaries. Otherwise it would
+            // require too many changes and interface adjustments.
+            static void setObject(slot_storage_t& storage, const T& object) {
+              clearSlot(storage);
+              setSlot(storage, new slot::Reference<T, SlotMixin>(object));
+            }
+
+            static void setObject(slot_storage_t& storage, T& object) {
+              clearSlot(storage);
+              setSlot(storage, new slot::Reference<T, SlotMixin>(object));
+            }
+
+            static void setObject(slot_storage_t& storage, T* object) {
+              clearSlot(storage);
               if(object != 0) {
-                setSlot(new slot::Pointer<T, SlotMixin>(object));
+                setSlot(storage, new slot::Pointer<T, SlotMixin>(object));
               }
             }
 
-            bool hasSlot() const {
-              return _slot != 0;
+            static bool hasObject(const slot_storage_t storage) {
+              if(hasSlot(storage) == true) {
+                return getSlot(storage).isEmpty() == false;
+              }
+              return false;
             }
 
-            static bool hasSlot(const Storing<T, SlotMixin>& other) {
-              return other.hasSlot();
+            static bool hasMutableObject(const slot_storage_t storage) {
+              if(hasObject(storage) == true) {
+                return getSlot(storage).isMutable();
+              }
+              return false;
             }
 
-            void clearSlot() {
-              delete _slot;
-              _slot = 0;
+            static bool hasSlot(const const_slot_storage_t storage) {
+              return storage != 0;
             }
 
-            sk::util::Slot<T, SlotMixin>& getSlot() const {
-              if(hasSlot() == false) {
+            static void clearSlot(slot_storage_t& storage) {
+              delete storage;
+              storage = 0;
+            }
+
+            static slot_t& getSlot(const slot_storage_t storage) {
+              if(hasSlot(storage) == false) {
                 throw MissingResourceException("sk::util::slot::policy::Storing#getSlot()");
               }
-              return *_slot;
+              return *storage;
             }
 
-            static sk::util::Slot<T, SlotMixin>& getSlot(const Storing<T, SlotMixin>& other) {
-              return other.getSlot();
+            static const slot_t& getConstSlot(const const_slot_storage_t storage) {
+              if(hasSlot(storage) == false) {
+                throw MissingResourceException("sk::util::slot::policy::Storing#getConstSlot()");
+              }
+              return *storage;
             }
 
-          private:
-            Storing(const Storing<T, SlotMixin>& other);
-            Storing<T, SlotMixin>& operator = (const Storing<T, SlotMixin>& other);
-
-            sk::util::Slot<T, SlotMixin>* _slot;
+          protected:
+            Storing();
         };
       }
     }

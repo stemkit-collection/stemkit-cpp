@@ -1,199 +1,80 @@
-/*  vim:sw=2:
- *  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
+/*  vim: set sw=2:
+ *  Copyright (c) 2009, Gennady Bystritsky <bystr@mac.com>
  *  
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
  *  You must read and accept the license prior to use.
+ *  
+ *  Author: Gennady Bystritsky
 */
 
 #ifndef _SK_UTIL_ARRAYLIST_CXX_
 #define _SK_UTIL_ARRAYLIST_CXX_
 
+#include <sk/util/Class.h>
 #include <sk/util/ArrayList.hxx>
-#include <sk/util/AbstractList.cxx>
-#include <sk/util/Holder.cxx>
-#include <sk/util/Slot.hxx>
-#include <sk/util/slot/Reference.cxx>
-#include <sk/util/slot/Pointer.cxx>
-#include <sk/util/StreamLiner.h>
-#include <sk/util/IndexOutOfBoundsException.h>
-#include <sk/util/slot/Ordering.cxx>
-#include <iostream>
-#include <algorithm>
+#include <sk/util/RandomAccessContainer.cxx>
+#include <sk/util/Collections.hxx>
+#include <sk/util/OpenEndedLists.hxx>
 
-template<class T>
-sk::util::ArrayList<T>::
+template<typename T, typename Policy>
+sk::util::ArrayList<T, Policy>::
 ArrayList()
 {
 }
 
-template<class T>
-sk::util::ArrayList<T>::
+template<typename T, typename Policy>
+sk::util::ArrayList<T, Policy>::
 ~ArrayList()
 {
-  Exception::guard(StreamLiner(std::cerr), *this, &ArrayList<T>::clear, __FUNCTION__);
 }
 
-template<class T>
+template<typename T, typename Policy>
 const sk::util::Class
-sk::util::ArrayList<T>::
+sk::util::ArrayList<T, Policy>::
 getClass() const
 {
   return sk::util::Class("sk::util::ArrayList");
 }
 
-template<class T>
-void
-sk::util::ArrayList<T>::
-clear()
+template<typename T, typename Policy>
+void 
+sk::util::ArrayList<T, Policy>::
+addFirst(const T& object)
 {
-  for(typename container::iterator iterator = _container.begin(); iterator != _container.end() ; ++iterator) {
-    delete *iterator;
-  }
-  _container.clear();
+  OpenEndedLists<T, Policy, type_t>::addFirst(super_t::_container, Collections<T, Policy>::makeStorage(object));
 }
 
-template<class T>
-int
-sk::util::ArrayList<T>::
-size() const 
+template<typename T, typename Policy>
+void 
+sk::util::ArrayList<T, Policy>::
+addFirst(T& object)
 {
-  return _container.size();
+  OpenEndedLists<T, Policy, type_t>::addFirst(super_t::_container, Collections<T, Policy>::makeStorage(object));
 }
 
-template<class T>
-bool
-sk::util::ArrayList<T>::
-isEmpty() const
+template<typename T, typename Policy>
+void 
+sk::util::ArrayList<T, Policy>::
+addFirst(T* object)
 {
-  return _container.empty();
+  OpenEndedLists<T, Policy, type_t>::addFirst(super_t::_container, Collections<T, Policy>::makeStorage(object));
 }
 
-template<class T>
-bool
-sk::util::ArrayList<T>::
-add(T& object)
+template<typename T, typename Policy>
+void 
+sk::util::ArrayList<T, Policy>::
+removeFirst()
 {
-  _container.push_back(new slot::Reference<T>(object));
-  return true;
+  OpenEndedLists<T, Policy, type_t>::removeFirst(super_t::_container);
 }
 
-template<class T>
-bool
-sk::util::ArrayList<T>::
-add(T* object)
-{
-  _container.push_back(new slot::Pointer<T>(object));
-  return true;
-}
-
-template<class T>
-void
-sk::util::ArrayList<T>::
-forEachSlot(const sk::util::SlotProcessor<T>& processor) const
-{
-  for(typename container::const_iterator iterator = _container.begin(); iterator != _container.end() ; ++iterator) {
-    processor.process(*(*iterator));
-  }
-}
-
-template<class T>
-bool
-sk::util::ArrayList<T>::
-removeAll(const sk::util::Selector<T>& selector)
-{
-  int removed = 0;
-  typename container::iterator iterator = _container.begin();
-  while(iterator != _container.end()) {
-    if(selector.assess((*iterator)->get())) {
-      delete *iterator;
-      iterator = _container.erase(iterator);
-      ++removed;
-    }
-    else {
-      ++iterator;
-    }
-  }
-  return removed != 0;
-}
-
-template<class T>
-bool
-sk::util::ArrayList<T>::
-find(sk::util::Holder<T>& holder, const sk::util::Selector<T>& selector) const
-{
-  for(typename container::const_iterator iterator = _container.begin(); iterator != _container.end() ; ++iterator) {
-    if(selector.assess((*iterator)->get()) == true) {
-      holder.set((*iterator)->get());
-      return true;
-    }
-  }
-  holder.clear();
-  return false;
-}
-
-template<class T>
-T& 
-sk::util::ArrayList<T>::
-get(int index) const 
-{
-  if((index < 0) || (index >= _container.size())) {
-    throw sk::util::IndexOutOfBoundsException("sk::util::ArrayList<T>#get(), index=" + sk::util::String::valueOf(index) + ", size=" + sk::util::String::valueOf(_container.size()));
-  }
-  return _container[index]->get();
-}
-
-template<class T>
-void
-sk::util::ArrayList<T>::
-remove(int index) 
-{
-  if((index < 0) || (index >= _container.size())) {
-    throw sk::util::IndexOutOfBoundsException("sk::util::ArrayList<T>#remove(), index=" + sk::util::String::valueOf(index) + ", size=" + sk::util::String::valueOf(_container.size()));
-  }
-  typename container::iterator iterator = _container.begin() + index;
-  delete *iterator;
-  _container.erase(iterator);
-}
-
-template<class T>
+template<typename T, typename Policy>
 T*
-sk::util::ArrayList<T>::
-cutoff(int index) 
+sk::util::ArrayList<T, Policy>::
+cutoffFirst()
 {
-  if((index < 0) || (index >= _container.size())) {
-    throw sk::util::IndexOutOfBoundsException("sk::util::ArrayList<T>#remove(), index=" + sk::util::String::valueOf(index) + ", size=" + sk::util::String::valueOf(_container.size()));
-  }
-  T* object = _container[index]->deprive();
-  typename container::iterator iterator = _container.begin() + index;
-  delete *iterator;
-  _container.erase(iterator);
-
-  return object;
-}
-
-template<class T>
-void
-sk::util::ArrayList<T>::
-sort()
-{
-  std::sort(_container.begin(), _container.end(), sk::util::slot::Ordering<T>());
-}
-
-template<class T>
-void
-sk::util::ArrayList<T>::
-sort(const sk::util::OrderingChecker<T>& checker)
-{
-  std::sort(_container.begin(), _container.end(), sk::util::slot::Ordering<T>(checker));
-}
-
-template<class T>
-void
-sk::util::ArrayList<T>::
-shuffle()
-{
-  std::random_shuffle(_container.begin(), _container.end());
+  return OpenEndedLists<T, Policy, type_t>::cutoffFirst(super_t::_container);
 }
 
 #endif /* _SK_UTIL_ARRAYLIST_CXX_ */

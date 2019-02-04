@@ -12,7 +12,7 @@
 #include <sk/io/Dir.h>
 #include <sk/util/Pathname.h>
 #include <sk/util/ArrayList.cxx>
-#include <sk/util/CopyingProcessor.cxx>
+#include <sk/util/processor/Copying.hxx>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(sk::io::test::DirTest);
 
@@ -45,8 +45,8 @@ testBasics()
   sk::io::Dir current(".");
   CPPUNIT_ASSERT_EQUAL(".", current.getPath().toString());
 
-  sk::util::ArrayList<const sk::util::Pathname> entries;
-  current.forEachEntry(sk::util::CopyingProcessor<const sk::util::Pathname>(entries));
+  sk::util::ArrayList<sk::util::Pathname> entries;
+  current.forEachEntry(sk::util::processor::Copying<sk::util::Pathname>(entries));
 
   CPPUNIT_ASSERT(entries.size() > 0);
 }

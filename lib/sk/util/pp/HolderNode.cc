@@ -65,7 +65,7 @@ parse(const std::vector<char>& data, int offset, const std::vector<char>& /*term
 
       case ')':
         if(inside == true) {
-          nodeHolder.get().setLength(index + 1);
+          nodeHolder.getMutable().setLength(index + 1);
           return nodeHolder.deprive();
         }
         break;
@@ -74,7 +74,7 @@ parse(const std::vector<char>& data, int offset, const std::vector<char>& /*term
         if(isspace(item)) {
           continue;
         }
-        int length = nodeHolder.get().addNode(SlotNode().parse(data, offset + index, sk::util::Container(")")));
+        int length = nodeHolder.getMutable().addNode(SlotNode().parse(data, offset + index, sk::util::Container(")")));
         if(length > 0) {
           index += length - 1;
           continue;

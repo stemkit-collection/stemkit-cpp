@@ -46,16 +46,16 @@ namespace sk {
           FileDescriptorStreamsTest& operator = (const FileDescriptorStreamsTest& other);
 
           sk::io::InputStream& input() {
-            return _inputStreamHolder.get();
+            return _inputStreamHolder.getMutable();
           }
           sk::io::OutputStream& output() {
-            return _outputStreamHolder.get();
+            return _outputStreamHolder.getMutable();
           }
           sk::io::DataInput& dataInput() {
-            return _dataInputStreamHolder.get();
+            return _dataInputStreamHolder.getMutable();
           }
           sk::io::DataOutput& dataOutput() {
-            return _dataOutputStreamHolder.get();
+            return _dataOutputStreamHolder.getMutable();
           }
 
           sk::util::Holder<sk::io::InputStream> _inputStreamHolder;

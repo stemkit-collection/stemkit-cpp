@@ -2,7 +2,6 @@
 test = sk-util-test ;
 
 test-objects = 
-  Probe.cc
   ProbeTest.cc
   ObjectTest.cc
   ClassTest.cc
@@ -10,17 +9,7 @@ test-objects =
   ContainerTest.cc
   IntegerTest.cc
   BooleanTest.cc
-  ReferenceSlotTest.cc
-  PointerSlotTest.cc
-  HolderTest.cc
-  SharingHolderTest.cc
-  AliasingHolderTest.cc
-  CloningHolderTest.cc
-  CopyingHolderTest.cc
   PathnameTest.cc
-# AbstractCollectionTest.cc
-# AbstractListTest.cc
-  ArrayListTest.cc
   StringArrayTest.cc
   StringHashTest.cc
   TestSuite.cc
@@ -39,12 +28,13 @@ test-objects =
   CovariantWorkaroundTest.cc
   PropertiesTest.cc
   InspectTest.cc
-  PrettyPrinterTest.cc
+  # PrettyPrinterTest.cc
   BitsetTest.cc
-  AliasingProcessorTest.cc
 ;
 
 use-project-library $(test) : sk.util sk.cppunit ;
 
 use-unit-test $(test) $(test-objects) ;
 make-cpp-test $(test) : $(test-objects) ;
+
+make-subdirs collection ;

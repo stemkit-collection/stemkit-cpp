@@ -29,8 +29,8 @@ sk::io::test::DataOutputStreamTest::
 setUp()
 {
   _bufferHolder.set(new std::vector<char>());
-  _outputStreamHolder.set(new ByteArrayOutputStream(_bufferHolder.get()));
-  _dataStreamHolder.set(new DataOutputStream(_outputStreamHolder.get()));
+  _outputStreamHolder.set(new ByteArrayOutputStream(_bufferHolder.getMutable()));
+  _dataStreamHolder.set(new DataOutputStream(_outputStreamHolder.getMutable()));
 }
 
 void
