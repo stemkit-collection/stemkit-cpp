@@ -17,22 +17,27 @@
 #include <unistd.h>
 #include <termios.h>
 
+namespace {
+  void setup_tty(int fd) {
+    struct termios settings;
+    if(tcgetattr(fd, &settings) != 0) {
+      throw sk::rt::SystemException("tcgetattr");
+    }
+    settings.c_cc[VERASE] = 0177;
+    settings.c_cc[VKILL] = 025;
+
+    if(tcsetattr(fd, TCSANOW, &settings) != 0) {
+      throw sk::rt::SystemException("tcsetattr");
+    }
+  }
+}
+
 sk::io::TtyFileDescriptor::
 TtyFileDescriptor(int fd)
   : sk::io::FileDescriptor(fd)
 {
   ensureTty();
-
-  struct termios settings;
-  if(tcgetattr(getFileNumber(), &settings) != 0) {
-    throw sk::rt::SystemException("tcgetattr");
-  }
-  settings.c_cc[VERASE] = 0177;
-  settings.c_cc[VKILL] = 025;
-
-  if(tcsetattr(getFileNumber(), TCSANOW, &settings) != 0) {
-    throw sk::rt::SystemException("tcsetattr");
-  }
+  setup_tty(getFileNumber());
 }
 
 sk::io::TtyFileDescriptor::
@@ -40,6 +45,7 @@ TtyFileDescriptor(const sk::io::FileDescriptor& descriptor)
   : sk::io::FileDescriptor(descriptor)
 {
   ensureTty();
+  setup_tty(getFileNumber());
 }
 
 sk::io::TtyFileDescriptor::
