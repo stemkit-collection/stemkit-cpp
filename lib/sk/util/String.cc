@@ -272,6 +272,7 @@ indexOfIgnoreCase(char character) const
   char targets[] = {
     toupper(character),
     tolower(character),
+    0
   };
   size_type pos = std::string::find_first_of(targets);
   if(pos == std::string::npos) {
@@ -298,6 +299,7 @@ lastIndexOfIgnoreCase(char character) const
   char targets[] = {
     toupper(character),
     tolower(character),
+    0
   };
   size_type pos = std::string::find_last_of(targets);
   if(pos == std::string::npos) {

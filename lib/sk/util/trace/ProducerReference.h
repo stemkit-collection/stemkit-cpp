@@ -8,42 +8,43 @@
  *  Author: Gennady Bystritsky (gennady.bystritsky@quest.com)
 */
 
-#ifndef _SK_UTIL_EXCEPTION_TRACEPRODUCERREFERENCE_H_
-#define _SK_UTIL_EXCEPTION_TRACEPRODUCERREFERENCE_H_
+#ifndef _SK_UTIL_TRACE_PRODUCERREFERENCE_H_
+#define _SK_UTIL_TRACE_PRODUCERREFERENCE_H_
 
 #include <sk/util/Object.h>
 #include <sk/util/Holder.hxx>
-#include <sk/util/exception/trace/Producer.h>
+#include <sk/util/trace/Producer.h>
 
 namespace sk {
   namespace util {
-    namespace exception {
-      class TraceProducerReference 
+    namespace trace {
+      class ProducerReference 
         : public virtual sk::util::Object
       {
         public:
-          TraceProducerReference(sk::util::exception::trace::Producer* producer);
-          virtual ~TraceProducerReference();
+          ProducerReference(sk::util::trace::Producer* producer);
+          virtual ~ProducerReference();
 
           int link();
           int unlink();
 
           const sk::util::String& trace();
           const sk::util::String& traceWithMessage(const sk::util::String& message);
+          void finalizeFor(const sk::util::String& scope);
       
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
       
         private:
-          TraceProducerReference(const TraceProducerReference& other);
-          TraceProducerReference& operator = (const TraceProducerReference& other);
+          ProducerReference(const ProducerReference& other);
+          ProducerReference& operator = (const ProducerReference& other);
 
           void ensureTraceCollected();
-          void setError(const sk::util::String& stage, const sk::util::String& message);
+          void setError(const sk::util::String& stage, const sk::util::Strings& messages);
           void reset();
 
-          sk::util::Holder<sk::util::exception::trace::Producer>::Direct _producerHolder;
-          sk::util::exception::trace::Producer& _producer;
+          sk::util::Holder<sk::util::trace::Producer>::Direct _producerHolder;
+          sk::util::trace::Producer& _producer;
           sk::util::String _buffer;
           sk::util::String _trace;
           bool _traceCollected;
@@ -54,4 +55,4 @@ namespace sk {
   }
 }
 
-#endif /* _SK_UTIL_EXCEPTION_TRACEPRODUCERREFERENCE_H_ */
+#endif /* _SK_UTIL_TRACE_PRODUCERREFERENCE_H_ */

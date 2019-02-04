@@ -5,6 +5,7 @@ objects =
   Object.cc
   Class.cc
   Method.cc
+  Tracer.cc
   Exception.cc
   String.cc
   Strings.cc
@@ -43,11 +44,11 @@ objects =
 ;
 
 make-shared-library $(library) : $(objects) ;
-add-project-library $(library) : $(library).exception ;
+add-project-library $(library) : $(library).trace ;
 add-project-library $(library) : $(library).pp ;
 
 make-subdir 
-  exception
+  trace
   pp 
   test 
   performance 

@@ -12,10 +12,37 @@
 
 #include <sk/util/Exception.h>
 #include <sk/util/Strings.h>
+#include <sk/util/Holder.cxx>
+#include <sk/util/trace/ProducerFactory.h>
+
+#include <stdlib.h>
+
+namespace {
+  struct NullProducerFactory : public virtual sk::util::trace::ProducerFactory {
+    sk::util::trace::Producer* createTraceProducer() const {
+      return 0;
+    }
+  };
+  sk::util::Holder<sk::util::trace::ProducerFactory>::Direct __factoryHolder(new NullProducerFactory);
+}
+
+void 
+sk::util::Exception::
+setTraceProducerFactory(const sk::util::trace::ProducerFactory& factory)
+{
+  __factoryHolder.set(sk::util::covariant<sk::util::trace::ProducerFactory>(factory.clone()));
+}
+
+void 
+sk::util::Exception::
+clearTraceProducerFactory()
+{
+  __factoryHolder.set(new NullProducerFactory);
+}
 
 sk::util::Exception::
 Exception(const sk::util::Strings& strings)
-  : _message(strings.join(": "))
+  : _message(strings.join(": ")), _tracer(__factoryHolder.get())
 {
 }
 
@@ -56,6 +83,35 @@ sk::util::Exception::
 getTrace() const
 {
   return _tracer.trace();
+}
+
+int
+sk::util::Exception::
+defaultExitCode() const 
+{
+  return 4;
+}
+
+void
+sk::util::Exception::
+exit() const 
+{
+  exit(defaultExitCode());
+}
+
+void 
+sk::util::Exception::
+finalize() const
+{
+  _tracer.finalizeFor("exception");
+}
+
+void 
+sk::util::Exception::
+exit(int code) const
+{
+  finalize();
+  ::exit(code);
 }
 
 const char*

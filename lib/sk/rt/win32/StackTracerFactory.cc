@@ -13,7 +13,7 @@
 #include <sk/rt/StackTracerFactory.h>
 #include "StackTracer.h"
 
-sk::util::exception::trace::Producer*
+sk::util::trace::Producer*
 sk::rt::StackTracerFactory::
 createTraceProducer() const 
 {

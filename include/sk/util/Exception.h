@@ -11,7 +11,7 @@
 
 #include <sk/util/Object.h>
 #include <sk/util/String.h>
-#include <sk/util/exception/Tracer.h>
+#include <sk/util/Tracer.h>
 #include <exception>
 
 namespace sk {
@@ -27,6 +27,11 @@ namespace sk {
 
         const sk::util::String getMessage() const;
         const sk::util::String getTrace() const;
+        void finalize() const;
+        void exit() const;
+        void exit(int code) const;
+
+        virtual int defaultExitCode() const;
         
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
@@ -38,9 +43,12 @@ namespace sk {
         template<typename S, typename T, typename TMF>
         static void guard(const S& stream, T& target, TMF method, const char* spot = 0);
         
+        static void setTraceProducerFactory(const sk::util::trace::ProducerFactory& factory);
+        static void clearTraceProducerFactory();
+    
       private:
         const sk::util::String _message;
-        const sk::util::exception::Tracer _tracer;
+        const sk::util::Tracer _tracer;
     };
   }
 }

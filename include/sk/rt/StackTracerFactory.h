@@ -11,19 +11,19 @@
 #ifndef _SK_RT_STACKTRACERFACTORY_H_
 #define _SK_RT_STACKTRACERFACTORY_H_
 
-#include <sk/util/exception/trace/ProducerFactory.h>
+#include <sk/util/trace/ProducerFactory.h>
 
 namespace sk {
   namespace rt {
     class StackTracerFactory 
-      : public virtual sk::util::exception::trace::ProducerFactory
+      : public virtual sk::util::trace::ProducerFactory
     {
       public:
         StackTracerFactory();
         virtual ~StackTracerFactory();
 
-        // sk::util::exception::trace::ProducerFactory implementation.
-        sk::util::exception::trace::Producer* createTraceProducer() const;
+        // sk::util::trace::ProducerFactory implementation.
+        sk::util::trace::Producer* createTraceProducer() const;
     
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;

@@ -27,6 +27,7 @@ namespace sk {
           virtual ~Stream();
 
           const sk::rt::logger::Stream& memory() const;
+          const sk::rt::logger::Stream& stackTrace() const;
 
           bool isEnabled() const;
           std::ostream& getStream() const;

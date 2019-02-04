@@ -1,10 +1,9 @@
 # vim: ft=jam: sw=2
 
-local library = sk.util.exception ;
+local library = sk.util.trace ;
 
 local objects = 
-  Tracer.cc
-  TraceProducerReference.cc
+  ProducerReference.cc
 ;
 
 make-static-library $(library) : $(objects) ;

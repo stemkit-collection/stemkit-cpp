@@ -53,7 +53,7 @@ void
 sk::sys::ManagedProcess::
 stop()
 {
-  if(terminate(3) == false) {
+  if(tryTerminate(3) == false) {
     kill();
   }
 }
@@ -62,14 +62,32 @@ void
 sk::sys::ManagedProcess::
 kill()
 {
-  if(terminate(0) == false) {
+  if(tryTerminate(0) == false) {
+    // throw sk::util::IllegalStateException("Cannot stop process:" + sk::util::String::valueOf(_pid));
+  }
+}
+
+void 
+sk::sys::ManagedProcess::
+terminate()
+{
+  if(tryTerminate(3) == false) {
+    // throw sk::util::IllegalStateException("Cannot stop process:" + sk::util::String::valueOf(_pid));
+  }
+}
+
+void 
+sk::sys::ManagedProcess::
+interrupt()
+{
+  if(tryTerminate(3) == false) {
     // throw sk::util::IllegalStateException("Cannot stop process:" + sk::util::String::valueOf(_pid));
   }
 }
 
 bool
 sk::sys::ManagedProcess::
-terminate(int tolerance)
+tryTerminate(int tolerance)
 {
   if(tolerance == 0) {
     if(TerminateProcess(_handle, 43195) == FALSE) {
