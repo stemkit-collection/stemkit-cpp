@@ -17,6 +17,7 @@ namespace sk {
     {
       public:
         IllegalStateException(const sk::util::String& message);
+        IllegalStateException(const sk::util::String& message, const sk::util::Strings& details);
         
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;

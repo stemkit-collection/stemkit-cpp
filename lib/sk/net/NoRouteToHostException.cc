@@ -9,24 +9,20 @@
 */
 
 #include <sk/util/Class.h>
-#include <sk/util/String.h>
+#include <sk/util/Strings.h>
 
-#include <sk/net/DatagramPacket.h>
+#include <sk/net/NoRouteToHostException.h>
 
-static const sk::util::String __className("sk::net::DatagramPacket");
+static const sk::util::String __className("sk::net::NoRouteToHostException");
 
-sk::net::DatagramPacket::
-DatagramPacket()
-{
-}
-
-sk::net::DatagramPacket::
-~DatagramPacket()
+sk::net::NoRouteToHostException::
+NoRouteToHostException(const sk::util::String& host, const uint16_t port)
+  : sk::net::ConnectException(host, port)
 {
 }
 
 const sk::util::Class
-sk::net::DatagramPacket::
+sk::net::NoRouteToHostException::
 getClass() const
 {
   return sk::util::Class(__className);

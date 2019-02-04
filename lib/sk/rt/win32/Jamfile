@@ -2,6 +2,7 @@
 local library = sk.rt.win32 ;
 
 local objects = 
+  foreach_environment_item.cc
   SystemException.cc
   ProcessInfo.cc
   Time.cc

@@ -34,6 +34,8 @@ namespace sk {
           CPPUNIT_TEST(test_exceptions_cleared_after_throw);
           CPPUNIT_TEST(test_on_error_throws_with_undo_exceptions);
           CPPUNIT_TEST(test_no_actions_after_clear);
+          CPPUNIT_TEST(test_performing_until_success_succeeds_when_one_successful);
+          CPPUNIT_TEST(test_performing_until_success_fails_on_all_errors);
         CPPUNIT_TEST_SUITE_END();
       
         public:
@@ -55,6 +57,8 @@ namespace sk {
           void test_exceptions_cleared_after_throw();
           void test_on_error_throws_with_undo_exceptions();
           void test_no_actions_after_clear();
+          void test_performing_until_success_succeeds_when_one_successful();
+          void test_performing_until_success_fails_on_all_errors();
       
         private:
           ActionsTest(const ActionsTest& other);

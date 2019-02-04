@@ -16,6 +16,12 @@ UnsupportedOperationException(const sk::util::String& message)
 {
 }
 
+sk::util::UnsupportedOperationException::
+UnsupportedOperationException(const sk::util::String& message, const sk::util::Strings& details)
+  : sk::util::Exception(sk::util::Strings("Unsupported operation") << message << details)
+{
+}
+
 const sk::util::Class
 sk::util::UnsupportedOperationException::
 getClass() const

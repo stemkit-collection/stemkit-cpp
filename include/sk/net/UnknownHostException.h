@@ -8,28 +8,24 @@
  *  Author: Gennady Bystritsky
 */
 
-#ifndef _SK_NET_DATAGRAMPACKET_H_
-#define _SK_NET_DATAGRAMPACKET_H_
+#ifndef _SK_NET_UNKNOWNHOSTEXCEPTION_H_
+#define _SK_NET_UNKNOWNHOSTEXCEPTION_H_
 
-#include <sk/util/Object.h>
+#include <sk/util/Exception.h>
 
 namespace sk {
   namespace net {
-    class DatagramPacket 
-      : public virtual sk::util::Object
+    class UnknownHostException 
+      : public sk::util::Exception
     {
       public:
-        DatagramPacket();
-        virtual ~DatagramPacket();
+        UnknownHostException(const sk::util::String& hostid);
+        UnknownHostException(const sk::util::Strings& messages, const sk::util::String& hostid);
     
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
-    
-      private:
-        DatagramPacket(const DatagramPacket& other);
-        DatagramPacket& operator = (const DatagramPacket& other);
     };
   }
 }
 
-#endif /* _SK_NET_DATAGRAMPACKET_H_ */
+#endif /* _SK_NET_UNKNOWNHOSTEXCEPTION_H_ */

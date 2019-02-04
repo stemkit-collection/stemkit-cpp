@@ -69,6 +69,13 @@ getClass() const
   return sk::util::Class("sk::rt::Scope");
 }
 
+const sk::util::String
+sk::rt::Scope::
+getName() const
+{
+  return _name;
+}
+
 void
 sk::rt::Scope::
 aggregateScopeName(std::ostream& stream) const

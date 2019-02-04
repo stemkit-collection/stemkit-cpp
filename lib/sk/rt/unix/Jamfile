@@ -6,6 +6,7 @@ objects =
   Time.cc
   StackTracerFactory.cc
   StackTracer.cc
+  foreach_environment_item.cc
 ;
 
 make-library $(library) : $(objects) ;

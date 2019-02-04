@@ -26,7 +26,6 @@ namespace sk {
         const sk::util::Class getClass() const;
     
       private:
-        SocketAddress(const SocketAddress& other);
         SocketAddress& operator = (const SocketAddress& other);
     };
   }

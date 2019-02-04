@@ -427,3 +427,52 @@ test_on_error_throws_with_undo_exceptions()
     CPPUNIT_ASSERT_EQUAL("ERROR: a1: Got STD e1", exception.exceptionAt(2).what());
   }
 }
+
+void 
+sk::rt::tests::ActionsTest::
+test_performing_until_success_succeeds_when_one_successful()
+{
+  Workshop workshop;
+  sk::rt::Actions actions;
+
+  actions.add("a1", workshop, &Workshop::addMessage, "e1");
+  actions.add("a2", workshop, &Workshop::addMessage, "e2");
+  actions.add("a3", workshop, &Workshop::addMessage, "m3");
+  actions.add("a4", workshop, &Workshop::addMessage, "m4");
+  actions.add("a5", workshop, &Workshop::addMessage, "e5");
+
+  CPPUNIT_ASSERT_EQUAL(2, actions.performUntilSuccess());
+  CPPUNIT_ASSERT_EQUAL(1, workshop.strings.size());
+}
+
+void 
+sk::rt::tests::ActionsTest::
+test_performing_until_success_fails_on_all_errors()
+{
+  Workshop workshop;
+  sk::rt::Actions actions;
+
+  actions.add("a1", workshop, &Workshop::addMessage, "e1");
+  actions.add("a2", workshop, &Workshop::addMessage, "e2");
+  actions.add("a3", workshop, &Workshop::addMessage, "e3");
+
+  try {
+    actions.performUntilSuccess(true);
+    CPPUNIT_FAIL("No expected exception");
+  }
+  catch(const sk::util::CompoundException& exception) {
+    CPPUNIT_ASSERT_EQUAL("ERROR: Compound: 3: a3: Got STD e3", exception.what());
+    CPPUNIT_ASSERT_EQUAL(3, exception.size());
+
+    CPPUNIT_ASSERT_EQUAL("ERROR: a3: Got STD e3", exception.exceptionAt(0).what());
+    CPPUNIT_ASSERT_EQUAL("ERROR: a2: Got STD e2", exception.exceptionAt(1).what());
+    CPPUNIT_ASSERT_EQUAL("ERROR: a1: Got STD e1", exception.exceptionAt(2).what());
+  }
+  catch(const std::exception& exception) {
+    CPPUNIT_FAIL(sk::util::String("Unexpected exception: ") + exception.what());
+  }
+  catch(...) {
+    CPPUNIT_FAIL("Unexpected unknown exception");
+  }
+  CPPUNIT_ASSERT_EQUAL(0, workshop.strings.size());
+}

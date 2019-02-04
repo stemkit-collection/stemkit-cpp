@@ -1,0 +1,33 @@
+# vim: sw=2:
+
+InetAddress:
+===========
+  - Use read/write locks when searching/updating the cache. Currently, it
+    uses simple mutexes.
+  - Better address factory instantiation in thread environment.
+  - Better caching for multiple entries after host resolution.
+  - Implement IPv6 support class (mostly unsupported operations for now).
+  - Implement getCanonicalHostName()
+  - Better implementation for getLocalHost(), now returns IPv6 address on Mac.
+  - Recognize the case when getByName() is given IP address string.
+  - Implement better cache indexing, now searches are done sequentially.
+
+  + [DONE]
+    - A method to get a loopback and "any local" address.
+    - Add a method to clean the cache.
+    - For sk::rt::Actions, implement method to help with going through all
+      possible implementations:
+        performUntilSuccess(reverseErrors = false) 
+
+      When it gets to a successful action, it stops and returns without errors
+      even if some were collected before. If all actions end up with exceptions,
+      throw all in CompoundExceptions, reversing the list if reverseErrors is
+      true. 
+
+ServerSocket/Socket:
+===================
+  - Add more options. Currently only setReuseAddresss() is implemented.
+
+  + [DONE]
+    - Implement socket opiton settings, possibly via AbstractSocket class. See if 
+      it may host some other information.

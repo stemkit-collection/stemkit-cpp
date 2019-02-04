@@ -3,15 +3,20 @@
 local library = sk.net ;
 
 local objects = 
+  SocketException.cc
+  BindException.cc
+  ConnectException.cc
+  NoRouteToHostException.cc
+  UnknownHostException.cc
   DataInputStream.cc
   DataOutputStream.cc
-  DatagramPacket.cc
   DatagramSocket.cc
-  MulticastSocket.cc
+  InetAddressFactory.cc
   InetAddress.cc
   InetSocketAddress.cc
   ServerSocket.cc
   Socket.cc
+  AbstractSocket.cc
   SocketAddress.cc
   URL.cc
   URI.cc
@@ -22,5 +27,7 @@ use-project-libraries $(library). : sk.io sk.util ;
 make-shared-library $(library) : $(objects) ;
 add-project-library $(library) : $(library).ip4 ;
 add-project-library $(library) : $(library).ip6 ;
+add-project-library $(library) : $(library).$(PLATFORM_IMPLEMENTATION) ;
 
-make-subdirs ip4 ip6 ;
+make-subdirs ip4 ip6 $(PLATFORM_IMPLEMENTATION) ;
+make-subdirs test ;

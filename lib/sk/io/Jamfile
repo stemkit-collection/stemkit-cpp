@@ -22,7 +22,6 @@ local objects =
   FileInputStream.cc
   FileOutputStream.cc
   NullDevice.cc
-  Console.cc
   BufferedInputStream.cc
   CountingInputStream.cc
   BufferedOutputStream.cc

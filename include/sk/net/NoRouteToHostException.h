@@ -8,28 +8,23 @@
  *  Author: Gennady Bystritsky
 */
 
-#ifndef _SK_NET_MULTICASTSOCKET_H_
-#define _SK_NET_MULTICASTSOCKET_H_
+#ifndef _SK_NET_NOROUTETOHOSTEXCEPTION_H_
+#define _SK_NET_NOROUTETOHOSTEXCEPTION_H_
 
-#include <sk/util/Object.h>
+#include <sk/net/ConnectException.h>
 
 namespace sk {
   namespace net {
-    class MulticastSocket 
-      : public virtual sk::util::Object
+    class NoRouteToHostException 
+      : public sk::net::ConnectException
     {
       public:
-        MulticastSocket();
-        virtual ~MulticastSocket();
+        NoRouteToHostException(const sk::util::String& host, const uint16_t port);
     
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
-    
-      private:
-        MulticastSocket(const MulticastSocket& other);
-        MulticastSocket& operator = (const MulticastSocket& other);
     };
   }
 }
 
-#endif /* _SK_NET_MULTICASTSOCKET_H_ */
+#endif /* _SK_NET_NOROUTETOHOSTEXCEPTION_H_ */

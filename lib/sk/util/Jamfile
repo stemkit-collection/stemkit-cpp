@@ -39,6 +39,7 @@ objects =
   Break.cc
   PrettyPrinter.cc
   Bitset.cc
+  bytes.cc
 ;
 
 make-shared-library $(library) : $(objects) ;

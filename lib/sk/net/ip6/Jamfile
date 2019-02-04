@@ -6,3 +6,6 @@ local objects =
 ;
 
 make-library $(library) :  $(objects) ;
+add-project-library $(library) : $(library).$(PLATFORM_IMPLEMENTATION) ;
+
+make-subdirs $(PLATFORM_IMPLEMENTATION) ;

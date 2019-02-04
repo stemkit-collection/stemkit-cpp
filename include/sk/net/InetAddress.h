@@ -12,22 +12,60 @@
 #define _SK_NET_INETADDRESS_H_
 
 #include <sk/util/Object.h>
+#include <sk/util/String.h>
+#include <sk/util/bytes.h>
+#include <sk/rt/Mutex.h>
 
 namespace sk {
   namespace net {
+    class DirectedSocket;
+
     class InetAddress 
       : public virtual sk::util::Object
     {
       public:
-        InetAddress();
         virtual ~InetAddress();
-    
+
+        static InetAddress& getByAddress(const sk::util::bytes& components);
+        static const InetAddress& getByName(const sk::util::String& name);
+        static const InetAddress& getLocalHost();
+
+        static void clearCache();
+
+        bool isResolved() const;
+        const InetAddress& resolve(bool tolerate = true) const;
+        const InetAddress& resolve(bool tolerate = true);
+
+        const sk::util::bytes& getAddress() const;
+        const sk::util::String getHostName() const;
+        const sk::util::String getCanonicalHostName() const;
+
+        virtual const sk::util::String getHostAddress() const = 0;
+        virtual bool isLoopbackAddress() const = 0;
+        virtual bool isAnyLocalAddress() const = 0;
+        virtual bool isSiteLocalAddress() const = 0;
+        virtual bool isMulticastAddress() const = 0;
+
+        virtual sk::net::DirectedSocket* directedStreamSocket(const uint16_t port) const = 0;
+        virtual sk::net::DirectedSocket* directedDatagramSocket(const uint16_t port) const = 0;
+
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
-    
-      private:
+        const sk::util::String toString() const;
+
+      protected:
+        InetAddress(const sk::util::bytes& components);
+        InetAddress(const sk::util::bytes& components, const sk::util::String& name);
         InetAddress(const InetAddress& other);
         InetAddress& operator = (const InetAddress& other);
+
+        virtual const sk::util::String lookupHostName() const = 0;
+
+      private:
+        sk::util::bytes _address;
+        sk::util::String _hostName;
+        bool _resolved;
+        mutable sk::rt::Mutex _lock;
     };
   }
 }

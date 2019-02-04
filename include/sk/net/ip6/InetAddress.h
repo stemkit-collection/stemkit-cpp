@@ -11,21 +11,40 @@
 #ifndef _SK_NET_IP6_INETADDRESS_H_
 #define _SK_NET_IP6_INETADDRESS_H_
 
-#include <sk/util/Object.h>
+#include <sk/net/InetAddress.h>
+#include <sk/util/bytes.h>
+
+struct addrinfo;
 
 namespace sk {
   namespace net {
     namespace ip6 {
       class InetAddress 
-        : public virtual sk::util::Object
+        : public sk::net::InetAddress
       {
         public:
-          InetAddress();
+          InetAddress(const sk::util::String& name, const struct addrinfo& info);
+          InetAddress(const sk::util::bytes& components);
           virtual ~InetAddress();
       
+          // sk::net::InetAddress implementation.
+          const sk::util::String getHostAddress() const;
+          bool isLoopbackAddress() const;
+          bool isAnyLocalAddress() const;
+          bool isSiteLocalAddress() const;
+          bool isMulticastAddress() const;
+
+          // sk::net::InetAddress implementation.
+          sk::net::DirectedSocket* directedStreamSocket(const uint16_t port) const;
+          sk::net::DirectedSocket* directedDatagramSocket(const uint16_t port) const;
+
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
       
+        protected:
+          // sk::net::InetAddress implementation.
+          const sk::util::String lookupHostName() const;
+
         private:
           InetAddress(const InetAddress& other);
           InetAddress& operator = (const InetAddress& other);

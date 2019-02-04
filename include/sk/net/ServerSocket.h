@@ -11,23 +11,36 @@
 #ifndef _SK_NET_SERVERSOCKET_H_
 #define _SK_NET_SERVERSOCKET_H_
 
-#include <sk/util/Object.h>
+#include <sk/net/AbstractSocket.h>
+#include <sk/net/Socket.h>
 
 namespace sk {
   namespace net {
     class ServerSocket 
-      : public virtual sk::util::Object
+       : public sk::net::AbstractSocket
     {
       public:
-        ServerSocket();
+        ServerSocket(const uint16_t port);
+        ServerSocket(const uint16_t port, const int backlog);
+        ServerSocket(const uint16_t port, const int backlog, const sk::net::InetAddress& address);
+        ServerSocket(const sk::net::InetSocketAddress& endpoint);
+        ServerSocket(const sk::net::InetSocketAddress& endpoint, const int backlog);
         virtual ~ServerSocket();
-    
+
+        sk::net::Socket accept();
+
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
+        const sk::util::String toString() const;
     
       private:
         ServerSocket(const ServerSocket& other);
         ServerSocket& operator = (const ServerSocket& other);
+
+        void setup(const int backlog);
+
+        bool _bound;
+        int _backlog;
     };
   }
 }

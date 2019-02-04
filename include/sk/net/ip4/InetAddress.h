@@ -10,37 +10,53 @@
 #ifndef _SK_NET_IP4_INETADDRESS_H_
 #define _SK_NET_IP4_INETADDRESS_H_
 
-#include <sk/util/Object.h>
+#include <sk/net/InetAddress.h>
+#include <sk/util/bytes.h>
 
-#include <sk/util/String.h>
+struct addrinfo;
 
 namespace sk {
   namespace net {
     namespace ip4 {
       class InetAddress
-        : public virtual sk::util::Object 
+        : public sk::net::InetAddress
       {
         public:
-          InetAddress();
-          InetAddress(const InetAddress& other);
-          InetAddress(const sk::util::String& spec);
-          InetAddress(uint32_t number);
+          InetAddress(const sk::util::String& name, const struct addrinfo& info);
+          InetAddress(const sk::util::bytes& components);
           virtual ~InetAddress();
 
-          static const InetAddress hostname(const sk::util::String& name);
-          static const InetAddress ip(const sk::util::String& number);
-          static const InetAddress number(uint32_t number);
-          static const InetAddress localhost();
+          static sk::net::InetAddress& getLoopbackAddress();
+          static sk::net::InetAddress& getAnyLocalAddress();
 
-          const sk::util::String hostname() const;
-          const sk::util::String ip() const;
-          uint32_t number() const;
+          static uint32_t toNumber(const sk::util::bytes& components);
+          static const sk::util::bytes toComponents(uint32_t number);
+          static const sk::util::String toString(const sk::util::bytes& components);
+
+          // sk::net::InetAddress implementation.
+          const sk::util::String getHostAddress() const;
+          bool isLoopbackAddress() const;
+          bool isAnyLocalAddress() const;
+          bool isSiteLocalAddress() const;
+          bool isMulticastAddress() const;
+          
+          // sk::net::InetAddress implementation.
+          sk::net::DirectedSocket* directedStreamSocket(const uint16_t port) const;
+          sk::net::DirectedSocket* directedDatagramSocket(const uint16_t port) const;
 
           // sk::util::Object re-implementation.
           const sk::util::Class getClass() const;
+          sk::util::Object* clone() const;
           
+        protected:
+          // sk::net::InetAddress implementation.
+          const sk::util::String lookupHostName() const;
+
         private:
-          InetAddress& operator = (const InetAddress& other);
+          static const uint32_t toHostOrder(const uint32_t number);
+          static const uint32_t toNetworkOrder(const uint32_t number);
+
+          const uint32_t _number;
       };
     }
   }

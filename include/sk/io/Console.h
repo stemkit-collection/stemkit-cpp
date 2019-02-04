@@ -11,16 +11,23 @@
 #ifndef _SK_IO_CONSOLE_H_
 #define _SK_IO_CONSOLE_H_
 
-#include <sk/io/File.h>
+#include <sk/util/Object.h>
+#include <sk/util/Holder.hxx>
+#include <sk/io/InputStream.h>
+#include <sk/io/OutputStream.h>
 
 namespace sk {
   namespace io {
     class Console 
-      : public sk::io::File
+      : public virtual sk::util::Object
     {
       public:
         Console();
         virtual ~Console();
+
+        void close();
+        sk::io::InputStream& inputStream() const ;
+        sk::io::OutputStream& outputStream() const ;
     
         // sk::util::Object re-implementation.
         const sk::util::Class getClass() const;
@@ -28,6 +35,10 @@ namespace sk {
       private:
         Console(const Console& other);
         Console& operator = (const Console& other);
+
+        struct Data;
+        sk::util::Holder<Data> _dataHolder;
+        Data& _data;
     };
   }
 }

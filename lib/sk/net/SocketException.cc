@@ -11,22 +11,12 @@
 #include <sk/util/Class.h>
 #include <sk/util/String.h>
 
-#include <sk/net/MulticastSocket.h>
+#include <sk/net/SocketException.h>
 
-static const sk::util::String __className("sk::net::MulticastSocket");
-
-sk::net::MulticastSocket::
-MulticastSocket()
-{
-}
-
-sk::net::MulticastSocket::
-~MulticastSocket()
-{
-}
+static const sk::util::String __className("sk::net::SocketException");
 
 const sk::util::Class
-sk::net::MulticastSocket::
+sk::net::SocketException::
 getClass() const
 {
   return sk::util::Class(__className);

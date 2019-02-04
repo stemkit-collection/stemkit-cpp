@@ -74,13 +74,14 @@ addItem(Item* item)
 }
 
 namespace {
-  struct GuardingExecutor : public virtual sk::util::Processor<const sk::rt::Actions::Item> {
-    GuardingExecutor(sk::util::List<sk::util::Exception>& exceptions)
-      : _exceptions(exceptions) {}
+  struct GuardingExecutor : public virtual sk::util::Selector<sk::rt::Actions::Item> {
+    GuardingExecutor(bool untilSuccess, sk::util::List<sk::util::Exception>& exceptions)
+      : _untilSuccess(untilSuccess), _exceptions(exceptions) {}
 
-    void process(const sk::rt::Actions::Item& item) const {
+    bool assess(const sk::rt::Actions::Item& item) const {
       try {
         item.invoke();
+        return _untilSuccess;
       }
       catch(const sk::util::Exception& exception) {
         _exceptions.add(new sk::util::ExceptionProxy(item, exception));
@@ -94,19 +95,21 @@ namespace {
       catch(...) {
         _exceptions.add(new sk::util::UnknownException(item));
       }
+      return false;
     }
+    const bool _untilSuccess;
     sk::util::List<sk::util::Exception>& _exceptions;
   };
 }
 
-void
+bool
 sk::rt::Actions::
-runActionsCollectExceptions()
+runActionsCollectExceptions(bool untilSuccess)
 {
   if(_reverse) {
     _items.reverse();
   }
-  _items.forEach(GuardingExecutor(_exceptions));
+  return _items.contains(GuardingExecutor(untilSuccess, _exceptions));
 }
 
 void 
@@ -115,6 +118,25 @@ perform()
 {
   runActionsCollectExceptions();
   finalize();
+}
+
+int
+sk::rt::Actions::
+performUntilSuccess(bool reverseErrors)
+{
+  bool result = runActionsCollectExceptions(true);
+  int number_of_errors = _exceptions.size();
+  if(result == true) {
+    _exceptions.clear();
+  }
+  else {
+    if(reverseErrors == true) {
+      _exceptions.reverse();
+    }
+  }
+  finalize();
+
+  return number_of_errors;
 }
 
 int

@@ -13,7 +13,7 @@ product {
   description 'Stemkit'
 
   top ENV['STEMKIT_INSTALL_ROOT'] || '/usr/local'
-  base "stemkit-0.50-trunk"
+  base "stemkit-0.52-trunk"
 
   package {
     name 'cpp'
