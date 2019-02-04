@@ -8,7 +8,7 @@
 #include <list>
 #include <map>
 
-namespace YAML
+namespace SK_YAML
 {
 	template <typename T>
 	inline Emitter& operator << (Emitter& emitter, const std::vector <T>& v) {

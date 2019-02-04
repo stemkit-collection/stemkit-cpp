@@ -15,22 +15,22 @@
 
 int main(int argc, const char* argv[])
 {
-  YAML::Emitter out;
-  out << YAML::BeginMap;
-  out << YAML::Key << "items" << YAML::Value;
-  out << YAML::BeginSeq;
+  SK_YAML::Emitter out;
+  out << SK_YAML::BeginMap;
+  out << SK_YAML::Key << "items" << SK_YAML::Value;
+  out << SK_YAML::BeginSeq;
   out << "aaa";
   out << "bbb";
   out << "ccc";
 
-  out << YAML::BeginMap;
-  out << YAML::Key << "v1" << YAML::Value << "aaa";
-  out << YAML::Key << "v2" << YAML::Value << "aaa";
-  out << YAML::Key << "v3" << YAML::Value << "aaa";
-  out << YAML::EndMap;
+  out << SK_YAML::BeginMap;
+  out << SK_YAML::Key << "v1" << SK_YAML::Value << "aaa";
+  out << SK_YAML::Key << "v2" << SK_YAML::Value << "aaa";
+  out << SK_YAML::Key << "v3" << SK_YAML::Value << "aaa";
+  out << SK_YAML::EndMap;
 
-  out << YAML::EndSeq;
-  out << YAML::EndMap;
+  out << SK_YAML::EndSeq;
+  out << SK_YAML::EndMap;
 
   std::cerr << out.c_str() << std::endl;
 }

@@ -19,8 +19,8 @@ namespace {
 #define YAML_ASSERT(cond) do { if(!(cond)) return "  Assert failed: " #cond; } while(false)
 #define PARSE(doc, input) \
 	std::stringstream stream(input);\
-	YAML::Parser parser(stream);\
-	YAML::Node doc;\
+	SK_YAML::Parser parser(stream);\
+	SK_YAML::Node doc;\
 	parser.GetNextDocument(doc)
 #define PARSE_NEXT(doc) parser.GetNextDocument(doc)
 
@@ -30,7 +30,7 @@ namespace Test {
 			TEST ret;
 			try {
 				ret = test();
-			} catch(const YAML::Exception& e) {
+			} catch(const SK_YAML::Exception& e) {
 				ret.ok = false;
 				ret.error = "  Exception caught: " + e.msg;
 			}
@@ -289,7 +289,7 @@ namespace Test {
 			return p.first == q.first && p.second == q.second;
 		}
 
-		void operator >> (const YAML::Node& node, Pair& p) {
+		void operator >> (const SK_YAML::Node& node, Pair& p) {
 			node[0] >> p.first;
 			node[1] >> p.second;
 		}
@@ -745,11 +745,11 @@ namespace Test {
 
 			std::stringstream stream(input);
 			try {
-				YAML::Parser parser(stream);
-				YAML::Node doc;
+				SK_YAML::Parser parser(stream);
+				SK_YAML::Node doc;
 				parser.GetNextDocument(doc);
-			} catch(const YAML::ParserException& e) {
-				YAML_ASSERT(e.msg == YAML::ErrorMsg::INVALID_ESCAPE + "c");
+			} catch(const SK_YAML::ParserException& e) {
+				YAML_ASSERT(e.msg == SK_YAML::ErrorMsg::INVALID_ESCAPE + "c");
 				return true;
 			}
 
@@ -931,7 +931,7 @@ namespace Test {
 				"   \n"
 				"\n";
 			std::stringstream stream(input);
-			YAML::Parser parser(stream);
+			SK_YAML::Parser parser(stream);
 
 			YAML_ASSERT(!parser);
 			return true;
@@ -961,9 +961,9 @@ namespace Test {
 			return m._ == n._;
 		}
 
-		void operator >> (const YAML::Node& node, StringMap& m) {
+		void operator >> (const SK_YAML::Node& node, StringMap& m) {
 			m._.clear();
-			for(YAML::Iterator it=node.begin();it!=node.end();++it) {
+			for(SK_YAML::Iterator it=node.begin();it!=node.end();++it) {
 				std::string key = it.first();
 				std::string value = it.second();
 				m._[key] = value;
@@ -1056,7 +1056,7 @@ namespace Test {
 			PARSE(doc, input);
 			YAML_ASSERT(doc.size() == 2);
 			YAML_ASSERT(IsNull(doc["foo"]));
-			YAML_ASSERT(doc[YAML::Null] == "bar");
+			YAML_ASSERT(doc[SK_YAML::Null] == "bar");
 			return true;
 		}
 

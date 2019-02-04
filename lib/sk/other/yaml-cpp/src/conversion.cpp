@@ -47,7 +47,7 @@ namespace
 	}
 }
 
-namespace YAML
+namespace SK_YAML
 {
 	bool Convert(const std::string& input, bool& b)
 	{

@@ -13,7 +13,7 @@
 #include "stream.h"
 #include "token.h"
 
-namespace YAML
+namespace SK_YAML
 {
 	class Node;
 

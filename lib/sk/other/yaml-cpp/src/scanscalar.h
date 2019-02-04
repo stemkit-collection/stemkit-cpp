@@ -8,7 +8,7 @@
 #include "regex.h"
 #include "stream.h"
 
-namespace YAML
+namespace SK_YAML
 {
 	enum CHOMP { STRIP = -1, CLIP, KEEP };
 	enum ACTION { NONE, BREAK, THROW };

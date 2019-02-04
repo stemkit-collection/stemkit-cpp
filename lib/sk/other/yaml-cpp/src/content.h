@@ -10,7 +10,7 @@
 #include "exceptions.h"
 #include "ltnode.h"
 
-namespace YAML
+namespace SK_YAML
 {
 	class Scanner;
 	class Parser;

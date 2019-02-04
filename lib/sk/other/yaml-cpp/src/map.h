@@ -7,7 +7,7 @@
 #include "content.h"
 #include <map>
 
-namespace YAML
+namespace SK_YAML
 {
 	class Node;
 

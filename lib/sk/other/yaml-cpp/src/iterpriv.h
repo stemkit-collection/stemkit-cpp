@@ -8,7 +8,7 @@
 #include <vector>
 #include <map>
 
-namespace YAML
+namespace SK_YAML
 {
 	class Node;
 

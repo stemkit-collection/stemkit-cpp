@@ -6,7 +6,7 @@
 
 #include <string>
 
-namespace YAML
+namespace SK_YAML
 {
 	class ostream
 	{
