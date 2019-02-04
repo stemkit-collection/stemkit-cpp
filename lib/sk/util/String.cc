@@ -22,7 +22,7 @@ const sk::util::String sk::util::String::EMPTY;
 
 namespace {
   const sk::util::String __className("sk::util::String");
-  const sk::util::String __whitespace(" \t\r\n\b\f");
+  const char* __whitespace(" \t\r\n\b\f");
 }
 
 sk::util::String::
