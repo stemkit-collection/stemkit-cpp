@@ -5,6 +5,7 @@ objects =
   LooseFileDescriptor.cc
   AnonymousPipe.cc
   TtyDevice.cc
+  TtyFileDescriptor.cc
   Pty.cc
   FileInfo.cc
   Dir.cc

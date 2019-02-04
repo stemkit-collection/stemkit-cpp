@@ -32,7 +32,6 @@ local objects =
   ClosedChannelException.cc
   AbstractFileDescriptorPipe.cc
   FileDescriptorPipe.cc
-  TtyFileDescriptor.cc
   DelegatingTty.cc
 ;
 

@@ -1,4 +1,5 @@
-/*  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
+/*  vi: sw=2:
+ *  Copyright (c) 2006, Gennady Bystritsky <bystr@mac.com>
  *  
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
@@ -11,14 +12,27 @@
 #include <sk/util/IllegalStateException.h>
 
 #include <sk/io/TtyFileDescriptor.h>
+#include <sk/rt/SystemException.h>
 
 #include <unistd.h>
+#include <termios.h>
 
 sk::io::TtyFileDescriptor::
 TtyFileDescriptor(int fd)
   : sk::io::FileDescriptor(fd)
 {
   ensureTty();
+
+  struct termios settings;
+  if(tcgetattr(getFileNumber(), &settings) != 0) {
+    throw sk::rt::SystemException("tcgetattr");
+  }
+  settings.c_cc[VERASE] = 0177;
+  settings.c_cc[VKILL] = 025;
+
+  if(tcsetattr(getFileNumber(), TCSANOW, &settings) != 0) {
+    throw sk::rt::SystemException("tcsetattr");
+  }
 }
 
 sk::io::TtyFileDescriptor::
