@@ -174,8 +174,6 @@ void
 sk::util::test::PathnameTest::
 testIsTerminal()
 {
-  return;
-
   CPPUNIT_ASSERT_EQUAL(true, Pathname("").isTerminal());
   CPPUNIT_ASSERT_EQUAL(true, Pathname(".").isTerminal());
   CPPUNIT_ASSERT_EQUAL(true, Pathname("./").isTerminal());
@@ -190,5 +188,25 @@ testIsTerminal()
   CPPUNIT_ASSERT_EQUAL(false, Pathname("C:/aaa").isTerminal());
   CPPUNIT_ASSERT_EQUAL(false, Pathname("C:aaa").isTerminal());
   CPPUNIT_ASSERT_EQUAL(false, Pathname("/aaa").isTerminal());
+}
+
+void
+sk::util::test::PathnameTest::
+testWindowsResourcePath()
+{
+  Pathname path("\\\\Resource\\a\\b/c");
+
+  CPPUNIT_ASSERT(path.isEmpty() == false);
+  CPPUNIT_ASSERT(path.isAbsolute() == true);
+  CPPUNIT_ASSERT(path.isExplicit() == true);
+  // CPPUNIT_ASSERT(path.isTerminal() == false);
+  // CPPUNIT_ASSERT(Pathname("\\\\Resource").isTerminal() == false);
+  // CPPUNIT_ASSERT(Pathname("\\\\Resource/").isTerminal() == true);
+
+  CPPUNIT_ASSERT_EQUAL("\\\\Resource/a/b/c", path.toString());
+  CPPUNIT_ASSERT_EQUAL("\\\\Resource/a/b", path.dirname().toString());
+  CPPUNIT_ASSERT_EQUAL("c", path.basename());
+  CPPUNIT_ASSERT_EQUAL("", path.extension());
+  CPPUNIT_ASSERT_EQUAL("\\\\Resource/", path.location());
 }
 

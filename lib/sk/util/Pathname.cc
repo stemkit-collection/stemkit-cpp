@@ -101,26 +101,47 @@ normalize(const sk::util::String& component)
   _path = component.trim();
 
   if(_path.isEmpty() == false) {
+    bool resource = false;
+    if(_path.startsWith("\\\\") == true) {
+      _path = _path.substring(2).trim();
+      resource = true;
+    }
     _path = _path.replace('\\', '/').squeeze('/');
+
     std::string::size_type position = _path.find_first_of(":/");
     if(position != std::string::npos) {
       if(_path[position] == ':') {
-        position = _path.find_first_not_of(':', position);
-        _location = sk::util::String(_path.substr(0, position)).trim().squeeze(':');
-        if(_location.size() == 1) {
-          _location.clear();
-        }
-        if(position != std::string::npos) {
-          _path = _path.substring(position).trim();
-        }
-        else { 
-          _path.clear();
+        if(resource == false) {
+          position = _path.find_first_not_of(':', position);
+          _location = sk::util::String(_path.substr(0, position)).trim().squeeze(':');
+          if(_location.size() == 1) {
+            _location.clear();
+          }
+          if(position != std::string::npos) {
+            _path = _path.substring(position).trim();
+          }
+          else { 
+            _path.clear();
+          }
         }
         position = _path.find_first_of('/');
       }
-      if(position == 0) {
-        _path = _path.substring(1);
-        _location += '/';
+    }
+
+    if(position == 0) {
+      _path = _path.substring(1);
+      _location += '/';
+    }
+    else if(position == std::string::npos) {
+      if(resource == true) {
+        _location = "\\\\" + _path + '/';
+        _path.clear();
+      }
+    }
+    else {
+      if(resource == true) {
+        _location = "\\\\" + _path.substr(0, position) + '/';
+        _path = _path.substring(position + 1);
       }
     }
   }
