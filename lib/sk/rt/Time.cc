@@ -63,7 +63,7 @@ format(const sk::util::String& specification) const
 {
   char buffer[1024];
   struct tm tm_buffer;
-  strftime(buffer, sizeof(buffer), specification.getChars(), &figure_localtime(tm_buffer));
+  strftime(buffer, sizeof(buffer), specification.getChars(), &makeLocaltime(tm_buffer));
   return buffer;
 }
 

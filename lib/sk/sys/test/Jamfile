@@ -1,4 +1,4 @@
-# vim: ft=jam:
+# vim: sw=2: ft=jam:
 
 test = sk-sys-test ;
 
@@ -8,15 +8,25 @@ test-objects =
   TestSuite.cc
 ;
 
-use-project-library $(test) : 
-  sk.cppunit sk.sys 
-  sk.rt.thread
-  sk.rt.thread.pthreads 
-  sk.rt.bundle 
-  sk.io 
-  sk.util 
+if ! windows in $(project.PLATFORM_SPECIFICS) {
+  use-project-library $(test) : 
+    sk.cppunit sk.sys 
+    sk.rt.thread
+    sk.rt.thread.pthreads 
+    sk.rt.bundle 
+    sk.io 
+    sk.util 
+  ;
+  use-pthreads $(test) ;
+}
+else use-project-library $(test) : 
+    sk.cppunit sk.sys 
+    sk.rt.thread
+    sk.rt.thread.win32
+    sk.rt.bundle 
+    sk.io 
+    sk.util 
 ;
 
-use-pthreads $(test) ;
 use-unit-test $(test) $(test-objects) ;
 make-cpp-test $(test) : $(test-objects) ;

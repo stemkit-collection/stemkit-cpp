@@ -13,7 +13,7 @@
 #include <sk/util/StringArray.h>
 
 #include <sk/rt/StopWatch.h>
-#include <sk/rt/SystemException.h>
+#include <sk/rt/Time.h>
 
 #include <sstream>
 #include <iomanip>
@@ -38,19 +38,11 @@ getClass() const
   return sk::util::Class(__className);
 }
 
-namespace {
-  void obtain_current_time(struct timeval& timeinfo) {
-    if(gettimeofday(&timeinfo, 0) != 0) {
-      throw sk::rt::SystemException("gettimeofday");
-    }
-  }
-}
-
 void 
 sk::rt::StopWatch::
 start()
 {
-  obtain_current_time(_start);
+  sk::rt::Time::obtainCurrentTime(_start);
   _started = true;
   _stopped = false;
 }
@@ -60,7 +52,7 @@ sk::rt::StopWatch::
 stop()
 {
   if(isTicking() == true) {
-    obtain_current_time(_stop);
+    sk::rt::Time::obtainCurrentTime(_stop);
     _stopped = true;
   }
 }
@@ -81,7 +73,7 @@ getMicroseconds() const
   }
   struct timeval last = _stop;
   if(_stopped == false) {
-    obtain_current_time(last);
+    sk::rt::Time::obtainCurrentTime(last);
   }
   return (last.tv_sec - _start.tv_sec) * 1000000 + (last.tv_usec - _start.tv_usec);
 }

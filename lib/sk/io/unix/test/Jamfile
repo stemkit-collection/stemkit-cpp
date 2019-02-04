@@ -1,11 +1,20 @@
+# vim: ft=jam: sw=2:
 
-test = sk-io-unix-test ;
+local test = sk-io-unix-test ;
 
-test-objects = 
+local test-objects = 
   FileDescriptorTest.cc
   FileDescriptorStreamsTest.cc
+  AnonymousPipeTest.cc
+  DirTest.cc
+  FileTest.cc
+  FileStreamsTest.cc
   TestSuite.cc
 ;
+
+if ! mks32 in $(project.PLATFORM_SPECIFICS) {
+  test-objects += PtyTest.cc ;
+}
 
 use-project-library $(test) : sk.cppunit sk.io sk.rt.bundle sk.util ;
 

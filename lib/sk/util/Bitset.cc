@@ -172,7 +172,7 @@ setBounds(uint32_t lowerBound, uint32_t upperBound)
 
   if(lower == upper) {
     _container.clear();
-    _depot = &_container.front();
+    _depot = 0;
 
     _min = 0;
     _max = 0;

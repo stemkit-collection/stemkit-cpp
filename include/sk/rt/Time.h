@@ -14,6 +14,9 @@
 #include <sk/util/Object.h>
 #include <sk/util/String.h>
 
+struct timeval;
+struct tm;
+
 namespace sk {
   namespace rt {
     class Time 
@@ -34,11 +37,13 @@ namespace sk {
         const sk::util::Class getClass() const;
         const sk::util::String inspect() const;
     
+        static void obtainCurrentTime(struct timeval& timeinfo);
+
       private:
         Time(time_t seconds, uint32_t microseconds);
         Time& operator = (const Time& other);
 
-        const struct tm& figure_localtime(struct tm& tm_buffer) const;
+        const struct tm& makeLocaltime(struct tm& tm_buffer) const;
 
         time_t _seconds;
         uint32_t _microseconds;

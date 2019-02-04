@@ -6,6 +6,8 @@ objects =
   AnonymousPipe.cc
   TtyDevice.cc
   Pty.cc
+  FileInfo.cc
+  Dir.cc
 ;
 
 make-library $(library) : $(objects) ;

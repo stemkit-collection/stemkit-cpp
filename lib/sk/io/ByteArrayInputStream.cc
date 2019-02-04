@@ -29,7 +29,7 @@ ByteArrayInputStream(const char* buffer, int size)
 
 sk::io::ByteArrayInputStream::
 ByteArrayInputStream(const std::vector<char>& data)
-  : _vectorHolder(data), _depot(&data.front()), _depotSize(data.size())
+  : _vectorHolder(data), _depotSize(data.size()), _depot(_depotSize==0 ? 0 : &data.front())
 {
   init();
 }
@@ -91,8 +91,8 @@ read(char* buffer, int offset, int length)
     offset = 0;
   }
   if(_vectorHolder.isEmpty() == false) {
-    _depot = &_vectorHolder.get().front();
     _depotSize = _vectorHolder.get().size();
+    _depot = _depotSize==0 ? 0 : &_vectorHolder.get().front();
   }
   int remaining = filterReadEvents(available());
 

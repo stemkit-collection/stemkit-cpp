@@ -15,14 +15,11 @@
 
 #include <sk/io/FileInfo.h>
 #include <sk/rt/SystemException.h>
-#include <sys/stat.h>
 #include <time.h>
 
 static const sk::util::String __className("sk::io::FileInfo");
 
-struct sk::io::FileInfo::Data : public virtual sk::util::Object {
-  struct stat status;
-};
+#include "FileInfoData.h"
 
 sk::io::FileInfo::
 FileInfo(const sk::util::Pathname& path)
@@ -83,34 +80,6 @@ sk::io::FileInfo::
 isRegular() const
 {
   return _dataHolder.get().status.st_mode & S_IFREG;
-}
-
-bool
-sk::io::FileInfo::
-isSymlink() const
-{
-  return _dataHolder.get().status.st_mode & S_IFLNK;
-}
-
-bool
-sk::io::FileInfo::
-isSocket() const
-{
-  return _dataHolder.get().status.st_mode & S_IFSOCK;
-}
-
-bool
-sk::io::FileInfo::
-isPipe() const
-{
-  return _dataHolder.get().status.st_mode & S_IFIFO;
-}
-
-bool
-sk::io::FileInfo::
-isDevice() const
-{
-  return _dataHolder.get().status.st_mode & (S_IFCHR | S_IFBLK);
 }
 
 namespace {

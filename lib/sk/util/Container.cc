@@ -76,7 +76,7 @@ const sk::util::String
 sk::util::Container::
 toString() const
 {
-  return getChars();
+  return sk::util::String(getChars(), size());
 }
 
 int
@@ -135,5 +135,5 @@ const char*
 sk::util::Container::
 getChars() const
 {
-  return &front();
+  return empty() ? "" : &front();
 }
