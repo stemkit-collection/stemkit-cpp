@@ -49,8 +49,10 @@ PLATFORM_IMPLEMENTATION = unix ;
 
 project.DO_ABORT_TEST = false ;
 
-rule platform-nt-x86-win32
+rule platform-mswin-x86-m32-win
 {
+  platform-mswin-x86-setup ;
+
   PLATFORM_IMPLEMENTATION = win32 ;
 
   project.PLATFORM_SPECIFICS = windows ;
@@ -69,8 +71,10 @@ rule platform-nt-x86-win32
   windows.EXTRA_SYSLIBS = ws2_32 ;
 }
 
-rule platform-nt-x86-mks32
+rule platform-mswin-x86-m32-mks
 {
+  platform-mswin-x86-setup ;
+
   project.PLATFORM_SPECIFICS = mks32 ;
   UNIX_FLAVOR = mks32 ;
 
@@ -82,7 +86,7 @@ rule platform-nt-x86-mks32
   jam.NO_PTHREAD_LIB = true ;
 }
 
-rule platform-nt-x86
+rule platform-mswin-x86-setup
 {
   core.load-config Jam.windows ;
 
@@ -103,12 +107,10 @@ rule platform-nt-x86
 
   INCLUDES = ;
   LIBDIRS = ;
+}
 
-  switch $(BUILD_ABI) {
-    case win32 : platform-nt-x86-win32 ;
-    case mks32 : platform-nt-x86-mks32 ;
-    case * : exit Please set BUILD_ABI to either "win32" or "mks32" ;
-  }
+rule platform-mswin-x86
+{
   core.ensure-defined JAM_MSVS_ROOT ;
   mswin.setup-visual-studio8 "$(JAM_MSVS_ROOT:J= )" ;
 
@@ -156,6 +158,10 @@ rule platform-linux-x86
 rule platform-linux-ia64
 {
   platform-linux-x86 ;
+
+  C++FLAGS += -fPIC ;
+  CCFLAGS += -fPIC ;
+
   project.DO_NOT_BUILD += ruby java ;
 }
 
@@ -293,6 +299,7 @@ rule platform-solaris-x86-m32
 
 rule platform-solaris-x86-m64
 {
+  GCC_VERSION = 4.3 ;
   ABI_CC_FLAGS = -m64 ; 
 }
 
@@ -378,7 +385,7 @@ CONTRIB_ROOT ?= $(GCC_ROOT)/contrib ;
 
 C++ ?= $(GCC_ROOT)/bin/g++ ;
 CC ?= $(GCC_ROOT)/bin/gcc ;
-AR = ar$(GCC_ABI:E=) -cq $(ABI_AR_FLAGS) ;
+AR ?= ar$(GCC_ABI:E=) -cq $(ABI_AR_FLAGS) ;
 
 SWIG ?= $(TOOLS_HOME)/swig-$(SWIG_VERSION)/bin/swig ;
 
