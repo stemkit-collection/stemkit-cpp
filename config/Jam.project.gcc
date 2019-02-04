@@ -92,8 +92,8 @@ rule local.mswin-x86.setup
 
   USE_GLOBAL_INCLUDES_AFTER = false ;
 
-  C++FLAGS += /MD /WL /FC /Z7 /Gy /wd4355 ;
-  CCFLAGS +=  /MD /WL /FC /W3 /Z7 /Gy ;
+  C++FLAGS += /GL /MD /WL /FC /Z7 /Gy /wd4355 ;
+  CCFLAGS +=  /GL /MD /WL /FC /W3 /Z7 /Gy ;
   CCOFLAGS = /Od ;
 
   switch $(_mode) {
@@ -103,10 +103,16 @@ rule local.mswin-x86.setup
 
     case 64 : 
       LINKER_FLAGS += /MACHINE:X64 ;
-      platform.setup-abi-lib lib64 ;
-
   }
-  LINKER_FLAGS += /STACK:9000000 /NODEFAULTLIB:LIBCMT.LIB /NODEFAULTLIB:LIBCP.LIB /DEBUG ;
+  AR = $(AR) /LTCG ;
+
+  LINKER_FLAGS += 
+    /STACK:9000000 
+    /LTCG
+    /NODEFAULTLIB:LIBCMT.LIB
+    /NODEFAULTLIB:LIBCP.LIB 
+    /DEBUG 
+  ;
   DEFINES += NDEBUG WINVER=0x0501 _WIN32_WINNT=0x0501 _LARGEFILE64_SOURCE ;
   SYSLIBS = shlwapi advapi32 user32 psapi $(windows.EXTRA_SYSLIBS) ;
 }
@@ -114,10 +120,11 @@ rule local.mswin-x86.setup
 rule local.mswin-x86.native
 {
   local _mode = $(1) ;
+  platform.setup-abi-lib lib$(_mode)-win ;
 
   PLATFORM_IMPLEMENTATION = win32 ;
   project.PLATFORM_SPECIFICS = windows ;
-  util.delete-from project.DO_NOT_BUILD : java ;
+  # util.delete-from project.DO_NOT_BUILD : java ;
 
   INCLUDES += [ util.make-path $(system.SRCTOP) platform include windows-visual-studio ] ;
   windows.EXTRA_SYSLIBS = ws2_32 ;
@@ -126,15 +133,25 @@ rule local.mswin-x86.native
 rule local.mswin-x86.mks
 {
   local _mode = $(1) ;
+  platform.setup-abi-lib lib$(_mode)-mks ;
 
   project.PLATFORM_SPECIFICS = mks32 ;
   UNIX_FLAVOR = mks32 ;
+
+  C++FLAGS += /Zl ;
+  CCFLAGS += /Zl ;
 
   INCLUDES += [ util.make-path $(system.SRCTOP) platform include windows-mks32 ] ;
 
   JAM_MKS_ROOT_$(_mode) ?= $(JAM_MKS_ROOT) ;
   core.ensure-defined JAM_MKS_ROOT_$(_mode) ;
   mswin.setup-mks-toolkit8-m$(_mode) "$(JAM_MKS_ROOT_$(_mode):J= )" ;
+
+  LINKER_FLAGS += 
+    /NODEFAULTLIB:MSVCRT.LIB 
+    /NODEFAULTLIB:MSVCPRT.LIB 
+    /NODEFAULTLIB:LIBC.LIB 
+  ;
 
   jam.NO_PTHREAD_LIB = true ;
 }
@@ -152,7 +169,6 @@ rule platform-mswin-x86-m32-win
 rule platform-mswin-x86-m64-mks
 {
   local.mswin-x86.setup 64 : local.mswin-x86.mks ;
-  # config.unit-test.disable = true ;
 }
 
 rule platform-mswin-x86-m32-mks
@@ -171,7 +187,7 @@ rule platform-linux-x86-m32
   C++FLAGS += -fpic ;
   CCFLAGS += -fpic ;
 
-  util.delete-from project.DO_NOT_BUILD : ruby java ;
+  # util.delete-from project.DO_NOT_BUILD : ruby java ;
 }
 
 rule platform-linux-x86-m64
@@ -201,7 +217,7 @@ rule platform-linux-ia64
   C++FLAGS += -fPIC ;
   CCFLAGS += -fPIC ;
 
-  project.DO_NOT_BUILD += ruby java ;
+  # project.DO_NOT_BUILD += ruby java ;
 }
 
 rule platform-osf-alpha
@@ -313,7 +329,7 @@ rule platform-solaris-sparc-m64
 
 rule platform-solaris-sparc
 {
-  util.delete-from project.DO_NOT_BUILD : ruby java ;
+  # util.delete-from project.DO_NOT_BUILD : ruby java ;
 
   C++FLAGS += -fPIC ;
   CCFLAGS += -fPIC ;
@@ -394,7 +410,7 @@ rule platform-hpux-ia64
   DEFINES += _FILE_OFFSET_BITS=64 _LARGEFILE64_SOURCE _REENTRANT ;
   DEFINES += _XOPEN_SOURCE _XOPEN_SOURCE_EXTENDED=1 ;
   INCLUDES += [ util.make-path $(system.SRCTOP) platform include hpux ] ;
-  SYSLIBS = ;
+  SYSLIBS = pthread ;
 
   C++LDFLAGS += -Wl,+s ;
   CC_SONAME_FLAG = -Wl,+h ;
