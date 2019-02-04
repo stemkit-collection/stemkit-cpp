@@ -9,6 +9,7 @@
 */
 
 #include "../FileInfoData.h"
+#include <sk/util/Holder.cxx>
 
 bool
 sk::io::FileInfo::

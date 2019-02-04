@@ -41,7 +41,7 @@ testFind()
   
   CPPUNIT_ASSERT_EQUAL(true, sk::sys::User::find("root", holder));
   CPPUNIT_ASSERT_EQUAL(sk::util::String("root"), holder.get().getName());
-  CPPUNIT_ASSERT_EQUAL(0, holder.get().getUid());
+  CPPUNIT_ASSERT_EQUAL(0U, holder.get().getUid());
 }
 
 void 

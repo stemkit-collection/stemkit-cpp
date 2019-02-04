@@ -92,8 +92,8 @@ rule local.mswin-x86.setup
 
   USE_GLOBAL_INCLUDES_AFTER = false ;
 
-  C++FLAGS += /GL /MD /WL /FC /Z7 /Gy /wd4355 ;
-  CCFLAGS +=  /GL /MD /WL /FC /W3 /Z7 /Gy ;
+  C++FLAGS += /GL /MD /WL /FC /Z7 /Gy /wd4355 /WX ;
+  CCFLAGS +=  /GL /MD /WL /FC /W3 /Z7 /Gy /WX ;
   CCOFLAGS = /Od ;
 
   switch $(_mode) {

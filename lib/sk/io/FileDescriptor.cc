@@ -19,13 +19,17 @@ FileDescriptor(int fd)
 
 sk::io::FileDescriptor::
 FileDescriptor(const sk::io::FileDescriptor& other)
-  : sk::io::LooseFileDescriptor(other.duplicateLoose())
+  // For some weird reason Visual Studio compiled code crashes when 
+  // just other.duplicateLoose() is used instead of getFileNumber().
+  : sk::io::LooseFileDescriptor(other.duplicateLoose().getFileNumber())
 {
 }
 
 sk::io::FileDescriptor::
 FileDescriptor(const sk::io::LooseFileDescriptor& other)
-  : sk::io::LooseFileDescriptor(other.duplicateLoose())
+  // For some weird reason Visual Studio compiled code crashes when 
+  // just other.duplicateLoose() is used instead of getFileNumber().
+  : sk::io::LooseFileDescriptor(other.duplicateLoose().getFileNumber())
 {
 }
 

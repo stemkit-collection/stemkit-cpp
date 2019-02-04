@@ -90,7 +90,7 @@ report(int indent, std::ostream& stream) const
       stream << " max => " << sk::rt::StopWatch::toString(*std::max_element(_results.begin(), _results.end()));
 
       if(size > 2) {
-        uint64_t average = std::accumulate(_results.begin(), _results.end(), 0) / size;
+        uint64_t average = std::accumulate(_results.begin(), _results.end(), uint64_t(0)) / size;
         stream << ' ' << size << " => " << sk::rt::StopWatch::toString(average);
       }
   }

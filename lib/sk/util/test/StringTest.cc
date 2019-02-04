@@ -450,13 +450,50 @@ testReverseCompareOperators()
 
 void
 sk::util::test::StringTest::
-testSplit()
+testSeparatorSplit()
 {
-  sk::util::Strings data;
-  data = sk::util::String("aaa bbb ccc").split();
+  sk::util::Strings data = sk::util::String("aaa:bbb:ccc").split(":");
 
   CPPUNIT_ASSERT_EQUAL(3, data.size());
   CPPUNIT_ASSERT_EQUAL("aaa", data.get(0));
   CPPUNIT_ASSERT_EQUAL("bbb", data.get(1));
   CPPUNIT_ASSERT_EQUAL("ccc", data.get(2));
+
+  CPPUNIT_ASSERT_EQUAL(6, sk::util::String(":a:b:c::").split(":").size());
+  CPPUNIT_ASSERT_EQUAL("", sk::util::String(":a").split(":").get(0));
+  CPPUNIT_ASSERT_EQUAL("a", sk::util::String(":a").split(":").get(1));
+  CPPUNIT_ASSERT_EQUAL("a", sk::util::String("a:").split(":").get(0));
+  CPPUNIT_ASSERT_EQUAL("", sk::util::String("a:").split(":").get(1));
+}
+
+void
+sk::util::test::StringTest::
+testWhitespaceSplit()
+{
+  const sk::util::String s = "     aaa   \tbbb ccc  ";
+  const sk::util::Strings data = s.split();
+
+  CPPUNIT_ASSERT_EQUAL(3, data.size());
+  CPPUNIT_ASSERT_EQUAL("aaa", data.get(0));
+  CPPUNIT_ASSERT_EQUAL("bbb", data.get(1));
+  CPPUNIT_ASSERT_EQUAL("ccc", data.get(2));
+
+  CPPUNIT_ASSERT_EQUAL("aaa:bbb:ccc", data.join(":"));
+  CPPUNIT_ASSERT(s.split().join(":") == s.split(" ").join(":"));
+  CPPUNIT_ASSERT(s.split().join(":") != s.split("  ").join(":"));
+}
+
+void
+sk::util::test::StringTest::
+testEachCharSplit()
+{
+  sk::util::Strings data = sk::util::String("abcd e").split("");
+
+  CPPUNIT_ASSERT_EQUAL(6, data.size());
+  CPPUNIT_ASSERT_EQUAL("a", data.get(0));
+  CPPUNIT_ASSERT_EQUAL("b", data.get(1));
+  CPPUNIT_ASSERT_EQUAL("c", data.get(2));
+  CPPUNIT_ASSERT_EQUAL("d", data.get(3));
+  CPPUNIT_ASSERT_EQUAL(" ", data.get(4));
+  CPPUNIT_ASSERT_EQUAL("e", data.get(5));
 }
