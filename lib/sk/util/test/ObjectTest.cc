@@ -1,4 +1,5 @@
-/*  Copyright (c) 2005, Gennady Bystritsky <bystr@mac.com>
+/*  vi: sw=2:
+ *  Copyright (c) 2005, Gennady Bystritsky <bystr@mac.com>
  *  
  *  Distributed under the MIT Licence.
  *  This is free software. See 'LICENSE' for details.
@@ -22,13 +23,14 @@ sk::util::test::ObjectTest::
 {
 }
 
+struct sk::util::test::ObjectTest::SampleObject : public virtual sk::util::Object {
+};
+
 void
 sk::util::test::ObjectTest::
 setUp()
 {
-  class Object : public virtual sk::util::Object {
-  };
-  _object.reset(new Object());
+  _object.reset(new SampleObject());
 }
 
 void
@@ -55,7 +57,8 @@ void
 sk::util::test::ObjectTest::
 testId()
 {
-  CPPUNIT_ASSERT_EQUAL(reinterpret_cast<uint64_t>(&getObject()), getObject().getId());
+  CPPUNIT_ASSERT(SampleObject().getId() != getObject().getId());
+  CPPUNIT_ASSERT(SampleObject().getId() != SampleObject().getId());
 }
 
 namespace {

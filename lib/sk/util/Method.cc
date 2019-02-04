@@ -13,9 +13,19 @@
 
 #include <sk/util/Method.h>
 
+namespace {
+  const sk::util::String normalizeName(const sk::util::String& name) {
+    int index = name.lastIndexOf(":");
+    if(index < 0) {
+      return name;
+    }
+    return name.substring(index + 1);
+  }
+}
+
 sk::util::Method::
 Method(const sk::util::String& name, const sk::util::Class& scope, bool instance)
-  : _name(name), _scopeName(scope.getName()), _instance(instance)
+  : _name(normalizeName(name)), _scopeName(scope.getName()), _instance(instance)
 {
 }
 

@@ -26,6 +26,7 @@ namespace sk {
           CPPUNIT_TEST(testWriteChar);
           CPPUNIT_TEST(testWriteChars);
           CPPUNIT_TEST(testWriteInt);
+          CPPUNIT_TEST(testWriteContainer);
         CPPUNIT_TEST_SUITE_END();
         
         public:
@@ -37,6 +38,7 @@ namespace sk {
           void testWriteChar();
           void testWriteChars();
           void testWriteInt();
+          void testWriteContainer();
           
         private:
           DataOutputStreamTest(const DataOutputStreamTest& other);

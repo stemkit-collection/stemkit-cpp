@@ -34,7 +34,8 @@ init()
 {
   _dataHolder.set(new Data);
 
-  DIR* handle = ::opendir(_path.toString().getChars());
+  sk::util::String name = _path.toString();
+  DIR* handle = ::opendir(name.getChars());
   if(handle == 0) {
     throw sk::util::MissingResourceException("directory " + _path.inspect());
   }

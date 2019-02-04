@@ -41,7 +41,7 @@ testThrow()
     throw InterruptedException("zzz");
   }
   catch(const Exception& exception) {
-    CPPUNIT_ASSERT_EQUAL("ERROR: Interrupted: zzz", exception.getMessage());
+    CPPUNIT_ASSERT_EQUAL("ERROR: Interrupted: zzz", exception.what());
     CPPUNIT_ASSERT_EQUAL("sk::util::InterruptedException", exception.getClass().getName());
   }
 }

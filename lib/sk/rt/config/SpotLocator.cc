@@ -126,11 +126,12 @@ invoke(const StreamProcessor& processor) const
 
 std::istream*
 sk::rt::config::SpotLocator::
-openStream(const sk::util::Pathname& name) const
+openStream(const sk::util::Pathname& pathname) const
 {
-  std::auto_ptr<std::ifstream> file_ptr(new std::ifstream(name.toString().getChars()));
+  sk::util::String name(pathname.toString());
+  std::auto_ptr<std::ifstream> file_ptr(new std::ifstream(name.getChars()));
   if(file_ptr.get()->good()) {
     return file_ptr.release();
   }
-  throw sk::util::MissingResourceException(name.toString());
+  throw sk::util::MissingResourceException(name);
 }

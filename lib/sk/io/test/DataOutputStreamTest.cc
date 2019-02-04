@@ -97,3 +97,20 @@ testWriteInt()
   CPPUNIT_ASSERT_EQUAL(*(data + 2), buffer()[6]);
   CPPUNIT_ASSERT_EQUAL(*(data + 3), buffer()[7]);
 }
+
+void
+sk::io::test::DataOutputStreamTest::
+testWriteContainer()
+{
+  stream().writeFully(sk::util::Container(""));
+  stream().writeFully(sk::util::Container("hello"));
+  stream().writeFully(sk::util::Container(""));
+
+  CPPUNIT_ASSERT_EQUAL(5, int(buffer().size()));
+  CPPUNIT_ASSERT_EQUAL('h', buffer()[0]);
+  CPPUNIT_ASSERT_EQUAL('e', buffer()[1]);
+  CPPUNIT_ASSERT_EQUAL('l', buffer()[2]);
+  CPPUNIT_ASSERT_EQUAL('l', buffer()[3]);
+  CPPUNIT_ASSERT_EQUAL('o', buffer()[4]);
+}
+

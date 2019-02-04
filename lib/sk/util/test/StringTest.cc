@@ -155,6 +155,28 @@ testConstructFromStringWithLength()
 
 void
 sk::util::test::StringTest::
+testConstructFromCharsWithLength()
+{
+  sk::util::String s("abcdefg", 8);
+  
+  CPPUNIT_ASSERT_EQUAL(7, s.size());
+  CPPUNIT_ASSERT_EQUAL("abcdefg", s);
+}
+
+void
+sk::util::test::StringTest::
+testConstructFromCharVectorWithLength()
+{
+  const char* chars = "abcdefg";
+  std::vector<char> data(chars, chars + 7);
+  sk::util::String s(&data.front(), 7);
+  
+  CPPUNIT_ASSERT_EQUAL(7, s.size());
+  CPPUNIT_ASSERT_EQUAL("abcdefg", s);
+}
+
+void
+sk::util::test::StringTest::
 testStartsWith()
 {
   CPPUNIT_ASSERT_EQUAL(true, String("abc").startsWith("abc"));

@@ -24,7 +24,7 @@ struct sk::rt::ProcessInfo::Data
 
   uint64_t numericEntryAt(int index) {
     sk::util::File file(_statfile);
-    return sk::util::Integer::parseInt(sk::util::StringArray::parse(file.getLine()).get(index));
+    return sk::util::Integer::parseInt(file.getLine().split().get(index));
   }
 
   private:

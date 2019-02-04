@@ -20,6 +20,7 @@ namespace sk {
         CPPUNIT_TEST_SUITE(sk::util::test::ClassTest);
           CPPUNIT_TEST(testBasics);
           CPPUNIT_TEST(testToString);
+          CPPUNIT_TEST(testMethodName);
         CPPUNIT_TEST_SUITE_END();
         
         public:
@@ -30,6 +31,7 @@ namespace sk {
           void tearDown();
           void testBasics();
           void testToString();
+          void testMethodName();
           
         private:
           ClassTest(const ClassTest& other);

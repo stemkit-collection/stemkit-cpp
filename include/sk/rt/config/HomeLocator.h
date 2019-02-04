@@ -25,7 +25,6 @@ namespace sk {
           const sk::util::Class getClass() const;
           
         private:
-          HomeLocator(const HomeLocator& other);
           HomeLocator& operator = (const HomeLocator& other);
 
           static const sk::util::String figureHomeLocation();

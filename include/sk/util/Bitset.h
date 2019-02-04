@@ -14,9 +14,6 @@
 #include <sk/util/Object.h>
 #include <vector>
 
-#define sk_util_Bitset_block(index) ((index) >> 5)
-#define sk_util_Bitset_bit(index) (1 << ((index) & 0x1f))
-
 namespace sk {
   namespace util {
     class Bitset 
@@ -57,6 +54,9 @@ namespace sk {
         Bitset(const Bitset& other);
         Bitset& operator = (const Bitset& other);
 
+        static inline uint32_t block(uint32_t index);
+        static inline uint32_t bit(uint32_t index);
+
         typedef std::vector<uint32_t> container;
         container _container;
         uint32_t* _depot;
@@ -66,11 +66,25 @@ namespace sk {
   }
 }
 
+inline uint32_t
+sk::util::Bitset::
+block(uint32_t index)
+{
+  return index >> 5;
+}
+
+inline uint32_t
+sk::util::Bitset::
+bit(uint32_t index)
+{
+  return 1 << (index & 0x1f);
+}
+
 inline bool
 sk::util::Bitset::
 isOn(uint32_t index) const
 {
-  return (index < _min || index >= _max) ? false : _depot[sk_util_Bitset_block(index - _min)] & sk_util_Bitset_bit(index);
+  return (index < _min || index >= _max) ? false : _depot[block(index - _min)] & bit(index);
 }
 
 inline bool
@@ -85,7 +99,7 @@ sk::util::Bitset::
 clear(uint32_t index) 
 {
   if(isOn(index) == true) {
-    _depot[sk_util_Bitset_block(index - _min)] &= ~sk_util_Bitset_bit(index);
+    _depot[block(index - _min)] &= ~bit(index);
     return true;
   }
   return false;
@@ -96,7 +110,7 @@ sk::util::Bitset::
 flip(uint32_t index) 
 {
   ensure(index);
-  return !(_depot[sk_util_Bitset_block(index - _min)] ^= sk_util_Bitset_bit(index));
+  return !(_depot[block(index - _min)] ^= bit(index));
 }
 
 inline bool
@@ -105,7 +119,7 @@ set(uint32_t index)
 {
   if(isOn(index) == false) {
     ensure(index);
-    _depot[sk_util_Bitset_block(index - _min)] |= sk_util_Bitset_bit(index);
+    _depot[block(index - _min)] |= bit(index);
 
     return false;
   }

@@ -60,10 +60,14 @@ String(const sk::util::String& string)
 sk::util::String::
 String(const char* buffer, int size)
 {
+  if(buffer == 0) {
+    return;
+  }
   int index = 0;
-
-  while(buffer && index<size && buffer[index++] != 0);
-  std::string::assign(buffer, 0, index);
+  while(index < size && buffer[index] != 0) {
+    ++index;
+  }
+  std::string::assign(buffer, buffer + index);
 }
 
 sk::util::String::

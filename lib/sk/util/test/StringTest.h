@@ -19,6 +19,8 @@ namespace sk {
       {
         CPPUNIT_TEST_SUITE(sk::util::test::StringTest);
           CPPUNIT_TEST(testConstructFromStringWithLength);
+          CPPUNIT_TEST(testConstructFromCharsWithLength);
+          CPPUNIT_TEST(testConstructFromCharVectorWithLength);
           CPPUNIT_TEST(testMisc);
           CPPUNIT_TEST(testEmpty);
           CPPUNIT_TEST(testCreate);
@@ -53,6 +55,8 @@ namespace sk {
           void tearDown();
           void testMisc();
           void testConstructFromStringWithLength();
+          void testConstructFromCharsWithLength();
+          void testConstructFromCharVectorWithLength();
           void testEmpty();
           void testCreate();
           void testSum();

@@ -36,6 +36,7 @@ class sk_c_handle
       virtual void run() const = 0;
     };
     sk_c_handle();
+    virtual ~sk_c_handle();
 
     bool isError() const;
 
@@ -50,9 +51,14 @@ class sk_c_handle
     static void ensure_not_null(const struct sk_c_handle* handle);
 
   private:
+    bool isValid(const struct sk_c_handle* handle) const;
+    static void ensure_valid(const struct sk_c_handle* handle);
+
     mutable bool _error;
     mutable sk::util::String _errorType;
     mutable sk::util::String _errorMessage;
+    sk_c_handle* _self;
+    char _label[10];
 };
 
 #endif
